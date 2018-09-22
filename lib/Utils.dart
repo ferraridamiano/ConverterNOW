@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class UnitCard extends StatelessWidget {
-  UnitCard({this.title, this.textField});
+  UnitCard({this.node, this.textField});
 
-  final Widget title;
+  Node node;
   final Widget textField;
 
   @override
@@ -16,7 +16,7 @@ class UnitCard extends StatelessWidget {
               child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    this.title,
+                    new Text(node.name, style: TextStyle(fontSize: 16.0),),
                     new SizedBox(
                       width: 20.0,
                     ),
