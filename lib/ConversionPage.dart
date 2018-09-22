@@ -6,11 +6,11 @@ class ConversionPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-    Node foot=Node(isMultiplication: true, coefficient: 12.0, name: "foot", value: 10.0);
-    Node inch=Node(isMultiplication: true, coefficient: 2.54, name: "inch", leafNodes: [foot]);
-    Node millimetro=Node(isMultiplication: false, coefficient: 10.0, name: "millimetro");
-    Node centimetro=Node(isMultiplication: false, coefficient: 100.0, name: "centimetro", leafNodes: [millimetro,inch]);
-    Node metro=Node(name: "metro", leafNodes: [centimetro]);
+    Node foot=Node(isMultiplication: true, coefficient: 12.0, name: "foot", selectedNode: false, convertedNode: false);
+    Node inch=Node(isMultiplication: true, coefficient: 2.54, name: "inch", leafNodes: [foot], selectedNode: false, convertedNode: false);
+    Node millimetro=Node(isMultiplication: false, coefficient: 10.0, name: "millimetro", value: 100.0, selectedNode: true, convertedNode: true);
+    Node centimetro=Node(isMultiplication: false, coefficient: 100.0, name: "centimetro", leafNodes: [millimetro,inch], selectedNode: false, convertedNode: false);
+    Node metro=Node(name: "metro", leafNodes: [centimetro], selectedNode: false, convertedNode: false);
 
     return Scaffold(
       appBar: AppBar(title: new Text("Lunghezza"),),
@@ -45,7 +45,14 @@ class ConversionPage extends StatelessWidget{
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){
         metro.Convert();
-        print(millimetro.value.toString());
+        print("Piedi: "+foot.value.toString());
+        print("Metri: "+metro.value.toString());
+        print("Centimetri: "+centimetro.value.toString());
+        print("Pollici: "+inch.value.toString());
+        print("Millimetri: "+millimetro.value.toString());
+        //print(metro.getNodiFiglio().toString());
+        List<Node> nodi=metro.getNodiFiglio();
+        print("Ok");
       }),
     );
   }
