@@ -35,7 +35,8 @@ class Node {
       @required this.name,
       this.value,
       this.convertedNode=false,
-      this.selectedNode=false});
+      this.selectedNode=false,
+      this.isFather=false});
 
   List<Node> leafNodes;
   bool isMultiplication;
@@ -44,9 +45,16 @@ class Node {
   String name;
   bool convertedNode;
   bool selectedNode;
+  final bool isFather;
+
+  @override
+  String toString() {
+    return "isMultiplication:$isMultiplication, coefficient:$coefficient, "
+        "value:$value, name:$name, coonvertedNode:$convertedNode, selectedNode:$selectedNode";
+  }
 
   void Convert() { //da basso a alto
-    if (value == null) {
+    if (!convertedNode) {
       for (Node node in leafNodes) {
         if (node.convertedNode) {                                               //se ha un valore
           value = node.isMultiplication
