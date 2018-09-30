@@ -57,9 +57,9 @@ class Node {
     if (!convertedNode) {
       for (Node node in leafNodes) {
         if (node.convertedNode) {                                               //se ha un valore
-          value = node.isMultiplication
-              ? node.value * node.coefficient
-              : node.value / node.coefficient;                                  //metto in questo nodo il valore convertito
+          value = node.value==null
+              ? null
+              : (node.isMultiplication ? node.value * node.coefficient : node.value / node.coefficient);                                  //metto in questo nodo il valore convertito
           convertedNode=true;
           _ApplyDown();                                                         //converto i nodi sottostanti
         } else {                                                                //se non c'è valore
@@ -74,9 +74,9 @@ class Node {
 
   void _ApplyDown(){//da alto a a basso
     for(Node node in leafNodes){
-      node.value=node.isMultiplication                                          //attenzione qui funziona al contrario
-          ? value / node.coefficient
-          : value * node.coefficient;
+      node.value= value==null
+          ? null
+          : (node.isMultiplication ? value / node.coefficient : value * node.coefficient);//attenzione qui funziona al contrario
       node.convertedNode=true;
 
       if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
