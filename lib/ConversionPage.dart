@@ -23,6 +23,12 @@ class _ConversionPage extends State<ConversionPage>{
   _ConversionPage(Node fatherNode){
     this.fatherNode=fatherNode;
     listaNodi=fatherNode.getNodiFiglio();
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
     for(Node node in listaNodi){
       listaController.add(new TextEditingController());
       FocusNode focus=new FocusNode();
@@ -40,6 +46,19 @@ class _ConversionPage extends State<ConversionPage>{
     }
   }
 
+  @override
+  void dispose() {
+    FocusNode focus;
+    TextEditingController TEC;
+    for(int i=0;i<listaFocus.length;i++){
+      focus=listaFocus[i];
+      focus.removeListener((){});
+      focus.dispose();
+      TEC=listaController[i];
+      TEC.dispose();
+    }
+    super.dispose();
+  }
 
   List<UnitCard> _createList(){
     List<UnitCard> listaCard=new List();
@@ -62,7 +81,6 @@ class _ConversionPage extends State<ConversionPage>{
             focusNode: listaFocus[i],
             onChanged: (String txt){
               nodo.value = txt == "" ? null : double.parse(txt);
-              print(txt);
               setState(() {
                 fatherNode.ResetConvertedNode();
                 fatherNode.Convert();

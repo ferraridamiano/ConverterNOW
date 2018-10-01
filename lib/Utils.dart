@@ -30,8 +30,8 @@ class UnitCard extends StatelessWidget {
 class Node {
   Node(
       {this.leafNodes,
-      @required this.isMultiplication,
-      @required this.coefficient,
+      this.isMultiplication,
+      this.coefficient,
       @required this.name,
       this.value,
       this.convertedNode=false,
