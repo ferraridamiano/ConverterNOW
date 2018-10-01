@@ -8,7 +8,7 @@ class App extends StatelessWidget {
   static Node foot=Node(isMultiplication: true, coefficient: 12.0, name: "foot", selectedNode: false, convertedNode: false);
   static Node inch=Node(isMultiplication: true, coefficient: 2.54, name: "inch", leafNodes: [foot], selectedNode: false, convertedNode: false);
   static Node millimetro=Node(isMultiplication: false, coefficient: 10.0, name: "millimetro", selectedNode: false, convertedNode: false);
-  static Node centimetro=Node(isMultiplication: false, coefficient: 100.0, name: "centimetro", leafNodes: [millimetro,inch], selectedNode: true, convertedNode: true);
+  static Node centimetro=Node(isMultiplication: false, coefficient: 100.0, name: "centimetro", leafNodes: [millimetro,inch], selectedNode: false, convertedNode: false);
   static Node metro=Node(name: "metro", leafNodes: [centimetro], selectedNode: false, convertedNode: false);
 
 

@@ -17,12 +17,27 @@ class _ConversionPage extends State<ConversionPage>{
   Node fatherNode;
   List<Node> listaNodi;
   List<TextEditingController> listaController=new List();
+  List<FocusNode> listaFocus=new List();
+  Node selectedNode;
 
   _ConversionPage(Node fatherNode){
     this.fatherNode=fatherNode;
     listaNodi=fatherNode.getNodiFiglio();
-    for(Node node in listaNodi)
+    for(Node node in listaNodi){
       listaController.add(new TextEditingController());
+      FocusNode focus=new FocusNode();
+      focus.addListener((){
+        if (focus.hasFocus) {
+          if(selectedNode!=null) {
+            selectedNode.selectedNode = false;
+          }
+          node.selectedNode=true;
+          node.convertedNode=true;
+          selectedNode=node;
+        }
+      });
+      listaFocus.add(focus);
+    }
   }
 
 
@@ -32,7 +47,6 @@ class _ConversionPage extends State<ConversionPage>{
       Node nodo=listaNodi[i];
       TextEditingController controller;
       controller=listaController[i];
-
 
       if(nodo.value!=null && !nodo.selectedNode)
         controller.text = nodo.value.toString();
@@ -45,6 +59,7 @@ class _ConversionPage extends State<ConversionPage>{
             style: TextStyle(fontSize: 16.0,color: Colors.black,),
             keyboardType: TextInputType.numberWithOptions(decimal: true,signed: false),
             controller: controller,
+            focusNode: listaFocus[i],
             onChanged: (String txt){
               nodo.value = txt == "" ? null : double.parse(txt);
               print(txt);
@@ -55,6 +70,7 @@ class _ConversionPage extends State<ConversionPage>{
             },
           )
       ));
+
     }
     return listaCard;
   }

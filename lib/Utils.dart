@@ -46,6 +46,7 @@ class Node {
   bool convertedNode;
   bool selectedNode;
   final bool isFather;
+  bool allConverted=false;
 
   @override
   String toString() {
@@ -54,20 +55,26 @@ class Node {
   }
 
   void Convert() { //da basso a alto
-    if (!convertedNode) {
-      for (Node node in leafNodes) {
-        if (node.convertedNode) {                                               //se ha un valore
-          value = node.value==null
+    if(!convertedNode) {
+      for (Node node in leafNodes) { //per ogni nodo foglia controlla se ha valore
+        if (node.convertedNode) { //se ha un valore
+          value = node.value == null
               ? null
-              : (node.isMultiplication ? node.value * node.coefficient : node.value / node.coefficient);                                  //metto in questo nodo il valore convertito
-          convertedNode=true;
-          _ApplyDown();                                                         //converto i nodi sottostanti
-        } else {                                                                //se non c'è valore
-          if (node.leafNodes != null) {                                         //se ha almeno un nodo foglia
-            node.Convert();
+              : (node.isMultiplication ? node.value * node.coefficient : node.value / node.coefficient); //metto in questo nodo il valore convertito
+          convertedNode = true;
+          _ApplyDown(); //converto i nodi sottostanti
+        } else { //se non c'è valore
+          if (node.leafNodes != null) { //Però ha almeno un nodo foglia
+            node.Convert(); //ripeti la procedura
             Convert();
           }
         }
+      }
+    }
+    else{ //se ha valore
+      for (Node node in leafNodes) {
+        if(node.convertedNode==false)
+          _ApplyDown();
       }
     }
   }
