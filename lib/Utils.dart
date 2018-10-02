@@ -63,11 +63,11 @@ class Node {
               : (node.isMultiplication ? node.value * node.coefficient : node.value / node.coefficient); //metto in questo nodo il valore convertito
           convertedNode = true;
           _ApplyDown(); //converto i nodi sottostanti
-        } else { //se non c'è valore
-          if (node.leafNodes != null) { //Però ha almeno un nodo foglia
+        }
+        else if (node.leafNodes != null) { //Però ha almeno un nodo foglia
             node.Convert(); //ripeti la procedura
-            Convert();
-          }
+            if(node.convertedNode)
+              Convert();
         }
       }
     }
