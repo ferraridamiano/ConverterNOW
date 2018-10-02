@@ -32,10 +32,23 @@ class _ConversionManager extends State<ConversionManager>{
             ]),
           ]),
         ]),
-  ]
-  );
+  ]);
 
+   static Node metroq=Node(name: "Metro Quadrato",leafNodes: [
+     Node(isMultiplication: false, coefficientPer: 10000.0, name: "Centimetro Quadrato", leafNodes: [
+       Node(isMultiplication: true, coefficientPer: 6.4516, name: "Pollice Quadrato", leafNodes: [
+         Node(isMultiplication: true, coefficientPer: 144.0, name: "Piede Quadrato"),
+       ]),
+     ]),
+     Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Millimetro Quadrato",),
+     Node(isMultiplication: true, coefficientPer: 10000.0, name: "Ettaro [He]",),
+     Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Chilometro quadrato",),
+     Node(isMultiplication: true, coefficientPer: 0.83612736, name: "Yard quadrata", leafNodes: [
+       Node(isMultiplication: true, coefficientPer: 3097600.0, name: "Miglio quadrato",),
+       Node(isMultiplication: true, coefficientPer: 4840.0, name: "Acri",),
+     ]),
 
+   ]);
 
   int currentPage=0;
 
@@ -56,7 +69,7 @@ class _ConversionManager extends State<ConversionManager>{
           ),
           ListTile(
             title: Text("Lunghezza"),
-            selected: true,
+            selected: currentPage==0,
             onTap: () {
               if(currentPage!=0) {
                 setState((){
@@ -67,9 +80,13 @@ class _ConversionManager extends State<ConversionManager>{
           ),
           ListTile(
             title: Text("Superficie"),
+            selected: currentPage==1,
             onTap: () {
-              // Update the state of the app
-              // ...
+              if(currentPage!=1) {
+                setState((){
+                  currentPage=1;
+                });
+              }
             },
           ),
           ListTile(
@@ -95,7 +112,7 @@ class _ConversionManager extends State<ConversionManager>{
           ),
         ],
       ),),
-      body: currentPage==0 ? ConversionPage(metro) : ConversionPage(metro)
+      body: currentPage==0 ? ConversionPage(metroq) : ConversionPage(metroq)
     );
   }
 }
