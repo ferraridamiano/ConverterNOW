@@ -16,7 +16,13 @@ class UnitCard extends StatelessWidget {
               child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    new Text(node.name, style: TextStyle(fontSize: 16.0),),
+                    new Text(
+                      node.name,
+                      style: TextStyle(
+                          fontSize: 18.0,
+                          //fontWeight: FontWeight.bold
+                      ),
+                    ),
                     new SizedBox(
                       width: 20.0,
                     ),
@@ -28,29 +34,31 @@ class UnitCard extends StatelessWidget {
 }
 
 class Node {
-  Node(
-      {this.leafNodes,
-      this.isMultiplication,
-      this.coefficient,
-      @required this.name,
-      this.value,
-      this.convertedNode=false,
-      this.selectedNode=false,
-      this.isFather=false});
+  Node({
+    this.leafNodes,
+    this.isMultiplication=true,
+    this.coefficientPer=1.0,
+    this.isSum=true,
+    this.coefficientPlus=0.0,
+    @required this.name,
+    this.value,
+    this.convertedNode=false,
+    this.selectedNode=false,
+  });
 
   List<Node> leafNodes;
   bool isMultiplication;
-  double coefficient;
+  double coefficientPer;
+  bool isSum;
+  double coefficientPlus;
   double value;
   String name;
   bool convertedNode;
   bool selectedNode;
-  final bool isFather;
-  bool allConverted=false;
 
   @override
   String toString() {
-    return "isMultiplication:$isMultiplication, coefficient:$coefficient, "
+    return "isMultiplication:$isMultiplication, coefficient:$coefficientPer, "
         "value:$value, name:$name, coonvertedNode:$convertedNode, selectedNode:$selectedNode";
   }
 
@@ -60,7 +68,8 @@ class Node {
         if (node.convertedNode) { //se ha un valore
           value = node.value == null
               ? null
-              : (node.isMultiplication ? node.value * node.coefficient : node.value / node.coefficient); //metto in questo nodo il valore convertito
+              : (node.isMultiplication ? node.value * node.coefficientPer : node.value / node.coefficientPer) +
+              (node.isSum ? node.coefficientPlus : -node.coefficientPlus); //metto in questo nodo il valore convertito
           convertedNode = true;
           _ApplyDown(); //converto i nodi sottostanti
         }
@@ -83,7 +92,7 @@ class Node {
     for(Node node in leafNodes){
       node.value= value==null
           ? null
-          : (node.isMultiplication ? value / node.coefficient : value * node.coefficient);//attenzione qui funziona al contrario
+          : (node.isSum ? value-node.coefficientPlus : value+node.coefficientPlus)*(node.isMultiplication ? 1/node.coefficientPer : node.coefficientPer);//attenzione qui funziona al contrario
       node.convertedNode=true;
 
       if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
