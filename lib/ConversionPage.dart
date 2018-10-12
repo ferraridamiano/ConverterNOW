@@ -3,29 +3,38 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ConversionPage extends StatefulWidget {
-  ConversionPage(this.fatherNode);
 
   Node fatherNode;
+  ConversionPage(this.fatherNode);
 
   @override
-  _ConversionPage createState() => new _ConversionPage(fatherNode);
+  _ConversionPage createState() => new _ConversionPage();
 }
 
 class _ConversionPage extends State<ConversionPage> {
-  Node fatherNode;
   List<Node> listaNodi;
   List<TextEditingController> listaController = new List();
   List<FocusNode> listaFocus = new List();
   Node selectedNode;
 
-  _ConversionPage(Node fatherNode) {
-    this.fatherNode = fatherNode;
-    listaNodi = fatherNode.getNodiFiglio();
-  }
 
   @override
+  void didUpdateWidget(ConversionPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    initialize();
+  }
+
+@override
   void initState() {
     super.initState();
+    initialize();
+  }
+
+  void initialize(){
+    print('debug');
+    listaNodi = widget.fatherNode.getNodiFiglio();
+    listaController.clear();
+    listaFocus.clear();
     for (Node node in listaNodi) {
       listaController.add(new TextEditingController());
       FocusNode focus = new FocusNode();
@@ -57,8 +66,9 @@ class _ConversionPage extends State<ConversionPage> {
     super.dispose();
   }
 
-  List<UnitCard> _createList() {
+  List<UnitCard> createList() {
     List<UnitCard> listaCard = new List();
+    listaNodi = widget.fatherNode.getNodiFiglio();
     for (int i = 0; i < listaNodi.length; i++) {
       Node nodo = listaNodi[i];
       TextEditingController controller;
@@ -82,8 +92,8 @@ class _ConversionPage extends State<ConversionPage> {
             onChanged: (String txt) {
               nodo.value = txt == "" ? null : double.parse(txt);
               setState(() {
-                fatherNode.ResetConvertedNode();
-                fatherNode.Convert();
+                widget.fatherNode.ResetConvertedNode();
+                widget.fatherNode.Convert();
               });
             },
           )));
@@ -93,8 +103,11 @@ class _ConversionPage extends State<ConversionPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<UnitCard> listCard = _createList();
+    //List<UnitCard> listCard = _createList();
 
-    return ListView(padding: new EdgeInsets.all(10.0), children: listCard);
+    return ListView(
+        padding: new EdgeInsets.all(10.0),
+        children: createList(),//listCard
+    );
   }
 }

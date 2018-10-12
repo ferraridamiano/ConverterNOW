@@ -1,5 +1,6 @@
 import 'package:converter_pro/ConversionPage.dart';
 import 'package:converter_pro/Utils.dart';
+import 'package:converter_pro/firstFragment.dart';
 import 'package:flutter/material.dart';
 
 class ConversionManager extends StatefulWidget{
@@ -9,7 +10,7 @@ class ConversionManager extends StatefulWidget{
 }
 
 class _ConversionManager extends State<ConversionManager>{
-   static Node metro=Node(name: "Metro",
+  static Node metro=Node(name: "Metro",
       leafNodes: [
         Node(isMultiplication: false, coefficientPer: 100.0, name: "Centimetro", leafNodes: [
           Node(isMultiplication: true, coefficientPer: 2.54, name: "Pollice", leafNodes: [
@@ -50,7 +51,16 @@ class _ConversionManager extends State<ConversionManager>{
 
    ]);
 
-  int currentPage=0;
+   List listaConversioni=[metro,metroq];
+
+  int _currentPage=0;
+
+  _onSelectItem(int index) {
+    setState((){
+      _currentPage = index;
+    });
+    //Navigator.of(context).pop(); // close the drawer
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,25 +79,23 @@ class _ConversionManager extends State<ConversionManager>{
           ),
           ListTile(
             title: Text("Lunghezza"),
-            selected: currentPage==0,
-            onTap: () {
-              if(currentPage!=0) {
-                setState((){
-                  currentPage=0;
-                });
-              }
-            },
+            selected: _currentPage==0,
+            onTap: (){
+              if(_currentPage!=0)
+                _onSelectItem(0);
+              Navigator.of(context).pop();
+
+            }
           ),
           ListTile(
             title: Text("Superficie"),
-            selected: currentPage==1,
-            onTap: () {
-              if(currentPage!=1) {
-                setState((){
-                  currentPage=1;
-                });
-              }
-            },
+            selected: _currentPage==1,
+            onTap:(){
+              if(_currentPage!=1)
+                _onSelectItem(1);
+              Navigator.of(context).pop();
+            }
+
           ),
           ListTile(
             title: Text("Volume"),
@@ -112,7 +120,7 @@ class _ConversionManager extends State<ConversionManager>{
           ),
         ],
       ),),
-      body: currentPage==0 ? ConversionPage(metroq) : ConversionPage(metroq)
+      body: ConversionPage(listaConversioni[_currentPage])
     );
   }
 }
