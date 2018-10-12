@@ -1,6 +1,5 @@
 import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class ConversionPage extends StatefulWidget {
 
@@ -31,7 +30,6 @@ class _ConversionPage extends State<ConversionPage> {
   }
 
   void initialize(){
-    print('debug');
     listaNodi = widget.fatherNode.getNodiFiglio();
     listaController.clear();
     listaFocus.clear();

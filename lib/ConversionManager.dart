@@ -1,6 +1,5 @@
 import 'package:converter_pro/ConversionPage.dart';
 import 'package:converter_pro/Utils.dart';
-import 'package:converter_pro/firstFragment.dart';
 import 'package:flutter/material.dart';
 
 class ConversionManager extends StatefulWidget{
@@ -35,7 +34,7 @@ class _ConversionManager extends State<ConversionManager>{
         ]),
   ]);
 
-   static Node metroq=Node(name: "Metro Quadrato",leafNodes: [
+  static Node metroq=Node(name: "Metro Quadrato",leafNodes: [
      Node(isMultiplication: false, coefficientPer: 10000.0, name: "Centimetro Quadrato", leafNodes: [
        Node(isMultiplication: true, coefficientPer: 6.4516, name: "Pollice Quadrato", leafNodes: [
          Node(isMultiplication: true, coefficientPer: 144.0, name: "Piede Quadrato"),
@@ -43,23 +42,44 @@ class _ConversionManager extends State<ConversionManager>{
      ]),
      Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Millimetro Quadrato",),
      Node(isMultiplication: true, coefficientPer: 10000.0, name: "Ettaro [He]",),
-     Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Chilometro quadrato",),
-     Node(isMultiplication: true, coefficientPer: 0.83612736, name: "Yard quadrata", leafNodes: [
-       Node(isMultiplication: true, coefficientPer: 3097600.0, name: "Miglio quadrato",),
+     Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Chilometro Quadrato",),
+     Node(isMultiplication: true, coefficientPer: 0.83612736, name: "Yard Quadrato", leafNodes: [
+       Node(isMultiplication: true, coefficientPer: 3097600.0, name: "Miglio Quadrato",),
        Node(isMultiplication: true, coefficientPer: 4840.0, name: "Acri",),
      ]),
+  ]);
 
-   ]);
+  static Node metroc=Node(name: "Metro Cubo",leafNodes: [
+    Node(isMultiplication: false, coefficientPer: 1000.0, name: "Litro",leafNodes: [
+      Node(isMultiplication: true, coefficientPer: 4.54609, name: "Gallone imperiale",),
+      Node(isMultiplication: true, coefficientPer: 3.785411784, name: "Gallone US",),
+      Node(isMultiplication: true, coefficientPer: 0.56826125, name: "Pinta imperiale",),
+      Node(isMultiplication: true, coefficientPer: 0.473176473, name: "Pinta US",),
+      Node(isMultiplication: false, coefficientPer: 1000.0, name: "Millilitro", leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 14.8, name: "Tablespoon US",),
+        Node(isMultiplication: true, coefficientPer: 20.0, name: "Australian Tablespoon",),
+        Node(isMultiplication: true, coefficientPer: 240.0, name: "Cup US",),
+      ]),
+    ]),
+    Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Centimetro Cubo", leafNodes: [
+      Node(isMultiplication: true, coefficientPer: 16.387064, name: "Pollice Cubo", leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 1728.0, name: "Piede Cubo"),
+      ]),
+    ]),
+    Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "Millimetro Cubo",),
+  ]);
 
-   List listaConversioni=[metro,metroq];
+
+  List listaConversioni=[metro,metroq, metroc];
 
   int _currentPage=0;
 
   _onSelectItem(int index) {
-    setState((){
-      _currentPage = index;
-    });
-    //Navigator.of(context).pop(); // close the drawer
+    if(_currentPage!=index) {
+      setState(() {
+        _currentPage = index;
+      });
+    }
   }
 
   @override
@@ -81,8 +101,7 @@ class _ConversionManager extends State<ConversionManager>{
             title: Text("Lunghezza"),
             selected: _currentPage==0,
             onTap: (){
-              if(_currentPage!=0)
-                _onSelectItem(0);
+              _onSelectItem(0);
               Navigator.of(context).pop();
 
             }
@@ -91,8 +110,7 @@ class _ConversionManager extends State<ConversionManager>{
             title: Text("Superficie"),
             selected: _currentPage==1,
             onTap:(){
-              if(_currentPage!=1)
-                _onSelectItem(1);
+              _onSelectItem(1);
               Navigator.of(context).pop();
             }
 
@@ -100,8 +118,8 @@ class _ConversionManager extends State<ConversionManager>{
           ListTile(
             title: Text("Volume"),
             onTap: () {
-              // Update the state of the app
-              // ...
+              _onSelectItem(2);
+              Navigator.of(context).pop();
             },
           ),
           ListTile(
