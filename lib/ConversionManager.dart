@@ -69,8 +69,36 @@ class _ConversionManager extends State<ConversionManager>{
     Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "Millimetro Cubo",),
   ]);
 
+  static Node secondo=Node(name: "Secondo",
+      leafNodes: [
+        Node(isMultiplication: false, coefficientPer: 10.0, name: "Decimo di secondo",),
+        Node(isMultiplication: false, coefficientPer: 100.0, name: "Centesimo di secondo", ),
+        Node(isMultiplication: false, coefficientPer: 1000.0, name: "Millisecondo",),
+        Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Microsecondo",),
+        Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "Nanosecondo",),
+        Node(isMultiplication: true, coefficientPer: 60.0, name: "Minuti",leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 60.0, name: "Ore",leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 24.0, name: "Giorni",leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 7.0, name: "Settimane",),
+              Node(isMultiplication: true, coefficientPer: 365.0, name: "Anni (365)",leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 5.0, name: "Lustro",),
+                Node(isMultiplication: true, coefficientPer: 10.0, name: "Decade",),
+                Node(isMultiplication: true, coefficientPer: 100.0, name: "Secolo",),
+                Node(isMultiplication: true, coefficientPer: 1000.0, name: "Millennio",),
+              ]),
+            ]),
+          ]),
+        ]),
+      ]);
 
-  List listaConversioni=[metro,metroq, metroc];
+  static Node celsius=Node(name: "Fahrenheit [°F]",leafNodes:[
+    Node(isMultiplication: true, coefficientPer: 1.8, isSum: true, coefficientPlus: 32.0, name: "Celsius [°C]",leafNodes: [
+      Node(isSum: false, coefficientPlus: 273.15, name: "Kelvin [K]",),
+    ]),
+  ]);
+
+
+  List listaConversioni=[metro,metroq, metroc,secondo, celsius];
 
   int _currentPage=0;
 
@@ -125,15 +153,15 @@ class _ConversionManager extends State<ConversionManager>{
           ListTile(
             title: Text("Tempo"),
             onTap: () {
-              // Update the state of the app
-              // ...
+              _onSelectItem(3);
+              Navigator.of(context).pop();
             },
           ),
           ListTile(
             title: Text("Temperatura"),
             onTap: () {
-              // Update the state of the app
-              // ...
+              _onSelectItem(4);
+              Navigator.of(context).pop();
             },
           ),
         ],
