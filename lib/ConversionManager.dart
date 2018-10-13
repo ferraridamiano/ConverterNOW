@@ -122,13 +122,13 @@ class _ConversionManager extends State<ConversionManager>{
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: new Text("Lunghezza"),),
+      appBar: AppBar(title: new Text("Lunghezza"),actions: <Widget>[IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Cancella',),)],),
       drawer: new Drawer(child: ListView(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text('Converter PRO'),
+            child: Text('Converter PRO', style: TextStyle(color: Colors.white),),
             decoration: BoxDecoration(
               color: Colors.red,
             ),
@@ -153,6 +153,7 @@ class _ConversionManager extends State<ConversionManager>{
           ),
           ListTile(
             title: Text("Volume"),
+            selected: _currentPage==2,
             onTap: () {
               _onSelectItem(2);
               Navigator.of(context).pop();
@@ -160,6 +161,7 @@ class _ConversionManager extends State<ConversionManager>{
           ),
           ListTile(
             title: Text("Tempo"),
+            selected: _currentPage==3,
             onTap: () {
               _onSelectItem(3);
               Navigator.of(context).pop();
@@ -167,6 +169,7 @@ class _ConversionManager extends State<ConversionManager>{
           ),
           ListTile(
             title: Text("Temperatura"),
+            selected: _currentPage==4,
             onTap: () {
               _onSelectItem(4);
               Navigator.of(context).pop();
@@ -174,6 +177,7 @@ class _ConversionManager extends State<ConversionManager>{
           ),
           ListTile(
             title: Text("Velocità"),
+            selected: _currentPage==5,
             onTap: () {
               _onSelectItem(5);
               Navigator.of(context).pop();
