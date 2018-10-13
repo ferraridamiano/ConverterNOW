@@ -97,8 +97,16 @@ class _ConversionManager extends State<ConversionManager>{
     ]),
   ]);
 
+  static Node metri_secondo=Node(name: "Metri al Secondo [m/s]", leafNodes: [
+    Node(isMultiplication: false, coefficientPer: 3.6, name: "Chilometri Orari [km/h]", leafNodes:[
+      Node(isMultiplication: true, coefficientPer: 1.609344, name: "Miglia orarie [mph]",),
+      Node(isMultiplication: true, coefficientPer: 1.852, name: "Nodi [kts]",),
+    ]),
+    Node(isMultiplication: true, coefficientPer: 0.3048, name: "Piedi al secondo [ft/s]",),
+  ]);
 
-  List listaConversioni=[metro,metroq, metroc,secondo, celsius];
+
+  List listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo];
 
   int _currentPage=0;
 
@@ -161,6 +169,13 @@ class _ConversionManager extends State<ConversionManager>{
             title: Text("Temperatura"),
             onTap: () {
               _onSelectItem(4);
+              Navigator.of(context).pop();
+            },
+          ),
+          ListTile(
+            title: Text("Velocità"),
+            onTap: () {
+              _onSelectItem(5);
               Navigator.of(context).pop();
             },
           ),
