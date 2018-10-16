@@ -106,7 +106,9 @@ class _ConversionManager extends State<ConversionManager>{
   ]);
 
 
-  List listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo];
+  static List listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo];
+  static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo, Colors.purple];
+  static List listaTitoli=["Lunghezza","Superficie","Volume", "Tempo","Temperatura","Velocità"];
 
   int _currentPage=0;
 
@@ -123,7 +125,8 @@ class _ConversionManager extends State<ConversionManager>{
 
     return Scaffold(
       appBar: AppBar(
-        title: new Text("Lunghezza"),
+        title: new Text(listaTitoli[_currentPage]),
+        backgroundColor: listaColori[_currentPage],
         actions: <Widget>[
           IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Cancella',),
             onPressed: () {
@@ -134,17 +137,16 @@ class _ConversionManager extends State<ConversionManager>{
         ],
       ),
       drawer: new Drawer(child: ListView(
-        // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
             child: Text('Converter PRO', style: TextStyle(color: Colors.white),),
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: listaColori[_currentPage],
             ),
           ),
           ListTile(
-            title: Text("Lunghezza"),
+            title: Text(listaTitoli[0]),
             selected: _currentPage==0,
             onTap: (){
               _onSelectItem(0);
@@ -153,7 +155,7 @@ class _ConversionManager extends State<ConversionManager>{
             }
           ),
           ListTile(
-            title: Text("Superficie"),
+            title: Text(listaTitoli[1]),
             selected: _currentPage==1,
             onTap:(){
               _onSelectItem(1);
@@ -162,7 +164,7 @@ class _ConversionManager extends State<ConversionManager>{
 
           ),
           ListTile(
-            title: Text("Volume"),
+            title: Text(listaTitoli[2]),
             selected: _currentPage==2,
             onTap: () {
               _onSelectItem(2);
@@ -170,7 +172,7 @@ class _ConversionManager extends State<ConversionManager>{
             },
           ),
           ListTile(
-            title: Text("Tempo"),
+            title: Text(listaTitoli[3]),
             selected: _currentPage==3,
             onTap: () {
               _onSelectItem(3);
@@ -178,7 +180,7 @@ class _ConversionManager extends State<ConversionManager>{
             },
           ),
           ListTile(
-            title: Text("Temperatura"),
+            title: Text(listaTitoli[4]),
             selected: _currentPage==4,
             onTap: () {
               _onSelectItem(4);
@@ -186,7 +188,7 @@ class _ConversionManager extends State<ConversionManager>{
             },
           ),
           ListTile(
-            title: Text("Velocità"),
+            title: Text(listaTitoli[5]),
             selected: _currentPage==5,
             onTap: () {
               _onSelectItem(5);
