@@ -1,9 +1,6 @@
 import 'package:converter_pro/ConversionPage.dart';
 import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_admob/firebase_admob.dart';
-
-const String app_id= "ca-app-pub-8125901756552853~1510088371";
 
 class ConversionManager extends StatefulWidget{
   @override
@@ -12,56 +9,6 @@ class ConversionManager extends StatefulWidget{
 }
 
 class _ConversionManager extends State<ConversionManager>{
-
-  /*static final MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-    testDevices: app_id != null ? <String>[app_id] : null,
-    keywords: <String>['foo', 'bar'],
-    contentUrl: 'http://foo.com/bar.html',
-    birthday: DateTime.now(),
-    childDirected: true,
-    gender: MobileAdGender.male,
-    nonPersonalizedAds: true,
-  );
-
-  BannerAd _bannerAd;
-
-  BannerAd createBannerAd() {
-    return BannerAd(
-      adUnitId: "ca-app-pub-3940256099942544/6300978111",//BannerAd.testAdUnitId,
-      size: AdSize.banner,
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("BannerAd event $event");
-      },
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    FirebaseAdMob.instance.initialize(appId:FirebaseAdMob.testAppId );
-    _bannerAd = createBannerAd()..load();
-    _bannerAd ??= createBannerAd();
-    _bannerAd
-      ..load()
-      ..show();
-  }
-
-  @override
-  void dispose() {
-    _bannerAd?.dispose();
-    super.dispose();
-  }*/
-
-
-
-
-
-
-
-
-
-
 
   static Node metro=Node(name: "Metro",
       leafNodes: [

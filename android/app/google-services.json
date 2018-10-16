@@ -1,0 +1,43 @@
+{
+  "project_info": {
+    "project_number": "196554752223",
+    "firebase_url": "https://converter-pro-ad310.firebaseio.com",
+    "project_id": "converter-pro-ad310",
+    "storage_bucket": "converter-pro-ad310.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:196554752223:android:ed3a41f9ad9dcf68",
+        "android_client_info": {
+          "package_name": "com.ferrarid.converterpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "196554752223-53n7vdamlgvu0phaj44b51fjols5o4a0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGJ1XOAOxAUOjbslM3szi0SPax3DrszK0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      },
+      "admob_app_id": "ca-app-pub-8125901756552853~1510088371"
+    }
+  ],
+  "configuration_version": "1"
+}

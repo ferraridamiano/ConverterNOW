@@ -22,12 +22,12 @@ class _ConversionPage extends State<ConversionPage> {
 
   static final MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
     testDevices: app_id != null ? <String>[app_id] : null,
-    keywords: <String>['foo', 'bar'],
-    contentUrl: 'http://foo.com/bar.html',
-    birthday: DateTime.now(),
-    childDirected: true,
-    gender: MobileAdGender.male,
-    nonPersonalizedAds: true,
+    keywords: <String>['math', 'physics',"numbers", "measure"],
+    //contentUrl: 'http://foo.com/bar.html',
+    //birthday: DateTime.now(),
+    //childDirected: true,
+    //gender: MobileAdGender.male,
+    //nonPersonalizedAds: true,
   );
 
   BannerAd _bannerAd;
