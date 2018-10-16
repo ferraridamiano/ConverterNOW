@@ -113,6 +113,16 @@ class Node {
     }
   }
 
+  /**
+   * Resetta tutti i valori dei nodi (da chiamare sul nodo padre)
+   */
+  void ClearAllValues(){
+    List<Node> listanodi=getNodiFiglio();
+    for(Node nodo in listanodi){
+      nodo.value=null;
+    }
+  }
+
   List<Node> getNodiFiglio(){
 
     List<Node> listaNodi=[this];

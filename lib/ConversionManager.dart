@@ -122,7 +122,17 @@ class _ConversionManager extends State<ConversionManager>{
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: new Text("Lunghezza"),actions: <Widget>[IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Cancella',),)],),
+      appBar: AppBar(
+        title: new Text("Lunghezza"),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Cancella',),
+            onPressed: () {
+              setState(() {
+                listaConversioni[_currentPage].ClearAllValues();
+              });
+            },)
+        ],
+      ),
       drawer: new Drawer(child: ListView(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
