@@ -16,6 +16,11 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="converter_pro"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8125901756552853~1510088371"/>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

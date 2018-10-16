@@ -1,6 +1,9 @@
 import 'package:converter_pro/ConversionPage.dart';
 import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+
+const String app_id= "ca-app-pub-8125901756552853~1510088371";
 
 class ConversionManager extends StatefulWidget{
   @override
@@ -9,6 +12,57 @@ class ConversionManager extends StatefulWidget{
 }
 
 class _ConversionManager extends State<ConversionManager>{
+
+  /*static final MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    testDevices: app_id != null ? <String>[app_id] : null,
+    keywords: <String>['foo', 'bar'],
+    contentUrl: 'http://foo.com/bar.html',
+    birthday: DateTime.now(),
+    childDirected: true,
+    gender: MobileAdGender.male,
+    nonPersonalizedAds: true,
+  );
+
+  BannerAd _bannerAd;
+
+  BannerAd createBannerAd() {
+    return BannerAd(
+      adUnitId: "ca-app-pub-3940256099942544/6300978111",//BannerAd.testAdUnitId,
+      size: AdSize.banner,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("BannerAd event $event");
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAdMob.instance.initialize(appId:FirebaseAdMob.testAppId );
+    _bannerAd = createBannerAd()..load();
+    _bannerAd ??= createBannerAd();
+    _bannerAd
+      ..load()
+      ..show();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }*/
+
+
+
+
+
+
+
+
+
+
+
   static Node metro=Node(name: "Metro",
       leafNodes: [
         Node(isMultiplication: false, coefficientPer: 100.0, name: "Centimetro", leafNodes: [
@@ -116,6 +170,7 @@ class _ConversionManager extends State<ConversionManager>{
     if(_currentPage!=index) {
       setState(() {
         _currentPage = index;
+        Navigator.of(context).pop();
       });
     }
   }
@@ -150,8 +205,6 @@ class _ConversionManager extends State<ConversionManager>{
             selected: _currentPage==0,
             onTap: (){
               _onSelectItem(0);
-              Navigator.of(context).pop();
-
             }
           ),
           ListTile(
@@ -159,7 +212,6 @@ class _ConversionManager extends State<ConversionManager>{
             selected: _currentPage==1,
             onTap:(){
               _onSelectItem(1);
-              Navigator.of(context).pop();
             }
 
           ),
@@ -168,7 +220,6 @@ class _ConversionManager extends State<ConversionManager>{
             selected: _currentPage==2,
             onTap: () {
               _onSelectItem(2);
-              Navigator.of(context).pop();
             },
           ),
           ListTile(
@@ -176,7 +227,6 @@ class _ConversionManager extends State<ConversionManager>{
             selected: _currentPage==3,
             onTap: () {
               _onSelectItem(3);
-              Navigator.of(context).pop();
             },
           ),
           ListTile(
@@ -184,7 +234,6 @@ class _ConversionManager extends State<ConversionManager>{
             selected: _currentPage==4,
             onTap: () {
               _onSelectItem(4);
-              Navigator.of(context).pop();
             },
           ),
           ListTile(
@@ -192,12 +241,12 @@ class _ConversionManager extends State<ConversionManager>{
             selected: _currentPage==5,
             onTap: () {
               _onSelectItem(5);
-              Navigator.of(context).pop();
             },
           ),
         ],
       ),),
-      body: ConversionPage(listaConversioni[_currentPage])
+      body: ConversionPage(listaConversioni[_currentPage]),
+
     );
   }
 }

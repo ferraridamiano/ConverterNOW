@@ -1,5 +1,8 @@
 import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+
+const String app_id= "ca-app-pub-8125901756552853~1510088371";
 
 class ConversionPage extends StatefulWidget {
 
@@ -17,6 +20,42 @@ class _ConversionPage extends State<ConversionPage> {
   Node selectedNode;
 
 
+  static final MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    testDevices: app_id != null ? <String>[app_id] : null,
+    keywords: <String>['foo', 'bar'],
+    contentUrl: 'http://foo.com/bar.html',
+    birthday: DateTime.now(),
+    childDirected: true,
+    gender: MobileAdGender.male,
+    nonPersonalizedAds: true,
+  );
+
+  BannerAd _bannerAd;
+
+  BannerAd createBannerAd() {
+    return BannerAd(
+      adUnitId: "ca-app-pub-8125901756552853/6183830557",//BannerAd.testAdUnitId,
+      size: AdSize.banner,
+      targetingInfo: targetingInfo,
+      listener: (MobileAdEvent event) {
+        print("BannerAd event $event");
+      },
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @override
   void didUpdateWidget(ConversionPage oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -27,6 +66,17 @@ class _ConversionPage extends State<ConversionPage> {
   void initState() {
     super.initState();
     initialize();
+
+
+
+
+
+    FirebaseAdMob.instance.initialize(appId:FirebaseAdMob.testAppId );
+    _bannerAd = createBannerAd()..load();
+    _bannerAd ??= createBannerAd();
+    _bannerAd
+      ..load()
+      ..show();
   }
 
   void initialize(){
@@ -61,6 +111,13 @@ class _ConversionPage extends State<ConversionPage> {
       TEC = listaController[i];
       TEC.dispose();
     }
+
+
+
+
+
+
+    _bannerAd?.dispose();
     super.dispose();
   }
 
@@ -104,7 +161,7 @@ class _ConversionPage extends State<ConversionPage> {
     //List<UnitCard> listCard = _createList();
 
     return ListView(
-        padding: new EdgeInsets.all(10.0),
+        padding: new EdgeInsets.only(bottom: 50.0,top:10.0,left: 10.0,right: 10.0),
         children: createList(),//listCard
     );
   }
