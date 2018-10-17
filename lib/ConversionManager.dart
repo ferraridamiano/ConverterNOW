@@ -1,4 +1,5 @@
 import 'package:converter_pro/ConversionPage.dart';
+import 'package:converter_pro/ReorderPage.dart';
 import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
 
@@ -157,12 +158,26 @@ class _ConversionManager extends State<ConversionManager>{
         title: new Text(listaTitoli[_currentPage]),
         backgroundColor: listaColori[_currentPage],
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Cancella',),
+          IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Clear all',),
             onPressed: () {
               setState(() {
                 listaConversioni[_currentPage].ClearAllValues();
               });
-            },)
+            },),
+          PopupMenuButton<String>(
+            //onSelected: _select,
+            itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+              PopupMenuItem<String>(child:Text("Ciao",style: TextStyle(fontSize: 15.0, color: Colors.black54, height: 24.0/15.0)),),
+            ],
+          ),
+
+          IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Reorder',),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ReorderPage(title: "Prova",)),
+              );
+            },),
         ],
       ),
       drawer: new Drawer(child: ListView(
