@@ -92,6 +92,33 @@ class _ConversionManager extends State<ConversionManager>{
         ]),
       ]);
 
+  static Node SI=Node(name: "Base",
+    leafNodes: [
+      Node(isMultiplication: true, coefficientPer: 10.0, name: "Deca [da]",),
+      Node(isMultiplication: true, coefficientPer: 100.0, name: "Hecto [h]",),
+      Node(isMultiplication: true, coefficientPer: 1000.0, name: "Kilo [k]",),
+      Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Mega [M]",),
+      Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "Giga [G]",),
+      Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "Tera [T]",),
+      Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "Peta [P]",),
+      Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "Exa [E]",),
+      Node(isMultiplication: true, coefficientPer: 1000000000000000000000.0, name: "Zetta [Z]",),
+      Node(isMultiplication: true, coefficientPer: 1000000000000000000000000.0, name: "Yotta [Y]",),
+      Node(isMultiplication: false, coefficientPer: 10.0, name: "Deci [d]",),
+      Node(isMultiplication: false, coefficientPer: 100.0, name: "Centi [c]",),
+      Node(isMultiplication: false, coefficientPer: 1000.0, name: "Milli [m]",),
+      Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Micro [µ]",),
+      Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "Nano [n]",),
+      Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: "Pico [p]",),
+      Node(isMultiplication: false, coefficientPer: 1000000000000000.0, name: "Femto [f]",),
+      Node(isMultiplication: false, coefficientPer: 1000000000000000000.0, name: "Atto  [a]",),
+      Node(isMultiplication: false, coefficientPer: 1000000000000000000000.0, name: "Zepto [z]",),
+      Node(isMultiplication: false, coefficientPer: 1000000000000000000000000.0, name: "Yocto [y]",),
+    ]
+  );
+
+
+
   static Node celsius=Node(name: "Fahrenheit [°F]",leafNodes:[
     Node(isMultiplication: true, coefficientPer: 1.8, isSum: true, coefficientPlus: 32.0, name: "Celsius [°C]",leafNodes: [
       Node(isSum: false, coefficientPlus: 273.15, name: "Kelvin [K]",),
@@ -107,9 +134,9 @@ class _ConversionManager extends State<ConversionManager>{
   ]);
 
 
-  static List listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo];
-  static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo, Colors.purple];
-  static List listaTitoli=["Lunghezza","Superficie","Volume", "Tempo","Temperatura","Velocità"];
+  static List listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI];
+  static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo, Colors.purple, Colors.blueGrey];
+  static List listaTitoli=["Lunghezza","Superficie","Volume", "Tempo","Temperatura","Velocità", "Prefissi SI"];
 
   int _currentPage=0;
 
@@ -188,6 +215,13 @@ class _ConversionManager extends State<ConversionManager>{
             selected: _currentPage==5,
             onTap: () {
               _onSelectItem(5);
+            },
+          ),
+          ListTile(
+            title: Text(listaTitoli[6]),
+            selected: _currentPage==6,
+            onTap: () {
+              _onSelectItem(6);
             },
           ),
         ],
