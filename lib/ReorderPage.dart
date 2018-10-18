@@ -1,10 +1,12 @@
+import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
 import 'reorderable_list.dart';
 
 class ReorderPage extends StatefulWidget {
-  ReorderPage({Key key, this.title}) : super(key: key);
+  ReorderPage({Key key, this.title ,this.listaNodi}) : super(key: key);
 
   final String title;
+  List<Node> listaNodi;
 
   @override
   _ReorderPage createState() => new _ReorderPage();
@@ -22,11 +24,26 @@ class ItemData {
 class _ReorderPage extends State<ReorderPage> {
   List<ItemData> _items;
 
-  _ReorderPage() {
+  initialize() {
     _items = new List();
-    for (int i = 0; i < 100; ++i)
-      _items.add(new ItemData("List Item " + i.toString(), new ValueKey(i)));
+    for (int i = 0; i < widget.listaNodi.length; ++i)
+      _items.add(new ItemData(widget.listaNodi[i].name, new ValueKey(i)));
+      //_items.add(new ItemData("List Item " + i.toString(), new ValueKey(i)));
   }
+
+  @override
+  void didUpdateWidget(ReorderPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    initialize();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initialize();
+  }
+
+
 
   // Returns index of item with given key
   int _indexOfKey(Key key) {
@@ -63,6 +80,7 @@ class _ReorderPage extends State<ReorderPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          actions: <Widget>[IconButton(icon: Icon(Icons.check),onPressed: (){},)],
         ),
         body: Column(children: <Widget>[
           Expanded(
@@ -76,7 +94,8 @@ class _ReorderPage extends State<ReorderPage> {
                         first: index == 0,
                         last: index == _items.length - 1),
                   )))
-        ]));
+        ]),
+    );
   }
 }
 

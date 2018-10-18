@@ -164,18 +164,12 @@ class _ConversionManager extends State<ConversionManager>{
                 listaConversioni[_currentPage].ClearAllValues();
               });
             },),
-          PopupMenuButton<String>(
-            //onSelected: _select,
-            itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-              PopupMenuItem<String>(child:Text("Ciao",style: TextStyle(fontSize: 15.0, color: Colors.black54, height: 24.0/15.0)),),
-            ],
-          ),
 
-          IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Reorder',),
+          IconButton(icon: Icon(Icons.reorder,color: Colors.white,semanticLabel: 'Reorder',),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ReorderPage(title: "Prova",)),
+                MaterialPageRoute(builder: (context) => ReorderPage(title: "Prova",listaNodi: listaConversioni[_currentPage].getNodiFiglio(),)),
               );
             },),
         ],

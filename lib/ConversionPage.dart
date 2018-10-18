@@ -20,7 +20,7 @@ class _ConversionPage extends State<ConversionPage> {
   Node selectedNode;
 
 
-  static final MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+  /*static final MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
     testDevices: app_id != null ? <String>[app_id] : null,
     keywords: <String>['math', 'physics',"numbers", "measure"],
     //contentUrl: 'http://foo.com/bar.html',
@@ -35,13 +35,13 @@ class _ConversionPage extends State<ConversionPage> {
   BannerAd createBannerAd() {
     return BannerAd(
       adUnitId: "ca-app-pub-8125901756552853/6183830557",//BannerAd.testAdUnitId,
-      size: AdSize.banner,
+      size: AdSize.smartBanner,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
         print("BannerAd event $event");
       },
     );
-  }
+  }*/
 
 
 
@@ -71,12 +71,10 @@ class _ConversionPage extends State<ConversionPage> {
 
 
 
-    FirebaseAdMob.instance.initialize(appId:FirebaseAdMob.testAppId );
-    _bannerAd = createBannerAd()..load();
-    _bannerAd ??= createBannerAd();
-    _bannerAd
-      ..load()
-      ..show();
+    //FirebaseAdMob.instance.initialize(appId:FirebaseAdMob.testAppId,);
+    //_bannerAd = createBannerAd();//..load();
+    //_bannerAd ??= createBannerAd();
+    //_bannerAd.load();
   }
 
   void initialize(){
@@ -117,7 +115,7 @@ class _ConversionPage extends State<ConversionPage> {
 
 
 
-    _bannerAd?.dispose();
+    //_bannerAd?.dispose();
     super.dispose();
   }
 
@@ -159,9 +157,9 @@ class _ConversionPage extends State<ConversionPage> {
   @override
   Widget build(BuildContext context) {
     //List<UnitCard> listCard = _createList();
-
+    //_bannerAd..load()..show();
     return ListView(
-        padding: new EdgeInsets.only(bottom: 50.0,top:10.0,left: 10.0,right: 10.0),
+        padding: new EdgeInsets.all(10.0),
         children: createList(),//listCard
     );
   }
