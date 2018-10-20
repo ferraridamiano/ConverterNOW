@@ -1,8 +1,10 @@
 import 'package:converter_pro/ConversionManager.dart';
+import 'package:converter_pro/Localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 const String app_id= "ca-app-pub-8125901756552853~1510088371";
 
@@ -66,6 +68,25 @@ class _SandboxAppState extends State<SandboxApp> {
         primaryColor: Colors.red,
         accentColor: Colors.indigo,
       ),
+      supportedLocales: [
+        const Locale('en', 'US'),
+        const Locale('it', 'IT')
+
+      ],
+      localizationsDelegates: [
+        const MyLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+        for (Locale supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale.languageCode || supportedLocale.countryCode == locale.countryCode) {
+            return supportedLocale;
+          }
+        }
+
+        return supportedLocales.first;
+      },
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: analytics),
       ],
@@ -79,8 +100,8 @@ class _SandboxAppState extends State<SandboxApp> {
           );
 
         var mediaQuery=MediaQuery.of(context);
-        double paddingBottom=50.0;
-        if(mediaQuery.orientation==Orientation.landscape)
+        double paddingBottom=0.0; //dovrebbe essere 50
+        if(mediaQuery.orientation==Orientation.landscape )
           paddingBottom=0.0;
 
 

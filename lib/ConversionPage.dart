@@ -1,6 +1,5 @@
 import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 
 const String app_id= "ca-app-pub-8125901756552853~1510088371";
 

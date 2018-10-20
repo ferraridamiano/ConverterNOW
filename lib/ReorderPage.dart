@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'reorderable_list.dart';
 
 class ReorderPage extends StatefulWidget {
-  ReorderPage({Key key, this.title ,this.listaNodi}) : super(key: key);
+  ReorderPage({Key key, this.title ,this.listaNodi, this.color}) : super(key: key);
 
   final String title;
   List<Node> listaNodi;
+  Color color;
 
   @override
   _ReorderPage createState() => new _ReorderPage();
@@ -80,6 +81,7 @@ class _ReorderPage extends State<ReorderPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          backgroundColor: widget.color,
           actions: <Widget>[IconButton(icon: Icon(Icons.check),onPressed: (){},)],
         ),
         body: Column(children: <Widget>[
