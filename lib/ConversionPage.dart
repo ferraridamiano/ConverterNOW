@@ -1,8 +1,6 @@
 import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
 
-const String app_id= "ca-app-pub-8125901756552853~1510088371";
-
 class ConversionPage extends StatefulWidget {
 
   Node fatherNode;
@@ -18,43 +16,6 @@ class _ConversionPage extends State<ConversionPage> {
   List<FocusNode> listaFocus = new List();
   Node selectedNode;
 
-
-  /*static final MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-    testDevices: app_id != null ? <String>[app_id] : null,
-    keywords: <String>['math', 'physics',"numbers", "measure"],
-    //contentUrl: 'http://foo.com/bar.html',
-    //birthday: DateTime.now(),
-    //childDirected: true,
-    //gender: MobileAdGender.male,
-    //nonPersonalizedAds: true,
-  );
-
-  BannerAd _bannerAd;
-
-  BannerAd createBannerAd() {
-    return BannerAd(
-      adUnitId: "ca-app-pub-8125901756552853/6183830557",//BannerAd.testAdUnitId,
-      size: AdSize.smartBanner,
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        print("BannerAd event $event");
-      },
-    );
-  }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   @override
   void didUpdateWidget(ConversionPage oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -65,15 +26,6 @@ class _ConversionPage extends State<ConversionPage> {
   void initState() {
     super.initState();
     initialize();
-
-
-
-
-
-    //FirebaseAdMob.instance.initialize(appId:FirebaseAdMob.testAppId,);
-    //_bannerAd = createBannerAd();//..load();
-    //_bannerAd ??= createBannerAd();
-    //_bannerAd.load();
   }
 
   void initialize(){
@@ -108,13 +60,6 @@ class _ConversionPage extends State<ConversionPage> {
       TEC = listaController[i];
       TEC.dispose();
     }
-
-
-
-
-
-
-    //_bannerAd?.dispose();
     super.dispose();
   }
 
@@ -155,10 +100,8 @@ class _ConversionPage extends State<ConversionPage> {
 
   @override
   Widget build(BuildContext context) {
-    //List<UnitCard> listCard = _createList();
-    //_bannerAd..load()..show();
     return ListView(
-        padding: new EdgeInsets.all(10.0),
+        padding: new EdgeInsets.only(top: 10.0,left: 10.0,right:10.0,bottom: 50.0),
         children: createList(),//listCard
     );
   }

@@ -16,34 +16,43 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-
   List listaConversioni;
   List listaColori;
   List listaTitoli;
+  int _currentPage=0;
+
+  _onSelectItem(int index) {
+    if(_currentPage!=index) {
+      setState(() {
+        _currentPage = index;
+        Navigator.of(context).pop();
+      });
+    }
+  }
 
   @override
-  void initState() {
-    super.initState();
-    Node metro=Node(name: 'Metro',//MyLocalizations.of(context).trans('metro'),
+  Widget build(BuildContext context) {
+
+    Node metro=Node(name: MyLocalizations.of(context).trans('metro'),
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 100.0, name: "Centimetro", leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 2.54, name: "Pollice", leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 12.0, name: "Piede"),
+          Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centimetro'), leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 2.54, name: MyLocalizations.of(context).trans('pollice'), leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 12.0, name: MyLocalizations.of(context).trans('piede')),
             ]),
           ]),
-          Node(isMultiplication: true, coefficientPer: 1852.0, name: "Miglio Marino",),
-          Node(isMultiplication: true, coefficientPer: 0.9144, name: "Yard", leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 1760.0, name: "Miglio Terrestre",),
+          Node(isMultiplication: true, coefficientPer: 1852.0, name: MyLocalizations.of(context).trans('miglio_marino'),),
+          Node(isMultiplication: true, coefficientPer: 0.9144, name: MyLocalizations.of(context).trans('yard'), leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 1760.0, name: MyLocalizations.of(context).trans('miglio_terrestre'),),
           ]),
-          Node(isMultiplication: false, coefficientPer: 1000.0, name: "Millimetro",),
-          Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Micrometro", ),
-          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "Nanometro",),
-          Node(isMultiplication: false, coefficientPer: 10000000000.0, name: "Ångström",),
-          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: "Picometro",),
-          Node(isMultiplication: true, coefficientPer: 1000.0, name: "Chilometro",leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 149597870.7, name: "Unità Astronomica",leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 63241.1, name: "Anno Luce",leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 3.26, name: "Parsec",),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millimetro'),),
+          Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('micrometro'), ),
+          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('nanometro'),),
+          Node(isMultiplication: false, coefficientPer: 10000000000.0, name: MyLocalizations.of(context).trans('angstrom'),),
+          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: MyLocalizations.of(context).trans('picometro'),),
+          Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('chilometro'),leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 149597870.7, name: MyLocalizations.of(context).trans('unita_astronomica'),leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 63241.1, name: MyLocalizations.of(context).trans('anno_luce'),leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 3.26, name: MyLocalizations.of(context).trans('parsec'),),
               ]),
             ]),
           ]),
@@ -148,22 +157,6 @@ class _ConversionManager extends State<ConversionManager>{
     listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI];
     listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo, Colors.purple, Colors.blueGrey];
     listaTitoli=["Lunghezza","Superficie","Volume", "Tempo","Temperatura","Velocità", "Prefissi SI"];
-  }
-
-
-  int _currentPage=0;
-
-  _onSelectItem(int index) {
-    if(_currentPage!=index) {
-      setState(() {
-        _currentPage = index;
-        Navigator.of(context).pop();
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(

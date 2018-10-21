@@ -1,3 +1,18 @@
 {
-  "metro": "Metro [m]"
+  "metro": "Metro [m]",
+  "centimetro": "Centimetro [cm]",
+  "pollice":"Pollice [in]",
+  "piede": "Piedi [ft]",
+  "miglio_marino":"Miglio Marino [M]",
+  "miglio_terrestre": "Miglio [mi]",
+  "yard": "Yard [yd]",
+  "millimetro":"Millimetro [mm]",
+  "micrometro": "Micrometro [µm]",
+  "nanometro":"Nanometro [nm]",
+  "angstrom": "Ångström [Å]",
+  "picometro":"Picometro [pm]",
+  "chilometro": "Chilometro [km]",
+  "unita_astronomica":"Unità Astronomica [au]",
+  "anno_luce": "Anno luce [ly]",
+  "parsec":"Parsec [pc]"
 }
