@@ -146,6 +146,8 @@ class Item extends StatelessWidget {
     return ReorderableItem(
         key: data.key, //
         childBuilder: _buildChild,
-        decorationBuilder: _buildDecoration);
+        decorationBuilder: _buildDecoration,
+
+    );
   }
 }

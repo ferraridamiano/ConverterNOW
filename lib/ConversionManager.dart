@@ -58,17 +58,17 @@ class _ConversionManager extends State<ConversionManager>{
           ]),
         ]);
 
-    Node metroq=Node(name: "Metro Quadrato",leafNodes: [
-      Node(isMultiplication: false, coefficientPer: 10000.0, name: "Centimetro Quadrato", leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 6.4516, name: "Pollice Quadrato", leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 144.0, name: "Piede Quadrato"),
+    Node metroq=Node(name: MyLocalizations.of(context).trans('metro_quadrato'),leafNodes: [
+      Node(isMultiplication: false, coefficientPer: 10000.0, name: MyLocalizations.of(context).trans('centimetro_quadrato'), leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 6.4516, name: MyLocalizations.of(context).trans('pollice_quadrato'), leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 144.0, name: MyLocalizations.of(context).trans('piede_quadrato')),
         ]),
       ]),
-      Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Millimetro Quadrato",),
-      Node(isMultiplication: true, coefficientPer: 10000.0, name: "Ettaro [He]",),
-      Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Chilometro Quadrato",),
-      Node(isMultiplication: true, coefficientPer: 0.83612736, name: "Yard Quadrato", leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 3097600.0, name: "Miglio Quadrato",),
+      Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('millimetro_quadrato'),),
+      Node(isMultiplication: true, coefficientPer: 10000.0, name: MyLocalizations.of(context).trans('ettaro'),),
+      Node(isMultiplication: true, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('chilometro_quadrato'),),
+      Node(isMultiplication: true, coefficientPer: 0.83612736, name: MyLocalizations.of(context).trans('yard_quadrato'), leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 3097600.0, name: MyLocalizations.of(context).trans('miglio_quadrato'),),
         Node(isMultiplication: true, coefficientPer: 4840.0, name: "Acri",),
       ]),
     ]);
@@ -193,10 +193,18 @@ class _ConversionManager extends State<ConversionManager>{
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text('Converter PRO', style: TextStyle(color: Colors.white),),
+            child: Align(
+              child:Text('Converter PRO', style: TextStyle(color: Colors.white),),
+              alignment: FractionalOffset.bottomLeft,
+            ),
+            
             decoration: BoxDecoration(
               color: listaColori[_currentPage],
+              image: DecorationImage(image: AssetImage("resources/images/logo.png"),fit: BoxFit.fitHeight),
+
+
             ),
+
           ),
           ListTile(
             title: Text(listaTitoli[0]),

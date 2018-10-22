@@ -29,6 +29,12 @@ dependencies:
   flutter_localizations:
       sdk: flutter
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "resources/images/ic_launcher.png"
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -49,6 +55,7 @@ flutter:
   assets:
         - resources/lang/en.json
         - resources/lang/it.json
+        - resources/images/logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

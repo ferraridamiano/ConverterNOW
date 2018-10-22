@@ -14,7 +14,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="converter_pro"
+        android:label="Converter NOW"
         android:icon="@mipmap/ic_launcher">
 
         <meta-data
