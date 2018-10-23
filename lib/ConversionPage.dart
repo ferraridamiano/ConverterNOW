@@ -29,7 +29,7 @@ class _ConversionPage extends State<ConversionPage> {
   }
 
   void initialize(){
-    listaNodi = widget.fatherNode.getNodiFiglio();
+    listaNodi = widget.fatherNode.getOrderedNodiFiglio();
     listaController.clear();
     listaFocus.clear();
     for (Node node in listaNodi) {
@@ -65,7 +65,7 @@ class _ConversionPage extends State<ConversionPage> {
 
   List<UnitCard> createList() {
     List<UnitCard> listaCard = new List();
-    listaNodi = widget.fatherNode.getNodiFiglio();
+    listaNodi = widget.fatherNode.getOrderedNodiFiglio();
     for (int i = 0; i < listaNodi.length; i++) {
       Node nodo = listaNodi[i];
       TextEditingController controller;

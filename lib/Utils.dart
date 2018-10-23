@@ -44,6 +44,7 @@ class Node {
     this.value,
     this.convertedNode=false,
     this.selectedNode=false,
+    @required this.order
   });
 
   List<Node> leafNodes;
@@ -55,6 +56,7 @@ class Node {
   String name;
   bool convertedNode;
   bool selectedNode;
+  int order;
 
   @override
   String toString() {
@@ -117,23 +119,35 @@ class Node {
    * Resetta tutti i valori dei nodi (da chiamare sul nodo padre)
    */
   void ClearAllValues(){
-    List<Node> listanodi=getNodiFiglio();
+    List<Node> listanodi=_getNodiFiglio();
     for(Node nodo in listanodi){
       nodo.value=null;
     }
   }
 
-  List<Node> getNodiFiglio(){
+  List<Node> _getNodiFiglio(){
 
     List<Node> listaNodi=[this];
-
     if(leafNodes != null){
       for(Node node in leafNodes) {
-        listaNodi.addAll(node.getNodiFiglio());
+        listaNodi.addAll(node._getNodiFiglio());
       }
     }
     return listaNodi;
+  }
 
+  List<Node> getOrderedNodiFiglio(){
+    List<Node> listaNodi=_getNodiFiglio();
+    List<Node> orderedNodi=new List(listaNodi.length);
+
+    for(int i=0; i<listaNodi.length;i++){
+      int j=0;
+      while(listaNodi[j].order!=i)
+        j++;
+      orderedNodi[i]=(listaNodi[j]);
+    }
+
+    return orderedNodi;
   }
 
 

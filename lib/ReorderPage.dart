@@ -82,7 +82,11 @@ class _ReorderPage extends State<ReorderPage> {
         appBar: AppBar(
           title: Text(widget.title),
           backgroundColor: widget.color,
-          actions: <Widget>[IconButton(icon: Icon(Icons.check),onPressed: (){},)],
+          actions: <Widget>[IconButton(icon: Icon(Icons.check),
+            onPressed: (){
+              print(_items[0].title+_items[0].key.toString());
+            },
+          )],
         ),
         body: Column(children: <Widget>[
           Expanded(
