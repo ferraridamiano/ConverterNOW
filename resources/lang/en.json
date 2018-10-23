@@ -1,4 +1,13 @@
 {
+  "lunghezza": "Length",
+  "superficie": "Area",
+  "volume":"Volume",
+  "tempo": "Time",
+  "temperatura":"Temperature",
+  "velocita": "Speed",
+  "prefissi_si": "SI Prefix",
+
+
   "metro": "Metres [m]",
   "centimetro": "Centimetres [cm]",
   "pollice":"Inches [in]",

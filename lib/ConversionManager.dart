@@ -156,7 +156,9 @@ class _ConversionManager extends State<ConversionManager>{
 
     listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI];
     listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo, Colors.purple, Colors.blueGrey];
-    listaTitoli=["Lunghezza","Superficie","Volume", "Tempo","Temperatura","Velocità", "Prefissi SI"];
+    listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
+    MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
+    MyLocalizations.of(context).trans('prefissi_si')];
 
     return Scaffold(
       appBar: AppBar(
@@ -193,7 +195,12 @@ class _ConversionManager extends State<ConversionManager>{
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Align(
+            child: Container(
+              child: Image.asset("resources/images/logo.png"),
+            ),
+            decoration: BoxDecoration(color: listaColori[_currentPage],),
+          ),
+            /*child: Align(
               child:Text('Converter PRO', style: TextStyle(color: Colors.white),),
               alignment: FractionalOffset.bottomLeft,
             ),
@@ -203,9 +210,7 @@ class _ConversionManager extends State<ConversionManager>{
               image: DecorationImage(image: AssetImage("resources/images/logo.png"),fit: BoxFit.fitHeight),
 
 
-            ),
-
-          ),
+            ),*/
           ListTile(
             title: Text(listaTitoli[0]),
             selected: _currentPage==0,
