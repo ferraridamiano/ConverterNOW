@@ -73,42 +73,42 @@ class _ConversionManager extends State<ConversionManager>{
       ]),
     ]);
 
-    Node metroc=Node(name: "Metro Cubo",leafNodes: [
-      Node(isMultiplication: false, coefficientPer: 1000.0, name: "Litro",leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 4.54609, name: "Gallone imperiale",),
-        Node(isMultiplication: true, coefficientPer: 3.785411784, name: "Gallone US",),
-        Node(isMultiplication: true, coefficientPer: 0.56826125, name: "Pinta imperiale",),
-        Node(isMultiplication: true, coefficientPer: 0.473176473, name: "Pinta US",),
-        Node(isMultiplication: false, coefficientPer: 1000.0, name: "Millilitro", leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 14.8, name: "Tablespoon US",),
-          Node(isMultiplication: true, coefficientPer: 20.0, name: "Australian Tablespoon",),
-          Node(isMultiplication: true, coefficientPer: 240.0, name: "Cup US",),
+    Node metroc=Node(name: MyLocalizations.of(context).trans('metro_cubo'),leafNodes: [
+      Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('litro'),leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 4.54609, name: MyLocalizations.of(context).trans('gallone_imperiale'),),
+        Node(isMultiplication: true, coefficientPer: 3.785411784, name: MyLocalizations.of(context).trans('gallone_us'),),
+        Node(isMultiplication: true, coefficientPer: 0.56826125, name: MyLocalizations.of(context).trans('pinta_imperiale'),),
+        Node(isMultiplication: true, coefficientPer: 0.473176473, name: MyLocalizations.of(context).trans('pinta_us'),),
+        Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millilitro'), leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 14.8, name: MyLocalizations.of(context).trans('tablespoon_us'),),
+          Node(isMultiplication: true, coefficientPer: 20.0, name: MyLocalizations.of(context).trans('tablespoon_australian'),),
+          Node(isMultiplication: true, coefficientPer: 240.0, name: MyLocalizations.of(context).trans('cup_us'),),
         ]),
       ]),
-      Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Centimetro Cubo", leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 16.387064, name: "Pollice Cubo", leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 1728.0, name: "Piede Cubo"),
+      Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('centimetro_cubo'), leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 16.387064, name: MyLocalizations.of(context).trans('pollice_cubo'), leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 1728.0, name: MyLocalizations.of(context).trans('piede_cubo')),
         ]),
       ]),
-      Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "Millimetro Cubo",),
+      Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('millimetro_cubo'),),
     ]);
 
-    Node secondo=Node(name: "Secondo",
+    Node secondo=Node(name: MyLocalizations.of(context).trans('secondo'),
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 10.0, name: "Decimo di secondo",),
-          Node(isMultiplication: false, coefficientPer: 100.0, name: "Centesimo di secondo", ),
-          Node(isMultiplication: false, coefficientPer: 1000.0, name: "Millisecondo",),
-          Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Microsecondo",),
-          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "Nanosecondo",),
-          Node(isMultiplication: true, coefficientPer: 60.0, name: "Minuti",leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 60.0, name: "Ore",leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 24.0, name: "Giorni",leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 7.0, name: "Settimane",),
-                Node(isMultiplication: true, coefficientPer: 365.0, name: "Anni (365)",leafNodes: [
-                  Node(isMultiplication: true, coefficientPer: 5.0, name: "Lustro",),
-                  Node(isMultiplication: true, coefficientPer: 10.0, name: "Decade",),
-                  Node(isMultiplication: true, coefficientPer: 100.0, name: "Secolo",),
-                  Node(isMultiplication: true, coefficientPer: 1000.0, name: "Millennio",),
+          Node(isMultiplication: false, coefficientPer: 10.0, name: MyLocalizations.of(context).trans('decimo_secondo'),),
+          Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centesimo_secondo'), ),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millisecondo'),),
+          Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('microsecondo'),),
+          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('nanosecondo'),),
+          Node(isMultiplication: true, coefficientPer: 60.0, name: MyLocalizations.of(context).trans('minuti'),leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 60.0, name: MyLocalizations.of(context).trans('ore'),leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 24.0, name: MyLocalizations.of(context).trans('giorni'),leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 7.0, name: MyLocalizations.of(context).trans('settimane'),),
+                Node(isMultiplication: true, coefficientPer: 365.0, name: MyLocalizations.of(context).trans('anno'),leafNodes: [
+                  Node(isMultiplication: true, coefficientPer: 5.0, name: MyLocalizations.of(context).trans('lustro'),),
+                  Node(isMultiplication: true, coefficientPer: 10.0, name: MyLocalizations.of(context).trans('decade'),),
+                  Node(isMultiplication: true, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('secolo'),),
+                  Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millennio'),),
                 ]),
               ]),
             ]),
@@ -155,7 +155,9 @@ class _ConversionManager extends State<ConversionManager>{
     ]);
 
     listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI];
-    listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo, Colors.purple, Colors.blueGrey];
+    listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
+    Colors.cyan, Colors.indigo, Colors.purple,
+    Colors.blueGrey];
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si')];

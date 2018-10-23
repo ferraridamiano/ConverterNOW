@@ -35,5 +35,40 @@
   "millimetro_quadrato":"Millimetri Quadrati [mm²]",
   "chilometro_quadrato": "Chilometri Quadrati [km²]",
   "ettaro": "Ettaro [he]",
-  "acri": "Acri [ac]"
+  "acri": "Acri [ac]",
+
+  "metro_cubo": "Metro Cubo [m³]",
+  "litro": "Litri [l]",
+  "gallone_imperiale": "Galloni Imperiali [imp gal]",
+  "gallone_us":"Galloni US [US gal]",
+  "pinta_imperiale": "Pinte imperiali [imp pt]",
+  "pinta_us": "Pinte US [US pt]",
+  "millilitro": "Millilitri [ml]",
+  "tablespoon_us": "Cucchiai US [tbsp.]",
+  "tablespoon_australian":"Cucchiai Australiani [tbsp.]",
+  "cup_us": "Tazze [cup]",
+  "centimetro_cubo": "Centimetri Cubi [cm³]",
+  "piede_cubo": "Piedi Cubi [ft³]",
+  "pollice_cubo":"Pollici Cubi [in³]",
+  "millimetro_cubo": "Millimetri Cubi [mm³]",
+
+  "giorno": "Giorni",
+  "secondo": "Secondi",
+  "decimo_secondo": "Decimi di Secondo",
+  "centesimo_secondo": "Centesimi di Secondo",
+  "millisecondo": "Millisecondi",
+  "microsecondo":"Microsecondi",
+  "nanosecondo": "Nanosecondi",
+  "minuti": "Minuti",
+  "ore": "Ore",
+  "giorni": "Giorni",
+  "settimane":"Settimane",
+  "anno": "Anni (365)",
+  "lustro": "Lustri",
+  "decade": "Decadi",
+  "secolo":"Secoli",
+  "millennio": "Millenni"
+
+
+
 }
