@@ -20,6 +20,18 @@ class _ConversionManager extends State<ConversionManager>{
   List listaColori;
   List listaTitoli;
   int _currentPage=0;
+  List currentLista;
+  List orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  int a=0;
+
+  @override
+  void initState() {
+    super.initState();
+
+
+
+  }
+
 
   _onSelectItem(int index) {
     if(_currentPage!=index) {
@@ -30,29 +42,49 @@ class _ConversionManager extends State<ConversionManager>{
     }
   }
 
+  _navigateChangeOrder(BuildContext context,String title, Node nodo, Color color) async {
+    // Navigator.push returns a Future that will complete after we call
+    // Navigator.pop on the Selection Screen!
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ReorderPage(
+            title: title,
+            fatherNode: nodo,
+            color:color
+        ),));
+    //
+    List arrayCopia=new List(orderLunghezza.length);
+    for(int i=0;i<orderLunghezza.length;i++)
+      arrayCopia[i]=orderLunghezza[i];
+    setState(() {
+      for(int i=0;i<orderLunghezza.length;i++)
+        orderLunghezza[i]=result.indexOf(arrayCopia[i]);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    Node metro=Node(name: MyLocalizations.of(context).trans('metro',),order: 0,
+    Node metro=Node(name: MyLocalizations.of(context).trans('metro',),order: orderLunghezza[0],
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centimetro'),order: 1, leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 2.54, name: MyLocalizations.of(context).trans('pollice'),order: 2, leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 12.0, name: MyLocalizations.of(context).trans('piede'),order: 3),
+          Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centimetro'),order: orderLunghezza[1], leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 2.54, name: MyLocalizations.of(context).trans('pollice'),order: orderLunghezza[2], leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 12.0, name: MyLocalizations.of(context).trans('piede'),order: orderLunghezza[3]),
             ]),
           ]),
-          Node(isMultiplication: true, coefficientPer: 1852.0, name: MyLocalizations.of(context).trans('miglio_marino'),order: 4,),
-          Node(isMultiplication: true, coefficientPer: 0.9144, name: MyLocalizations.of(context).trans('yard'),order: 5, leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 1760.0, name: MyLocalizations.of(context).trans('miglio_terrestre'),order: 6,),
+          Node(isMultiplication: true, coefficientPer: 1852.0, name: MyLocalizations.of(context).trans('miglio_marino'),order: orderLunghezza[4],),
+          Node(isMultiplication: true, coefficientPer: 0.9144, name: MyLocalizations.of(context).trans('yard'),order: orderLunghezza[5], leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 1760.0, name: MyLocalizations.of(context).trans('miglio_terrestre'),order: orderLunghezza[6],),
           ]),
-          Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millimetro'),order: 7,),
-          Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('micrometro'), order: 8,),
-          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('nanometro'),order: 9,),
-          Node(isMultiplication: false, coefficientPer: 10000000000.0, name: MyLocalizations.of(context).trans('angstrom'),order: 10,),
-          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: MyLocalizations.of(context).trans('picometro'),order: 11,),
-          Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('chilometro'),order: 12,leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 149597870.7, name: MyLocalizations.of(context).trans('unita_astronomica'),order: 13,leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 63241.1, name: MyLocalizations.of(context).trans('anno_luce'),order: 14,leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 3.26, name: MyLocalizations.of(context).trans('parsec'),order: 15,),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millimetro'),order: orderLunghezza[7],),
+          Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('micrometro'), order: orderLunghezza[8],),
+          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('nanometro'),order: orderLunghezza[9],),
+          Node(isMultiplication: false, coefficientPer: 10000000000.0, name: MyLocalizations.of(context).trans('angstrom'),order: orderLunghezza[10],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: MyLocalizations.of(context).trans('picometro'),order: orderLunghezza[11],),
+          Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('chilometro'),order: orderLunghezza[12],leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 149597870.7, name: MyLocalizations.of(context).trans('unita_astronomica'),order: orderLunghezza[13],leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 63241.1, name: MyLocalizations.of(context).trans('anno_luce'),order: orderLunghezza[14],leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 3.26, name: MyLocalizations.of(context).trans('parsec'),order: orderLunghezza[15],),
               ]),
             ]),
           ]),
@@ -154,13 +186,15 @@ class _ConversionManager extends State<ConversionManager>{
       Node(isMultiplication: true, coefficientPer: 0.3048, name: "Piedi al secondo [ft/s]",order: 4,),
     ]);
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI];
+    listaConversioni=[metro];//,metroq, metroc,secondo, celsius, metri_secondo,SI];
     listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
     Colors.cyan, Colors.indigo, Colors.purple,
     Colors.blueGrey];
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si')];
+
+    currentLista=metro.getOrderedNodiFiglio();
 
     return Scaffold(
       appBar: AppBar(
@@ -174,14 +208,17 @@ class _ConversionManager extends State<ConversionManager>{
               });
             },),
           PopupMenuButton<Choice>(
-            onSelected: (Choice choice){Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ReorderPage(
-                title: "Il mio ordinamento",
-                listaNodi: listaConversioni[_currentPage].getNodiFiglio(),
-                color:listaColori[_currentPage]
-              )),
-            );},
+            onSelected: (Choice choice){
+              /*Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ReorderPage(
+                  title: "Il mio ordinamento",
+                  fatherNode: listaConversioni[_currentPage],
+                  color:listaColori[_currentPage]
+                )),
+              );*/
+              _navigateChangeOrder(context, "Il mio ordinamento", listaConversioni[_currentPage], listaColori[_currentPage]);
+            },
             itemBuilder: (BuildContext context) {
               return choices.map((Choice choice) {
                 return PopupMenuItem<Choice>(
@@ -265,7 +302,7 @@ class _ConversionManager extends State<ConversionManager>{
           ),
         ],
       ),),
-      body: ConversionPage(listaConversioni[_currentPage]),
+      body: ConversionPage(listaConversioni[_currentPage], currentLista),
 
     );
   }

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'reorderable_list.dart';
 
 class ReorderPage extends StatefulWidget {
-  ReorderPage({Key key, this.title ,this.listaNodi, this.color}) : super(key: key);
+  ReorderPage({Key key, this.title ,this.fatherNode, this.color}) : super(key: key);
 
   final String title;
-  List<Node> listaNodi;
+  Node fatherNode;
   Color color;
 
   @override
@@ -27,9 +27,9 @@ class _ReorderPage extends State<ReorderPage> {
 
   initialize() {
     _items = new List();
-    for (int i = 0; i < widget.listaNodi.length; ++i)
-      _items.add(new ItemData(widget.listaNodi[i].name, new ValueKey(i)));
-      //_items.add(new ItemData("List Item " + i.toString(), new ValueKey(i)));
+    List<Node> listaNodi=widget.fatherNode.getOrderedNodiFiglio();
+    for (int i = 0; i < listaNodi.length; ++i)
+      _items.add(new ItemData(listaNodi[i].name, new ValueKey(i)));
   }
 
   @override
@@ -84,7 +84,14 @@ class _ReorderPage extends State<ReorderPage> {
           backgroundColor: widget.color,
           actions: <Widget>[IconButton(icon: Icon(Icons.check),
             onPressed: (){
-              print(_items[0].title+_items[0].key.toString());
+              List<int> orderedList=new List(_items.length);
+              for(int i=0;i<_items.length;i++){
+                ValueKey myKey=_items[i].key;
+                orderedList[i]=myKey.value;
+              }
+              Navigator.pop(context,orderedList);
+
+              //print(widget.fatherNode.getOrderedNodiFiglio()[0].name);
             },
           )],
         ),

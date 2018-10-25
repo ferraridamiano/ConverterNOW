@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 class ConversionPage extends StatefulWidget {
 
   Node fatherNode;
-  ConversionPage(this.fatherNode);
+  List<Node> listaNodi;
+  ConversionPage(this.fatherNode, this.listaNodi);
 
   @override
   _ConversionPage createState() => new _ConversionPage();
 }
 
 class _ConversionPage extends State<ConversionPage> {
-  List<Node> listaNodi;
   List<TextEditingController> listaController = new List();
   List<FocusNode> listaFocus = new List();
   Node selectedNode;
@@ -29,10 +29,9 @@ class _ConversionPage extends State<ConversionPage> {
   }
 
   void initialize(){
-    listaNodi = widget.fatherNode.getOrderedNodiFiglio();
     listaController.clear();
     listaFocus.clear();
-    for (Node node in listaNodi) {
+    for (Node node in widget.listaNodi) {
       listaController.add(new TextEditingController());
       FocusNode focus = new FocusNode();
       focus.addListener(() {
@@ -65,9 +64,8 @@ class _ConversionPage extends State<ConversionPage> {
 
   List<UnitCard> createList() {
     List<UnitCard> listaCard = new List();
-    listaNodi = widget.fatherNode.getOrderedNodiFiglio();
-    for (int i = 0; i < listaNodi.length; i++) {
-      Node nodo = listaNodi[i];
+    for (int i = 0; i < widget.listaNodi.length; i++) {
+      Node nodo = widget.listaNodi[i];
       TextEditingController controller;
       controller = listaController[i];
 

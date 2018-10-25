@@ -40,7 +40,7 @@ class Node {
     this.coefficientPer=1.0,
     this.isSum=true,
     this.coefficientPlus=0.0,
-    @required this.name,
+    this.name,
     this.value,
     this.convertedNode=false,
     this.selectedNode=false,
@@ -148,6 +148,12 @@ class Node {
     }
 
     return orderedNodi;
+  }
+
+  void ReorderNodes(List<int> listaOrdine){
+    List<Node> listaNodi=getOrderedNodiFiglio();
+    for(int i=0; i<listaNodi.length;i++)
+      listaNodi[i].order=listaOrdine[i];
   }
 
 
