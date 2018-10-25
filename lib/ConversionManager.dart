@@ -3,6 +3,7 @@ import 'package:converter_pro/Localization.dart';
 import 'package:converter_pro/ReorderPage.dart';
 import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const List<Choice> choices = const <Choice>[
   const Choice(title: 'Reorder', icon: Icons.reorder),
@@ -29,6 +30,13 @@ class _ConversionManager extends State<ConversionManager>{
   List orderVelocita=[0,1,2,3,4];
   List orderPrefissi=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
+  @override
+  void initState() {
+    super.initState();
+    _getOrders();
+  }
+
+
   _onSelectItem(int index) {
     if(_currentPage!=index) {
       setState(() {
@@ -37,6 +45,19 @@ class _ConversionManager extends State<ConversionManager>{
       });
     }
   }
+
+
+  _saveOrders(List orders) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList("conversion_orders", orders);
+  }
+  _getOrders() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    listaOrder=prefs.getStringList("conversion_orders") ?? [orderLunghezza,orderSuperficie,orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi];
+  }
+
+
 
   _navigateChangeOrder(BuildContext context,String title, Node nodo, Color color) async {
     // Navigator.push returns a Future that will complete after we call
@@ -56,6 +77,7 @@ class _ConversionManager extends State<ConversionManager>{
       for(int i=0;i<listaOrder[_currentPage].length;i++)
         listaOrder[_currentPage][i]=result.indexOf(arrayCopia[i]);
     });
+    _saveOrders(listaOrder);
   }
 
   @override
@@ -183,7 +205,6 @@ class _ConversionManager extends State<ConversionManager>{
     ]);
 
     listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI];
-    listaOrder=[orderLunghezza,orderSuperficie,orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi];
     listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
     Colors.cyan, Colors.indigo, Colors.purple,
     Colors.blueGrey];
