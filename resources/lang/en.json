@@ -36,10 +36,12 @@
   "ettaro": "Hectares [he]",
   "acri": "Acres [ac]",
 
+  "metro_cubo": "Cubic metres [m³]",
   "litro": "Litres [l]",
   "gallone_imperiale": "Imperial gallons [imp gal]",
   "gallone_us":"US Gallons [US gal]",
-  "pinta_imperiale": "Pints [pt]",
+  "pinta_imperiale": "Imperial Pints [imp pt]",
+  "pinta_us": "US Pints [US pt]",
   "millilitro": "Millilitres [ml]",
   "tablespoon_us": "Tablespoons US [tbsp.]",
   "tablespoon_australian":"Australian Tablespoons [tbsp.]",

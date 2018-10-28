@@ -17,18 +17,19 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
+  static final MAX_CONVERSION_UNITS =7;
   List listaConversioni;
   List listaColori;
   List listaTitoli;
   int _currentPage=0;
-  List listaOrder;
-  List orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-  List orderSuperficie=[0,1,2,3,4,5,6,7,8,9];
-  List orderVolume=[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
-  List orderTempo=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
-  List orderTemperatura=[0,1,2];
-  List orderVelocita=[0,1,2,3,4];
-  List orderPrefissi=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+  static List orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  static List orderSuperficie=[0,1,2,3,4,5,6,7,8,9];
+  static List orderVolume=[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
+  static List orderTempo=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+  static List orderTemperatura=[0,1,2];
+  static List orderVelocita=[0,1,2,3,4];
+  static List orderPrefissi=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi];
 
   @override
   void initState() {
@@ -47,14 +48,27 @@ class _ConversionManager extends State<ConversionManager>{
   }
 
 
-  _saveOrders(List orders) async {
+  _saveOrders() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList("conversion_orders", orders);
+    List<String> toConvertList=new List();
+    for(int item in listaOrder[_currentPage])
+      toConvertList.add(item.toString());
+    prefs.setStringList("conversion_$_currentPage", toConvertList);
   }
   _getOrders() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    listaOrder=prefs.getStringList("conversion_orders") ?? [orderLunghezza,orderSuperficie,orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi];
+    for(int i=0;i<MAX_CONVERSION_UNITS;i++){
+      List StringList=prefs.getStringList("conversion_$i");
+
+      if(StringList!=null){
+        List intList=new List(StringList.length);
+        for(int j=0;j<StringList.length;j++){
+          intList.add(int.parse(StringList[j]));
+        }
+        listaOrder[i]=intList;
+      }
+    }
   }
 
 
@@ -77,132 +91,132 @@ class _ConversionManager extends State<ConversionManager>{
       for(int i=0;i<listaOrder[_currentPage].length;i++)
         listaOrder[_currentPage][i]=result.indexOf(arrayCopia[i]);
     });
-    _saveOrders(listaOrder);
+    _saveOrders();
   }
 
   @override
   Widget build(BuildContext context) {
 
-    Node metro=Node(name: MyLocalizations.of(context).trans('metro',),order: orderLunghezza[0],
+    Node metro=Node(name: MyLocalizations.of(context).trans('metro',),order: listaOrder[0][0],
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centimetro'),order: orderLunghezza[1], leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 2.54, name: MyLocalizations.of(context).trans('pollice'),order: orderLunghezza[2], leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 12.0, name: MyLocalizations.of(context).trans('piede'),order: orderLunghezza[3]),
+          Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centimetro'),order: listaOrder[0][1], leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 2.54, name: MyLocalizations.of(context).trans('pollice'),order: listaOrder[0][2], leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 12.0, name: MyLocalizations.of(context).trans('piede'),order: listaOrder[0][3]),
             ]),
           ]),
-          Node(isMultiplication: true, coefficientPer: 1852.0, name: MyLocalizations.of(context).trans('miglio_marino'),order: orderLunghezza[4],),
-          Node(isMultiplication: true, coefficientPer: 0.9144, name: MyLocalizations.of(context).trans('yard'),order: orderLunghezza[5], leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 1760.0, name: MyLocalizations.of(context).trans('miglio_terrestre'),order: orderLunghezza[6],),
+          Node(isMultiplication: true, coefficientPer: 1852.0, name: MyLocalizations.of(context).trans('miglio_marino'),order: listaOrder[0][4],),
+          Node(isMultiplication: true, coefficientPer: 0.9144, name: MyLocalizations.of(context).trans('yard'),order: listaOrder[0][5], leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 1760.0, name: MyLocalizations.of(context).trans('miglio_terrestre'),order: listaOrder[0][6],),
           ]),
-          Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millimetro'),order: orderLunghezza[7],),
-          Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('micrometro'), order: orderLunghezza[8],),
-          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('nanometro'),order: orderLunghezza[9],),
-          Node(isMultiplication: false, coefficientPer: 10000000000.0, name: MyLocalizations.of(context).trans('angstrom'),order: orderLunghezza[10],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: MyLocalizations.of(context).trans('picometro'),order: orderLunghezza[11],),
-          Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('chilometro'),order: orderLunghezza[12],leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 149597870.7, name: MyLocalizations.of(context).trans('unita_astronomica'),order: orderLunghezza[13],leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 63241.1, name: MyLocalizations.of(context).trans('anno_luce'),order: orderLunghezza[14],leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 3.26, name: MyLocalizations.of(context).trans('parsec'),order: orderLunghezza[15],),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millimetro'),order: listaOrder[0][7],),
+          Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('micrometro'), order: listaOrder[0][8],),
+          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('nanometro'),order: listaOrder[0][9],),
+          Node(isMultiplication: false, coefficientPer: 10000000000.0, name: MyLocalizations.of(context).trans('angstrom'),order: listaOrder[0][10],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: MyLocalizations.of(context).trans('picometro'),order: listaOrder[0][11],),
+          Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('chilometro'),order: listaOrder[0][12],leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 149597870.7, name: MyLocalizations.of(context).trans('unita_astronomica'),order: listaOrder[0][13],leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 63241.1, name: MyLocalizations.of(context).trans('anno_luce'),order: listaOrder[0][14],leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 3.26, name: MyLocalizations.of(context).trans('parsec'),order: listaOrder[0][15],),
               ]),
             ]),
           ]),
         ]);
 
-    Node metroq=Node(name: MyLocalizations.of(context).trans('metro_quadrato'),order: orderSuperficie[0],leafNodes: [
-      Node(isMultiplication: false, coefficientPer: 10000.0, name: MyLocalizations.of(context).trans('centimetro_quadrato'),order: orderSuperficie[1], leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 6.4516, name: MyLocalizations.of(context).trans('pollice_quadrato'),order: orderSuperficie[2], leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 144.0, name: MyLocalizations.of(context).trans('piede_quadrato'),order: orderSuperficie[3]),
+    Node metroq=Node(name: MyLocalizations.of(context).trans('metro_quadrato'),order: listaOrder[1][0],leafNodes: [
+      Node(isMultiplication: false, coefficientPer: 10000.0, name: MyLocalizations.of(context).trans('centimetro_quadrato'),order: listaOrder[1][1], leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 6.4516, name: MyLocalizations.of(context).trans('pollice_quadrato'),order: listaOrder[1][2], leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 144.0, name: MyLocalizations.of(context).trans('piede_quadrato'),order: listaOrder[1][3]),
         ]),
       ]),
-      Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('millimetro_quadrato'),order: orderSuperficie[4],),
-      Node(isMultiplication: true, coefficientPer: 10000.0, name: MyLocalizations.of(context).trans('ettaro'),order: orderSuperficie[5],),
-      Node(isMultiplication: true, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('chilometro_quadrato'),order: orderSuperficie[6],),
-      Node(isMultiplication: true, coefficientPer: 0.83612736, name: MyLocalizations.of(context).trans('yard_quadrato'),order: orderSuperficie[7], leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 3097600.0, name: MyLocalizations.of(context).trans('miglio_quadrato'),order: orderSuperficie[8]),
-        Node(isMultiplication: true, coefficientPer: 4840.0, name: MyLocalizations.of(context).trans('acri'),order: orderSuperficie[9],),
+      Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('millimetro_quadrato'),order: listaOrder[1][4],),
+      Node(isMultiplication: true, coefficientPer: 10000.0, name: MyLocalizations.of(context).trans('ettaro'),order: listaOrder[1][5],),
+      Node(isMultiplication: true, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('chilometro_quadrato'),order: listaOrder[1][6],),
+      Node(isMultiplication: true, coefficientPer: 0.83612736, name: MyLocalizations.of(context).trans('yard_quadrato'),order: listaOrder[1][7], leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 3097600.0, name: MyLocalizations.of(context).trans('miglio_quadrato'),order: listaOrder[1][8]),
+        Node(isMultiplication: true, coefficientPer: 4840.0, name: MyLocalizations.of(context).trans('acri'),order: listaOrder[1][9],),
       ]),
     ]);
 
-    Node metroc=Node(name: MyLocalizations.of(context).trans('metro_cubo'),order: orderVolume[0],leafNodes: [
-      Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('litro'),order: orderVolume[1],leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 4.54609, name: MyLocalizations.of(context).trans('gallone_imperiale'),order: orderVolume[2],),
-        Node(isMultiplication: true, coefficientPer: 3.785411784, name: MyLocalizations.of(context).trans('gallone_us'),order: orderVolume[3],),
-        Node(isMultiplication: true, coefficientPer: 0.56826125, name: MyLocalizations.of(context).trans('pinta_imperiale'),order: orderVolume[4],),
-        Node(isMultiplication: true, coefficientPer: 0.473176473, name: MyLocalizations.of(context).trans('pinta_us'),order: orderVolume[5],),
-        Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millilitro'),order: orderVolume[6], leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 14.8, name: MyLocalizations.of(context).trans('tablespoon_us'),order: orderVolume[7],),
-          Node(isMultiplication: true, coefficientPer: 20.0, name: MyLocalizations.of(context).trans('tablespoon_australian'),order:orderVolume[8],),
-          Node(isMultiplication: true, coefficientPer: 240.0, name: MyLocalizations.of(context).trans('cup_us'),order: orderVolume[9],),
+    Node metroc=Node(name: MyLocalizations.of(context).trans('metro_cubo'),order: listaOrder[2][0],leafNodes: [
+      Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('litro'),order: listaOrder[2][1],leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 4.54609, name: MyLocalizations.of(context).trans('gallone_imperiale'),order: listaOrder[2][2],),
+        Node(isMultiplication: true, coefficientPer: 3.785411784, name: MyLocalizations.of(context).trans('gallone_us'),order: listaOrder[2][3],),
+        Node(isMultiplication: true, coefficientPer: 0.56826125, name: MyLocalizations.of(context).trans('pinta_imperiale'),order: listaOrder[2][4],),
+        Node(isMultiplication: true, coefficientPer: 0.473176473, name: MyLocalizations.of(context).trans('pinta_us'),order: listaOrder[2][5],),
+        Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millilitro'),order: listaOrder[2][6], leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 14.8, name: MyLocalizations.of(context).trans('tablespoon_us'),order: listaOrder[2][7],),
+          Node(isMultiplication: true, coefficientPer: 20.0, name: MyLocalizations.of(context).trans('tablespoon_australian'),order:listaOrder[2][8],),
+          Node(isMultiplication: true, coefficientPer: 240.0, name: MyLocalizations.of(context).trans('cup_us'),order: listaOrder[2][9],),
         ]),
       ]),
-      Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('centimetro_cubo'),order: orderVolume[10], leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 16.387064, name: MyLocalizations.of(context).trans('pollice_cubo'),order: orderVolume[11], leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 1728.0, name: MyLocalizations.of(context).trans('piede_cubo'),order: orderVolume[12],),
+      Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('centimetro_cubo'),order: listaOrder[2][10], leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 16.387064, name: MyLocalizations.of(context).trans('pollice_cubo'),order: listaOrder[2][11], leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 1728.0, name: MyLocalizations.of(context).trans('piede_cubo'),order: listaOrder[2][12],),
         ]),
       ]),
-      Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('millimetro_cubo'),order: orderVolume[13],),
+      Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('millimetro_cubo'),order: listaOrder[2][13],),
     ]);
 
-    Node secondo=Node(name: MyLocalizations.of(context).trans('secondo'),order: orderTempo[0],
+    Node secondo=Node(name: MyLocalizations.of(context).trans('secondo'),order: listaOrder[3][0],
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 10.0, name: MyLocalizations.of(context).trans('decimo_secondo'),order: orderTempo[1],),
-          Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centesimo_secondo'), order: orderTempo[2],),
-          Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millisecondo'),order: orderTempo[3],),
-          Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('microsecondo'),order: orderTempo[4],),
-          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('nanosecondo'),order: orderTempo[5],),
-          Node(isMultiplication: true, coefficientPer: 60.0, name: MyLocalizations.of(context).trans('minuti'),order: orderTempo[6],leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 60.0, name: MyLocalizations.of(context).trans('ore'),order: orderTempo[7],leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 24.0, name: MyLocalizations.of(context).trans('giorni'),order: orderTempo[8],leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 7.0, name: MyLocalizations.of(context).trans('settimane'),order: orderTempo[9],),
-                Node(isMultiplication: true, coefficientPer: 365.0, name: MyLocalizations.of(context).trans('anno'),order: orderTempo[10],leafNodes: [
-                  Node(isMultiplication: true, coefficientPer: 5.0, name: MyLocalizations.of(context).trans('lustro'),order: orderTempo[11],),
-                  Node(isMultiplication: true, coefficientPer: 10.0, name: MyLocalizations.of(context).trans('decade'),order: orderTempo[12],),
-                  Node(isMultiplication: true, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('secolo'),order: orderTempo[13],),
-                  Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millennio'),order: orderTempo[14],),
+          Node(isMultiplication: false, coefficientPer: 10.0, name: MyLocalizations.of(context).trans('decimo_secondo'),order: listaOrder[3][1],),
+          Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centesimo_secondo'), order: listaOrder[3][2],),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millisecondo'),order: listaOrder[3][3],),
+          Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('microsecondo'),order: listaOrder[3][4],),
+          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('nanosecondo'),order: listaOrder[3][5],),
+          Node(isMultiplication: true, coefficientPer: 60.0, name: MyLocalizations.of(context).trans('minuti'),order: listaOrder[3][6],leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 60.0, name: MyLocalizations.of(context).trans('ore'),order: listaOrder[3][7],leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 24.0, name: MyLocalizations.of(context).trans('giorni'),order: listaOrder[3][8],leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 7.0, name: MyLocalizations.of(context).trans('settimane'),order: listaOrder[3][9],),
+                Node(isMultiplication: true, coefficientPer: 365.0, name: MyLocalizations.of(context).trans('anno'),order: listaOrder[3][10],leafNodes: [
+                  Node(isMultiplication: true, coefficientPer: 5.0, name: MyLocalizations.of(context).trans('lustro'),order: listaOrder[3][11],),
+                  Node(isMultiplication: true, coefficientPer: 10.0, name: MyLocalizations.of(context).trans('decade'),order: listaOrder[3][12],),
+                  Node(isMultiplication: true, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('secolo'),order: listaOrder[3][13],),
+                  Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millennio'),order: listaOrder[3][14],),
                 ]),
               ]),
             ]),
           ]),
         ]);
 
-    Node SI=Node(name: "Base",order: orderPrefissi[0],
+    Node celsius=Node(name: "Fahrenheit [°F]",order: listaOrder[4][0],leafNodes:[
+      Node(isMultiplication: true, coefficientPer: 1.8, isSum: true, coefficientPlus: 32.0, name: "Celsius [°C]",order: listaOrder[4][1],leafNodes: [
+        Node(isSum: false, coefficientPlus: 273.15, name: "Kelvin [K]",order: listaOrder[4][2],),
+      ]),
+    ]);
+
+    Node metri_secondo=Node(name: "Metri al Secondo [m/s]", order: listaOrder[5][0], leafNodes: [
+      Node(isMultiplication: false, coefficientPer: 3.6, name: "Chilometri Orari [km/h]",order: listaOrder[5][1], leafNodes:[
+        Node(isMultiplication: true, coefficientPer: 1.609344, name: "Miglia orarie [mph]",order: listaOrder[5][2],),
+        Node(isMultiplication: true, coefficientPer: 1.852, name: "Nodi [kts]",order: listaOrder[5][3],),
+      ]),
+      Node(isMultiplication: true, coefficientPer: 0.3048, name: "Piedi al secondo [ft/s]",order: listaOrder[5][4],),
+    ]);
+
+    Node SI=Node(name: "Base",order: listaOrder[6][0],
         leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 10.0, name: "Deca [da]",order: orderPrefissi[1],),
-          Node(isMultiplication: true, coefficientPer: 100.0, name: "Hecto [h]",order: orderPrefissi[2],),
-          Node(isMultiplication: true, coefficientPer: 1000.0, name: "Kilo [k]",order: orderPrefissi[3],),
-          Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Mega [M]",order: orderPrefissi[4],),
-          Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "Giga [G]",order: orderPrefissi[5],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "Tera [T]",order: orderPrefissi[6],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "Peta [P]",order: orderPrefissi[7],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "Exa [E]",order: orderPrefissi[8],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000000000.0, name: "Zetta [Z]",order: orderPrefissi[9],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000000000000.0, name: "Yotta [Y]",order: orderPrefissi[10],),
-          Node(isMultiplication: false, coefficientPer: 10.0, name: "Deci [d]",order: orderPrefissi[11],),
-          Node(isMultiplication: false, coefficientPer: 100.0, name: "Centi [c]",order: orderPrefissi[12],),
-          Node(isMultiplication: false, coefficientPer: 1000.0, name: "Milli [m]",order: orderPrefissi[13],),
-          Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Micro [µ]",order: orderPrefissi[14],),
-          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "Nano [n]",order: orderPrefissi[15],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: "Pico [p]",order: orderPrefissi[16],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000.0, name: "Femto [f]",order: orderPrefissi[17],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000000.0, name: "Atto  [a]",order: orderPrefissi[18],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000000000.0, name: "Zepto [z]",order: orderPrefissi[19],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000000000000.0, name: "Yocto [y]",order: orderPrefissi[20],),
+          Node(isMultiplication: true, coefficientPer: 10.0, name: "Deca [da]",order: listaOrder[6][1],),
+          Node(isMultiplication: true, coefficientPer: 100.0, name: "Hecto [h]",order: listaOrder[6][2],),
+          Node(isMultiplication: true, coefficientPer: 1000.0, name: "Kilo [k]",order: listaOrder[6][3],),
+          Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Mega [M]",order: listaOrder[6][4],),
+          Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "Giga [G]",order: listaOrder[6][5],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "Tera [T]",order: listaOrder[6][6],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "Peta [P]",order: listaOrder[6][7],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "Exa [E]",order: listaOrder[6][8],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000000.0, name: "Zetta [Z]",order: listaOrder[6][9],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000000000.0, name: "Yotta [Y]",order: listaOrder[6][10],),
+          Node(isMultiplication: false, coefficientPer: 10.0, name: "Deci [d]",order: listaOrder[6][11],),
+          Node(isMultiplication: false, coefficientPer: 100.0, name: "Centi [c]",order: listaOrder[6][12],),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name: "Milli [m]",order: listaOrder[6][13],),
+          Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Micro [µ]",order: listaOrder[6][14],),
+          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "Nano [n]",order: listaOrder[6][15],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: "Pico [p]",order: listaOrder[6][16],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000.0, name: "Femto [f]",order: listaOrder[6][17],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000000.0, name: "Atto  [a]",order: listaOrder[6][18],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000000000.0, name: "Zepto [z]",order: listaOrder[6][19],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000000000000.0, name: "Yocto [y]",order: listaOrder[6][20],),
         ]
     );
-
-    Node celsius=Node(name: "Fahrenheit [°F]",order: orderTemperatura[0],leafNodes:[
-      Node(isMultiplication: true, coefficientPer: 1.8, isSum: true, coefficientPlus: 32.0, name: "Celsius [°C]",order: orderTemperatura[1],leafNodes: [
-        Node(isSum: false, coefficientPlus: 273.15, name: "Kelvin [K]",order: orderTemperatura[2],),
-      ]),
-    ]);
-
-    Node metri_secondo=Node(name: "Metri al Secondo [m/s]", order: orderVelocita[0], leafNodes: [
-      Node(isMultiplication: false, coefficientPer: 3.6, name: "Chilometri Orari [km/h]",order: orderVelocita[1], leafNodes:[
-        Node(isMultiplication: true, coefficientPer: 1.609344, name: "Miglia orarie [mph]",order: orderVelocita[2],),
-        Node(isMultiplication: true, coefficientPer: 1.852, name: "Nodi [kts]",order: orderVelocita[3],),
-      ]),
-      Node(isMultiplication: true, coefficientPer: 0.3048, name: "Piedi al secondo [ft/s]",order: orderVelocita[4],),
-    ]);
 
     listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI];
     listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
