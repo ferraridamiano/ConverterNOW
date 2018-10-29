@@ -1,6 +1,7 @@
 import 'package:converter_pro/ConversionPage.dart';
 import 'package:converter_pro/Localization.dart';
 import 'package:converter_pro/ReorderPage.dart';
+import 'package:converter_pro/SettingsPage.dart';
 import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -262,12 +263,33 @@ class _ConversionManager extends State<ConversionManager>{
       drawer: new Drawer(child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          DrawerHeader(
-            child: Container(
-              child: Image.asset("resources/images/logo.png"),
-            ),
-            decoration: BoxDecoration(color: listaColori[_currentPage],),
+          Stack(
+            children: <Widget>[
+              DrawerHeader(
+                child: Container(
+                  child: Image.asset("resources/images/logo.png"),
+                ),
+                decoration: BoxDecoration(color: listaColori[_currentPage],),
+              ),
+              Container(
+                  child:IconButton(
+                    icon:Icon(Icons.settings),
+                    color: Colors.white,
+                    onPressed: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SettingsPage()),
+                      );
+                    },
+                  ),
+                height: 190.0,
+                alignment: FractionalOffset.bottomRight,
+              )
+
+            ],
+            fit: StackFit.passthrough,
           ),
+
           ListTile(
             title: Text(listaTitoli[0]),
             selected: _currentPage==0,
