@@ -1,4 +1,7 @@
 {
+  "riordina": "Riordina",
+  "mio_ordinamento": "Il mio ordinamento",
+
   "lunghezza": "Lunghezza",
   "superficie": "Superficie",
   "volume":"Volume",
@@ -6,8 +9,6 @@
   "temperatura":"Temperatura",
   "velocita": "Velocità",
   "prefissi_si": "Prefissi SI",
-
-
 
   "metro": "Metri [m]",
   "centimetro": "Centimetri [cm]",

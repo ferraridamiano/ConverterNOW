@@ -5,10 +5,6 @@ import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'Reorder', icon: Icons.reorder),
-];
-
 class ConversionManager extends StatefulWidget{
   @override
   _ConversionManager createState() => new _ConversionManager();
@@ -62,11 +58,18 @@ class _ConversionManager extends State<ConversionManager>{
       List StringList=prefs.getStringList("conversion_$i");
 
       if(StringList!=null){
-        List intList=new List(StringList.length);
+        List intList=new List();
         for(int j=0;j<StringList.length;j++){
           intList.add(int.parse(StringList[j]));
         }
-        listaOrder[i]=intList;
+        if(i==_currentPage){
+          setState(() {
+            listaOrder[i]=intList;
+          });
+        }
+        else
+          listaOrder[i]=intList;
+
       }
     }
   }
@@ -226,6 +229,10 @@ class _ConversionManager extends State<ConversionManager>{
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si')];
 
+    List<Choice> choices = <Choice>[
+      Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: new Text(listaTitoli[_currentPage]),
@@ -239,7 +246,7 @@ class _ConversionManager extends State<ConversionManager>{
             },),
           PopupMenuButton<Choice>(
             onSelected: (Choice choice){
-              _navigateChangeOrder(context, "Il mio ordinamento", listaConversioni[_currentPage], listaColori[_currentPage]);
+              _navigateChangeOrder(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage], listaColori[_currentPage]);
             },
             itemBuilder: (BuildContext context) {
               return choices.map((Choice choice) {

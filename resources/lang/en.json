@@ -1,4 +1,7 @@
 {
+  "riordina": "Reorder",
+  "mio_ordinamento": "My ordering",
+
   "lunghezza": "Length",
   "superficie": "Area",
   "volume":"Volume",
@@ -6,7 +9,6 @@
   "temperatura":"Temperature",
   "velocita": "Speed",
   "prefissi_si": "SI Prefix",
-
 
   "metro": "Metres [m]",
   "centimetro": "Centimetres [cm]",
