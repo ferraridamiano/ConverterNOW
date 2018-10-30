@@ -183,18 +183,18 @@ class _ConversionManager extends State<ConversionManager>{
           ]),
         ]);
 
-    Node celsius=Node(name: "Fahrenheit [°F]",order: listaOrder[4][0],leafNodes:[
-      Node(isMultiplication: true, coefficientPer: 1.8, isSum: true, coefficientPlus: 32.0, name: "Celsius [°C]",order: listaOrder[4][1],leafNodes: [
-        Node(isSum: false, coefficientPlus: 273.15, name: "Kelvin [K]",order: listaOrder[4][2],),
+    Node celsius=Node(name: MyLocalizations.of(context).trans('fahrenheit'),order: listaOrder[4][0],leafNodes:[
+      Node(isMultiplication: true, coefficientPer: 1.8, isSum: true, coefficientPlus: 32.0, name: MyLocalizations.of(context).trans('celsius'),order: listaOrder[4][1],leafNodes: [
+        Node(isSum: false, coefficientPlus: 273.15, name: MyLocalizations.of(context).trans('kelvin'),order: listaOrder[4][2],),
       ]),
     ]);
 
-    Node metri_secondo=Node(name: "Metri al Secondo [m/s]", order: listaOrder[5][0], leafNodes: [
-      Node(isMultiplication: false, coefficientPer: 3.6, name: "Chilometri Orari [km/h]",order: listaOrder[5][1], leafNodes:[
-        Node(isMultiplication: true, coefficientPer: 1.609344, name: "Miglia orarie [mph]",order: listaOrder[5][2],),
-        Node(isMultiplication: true, coefficientPer: 1.852, name: "Nodi [kts]",order: listaOrder[5][3],),
+    Node metri_secondo=Node(name: MyLocalizations.of(context).trans('metri_secondo'), order: listaOrder[5][0], leafNodes: [
+      Node(isMultiplication: false, coefficientPer: 3.6, name: MyLocalizations.of(context).trans('chilometri_ora'),order: listaOrder[5][1], leafNodes:[
+        Node(isMultiplication: true, coefficientPer: 1.609344, name: MyLocalizations.of(context).trans('miglia_ora'),order: listaOrder[5][2],),
+        Node(isMultiplication: true, coefficientPer: 1.852, name: MyLocalizations.of(context).trans('nodi'),order: listaOrder[5][3],),
       ]),
-      Node(isMultiplication: true, coefficientPer: 0.3048, name: "Piedi al secondo [ft/s]",order: listaOrder[5][4],),
+      Node(isMultiplication: true, coefficientPer: 0.3048, name: MyLocalizations.of(context).trans('piedi_secondo'),order: listaOrder[5][4],),
     ]);
 
     Node SI=Node(name: "Base",order: listaOrder[6][0],

@@ -71,5 +71,15 @@
   "lustro": "Lustra",
   "decade": "Decades",
   "secolo":"Centuries",
-  "millennio": "Millennia"
+  "millennio": "Millennia",
+
+  "fahrenheit": "Fahrenheit [°F]",
+  "celsius": "Celsius (Centigrade) [°C]",
+  "kelvin": "Kelvin [K]",
+
+  "metri_secondo": "Metres per Second [m/s]",
+  "chilometri_ora": "Kilometres per Hour [km/h]",
+  "miglia_ora": "Miles per Hour [mph]",
+  "nodi": "Knots [kts]",
+  "piedi_secondo": "Feets per Second [ft/s]"
 }

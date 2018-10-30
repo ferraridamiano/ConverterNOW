@@ -6,7 +6,7 @@ class SettingsPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Converter NOW"),),
+      appBar: AppBar(title: Text(MyLocalizations.of(context).trans('app_name')),),
       body: Center(child:
         Column(
         children: <Widget>[
@@ -37,17 +37,4 @@ class SettingsPage extends StatelessWidget{
       throw 'Could not launch $url';
     }
   }
-}
-
-class AboutPage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(title:Text(MyLocalizations.of(context).trans('about'))),
-      body:new Text("This app uses the following licenses:\n"
-          "Flutter plugins:\n"
-          "Copyright 2017 The Chromium Authors. All rights reserved.")
-    );
-  }
-
 }
