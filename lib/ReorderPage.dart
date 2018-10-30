@@ -106,7 +106,8 @@ class _ReorderPage extends State<ReorderPage> {
                         // first and last attributes affect border drawn during dragging
                         first: index == 0,
                         last: index == _items.length - 1),
-                  )))
+                  ))),
+          SizedBox(height: 50.0,)
         ]),
     );
   }

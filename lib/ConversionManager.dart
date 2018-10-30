@@ -260,88 +260,91 @@ class _ConversionManager extends State<ConversionManager>{
           ),
         ],
       ),
-      drawer: new Drawer(child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              DrawerHeader(
-                child: Container(
-                  child: Image.asset("resources/images/logo.png"),
-                ),
-                decoration: BoxDecoration(color: listaColori[_currentPage],),
-              ),
-              Container(
-                  child:IconButton(
-                    icon:Icon(Icons.settings),
-                    color: Colors.white,
-                    onPressed: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SettingsPage()),
-                      );
-                    },
+      drawer: new Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                DrawerHeader(
+                  child: Container(
+                    child: Image.asset("resources/images/logo.png"),
                   ),
-                height: 190.0,
-                alignment: FractionalOffset.bottomRight,
-              )
+                  decoration: BoxDecoration(color: listaColori[_currentPage],),
+                ),
+                Container(
+                    child:IconButton(
+                      icon:Icon(Icons.settings),
+                      color: Colors.white,
+                      onPressed: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SettingsPage()),
+                        );
+                      },
+                    ),
+                  height: 190.0,
+                  alignment: FractionalOffset.bottomRight,
+                )
 
-            ],
-            fit: StackFit.passthrough,
-          ),
+              ],
+              fit: StackFit.passthrough,
+            ),
 
-          ListTile(
-            title: Text(listaTitoli[0]),
-            selected: _currentPage==0,
-            onTap: (){
-              _onSelectItem(0);
-            }
-          ),
-          ListTile(
-            title: Text(listaTitoli[1]),
-            selected: _currentPage==1,
-            onTap:(){
-              _onSelectItem(1);
-            }
+            ListTile(
+              title: Text(listaTitoli[0]),
+              selected: _currentPage==0,
+              onTap: (){
+                _onSelectItem(0);
+              }
+            ),
+            ListTile(
+              title: Text(listaTitoli[1]),
+              selected: _currentPage==1,
+              onTap:(){
+                _onSelectItem(1);
+              }
 
-          ),
-          ListTile(
-            title: Text(listaTitoli[2]),
-            selected: _currentPage==2,
-            onTap: () {
-              _onSelectItem(2);
-            },
-          ),
-          ListTile(
-            title: Text(listaTitoli[3]),
-            selected: _currentPage==3,
-            onTap: () {
-              _onSelectItem(3);
-            },
-          ),
-          ListTile(
-            title: Text(listaTitoli[4]),
-            selected: _currentPage==4,
-            onTap: () {
-              _onSelectItem(4);
-            },
-          ),
-          ListTile(
-            title: Text(listaTitoli[5]),
-            selected: _currentPage==5,
-            onTap: () {
-              _onSelectItem(5);
-            },
-          ),
-          ListTile(
-            title: Text(listaTitoli[6]),
-            selected: _currentPage==6,
-            onTap: () {
-              _onSelectItem(6);
-            },
-          ),
-        ],
-      ),),
+            ),
+            ListTile(
+              title: Text(listaTitoli[2]),
+              selected: _currentPage==2,
+              onTap: () {
+                _onSelectItem(2);
+              },
+            ),
+            ListTile(
+              title: Text(listaTitoli[3]),
+              selected: _currentPage==3,
+              onTap: () {
+                _onSelectItem(3);
+              },
+            ),
+            ListTile(
+              title: Text(listaTitoli[4]),
+              selected: _currentPage==4,
+              onTap: () {
+                _onSelectItem(4);
+              },
+            ),
+            ListTile(
+              title: Text(listaTitoli[5]),
+              selected: _currentPage==5,
+              onTap: () {
+                _onSelectItem(5);
+              },
+            ),
+            ListTile(
+              title: Text(listaTitoli[6]),
+              selected: _currentPage==6,
+              onTap: () {
+                _onSelectItem(6);
+              },
+            ),
+            SizedBox(height: 50.0,)
+          ],
+      ),
+      ),
       body: ConversionPage(listaConversioni[_currentPage]),
 
     );
