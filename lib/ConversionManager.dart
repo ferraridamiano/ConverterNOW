@@ -222,6 +222,30 @@ class _ConversionManager extends State<ConversionManager>{
         ]
     );
 
+    //da sistemare ordinamento e nome
+    Node grammo=Node(name: "Grammo",order: listaOrder[6][0],
+      leafNodes: [
+      Node(isMultiplication: true, coefficientPer: 100.0, name: "Ettogrammo",order: listaOrder[6][2],),
+      Node(isMultiplication: true, coefficientPer: 1000.0, name: "Chilogrammo",order: listaOrder[6][3],leafNodes:[
+        Node(isMultiplication: true, coefficientPer: 0.45359237, name: "Libbra [lb]",order: listaOrder[6][4],),
+      ]),
+      Node(isMultiplication: true, coefficientPer: 100000.0, name: "Quintale",order: listaOrder[6][4],),
+      Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Tonnellata",order: listaOrder[6][5],),
+      Node(isMultiplication: false, coefficientPer: 1000.0, name: "Milligrammo",order: listaOrder[6][3],),
+      Node(isMultiplication: false, coefficientPer: 1.660539e10-24, name: "Unità di massa atomica",order: listaOrder[6][3],),
+    ]);
+
+    Node pascal=Node(name: "Pascal [Pa]",order: listaOrder[6][0],
+        leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 101325.0, name: "Atmosfere [atm]",order: listaOrder[6][2],leafNodes:[
+            Node(isMultiplication: true, coefficientPer: 0.987, name: "Bar [bar]",order: listaOrder[6][4],leafNodes:[
+              Node(isMultiplication: false, coefficientPer: 1000.0, name: "Millibar [mbar]",order: listaOrder[6][4],),
+            ]),
+          ]),
+          Node(isMultiplication: true, coefficientPer: 6894.757293168, name: "Psi [lbf/in2]",order: listaOrder[6][4],),
+          Node(isMultiplication: true, coefficientPer: 133.322368421, name: "Torr (mmHg) [torr]",order: listaOrder[6][5],),
+    ]);
+
     listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI];
     listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
     Colors.cyan, Colors.indigo, Colors.purple,
