@@ -12,6 +12,9 @@
   "temperatura":"Temperature",
   "velocita": "Speed",
   "prefissi_si": "SI Prefix",
+  "massa": "Mass",
+  "pressione": "Pressure",
+  "energia":"Energy",
 
   "metro": "Metres [m]",
   "centimetro": "Centimetres [cm]",
@@ -80,5 +83,26 @@
   "chilometri_ora": "Kilometres per Hour [km/h]",
   "miglia_ora": "Miles per Hour [mph]",
   "nodi": "Knots [kts]",
-  "piedi_secondo": "Feets per Second [ft/s]"
+  "piedi_secondo": "Feets per Second [ft/s]",
+
+  "grammo": "Gram [g]",
+  "ettogrammo": "Ettogram [hg]",
+  "chilogrammo": "Kilogram [Kg]",
+  "libbra":" Pund [lb]",
+  "quintale": "Quintal",
+  "tonnellata": "Tonne [t]",
+  "milligrammo": "Milligram [mg]",
+  "uma": "Unified atomic mass unit [u]",
+
+  "pascal": "Pascal [Pa]",
+  "atmosfere":"Atmosphere [atm]",
+  "bar": "Bar [bar]",
+  "millibar":"Millibar [mbar]",
+  "psi": "Pounds per square inch [psi]",
+  "torr": "Torricelli (mmHg) [torr]",
+
+  "joule": "Joule [J]",
+  "calorie": "Calorie [cal]",
+  "kilowattora": "Kilowatt Hour [kwh]",
+  "elettronvolt": "Electronvolt [eV]"
 }

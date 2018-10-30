@@ -14,7 +14,7 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-  static final MAX_CONVERSION_UNITS =7;
+  static final MAX_CONVERSION_UNITS =10;
   List listaConversioni;
   List listaColori;
   List listaTitoli;
@@ -26,7 +26,10 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderTemperatura=[0,1,2];
   static List orderVelocita=[0,1,2,3,4];
   static List orderPrefissi=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi];
+  static List orderMassa=[0,1,2,3,4,5,6,7];
+  static List orderPressione=[0,1,2,3,4,5];
+  static List orderEnergia=[0,1,2,3];
+  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia];
 
   @override
   void initState() {
@@ -223,36 +226,46 @@ class _ConversionManager extends State<ConversionManager>{
     );
 
     //da sistemare ordinamento e nome
-    Node grammo=Node(name: "Grammo",order: listaOrder[6][0],
+    Node grammo=Node(name: MyLocalizations.of(context).trans('grammo'),order: listaOrder[7][0],
       leafNodes: [
-      Node(isMultiplication: true, coefficientPer: 100.0, name: "Ettogrammo",order: listaOrder[6][2],),
-      Node(isMultiplication: true, coefficientPer: 1000.0, name: "Chilogrammo",order: listaOrder[6][3],leafNodes:[
-        Node(isMultiplication: true, coefficientPer: 0.45359237, name: "Libbra [lb]",order: listaOrder[6][4],),
+      Node(isMultiplication: true, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('ettogrammo'),order: listaOrder[7][1],),
+      Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('chilogrammo'),order: listaOrder[7][2],leafNodes:[
+        Node(isMultiplication: true, coefficientPer: 0.45359237, name: MyLocalizations.of(context).trans('libbra'),order: listaOrder[7][3],),
       ]),
-      Node(isMultiplication: true, coefficientPer: 100000.0, name: "Quintale",order: listaOrder[6][4],),
-      Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Tonnellata",order: listaOrder[6][5],),
-      Node(isMultiplication: false, coefficientPer: 1000.0, name: "Milligrammo",order: listaOrder[6][3],),
-      Node(isMultiplication: false, coefficientPer: 1.660539e10-24, name: "Unità di massa atomica",order: listaOrder[6][3],),
+      Node(isMultiplication: true, coefficientPer: 100000.0, name: MyLocalizations.of(context).trans('quintale'),order: listaOrder[7][4],),
+      Node(isMultiplication: true, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('tonnellata'),order: listaOrder[7][5],),
+      Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('milligrammo'),order: listaOrder[7][6],),
+      Node(isMultiplication: true, coefficientPer: 1.660539e-24, name: MyLocalizations.of(context).trans('uma'),order: listaOrder[7][7],),
     ]);
 
-    Node pascal=Node(name: "Pascal [Pa]",order: listaOrder[6][0],
+    Node pascal=Node(name: MyLocalizations.of(context).trans('pascal'),order: listaOrder[8][0],
         leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 101325.0, name: "Atmosfere [atm]",order: listaOrder[6][2],leafNodes:[
-            Node(isMultiplication: true, coefficientPer: 0.987, name: "Bar [bar]",order: listaOrder[6][4],leafNodes:[
-              Node(isMultiplication: false, coefficientPer: 1000.0, name: "Millibar [mbar]",order: listaOrder[6][4],),
+          Node(isMultiplication: true, coefficientPer: 101325.0, name: MyLocalizations.of(context).trans('atmosfere'),order: listaOrder[8][1],leafNodes:[
+            Node(isMultiplication: true, coefficientPer: 0.987, name: MyLocalizations.of(context).trans('bar'),order: listaOrder[8][2],leafNodes:[
+              Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millibar'),order: listaOrder[8][3],),
             ]),
           ]),
-          Node(isMultiplication: true, coefficientPer: 6894.757293168, name: "Psi [lbf/in2]",order: listaOrder[6][4],),
-          Node(isMultiplication: true, coefficientPer: 133.322368421, name: "Torr (mmHg) [torr]",order: listaOrder[6][5],),
+          Node(isMultiplication: true, coefficientPer: 6894.757293168, name: MyLocalizations.of(context).trans('psi'),order: listaOrder[8][4],),
+          Node(isMultiplication: true, coefficientPer: 133.322368421, name: MyLocalizations.of(context).trans('torr'),order: listaOrder[8][5],),
     ]);
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI];
+    Node joule=Node(name: MyLocalizations.of(context).trans('joule'),order: listaOrder[9][0],
+        leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 4.1867999409, name: MyLocalizations.of(context).trans('calorie'),order: listaOrder[9][1]),
+          Node(isMultiplication: true, coefficientPer: 3600000.0, name: MyLocalizations.of(context).trans('kilowattora'),order: listaOrder[9][2],),
+          Node(isMultiplication: true, coefficientPer: 1.60217646e-19, name: MyLocalizations.of(context).trans('elettronvolt'),order: listaOrder[9][3],),
+        ]);
+
+
+    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule];
     listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
     Colors.cyan, Colors.indigo, Colors.purple,
-    Colors.blueGrey];
+    Colors.blueGrey,Colors.green,Colors.pinkAccent,
+    Colors.teal];
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
-    MyLocalizations.of(context).trans('prefissi_si')];
+    MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
+    MyLocalizations.of(context).trans('energia')];
 
     List<Choice> choices = <Choice>[
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
@@ -363,6 +376,27 @@ class _ConversionManager extends State<ConversionManager>{
               selected: _currentPage==6,
               onTap: () {
                 _onSelectItem(6);
+              },
+            ),
+            ListTile(
+              title: Text(listaTitoli[7]),
+              selected: _currentPage==7,
+              onTap: () {
+                _onSelectItem(7);
+              },
+            ),
+            ListTile(
+              title: Text(listaTitoli[8]),
+              selected: _currentPage==8,
+              onTap: () {
+                _onSelectItem(8);
+              },
+            ),
+            ListTile(
+              title: Text(listaTitoli[9]),
+              selected: _currentPage==9,
+              onTap: () {
+                _onSelectItem(9);
               },
             ),
             SizedBox(height: 50.0,)
