@@ -62,7 +62,7 @@ class _SandboxAppState extends State<SandboxApp> {
   Widget build(BuildContext context) {
     FirebaseAnalytics analytics = FirebaseAnalytics();
     return MaterialApp(
-      title: 'FCM - Calculator',
+      title: 'Converter NOW',
       home: ConversionManager(),
       theme: ThemeData(
         primaryColor: Colors.red,
