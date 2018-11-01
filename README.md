@@ -1,8 +1,12 @@
 # converter_pro
 
-A new Flutter application.
+TO-DO list v1.0.0:
 
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+-bug approssimazioni mantissa
+-bug setstate e cambio editText doppio cursore
+-bug altezza banner
+-bug nome app
+-icone unità di misura
+-visione pubblicità e stop annunci per 2 ore
+-versione pro
+-calcolatrice FAB
