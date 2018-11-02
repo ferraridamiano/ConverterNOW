@@ -40,8 +40,8 @@ android {
         applicationId "com.ferrarid.converterpro"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode 2
+        versionName '1.1'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -69,8 +69,8 @@ flutter {
 
 dependencies {
     testImplementation 'junit:junit:4.12'
-    implementation 'com.google.android.gms:play-services-ads:17.0.0'
-    implementation 'com.google.firebase:firebase-core:16.0.4'
+    //implementation 'com.google.android.gms:play-services-ads:17.0.0'
+    //implementation 'com.google.firebase:firebase-core:16.0.4'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
