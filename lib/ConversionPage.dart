@@ -1,4 +1,5 @@
 import 'package:converter_pro/Utils.dart';
+import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 
 class ConversionPage extends StatefulWidget {
@@ -100,7 +101,7 @@ class _ConversionPage extends State<ConversionPage> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-        padding: new EdgeInsets.only(top: 10.0,left: 10.0,right:10.0,bottom: 50.0),
+        padding: new EdgeInsets.only(top: 10.0,left: 10.0,right:10.0,bottom: AD_SIZE),
         children: createList(),//listCard
     );
   }

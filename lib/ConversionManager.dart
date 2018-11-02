@@ -3,6 +3,7 @@ import 'package:converter_pro/Localization.dart';
 import 'package:converter_pro/ReorderPage.dart';
 import 'package:converter_pro/SettingsPage.dart';
 import 'package:converter_pro/Utils.dart';
+import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -399,7 +400,7 @@ class _ConversionManager extends State<ConversionManager>{
                 _onSelectItem(9);
               },
             ),
-            SizedBox(height: 50.0,)
+            SizedBox(height: AD_SIZE,)
           ],
       ),
       ),

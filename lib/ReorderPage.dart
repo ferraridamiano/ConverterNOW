@@ -1,4 +1,5 @@
 import 'package:converter_pro/Utils.dart';
+import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'reorderable_list.dart';
 
@@ -107,7 +108,7 @@ class _ReorderPage extends State<ReorderPage> {
                         first: index == 0,
                         last: index == _items.length - 1),
                   ))),
-          SizedBox(height: 50.0,)
+          SizedBox(height: AD_SIZE,)
         ]),
     );
   }

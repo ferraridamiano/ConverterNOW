@@ -7,6 +7,7 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 const String app_id= "ca-app-pub-8125901756552853~1510088371";
+double AD_SIZE=50.0;
 
 MobileAdTargetingInfo targetingInfo = new MobileAdTargetingInfo(
   keywords: <String>['math', 'physics',"numbers", "measure"],
@@ -14,30 +15,16 @@ MobileAdTargetingInfo targetingInfo = new MobileAdTargetingInfo(
   birthday: new DateTime.now(),
   childDirected: false,
   designedForFamilies: false,
-  gender: MobileAdGender.male, // or MobileAdGender.female, MobileAdGender.unknown
+  gender: MobileAdGender.unknown, // or MobileAdGender.female, MobileAdGender.unknown
   testDevices: <String>[], // Android emulators are considered test devices
 );
 
 BannerAd myBanner = new BannerAd(
-  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-  // https://developers.google.com/admob/android/test-ads
-  // https://developers.google.com/admob/ios/test-ads
   adUnitId: "ca-app-pub-8125901756552853/6183830557",
-  size: AdSize.smartBanner,
+  size: AdSize.banner,
   targetingInfo: targetingInfo,
   listener: (MobileAdEvent event) {
     print("BannerAd event is $event");
-  },
-);
-
-InterstitialAd myInterstitial = new InterstitialAd(
-  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-  // https://developers.google.com/admob/android/test-ads
-  // https://developers.google.com/admob/ios/test-ads
-  adUnitId: InterstitialAd.testAdUnitId,
-  targetingInfo: targetingInfo,
-  listener: (MobileAdEvent event) {
-    print("InterstitialAd event is $event");
   },
 );
 
@@ -98,6 +85,7 @@ class _SandboxAppState extends State<SandboxApp> {
           ..show(
             anchorType: AnchorType.bottom,
           );
+        AD_SIZE=myBanner.size.height.toDouble();
 
         var mediaQuery=MediaQuery.of(context);
         double paddingBottom=0.0; //dovrebbe essere 50
