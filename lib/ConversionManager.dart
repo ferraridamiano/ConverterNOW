@@ -3,6 +3,7 @@ import 'package:converter_pro/Localization.dart';
 import 'package:converter_pro/ReorderPage.dart';
 import 'package:converter_pro/SettingsPage.dart';
 import 'package:converter_pro/Utils.dart';
+import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -328,78 +329,147 @@ class _ConversionManager extends State<ConversionManager>{
               fit: StackFit.passthrough,
             ),
 
-            ListTile(
-              title: Text(listaTitoli[0]),
-              selected: _currentPage==0,
-              onTap: (){
-                _onSelectItem(0);
-              }
+            ListTileTheme(
+              child:ListTile(
+                  title: Row(children: <Widget>[
+                    Image.asset("resources/images/lunghezza.png",width: 30.0,height: 30.0, color: _currentPage==0 ? listaColori[_currentPage] : Colors.black54,),
+                    SizedBox(width: 20.0,),
+                    Text(listaTitoli[0],)
+                  ],),
+                  selected: _currentPage==0,
+                  onTap: (){
+                    _onSelectItem(0);
+                  }
+              ),
+              selectedColor: listaColori[_currentPage],
             ),
-            ListTile(
-              title: Text(listaTitoli[1]),
-              selected: _currentPage==1,
-              onTap:(){
-                _onSelectItem(1);
-              }
+            ListTileTheme(
+              child: ListTile(title: Row(children: <Widget>[
+                Image.asset("resources/images/area.png",width: 30.0,height: 30.0, color:  _currentPage==1 ? listaColori[_currentPage] :Colors.black54,),
+                SizedBox(width: 20.0,),
+                Text(listaTitoli[1])
+              ],),
+                selected: _currentPage==1,
+                  onTap:(){
+                    _onSelectItem(1);
+                  }
+              ),
+              selectedColor: listaColori[_currentPage],
+            ),
 
+            ListTileTheme(
+              child:ListTile(
+                title: Row(children: <Widget>[
+                  Image.asset("resources/images/volume.png",width: 30.0,height: 30.0, color:  _currentPage==2 ? listaColori[_currentPage] :Colors.black54,),
+                  SizedBox(width: 20.0,),
+                  Text(listaTitoli[2])
+                ],),
+                selected: _currentPage==2,
+                onTap: () {
+                  _onSelectItem(2);
+                },
+              ),
+              selectedColor: listaColori[_currentPage],
             ),
-            ListTile(
-              title: Text(listaTitoli[2]),
-              selected: _currentPage==2,
-              onTap: () {
-                _onSelectItem(2);
-              },
+            ListTileTheme(
+                child:ListTile(
+                  title: Row(children: <Widget>[
+                    Icon(Icons.access_time, color:  _currentPage==3 ? listaColori[_currentPage] :Colors.black54,size: 30.0,),
+                    SizedBox(width: 20.0,),
+                    Text(listaTitoli[3])
+                  ],),
+                  selected: _currentPage==3,
+                  onTap: () {
+                    _onSelectItem(3);
+                  },
+                ),
+              selectedColor: listaColori[_currentPage],
             ),
-            ListTile(
-              title: Text(listaTitoli[3]),
-              selected: _currentPage==3,
-              onTap: () {
-                _onSelectItem(3);
-              },
+            ListTileTheme(
+                child:ListTile(
+                  title: Row(children: <Widget>[
+                    Image.asset("resources/images/temperatura.png",width: 30.0,height: 30.0, color:  _currentPage==4 ? listaColori[_currentPage] :Colors.black54,),
+                    SizedBox(width: 20.0,),
+                    Text(listaTitoli[4])
+                  ],),
+                  selected: _currentPage==4,
+                  onTap: () {
+                    _onSelectItem(4);
+                  },
+                ),
+              selectedColor: listaColori[_currentPage],
             ),
-            ListTile(
-              title: Text(listaTitoli[4]),
-              selected: _currentPage==4,
-              onTap: () {
-                _onSelectItem(4);
-              },
+            ListTileTheme(
+                child:ListTile(
+                  title: Row(children: <Widget>[
+                    Image.asset("resources/images/speed.png",width: 30.0,height: 30.0, color:  _currentPage==5 ? listaColori[_currentPage] :Colors.black54,),
+                    SizedBox(width: 20.0,),
+                    Text(listaTitoli[5])
+                  ],),
+                  selected: _currentPage==5,
+                  onTap: () {
+                    _onSelectItem(5);
+                  },
+                ),
+              selectedColor: listaColori[_currentPage],
             ),
-            ListTile(
-              title: Text(listaTitoli[5]),
-              selected: _currentPage==5,
-              onTap: () {
-                _onSelectItem(5);
-              },
+            ListTileTheme(
+                child:ListTile(
+                  title: Row(children: <Widget>[
+                    Image.asset("resources/images/prefissi.png",width: 30.0,height: 30.0, color:  _currentPage==6 ? listaColori[_currentPage] :Colors.black54,),
+                    SizedBox(width: 20.0,),
+                    Text(listaTitoli[6])
+                  ],),
+                  selected: _currentPage==6,
+                  onTap: () {
+                    _onSelectItem(6);
+                  },
+                ),
+              selectedColor: listaColori[_currentPage],
             ),
-            ListTile(
-              title: Text(listaTitoli[6]),
-              selected: _currentPage==6,
-              onTap: () {
-                _onSelectItem(6);
-              },
+            ListTileTheme(
+                child:ListTile(
+                  title: Row(children: <Widget>[
+                    Image.asset("resources/images/massa.png",width: 30.0,height: 30.0, color:  _currentPage==7 ? listaColori[_currentPage] :Colors.black54,),
+                    SizedBox(width: 20.0,),
+                    Text(listaTitoli[7])
+                  ],),
+                  selected: _currentPage==7,
+                  onTap: () {
+                    _onSelectItem(7);
+                  },
+                ),
+              selectedColor: listaColori[_currentPage],
             ),
-            ListTile(
-              title: Text(listaTitoli[7]),
-              selected: _currentPage==7,
-              onTap: () {
-                _onSelectItem(7);
-              },
+            ListTileTheme(
+                child:ListTile(
+                  title: Row(children: <Widget>[
+                    Image.asset("resources/images/pressione.png",width: 30.0,height: 30.0, color:  _currentPage==8 ? listaColori[_currentPage] :Colors.black54,),
+                    SizedBox(width: 20.0,),
+                    Text(listaTitoli[8])
+                  ],),
+                  selected: _currentPage==8,
+                  onTap: () {
+                    _onSelectItem(8);
+                  },
+                ),
+              selectedColor: listaColori[_currentPage],
             ),
-            ListTile(
-              title: Text(listaTitoli[8]),
-              selected: _currentPage==8,
-              onTap: () {
-                _onSelectItem(8);
-              },
+            ListTileTheme(
+                child:ListTile(
+                  title: Row(children: <Widget>[
+                    Image.asset("resources/images/energia.png",width: 30.0,height: 30.0, color:  _currentPage==9 ? listaColori[_currentPage] :Colors.black54,),
+                    SizedBox(width: 20.0,),
+                    Text(listaTitoli[9])
+                  ],),
+                  selected: _currentPage==9,
+                  onTap: () {
+                    _onSelectItem(9);
+                  },
+                ),
+              selectedColor: listaColori[_currentPage],
             ),
-            ListTile(
-              title: Text(listaTitoli[9]),
-              selected: _currentPage==9,
-              onTap: () {
-                _onSelectItem(9);
-              },
-            ),
-            SizedBox(height: 50.0,)
+            SizedBox(height: AD_SIZE,)
           ],
       ),
       ),

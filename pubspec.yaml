@@ -58,6 +58,16 @@ flutter:
         - resources/lang/en.json
         - resources/lang/it.json
         - resources/images/logo.png
+        - resources/images/lunghezza.png
+        - resources/images/massa.png
+        - resources/images/energia.png
+        - resources/images/pressione.png
+        - resources/images/speed.png
+        - resources/images/temperatura.png
+        - resources/images/volume.png
+        - resources/images/area.png
+        - resources/images/prefissi.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
