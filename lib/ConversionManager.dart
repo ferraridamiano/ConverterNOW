@@ -330,147 +330,16 @@ class _ConversionManager extends State<ConversionManager>{
               fit: StackFit.passthrough,
             ),
 
-            ListTileTheme(
-              child:ListTile(
-                  title: Row(children: <Widget>[
-                    SvgPicture.asset("resources/images/lunghezza.svg",width: 30.0, height: 30.0,color: _currentPage==0 ? listaColori[_currentPage] : Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[0],)
-                  ],),
-                  selected: _currentPage==0,
-                  onTap: (){
-                    _onSelectItem(0);
-                  }
-              ),
-              selectedColor: listaColori[_currentPage],
-            ),
-
-            ListTileTheme(
-              child: ListTile(title: Row(children: <Widget>[
-                SvgPicture.asset("resources/images/area.svg",width: 30.0,height: 30.0, color:  _currentPage==1 ? listaColori[_currentPage] :Colors.black54,),
-                SizedBox(width: 20.0,),
-                Text(listaTitoli[1])
-              ],),
-                selected: _currentPage==1,
-                  onTap:(){
-                    _onSelectItem(1);
-                  }
-              ),
-              selectedColor: listaColori[_currentPage],
-            ),
-
-            ListTileTheme(
-              child:ListTile(
-                title: Row(children: <Widget>[
-                  SvgPicture.asset("resources/images/volume.svg",width: 30.0,height: 30.0, color:  _currentPage==2 ? listaColori[_currentPage] :Colors.black54,),
-                  SizedBox(width: 20.0,),
-                  Text(listaTitoli[2])
-                ],),
-                selected: _currentPage==2,
-                onTap: () {
-                  _onSelectItem(2);
-                },
-              ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    Icon(Icons.access_time, color:  _currentPage==3 ? listaColori[_currentPage] :Colors.black54,size: 30.0,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[3])
-                  ],),
-                  selected: _currentPage==3,
-                  onTap: () {
-                    _onSelectItem(3);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    SvgPicture.asset("resources/images/temperatura.svg",width: 30.0,height: 30.0, color:  _currentPage==4 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[4])
-                  ],),
-                  selected: _currentPage==4,
-                  onTap: () {
-                    _onSelectItem(4);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    SvgPicture.asset("resources/images/velocita.svg",width: 30.0,height: 30.0, color:  _currentPage==5 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[5])
-                  ],),
-                  selected: _currentPage==5,
-                  onTap: () {
-                    _onSelectItem(5);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    Image.asset("resources/images/prefissi.png",width: 30.0,height: 30.0, color:  _currentPage==6 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[6])
-                  ],),
-                  selected: _currentPage==6,
-                  onTap: () {
-                    _onSelectItem(6);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    SvgPicture.asset("resources/images/massa.svg",width: 30.0,height: 30.0, color:  _currentPage==7 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[7])
-                  ],),
-                  selected: _currentPage==7,
-                  onTap: () {
-                    _onSelectItem(7);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    SvgPicture.asset("resources/images/pressione.svg",width: 30.0,height: 30.0, color:  _currentPage==8 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[8])
-                  ],),
-                  selected: _currentPage==8,
-                  onTap: () {
-                    _onSelectItem(8);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    SvgPicture.asset("resources/images/energia.svg",width: 30.0,height: 30.0, color:  _currentPage==9 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[9])
-                  ],),
-                  selected: _currentPage==9,
-                  onTap: () {
-                    _onSelectItem(9);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
+            ListTileConversion(listaTitoli[0],"resources/images/lunghezza.svg",listaColori[0],_currentPage==0,(){_onSelectItem(0);}),
+            ListTileConversion(listaTitoli[1],"resources/images/area.svg",listaColori[1],_currentPage==1,(){_onSelectItem(1);}),
+            ListTileConversion(listaTitoli[2],"resources/images/volume.svg",listaColori[2],_currentPage==2,(){_onSelectItem(2);}),
+            ListTileConversion(listaTitoli[3],"resources/images/tempo.svg",listaColori[3],_currentPage==3,(){_onSelectItem(3);}),
+            ListTileConversion(listaTitoli[4],"resources/images/temperatura.svg",listaColori[4],_currentPage==4,(){_onSelectItem(4);}),
+            ListTileConversion(listaTitoli[5],"resources/images/velocita.svg",listaColori[5],_currentPage==5,(){_onSelectItem(5);}),
+            ListTileConversion(listaTitoli[6],"resources/images/prefissi.svg",listaColori[6],_currentPage==6,(){_onSelectItem(6);}),
+            ListTileConversion(listaTitoli[7],"resources/images/massa.svg",listaColori[7],_currentPage==7,(){_onSelectItem(7);}),
+            ListTileConversion(listaTitoli[8],"resources/images/pressione.svg",listaColori[8],_currentPage==8,(){_onSelectItem(8);}),
+            ListTileConversion(listaTitoli[9],"resources/images/energia.svg",listaColori[9],_currentPage==9,(){_onSelectItem(9);}),
             SizedBox(height: AD_SIZE,)
           ],
       ),
@@ -486,4 +355,35 @@ class Choice {
 
   final String title;
   final IconData icon;
+}
+
+class ListTileConversion extends StatefulWidget {
+
+  String text;
+  String imagePath;
+  Color color;
+  bool selected;
+  Function onTapFunction;
+  ListTileConversion(this.text, this.imagePath, this.color, this.selected,this.onTapFunction);
+
+  @override
+  _ListTileConversion createState() => new _ListTileConversion();
+}
+
+class _ListTileConversion extends State<ListTileConversion>{
+  @override
+  Widget build(BuildContext context) {
+    return ListTileTheme(
+      child:ListTile(
+        title: Row(children: <Widget>[
+          SvgPicture.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? widget.color : Colors.black54,),
+          SizedBox(width: 20.0,),
+          Text(widget.text)
+        ],),
+        selected: widget.selected,
+        onTap: widget.onTapFunction
+      ),
+      selectedColor: widget.color,
+    );
+  }
 }

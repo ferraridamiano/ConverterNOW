@@ -67,7 +67,8 @@ flutter:
         - resources/images/temperatura.svg
         - resources/images/volume.svg
         - resources/images/area.svg
-        - resources/images/prefissi.png
+        - resources/images/prefissi.svg
+        - resources/images/tempo.svg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
