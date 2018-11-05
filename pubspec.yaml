@@ -21,6 +21,7 @@ dependencies:
   flutter_launcher_icons: ^0.6.1
   shared_preferences: ^0.4.3
   url_launcher: ^4.0.1
+  flutter_svg: ^0.6.3
   #fluttertoast: ^2.0.7
 
   # The following adds the Cupertino Icons font to your application.
@@ -58,14 +59,14 @@ flutter:
         - resources/lang/en.json
         - resources/lang/it.json
         - resources/images/logo.png
-        - resources/images/lunghezza.png
-        - resources/images/massa.png
-        - resources/images/energia.png
-        - resources/images/pressione.png
-        - resources/images/speed.png
-        - resources/images/temperatura.png
-        - resources/images/volume.png
-        - resources/images/area.png
+        - resources/images/lunghezza.svg
+        - resources/images/massa.svg
+        - resources/images/energia.svg
+        - resources/images/pressione.svg
+        - resources/images/velocita.svg
+        - resources/images/temperatura.svg
+        - resources/images/volume.svg
+        - resources/images/area.svg
         - resources/images/prefissi.png
 
 
