@@ -59,6 +59,7 @@ flutter:
         - resources/lang/en.json
         - resources/lang/it.json
         - resources/images/logo.png
+        - resources/images/logo.svg
         - resources/images/lunghezza.svg
         - resources/images/massa.svg
         - resources/images/energia.svg

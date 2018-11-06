@@ -36,6 +36,7 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderEnergia=[0,1,2,3];
   static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia];
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+2);//+2 perchè c'è l'intestazione con il logo e lo spazio finale
+  static List listaOrderDrawer=[0,1,2,3,4,5,6,7,8,9];
 
   @override
   void initState() {
@@ -48,7 +49,7 @@ class _ConversionManager extends State<ConversionManager>{
       children: <Widget>[
         DrawerHeader(
           child: Container(
-            child: Image.asset("resources/images/logo.png"),
+            child: SvgPicture.asset("resources/images/logo.svg"),
           ),
           decoration: BoxDecoration(color: listaColori[_currentPage],),
         ),
