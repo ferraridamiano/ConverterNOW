@@ -6,6 +6,7 @@ import 'package:converter_pro/Utils.dart';
 import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ConversionManager extends StatefulWidget{
   @override
@@ -15,11 +16,14 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-  static final MAX_CONVERSION_UNITS =10;
-  List listaConversioni;
-  List listaColori;
-  List listaTitoli;
-  int _currentPage=0;
+  static final MAX_CONVERSION_UNITS =11;
+  static List listaConversioni;
+  static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
+  Colors.cyan, Colors.indigo, Colors.purple,
+  Colors.blueGrey,Colors.green,Colors.pinkAccent,
+  Colors.teal, Colors.blue];
+  static List listaTitoli;
+  static int _currentPage=0;
   static List orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
   static List orderSuperficie=[0,1,2,3,4,5,6,7,8,9];
   static List orderVolume=[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
@@ -30,7 +34,10 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderMassa=[0,1,2,3,4,5,6,7];
   static List orderPressione=[0,1,2,3,4,5];
   static List orderEnergia=[0,1,2,3];
-  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia];
+  static List orderAngoli=[0,1,2,3];
+  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,orderAngoli];
+  static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+2);//+2 perchè c'è l'intestazione con il logo e lo spazio finale
+  static List<int> listaOrderDrawer=[0,1,2,3,4,5,6,7,8,9,10]; //fino a maxconversionunits
 
   @override
   void initState() {
@@ -38,6 +45,56 @@ class _ConversionManager extends State<ConversionManager>{
     _getOrders();
   }
 
+  void initializeTiles(){
+    listaDrawer[0]=(Stack(
+      children: <Widget>[
+        DrawerHeader(
+          child: Container(
+              child:SvgPicture.asset("resources/images/logo.svg",),
+          ),
+          decoration: BoxDecoration(color: listaColori[_currentPage],),
+        ),
+        Container(
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.reorder,color: Colors.white,),
+                onPressed:(){
+                  _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaColori[_currentPage]);
+                }
+              ),
+              IconButton(
+                icon:Icon(Icons.settings,color: Colors.white,),
+                onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SettingsPage()),
+                  );
+                },
+              ),
+            ],
+          ),
+          height: 190.0,
+          alignment: FractionalOffset.bottomRight,
+        )
+
+      ],
+      fit: StackFit.passthrough,
+    ));
+    listaDrawer[listaOrderDrawer[0]+1]=ListTileConversion(listaTitoli[0],"resources/images/lunghezza.svg",listaColori[0],_currentPage==0,(){_onSelectItem(0);});
+    listaDrawer[listaOrderDrawer[1]+1]=ListTileConversion(listaTitoli[1],"resources/images/area.svg",listaColori[1],_currentPage==1,(){_onSelectItem(1);});
+    listaDrawer[listaOrderDrawer[2]+1]=ListTileConversion(listaTitoli[2],"resources/images/volume.svg",listaColori[2],_currentPage==2,(){_onSelectItem(2);});
+    listaDrawer[listaOrderDrawer[3]+1]=ListTileConversion(listaTitoli[3],"resources/images/tempo.svg",listaColori[3],_currentPage==3,(){_onSelectItem(3);});
+    listaDrawer[listaOrderDrawer[4]+1]=ListTileConversion(listaTitoli[4],"resources/images/temperatura.svg",listaColori[4],_currentPage==4,(){_onSelectItem(4);});
+    listaDrawer[listaOrderDrawer[5]+1]=ListTileConversion(listaTitoli[5],"resources/images/velocita.svg",listaColori[5],_currentPage==5,(){_onSelectItem(5);});
+    listaDrawer[listaOrderDrawer[6]+1]=ListTileConversion(listaTitoli[6],"resources/images/prefissi.svg",listaColori[6],_currentPage==6,(){_onSelectItem(6);});
+    listaDrawer[listaOrderDrawer[7]+1]=ListTileConversion(listaTitoli[7],"resources/images/massa.svg",listaColori[7],_currentPage==7,(){_onSelectItem(7);});
+    listaDrawer[listaOrderDrawer[8]+1]=ListTileConversion(listaTitoli[8],"resources/images/pressione.svg",listaColori[8],_currentPage==8,(){_onSelectItem(8);});
+    listaDrawer[listaOrderDrawer[9]+1]=ListTileConversion(listaTitoli[9],"resources/images/energia.svg",listaColori[9],_currentPage==9,(){_onSelectItem(9);});
+    listaDrawer[listaOrderDrawer[10]+1]=ListTileConversion(listaTitoli[10],"resources/images/angoli.svg",listaColori[10],_currentPage==10,(){_onSelectItem(10);});
+    listaDrawer[MAX_CONVERSION_UNITS+1]=SizedBox(height: AD_SIZE,);
+  }
 
   _onSelectItem(int index) {
     if(_currentPage!=index) {
@@ -59,13 +116,25 @@ class _ConversionManager extends State<ConversionManager>{
   _getOrders() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    for(int i=0;i<MAX_CONVERSION_UNITS;i++){
-      List StringList=prefs.getStringList("conversion_$i");
+    //aggiorno lista del drawer
+    List <String> stringList=prefs.getStringList("orderDrawer");
+    setState((){
+      if(stringList!=null){
+        for(int i=0;i<MAX_CONVERSION_UNITS;i++){
+          listaOrderDrawer[i]=int.parse(stringList[i]);
+        }
+      }
+    });
 
-      if(StringList!=null){
+
+    //aggiorno ordine unità di ogni grandezza fisica
+    for(int i=0;i<MAX_CONVERSION_UNITS;i++){
+      stringList=prefs.getStringList("conversion_$i");
+
+      if(stringList!=null){
         List intList=new List();
-        for(int j=0;j<StringList.length;j++){
-          intList.add(int.parse(StringList[j]));
+        for(int j=0;j<stringList.length;j++){
+          intList.add(int.parse(stringList[j]));
         }
         if(i==_currentPage){
           setState(() {
@@ -79,19 +148,48 @@ class _ConversionManager extends State<ConversionManager>{
     }
   }
 
+  _changeOrderDrawer(BuildContext context,String title, Color color) async{
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    Navigator.of(context).pop();
+
+    List orderedList=new List(MAX_CONVERSION_UNITS);
+    for(int i=0;i<MAX_CONVERSION_UNITS;i++){
+      orderedList[listaOrderDrawer[i]]=listaTitoli[i];
+    }
 
 
-  _navigateChangeOrder(BuildContext context,String title, Node nodo, Color color) async {
-    // Navigator.push returns a Future that will complete after we call
-    // Navigator.pop on the Selection Screen!
     final result = await Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ReorderPage(
             title: title,
-            fatherNode: nodo,
+            listaElementi: orderedList,
             color:color
         ),));
-    //
+
+    List arrayCopia=new List(listaOrderDrawer.length);
+    for(int i=0;i<listaOrderDrawer.length;i++)
+      arrayCopia[i]=listaOrderDrawer[i];
+    setState(() {
+      for(int i=0;i<listaOrderDrawer.length;i++)
+        listaOrderDrawer[i]=result.indexOf(arrayCopia[i]);
+    });
+
+    List<String> toConvertList=new List();
+    for(int item in listaOrderDrawer)
+      toConvertList.add(item.toString());
+    prefs.setStringList("orderDrawer", toConvertList);
+
+  }
+
+  _changeOrderUnita(BuildContext context,String title, List listaStringhe, Color color) async{
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ReorderPage(
+            title: title,
+            listaElementi: listaStringhe,
+            color:color
+        ),));
     List arrayCopia=new List(listaOrder[_currentPage].length);
     for(int i=0;i<listaOrder[_currentPage].length;i++)
       arrayCopia[i]=listaOrder[_currentPage][i];
@@ -101,6 +199,7 @@ class _ConversionManager extends State<ConversionManager>{
     });
     _saveOrders();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -256,17 +355,20 @@ class _ConversionManager extends State<ConversionManager>{
           Node(isMultiplication: true, coefficientPer: 3600000.0, name: MyLocalizations.of(context).trans('kilowattora'),order: listaOrder[9][2],),
           Node(isMultiplication: true, coefficientPer: 1.60217646e-19, name: MyLocalizations.of(context).trans('elettronvolt'),order: listaOrder[9][3],),
         ]);
+    Node gradi=Node(name:MyLocalizations.of(context).trans('gradi'),order: listaOrder[10][0],
+        leafNodes: [
+          Node(isMultiplication: false, coefficientPer: 60.0, name: MyLocalizations.of(context).trans('primi'),order: listaOrder[10][1]),
+          Node(isMultiplication: false, coefficientPer: 3600.0, name: MyLocalizations.of(context).trans('secondi'),order: listaOrder[10][2]),
+          Node(isMultiplication: true, coefficientPer: 57.295779513, name: MyLocalizations.of(context).trans('radianti'),order: listaOrder[10][3]),
+    ]);
 
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule];
-    listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
-    Colors.cyan, Colors.indigo, Colors.purple,
-    Colors.blueGrey,Colors.green,Colors.pinkAccent,
-    Colors.teal];
+    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi];
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
-    MyLocalizations.of(context).trans('energia')];
+    MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli')];
+    initializeTiles();
 
     List<Choice> choices = <Choice>[
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
@@ -285,7 +387,7 @@ class _ConversionManager extends State<ConversionManager>{
             },),
           PopupMenuButton<Choice>(
             onSelected: (Choice choice){
-              _navigateChangeOrder(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage], listaColori[_currentPage]);
+              _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage].getStringOrderedNodiFiglio(), listaColori[_currentPage]);
             },
             itemBuilder: (BuildContext context) {
               return choices.map((Choice choice) {
@@ -301,176 +403,7 @@ class _ConversionManager extends State<ConversionManager>{
       drawer: new Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                DrawerHeader(
-                  child: Container(
-                    child: Image.asset("resources/images/logo.png"),
-                  ),
-                  decoration: BoxDecoration(color: listaColori[_currentPage],),
-                ),
-                Container(
-                    child:IconButton(
-                      icon:Icon(Icons.settings),
-                      color: Colors.white,
-                      onPressed: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SettingsPage()),
-                        );
-                      },
-                    ),
-                  height: 190.0,
-                  alignment: FractionalOffset.bottomRight,
-                )
-
-              ],
-              fit: StackFit.passthrough,
-            ),
-
-            ListTileTheme(
-              child:ListTile(
-                  title: Row(children: <Widget>[
-                    Image.asset("resources/images/lunghezza.png",width: 30.0,height: 30.0, color: _currentPage==0 ? listaColori[_currentPage] : Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[0],)
-                  ],),
-                  selected: _currentPage==0,
-                  onTap: (){
-                    _onSelectItem(0);
-                  }
-              ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-              child: ListTile(title: Row(children: <Widget>[
-                Image.asset("resources/images/area.png",width: 30.0,height: 30.0, color:  _currentPage==1 ? listaColori[_currentPage] :Colors.black54,),
-                SizedBox(width: 20.0,),
-                Text(listaTitoli[1])
-              ],),
-                selected: _currentPage==1,
-                  onTap:(){
-                    _onSelectItem(1);
-                  }
-              ),
-              selectedColor: listaColori[_currentPage],
-            ),
-
-            ListTileTheme(
-              child:ListTile(
-                title: Row(children: <Widget>[
-                  Image.asset("resources/images/volume.png",width: 30.0,height: 30.0, color:  _currentPage==2 ? listaColori[_currentPage] :Colors.black54,),
-                  SizedBox(width: 20.0,),
-                  Text(listaTitoli[2])
-                ],),
-                selected: _currentPage==2,
-                onTap: () {
-                  _onSelectItem(2);
-                },
-              ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    Icon(Icons.access_time, color:  _currentPage==3 ? listaColori[_currentPage] :Colors.black54,size: 30.0,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[3])
-                  ],),
-                  selected: _currentPage==3,
-                  onTap: () {
-                    _onSelectItem(3);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    Image.asset("resources/images/temperatura.png",width: 30.0,height: 30.0, color:  _currentPage==4 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[4])
-                  ],),
-                  selected: _currentPage==4,
-                  onTap: () {
-                    _onSelectItem(4);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    Image.asset("resources/images/speed.png",width: 30.0,height: 30.0, color:  _currentPage==5 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[5])
-                  ],),
-                  selected: _currentPage==5,
-                  onTap: () {
-                    _onSelectItem(5);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    Image.asset("resources/images/prefissi.png",width: 30.0,height: 30.0, color:  _currentPage==6 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[6])
-                  ],),
-                  selected: _currentPage==6,
-                  onTap: () {
-                    _onSelectItem(6);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    Image.asset("resources/images/massa.png",width: 30.0,height: 30.0, color:  _currentPage==7 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[7])
-                  ],),
-                  selected: _currentPage==7,
-                  onTap: () {
-                    _onSelectItem(7);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    Image.asset("resources/images/pressione.png",width: 30.0,height: 30.0, color:  _currentPage==8 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[8])
-                  ],),
-                  selected: _currentPage==8,
-                  onTap: () {
-                    _onSelectItem(8);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            ListTileTheme(
-                child:ListTile(
-                  title: Row(children: <Widget>[
-                    Image.asset("resources/images/energia.png",width: 30.0,height: 30.0, color:  _currentPage==9 ? listaColori[_currentPage] :Colors.black54,),
-                    SizedBox(width: 20.0,),
-                    Text(listaTitoli[9])
-                  ],),
-                  selected: _currentPage==9,
-                  onTap: () {
-                    _onSelectItem(9);
-                  },
-                ),
-              selectedColor: listaColori[_currentPage],
-            ),
-            SizedBox(height: AD_SIZE,)
-          ],
+          children: listaDrawer,
       ),
       ),
       body: ConversionPage(listaConversioni[_currentPage]),
@@ -484,4 +417,37 @@ class Choice {
 
   final String title;
   final IconData icon;
+}
+
+class ListTileConversion extends StatefulWidget{
+  String text;
+  String imagePath;
+  Color color;
+  bool selected;
+  Function onTapFunction;
+  ListTileConversion(this.text, this.imagePath, this.color, this.selected,this.onTapFunction);
+
+  @override
+  _ListTileConversion createState() => new _ListTileConversion();
+}
+
+class _ListTileConversion extends State<ListTileConversion>{
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTileTheme(
+      child:ListTile(
+        title: Row(children: <Widget>[
+          SvgPicture.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? widget.color : Colors.black54,),
+          SizedBox(width: 20.0,),
+          Text(widget.text)
+        ],),
+        selected: widget.selected,
+        onTap: widget.onTapFunction
+      ),
+      selectedColor: widget.color,
+    );
+  }
 }

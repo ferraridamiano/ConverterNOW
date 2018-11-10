@@ -1,13 +1,12 @@
-import 'package:converter_pro/Utils.dart';
 import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'reorderable_list.dart';
 
 class ReorderPage extends StatefulWidget {
-  ReorderPage({Key key, this.title ,this.fatherNode, this.color}) : super(key: key);
+  ReorderPage({Key key, this.title ,this.listaElementi, this.color}) : super(key: key);
 
   final String title;
-  Node fatherNode;
+  List listaElementi;
   Color color;
 
   @override
@@ -28,9 +27,8 @@ class _ReorderPage extends State<ReorderPage> {
 
   initialize() {
     _items = new List();
-    List<Node> listaNodi=widget.fatherNode.getOrderedNodiFiglio();
-    for (int i = 0; i < listaNodi.length; ++i)
-      _items.add(new ItemData(listaNodi[i].name, new ValueKey(i)));
+    for (int i = 0; i < widget.listaElementi.length; ++i)
+      _items.add(new ItemData(widget.listaElementi[i], new ValueKey(i)));
   }
 
   @override
@@ -91,8 +89,6 @@ class _ReorderPage extends State<ReorderPage> {
                 orderedList[i]=myKey.value;
               }
               Navigator.pop(context,orderedList);
-
-              //print(widget.fatherNode.getOrderedNodiFiglio()[0].name);
             },
           )],
         ),

@@ -150,6 +150,15 @@ class Node {
     return orderedNodi;
   }
 
+  List<String> getStringOrderedNodiFiglio(){
+    List<Node> listaNodi=getOrderedNodiFiglio();
+    List<String>listaString=new List();
+    for(Node node in listaNodi){
+      listaString.add(node.name);
+    }
+    return listaString;
+  }
+
   void ReorderNodes(List<int> listaOrdine){
     List<Node> listaNodi=getOrderedNodiFiglio();
     for(int i=0; i<listaNodi.length;i++)
