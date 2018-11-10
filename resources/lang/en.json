@@ -15,6 +15,7 @@
   "massa": "Mass",
   "pressione": "Pressure",
   "energia":"Energy",
+  "angoli":"Angles",
 
   "metro": "Metres [m]",
   "centimetro": "Centimetres [cm]",
@@ -104,5 +105,10 @@
   "joule": "Joule [J]",
   "calorie": "Calorie [cal]",
   "kilowattora": "Kilowatt Hour [kwh]",
-  "elettronvolt": "Electronvolt [eV]"
+  "elettronvolt": "Electronvolt [eV]",
+
+  "gradi": "Degree [°]",
+  "primi": "Minutes [']",
+  "secondi": "Seconds ['']",
+  "radianti": "Radians [rad]"
 }

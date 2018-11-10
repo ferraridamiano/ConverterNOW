@@ -16,12 +16,12 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-  static final MAX_CONVERSION_UNITS =10;
+  static final MAX_CONVERSION_UNITS =11;
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
   Colors.cyan, Colors.indigo, Colors.purple,
   Colors.blueGrey,Colors.green,Colors.pinkAccent,
-  Colors.teal];
+  Colors.teal, Colors.blue];
   static List listaTitoli;
   static int _currentPage=0;
   static List orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
@@ -34,9 +34,10 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderMassa=[0,1,2,3,4,5,6,7];
   static List orderPressione=[0,1,2,3,4,5];
   static List orderEnergia=[0,1,2,3];
-  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia];
+  static List orderAngoli=[0,1,2,3];
+  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,orderAngoli];
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+2);//+2 perchè c'è l'intestazione con il logo e lo spazio finale
-  static List<int> listaOrderDrawer=[0,1,2,3,4,5,6,7,8,9];
+  static List<int> listaOrderDrawer=[0,1,2,3,4,5,6,7,8,9,10]; //fino a maxconversionunits
 
   @override
   void initState() {
@@ -91,6 +92,7 @@ class _ConversionManager extends State<ConversionManager>{
     listaDrawer[listaOrderDrawer[7]+1]=ListTileConversion(listaTitoli[7],"resources/images/massa.svg",listaColori[7],_currentPage==7,(){_onSelectItem(7);});
     listaDrawer[listaOrderDrawer[8]+1]=ListTileConversion(listaTitoli[8],"resources/images/pressione.svg",listaColori[8],_currentPage==8,(){_onSelectItem(8);});
     listaDrawer[listaOrderDrawer[9]+1]=ListTileConversion(listaTitoli[9],"resources/images/energia.svg",listaColori[9],_currentPage==9,(){_onSelectItem(9);});
+    listaDrawer[listaOrderDrawer[10]+1]=ListTileConversion(listaTitoli[10],"resources/images/angoli.svg",listaColori[10],_currentPage==10,(){_onSelectItem(10);});
     listaDrawer[MAX_CONVERSION_UNITS+1]=SizedBox(height: AD_SIZE,);
   }
 
@@ -114,13 +116,25 @@ class _ConversionManager extends State<ConversionManager>{
   _getOrders() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    for(int i=0;i<MAX_CONVERSION_UNITS;i++){
-      List StringList=prefs.getStringList("conversion_$i");
+    //aggiorno lista del drawer
+    List <String> stringList=prefs.getStringList("orderDrawer");
+    setState((){
+      if(stringList!=null){
+        for(int i=0;i<MAX_CONVERSION_UNITS;i++){
+          listaOrderDrawer[i]=int.parse(stringList[i]);
+        }
+      }
+    });
 
-      if(StringList!=null){
+
+    //aggiorno ordine unità di ogni grandezza fisica
+    for(int i=0;i<MAX_CONVERSION_UNITS;i++){
+      stringList=prefs.getStringList("conversion_$i");
+
+      if(stringList!=null){
         List intList=new List();
-        for(int j=0;j<StringList.length;j++){
-          intList.add(int.parse(StringList[j]));
+        for(int j=0;j<stringList.length;j++){
+          intList.add(int.parse(stringList[j]));
         }
         if(i==_currentPage){
           setState(() {
@@ -136,6 +150,7 @@ class _ConversionManager extends State<ConversionManager>{
 
   _changeOrderDrawer(BuildContext context,String title, Color color) async{
 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     Navigator.of(context).pop();
 
     List orderedList=new List(MAX_CONVERSION_UNITS);
@@ -159,6 +174,11 @@ class _ConversionManager extends State<ConversionManager>{
       for(int i=0;i<listaOrderDrawer.length;i++)
         listaOrderDrawer[i]=result.indexOf(arrayCopia[i]);
     });
+
+    List<String> toConvertList=new List();
+    for(int item in listaOrderDrawer)
+      toConvertList.add(item.toString());
+    prefs.setStringList("orderDrawer", toConvertList);
 
   }
 
@@ -335,13 +355,19 @@ class _ConversionManager extends State<ConversionManager>{
           Node(isMultiplication: true, coefficientPer: 3600000.0, name: MyLocalizations.of(context).trans('kilowattora'),order: listaOrder[9][2],),
           Node(isMultiplication: true, coefficientPer: 1.60217646e-19, name: MyLocalizations.of(context).trans('elettronvolt'),order: listaOrder[9][3],),
         ]);
+    Node gradi=Node(name:MyLocalizations.of(context).trans('gradi'),order: listaOrder[10][0],
+        leafNodes: [
+          Node(isMultiplication: false, coefficientPer: 60.0, name: MyLocalizations.of(context).trans('primi'),order: listaOrder[10][1]),
+          Node(isMultiplication: false, coefficientPer: 3600.0, name: MyLocalizations.of(context).trans('secondi'),order: listaOrder[10][2]),
+          Node(isMultiplication: true, coefficientPer: 57.295779513, name: MyLocalizations.of(context).trans('radianti'),order: listaOrder[10][3]),
+    ]);
 
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule];
+    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi];
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
-    MyLocalizations.of(context).trans('energia')];
+    MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli')];
     initializeTiles();
 
     List<Choice> choices = <Choice>[
