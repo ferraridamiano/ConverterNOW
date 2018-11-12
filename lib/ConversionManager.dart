@@ -123,6 +123,7 @@ class _ConversionManager extends State<ConversionManager>{
         for(int i=0;i<MAX_CONVERSION_UNITS;i++){
           listaOrderDrawer[i]=int.parse(stringList[i]);
         }
+        _currentPage=listaOrderDrawer[0];
       }
     });
 
