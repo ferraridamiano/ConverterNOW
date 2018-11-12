@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class UnitCard extends StatelessWidget {
   UnitCard({this.node, this.textField});
@@ -165,6 +166,56 @@ class Node {
       listaNodi[i].order=listaOrdine[i];
   }
 
+  String MantissaCorrection(){
+    String stringValue=value.toString();
 
+    //stacco la parte esponenziale e la attacco alla fine
+    String append="";
+    if(stringValue.contains("e")) {
+      append = "e" + stringValue.split("e")[1];
+      stringValue=stringValue.split("e")[0];
+    }
+
+    if(stringValue.contains("999999")){
+      if(stringValue.indexOf("999999")>(stringValue.indexOf(".") ==-1 ? stringValue.indexOf("999999")+1 : stringValue.indexOf("."))){ // se il numero cercato è dopo la virgola
+        int index=stringValue.split(".")[1].indexOf("999999"); //es:    1.999999 index=1;
+        value=value+pow(10,-index-6);                          //10^-6 =0.000001 che sommato a value dà 2 (6 perchè 999999 ha 6 cifre)
+        stringValue=value.toString();
+      }
+    }
+
+    bool virgola=false;
+    //eliminazione problema mantissa
+    for(int i=0;i<stringValue.length;i++){
+      if(stringValue.substring(i,i+1)==".")
+        virgola=true;
+      if(virgola && stringValue.substring(i,stringValue.length).contains("000000")){
+        stringValue=stringValue.split("000000")[0];
+        break;
+      }
+      if(virgola && stringValue.substring(i,stringValue.length).contains("999999")){
+        stringValue=stringValue.split("999999")[0];
+        break;
+      }
+    }
+
+    //riduzione a 9 cifre significative
+    bool nonZero=false;
+    int i;
+    for(i=0;i<stringValue.length || !nonZero;i++){
+      String char =stringValue.substring(i,i+1);
+      if(char!="0" && char!=".")
+        nonZero=true;
+    }
+    if(i+9<stringValue.length) {
+      stringValue = stringValue.substring(0,i+9);
+    }
+
+    //correzione finali con .
+    if(stringValue.endsWith("."))
+      stringValue=stringValue+"0";
+    return stringValue+append;
+
+  }
 
 }

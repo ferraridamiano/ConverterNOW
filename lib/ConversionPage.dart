@@ -72,7 +72,7 @@ class _ConversionPage extends State<ConversionPage> {
       controller = listaController[i];
 
       if (nodo.value != null && !nodo.selectedNode)
-        controller.text = nodo.value.toString();
+        controller.text = nodo.MantissaCorrection();
       else if (nodo.value == null && !nodo.selectedNode) controller.text = "";
 
       listaCard.add(new UnitCard(
