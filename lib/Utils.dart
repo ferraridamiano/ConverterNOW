@@ -201,10 +201,13 @@ class Node {
 
     //riduzione a 9 cifre significative
     bool nonZero=false;
+    virgola=false;
     int i;
     for(i=0;i<stringValue.length && !nonZero;i++){
-      String char =stringValue.substring(i,i+1);
-      if(char!="0" && char!=".")
+      String char =stringValue.substring(i,i+1);      //estraggo ogni carattere
+      if(char==".")                                   //se è passata la virgola
+        virgola=true;                                 //metto il flag che è già stata passata
+      else if(virgola && char!="0")                   //se la virgola è passata e il primo carattere  è diverso da "0"
         nonZero=true;
     }
     if(i+9<stringValue.length) {
