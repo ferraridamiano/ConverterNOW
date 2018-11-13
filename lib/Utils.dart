@@ -202,7 +202,7 @@ class Node {
     //riduzione a 9 cifre significative
     bool nonZero=false;
     int i;
-    for(i=0;i<stringValue.length || !nonZero;i++){
+    for(i=0;i<stringValue.length && !nonZero;i++){
       String char =stringValue.substring(i,i+1);
       if(char!="0" && char!=".")
         nonZero=true;
