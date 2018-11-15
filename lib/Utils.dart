@@ -176,6 +176,7 @@ class Node {
       stringValue=stringValue.split("e")[0];
     }
 
+    //risoluzione problema 0.99999999999 -> 1.0
     if(stringValue.contains("999999")){
       if(stringValue.indexOf("999999")>(stringValue.indexOf(".") ==-1 ? stringValue.indexOf("999999")+1 : stringValue.indexOf("."))){ // se il numero cercato è dopo la virgola
         int index=stringValue.split(".")[1].indexOf("999999"); //es:    1.999999 index=1;
@@ -184,8 +185,8 @@ class Node {
       }
     }
 
+    //eliminazione problema 1.00000000000000003 --> 1.0
     bool virgola=false;
-    //eliminazione problema mantissa
     for(int i=0;i<stringValue.length;i++){
       if(stringValue.substring(i,i+1)==".")
         virgola=true;
@@ -193,17 +194,13 @@ class Node {
         stringValue=stringValue.split("000000")[0];
         break;
       }
-      if(virgola && stringValue.substring(i,stringValue.length).contains("999999")){
-        stringValue=stringValue.split("999999")[0];
-        break;
-      }
     }
 
-    //riduzione a 9 cifre significative
+    //riduzione a 9 cifre significative dopo la virgola
     bool nonZero=false;
     virgola=false;
     int i;
-    for(i=0;i<stringValue.length && !nonZero;i++){
+    for(i=0;i<stringValue.length && !nonZero;i++){    //cerco l'indice del primo carattere non nullo dopo la virgola
       String char =stringValue.substring(i,i+1);      //estraggo ogni carattere
       if(char==".")                                   //se è passata la virgola
         virgola=true;                                 //metto il flag che è già stata passata
@@ -217,7 +214,7 @@ class Node {
     //correzione finali con .
     if(stringValue.endsWith("."))
       stringValue=stringValue+"0";
-    return stringValue+append;
+    return stringValue+append; //aggiungo la parte esponenziale se c'è
 
   }
 
