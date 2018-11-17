@@ -1,15 +1,15 @@
 import 'package:converter_pro/ConversionManager.dart';
 import 'package:converter_pro/Localization.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
-import 'package:firebase_admob/firebase_admob.dart';
+//import 'package:firebase_analytics/firebase_analytics.dart';
+//import 'package:firebase_analytics/observer.dart';
+//import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-const String app_id= "ca-app-pub-8125901756552853~1510088371";
-double AD_SIZE=50.0;
+//const String app_id= "ca-app-pub-8125901756552853~1510088371";
+double AD_SIZE=0.0;
 
-MobileAdTargetingInfo targetingInfo = new MobileAdTargetingInfo(
+/*MobileAdTargetingInfo targetingInfo = new MobileAdTargetingInfo(
   keywords: <String>['math', 'physics',"numbers", "measure"],
   contentUrl: 'https://flutter.io',
   birthday: new DateTime.now(),
@@ -26,7 +26,7 @@ BannerAd myBanner = new BannerAd(
   listener: (MobileAdEvent event) {
     print("BannerAd event is $event");
   },
-);
+);*/
 
 void main() => runApp(new SandboxApp());
 
@@ -41,13 +41,13 @@ class _SandboxAppState extends State<SandboxApp> {
   @override
   void initState() {
     super.initState();
-    FirebaseAdMob.instance.initialize(appId: app_id);
+    //FirebaseAdMob.instance.initialize(appId: app_id);
 
   }
 
   @override
   Widget build(BuildContext context) {
-    FirebaseAnalytics analytics = FirebaseAnalytics();
+    //FirebaseAnalytics analytics = FirebaseAnalytics();
     return MaterialApp(
       title: 'Converter NOW',
       home: ConversionManager(),
@@ -74,10 +74,10 @@ class _SandboxAppState extends State<SandboxApp> {
 
         return supportedLocales.first;
       },
-      navigatorObservers: [
+      /*navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: analytics),
-      ],
-      builder: (BuildContext context, Widget child){
+      ],*/
+      /*builder: (BuildContext context, Widget child){
 
         myBanner
         // typically this happens well before the ad is shown
@@ -97,7 +97,7 @@ class _SandboxAppState extends State<SandboxApp> {
           child: child,
           padding: EdgeInsets.only(bottom: paddingBottom),
         );
-      },
+      },*/
     );
   }
 }
