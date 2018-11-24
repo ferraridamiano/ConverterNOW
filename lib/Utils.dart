@@ -219,3 +219,158 @@ class Node {
   }
 
 }
+
+class Calculator extends StatefulWidget{
+
+  Calculator(this.color);
+  Color color;
+
+  @override
+  _Calculator createState() => new _Calculator();
+}
+
+class _Calculator extends State<Calculator>{
+  static const space=1.0;
+  String text="";
+  bool alreadyDeleted=false;
+  double firstNumber,secondNumber;
+  int operation=0;
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      color: widget.color,
+      width: 279.0,
+      height: 349.0,
+      child: Column(
+        children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Container(width: 197.0,child: 
+              Text(text,style: TextStyle(fontSize: 24.0,color: Colors.white.withAlpha(200)),maxLines: 1,),
+            ),
+            SizedBox(width: space,),
+            _button("←", (){deleteLastChar();},false),
+          ],
+        ), 
+        SizedBox(height: space,),
+        Row(
+          children: <Widget>[
+          _button("7", (){addChar("7");},true),
+          SizedBox(width: space,),
+          _button("8", (){addChar("8");},true),
+          SizedBox(width: space,),
+          _button("9", (){addChar("9");},true),
+          SizedBox(width: space,),
+          _button("÷", (){setOperation(4);},false),
+        ],),
+        SizedBox(height: space,),
+        Row(
+          children: <Widget>[
+          _button("4", (){addChar("4");},true),
+          SizedBox(width: space,),
+          _button("5", (){addChar("5");},true),
+          SizedBox(width: space,),
+          _button("6", (){addChar("6");},true),
+          SizedBox(width: space,),
+          _button("x", (){setOperation(3);},false),
+        ],),
+        SizedBox(height: space,),
+        Row(
+          children: <Widget>[
+          _button("1", (){addChar("1");},true),
+          SizedBox(width: space,),
+          _button("2", (){addChar("2");},true),
+          SizedBox(width: space,),
+          _button("3", (){addChar("3");},true),
+          SizedBox(width: space,),
+          _button("-", (){setOperation(2);},false),
+        ],),
+        SizedBox(height: space,),
+        Row(
+          children: <Widget>[
+          _button(".", (){addChar(".");},false),
+          SizedBox(width: space,),
+          _button("0", (){addChar("0");},true),
+          SizedBox(width: space,),
+          _button("=", (){computeCalculus();},false),
+          SizedBox(width: space,),
+          _button("+", (){setOperation(1);},false),
+        ],),
+      ],),
+
+    );
+  }
+
+  void addChar(String char){
+    if(!alreadyDeleted && firstNumber!=null && text.length>0){
+      text="";
+      alreadyDeleted=true;
+    }
+    if(char != "." || (char=="." && !text.contains(".") && text.length>0)){
+      setState((){
+        text+=char;
+      });
+    }
+  }
+  void deleteLastChar(){
+    if(text.length>0){
+      setState((){
+        text=text.substring(0,text.length-1);
+      });
+    }
+  }
+
+  void setOperation(int op){
+    operation=op;
+    firstNumber=double.parse(text);
+  }
+  void computeCalculus(){
+    secondNumber=double.parse(text);
+    double result;
+    if(firstNumber==null || secondNumber==null || operation==0 || (operation==4 && secondNumber==0))
+      result=null;
+    else{
+      switch(operation){
+        case 1:
+        result=firstNumber+secondNumber;
+        break;
+        case 2:
+        result=firstNumber-secondNumber;
+        break;
+        case 3:
+        result=firstNumber*secondNumber;
+        break;
+        case 4:
+        result=firstNumber/secondNumber;
+        break;
+        
+      }
+    }
+    if(result!=null){
+      String stringResult=result.toString();
+      if(stringResult.endsWith(".0"))
+        stringResult=stringResult.substring(0,stringResult.length-2);
+      setState((){
+        text=stringResult;
+      });
+    }
+    alreadyDeleted=false;
+  }
+
+
+  Widget _button (String number, Function() f, bool isNum){ // Creating a method of return type Widget with number and function f as a parameter
+    return MaterialButton(
+      height: 69.0,
+      minWidth: 69.0,
+      child: Text(number,
+      style:  TextStyle(fontSize: 24.0)),
+      textColor: Colors.white.withAlpha(200),
+      color: Color(isNum ? 0x30000000 : 0x50000000),
+      elevation: 0.0,
+      onPressed: f,
+    );
+  }
+
+}

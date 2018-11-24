@@ -408,6 +408,19 @@ class _ConversionManager extends State<ConversionManager>{
       ),
       ),
       body: ConversionPage(listaConversioni[_currentPage]),
+      floatingActionButton: FloatingActionButton(
+        child: SvgPicture.asset("resources/images/calculator.svg",width: 30.0,),
+        onPressed: (){
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return Dialog(child: Calculator(listaColori[_currentPage]),);
+            }
+          );
+        },
+        elevation: 10.0,
+        backgroundColor: listaColori[_currentPage],
+      ),
 
     );
   }
@@ -430,7 +443,7 @@ class ListTileConversion extends StatefulWidget{
 
   @override
   _ListTileConversion createState() => new _ListTileConversion();
-}
+} 
 
 class _ListTileConversion extends State<ListTileConversion>{
 

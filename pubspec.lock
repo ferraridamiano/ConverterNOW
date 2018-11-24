@@ -57,13 +57,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.6"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.2"
   dart_config:
     dependency: transitive
     description:
@@ -255,5 +248,5 @@ packages:
     source: hosted
     version: "2.1.15"
 sdks:
-  dart: ">=2.0.0 <=2.1.0-dev.9.3.flutter-9c07fb64c4"
+  dart: ">=2.0.0 <=2.1.0-dev.9.4.flutter-f9ebf21297"
   flutter: ">=0.7.3 <2.0.0"
