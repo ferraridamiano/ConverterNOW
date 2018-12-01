@@ -414,7 +414,10 @@ class _ConversionManager extends State<ConversionManager>{
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return Dialog(child: Calculator(listaColori[_currentPage]),);
+              return Container(
+                alignment: Alignment.center,
+                child: Calculator(listaColori[_currentPage]),
+              );
             }
           );
         },

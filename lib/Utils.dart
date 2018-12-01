@@ -233,15 +233,21 @@ class _Calculator extends State<Calculator>{
   static const space=1.0;
   String text="";
   bool alreadyDeleted=false;
+  bool isResult=false;
   double firstNumber,secondNumber;
   int operation=0;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      color: widget.color,
+      //color: widget.color,
       width: 279.0,
       height: 349.0,
+      decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius:new BorderRadius.all(new Radius.circular(6.0)),
+                  color: widget.color
+                  ),
       child: Column(
         children: <Widget>[
         Row(
@@ -251,7 +257,17 @@ class _Calculator extends State<Calculator>{
               Text(text,style: TextStyle(fontSize: 24.0,color: Colors.white.withAlpha(200)),maxLines: 1,),
             ),
             SizedBox(width: space,),
-            _button("←", (){deleteLastChar();},false),
+            _button(isResult ? "CE" : "←", (){
+              if(isResult){
+                operation=0;
+                firstNumber=secondNumber=null;
+                setState((){
+                  text="";
+                });
+              }
+              isResult=false;
+              deleteLastChar();
+              },false),
           ],
         ), 
         SizedBox(height: space,),
@@ -357,19 +373,26 @@ class _Calculator extends State<Calculator>{
       });
     }
     alreadyDeleted=false;
+    isResult=true;
   }
 
 
   Widget _button (String number, Function() f, bool isNum){ // Creating a method of return type Widget with number and function f as a parameter
-    return MaterialButton(
-      height: 69.0,
+    return ButtonTheme(
       minWidth: 69.0,
-      child: Text(number,
-      style:  TextStyle(fontSize: 24.0)),
-      textColor: Colors.white.withAlpha(200),
-      color: Color(isNum ? 0x30000000 : 0x50000000),
-      elevation: 0.0,
-      onPressed: f,
+      height: 69.0,
+      child:RaisedButton(
+        child: Text(number,
+          style:  TextStyle(fontSize: 24.0)),
+          textColor: Colors.white.withAlpha(200),
+          color: Color(isNum ? 0x30000000 : 0x50000000),
+          elevation: 0.0,
+          onPressed: f,
+          shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(6.0)),
+      )
+      //height: 69.0,
+      //minWidth: 69.0,
+      
     );
   }
 
