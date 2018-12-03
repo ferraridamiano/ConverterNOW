@@ -1,7 +1,48 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class UnitCard extends StatelessWidget {
+abstract class ListItem {}
+
+class myCard implements ListItem{
+  myCard({this.node, this.textField});
+
+  Node node;
+  final Widget textField;
+}
+
+class bigHeader implements ListItem{
+  bigHeader({this.title});
+  String title;
+}
+
+class bigTitle extends StatelessWidget{
+
+  bigTitle(this.text);
+  String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80.0,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.max,
+        children:<Widget>[
+          SizedBox(height: 20.0,),
+          Container(
+            alignment: Alignment(-0.95, 0.8),
+            child: Text(text,style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,color: Color(0xFF666666)),),
+          ),
+          
+          Divider(color: Colors.grey,),
+        ]
+      ),
+    );
+  }
+
+}
+
+class UnitCard extends StatelessWidget{
   UnitCard({this.node, this.textField});
 
   Node node;

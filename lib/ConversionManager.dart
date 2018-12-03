@@ -375,39 +375,53 @@ class _ConversionManager extends State<ConversionManager>{
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
     ];
 
+    GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
     return Scaffold(
-      appBar: AppBar(
-        title: new Text(listaTitoli[_currentPage]),
-        backgroundColor: listaColori[_currentPage],
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Clear all',),
-            onPressed: () {
-              setState(() {
-                listaConversioni[_currentPage].ClearAllValues();
-              });
-            },),
-          PopupMenuButton<Choice>(
-            onSelected: (Choice choice){
-              _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage].getStringOrderedNodiFiglio(), listaColori[_currentPage]);
-            },
-            itemBuilder: (BuildContext context) {
-              return choices.map((Choice choice) {
-                return PopupMenuItem<Choice>(
-                  value: choice,
-                  child: Text(choice.title),
-                );
-              }).toList();
-            },
-          ),
-        ],
+      key: _scaffoldKey,
+      resizeToAvoidBottomPadding: false,  //per evitare che il fab salga quando clicco
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        color: listaColori[_currentPage],
+        notchMargin: 4.0,
+        child: new Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(icon: Icon(Icons.menu,color: Colors.white,), onPressed: () {_scaffoldKey.currentState.openDrawer();},),
+            Row(children: <Widget>[
+              IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Clear all',),
+                onPressed: () {
+                  setState(() {
+                    listaConversioni[_currentPage].ClearAllValues();
+                  });
+                },),
+              PopupMenuButton<Choice>(
+                icon: Icon(Icons.more_vert,color: Colors.white,),
+                onSelected: (Choice choice){
+                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage].getStringOrderedNodiFiglio(), listaColori[_currentPage]);
+                },
+                itemBuilder: (BuildContext context) {
+                  return choices.map((Choice choice) {
+                    return PopupMenuItem<Choice>(
+                      value: choice,
+                      child: Text(choice.title),
+                    );
+                  }).toList();
+                },
+              ),
+            ],)
+          ],
       ),
+    ),
       drawer: new Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: listaDrawer,
       ),
       ),
-      body: ConversionPage(listaConversioni[_currentPage]),
+      body: ConversionPage(listaConversioni[_currentPage],"Lunghezza"),
+      
       floatingActionButton: FloatingActionButton(
         child: SvgPicture.asset("resources/images/calculator.svg",width: 30.0,),
         onPressed: (){

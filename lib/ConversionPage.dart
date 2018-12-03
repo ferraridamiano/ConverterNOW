@@ -1,11 +1,11 @@
 import 'package:converter_pro/Utils.dart';
-import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 
 class ConversionPage extends StatefulWidget {
 
   Node fatherNode;
-  ConversionPage(this.fatherNode);
+  String title;
+  ConversionPage(this.fatherNode, this.title);
 
   @override
   _ConversionPage createState() => new _ConversionPage();
@@ -64,8 +64,9 @@ class _ConversionPage extends State<ConversionPage> {
     super.dispose();
   }
 
-  List<UnitCard> createList() {
-    List<UnitCard> listaCard = new List();
+  List<ListItem> createList() {
+    List<ListItem> listaCard = new List();
+    listaCard.add(bigHeader(title:widget.title));
     for (int i = 0; i < listaNodi.length; i++) {
       Node nodo = listaNodi[i];
       TextEditingController controller;
@@ -75,7 +76,7 @@ class _ConversionPage extends State<ConversionPage> {
         controller.text = nodo.MantissaCorrection();
       else if (nodo.value == null && !nodo.selectedNode) controller.text = "";
 
-      listaCard.add(new UnitCard(
+      listaCard.add(myCard(
           node: nodo,
           textField: TextField(
             style: TextStyle(
@@ -100,9 +101,22 @@ class _ConversionPage extends State<ConversionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    List itemList=createList();
+    return ListView.builder(
+          padding: new EdgeInsets.only(top: 10.0,left: 10.0,right:10.0,bottom: 25.0),
+          itemCount: itemList.length,
+          itemBuilder: (context, index) {
+            final item = itemList[index];
+
+            if (item is bigHeader) {
+              return bigTitle(item.title);
+            } else if (item is myCard) {
+              return UnitCard(node: item.node,textField: item.textField,);
+            }
+          });
+    /*return ListView(
         padding: new EdgeInsets.only(top: 10.0,left: 10.0,right:10.0,bottom: AD_SIZE),
         children: createList(),//listCard
-    );
+    );*/
   }
 }
