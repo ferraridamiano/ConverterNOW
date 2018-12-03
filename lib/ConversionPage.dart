@@ -114,9 +114,5 @@ class _ConversionPage extends State<ConversionPage> {
               return UnitCard(node: item.node,textField: item.textField,);
             }
           });
-    /*return ListView(
-        padding: new EdgeInsets.only(top: 10.0,left: 10.0,right:10.0,bottom: AD_SIZE),
-        children: createList(),//listCard
-    );*/
   }
 }

@@ -271,8 +271,8 @@ class Calculator extends StatefulWidget{
 }
 
 class _Calculator extends State<Calculator>{
-  static const space=1.0;
   String text="";
+  static const double buttonSize=80.0;
   bool alreadyDeleted=false;
   bool isResult=false;
   double firstNumber,secondNumber;
@@ -282,12 +282,11 @@ class _Calculator extends State<Calculator>{
     // TODO: implement build
     return Container(
       //color: widget.color,
-      width: 279.0,
-      height: 349.0,
+      height: 4*buttonSize,
       decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius:new BorderRadius.all(new Radius.circular(6.0)),
-                  color: widget.color
+                  color: Colors.white
                   ),
       child: Column(
         children: <Widget>[
@@ -295,9 +294,8 @@ class _Calculator extends State<Calculator>{
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Container(width: 197.0,child: 
-              Text(text,style: TextStyle(fontSize: 24.0,color: Colors.white.withAlpha(200)),maxLines: 1,),
+              Text(text,style: TextStyle(fontSize: 24.0,color: Colors.black/*white.withAlpha(200)*/),maxLines: 1,),
             ),
-            SizedBox(width: space,),
             _button(isResult ? "CE" : "←", (){
               if(isResult){
                 operation=0;
@@ -309,50 +307,31 @@ class _Calculator extends State<Calculator>{
               isResult=false;
               deleteLastChar();
               },false),
+            _button("÷", (){setOperation(4);},false),
           ],
         ), 
-        SizedBox(height: space,),
         Row(
           children: <Widget>[
           _button("7", (){addChar("7");},true),
-          SizedBox(width: space,),
           _button("8", (){addChar("8");},true),
-          SizedBox(width: space,),
           _button("9", (){addChar("9");},true),
-          SizedBox(width: space,),
-          _button("÷", (){setOperation(4);},false),
+          _button("=", (){computeCalculus();},false),
+          _button("x", (){setOperation(3);},false),
         ],),
-        SizedBox(height: space,),
         Row(
           children: <Widget>[
           _button("4", (){addChar("4");},true),
-          SizedBox(width: space,),
           _button("5", (){addChar("5");},true),
-          SizedBox(width: space,),
           _button("6", (){addChar("6");},true),
-          SizedBox(width: space,),
-          _button("x", (){setOperation(3);},false),
+          _button(".", (){addChar(".");},false),
+          _button("-", (){setOperation(2);},false),
         ],),
-        SizedBox(height: space,),
         Row(
           children: <Widget>[
           _button("1", (){addChar("1");},true),
-          SizedBox(width: space,),
           _button("2", (){addChar("2");},true),
-          SizedBox(width: space,),
           _button("3", (){addChar("3");},true),
-          SizedBox(width: space,),
-          _button("-", (){setOperation(2);},false),
-        ],),
-        SizedBox(height: space,),
-        Row(
-          children: <Widget>[
-          _button(".", (){addChar(".");},false),
-          SizedBox(width: space,),
           _button("0", (){addChar("0");},true),
-          SizedBox(width: space,),
-          _button("=", (){computeCalculus();},false),
-          SizedBox(width: space,),
           _button("+", (){setOperation(1);},false),
         ],),
       ],),
@@ -420,13 +399,13 @@ class _Calculator extends State<Calculator>{
 
   Widget _button (String number, Function() f, bool isNum){ // Creating a method of return type Widget with number and function f as a parameter
     return ButtonTheme(
-      minWidth: 69.0,
-      height: 69.0,
+      minWidth: buttonSize,
+      height: buttonSize,
       child:RaisedButton(
         child: Text(number,
           style:  TextStyle(fontSize: 24.0)),
-          textColor: Colors.white.withAlpha(200),
-          color: Color(isNum ? 0x30000000 : 0x50000000),
+          textColor: Colors.black,//Colors.white.withAlpha(200),
+          color: Colors.white,//Color(isNum ? 0x30000000 : 0x50000000),
           elevation: 0.0,
           onPressed: f,
           shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(6.0)),

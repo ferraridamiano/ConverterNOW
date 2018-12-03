@@ -425,7 +425,8 @@ class _ConversionManager extends State<ConversionManager>{
       floatingActionButton: FloatingActionButton(
         child: SvgPicture.asset("resources/images/calculator.svg",width: 30.0,),
         onPressed: (){
-          showDialog(
+          _fabPressed();
+          /*showDialog(
             context: context,
             builder: (BuildContext context) {
               return Container(
@@ -433,7 +434,7 @@ class _ConversionManager extends State<ConversionManager>{
                 child: Calculator(listaColori[_currentPage]),
               );
             }
-          );
+          );*/
         },
         elevation: 10.0,
         backgroundColor: listaColori[_currentPage],
@@ -441,6 +442,15 @@ class _ConversionManager extends State<ConversionManager>{
 
     );
   }
+
+  _fabPressed(){
+    showModalBottomSheet<void>(context: context,
+      builder: (BuildContext context) {
+        return Calculator(listaColori[_currentPage]); 
+      }
+    );
+  }
+
 }
 
 class Choice {
