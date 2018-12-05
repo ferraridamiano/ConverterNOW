@@ -420,21 +420,12 @@ class _ConversionManager extends State<ConversionManager>{
           children: listaDrawer,
       ),
       ),
-      body: ConversionPage(listaConversioni[_currentPage],"Lunghezza"),
+      body: ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage]),
       
       floatingActionButton: FloatingActionButton(
         child: SvgPicture.asset("resources/images/calculator.svg",width: 30.0,),
         onPressed: (){
           _fabPressed();
-          /*showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return Container(
-                alignment: Alignment.center,
-                child: Calculator(listaColori[_currentPage]),
-              );
-            }
-          );*/
         },
         elevation: 10.0,
         backgroundColor: listaColori[_currentPage],
@@ -446,7 +437,8 @@ class _ConversionManager extends State<ConversionManager>{
   _fabPressed(){
     showModalBottomSheet<void>(context: context,
       builder: (BuildContext context) {
-        return Calculator(listaColori[_currentPage]); 
+        double displayWidth=MediaQuery.of(context).size.width;
+        return Calculator(listaColori[_currentPage], displayWidth); 
       }
     );
   }
