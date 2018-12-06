@@ -71,27 +71,35 @@ class _ReorderPage extends State<ReorderPage> {
     return true;
   }
 
-  //
-  // Reordering works by having ReorderableList widget in hierarchy
-  // containing ReorderableItems widgets
-  //
-
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-          backgroundColor: widget.color,
-          actions: <Widget>[IconButton(icon: Icon(Icons.check),
-            onPressed: (){
-              List<int> orderedList=new List(_items.length);
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.check),
+          onPressed: (){
+            List<int> orderedList=new List(_items.length);
               for(int i=0;i<_items.length;i++){
                 ValueKey myKey=_items[i].key;
                 orderedList[i]=myKey.value;
               }
               Navigator.pop(context,orderedList);
-            },
-          )],
+          },
+          elevation: 10.0,
+          backgroundColor: widget.color,
         ),
+
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          color: widget.color,
+          notchMargin: 4.0,
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,), onPressed: () {Navigator.pop(context);},),
+            ],
+          ),
+        ),
+
         body: Column(children: <Widget>[
           Expanded(
               child: ReorderableList(

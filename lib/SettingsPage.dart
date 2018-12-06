@@ -6,7 +6,15 @@ class SettingsPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(MyLocalizations.of(context).trans('app_name')),),
+      bottomNavigationBar: BottomAppBar(
+          color: Colors.red,
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,), onPressed: () {Navigator.pop(context);},),
+            ],
+          ),
+        ),
       body: Center(child:
         Column(
         children: <Widget>[

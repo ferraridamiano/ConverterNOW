@@ -301,28 +301,28 @@ class _ConversionManager extends State<ConversionManager>{
       Node(isMultiplication: true, coefficientPer: 0.3048, name: MyLocalizations.of(context).trans('piedi_secondo'),order: listaOrder[5][4],),
     ]);
 
-    Node SI=Node(name: "Base",order: listaOrder[6][0],
+    Node SI=Node(name: "Base [10º]",order: listaOrder[6][0],
         leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 10.0, name: "Deca [da]",order: listaOrder[6][1],),
-          Node(isMultiplication: true, coefficientPer: 100.0, name: "Hecto [h]",order: listaOrder[6][2],),
-          Node(isMultiplication: true, coefficientPer: 1000.0, name: "Kilo [k]",order: listaOrder[6][3],),
-          Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Mega [M]",order: listaOrder[6][4],),
-          Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "Giga [G]",order: listaOrder[6][5],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "Tera [T]",order: listaOrder[6][6],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "Peta [P]",order: listaOrder[6][7],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "Exa [E]",order: listaOrder[6][8],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000000000.0, name: "Zetta [Z]",order: listaOrder[6][9],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000000000000.0, name: "Yotta [Y]",order: listaOrder[6][10],),
-          Node(isMultiplication: false, coefficientPer: 10.0, name: "Deci [d]",order: listaOrder[6][11],),
-          Node(isMultiplication: false, coefficientPer: 100.0, name: "Centi [c]",order: listaOrder[6][12],),
-          Node(isMultiplication: false, coefficientPer: 1000.0, name: "Milli [m]",order: listaOrder[6][13],),
-          Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Micro [µ]",order: listaOrder[6][14],),
-          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "Nano [n]",order: listaOrder[6][15],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: "Pico [p]",order: listaOrder[6][16],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000.0, name: "Femto [f]",order: listaOrder[6][17],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000000.0, name: "Atto  [a]",order: listaOrder[6][18],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000000000.0, name: "Zepto [z]",order: listaOrder[6][19],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000000000000.0, name: "Yocto [y]",order: listaOrder[6][20],),
+          Node(isMultiplication: true, coefficientPer: 10.0, name: "Deca [da][10¹]",order: listaOrder[6][1],),
+          Node(isMultiplication: true, coefficientPer: 100.0, name: "Hecto [h][10²]",order: listaOrder[6][2],),
+          Node(isMultiplication: true, coefficientPer: 1000.0, name: "Kilo [k][10³]",order: listaOrder[6][3],),
+          Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Mega [M][10⁶]",order: listaOrder[6][4],),
+          Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "Giga [G][10⁹]",order: listaOrder[6][5],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "Tera [T][10¹²]",order: listaOrder[6][6],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "Peta [P][10¹⁵]",order: listaOrder[6][7],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "Exa [E][10¹⁸]",order: listaOrder[6][8],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000000.0, name: "Zetta [Z][10²¹]",order: listaOrder[6][9],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000000000.0, name: "Yotta [Y][10²⁴]",order: listaOrder[6][10],),
+          Node(isMultiplication: false, coefficientPer: 10.0, name: "Deci [d][10⁻¹]",order: listaOrder[6][11],),
+          Node(isMultiplication: false, coefficientPer: 100.0, name: "Centi [c][10⁻²]",order: listaOrder[6][12],),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name: "Milli [m][10⁻³]",order: listaOrder[6][13],),
+          Node(isMultiplication: false, coefficientPer: 1000000.0, name: "Micro [µ][10⁻⁶]",order: listaOrder[6][14],),
+          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "Nano [n][10⁻⁹]",order: listaOrder[6][15],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: "Pico [p][10⁻¹²]",order: listaOrder[6][16],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000.0, name: "Femto [f][10⁻¹⁵]",order: listaOrder[6][17],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000000.0, name: "Atto  [a][10⁻¹⁸]",order: listaOrder[6][18],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000000000.0, name: "Zepto [z][10⁻²¹]",order: listaOrder[6][19],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000000000000.0, name: "Yocto [y][10⁻²⁴]",order: listaOrder[6][20],),
         ]
     );
 
@@ -442,7 +442,6 @@ class _ConversionManager extends State<ConversionManager>{
       }
     );
   }
-
 }
 
 class Choice {

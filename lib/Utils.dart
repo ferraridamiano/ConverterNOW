@@ -352,14 +352,8 @@ class _Calculator extends State<Calculator>{
           Container(                //divider
             width: 1.0,
             height: buttonHeight*3.9,
-            decoration: BoxDecoration(
-              color: Color(0xFFBBBBBB),
-              /*boxShadow: [new BoxShadow(
-              color: Colors.black,
-              blurRadius: 1.0,
-              offset: Offset(1.0, 0.0)
-          ),]*/
-            ),),
+            color:Color(0xFFBBBBBB),
+          ),
           Column(children: <Widget>[
             _button(isResult ? "CE" : "←", (){
               if(isResult){
