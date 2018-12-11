@@ -17,17 +17,24 @@ class SettingsPage extends StatelessWidget{
         ),
       body: Center(child:
         Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          SizedBox(height: 10.0,),
           new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('contatta_sviluppatore'),style: TextStyle(fontSize: 22.0,color: Colors.black54),),
+            child: new Text(MyLocalizations.of(context).trans('recensione'),style: TextStyle(fontSize: 28.0,color: Colors.black54),),
+            onTap: (){
+              _launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+            },
+          ),
+          SizedBox(height: 20.0),
+          new GestureDetector(
+            child: new Text(MyLocalizations.of(context).trans('contatta_sviluppatore'),style: TextStyle(fontSize: 28.0,color: Colors.black54),),
             onTap: (){
               _launchURL("mailto:<damianoferrari1998@gmail.com>");
             },
           ),
-          SizedBox(height: 10.0),
+          SizedBox(height: 20.0),
           new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('about'),style: TextStyle(fontSize: 22.0,color: Colors.black54),),
+            child: new Text(MyLocalizations.of(context).trans('about'),style: TextStyle(fontSize: 28.0,color: Colors.black54),),
             onTap: (){
               showLicensePage (context: context,applicationName: MyLocalizations.of(context).trans('app_name'),
                   applicationLegalese: "Icons made by https://www.flaticon.com/authors/yannick Yannick from https://www.flaticon.com/ www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n"+ //termometro
@@ -37,6 +44,7 @@ class SettingsPage extends StatelessWidget{
               );
             },
           ),
+          SizedBox(height: 20.0,),
         ],
         crossAxisAlignment: CrossAxisAlignment.center,
 

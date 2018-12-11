@@ -67,6 +67,7 @@ class _ConversionManager extends State<ConversionManager>{
               IconButton(
                 icon:Icon(Icons.settings,color: Colors.white,),
                 onPressed: (){
+                  Navigator.of(context).pop();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => SettingsPage()),
@@ -374,10 +375,7 @@ class _ConversionManager extends State<ConversionManager>{
     List<Choice> choices = <Choice>[
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
     ];
-
-    GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
     return Scaffold(
-      key: _scaffoldKey,
       resizeToAvoidBottomPadding: false,  //per evitare che il fab salga quando clicco
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
@@ -388,7 +386,11 @@ class _ConversionManager extends State<ConversionManager>{
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            IconButton(icon: Icon(Icons.menu,color: Colors.white,), onPressed: () {_scaffoldKey.currentState.openDrawer();},),
+            new Builder(builder: (context) {
+              return IconButton(icon: Icon(Icons.menu,color: Colors.white,), onPressed: () {
+                Scaffold.of(context).openDrawer();
+              });
+            }),
             Row(children: <Widget>[
               IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Clear all',),
                 onPressed: () {
