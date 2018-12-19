@@ -227,19 +227,18 @@ class Node {
     }
 
     //eliminazione problema 1.00000000000000003 --> 1.0
-    bool virgola=false;
-    for(int i=0;i<stringValue.length;i++){
-      if(stringValue.substring(i,i+1)==".")
-        virgola=true;
-      if(virgola && stringValue.substring(i,stringValue.length).contains("000000")){
-        stringValue=stringValue.split("000000")[0];
-        break;
+    if(stringValue.contains(".")){
+      List<String> parteIntDec=stringValue.split(".");
+      if(parteIntDec[1].contains("000000")){
+        parteIntDec[1]=parteIntDec[1].split("000000")[0];
+        stringValue=parteIntDec[0]+"."+parteIntDec[1];
       }
     }
+    
 
     //riduzione a 9 cifre significative dopo la virgola
     bool nonZero=false;
-    virgola=false;
+    bool virgola=false;
     int i;
     for(i=0;i<stringValue.length && !nonZero;i++){    //cerco l'indice del primo carattere non nullo dopo la virgola
       String char =stringValue.substring(i,i+1);      //estraggo ogni carattere
