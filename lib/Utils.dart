@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:math';
 
 abstract class ListItem {}
@@ -275,7 +276,6 @@ class _Calculator extends State<Calculator>{
   static const double buttonOpSize=buttonHeight*0.8;
   static const Color textButtonColor=Color(0xFF777777);
   static const double textSize=35.0;
-  static const double space=5.0;
   
 
   bool alreadyDeleted=false;
@@ -297,7 +297,25 @@ class _Calculator extends State<Calculator>{
           height: buttonHeight,
           //color: Colors.black12,
           alignment: Alignment(0, 0),
-          child: Text(text,style: TextStyle(fontSize: 45.0,fontWeight: FontWeight.bold,color: Colors.black/*white.withAlpha(200)*/),maxLines: 1,),
+          child: Container(
+            width: (widget.width*0.9),
+            child:Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                width: (widget.width*0.9*3)/4,
+                child:Text(text,style: TextStyle(fontSize: 45.0,fontWeight: FontWeight.bold,color: Colors.black),maxLines: 1,),
+              ),
+              Container(
+                width: (widget.width*0.9)/4,
+                alignment: Alignment.center,
+                child:isResult ? IconButton(icon: Icon(Icons.content_copy), onPressed: (){
+                  Clipboard.setData(new ClipboardData(text: text));
+                },) : SizedBox(),
+              ),
+            ],),
+          ),
           decoration: new BoxDecoration(
           color: Colors.white,
           boxShadow: [new BoxShadow(
@@ -317,33 +335,25 @@ class _Calculator extends State<Calculator>{
             Row(
             children: <Widget>[
               _button("7", (){addChar("7");},buttonHeight,textButtonColor),
-              SizedBox(width: space,),
               _button("8", (){addChar("8");},buttonHeight,textButtonColor),
-              SizedBox(width: space,),
               _button("9", (){addChar("9");},buttonHeight,textButtonColor),
             ],),
             Row(
               children: <Widget>[
                 _button("4", (){addChar("4");},buttonHeight,textButtonColor),
-                SizedBox(width: space,),
                 _button("5", (){addChar("5");},buttonHeight,textButtonColor),
-                SizedBox(width: space,),
                 _button("6", (){addChar("6");},buttonHeight,textButtonColor),
             ],),
             Row(
               children: <Widget>[
                 _button("1", (){addChar("1");},buttonHeight,textButtonColor),
-                SizedBox(width: space,),
                 _button("2", (){addChar("2");},buttonHeight,textButtonColor),
-                SizedBox(width: space,),
                 _button("3", (){addChar("3");},buttonHeight,textButtonColor),
             ],),
             Row(
               children: <Widget>[
                 _button(".", (){addChar(".");},buttonHeight,textButtonColor),
-                SizedBox(width: space,),
                 _button("0", (){addChar("0");},buttonHeight,textButtonColor),
-                SizedBox(width: space,),
                 _button("=", (){computeCalculus();},buttonHeight,textButtonColor),
               ]
             )
