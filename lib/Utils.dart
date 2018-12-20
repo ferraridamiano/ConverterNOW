@@ -275,8 +275,7 @@ class _Calculator extends State<Calculator>{
   static const double buttonHeight=70.0;
   static const double buttonOpSize=buttonHeight*0.8;
   static const Color textButtonColor=Color(0xFF777777);
-  static const double textSize=35.0;
-  
+  static const double textSize=35.0;  
 
   bool alreadyDeleted=false;
   bool isResult=false;
@@ -284,9 +283,7 @@ class _Calculator extends State<Calculator>{
   int operation=0;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
-      //color: widget.color,
       height: 5*buttonHeight,
       decoration: BoxDecoration(
                   color: Colors.white
@@ -295,7 +292,6 @@ class _Calculator extends State<Calculator>{
         children: <Widget>[
         Container(
           height: buttonHeight,
-          //color: Colors.black12,
           alignment: Alignment(0, 0),
           child: Container(
             width: (widget.width*0.9),
@@ -310,9 +306,9 @@ class _Calculator extends State<Calculator>{
               Container(
                 width: (widget.width*0.9)/4,
                 alignment: Alignment.center,
-                child:isResult ? IconButton(icon: Icon(Icons.content_copy), onPressed: (){
+                child:isResult ? IconButton(icon: Icon(Icons.content_copy,color: Colors.black54,), onPressed: (){
                   Clipboard.setData(new ClipboardData(text: text));
-                },) : SizedBox(),
+                },) : Text(operation ==1 ? "+" : operation==2 ? "−" : operation==3? "×" : operation==4? "÷" : "",style: TextStyle(fontSize: 45.0,fontWeight: FontWeight.bold,color: Colors.black54),maxLines: 1,),
               ),
             ],),
           ),
@@ -390,10 +386,20 @@ class _Calculator extends State<Calculator>{
   }
 
   void addChar(String char){
+    //Se il risultato è stato scritto e premo su un numero azzero tutto
+    if(isResult){
+      isResult=false;
+      operation=0;
+      firstNumber=null;
+      secondNumber=null;
+      text="";
+    }
+    //Se premo un tasto dopo aver premuto su un operazione devo cancellare
     if(!alreadyDeleted && firstNumber!=null && text.length>0){
       text="";
       alreadyDeleted=true;
     }
+    //Se premo un tasto devo aggiornare il testo dei numeri visualizzati
     if(char != "." || (char=="." && !text.contains(".") && text.length>0)){
       setState((){
         text+=char;
@@ -409,8 +415,10 @@ class _Calculator extends State<Calculator>{
   }
 
   void setOperation(int op){
-    operation=op;
-    firstNumber=double.parse(text);
+    setState((){
+      operation=op;
+      firstNumber=double.parse(text);
+    });
   }
   void computeCalculus(){
     secondNumber=double.parse(text);
