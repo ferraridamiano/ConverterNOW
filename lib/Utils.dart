@@ -471,3 +471,51 @@ class _Calculator extends State<Calculator>{
   }
 
 }
+
+class CurrencyObject{
+  DoubleCurrencyConversion results;
+  CurrencyObject({this.results});
+  
+  factory CurrencyObject.fromJson(Map<String, dynamic> json) {
+    return CurrencyObject(
+      results: DoubleCurrencyConversion.fromJson(json['property'])
+    );
+  }
+}
+
+class DoubleCurrencyConversion{
+  CurrencyConversion conversion1;
+  CurrencyConversion conversion2;
+  DoubleCurrencyConversion({
+    this.conversion1,
+    this.conversion2,
+  });
+
+  factory DoubleCurrencyConversion.fromJson(Map<String, dynamic> json){
+    return DoubleCurrencyConversion(
+      conversion1: CurrencyConversion.fromJson(json['USD_EUR']),
+      conversion2: CurrencyConversion.fromJson(json['USD_GBP'])
+    );
+  }
+}
+
+class CurrencyConversion{
+  String id,to,fr;
+  double val;
+
+  CurrencyConversion({
+    this.id,
+    this.val,
+    this.to,
+    this.fr
+  });
+
+  factory CurrencyConversion.fromJson(Map<String, dynamic> json){
+    return CurrencyConversion(
+      id: json['id'],
+      val: json['val'],
+      to: json['to'],
+      fr: json['fr']
+    );
+  }
+}

@@ -5,8 +5,11 @@ import 'package:converter_pro/SettingsPage.dart';
 import 'package:converter_pro/Utils.dart';
 import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ConversionManager extends StatefulWidget{
   @override
@@ -17,6 +20,8 @@ class ConversionManager extends StatefulWidget{
 class _ConversionManager extends State<ConversionManager>{
 
   static final MAX_CONVERSION_UNITS =11;
+  static final List<String> currencyList=["EUR","GBP","INR","CNY","JPY","CHF","SEK","RUB","CAD","KRW","BRL","BTC"];
+  static List<double> currencyValue=[0.880365,0.774845,71.362395,6.807703,109.429042,0.99706,9.02914,66.466703,1.33225,1131.44981,3.75085,0.00028]; //aggiornato al 22/01/2019
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
   Colors.cyan, Colors.indigo, Colors.purple,
@@ -43,6 +48,36 @@ class _ConversionManager extends State<ConversionManager>{
   void initState() {
     super.initState();
     _getOrders();
+    _getCurrency();
+  }
+
+  _getCurrency() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String now = DateFormat("dd.MM.yyyy").format(DateTime.now());
+    if(prefs.getString("lastCurrencyUpdate")!=now){                   //se non aggiorno la lista da piú di un giorno allora aggiorno
+      bool allResponsePassed=true;
+      for(int i=0;i<currencyList.length;i+=2){
+        final response =await http.get('https://free.currencyconverterapi.com/api/v6/convert?q=USD_${currencyList[i]},USD_${currencyList[i+1]}');
+        if (response.statusCode == 200) { //if successful
+          int index=response.body.indexOf("val")+5;
+          String stringaTagliata=response.body.substring(index);
+          currencyValue[i]=double.parse(stringaTagliata.split(",")[0]);
+          index=stringaTagliata.indexOf("val")+5;
+          currencyValue[i+1]=double.parse(stringaTagliata.substring(index).split(",")[0]);
+        }
+        else{
+          allResponsePassed=false;
+          //leggi ultimi dati
+        }
+      }
+      if(allResponsePassed){ //aggiorna la data di ultimo aggiornamento
+        prefs.setString("lastCurrencyUpdate", DateFormat("dd.MM.yyyy").format(DateTime.now()));
+      }
+      
+    }
+    else{                                                             //se la lista è aggiornata allora la leggo dall'ultimo aggiornamento
+
+    }
   }
 
   void initializeTiles(){
@@ -358,6 +393,13 @@ class _ConversionManager extends State<ConversionManager>{
           Node(isMultiplication: true, coefficientPer: 1.60217646e-19, name: MyLocalizations.of(context).trans('elettronvolt'),order: listaOrder[9][3],),
         ]);
     Node gradi=Node(name:MyLocalizations.of(context).trans('gradi'),order: listaOrder[10][0],
+        leafNodes: [
+          Node(isMultiplication: false, coefficientPer: 60.0, name: MyLocalizations.of(context).trans('primi'),order: listaOrder[10][1]),
+          Node(isMultiplication: false, coefficientPer: 3600.0, name: MyLocalizations.of(context).trans('secondi'),order: listaOrder[10][2]),
+          Node(isMultiplication: true, coefficientPer: 57.295779513, name: MyLocalizations.of(context).trans('radianti'),order: listaOrder[10][3]),
+    ]);
+
+    Node USD=Node(name:MyLocalizations.of(context).trans('gradi'),//order: listaOrder[10][0],
         leafNodes: [
           Node(isMultiplication: false, coefficientPer: 60.0, name: MyLocalizations.of(context).trans('primi'),order: listaOrder[10][1]),
           Node(isMultiplication: false, coefficientPer: 3600.0, name: MyLocalizations.of(context).trans('secondi'),order: listaOrder[10][2]),
