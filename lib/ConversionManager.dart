@@ -67,16 +67,28 @@ class _ConversionManager extends State<ConversionManager>{
         }
         else{
           allResponsePassed=false;
-          //leggi ultimi dati
+          //leggi ultimi dati salvati
+          List<String> currencyListRead=prefs.getStringList("currencyList");
+          currencyValue[i]=double.parse(currencyListRead[i]);
+          currencyValue[i+1]=double.parse(currencyListRead[i+1]);
         }
       }
+      //se tutte le richieste vanno a buon fine aggiorna la data di ultimo aggiornamento
       if(allResponsePassed){ //aggiorna la data di ultimo aggiornamento
         prefs.setString("lastCurrencyUpdate", DateFormat("dd.MM.yyyy").format(DateTime.now()));
       }
-      
+      //salvataggio in memoria
+      List<String> toSaveList;
+      for(int i=0;i<currencyValue.length;i++){
+        toSaveList[i]=currencyValue[i].toString();
+      }
+      prefs.setStringList("currencyList", toSaveList);
     }
     else{                                                             //se la lista è aggiornata allora la leggo dall'ultimo aggiornamento
-
+      List<String> currencyListRead=prefs.getStringList("currencyList");
+      for(int i=0; i<currencyListRead.length; i++){
+        currencyValue[i]=double.parse(currencyListRead[i]);
+      }
     }
   }
 
