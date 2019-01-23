@@ -413,9 +413,9 @@ class _ConversionManager extends State<ConversionManager>{
 
     Node USD=Node(name:MyLocalizations.of(context).trans('gradi'),//order: listaOrder[10][0],
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 60.0, name: MyLocalizations.of(context).trans('primi'),order: listaOrder[10][1]),
-          Node(isMultiplication: false, coefficientPer: 3600.0, name: MyLocalizations.of(context).trans('secondi'),order: listaOrder[10][2]),
-          Node(isMultiplication: true, coefficientPer: 57.295779513, name: MyLocalizations.of(context).trans('radianti'),order: listaOrder[10][3]),
+          Node(isMultiplication: true, coefficientPer: currencyValue[0], name: MyLocalizations.of(context).trans('primi'),order: listaOrder[10][1]),
+          Node(isMultiplication: true, coefficientPer: currencyValue[1], name: MyLocalizations.of(context).trans('secondi'),order: listaOrder[10][2]),
+          Node(isMultiplication: true, coefficientPer: currencyValue[1], name: MyLocalizations.of(context).trans('radianti'),order: listaOrder[10][3]),
     ]);
 
 
@@ -480,9 +480,8 @@ class _ConversionManager extends State<ConversionManager>{
       
       floatingActionButton: FloatingActionButton(
         child: SvgPicture.asset("resources/images/calculator.svg",width: 30.0,),
-        onPressed: (){
-          _fabPressed();
-        },
+        onPressed: _fabPressed(),
+        
         elevation: 10.0,
         backgroundColor: listaColori[_currentPage],
       ),

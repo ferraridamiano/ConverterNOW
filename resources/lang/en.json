@@ -111,5 +111,20 @@
   "gradi": "Degree [°]",
   "primi": "Minutes [']",
   "secondi": "Seconds ['']",
-  "radianti": "Radians [rad]"
+  "radianti": "Radians [rad]",
+
+  "USD": "Dollars US [$] [USA]",
+  "EUR": "Euro [€] [Europe]",
+  "GBP": "Pound [£] [Regno Unito]",
+  "INR": "Rupee [₹] [India]",
+  "CNY": "Yuaan [¥] [China]",
+  "JPY": "Yen [¥] [Japan]",
+  "CHF": "Franco [Fr.] [Swiss]",
+  "SEK": "Krona [kr] [Swedish]",
+  "RUB": "Ruble [₽] [Russia]",
+  "CAD": "Canadian Dollars [$] [Canada]",
+  "KRW": "Won [₩] [South Corea]",
+  "BRL": "Real [R$] [Brazil]",
+  "BTC": "Bitcoin [₿]"
+
 }
