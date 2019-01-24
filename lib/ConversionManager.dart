@@ -21,6 +21,7 @@ class _ConversionManager extends State<ConversionManager>{
   static final MAX_CONVERSION_UNITS =12;
   static final List<String> currencyList=["EUR","GBP","INR","CNY","JPY","CHF","SEK","RUB","CAD","KRW","BRL","BTC"];
   static List<double> currencyValue=[0.880365,0.774845,71.362395,6.807703,109.429042,0.99706,9.02914,66.466703,1.33225,1131.44981,3.75085,0.00028]; //aggiornato al 22/01/2019
+  static String lastUpdateCurrency="Last update: 22/01/2019";
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
   Colors.cyan, Colors.indigo, Colors.purple,
@@ -79,6 +80,12 @@ class _ConversionManager extends State<ConversionManager>{
       //se tutte le richieste vanno a buon fine aggiorna la data di ultimo aggiornamento
       if(allResponsePassed){ //aggiorna la data di ultimo aggiornamento
         prefs.setString("lastCurrencyUpdate", DateFormat("dd.MM.yyyy").format(DateTime.now()));
+        lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
+      }
+      else{
+        String lastUpdateRead=prefs.getString("lastCurrencyUpdate");
+        if(lastUpdateRead!=null)
+          lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
       }
       //salvataggio in memoria
       List<String> toSaveList;
@@ -87,8 +94,9 @@ class _ConversionManager extends State<ConversionManager>{
       }
       prefs.setStringList("currencyList", toSaveList);
     }
-    else{                                                             //se la lista è aggiornata allora la leggo dall'ultimo aggiornamento
+    else{                                                             //se la lista è aggiornata a oggi allora la leggo dall'ultimo aggiornamento
       List<String> currencyListRead=prefs.getStringList("currencyList");
+      lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
       for(int i=0; i<currencyListRead.length; i++){
         currencyValue[i]=double.parse(currencyListRead[i]);
       }
@@ -489,7 +497,7 @@ class _ConversionManager extends State<ConversionManager>{
           children: listaDrawer,
       ),
       ),
-      body: ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage]),
+      body: ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : ""),
       
       floatingActionButton: FloatingActionButton(
         child: SvgPicture.asset("resources/images/calculator.svg",width: 30.0,),

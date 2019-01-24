@@ -5,7 +5,8 @@ class ConversionPage extends StatefulWidget {
 
   Node fatherNode;
   String title;
-  ConversionPage(this.fatherNode, this.title);
+  String subtitle;
+  ConversionPage(this.fatherNode, this.title, this.subtitle);
 
   @override
   _ConversionPage createState() => new _ConversionPage();
@@ -66,7 +67,7 @@ class _ConversionPage extends State<ConversionPage> {
 
   List<ListItem> createList() {
     List<ListItem> listaCard = new List();
-    listaCard.add(bigHeader(title:widget.title));
+    listaCard.add(bigHeader(title:widget.title, subTitle: widget.subtitle));
     for (int i = 0; i < listaNodi.length; i++) {
       Node nodo = listaNodi[i];
       TextEditingController controller;
@@ -109,7 +110,7 @@ class _ConversionPage extends State<ConversionPage> {
             final item = itemList[index];
 
             if (item is bigHeader) {
-              return bigTitle(item.title);
+              return bigTitle(item.title, item.subTitle);
             } else if (item is myCard) {
               return UnitCard(node: item.node,textField: item.textField,);
             }

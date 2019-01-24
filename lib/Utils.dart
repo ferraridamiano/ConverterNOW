@@ -12,14 +12,16 @@ class myCard implements ListItem{
 }
 
 class bigHeader implements ListItem{
-  bigHeader({this.title});
+  bigHeader({this.title, this.subTitle});
   String title;
+  String subTitle;
 }
 
 class bigTitle extends StatelessWidget{
 
-  bigTitle(this.text);
+  bigTitle(this.text, this.subtitle);
   String text;
+  String subtitle="";
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +32,22 @@ class bigTitle extends StatelessWidget{
         mainAxisSize: MainAxisSize.max,
         children:<Widget>[
           SizedBox(height: 20.0,),
-          Container(
-            alignment: Alignment(-0.95, 0.8),
-            child: Text(text,style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,color: Color(0xFF666666)),),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+            Container(
+              child: Text(text,style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,color: Color(0xFF666666)),),
+            ),
+            Container(
+              height: 30.0,
+              alignment: Alignment.bottomRight,
+              child: Text(subtitle,style: TextStyle(fontSize: 15.0,color: Color(0xFF999999)),),
+            ),
+
+          ],
           ),
+          
           
           Divider(color: Colors.grey,),
         ]
