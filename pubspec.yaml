@@ -69,6 +69,7 @@ flutter:
         - resources/images/tempo.svg
         - resources/images/angoli.svg
         - resources/images/calculator.svg
+        - resources/images/valuta.svg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

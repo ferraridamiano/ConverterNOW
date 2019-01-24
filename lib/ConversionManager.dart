@@ -9,7 +9,6 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class ConversionManager extends StatefulWidget{
   @override
@@ -19,14 +18,14 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-  static final MAX_CONVERSION_UNITS =11;
+  static final MAX_CONVERSION_UNITS =12;
   static final List<String> currencyList=["EUR","GBP","INR","CNY","JPY","CHF","SEK","RUB","CAD","KRW","BRL","BTC"];
   static List<double> currencyValue=[0.880365,0.774845,71.362395,6.807703,109.429042,0.99706,9.02914,66.466703,1.33225,1131.44981,3.75085,0.00028]; //aggiornato al 22/01/2019
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
   Colors.cyan, Colors.indigo, Colors.purple,
   Colors.blueGrey,Colors.green,Colors.pinkAccent,
-  Colors.teal, Colors.blue];
+  Colors.teal, Colors.blue, Colors.yellow.shade700];
   static List listaTitoli;
   static int _currentPage=0;
   static List orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
@@ -40,9 +39,10 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderPressione=[0,1,2,3,4,5];
   static List orderEnergia=[0,1,2,3];
   static List orderAngoli=[0,1,2,3];
-  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,orderAngoli];
+  static List orderValute=[0,1,2,3,4,5,6,7,8,9,10,11,12];
+  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,orderAngoli, orderValute];
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+2);//+2 perchè c'è l'intestazione con il logo e lo spazio finale
-  static List<int> listaOrderDrawer=[0,1,2,3,4,5,6,7,8,9,10]; //fino a maxconversionunits
+  static List<int> listaOrderDrawer=[0,1,2,3,4,5,6,7,8,9,10,11]; //fino a maxconversionunits
 
   @override
   void initState() {
@@ -62,8 +62,10 @@ class _ConversionManager extends State<ConversionManager>{
           int index=response.body.indexOf("val")+5;
           String stringaTagliata=response.body.substring(index);
           currencyValue[i]=double.parse(stringaTagliata.split(",")[0]);
+          print(currencyValue[i]);
           index=stringaTagliata.indexOf("val")+5;
           currencyValue[i+1]=double.parse(stringaTagliata.substring(index).split(",")[0]);
+          print(currencyValue[i+1]);
         }
         else{
           allResponsePassed=false;
@@ -71,6 +73,7 @@ class _ConversionManager extends State<ConversionManager>{
           List<String> currencyListRead=prefs.getStringList("currencyList");
           currencyValue[i]=double.parse(currencyListRead[i]);
           currencyValue[i+1]=double.parse(currencyListRead[i+1]);
+          print("Failed update of all currency");
         }
       }
       //se tutte le richieste vanno a buon fine aggiorna la data di ultimo aggiornamento
@@ -89,6 +92,7 @@ class _ConversionManager extends State<ConversionManager>{
       for(int i=0; i<currencyListRead.length; i++){
         currencyValue[i]=double.parse(currencyListRead[i]);
       }
+      print("Valute lette dall ultimo aggiornamento in memoria");
     }
   }
 
@@ -141,6 +145,7 @@ class _ConversionManager extends State<ConversionManager>{
     listaDrawer[listaOrderDrawer[8]+1]=ListTileConversion(listaTitoli[8],"resources/images/pressione.svg",listaColori[8],_currentPage==8,(){_onSelectItem(8);});
     listaDrawer[listaOrderDrawer[9]+1]=ListTileConversion(listaTitoli[9],"resources/images/energia.svg",listaColori[9],_currentPage==9,(){_onSelectItem(9);});
     listaDrawer[listaOrderDrawer[10]+1]=ListTileConversion(listaTitoli[10],"resources/images/angoli.svg",listaColori[10],_currentPage==10,(){_onSelectItem(10);});
+    listaDrawer[listaOrderDrawer[11]+1]=ListTileConversion(listaTitoli[11],"resources/images/valuta.svg",listaColori[11],_currentPage==11,(){_onSelectItem(11);});
     listaDrawer[MAX_CONVERSION_UNITS+1]=SizedBox(height: AD_SIZE,);
   }
 
@@ -374,7 +379,6 @@ class _ConversionManager extends State<ConversionManager>{
         ]
     );
 
-    //da sistemare ordinamento e nome
     Node grammo=Node(name: MyLocalizations.of(context).trans('grammo'),order: listaOrder[7][0],
       leafNodes: [
       Node(isMultiplication: true, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('ettogrammo'),order: listaOrder[7][1],),
@@ -411,19 +415,28 @@ class _ConversionManager extends State<ConversionManager>{
           Node(isMultiplication: true, coefficientPer: 57.295779513, name: MyLocalizations.of(context).trans('radianti'),order: listaOrder[10][3]),
     ]);
 
-    Node USD=Node(name:MyLocalizations.of(context).trans('gradi'),//order: listaOrder[10][0],
+    Node USD=Node(name:MyLocalizations.of(context).trans('USD',),order: listaOrder[11][0],
         leafNodes: [
-          Node(isMultiplication: true, coefficientPer: currencyValue[0], name: MyLocalizations.of(context).trans('primi'),order: listaOrder[10][1]),
-          Node(isMultiplication: true, coefficientPer: currencyValue[1], name: MyLocalizations.of(context).trans('secondi'),order: listaOrder[10][2]),
-          Node(isMultiplication: true, coefficientPer: currencyValue[1], name: MyLocalizations.of(context).trans('radianti'),order: listaOrder[10][3]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[0], name: MyLocalizations.of(context).trans('EUR'),order: listaOrder[11][1]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[1], name: MyLocalizations.of(context).trans('GBP'),order: listaOrder[11][2]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[2], name: MyLocalizations.of(context).trans('INR'),order: listaOrder[11][3]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[3], name: MyLocalizations.of(context).trans('CNY'),order: listaOrder[11][4]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[4], name: MyLocalizations.of(context).trans('JPY'),order: listaOrder[11][5]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[5], name: MyLocalizations.of(context).trans('CHF'),order: listaOrder[11][6]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[6], name: MyLocalizations.of(context).trans('SEK'),order: listaOrder[11][7]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[7], name: MyLocalizations.of(context).trans('RUB'),order: listaOrder[11][8]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[8], name: MyLocalizations.of(context).trans('CAD'),order: listaOrder[11][9]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[9], name: MyLocalizations.of(context).trans('KRW'),order: listaOrder[11][10]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[10], name: MyLocalizations.of(context).trans('BRL'),order: listaOrder[11][11]),
+          Node(isMultiplication: false, coefficientPer: currencyValue[11], name: MyLocalizations.of(context).trans('BTC'),order: listaOrder[11][12]),
     ]);
 
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi];
+    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,USD];
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
-    MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli')];
+    MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli'),MyLocalizations.of(context).trans('valuta')];
     initializeTiles();
 
     List<Choice> choices = <Choice>[
@@ -480,7 +493,9 @@ class _ConversionManager extends State<ConversionManager>{
       
       floatingActionButton: FloatingActionButton(
         child: SvgPicture.asset("resources/images/calculator.svg",width: 30.0,),
-        onPressed: _fabPressed(),
+        onPressed: (){
+          _fabPressed();
+        },
         
         elevation: 10.0,
         backgroundColor: listaColori[_currentPage],
