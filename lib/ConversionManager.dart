@@ -65,10 +65,8 @@ class _ConversionManager extends State<ConversionManager>{
             int index=response.body.indexOf("val")+5;
             String stringaTagliata=response.body.substring(index);
             currencyValue[i]=double.parse(stringaTagliata.split(",")[0]);
-            print(currencyValue[i]);
             index=stringaTagliata.indexOf("val")+5;
             currencyValue[i+1]=double.parse(stringaTagliata.substring(index).split(",")[0]);
-            print(currencyValue[i+1]);
           }
           else{
             allResponsePassed=false;
@@ -76,7 +74,6 @@ class _ConversionManager extends State<ConversionManager>{
             List<String> currencyListRead=prefs.getStringList("currencyList");
             currencyValue[i]=double.parse(currencyListRead[i]);
             currencyValue[i+1]=double.parse(currencyListRead[i+1]);
-            print("Failed update of all currency");
           }
         }catch(e){
           print(e);
@@ -87,7 +84,6 @@ class _ConversionManager extends State<ConversionManager>{
             currencyValue[i]=double.parse(currencyListRead[i]);
             currencyValue[i+1]=double.parse(currencyListRead[i+1]);
           }
-          print("Failed update of all currency.................................................................................");
         }
       }
       //se tutte le richieste vanno a buon fine aggiorna la data di ultimo aggiornamento
