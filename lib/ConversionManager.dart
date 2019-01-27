@@ -52,34 +52,47 @@ class _ConversionManager extends State<ConversionManager>{
     _getCurrency();
   }
 
+
   _getCurrency() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String now = DateFormat("dd.MM.yyyy").format(DateTime.now());
+    String now = DateFormat("dd/MM/yyyy").format(DateTime.now());
     if(prefs.getString("lastCurrencyUpdate")!=now){                   //se non aggiorno la lista da piú di un giorno allora aggiorno
       bool allResponsePassed=true;
       for(int i=0;i<currencyList.length;i+=2){
-        final response =await http.get('https://free.currencyconverterapi.com/api/v6/convert?q=USD_${currencyList[i]},USD_${currencyList[i+1]}');
-        if (response.statusCode == 200) { //if successful
-          int index=response.body.indexOf("val")+5;
-          String stringaTagliata=response.body.substring(index);
-          currencyValue[i]=double.parse(stringaTagliata.split(",")[0]);
-          print(currencyValue[i]);
-          index=stringaTagliata.indexOf("val")+5;
-          currencyValue[i+1]=double.parse(stringaTagliata.substring(index).split(",")[0]);
-          print(currencyValue[i+1]);
-        }
-        else{
+        try{
+          final response =await http.get('https://free.currencyconverterapi.com/api/v6/convert?q=USD_${currencyList[i]},USD_${currencyList[i+1]}');
+          if (response.statusCode == 200) { //if successful
+            int index=response.body.indexOf("val")+5;
+            String stringaTagliata=response.body.substring(index);
+            currencyValue[i]=double.parse(stringaTagliata.split(",")[0]);
+            print(currencyValue[i]);
+            index=stringaTagliata.indexOf("val")+5;
+            currencyValue[i+1]=double.parse(stringaTagliata.substring(index).split(",")[0]);
+            print(currencyValue[i+1]);
+          }
+          else{
+            allResponsePassed=false;
+            //leggi ultimi dati salvati
+            List<String> currencyListRead=prefs.getStringList("currencyList");
+            currencyValue[i]=double.parse(currencyListRead[i]);
+            currencyValue[i+1]=double.parse(currencyListRead[i+1]);
+            print("Failed update of all currency");
+          }
+        }catch(e){
+          print(e);
           allResponsePassed=false;
           //leggi ultimi dati salvati
           List<String> currencyListRead=prefs.getStringList("currencyList");
-          currencyValue[i]=double.parse(currencyListRead[i]);
-          currencyValue[i+1]=double.parse(currencyListRead[i+1]);
-          print("Failed update of all currency");
+          if(currencyListRead!=null){
+            currencyValue[i]=double.parse(currencyListRead[i]);
+            currencyValue[i+1]=double.parse(currencyListRead[i+1]);
+          }
+          print("Failed update of all currency.................................................................................");
         }
       }
       //se tutte le richieste vanno a buon fine aggiorna la data di ultimo aggiornamento
       if(allResponsePassed){ //aggiorna la data di ultimo aggiornamento
-        prefs.setString("lastCurrencyUpdate", DateFormat("dd.MM.yyyy").format(DateTime.now()));
+        prefs.setString("lastCurrencyUpdate", now);
         lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
       }
       else{
@@ -88,7 +101,7 @@ class _ConversionManager extends State<ConversionManager>{
           lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
       }
       //salvataggio in memoria
-      List<String> toSaveList;
+      List<String> toSaveList=new List(currencyValue.length);
       for(int i=0;i<currencyValue.length;i++){
         toSaveList[i]=currencyValue[i].toString();
       }
