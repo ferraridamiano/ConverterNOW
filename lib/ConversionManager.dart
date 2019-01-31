@@ -559,7 +559,7 @@ class _ListTileConversion extends State<ListTileConversion>{
     return ListTileTheme(
       child:ListTile(
         title: Row(children: <Widget>[
-          SvgPicture.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? widget.color : Colors.black54,),
+          SvgPicture.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? widget.color : (darkTheme ? Color(0xFFCCCCCC) : Colors.black54),),
           SizedBox(width: 20.0,),
           Text(widget.text)
         ],),

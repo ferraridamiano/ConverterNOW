@@ -1,3 +1,4 @@
+import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
@@ -37,7 +38,7 @@ class bigTitle extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
             Container(
-              child: Text(text,style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,color: Color(0xFF666666)),),
+              child: Text(text,style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,color: darkTheme ? Color(0xFFDDDDDD) : Color(0xFF666666)),),
             ),
             Container(
               height: 30.0,

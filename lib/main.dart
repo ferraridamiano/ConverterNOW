@@ -2,38 +2,60 @@ import 'package:converter_pro/ConversionManager.dart';
 import 'package:converter_pro/Localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 
 double AD_SIZE=0.0;
+bool darkTheme=false;
 
-void main() => runApp(new SandboxApp());
+void main() async {
+  Brightness brightness;
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  darkTheme = prefs.getBool("darkTheme") ?? false;
+  brightness = darkTheme ? Brightness.dark: Brightness.light;
+  runApp(new SandboxApp(brightness));
+}
 
 
 class SandboxApp extends StatefulWidget {
+  Brightness brightness;
+  SandboxApp(this.brightness);
   @override
   _SandboxAppState createState() => _SandboxAppState();
 }
 
 class _SandboxAppState extends State<SandboxApp> {
 
-  @override
+  /*@override
   void initState() {
     super.initState();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Converter NOW',
-      home: ConversionManager(),
-      theme: ThemeData(
-        primaryColor: Colors.red,
-        accentColor: Colors.indigo,
+
+    return new DynamicTheme(
+      defaultBrightness: Brightness.light,
+      data: (brightness) => new ThemeData(
+        primarySwatch: Colors.indigo,
+        brightness: widget.brightness,
       ),
-      supportedLocales: [
+      themedWidgetBuilder: (context, theme) {
+        return new MaterialApp(
+          title: 'Flutter Demo',
+          theme: theme,
+          home: MaterialApp(
+            title: 'Converter NOW',
+            home: ConversionManager(),
+            theme: ThemeData(
+            primaryColor: Colors.red,
+            accentColor: Colors.indigo,
+            brightness: darkTheme ? Brightness.dark : Brightness.light
+        ),
+        supportedLocales: [
         const Locale('en', 'US'),
         const Locale('it', 'IT')
-
-      ],
+        ],
       localizationsDelegates: [
         const MyLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -48,6 +70,9 @@ class _SandboxAppState extends State<SandboxApp> {
 
         return supportedLocales.first;
       },
+    ),
+        );
+      }
     );
   }
 }
