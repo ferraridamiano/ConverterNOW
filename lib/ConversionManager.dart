@@ -6,7 +6,7 @@ import 'package:converter_pro/Utils.dart';
 import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
@@ -54,7 +54,7 @@ class _ConversionManager extends State<ConversionManager>{
 
 
   _getCurrency() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //SharedPreferences prefs = await SharedPreferences.getInstance();
     String now = DateFormat("dd/MM/yyyy").format(DateTime.now());
     if(prefs.getString("lastCurrencyUpdate")!=now){                   //se non aggiorno la lista da piú di un giorno allora aggiorno
       bool allResponsePassed=true;
@@ -177,14 +177,14 @@ class _ConversionManager extends State<ConversionManager>{
 
 
   _saveOrders() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> toConvertList=new List();
     for(int item in listaOrder[_currentPage])
       toConvertList.add(item.toString());
     prefs.setStringList("conversion_$_currentPage", toConvertList);
   }
   _getOrders() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //SharedPreferences prefs = await SharedPreferences.getInstance();
 
     //aggiorno lista del drawer
     List <String> stringList=prefs.getStringList("orderDrawer");
@@ -221,7 +221,7 @@ class _ConversionManager extends State<ConversionManager>{
 
   _changeOrderDrawer(BuildContext context,String title, Color color) async{
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //SharedPreferences prefs = await SharedPreferences.getInstance();
     Navigator.of(context).pop();
 
     List orderedList=new List(MAX_CONVERSION_UNITS);

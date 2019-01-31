@@ -101,6 +101,7 @@ class _SettingsPage2 extends State<SettingsPage2>{
               setState(() {
                 darkTheme=!darkTheme;
                 DynamicTheme.of(context).setBrightness(Brightness.dark);
+                prefs.setBool("darkTheme", darkTheme);
               });
             },
           )

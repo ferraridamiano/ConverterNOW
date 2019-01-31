@@ -142,7 +142,7 @@ class Item extends StatelessWidget {
     return Container(
       // slightly transparent background white dragging (just like on iOS)
         decoration:
-        BoxDecoration(color: dragging ? Color(0xD0FFFFFF) : Colors.white),
+        BoxDecoration(color: dragging ? (darkTheme ? Color(0xD02e2e2e) : Color(0xD0FFFFFF)) : Colors.transparent),
         child: SafeArea(
             top: false,
             bottom: false,

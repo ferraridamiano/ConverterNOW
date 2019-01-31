@@ -7,10 +7,11 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 
 double AD_SIZE=0.0;
 bool darkTheme=false;
+SharedPreferences prefs;
 
 void main() async {
   Brightness brightness;
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs = await SharedPreferences.getInstance();
   darkTheme = prefs.getBool("darkTheme") ?? false;
   brightness = darkTheme ? Brightness.dark: Brightness.light;
   runApp(new SandboxApp(brightness));
