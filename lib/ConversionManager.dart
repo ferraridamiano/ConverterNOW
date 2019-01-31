@@ -42,7 +42,7 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderValute=[0,1,2,3,4,5,6,7,8,9,10,11,12];
   static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,orderAngoli, orderValute];
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+2);//+2 perchè c'è l'intestazione con il logo e lo spazio finale
-  static List<int> listaOrderDrawer=[0,1,2,3,4,5,6,7,8,9,10,11]; //fino a maxconversionunits
+  static List<int> listaOrderDrawer=[0,1,2,3,4,5,11,6,7,8,9,10]; //fino a maxconversionunits-1
 
   @override
   void initState() {
