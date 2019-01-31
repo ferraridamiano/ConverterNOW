@@ -1,4 +1,5 @@
 import 'package:converter_pro/Utils.dart';
+import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 
 class ConversionPage extends StatefulWidget {
@@ -82,7 +83,7 @@ class _ConversionPage extends State<ConversionPage> {
           textField: TextField(
             style: TextStyle(
               fontSize: 16.0,
-              color: Colors.black,
+              color: darkTheme ? Colors.white : Colors.black,
             ),
             keyboardType:
                 TextInputType.numberWithOptions(decimal: true, signed: false),

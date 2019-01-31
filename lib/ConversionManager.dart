@@ -6,7 +6,6 @@ import 'package:converter_pro/Utils.dart';
 import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
@@ -192,8 +191,9 @@ class _ConversionManager extends State<ConversionManager>{
       if(stringList!=null){
         for(int i=0;i<MAX_CONVERSION_UNITS;i++){
           listaOrderDrawer[i]=int.parse(stringList[i]);
+          if(listaOrderDrawer[i]==0)
+            _currentPage=i;
         }
-        _currentPage=listaOrderDrawer[0];
       }
     });
 
