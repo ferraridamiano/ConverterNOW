@@ -9,6 +9,8 @@ import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
+bool isCurrencyLoading=true;
+
 class ConversionManager extends StatefulWidget{
   @override
   _ConversionManager createState() => new _ConversionManager();
@@ -108,8 +110,8 @@ class _ConversionManager extends State<ConversionManager>{
       for(int i=0; i<currencyListRead.length; i++){
         currencyValue[i]=double.parse(currencyListRead[i]);
       }
-      print("Valute lette dall ultimo aggiornamento in memoria");
     }
+    isCurrencyLoading=false;
   }
 
   void initializeTiles(){

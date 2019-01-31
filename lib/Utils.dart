@@ -1,3 +1,4 @@
+import 'package:converter_pro/ConversionManager.dart';
 import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,7 +44,7 @@ class bigTitle extends StatelessWidget{
             Container(
               height: 30.0,
               alignment: Alignment.bottomRight,
-              child: Text(subtitle,style: TextStyle(fontSize: 15.0,color: Color(0xFF999999)),),
+              child: (isCurrencyLoading && subtitle!="") ? Container(child:CircularProgressIndicator(),height: 25.0,width: 25.0,) : Text(subtitle,style: TextStyle(fontSize: 15.0,color: Color(0xFF999999)),),
             ),
 
           ],
