@@ -23,6 +23,7 @@
   "energia":"Energia",
   "angoli":"Angoli",
   "valuta":"Valute",
+  "taglia_scarpe": "Taglia scarpe",
 
   "metro": "Metri [m]",
   "centimetro": "Centimetri [cm]",
@@ -97,10 +98,12 @@
   "ettogrammo": "Ettogrammi [hg]",
   "chilogrammo": "Chilogrammi [Kg]",
   "libbra":" Libbre [lb]",
+  "oncia": "Oncia [oz]",
   "quintale": "Quintali",
   "tonnellata": "Tonnellate [t]",
   "milligrammo": "Milligrammi [mg]",
   "uma": "Unità di Massa Atomica [u]",
+  "carato": "Carati [ct]",
 
   "pascal": "Pascal [Pa]",
   "atmosfere":"Atomsfere [atm]",
@@ -131,6 +134,15 @@
   "CAD": "Dollari canadesi [$] [Canada]",
   "KRW": "Won [₩] [Corea del Sud]",
   "BRL": "Real [R$] [Brasile]",
-  "BTC": "Bitcoin [₿]"
+  "BTC": "Bitcoin [₿]",
+
+  "eu_cina": "EU e Cina",
+  "uk_india_bambino": "UK e India - Bambino",
+  "uk_india_uomo": "UK e India - Uomo",
+  "uk_india_donna": "UK e India - Donna",
+  "usa_canada_bambino": "USA e Canada - Bambino",
+  "usa_canada_uomo": "USA e Canada - Uomo",
+  "usa_canada_donna": "USA e Canada - Donna",
+  "giappone": "Giappone"
 
 }

@@ -19,15 +19,16 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-  static final MAX_CONVERSION_UNITS =12;
+  static final MAX_CONVERSION_UNITS=13;
+  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static final List<String> currencyList=["EUR","GBP","INR","CNY","JPY","CHF","SEK","RUB","CAD","KRW","BRL","BTC"];
   static List<double> currencyValue=[0.880365,0.774845,71.362395,6.807703,109.429042,0.99706,9.02914,66.466703,1.33225,1131.44981,3.75085,0.00028]; //aggiornato al 22/01/2019
   static String lastUpdateCurrency="Last update: 22/01/2019";
   static List listaConversioni;
-  static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,
-  Colors.cyan, Colors.indigo, Colors.purple,
-  Colors.blueGrey,Colors.green,Colors.pinkAccent,
-  Colors.teal, Colors.blue, Colors.yellow.shade700];
+  static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
+  Colors.purple,Colors.blueGrey,Colors.green,Colors.pinkAccent,Colors.teal,
+  Colors.blue, Colors.yellow.shade700, Colors.brown];
+  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List listaTitoli;
   static int _currentPage=0;
   static List orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
@@ -37,14 +38,18 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderTemperatura=[0,1,2];
   static List orderVelocita=[0,1,2,3,4];
   static List orderPrefissi=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-  static List orderMassa=[0,1,2,3,4,5,6,7];
+  static List orderMassa=[0,1,2,3,4,5,6,7,8,9];
   static List orderPressione=[0,1,2,3,4,5];
   static List orderEnergia=[0,1,2,3];
   static List orderAngoli=[0,1,2,3];
   static List orderValute=[0,1,2,3,4,5,6,7,8,9,10,11,12];
-  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,orderAngoli, orderValute];
+  static List orderScarpe=[0,1,2,3,4,5,6,7,8,9];
+  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,orderAngoli, orderValute, orderScarpe];
+  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+2);//+2 perchè c'è l'intestazione con il logo e lo spazio finale
-  static List<int> listaOrderDrawer=[0,1,2,3,4,5,11,6,7,8,9,10]; //fino a maxconversionunits-1
+  static List<int> listaOrderDrawer=[0,1,2,3,4,5,11,6,7,8,9,10,12]; //fino a maxconversionunits-2
+  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
   @override
   void initState() {
@@ -94,8 +99,10 @@ class _ConversionManager extends State<ConversionManager>{
       }
       else{
         String lastUpdateRead=prefs.getString("lastCurrencyUpdate");
-        if(lastUpdateRead!=null)
+        if(lastUpdateRead!=null){
           lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
+        }
+          
       }
       //salvataggio in memoria
       List<String> toSaveList=new List(currencyValue.length);
@@ -110,8 +117,11 @@ class _ConversionManager extends State<ConversionManager>{
       for(int i=0; i<currencyListRead.length; i++){
         currencyValue[i]=double.parse(currencyListRead[i]);
       }
+      print("lette dall'ultimo aggiornamento");
     }
-    isCurrencyLoading=false;
+    setState(() {
+      isCurrencyLoading=false;
+    });
   }
 
   void initializeTiles(){
@@ -164,6 +174,8 @@ class _ConversionManager extends State<ConversionManager>{
     listaDrawer[listaOrderDrawer[9]+1]=ListTileConversion(listaTitoli[9],"resources/images/energia.svg",listaColori[9],_currentPage==9,(){_onSelectItem(9);});
     listaDrawer[listaOrderDrawer[10]+1]=ListTileConversion(listaTitoli[10],"resources/images/angoli.svg",listaColori[10],_currentPage==10,(){_onSelectItem(10);});
     listaDrawer[listaOrderDrawer[11]+1]=ListTileConversion(listaTitoli[11],"resources/images/valuta.svg",listaColori[11],_currentPage==11,(){_onSelectItem(11);});
+    listaDrawer[listaOrderDrawer[12]+1]=ListTileConversion(listaTitoli[12],"resources/images/scarpe.svg",listaColori[12],_currentPage==12,(){_onSelectItem(12);});
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     listaDrawer[MAX_CONVERSION_UNITS+1]=SizedBox(height: AD_SIZE,);
   }
 
@@ -402,12 +414,15 @@ class _ConversionManager extends State<ConversionManager>{
       leafNodes: [
       Node(isMultiplication: true, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('ettogrammo'),order: listaOrder[7][1],),
       Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('chilogrammo'),order: listaOrder[7][2],leafNodes:[
-        Node(isMultiplication: true, coefficientPer: 0.45359237, name: MyLocalizations.of(context).trans('libbra'),order: listaOrder[7][3],),
+        Node(isMultiplication: true, coefficientPer: 0.45359237, name: MyLocalizations.of(context).trans('libbra'),order: listaOrder[7][3],leafNodes: [
+          Node(isMultiplication: false, coefficientPer: 16.0, name: MyLocalizations.of(context).trans('oncia'),order: listaOrder[7][4],)
+        ]),
       ]),
-      Node(isMultiplication: true, coefficientPer: 100000.0, name: MyLocalizations.of(context).trans('quintale'),order: listaOrder[7][4],),
-      Node(isMultiplication: true, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('tonnellata'),order: listaOrder[7][5],),
-      Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('milligrammo'),order: listaOrder[7][6],),
-      Node(isMultiplication: true, coefficientPer: 1.660539e-24, name: MyLocalizations.of(context).trans('uma'),order: listaOrder[7][7],),
+      Node(isMultiplication: true, coefficientPer: 100000.0, name: MyLocalizations.of(context).trans('quintale'),order: listaOrder[7][5],),
+      Node(isMultiplication: true, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('tonnellata'),order: listaOrder[7][6],),
+      Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('milligrammo'),order: listaOrder[7][7],),
+      Node(isMultiplication: true, coefficientPer: 1.660539e-24, name: MyLocalizations.of(context).trans('uma'),order: listaOrder[7][8],),
+      Node(isMultiplication: true, coefficientPer: 0.2, name: MyLocalizations.of(context).trans('carato'),order: listaOrder[7][9],),
     ]);
 
     Node pascal=Node(name: MyLocalizations.of(context).trans('pascal'),order: listaOrder[8][0],
@@ -450,12 +465,31 @@ class _ConversionManager extends State<ConversionManager>{
           Node(isMultiplication: false, coefficientPer: currencyValue[11], name: MyLocalizations.of(context).trans('BTC'),order: listaOrder[11][12]),
     ]);
 
+    Node centimetri_scarpe=Node(name:MyLocalizations.of(context).trans('centimetro',),order: listaOrder[12][0],
+        leafNodes: [
+          Node(isMultiplication: false, coefficientPer: 1.5, coefficientPlus: 1.5, isSum: false, name: MyLocalizations.of(context).trans('eu_cina'),order: listaOrder[12][1]),
+          Node(isMultiplication: true, coefficientPer: 2.54, name: MyLocalizations.of(context).trans('pollice'),order: listaOrder[12][2], 
+          leafNodes: [
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 4, isSum: true, name: MyLocalizations.of(context).trans('uk_india_bambino'),order: listaOrder[12][3]),
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.3333333, name: MyLocalizations.of(context).trans('uk_india_uomo'),order: listaOrder[12][4]),
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.5, name: MyLocalizations.of(context).trans('uk_india_donna'),order: listaOrder[12][5]),
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 3.89, isSum: true, name: MyLocalizations.of(context).trans('usa_canada_bambino'),order: listaOrder[12][6]),
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.0, name: MyLocalizations.of(context).trans('usa_canada_uomo'),order: listaOrder[12][7]),
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 7.5, name: MyLocalizations.of(context).trans('usa_canada_donna'),order: listaOrder[12][8]),
+          ]),
+          Node(coefficientPlus: 1.5, isSum: false, name: MyLocalizations.of(context).trans('giappone'),order: listaOrder[12][9]),
+          
+        ]);
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,USD];
+
+    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,USD, centimetri_scarpe];
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
-    MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli'),MyLocalizations.of(context).trans('valuta')];
+    MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli'),MyLocalizations.of(context).trans('valuta'),
+    MyLocalizations.of(context).trans('taglia_scarpe')];
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     initializeTiles();
 
     List<Choice> choices = <Choice>[

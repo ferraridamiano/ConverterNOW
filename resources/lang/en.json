@@ -23,6 +23,7 @@
   "energia":"Energy",
   "angoli":"Angles",
   "valuta":"Currencies",
+  "taglia_scarpe": "Shoe size",
 
   "metro": "Metres [m]",
   "centimetro": "Centimetres [cm]",
@@ -93,14 +94,16 @@
   "nodi": "Knots [kts]",
   "piedi_secondo": "Feets per Second [ft/s]",
 
-  "grammo": "Gram [g]",
-  "ettogrammo": "Ettogram [hg]",
-  "chilogrammo": "Kilogram [Kg]",
-  "libbra":" Pound [lb]",
-  "quintale": "Quintal",
-  "tonnellata": "Tonne [t]",
-  "milligrammo": "Milligram [mg]",
+  "grammo": "Grams [g]",
+  "ettogrammo": "Ettograms [hg]",
+  "chilogrammo": "Kilograms [Kg]",
+  "libbra":" Pounds [lb]",
+  "oncia": "Ounces [oz]",
+  "quintale": "Quintals",
+  "tonnellata": "Tons [t]",
+  "milligrammo": "Milligrams [mg]",
   "uma": "Unified atomic mass unit [u]",
+  "carato": "Carats [ct]",
 
   "pascal": "Pascal [Pa]",
   "atmosfere":"Atmosphere [atm]",
@@ -131,6 +134,15 @@
   "CAD": "Canadian Dollars [$] [Canada]",
   "KRW": "Won [₩] [South Corea]",
   "BRL": "Real [R$] [Brazil]",
-  "BTC": "Bitcoin [₿]"
+  "BTC": "Bitcoin [₿]",
+
+  "eu_cina": "EU & China",
+  "uk_india_bambino": "UK & India - Child",
+  "uk_india_uomo": "UK & India - Man",
+  "uk_india_donna": "UK & India - Woman",
+  "usa_canada_bambino": "USA & Canada - Child",
+  "usa_canada_uomo": "USA & Canada - Man",
+  "usa_canada_donna": "USA & Canada - Woman",
+  "giappone": "Japan"
 
 }
