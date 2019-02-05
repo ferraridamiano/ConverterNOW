@@ -19,7 +19,7 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-  static final MAX_CONVERSION_UNITS=13;
+  static final MAX_CONVERSION_UNITS=14;
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static final List<String> currencyList=["EUR","GBP","INR","CNY","JPY","CHF","SEK","RUB","CAD","KRW","BRL","BTC"];
   static List<double> currencyValue=[0.880365,0.774845,71.362395,6.807703,109.429042,0.99706,9.02914,66.466703,1.33225,1131.44981,3.75085,0.00028]; //aggiornato al 22/01/2019
@@ -27,7 +27,7 @@ class _ConversionManager extends State<ConversionManager>{
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
   Colors.purple,Colors.blueGrey,Colors.green,Colors.pinkAccent,Colors.teal,
-  Colors.blue, Colors.yellow.shade700, Colors.brown];
+  Colors.blue, Colors.yellow.shade700, Colors.brown, Colors.lightGreenAccent];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List listaTitoli;
   static int _currentPage=0;
@@ -44,11 +44,13 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderAngoli=[0,1,2,3];
   static List orderValute=[0,1,2,3,4,5,6,7,8,9,10,11,12];
   static List orderScarpe=[0,1,2,3,4,5,6,7,8,9];
+  static List orderDati=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,orderAngoli, orderValute, orderScarpe];
+  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,
+  orderAngoli, orderValute, orderScarpe, orderDati];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+2);//+2 perchè c'è l'intestazione con il logo e lo spazio finale
-  static List<int> listaOrderDrawer=[0,1,2,3,4,5,11,6,7,8,9,10,12]; //fino a maxconversionunits-2
+  static List<int> listaOrderDrawer=[0,1,2,3,4,5,11,6,7,8,9,10,12,13]; //fino a maxconversionunits-1
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
   @override
@@ -175,6 +177,7 @@ class _ConversionManager extends State<ConversionManager>{
     listaDrawer[listaOrderDrawer[10]+1]=ListTileConversion(listaTitoli[10],"resources/images/angoli.svg",listaColori[10],_currentPage==10,(){_onSelectItem(10);});
     listaDrawer[listaOrderDrawer[11]+1]=ListTileConversion(listaTitoli[11],"resources/images/valuta.svg",listaColori[11],_currentPage==11,(){_onSelectItem(11);});
     listaDrawer[listaOrderDrawer[12]+1]=ListTileConversion(listaTitoli[12],"resources/images/scarpe.svg",listaColori[12],_currentPage==12,(){_onSelectItem(12);});
+    listaDrawer[listaOrderDrawer[13]+1]=ListTileConversion(listaTitoli[13],"resources/images/dati.svg",listaColori[13],_currentPage==13,(){_onSelectItem(13);});
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     listaDrawer[MAX_CONVERSION_UNITS+1]=SizedBox(height: AD_SIZE,);
   }
@@ -479,16 +482,57 @@ class _ConversionManager extends State<ConversionManager>{
           ]),
           Node(coefficientPlus: 1.5, isSum: false, name: MyLocalizations.of(context).trans('giappone'),order: listaOrder[12][9]),
           
-        ]);
+    ]);
+
+    Node bit=Node(name: "Bit [b]",order: listaOrder[13][0],
+        leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 1000.0, name: "Kilobit [kb]",order: listaOrder[13][2],),
+          Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Megabit [Mb]",order: listaOrder[13][6],),
+          Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "Gigabit [Gb]",order: listaOrder[13][10],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "Terabit [Tb]",order: listaOrder[13][14],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "Petabit [Pb]",order: listaOrder[13][18],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "Exabit [Eb]",order: listaOrder[13][22],),
+          Node(isMultiplication: true, coefficientPer: 1024.0, name: "Kibibit [Kibit]",order: listaOrder[13][4],leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 1024.0, name: "Mebibit [Mibit]",order: listaOrder[13][8],leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 1024.0, name: "Gibibit [Gibit]",order: listaOrder[13][12],leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 1024.0, name: "Tebibit [Tibit]",order: listaOrder[13][16],leafNodes: [
+                  Node(isMultiplication: true, coefficientPer: 1024.0, name: "Pebibit [Pibit]",order: listaOrder[13][20],leafNodes: [
+                    Node(isMultiplication: true, coefficientPer: 1024.0, name: "Exbibit [Eibit]",order: listaOrder[13][24])
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          Node(isMultiplication: true, coefficientPer: 8.0, name: "Byte [B]",order: listaOrder[13][1],leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 1000.0, name: "Kilobyte [kB]",order: listaOrder[13][3],),
+            Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Megabyte [MB]",order: listaOrder[13][7],),
+            Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "Gigabyte [GB]",order: listaOrder[13][11],),
+            Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "Terabyte [TB]",order: listaOrder[13][15],),
+            Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "Petabyte [PB]",order: listaOrder[13][19],),
+            Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "Exabyte [EB]",order: listaOrder[13][23],),
+            Node(isMultiplication: true, coefficientPer: 1024.0, name: "Kibibyte [KiB]",order: listaOrder[13][5],leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 1024.0, name: "Mebibyte [MiB]",order: listaOrder[13][9],leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 1024.0, name: "Gibibyte [GiB]",order: listaOrder[13][13],leafNodes: [
+                  Node(isMultiplication: true, coefficientPer: 1024.0, name: "Tebibyte [TiB]",order: listaOrder[13][17],leafNodes: [
+                    Node(isMultiplication: true, coefficientPer: 1024.0, name: "Pebibyte [PiB]",order: listaOrder[13][21],leafNodes: [
+                      Node(isMultiplication: true, coefficientPer: 1024.0, name: "Exbibyte [EiB]",order: listaOrder[13][25])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+          ]),
+        ]
+    );
 
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,USD, centimetri_scarpe];
+    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,USD, centimetri_scarpe,bit];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
     MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli'),MyLocalizations.of(context).trans('valuta'),
-    MyLocalizations.of(context).trans('taglia_scarpe')];
+    MyLocalizations.of(context).trans('taglia_scarpe'),MyLocalizations.of(context).trans('dati_digitali')];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     initializeTiles();
 
