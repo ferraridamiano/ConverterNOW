@@ -44,7 +44,7 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderAngoli=[0,1,2,3];
   static List orderValute=[0,1,2,3,4,5,6,7,8,9,10,11,12];
   static List orderScarpe=[0,1,2,3,4,5,6,7,8,9];
-  static List orderDati=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+  static List orderDati=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26];
   static List orderPotenza=[0,1,2,3,4,5,6];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,
@@ -488,36 +488,37 @@ class _ConversionManager extends State<ConversionManager>{
 
     Node bit=Node(name: "Bit [b]",order: listaOrder[13][0],
         leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 1000.0, name: "Kilobit [kb]",order: listaOrder[13][2],),
-          Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Megabit [Mb]",order: listaOrder[13][6],),
-          Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "Gigabit [Gb]",order: listaOrder[13][10],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "Terabit [Tb]",order: listaOrder[13][14],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "Petabit [Pb]",order: listaOrder[13][18],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "Exabit [Eb]",order: listaOrder[13][22],),
-          Node(isMultiplication: true, coefficientPer: 1024.0, name: "Kibibit [Kibit]",order: listaOrder[13][4],leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 1024.0, name: "Mebibit [Mibit]",order: listaOrder[13][8],leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 1024.0, name: "Gibibit [Gibit]",order: listaOrder[13][12],leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 1024.0, name: "Tebibit [Tibit]",order: listaOrder[13][16],leafNodes: [
-                  Node(isMultiplication: true, coefficientPer: 1024.0, name: "Pebibit [Pibit]",order: listaOrder[13][20],leafNodes: [
-                    Node(isMultiplication: true, coefficientPer: 1024.0, name: "Exbibit [Eibit]",order: listaOrder[13][24])
+          Node(isMultiplication: true, coefficientPer: 4.0, name: "Nibble",order: listaOrder[13][2],),
+          Node(isMultiplication: true, coefficientPer: 1000.0, name: "Kilobit [kb]",order: listaOrder[13][3],),
+          Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Megabit [Mb]",order: listaOrder[13][7],),
+          Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "Gigabit [Gb]",order: listaOrder[13][11],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "Terabit [Tb]",order: listaOrder[13][15],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "Petabit [Pb]",order: listaOrder[13][19],),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "Exabit [Eb]",order: listaOrder[13][23],),
+          Node(isMultiplication: true, coefficientPer: 1024.0, name: "Kibibit [Kibit]",order: listaOrder[13][5],leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 1024.0, name: "Mebibit [Mibit]",order: listaOrder[13][9],leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 1024.0, name: "Gibibit [Gibit]",order: listaOrder[13][13],leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 1024.0, name: "Tebibit [Tibit]",order: listaOrder[13][17],leafNodes: [
+                  Node(isMultiplication: true, coefficientPer: 1024.0, name: "Pebibit [Pibit]",order: listaOrder[13][21],leafNodes: [
+                    Node(isMultiplication: true, coefficientPer: 1024.0, name: "Exbibit [Eibit]",order: listaOrder[13][25])
                   ])
                 ])
               ])
             ])
           ]),
           Node(isMultiplication: true, coefficientPer: 8.0, name: "Byte [B]",order: listaOrder[13][1],leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 1000.0, name: "Kilobyte [kB]",order: listaOrder[13][3],),
-            Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Megabyte [MB]",order: listaOrder[13][7],),
-            Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "Gigabyte [GB]",order: listaOrder[13][11],),
-            Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "Terabyte [TB]",order: listaOrder[13][15],),
-            Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "Petabyte [PB]",order: listaOrder[13][19],),
-            Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "Exabyte [EB]",order: listaOrder[13][23],),
-            Node(isMultiplication: true, coefficientPer: 1024.0, name: "Kibibyte [KiB]",order: listaOrder[13][5],leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 1024.0, name: "Mebibyte [MiB]",order: listaOrder[13][9],leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 1024.0, name: "Gibibyte [GiB]",order: listaOrder[13][13],leafNodes: [
-                  Node(isMultiplication: true, coefficientPer: 1024.0, name: "Tebibyte [TiB]",order: listaOrder[13][17],leafNodes: [
-                    Node(isMultiplication: true, coefficientPer: 1024.0, name: "Pebibyte [PiB]",order: listaOrder[13][21],leafNodes: [
-                      Node(isMultiplication: true, coefficientPer: 1024.0, name: "Exbibyte [EiB]",order: listaOrder[13][25])
+            Node(isMultiplication: true, coefficientPer: 1000.0, name: "Kilobyte [kB]",order: listaOrder[13][4],),
+            Node(isMultiplication: true, coefficientPer: 1000000.0, name: "Megabyte [MB]",order: listaOrder[13][8],),
+            Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "Gigabyte [GB]",order: listaOrder[13][12],),
+            Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "Terabyte [TB]",order: listaOrder[13][16],),
+            Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "Petabyte [PB]",order: listaOrder[13][20],),
+            Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "Exabyte [EB]",order: listaOrder[13][24],),
+            Node(isMultiplication: true, coefficientPer: 1024.0, name: "Kibibyte [KiB]",order: listaOrder[13][6],leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 1024.0, name: "Mebibyte [MiB]",order: listaOrder[13][10],leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 1024.0, name: "Gibibyte [GiB]",order: listaOrder[13][14],leafNodes: [
+                  Node(isMultiplication: true, coefficientPer: 1024.0, name: "Tebibyte [TiB]",order: listaOrder[13][18],leafNodes: [
+                    Node(isMultiplication: true, coefficientPer: 1024.0, name: "Pebibyte [PiB]",order: listaOrder[13][22],leafNodes: [
+                      Node(isMultiplication: true, coefficientPer: 1024.0, name: "Exbibyte [EiB]",order: listaOrder[13][26])
                     ])
                   ])
                 ])
