@@ -25,6 +25,7 @@
   "valuta":"Valute",
   "taglia_scarpe": "Taglia scarpe",
   "dati_digitali": "Dati digitali",
+  "potenza": "Potenza",
 
   "metro": "Metri [m]",
   "centimetro": "Centimetri [cm]",
@@ -144,6 +145,16 @@
   "usa_canada_bambino": "USA e Canada - Bambino",
   "usa_canada_uomo": "USA e Canada - Uomo",
   "usa_canada_donna": "USA e Canada - Donna",
-  "giappone": "Giappone"
+  "giappone": "Giappone",
+
+  "watt": "Watt [W]",
+  "milliwatt": "Milliwatt [mW]",
+  "kilowatt": "Chilowatt [kW]",
+  "megawatt": "Megawatt [MW]",
+  "gigawatt": "GigaWatt [GW]",
+  "cavallo_vapore_eurpeo": "Cavallo vapore Europeo [hp(M)]",
+  "cavallo_vapore_imperiale": "Cavallo vapore Imperiale [hp(I)]"
+  
+
 
 }

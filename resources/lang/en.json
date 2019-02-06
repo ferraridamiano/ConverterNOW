@@ -25,6 +25,7 @@
   "valuta":"Currencies",
   "taglia_scarpe": "Shoe size",
   "dati_digitali": "Digital data",
+  "potenza": "Power",
 
   "metro": "Metres [m]",
   "centimetro": "Centimetres [cm]",
@@ -144,6 +145,14 @@
   "usa_canada_bambino": "USA & Canada - Child",
   "usa_canada_uomo": "USA & Canada - Man",
   "usa_canada_donna": "USA & Canada - Woman",
-  "giappone": "Japan"
+  "giappone": "Japan",
+
+  "watt": "Watt [W]",
+  "milliwatt": "Milliwatt [mW]",
+  "kilowatt": "Kilowatt [kW]",
+  "megawatt": "Megawatt [MW]",
+  "gigawatt": "GigaWatt [GW]",
+  "cavallo_vapore_eurpeo": "European horse power [hp(M)]",
+  "cavallo_vapore_imperiale": "Imperial horse power [hp(I)]"
 
 }

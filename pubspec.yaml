@@ -61,6 +61,7 @@ flutter:
         - resources/images/lunghezza.svg
         - resources/images/massa.svg
         - resources/images/energia.svg
+        - resources/images/potenza.svg 
         - resources/images/pressione.svg
         - resources/images/velocita.svg
         - resources/images/temperatura.svg
