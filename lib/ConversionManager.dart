@@ -19,7 +19,7 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-  static final MAX_CONVERSION_UNITS=15;
+  static final MAX_CONVERSION_UNITS=17;
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static final List<String> currencyList=["EUR","GBP","INR","CNY","JPY","CHF","SEK","RUB","CAD","KRW","BRL","BTC"];
   static List<double> currencyValue=[0.880365,0.774845,71.362395,6.807703,109.429042,0.99706,9.02914,66.466703,1.33225,1131.44981,3.75085,0.00028]; //aggiornato al 22/01/2019
@@ -27,7 +27,8 @@ class _ConversionManager extends State<ConversionManager>{
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
   Colors.purple,Colors.blueGrey,Colors.green,Colors.pinkAccent,Colors.teal,
-  Colors.blue, Colors.yellow.shade700, Colors.brown, Colors.lightGreenAccent, Colors.deepPurple];
+  Colors.blue, Colors.yellow.shade700, Colors.brown, Colors.lightGreenAccent, Colors.deepPurple,
+  Colors.lightBlue, Colors.lime];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List listaTitoli;
   static int _currentPage=0;
@@ -46,12 +47,14 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderScarpe=[0,1,2,3,4,5,6,7,8,9];
   static List orderDati=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26];
   static List orderPotenza=[0,1,2,3,4,5,6];
+  static List orderForza=[0,1,2,3,4];
+  static List orderTorque=[0,1,2,3,4];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,
-  orderAngoli, orderValute, orderScarpe, orderDati, orderPotenza];
+  orderAngoli, orderValute, orderScarpe, orderDati, orderPotenza, orderForza, orderTorque];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+2);//+2 perchè c'è l'intestazione con il logo e lo spazio finale
-  static List<int> listaOrderDrawer=[0,1,2,4,5,6,14,7,8,9,11,3,12,13,10]; //fino a maxconversionunits-1 (14)
+  static List<int> listaOrderDrawer=[0,1,2,4,5,6,14,7,8,9,11,3,12,13,10,15,16]; //fino a maxconversionunits-1 
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
   @override
@@ -180,6 +183,8 @@ class _ConversionManager extends State<ConversionManager>{
     listaDrawer[listaOrderDrawer[12]+1]=ListTileConversion(listaTitoli[12],"resources/images/scarpe.svg",listaColori[12],_currentPage==12,(){_onSelectItem(12);});
     listaDrawer[listaOrderDrawer[13]+1]=ListTileConversion(listaTitoli[13],"resources/images/dati.svg",listaColori[13],_currentPage==13,(){_onSelectItem(13);});
     listaDrawer[listaOrderDrawer[14]+1]=ListTileConversion(listaTitoli[14],"resources/images/potenza.svg",listaColori[14],_currentPage==14,(){_onSelectItem(14);});
+    listaDrawer[listaOrderDrawer[15]+1]=ListTileConversion(listaTitoli[15],"resources/images/forza.svg",listaColori[15],_currentPage==15,(){_onSelectItem(15);});
+    listaDrawer[listaOrderDrawer[16]+1]=ListTileConversion(listaTitoli[16],"resources/images/torque.svg",listaColori[16],_currentPage==16,(){_onSelectItem(16);});
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     listaDrawer[MAX_CONVERSION_UNITS+1]=SizedBox(height: AD_SIZE,);
   }
@@ -208,10 +213,15 @@ class _ConversionManager extends State<ConversionManager>{
     List <String> stringList=prefs.getStringList("orderDrawer");
     setState((){
       if(stringList!=null){
-        for(int i=0;i<MAX_CONVERSION_UNITS;i++){
+        final int len=stringList.length;
+        for(int i=0;i<len;i++){
           listaOrderDrawer[i]=int.parse(stringList[i]);
           if(listaOrderDrawer[i]==0)
-            _currentPage=i;
+             _currentPage=i;
+        }
+        //risolve il problema di aggiunta di unità dopo un aggiornamento
+        for(int i=len;i<MAX_CONVERSION_UNITS;i++){
+          listaOrderDrawer[i]=i;
         }
       }
     });
@@ -538,14 +548,31 @@ class _ConversionManager extends State<ConversionManager>{
           Node(isMultiplication: true, coefficientPer: 745.69987158, name: MyLocalizations.of(context).trans('cavallo_vapore_imperiale'),order: listaOrder[14][6],),
     ]);
 
+    Node newton=Node(name: MyLocalizations.of(context).trans('newton'),order: listaOrder[15][0],
+        leafNodes: [
+          Node(isMultiplication: false, coefficientPer: 100000.0, name: MyLocalizations.of(context).trans('dyne'),order: listaOrder[15][1],),
+          Node(isMultiplication: true, coefficientPer: 4.448222 , name: MyLocalizations.of(context).trans('libbra_forza'),order: listaOrder[15][2],),
+          Node(isMultiplication: true, coefficientPer: 9.80665, name: MyLocalizations.of(context).trans('kilogrammo_forza'),order: listaOrder[15][3],),
+          Node(isMultiplication: true, coefficientPer: 0.138254954376, name: MyLocalizations.of(context).trans('poundal'),order: listaOrder[15][4],),
+    ]);
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,USD, centimetri_scarpe,bit,watt];
+    Node newton_metro=Node(name: MyLocalizations.of(context).trans('newton_metro'),order: listaOrder[16][0],
+        leafNodes: [
+          Node(isMultiplication: false, coefficientPer: 100000.0, name: MyLocalizations.of(context).trans('dyne_metro'),order: listaOrder[16][1],),
+          Node(isMultiplication: false, coefficientPer: 0.7374631268436578 , name: MyLocalizations.of(context).trans('libbra_forza_piede'),order: listaOrder[16][2],),
+          Node(isMultiplication: false, coefficientPer: 0.10196798205363515, name: MyLocalizations.of(context).trans('kilogrammo_forza_metro'),order: listaOrder[16][3],),
+          Node(isMultiplication: true, coefficientPer: 0.138254954376, name: MyLocalizations.of(context).trans('poundal_metro'),order: listaOrder[16][4],),
+    ]);
+
+
+    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,USD, centimetri_scarpe,bit,watt,newton, newton_metro];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
     MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli'),MyLocalizations.of(context).trans('valuta'),
-    MyLocalizations.of(context).trans('taglia_scarpe'),MyLocalizations.of(context).trans('dati_digitali'),MyLocalizations.of(context).trans('potenza')];
+    MyLocalizations.of(context).trans('taglia_scarpe'),MyLocalizations.of(context).trans('dati_digitali'),MyLocalizations.of(context).trans('potenza'),
+    MyLocalizations.of(context).trans('forza'), MyLocalizations.of(context).trans('momento')];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     initializeTiles();
 

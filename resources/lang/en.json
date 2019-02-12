@@ -26,6 +26,8 @@
   "taglia_scarpe": "Shoe size",
   "dati_digitali": "Digital data",
   "potenza": "Power",
+  "momento": "Torque",
+  "forza": "Force",
 
   "metro": "Metres [m]",
   "centimetro": "Centimetres [cm]",
@@ -153,6 +155,18 @@
   "megawatt": "Megawatt [MW]",
   "gigawatt": "GigaWatt [GW]",
   "cavallo_vapore_eurpeo": "European horse power [hp(M)]",
-  "cavallo_vapore_imperiale": "Imperial horse power [hp(I)]"
+  "cavallo_vapore_imperiale": "Imperial horse power [hp(I)]",
+
+  "newton": "Newton [N]",
+  "dyne": "Dyne [dyn]",
+  "libbra_forza": "Pound-force [lbf]",
+  "kilogrammo_forza": "Kilogram-force [kgf]",
+  "poundal": "Poundal [pdl]",
+
+  "newton_metro": "Newton metre [N·m]",
+  "dyne_metro": "Dyne metre [dyn·m]",
+  "libbra_forza_piede": "Pound-force feet [lbf·ft]",
+  "kilogrammo_forza_metro": "Kilogram-force metre [kgf·m]",
+  "poundal_metro": "Poundal metre [pdl·m]"
 
 }

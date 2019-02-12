@@ -8,6 +8,6 @@
 <p><b>V</b> Icone unità di misura</p>
 <p><b>V</b> Calcolatrice FAB</p>
 <p><b>V</b> Rioridino grandezza fisiche</p>
-<p><b>X</b> Conversione valute</p>
+<p><b>V</b> Conversione valute</p>
 <p><b>X</b> Conversione time zone</p>
 <p><b>X</b> Conversione carburante</p>

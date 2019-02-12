@@ -26,6 +26,8 @@
   "taglia_scarpe": "Taglia scarpe",
   "dati_digitali": "Dati digitali",
   "potenza": "Potenza",
+  "momento": "Momento",
+  "forza": "Forza",
 
   "metro": "Metri [m]",
   "centimetro": "Centimetri [cm]",
@@ -152,9 +154,19 @@
   "kilowatt": "Chilowatt [kW]",
   "megawatt": "Megawatt [MW]",
   "gigawatt": "GigaWatt [GW]",
-  "cavallo_vapore_eurpeo": "Cavallo vapore Europeo [hp(M)]",
-  "cavallo_vapore_imperiale": "Cavallo vapore Imperiale [hp(I)]"
-  
+  "cavallo_vapore_eurpeo": "Cavalli vapore Europeo [hp(M)]",
+  "cavallo_vapore_imperiale": "Cavalli vapore Imperiale [hp(I)]",
 
+  "newton": "Newton [N]",
+  "dyne": "Dyne [dyn]",
+  "libbra_forza": "Libbre forza [lbf]",
+  "kilogrammo_forza": "Chilogrammi forza [kgf]",
+  "poundal": "Poundal [pdl]",
+
+  "newton_metro": "Newton metro [N·m]",
+  "dyne_metro": "Dyne metro [dyn·m]",
+  "libbra_forza_piede": "Libbra-forza piede [lbf·ft]",
+  "kilogrammo_forza_metro": "Chilogrammmo-forza metro [kgf·m]",
+  "poundal_metro": "Poundal metro [pdl·m]"
 
 }
