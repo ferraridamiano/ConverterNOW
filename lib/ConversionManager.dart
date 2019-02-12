@@ -54,7 +54,7 @@ class _ConversionManager extends State<ConversionManager>{
   orderAngoli, orderValute, orderScarpe, orderDati, orderPotenza, orderForza, orderTorque];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+2);//+2 perchè c'è l'intestazione con il logo e lo spazio finale
-  static List<int> listaOrderDrawer=[0,1,2,4,5,6,14,7,8,9,11,3,12,13,10,15,16]; //fino a maxconversionunits-1 
+  static List<int> listaOrderDrawer=[0,1,2,4,5,6,16,7,10,11,13,3,14,15,12,8,9]; //fino a maxconversionunits-1
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
   @override
@@ -232,10 +232,15 @@ class _ConversionManager extends State<ConversionManager>{
       stringList=prefs.getStringList("conversion_$i");
 
       if(stringList!=null){
+        final int len=stringList.length;
         List intList=new List();
-        for(int j=0;j<stringList.length;j++){
+        for(int j=0;j<len;j++){
           intList.add(int.parse(stringList[j]));
         }
+        //risolve il problema di aggiunta di unità dopo un aggiornamento
+        for(int j=len; j<listaOrder[i].lenght;j++)    
+          intList.add(j);
+        
         if(i==_currentPage){
           setState(() {
             listaOrder[i]=intList;
