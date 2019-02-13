@@ -104,17 +104,21 @@ class _ConversionPage extends State<ConversionPage> {
   @override
   Widget build(BuildContext context) {
     List itemList=createList();
-    return ListView.builder(
-          padding: new EdgeInsets.only(top: 10.0,left: 10.0,right:10.0,bottom: 25.0),
-          itemCount: itemList.length,
-          itemBuilder: (context, index) {
-            final item = itemList[index];
+    return Scrollbar(
+      child:ListView.builder(
+        padding: new EdgeInsets.only(top: 10.0,left: 10.0,right:10.0,bottom: 25.0),
+        itemCount: itemList.length,
+        itemBuilder: (context, index) {
+          final item = itemList[index];
 
-            if (item is bigHeader) {
-              return bigTitle(item.title, item.subTitle);
-            } else if (item is myCard) {
-              return UnitCard(node: item.node,textField: item.textField,);
-            }
-          });
+          if (item is bigHeader) {
+            return bigTitle(item.title, item.subTitle);
+          }
+          else if (item is myCard) {
+            return UnitCard(node: item.node,textField: item.textField,);
+          }
+        }
+      )
+    );
   }
 }
