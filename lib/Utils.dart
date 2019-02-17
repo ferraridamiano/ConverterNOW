@@ -535,3 +535,17 @@ class CurrencyConversion{
     );
   }
 }
+
+String decToBase(int dec, int base){
+  String myString="";
+  int resto;
+  while(dec>0){
+    resto=(dec%base);
+    if(resto>=10){
+      switch(resto)
+    }
+    myString= (dec%base).toString() + myString;
+    dec=dec~/base;
+  }
+  return myString;
+}
