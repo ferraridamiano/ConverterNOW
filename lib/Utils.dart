@@ -580,13 +580,14 @@ String decToBase(int dec, int base){
 String basetoDec(String daConvertire, int base){
 
   int conversione=0;
-  for(int i=0;1<daConvertire.length;i++){
+  int len=daConvertire.length;
+  for(int i=0;i<len;i++){
     int unitCode=daConvertire.codeUnitAt(i);
-    if(unitCode>=4278124609 && unitCode <= 4278124614){ // da A a F
-      conversione=conversione+(unitCode-4278124599)*pow(base,i);
+    if(unitCode>=65 && unitCode <= 70){ // da A a F
+      conversione=conversione+(unitCode-55)*pow(base,i);
     }
-    else if(unitCode>=4278124592 && unitCode <= 4278124601){
-      conversione=conversione+(unitCode-4278124592)*pow(base,i);
+    else if(unitCode>=48 && unitCode <= 57){ //da 0 a 9
+      conversione=conversione+(unitCode-48)*pow(base,len-i-1);
     }
   }
   return conversione.toString();
