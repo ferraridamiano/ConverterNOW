@@ -633,7 +633,7 @@ class _ConversionManager extends State<ConversionManager>{
           children: listaDrawer,
       ),
       ),
-      body: _currentPage==17 ? ConversionBaseNumerica()  : ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : ""),
+      body: _currentPage==17 ? ConversionBaseNumerica("base num")  : ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : ""),
       
       floatingActionButton: FloatingActionButton(
         child: SvgPicture.asset("resources/images/calculator.svg",width: 30.0,),

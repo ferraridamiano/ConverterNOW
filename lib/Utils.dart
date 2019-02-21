@@ -60,9 +60,9 @@ class bigTitle extends StatelessWidget{
 }
 
 class UnitCard extends StatelessWidget{
-  UnitCard({this.node, this.textField});
+  UnitCard({this.title, this.textField});
 
-  Node node;
+  String title;
   final Widget textField;
 
   @override
@@ -76,7 +76,7 @@ class UnitCard extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     new Text(
-                      node.name,
+                      title,
                       style: TextStyle(
                           fontSize: 18.0,
                           //fontWeight: FontWeight.bold
@@ -536,10 +536,11 @@ class CurrencyConversion{
   }
 }
 
-String decToBase(int dec, int base){
+String decToBase(String stringDec, int base){
   String myString="";
   String restoString;
   int resto;
+  int dec=int.parse(stringDec);
   while(dec>0){
     resto=(dec%base);
     restoString=resto.toString();

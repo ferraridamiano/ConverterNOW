@@ -25,7 +25,7 @@ class _ConversionPage extends State<ConversionPage> {
     initialize();
   }
 
-@override
+  @override
   void initState() {
     super.initState();
     initialize();
@@ -115,7 +115,7 @@ class _ConversionPage extends State<ConversionPage> {
             return bigTitle(item.title, item.subTitle);
           }
           else if (item is myCard) {
-            return UnitCard(node: item.node,textField: item.textField,);
+            return UnitCard(title: item.node.name,textField: item.textField,);
           }
         }
       )
