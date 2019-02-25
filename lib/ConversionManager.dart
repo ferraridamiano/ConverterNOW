@@ -238,7 +238,7 @@ class _ConversionManager extends State<ConversionManager>{
           intList.add(int.parse(stringList[j]));
         }
         //risolve il problema di aggiunta di unità dopo un aggiornamento
-        for(int j=len; j<listaOrder[i].length;j++)    
+        for(int j=len; j<listaOrder[i].length;j++)     
           intList.add(j);
         
         if(i==_currentPage){
