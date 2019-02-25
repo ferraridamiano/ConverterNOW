@@ -33,7 +33,7 @@ class _ConversionManager extends State<ConversionManager>{
   static List listaTitoli;
   static int _currentPage=0;
   static List orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-  static List orderSuperficie=[0,1,2,3,4,5,6,7,8,9];
+  static List orderSuperficie=[0,1,2,3,4,5,6,7,8,9,10];
   static List orderVolume=[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
   static List orderTempo=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
   static List orderTemperatura=[0,1,2];
@@ -347,6 +347,7 @@ class _ConversionManager extends State<ConversionManager>{
         Node(isMultiplication: true, coefficientPer: 3097600.0, name: MyLocalizations.of(context).trans('miglio_quadrato'),order: listaOrder[1][8]),
         Node(isMultiplication: true, coefficientPer: 4840.0, name: MyLocalizations.of(context).trans('acri'),order: listaOrder[1][9],),
       ]),
+      Node(isMultiplication: true, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('ara'),order: listaOrder[1][10],),
     ]);
 
     Node metroc=Node(name: MyLocalizations.of(context).trans('metro_cubo'),order: listaOrder[2][0],leafNodes: [
