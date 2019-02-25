@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+import "dart:convert";
 
 bool isCurrencyLoading=true;
 
@@ -21,9 +22,11 @@ class _ConversionManager extends State<ConversionManager>{
 
   static final MAX_CONVERSION_UNITS=17;
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  static final List<String> currencyList=["EUR","GBP","INR","CNY","JPY","CHF","SEK","RUB","CAD","KRW","BRL","BTC"];
-  static List<double> currencyValue=[0.880365,0.774845,71.362395,6.807703,109.429042,0.99706,9.02914,66.466703,1.33225,1131.44981,3.75085,0.00028]; //aggiornato al 22/01/2019
-  static String lastUpdateCurrency="Last update: 22/01/2019";
+  //static final List<String> currencyList=["USD","GBP","INR","CNY","JPY","CHF","SEK","RUB","CAD","KRW","BRL","HKD"];
+  //static List<double> currencyValue=[0.880365,0.774845,71.362395,6.807703,109.429042,0.99706,9.02914,66.466703,1.33225,1131.44981,3.75085,0.00028]; //aggiornato al 22/01/2019
+  var currencyValues={"INR":80.0,"SEK":10.5793,"GBP":0.86828,"CHF":1.1351,"CNY":7.5952,"RUB":74.2508,"USD":1.1355,"KRW":1269.19,"JPY":125.75,"BRL":4.2322,"CAD":1.4924,"HKD":8.9122}; //base euro (aggiornato a 25/02/2019)
+
+  static String lastUpdateCurrency="Last update: 25/02/2019";
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
   Colors.purple,Colors.blueGrey,Colors.green,Colors.pinkAccent,Colors.teal,
@@ -69,61 +72,56 @@ class _ConversionManager extends State<ConversionManager>{
     //SharedPreferences prefs = await SharedPreferences.getInstance();
     String now = DateFormat("dd/MM/yyyy").format(DateTime.now());
     if(prefs.getString("lastCurrencyUpdate")!=now){                   //se non aggiorno la lista da piú di un giorno allora aggiorno
-      bool allResponsePassed=true;
-      for(int i=0;i<currencyList.length;i+=2){
         try{
-          final response =await http.get('https://free.currencyconverterapi.com/api/v6/convert?q=USD_${currencyList[i]},USD_${currencyList[i+1]}');
+          final response =await http.get('https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD');
           if (response.statusCode == 200) { //if successful
-            int index=response.body.indexOf("val")+5;
-            String stringaTagliata=response.body.substring(index);
-            currencyValue[i]=double.parse(stringaTagliata.split(",")[0]);
-            index=stringaTagliata.indexOf("val")+5;
-            currencyValue[i+1]=double.parse(stringaTagliata.substring(index).split(",")[0]);
+            String stringaTagliata=response.body.substring(response.body.indexOf("{\"rates\":{")+10, response.body.indexOf("},\"base\""));
+            List values=stringaTagliata.split(",");
+            for(String value in values){
+              List twoValues=value.split(":");
+              twoValues[0]=twoValues[0].substring(1,4);
+              currencyValues[twoValues[0]]=double.parse(twoValues[1]);
+            }
+            //se tutte le richieste vanno a buon fine aggiorna la data di ultimo aggiornamento
+            prefs.setString("lastCurrencyUpdate", now);
+            lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
           }
           else{
-            allResponsePassed=false;
             //leggi ultimi dati salvati
-            List<String> currencyListRead=prefs.getStringList("currencyList");
-            currencyValue[i]=double.parse(currencyListRead[i]);
-            currencyValue[i+1]=double.parse(currencyListRead[i+1]);
+            String currencyRead=prefs.getString("currencyList");
+            if(currencyRead!=null){
+              List currencyListRead=currencyRead.split(",");
+              for(String value in currencyListRead){
+                List twoValues=value.split(": ");
+                twoValues[0]=twoValues[0].substring(1,4);
+                currencyValues[twoValues[0]]=double.parse(twoValues[1]);
+              }
+              String lastUpdateRead=prefs.getString("lastCurrencyUpdate");
+              if(lastUpdateRead!=null)
+                lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
+            }
           }
         }catch(e){
           print(e);
-          allResponsePassed=false;
           //leggi ultimi dati salvati
-          List<String> currencyListRead=prefs.getStringList("currencyList");
-          if(currencyListRead!=null){
-            currencyValue[i]=double.parse(currencyListRead[i]);
-            currencyValue[i+1]=double.parse(currencyListRead[i+1]);
-          }
-        }
+            String currencyRead=prefs.getString("currencyList");
+            if(currencyRead!=null){
+              List currencyListRead=currencyRead.split(",");
+              for(String value in currencyListRead){
+                List twoValues=value.split(": ");
+                twoValues[0]=twoValues[0].substring(1,4);
+                currencyValues[twoValues[0]]=double.parse(twoValues[1]);
+              }
+              String lastUpdateRead=prefs.getString("lastCurrencyUpdate");
+              if(lastUpdateRead!=null)
+                lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
+            }
       }
-      //se tutte le richieste vanno a buon fine aggiorna la data di ultimo aggiornamento
-      if(allResponsePassed){ //aggiorna la data di ultimo aggiornamento
-        prefs.setString("lastCurrencyUpdate", now);
-        lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
-      }
-      else{
-        String lastUpdateRead=prefs.getString("lastCurrencyUpdate");
-        if(lastUpdateRead!=null){
-          lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
-        }
-          
-      }
+
       //salvataggio in memoria
-      List<String> toSaveList=new List(currencyValue.length);
-      for(int i=0;i<currencyValue.length;i++){
-        toSaveList[i]=currencyValue[i].toString();
-      }
-      prefs.setStringList("currencyList", toSaveList);
-    }
-    else{                                                             //se la lista è aggiornata a oggi allora la leggo dall'ultimo aggiornamento
-      List<String> currencyListRead=prefs.getStringList("currencyList");
-      lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
-      for(int i=0; i<currencyListRead.length; i++){
-        currencyValue[i]=double.parse(currencyListRead[i]);
-      }
-      print("lette dall'ultimo aggiornamento");
+      String daSalvare=new JsonEncoder.withIndent("").convert(currencyValues);
+      daSalvare=daSalvare.substring(2,daSalvare.length-2);
+      prefs.setString("currencyList", daSalvare);
     }
     setState(() {
       isCurrencyLoading=false;
@@ -470,20 +468,20 @@ class _ConversionManager extends State<ConversionManager>{
           Node(isMultiplication: true, coefficientPer: 57.295779513, name: MyLocalizations.of(context).trans('radianti'),order: listaOrder[10][3]),
     ]);
 
-    Node USD=Node(name:MyLocalizations.of(context).trans('USD',),order: listaOrder[11][0],
+    Node USD=Node(name:MyLocalizations.of(context).trans('EUR',),order: listaOrder[11][0],
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: currencyValue[0], name: MyLocalizations.of(context).trans('EUR'),order: listaOrder[11][1]),
-          Node(isMultiplication: false, coefficientPer: currencyValue[1], name: MyLocalizations.of(context).trans('GBP'),order: listaOrder[11][2]),
-          Node(isMultiplication: false, coefficientPer: currencyValue[2], name: MyLocalizations.of(context).trans('INR'),order: listaOrder[11][3]),
-          Node(isMultiplication: false, coefficientPer: currencyValue[3], name: MyLocalizations.of(context).trans('CNY'),order: listaOrder[11][4]),
-          Node(isMultiplication: false, coefficientPer: currencyValue[4], name: MyLocalizations.of(context).trans('JPY'),order: listaOrder[11][5]),
-          Node(isMultiplication: false, coefficientPer: currencyValue[5], name: MyLocalizations.of(context).trans('CHF'),order: listaOrder[11][6]),
-          Node(isMultiplication: false, coefficientPer: currencyValue[6], name: MyLocalizations.of(context).trans('SEK'),order: listaOrder[11][7]),
-          Node(isMultiplication: false, coefficientPer: currencyValue[7], name: MyLocalizations.of(context).trans('RUB'),order: listaOrder[11][8]),
-          Node(isMultiplication: false, coefficientPer: currencyValue[8], name: MyLocalizations.of(context).trans('CAD'),order: listaOrder[11][9]),
-          Node(isMultiplication: false, coefficientPer: currencyValue[9], name: MyLocalizations.of(context).trans('KRW'),order: listaOrder[11][10]),
-          Node(isMultiplication: false, coefficientPer: currencyValue[10], name: MyLocalizations.of(context).trans('BRL'),order: listaOrder[11][11]),
-          Node(isMultiplication: false, coefficientPer: currencyValue[11], name: MyLocalizations.of(context).trans('BTC'),order: listaOrder[11][12]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['USD'], name: MyLocalizations.of(context).trans('USD'),order: listaOrder[11][1]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['GBP'], name: MyLocalizations.of(context).trans('GBP'),order: listaOrder[11][2]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['INR'], name: MyLocalizations.of(context).trans('INR'),order: listaOrder[11][3]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['CNY'], name: MyLocalizations.of(context).trans('CNY'),order: listaOrder[11][4]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['JPY'], name: MyLocalizations.of(context).trans('JPY'),order: listaOrder[11][5]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['CHF'], name: MyLocalizations.of(context).trans('CHF'),order: listaOrder[11][6]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['SEK'], name: MyLocalizations.of(context).trans('SEK'),order: listaOrder[11][7]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['RUB'], name: MyLocalizations.of(context).trans('RUB'),order: listaOrder[11][8]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['CAD'], name: MyLocalizations.of(context).trans('CAD'),order: listaOrder[11][9]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['KRW'], name: MyLocalizations.of(context).trans('KRW'),order: listaOrder[11][10]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['BRL'], name: MyLocalizations.of(context).trans('BRL'),order: listaOrder[11][11]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['HKD'], name: MyLocalizations.of(context).trans('BTC'),order: listaOrder[11][12]),
     ]);
 
     Node centimetri_scarpe=Node(name:MyLocalizations.of(context).trans('centimetro',),order: listaOrder[12][0],
