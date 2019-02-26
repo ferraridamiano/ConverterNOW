@@ -24,7 +24,7 @@ class _ConversionManager extends State<ConversionManager>{
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   //static final List<String> currencyList=["USD","GBP","INR","CNY","JPY","CHF","SEK","RUB","CAD","KRW","BRL","HKD"];
   //static List<double> currencyValue=[0.880365,0.774845,71.362395,6.807703,109.429042,0.99706,9.02914,66.466703,1.33225,1131.44981,3.75085,0.00028]; //aggiornato al 22/01/2019
-  var currencyValues={"INR":80.0,"SEK":10.5793,"GBP":0.86828,"CHF":1.1351,"CNY":7.5952,"RUB":74.2508,"USD":1.1355,"KRW":1269.19,"JPY":125.75,"BRL":4.2322,"CAD":1.4924,"HKD":8.9122}; //base euro (aggiornato a 25/02/2019)
+  var currencyValues={"INR":1.0,"SEK":2.0,"GBP":3.0,"CHF":4.0,"CNY":5.0,"RUB":6.0,"USD":7.0,"KRW":8.0,"JPY":9.0,"BRL":10.0,"CAD":11.0,"HKD":12.0}; //base euro (aggiornato a 25/02/2019)
 
   static String lastUpdateCurrency="Last update: 25/02/2019";
   static List listaConversioni;
@@ -68,6 +68,21 @@ class _ConversionManager extends State<ConversionManager>{
   }
 
 
+  _leggiCurrenciesSalvate(){
+    String currencyRead=prefs.getString("currencyList");
+    if(currencyRead!=null){
+      List currencyListRead=currencyRead.split(",");
+      for(String value in currencyListRead){
+        List twoValues=value.split(": ");
+        twoValues[0]=twoValues[0].substring(1,4);
+        currencyValues[twoValues[0]]=double.parse(twoValues[1]);
+      }
+      String lastUpdateRead=prefs.getString("lastCurrencyUpdate");
+      if(lastUpdateRead!=null)
+        lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
+    }
+  }
+
   _getCurrency() async {
     //SharedPreferences prefs = await SharedPreferences.getInstance();
     String now = DateFormat("dd/MM/yyyy").format(DateTime.now());
@@ -86,42 +101,22 @@ class _ConversionManager extends State<ConversionManager>{
             prefs.setString("lastCurrencyUpdate", now);
             lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
           }
-          else{
-            //leggi ultimi dati salvati
-            String currencyRead=prefs.getString("currencyList");
-            if(currencyRead!=null){
-              List currencyListRead=currencyRead.split(",");
-              for(String value in currencyListRead){
-                List twoValues=value.split(": ");
-                twoValues[0]=twoValues[0].substring(1,4);
-                currencyValues[twoValues[0]]=double.parse(twoValues[1]);
-              }
-              String lastUpdateRead=prefs.getString("lastCurrencyUpdate");
-              if(lastUpdateRead!=null)
-                lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
-            }
-          }
+          else
+            _leggiCurrenciesSalvate();//leggi ultimi dati salvati
+
         }catch(e){
           print(e);
-          //leggi ultimi dati salvati
-            String currencyRead=prefs.getString("currencyList");
-            if(currencyRead!=null){
-              List currencyListRead=currencyRead.split(",");
-              for(String value in currencyListRead){
-                List twoValues=value.split(": ");
-                twoValues[0]=twoValues[0].substring(1,4);
-                currencyValues[twoValues[0]]=double.parse(twoValues[1]);
-              }
-              String lastUpdateRead=prefs.getString("lastCurrencyUpdate");
-              if(lastUpdateRead!=null)
-                lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
-            }
+          _leggiCurrenciesSalvate(); //leggi ultimi dati salvati
       }
 
       //salvataggio in memoria
       String daSalvare=new JsonEncoder.withIndent("").convert(currencyValues);
-      daSalvare=daSalvare.substring(2,daSalvare.length-2);
+      daSalvare=daSalvare.replaceAll("\n", "");
+      daSalvare=daSalvare.substring(1,daSalvare.length-1);//elimino {}
       prefs.setString("currencyList", daSalvare);
+    }
+    else{
+      _leggiCurrenciesSalvate();
     }
     setState(() {
       isCurrencyLoading=false;
@@ -468,7 +463,7 @@ class _ConversionManager extends State<ConversionManager>{
           Node(isMultiplication: true, coefficientPer: 57.295779513, name: MyLocalizations.of(context).trans('radianti'),order: listaOrder[10][3]),
     ]);
 
-    Node USD=Node(name:MyLocalizations.of(context).trans('EUR',),order: listaOrder[11][0],
+    Node EUR=Node(name:MyLocalizations.of(context).trans('EUR',),order: listaOrder[11][0],
         leafNodes: [
           Node(isMultiplication: false, coefficientPer: currencyValues['USD'], name: MyLocalizations.of(context).trans('USD'),order: listaOrder[11][1]),
           Node(isMultiplication: false, coefficientPer: currencyValues['GBP'], name: MyLocalizations.of(context).trans('GBP'),order: listaOrder[11][2]),
@@ -569,7 +564,7 @@ class _ConversionManager extends State<ConversionManager>{
     ]);
 
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,USD, centimetri_scarpe,bit,watt,newton, newton_metro];
+    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,EUR, centimetri_scarpe,bit,watt,newton, newton_metro];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
