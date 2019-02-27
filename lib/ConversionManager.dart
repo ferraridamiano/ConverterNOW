@@ -24,9 +24,9 @@ class _ConversionManager extends State<ConversionManager>{
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   //static final List<String> currencyList=["USD","GBP","INR","CNY","JPY","CHF","SEK","RUB","CAD","KRW","BRL","HKD"];
   //static List<double> currencyValue=[0.880365,0.774845,71.362395,6.807703,109.429042,0.99706,9.02914,66.466703,1.33225,1131.44981,3.75085,0.00028]; //aggiornato al 22/01/2019
-  var currencyValues={"INR":1.0,"SEK":2.0,"GBP":3.0,"CHF":4.0,"CNY":5.0,"RUB":6.0,"USD":7.0,"KRW":8.0,"JPY":9.0,"BRL":10.0,"CAD":11.0,"HKD":12.0}; //base euro (aggiornato a 25/02/2019)
+  var currencyValues={"INR":80.853,"SEK":10.5858,"GBP":0.86055,"CHF":1.1371,"CNY":7.6077,"RUB":74.6158,"USD":1.1361,"KRW":1270.0,"JPY":125.93,"BRL":4.2574,"CAD":1.5024,"HKD":8.9178}; //base euro (aggiornato a 27/02/2019)
 
-  static String lastUpdateCurrency="Last update: 25/02/2019";
+  static String lastUpdateCurrency="Last update: 27/02/2019";
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
   Colors.purple,Colors.blueGrey,Colors.green,Colors.pinkAccent,Colors.teal,
@@ -476,7 +476,7 @@ class _ConversionManager extends State<ConversionManager>{
           Node(isMultiplication: false, coefficientPer: currencyValues['CAD'], name: MyLocalizations.of(context).trans('CAD'),order: listaOrder[11][9]),
           Node(isMultiplication: false, coefficientPer: currencyValues['KRW'], name: MyLocalizations.of(context).trans('KRW'),order: listaOrder[11][10]),
           Node(isMultiplication: false, coefficientPer: currencyValues['BRL'], name: MyLocalizations.of(context).trans('BRL'),order: listaOrder[11][11]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['HKD'], name: MyLocalizations.of(context).trans('BTC'),order: listaOrder[11][12]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['HKD'], name: MyLocalizations.of(context).trans('HKD'),order: listaOrder[11][12]),
     ]);
 
     Node centimetri_scarpe=Node(name:MyLocalizations.of(context).trans('centimetro',),order: listaOrder[12][0],
