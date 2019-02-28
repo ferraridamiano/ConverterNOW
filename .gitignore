@@ -7,5 +7,4 @@
 build/
 
 .flutter-plugins
-android/app/key.jks
-android/key.jks
+*.jks
