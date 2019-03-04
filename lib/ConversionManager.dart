@@ -115,6 +115,7 @@ class _ConversionManager extends State<ConversionManager>{
     }
     else{
       _leggiCurrenciesSalvate();
+      lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
     }
     setState(() {
       isCurrencyLoading=false;
