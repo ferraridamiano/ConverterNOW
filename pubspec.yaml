@@ -7,7 +7,7 @@ description: A new Flutter application.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 2.1.2+11 
+version: 2.1.3+12 
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
@@ -17,11 +17,11 @@ dependencies:
     sdk: flutter
 
   flutter_launcher_icons: ^0.7.0
-  shared_preferences: ^0.4.3
-  url_launcher: ^4.0.3
-  flutter_svg: ^0.10.2
+  shared_preferences: ^0.5.1+1
+  url_launcher: ^5.0.1
+  flutter_svg: ^0.12.0
   http: ^0.12.0+1
-  dynamic_theme: ^1.0.0
+  dynamic_theme: ^1.0.1
   #fluttertoast: ^2.0.7
 
   # The following adds the Cupertino Icons font to your application.
@@ -57,7 +57,7 @@ flutter:
   assets:
         - resources/lang/en.json
         - resources/lang/it.json
-        - resources/images/logo.svg
+        - resources/images/logo.png
         - resources/images/lunghezza.svg
         - resources/images/massa.svg
         - resources/images/energia.svg

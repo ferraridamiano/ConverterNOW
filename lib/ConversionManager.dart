@@ -127,7 +127,7 @@ class _ConversionManager extends State<ConversionManager>{
       children: <Widget>[
         DrawerHeader(
           child: Container(
-              child:SvgPicture.asset("resources/images/logo.svg",),
+              child:Image.asset("resources/images/logo.png")//Png.asset("resources/images/logo.svg",),
           ),
           decoration: BoxDecoration(color: listaColori[_currentPage],),
         ),
