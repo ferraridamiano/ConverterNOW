@@ -7,7 +7,7 @@ description: A new Flutter application.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 2.1.3+12 
+version: 2.1.4+13 
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
@@ -19,7 +19,7 @@ dependencies:
   flutter_launcher_icons: ^0.7.0
   shared_preferences: ^0.5.1+1
   url_launcher: ^5.0.1
-  flutter_svg: ^0.12.0
+  #flutter_svg: ^0.12.0
   http: ^0.12.0+1
   dynamic_theme: ^1.0.1
   #fluttertoast: ^2.0.7
@@ -58,24 +58,42 @@ flutter:
         - resources/lang/en.json
         - resources/lang/it.json
         - resources/images/logo.png
-        - resources/images/lunghezza.svg
-        - resources/images/massa.svg
-        - resources/images/energia.svg
-        - resources/images/potenza.svg 
-        - resources/images/pressione.svg
-        - resources/images/velocita.svg
-        - resources/images/temperatura.svg
-        - resources/images/volume.svg
-        - resources/images/area.svg
-        - resources/images/prefissi.svg
-        - resources/images/tempo.svg
-        - resources/images/angoli.svg
-        - resources/images/calculator.svg
-        - resources/images/valuta.svg
-        - resources/images/scarpe.svg 
-        - resources/images/dati.svg 
-        - resources/images/torque.svg
-        - resources/images/forza.svg 
+#        - resources/images/lunghezza.svg
+#        - resources/images/massa.svg
+#        - resources/images/energia.svg
+#        - resources/images/potenza.svg 
+#        - resources/images/pressione.svg
+#        - resources/images/velocita.svg
+#        - resources/images/temperatura.svg
+#        - resources/images/volume.svg
+#        - resources/images/area.svg
+#        - resources/images/prefissi.svg
+#        - resources/images/tempo.svg
+#        - resources/images/angoli.svg
+#        - resources/images/calculator.svg
+#        - resources/images/valuta.svg
+#        - resources/images/scarpe.svg 
+#        - resources/images/dati.svg 
+#        - resources/images/torque.svg
+#        - resources/images/forza.svg 
+        - resources/images/lunghezza.png
+        - resources/images/massa.png
+        - resources/images/energia.png
+        - resources/images/potenza.png 
+        - resources/images/pressione.png
+        - resources/images/velocita.png
+        - resources/images/temperatura.png
+        - resources/images/volume.png
+        - resources/images/area.png
+        - resources/images/prefissi.png
+        - resources/images/tempo.png
+        - resources/images/angoli.png
+        - resources/images/calculator.png
+        - resources/images/valuta.png
+        - resources/images/scarpe.png 
+        - resources/images/dati.png 
+        - resources/images/torque.png
+        - resources/images/forza.png 
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

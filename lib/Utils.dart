@@ -535,3 +535,61 @@ class CurrencyConversion{
     );
   }
 }
+
+String decToBase(String stringDec, int base){
+  String myString="";
+  String restoString;
+  int resto;
+  int dec=int.parse(stringDec);
+  while(dec>0){
+    resto=(dec%base);
+    restoString=resto.toString();
+    if(resto>=10){
+      switch(resto){
+        case 10:{
+          restoString="A";
+          break;
+        }
+        case 11:{
+          restoString="B";
+          break;
+        }
+        case 12:{
+          restoString="C";
+          break;
+        }
+        case 13:{
+          restoString="D";
+          break;
+        }
+        case 14:{
+          restoString="E";
+          break;
+        }
+        case 15:{
+          restoString="F";
+          break;
+        }
+      }
+    }
+    myString= restoString + myString; //aggiungo in testa
+    dec=dec~/base;
+  }
+  return myString;
+}
+
+String basetoDec(String daConvertire, int base){
+
+  int conversione=0;
+  int len=daConvertire.length;
+  for(int i=0;i<len;i++){
+    int unitCode=daConvertire.codeUnitAt(i);
+    if(unitCode>=65 && unitCode <= 70){ // da A a F
+      conversione=conversione+(unitCode-55)*pow(base,i);
+    }
+    else if(unitCode>=48 && unitCode <= 57){ //da 0 a 9
+      conversione=conversione+(unitCode-48)*pow(base,len-i-1);
+    }
+  }
+  return conversione.toString();
+}
