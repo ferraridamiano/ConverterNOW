@@ -577,8 +577,11 @@ class _ConversionManager extends State<ConversionManager>{
     List<Choice> choices = <Choice>[
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
     ];
+
+    final bool showFab = MediaQuery.of(context).viewInsets.bottom==0.0;
+
     return Scaffold(
-      resizeToAvoidBottomPadding: false,  //per evitare che il fab salga quando clicco
+      resizeToAvoidBottomPadding: true,  //per evitare che il fab salga quando clicco
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
@@ -626,7 +629,7 @@ class _ConversionManager extends State<ConversionManager>{
       ),
       body: ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : ""),
       
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: !showFab ? null : FloatingActionButton(
         child: Image.asset("resources/images/calculator.png",width: 30.0,),
         onPressed: (){
           _fabPressed();
