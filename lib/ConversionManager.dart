@@ -67,15 +67,12 @@ class _ConversionManager extends State<ConversionManager>{
 
 
   _leggiCurrenciesSalvate(){
-    String currencyRead=prefs.getString("currencyList");
+    String currencyRead=prefs.getString("currencyRates");
     if(currencyRead!=null){
-      List currencyListRead=currencyRead.split(",");
-      for(String value in currencyListRead){
-        List twoValues=value.split(": ");
-        twoValues[0]=twoValues[0].substring(1,4);
-        currencyValues[twoValues[0]]=double.parse(twoValues[1]);
-      }
-      String lastUpdateRead=prefs.getString("lastCurrencyUpdate");
+      CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(currencyRead));
+      currencyValues=currencyObject.rates;
+
+      String lastUpdateRead=currencyObject.date;
       if(lastUpdateRead!=null)
         lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
     }
@@ -83,21 +80,21 @@ class _ConversionManager extends State<ConversionManager>{
 
   _getCurrency() async {
     //SharedPreferences prefs = await SharedPreferences.getInstance();
-    String now = DateFormat("dd/MM/yyyy").format(DateTime.now());
-    if(prefs.getString("lastCurrencyUpdate")!=now){                   //se non aggiorno la lista da piú di un giorno allora aggiorno
+    String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
+   
+    if(prefs.getString("currencyRates")==null || CurrencyJSONObject.fromJson(json.decode(prefs.getString("currencyRates")))!=now){                   //se non aggiorno la lista da piú di un giorno allora aggiorno
         try{
           final response =await http.get('https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD');
           if (response.statusCode == 200) { //if successful
-            String stringaTagliata=response.body.substring(response.body.indexOf("{\"rates\":{")+10, response.body.indexOf("},\"base\""));
-            List values=stringaTagliata.split(",");
-            for(String value in values){
-              List twoValues=value.split(":");
-              twoValues[0]=twoValues[0].substring(1,4);
-              currencyValues[twoValues[0]]=double.parse(twoValues[1]);
-            }
+
+            CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(response.body));
+            currencyValues=currencyObject.rates;  
+
             //se tutte le richieste vanno a buon fine aggiorna la data di ultimo aggiornamento
-            prefs.setString("lastCurrencyUpdate", now);
             lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
+
+            //salva in memoria
+            prefs.setString("currencyRates", response.body);
           }
           else
             _leggiCurrenciesSalvate();//leggi ultimi dati salvati
@@ -106,12 +103,6 @@ class _ConversionManager extends State<ConversionManager>{
           print(e);
           _leggiCurrenciesSalvate(); //leggi ultimi dati salvati
       }
-
-      //salvataggio in memoria
-      String daSalvare=new JsonEncoder.withIndent("").convert(currencyValues);
-      daSalvare=daSalvare.replaceAll("\n", "");
-      daSalvare=daSalvare.substring(1,daSalvare.length-1);//elimino {}
-      prefs.setString("currencyList", daSalvare);
     }
     else{
       _leggiCurrenciesSalvate();

@@ -593,3 +593,68 @@ String basetoDec(String daConvertire, int base){
   }
   return conversione.toString();
 }
+
+class CurrencyJSONObject{
+  String base;
+  var rates={"INR":0.0,"SEK":0.0,"GBP":0.0,"CHF":0.0,"CNY":0.0,"RUB":0.0,"USD":0.0,"KRW":0.0,"JPY":0.0,"BRL":0.0,"CAD":0.0,"HKD":0.0};
+  String date;
+
+  CurrencyJSONObject({this.base, this.rates, this.date});
+
+  factory CurrencyJSONObject.fromJson(Map<String, dynamic> parsedJson){
+    Map<String, dynamic> ratesJson=parsedJson['rates'];
+    return CurrencyJSONObject(
+      base: parsedJson['base'],
+      date: parsedJson['date'],
+      rates: {
+        "INR":ratesJson['INR'],
+        "SEK":ratesJson['SEK'],
+        "GBP":ratesJson['GBP'],
+        "CHF":ratesJson['CHF'],
+        "CNY":ratesJson['CNY'],
+        "RUB":ratesJson['RUB'],
+        "USD":ratesJson['USD'],
+        "KRW":ratesJson['KRW'],
+        "JPY":ratesJson['JPY'],
+        "BRL":ratesJson['BRL'],
+        "CAD":ratesJson['CAD'],
+        "HKD":ratesJson['HKD']}
+    );
+  }
+}
+/*
+class Rates{
+  double CHF;
+  double HKD;
+  double GBP;
+  double RUB;
+  double KRW;
+  double CAD;
+  double USD;
+  double BRL;
+  double JPY;
+  double CNY;
+  double INR;
+  double SEK;
+
+  Rates({this.CHF,this.HKD,this.GBP,this.RUB,this.KRW,this.CAD,this.USD,this.BRL,this.JPY,this.CNY,
+  this.INR,this.SEK});
+
+  factory Rates.fromJson(Map<String, dynamic> json){
+    return Rates(
+      CHF: json['CHF'],
+      HKD: json['HKD'],
+      GBP: json['GBP'],
+      RUB: json['RUB'],
+      KRW: json['KRW'],
+      CAD: json['CAD'],
+      USD: json['USD'],
+      BRL: json['BRL'],
+      JPY: json['JPY'],
+      CNY: json['CNY'],
+      INR: json['INR'],
+      SEK: json['SEK'],
+    );
+  }
+
+}*/
