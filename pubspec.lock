@@ -171,7 +171,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1+1"
+    version: "0.5.1+2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -232,7 +232,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.1"
+    version: "5.0.2"
   vector_math:
     dependency: transitive
     description:
