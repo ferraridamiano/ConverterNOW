@@ -82,7 +82,8 @@ class _ConversionManager extends State<ConversionManager>{
     //SharedPreferences prefs = await SharedPreferences.getInstance();
     String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
    
-    if(prefs.getString("currencyRates")==null || CurrencyJSONObject.fromJson(json.decode(prefs.getString("currencyRates")))!=now){                   //se non aggiorno la lista da piú di un giorno allora aggiorno
+    String dataFetched=prefs.getString("currencyRates");
+    if(dataFetched==null || CurrencyJSONObject.fromJson(json.decode(dataFetched)).date!=now){//se non ho mai aggiornato oppure se non aggiorno la lista da piú di un giorno allora aggiorno
         try{
           final response =await http.get('https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD');
           if (response.statusCode == 200) { //if successful
@@ -96,15 +97,15 @@ class _ConversionManager extends State<ConversionManager>{
             //salva in memoria
             prefs.setString("currencyRates", response.body);
           }
-          else
+          else    //se ho un'errore nella lettura dati dal web (per es non sono connesso)
             _leggiCurrenciesSalvate();//leggi ultimi dati salvati
 
-        }catch(e){
+        }catch(e){//se ho un'errore di comunicazione
           print(e);
           _leggiCurrenciesSalvate(); //leggi ultimi dati salvati
       }
     }
-    else{
+    else{         //se ho già i dati alavati di oggi perchè sono già entrato la prima volta nell'app
       _leggiCurrenciesSalvate();
       lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
     }
@@ -572,6 +573,7 @@ class _ConversionManager extends State<ConversionManager>{
     //final bool showFab = MediaQuery.of(context).viewInsets.bottom==0.0;
 
     return Scaffold(
+      //extendedBody:true, //da abilitare nel prossimo aggiornamento di flutter
       resizeToAvoidBottomPadding: false,  //per evitare che il fab salga quando clicco
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
