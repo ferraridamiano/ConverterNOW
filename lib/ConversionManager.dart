@@ -22,9 +22,9 @@ class _ConversionManager extends State<ConversionManager>{
 
   static final MAX_CONVERSION_UNITS=17;
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  var currencyValues={"INR":80.853,"SEK":10.5858,"GBP":0.86055,"CHF":1.1371,"CNY":7.6077,"RUB":74.6158,"USD":1.1361,"KRW":1270.0,"JPY":125.93,"BRL":4.2574,"CAD":1.5024,"HKD":8.9178}; //base euro (aggiornato a 27/02/2019)
+  var currencyValues={"AUD":1.5794,"CHF":1.1206,"NZD":1.6551,"ILS":4.0513,"RUB":73.36,"PHP":58.608,"CAD":1.4964,"USD":1.1243,"THB":35.697,"SGD":1.5209,"JPY":125.3,"TRY":6.3014,"HKD":8.8246,"MYR":4.59,"NOK":9.6218,"SEK":10.43,"IDR":15939.2,"DKK":7.4643,"CZK":25.724,"HUF":320.05,"GBP":0.8539,"MXN":21.5195,"KRW":1275.35,"ZAR":15.912,"BRL":4.313,"PLN":4.293,"INR":76.9305,"RON":4.7555,"CNY":7.5423}; //base euro (aggiornato a 04/04/2019)
 
-  static String lastUpdateCurrency="Last update: 27/02/2019";
+  static String lastUpdateCurrency="Last update: 2019-04-04";
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
   Colors.purple,Colors.blueGrey,Colors.green,Colors.pinkAccent,Colors.teal,
@@ -44,7 +44,7 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderPressione=[0,1,2,3,4,5];
   static List orderEnergia=[0,1,2,3];
   static List orderAngoli=[0,1,2,3];
-  static List orderValute=[0,1,2,3,4,5,6,7,8,9,10,11,12];
+  static List orderValute=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
   static List orderScarpe=[0,1,2,3,4,5,6,7,8,9];
   static List orderDati=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26];
   static List orderPotenza=[0,1,2,3,4,5,6];
@@ -85,7 +85,7 @@ class _ConversionManager extends State<ConversionManager>{
     String dataFetched=prefs.getString("currencyRates");
     if(dataFetched==null || CurrencyJSONObject.fromJson(json.decode(dataFetched)).date!=now){//se non ho mai aggiornato oppure se non aggiorno la lista da piú di un giorno allora aggiorno
         try{
-          final response =await http.get('https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD');
+          final response =await http.get('https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD,AUD,NZD,MXN,SGD,NOK,TRY,ZAR,DKK,PLN,THB,MYR,HUF,CZK,ILS,IDR,PHP,RON');
           if (response.statusCode == 200) { //if successful
 
             CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(response.body));
@@ -468,6 +468,23 @@ class _ConversionManager extends State<ConversionManager>{
           Node(isMultiplication: false, coefficientPer: currencyValues['KRW'], name: MyLocalizations.of(context).trans('KRW'),order: listaOrder[11][10]),
           Node(isMultiplication: false, coefficientPer: currencyValues['BRL'], name: MyLocalizations.of(context).trans('BRL'),order: listaOrder[11][11]),
           Node(isMultiplication: false, coefficientPer: currencyValues['HKD'], name: MyLocalizations.of(context).trans('HKD'),order: listaOrder[11][12]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['AUD'], name: MyLocalizations.of(context).trans('AUD'),order: listaOrder[11][13]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['NZD'], name: MyLocalizations.of(context).trans('NZD'),order: listaOrder[11][14]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['MXN'], name: MyLocalizations.of(context).trans('MXN'),order: listaOrder[11][15]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['SGD'], name: MyLocalizations.of(context).trans('SGD'),order: listaOrder[11][16]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['NOK'], name: MyLocalizations.of(context).trans('NOK'),order: listaOrder[11][17]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['TRY'], name: MyLocalizations.of(context).trans('TRY'),order: listaOrder[11][18]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['ZAR'], name: MyLocalizations.of(context).trans('ZAR'),order: listaOrder[11][19]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['DKK'], name: MyLocalizations.of(context).trans('DKK'),order: listaOrder[11][20]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['PLN'], name: MyLocalizations.of(context).trans('PLN'),order: listaOrder[11][21]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['THB'], name: MyLocalizations.of(context).trans('THB'),order: listaOrder[11][22]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['MYR'], name: MyLocalizations.of(context).trans('MYR'),order: listaOrder[11][23]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['HUF'], name: MyLocalizations.of(context).trans('HUF'),order: listaOrder[11][24]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['CZK'], name: MyLocalizations.of(context).trans('CZK'),order: listaOrder[11][25]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['ILS'], name: MyLocalizations.of(context).trans('ILS'),order: listaOrder[11][26]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['IDR'], name: MyLocalizations.of(context).trans('IDR'),order: listaOrder[11][27]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['PHP'], name: MyLocalizations.of(context).trans('PHP'),order: listaOrder[11][28]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['RON'], name: MyLocalizations.of(context).trans('RON'),order: listaOrder[11][29]),
     ]);
 
     Node centimetri_scarpe=Node(name:MyLocalizations.of(context).trans('centimetro',),order: listaOrder[12][0],

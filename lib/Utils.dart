@@ -596,7 +596,8 @@ String basetoDec(String daConvertire, int base){
 
 class CurrencyJSONObject{
   String base;
-  var rates={"INR":0.0,"SEK":0.0,"GBP":0.0,"CHF":0.0,"CNY":0.0,"RUB":0.0,"USD":0.0,"KRW":0.0,"JPY":0.0,"BRL":0.0,"CAD":0.0,"HKD":0.0};
+  var rates={"AUD":1.5794,"CHF":1.1206,"NZD":1.6551,"ILS":4.0513,"RUB":73.36,"PHP":58.608,"CAD":1.4964,"USD":1.1243,"THB":35.697,"SGD":1.5209,"JPY":125.3,"TRY":6.3014,"HKD":8.8246,"MYR":4.59,"NOK":9.6218,"SEK":10.43,"IDR":15939.2,"DKK":7.4643,"CZK":25.724,"HUF":320.05,"GBP":0.8539,"MXN":21.5195,"KRW":1275.35,"ZAR":15.912,"BRL":4.313,"PLN":4.293,"INR":76.9305,"RON":4.7555,"CNY":7.5423}; //base euro (aggiornato a 04/04/2019)
+
   String date;
 
   CurrencyJSONObject({this.base, this.rates, this.date});
@@ -618,43 +619,24 @@ class CurrencyJSONObject{
         "JPY":ratesJson['JPY'],
         "BRL":ratesJson['BRL'],
         "CAD":ratesJson['CAD'],
-        "HKD":ratesJson['HKD']}
+        "HKD":ratesJson['HKD'],
+        "AUD":ratesJson['AUD'],
+        "NZD":ratesJson['NZD'],
+        "MXN":ratesJson['MXN'],
+        "SGD":ratesJson['SGD'],
+        "NOK":ratesJson['NOK'],
+        "TRY":ratesJson['TRY'],
+        "ZAR":ratesJson['ZAR'],
+        "DKK":ratesJson['DKK'],
+        "PLN":ratesJson['PLN'],
+        "THB":ratesJson['THB'],
+        "MYR":ratesJson['MYR'],
+        "HUF":ratesJson['HUF'],
+        "CZK":ratesJson['CZK'],
+        "ILS":ratesJson['ILS'],
+        "IDR":ratesJson['IDR'],
+        "PHP":ratesJson['PHP'],
+        "RON":ratesJson['RON']}
     );
   }
 }
-/*
-class Rates{
-  double CHF;
-  double HKD;
-  double GBP;
-  double RUB;
-  double KRW;
-  double CAD;
-  double USD;
-  double BRL;
-  double JPY;
-  double CNY;
-  double INR;
-  double SEK;
-
-  Rates({this.CHF,this.HKD,this.GBP,this.RUB,this.KRW,this.CAD,this.USD,this.BRL,this.JPY,this.CNY,
-  this.INR,this.SEK});
-
-  factory Rates.fromJson(Map<String, dynamic> json){
-    return Rates(
-      CHF: json['CHF'],
-      HKD: json['HKD'],
-      GBP: json['GBP'],
-      RUB: json['RUB'],
-      KRW: json['KRW'],
-      CAD: json['CAD'],
-      USD: json['USD'],
-      BRL: json['BRL'],
-      JPY: json['JPY'],
-      CNY: json['CNY'],
-      INR: json['INR'],
-      SEK: json['SEK'],
-    );
-  }
-
-}*/
