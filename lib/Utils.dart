@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 
+const LINEAR_CONVERSION = 1;     // y=ax+b
+const RECIPROCO_CONVERSION = 2;  // y=(a/x)+b
+
 abstract class ListItem {}
 
 class myCard implements ListItem{
@@ -103,6 +106,7 @@ class Node {
     this.value,
     this.convertedNode=false,
     this.selectedNode=false,
+    this.conversionType=LINEAR_CONVERSION,
     @required this.order
   });
 
@@ -115,6 +119,7 @@ class Node {
   String name;
   bool convertedNode;
   bool selectedNode;
+  int conversionType;
   int order;
 
   @override
@@ -123,11 +128,38 @@ class Node {
         "value:$value, name:$name, coonvertedNode:$convertedNode, selectedNode:$selectedNode";
   }
 
-  void Convert() { //da basso a alto
-    if(!convertedNode) {
+  void Convert() {
+    switch(conversionType){
+      case LINEAR_CONVERSION:{
+          _LinearConvert();
+        break;
+      }
+      case RECIPROCO_CONVERSION:{
+          _ReciprocoConvert();
+        break;
+      }
+    }
+  }
+
+  void _ApplyDown(){
+    switch(conversionType){
+      case LINEAR_CONVERSION:{
+          _Linear_ApplyDown();
+        break;
+      }
+      case RECIPROCO_CONVERSION:{
+          _Reciproco_ApplyDown();
+        break;
+      }
+    }
+  }
+
+
+  void _LinearConvert() { //da basso a alto
+    if(!convertedNode) {             //se non è già convertito
       for (Node node in leafNodes) { //per ogni nodo foglia controlla se ha valore
-        if (node.convertedNode) { //se ha un valore
-          value = node.value == null
+        if (node.convertedNode) {    //se un nodo foglia è già stato convertito
+          value = node.value == null //faccio in calcoli del nodo padre rispetto a lui
               ? null
               : (node.isMultiplication ? node.value * node.coefficientPer : node.value / node.coefficientPer) +
               (node.isSum ? node.coefficientPlus : -node.coefficientPlus); //metto in questo nodo il valore convertito
@@ -135,9 +167,9 @@ class Node {
           _ApplyDown(); //converto i nodi sottostanti
         }
         else if (node.leafNodes != null) { //Però ha almeno un nodo foglia
-            node.Convert(); //ripeti la procedura
+            node.Convert(); //ripeti la procedura    
             if(node.convertedNode)
-              Convert();
+              Convert();                             
         }
       }
     }
@@ -149,17 +181,59 @@ class Node {
     }
   }
 
-  void _ApplyDown(){//da alto a a basso
+  void _Linear_ApplyDown(){//da alto a a basso
     for(Node node in leafNodes){
-      node.value= value==null
+      if(!node.convertedNode){
+        node.value= value==null
           ? null
           : (node.isSum ? value-node.coefficientPlus : value+node.coefficientPlus)*(node.isMultiplication ? 1/node.coefficientPer : node.coefficientPer);//attenzione qui funziona al contrario
       node.convertedNode=true;
 
       if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
         node._ApplyDown();
+      }
     }
   }
+
+  void _ReciprocoConvert() { //da basso a alto
+    if(!convertedNode) {             //se non è già convertito
+      for (Node node in leafNodes) { //per ogni nodo foglia controlla se ha valore
+        if (node.convertedNode) {    //se un nodo foglia è già stato convertito
+          value = node.value == null //faccio in calcoli del nodo padre rispetto a lui
+              ? null
+              : (node.coefficientPer/node.value)+node.coefficientPlus; //metto in questo nodo il valore convertito
+          convertedNode = true;
+          _ApplyDown(); //converto i nodi sottostanti
+        }
+        else if (node.leafNodes != null) { //Però ha almeno un nodo foglia
+            node.Convert(); //ripeti la procedura    
+            if(node.convertedNode)
+              Convert();                             
+        }
+      }
+    }
+    else{ //se ha valore
+      for (Node node in leafNodes) {
+        if(node.convertedNode==false)
+          _ApplyDown();
+      }
+    }
+  }
+
+  void _Reciproco_ApplyDown(){//da alto a a basso
+    for(Node node in leafNodes){
+      if(!node.convertedNode){
+        node.value= value==null
+          ? null
+          : node.coefficientPer/(value-node.coefficientPlus);//attenzione qui funziona al contrario
+      node.convertedNode=true;
+
+      if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
+        node._ApplyDown();
+      }
+    }
+  }
+
 
   /**
    * Resetta convertedNode su false per i nodi non selezionati dall'alto al basso (bisogna quindi chiamarlo dal nodo padre)
