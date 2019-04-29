@@ -29,6 +29,13 @@ class SettingsPage extends StatelessWidget{
           ),
           SizedBox(height: 20.0),
           new GestureDetector(
+            child: new Text(MyLocalizations.of(context).trans('donazione'),style: TextStyle(fontSize: 28.0,color: darkTheme ? Color(0xFFCCCCCC) : Colors.black54),),
+            onTap: (){
+              _launchURL("https://www.paypal.me/DemApps");
+            },
+          ),
+          SizedBox(height: 20.0),
+          new GestureDetector(
             child: new Text(MyLocalizations.of(context).trans('contatta_sviluppatore'),style: TextStyle(fontSize: 28.0,color: darkTheme ? Color(0xFFCCCCCC) : Colors.black54),),
             onTap: (){
               _launchURL("mailto:<damianoferrari1998@gmail.com>");
