@@ -27,11 +27,6 @@ class SandboxApp extends StatefulWidget {
 
 class _SandboxAppState extends State<SandboxApp> {
 
-  /*@override
-  void initState() {
-    super.initState();
-  }*/
-
   @override
   Widget build(BuildContext context) {
 
@@ -43,9 +38,11 @@ class _SandboxAppState extends State<SandboxApp> {
       ),
       themedWidgetBuilder: (context, theme) {
         return new MaterialApp(
-          title: 'Flutter Demo',
+          debugShowCheckedModeBanner:false,
+          title: 'Converter NOW',
           theme: theme,
           home: MaterialApp(
+            debugShowCheckedModeBanner:false,
             title: 'Converter NOW',
             home: ConversionManager(),
             theme: ThemeData(

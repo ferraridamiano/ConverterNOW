@@ -183,7 +183,6 @@ class Node {
 
   void _Linear_ApplyDown(){//da alto a a basso
     for(Node node in leafNodes){
-      if(!node.convertedNode){
         node.value= value==null
           ? null
           : (node.isSum ? value-node.coefficientPlus : value+node.coefficientPlus)*(node.isMultiplication ? 1/node.coefficientPer : node.coefficientPer);//attenzione qui funziona al contrario
@@ -191,7 +190,6 @@ class Node {
 
       if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
         node._ApplyDown();
-      }
     }
   }
 
@@ -222,7 +220,6 @@ class Node {
 
   void _Reciproco_ApplyDown(){//da alto a a basso
     for(Node node in leafNodes){
-      if(!node.convertedNode){
         node.value= value==null
           ? null
           : node.coefficientPer/(value-node.coefficientPlus);//attenzione qui funziona al contrario
@@ -230,7 +227,6 @@ class Node {
 
       if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
         node._ApplyDown();
-      }
     }
   }
 

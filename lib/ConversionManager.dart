@@ -637,7 +637,7 @@ class _ConversionManager extends State<ConversionManager>{
           children: listaDrawer,
       ),
       ),
-      body: ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : ""),
+      body: SafeArea(child:ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : "")),
       
       floatingActionButton: /*!showFab ? null : */FloatingActionButton(
         child: Image.asset("resources/images/calculator.png",width: 30.0,),
