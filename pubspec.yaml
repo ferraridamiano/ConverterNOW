@@ -74,7 +74,8 @@ flutter:
         - resources/images/scarpe.png 
         - resources/images/dati.png 
         - resources/images/torque.png
-        - resources/images/forza.png 
+        - resources/images/forza.png
+        - resources/images/consumo.png 
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

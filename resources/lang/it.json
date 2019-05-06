@@ -29,6 +29,7 @@
   "potenza": "Potenza",
   "momento": "Momento",
   "forza": "Forza",
+  "consumo_carburante": "Consumo carburante",
 
   "metro": "Metri [m]",
   "centimetro": "Centimetri [cm]",
@@ -186,6 +187,12 @@
   "dyne_metro": "Dyne metro [dyn·m]",
   "libbra_forza_piede": "Libbre-forza piede [lbf·ft]",
   "kilogrammo_forza_metro": "Chilogrammmi-forza metro [kgf·m]",
-  "poundal_metro": "Poundal metro [pdl·m]"
+  "poundal_metro": "Poundal metro [pdl·m]",
+
+  "chilometri_litro": "Chilometri con un litro [km/l]",
+  "litri_100km": "Litri ogni 100 km [l/100km]",
+  "miglia_gallone_us": "Miglia per Gallone US [mpg]",
+  "miglia_gallone_uk": "Miglia per Gallone imperiale [mpg]"
+
 
 }

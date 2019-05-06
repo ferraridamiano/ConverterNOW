@@ -29,6 +29,7 @@
   "potenza": "Power",
   "momento": "Torque",
   "forza": "Force",
+  "consumo_carburante": "Fuel consumption",
 
   "metro": "Metres [m]",
   "centimetro": "Centimetres [cm]",
@@ -186,6 +187,11 @@
   "dyne_metro": "Dyne metre [dyn·m]",
   "libbra_forza_piede": "Pound-force feet [lbf·ft]",
   "kilogrammo_forza_metro": "Kilogram-force metre [kgf·m]",
-  "poundal_metro": "Poundal metre [pdl·m]"
+  "poundal_metro": "Poundal metre [pdl·m]",
+
+  "chilometri_litro": "Kilometres per liter [km/l]",
+  "litri_100km": "Litres per 100 km [l/100km]",
+  "miglia_gallone_us": "Miles per US Gallon [mpg]",
+  "miglia_gallone_uk": "Miles per imperial Gallon [mpg]"
 
 }
