@@ -572,7 +572,7 @@ class _ConversionManager extends State<ConversionManager>{
           Node(isMultiplication: true, coefficientPer: 0.138254954376, name: MyLocalizations.of(context).trans('poundal_metro'),order: listaOrder[16][4],),
     ]);
 
-    Node chilometri_litro=Node(name: MyLocalizations.of(context).trans('chilometri_litro'),order: listaOrder[17][0],conversionType: 2,
+    Node chilometri_litro=Node(name: MyLocalizations.of(context).trans('chilometri_litro'),order: listaOrder[17][0],
         leafNodes: [
           Node(conversionType: 2,coefficientPer: 0.01, name: MyLocalizations.of(context).trans('litri_100km'),order: listaOrder[17][1],),
           Node(coefficientPer: 0.7374631268436578 , name: MyLocalizations.of(context).trans('miglia_gallone_us'),order: listaOrder[17][2],),
