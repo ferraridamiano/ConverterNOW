@@ -574,9 +574,9 @@ class _ConversionManager extends State<ConversionManager>{
 
     Node chilometri_litro=Node(name: MyLocalizations.of(context).trans('chilometri_litro'),order: listaOrder[17][0],
         leafNodes: [
-          Node(conversionType: 2,coefficientPer: 0.01, name: MyLocalizations.of(context).trans('litri_100km'),order: listaOrder[17][1],),
-          Node(coefficientPer: 0.7374631268436578 , name: MyLocalizations.of(context).trans('miglia_gallone_us'),order: listaOrder[17][2],),
-          Node(coefficientPer: 0.10196798205363515, name: MyLocalizations.of(context).trans('miglia_gallone_uk'),order: listaOrder[17][3],),
+          Node(conversionType: RECIPROCO_CONVERSION,coefficientPer: 100.0, name: MyLocalizations.of(context).trans('litri_100km'),order: listaOrder[17][1],),
+          Node(coefficientPer: 0.4251437074 , name: MyLocalizations.of(context).trans('miglia_gallone_us'),order: listaOrder[17][2],),
+          Node(coefficientPer: 0.3540061899, name: MyLocalizations.of(context).trans('miglia_gallone_uk'),order: listaOrder[17][3],),
     ]);
 
 

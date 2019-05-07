@@ -106,7 +106,7 @@ class _ConversionPage extends State<ConversionPage> {
     List itemList=createList();
     return Scrollbar(
       child:ListView.builder(
-        padding: new EdgeInsets.only(top: 10.0,left: 10.0,right:10.0,bottom: 25.0),
+        padding: new EdgeInsets.only(left: 10.0,right:10.0,bottom: 25.0),
         itemCount: itemList.length,
         itemBuilder: (context, index) {
           final item = itemList[index];
