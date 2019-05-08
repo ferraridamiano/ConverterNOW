@@ -54,7 +54,7 @@ class _ConversionManager extends State<ConversionManager>{
   static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,
   orderAngoli, orderValute, orderScarpe, orderDati, orderPotenza, orderForza, orderTorque, orderConsumo];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+2);//+2 perchè c'è l'intestazione con il logo e lo spazio finale
+  static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+1);//+1 perchè c'è l'intestazione
   static List<int> listaOrderDrawer=[0,1,2,4,5,6,16,7,10,11,13,3,14,15,12,8,9,17]; //fino a maxconversionunits-1
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
@@ -117,13 +117,38 @@ class _ConversionManager extends State<ConversionManager>{
   void initializeTiles(){
     listaDrawer[0]=(Stack(
       children: <Widget>[
-        DrawerHeader(
+        isLogoVisible ? DrawerHeader(
           child: Container(
               child:Image.asset("resources/images/logo.png")
           ),
           decoration: BoxDecoration(color: listaColori[_currentPage],),
-        ),
-        Container(
+        ): Container(
+          height:70.0,
+          decoration:BoxDecoration(color: listaColori[_currentPage],),
+          child:Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.reorder,color: Colors.white,),
+                onPressed:(){
+                  _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaColori[_currentPage]);
+                }
+              ),
+              IconButton(
+                icon:Icon(Icons.settings,color: Colors.white,),
+                onPressed: (){
+                  Navigator.of(context).pop();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SettingsPage()),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),  
+        isLogoVisible ? Container(
           child:Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
@@ -147,7 +172,7 @@ class _ConversionManager extends State<ConversionManager>{
           ),
           height: 190.0,
           alignment: FractionalOffset.bottomRight,
-        )
+        ): SizedBox()
 
       ],
       fit: StackFit.passthrough,
@@ -171,7 +196,6 @@ class _ConversionManager extends State<ConversionManager>{
     listaDrawer[listaOrderDrawer[16]+1]=ListTileConversion(listaTitoli[16],"resources/images/torque.png",listaColori[16],_currentPage==16,(){_onSelectItem(16);});
     listaDrawer[listaOrderDrawer[17]+1]=ListTileConversion(listaTitoli[17],"resources/images/consumo.png",listaColori[17],_currentPage==17,(){_onSelectItem(17);});
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    listaDrawer[MAX_CONVERSION_UNITS+1]=SizedBox(height: AD_SIZE,);
   }
 
   _onSelectItem(int index) {
@@ -598,7 +622,7 @@ class _ConversionManager extends State<ConversionManager>{
     //final bool showFab = MediaQuery.of(context).viewInsets.bottom==0.0;
 
     return Scaffold(
-      //extendedBody:true, //da abilitare nel prossimo aggiornamento di flutter
+      extendBody:true, //estende la schermata in modo che sia visibile anche dietro il notched fab
       resizeToAvoidBottomPadding: false,  //per evitare che il fab salga quando clicco
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(

@@ -112,7 +112,6 @@ class _ReorderPage extends State<ReorderPage> {
                         first: index == 0,
                         last: index == _items.length - 1),
                   ))),
-          SizedBox(height: AD_SIZE,)
         ]),
     );
   }

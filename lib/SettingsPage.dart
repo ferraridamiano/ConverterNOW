@@ -101,16 +101,32 @@ class _SettingsPage2 extends State<SettingsPage2>{
       ),
       body:Align(
           alignment: Alignment.bottomCenter,
-          child:ListTile(
-            title: Text(MyLocalizations.of(context).trans('abilita_tema_scuro')),
-            trailing: Checkbox(value: darkTheme,activeColor: Colors.red,
-            onChanged: (bool val) {
-              setState(() {
-                darkTheme=val;
-                DynamicTheme.of(context).setBrightness(Brightness.dark);
-                prefs.setBool("darkTheme", darkTheme);
-              });
-            },),
+          child:ListView(
+            reverse: true,
+            children:<Widget>[
+              ListTile(
+                title: Text(MyLocalizations.of(context).trans('abilita_tema_scuro')),
+                trailing: Checkbox(value: darkTheme,activeColor: Colors.red,
+                onChanged: (bool val) {
+                  setState(() {
+                    darkTheme=val;
+                    DynamicTheme.of(context).setBrightness(Brightness.dark);
+                    prefs.setBool("darkTheme", darkTheme);
+                  });
+                },),
+              ),
+              ListTile(
+                title: Text(MyLocalizations.of(context).trans('logo_drawer')),
+                trailing: Checkbox(value: isLogoVisible,activeColor: Colors.red,
+                onChanged: (bool val) {
+                  setState(() {
+                    isLogoVisible=val;
+                    DynamicTheme.of(context).setBrightness(Brightness.dark);
+                    prefs.setBool("isLogoVisible", isLogoVisible);
+                  });
+                },),
+              ),
+            ]
           )
         )
     );

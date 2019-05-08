@@ -5,14 +5,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 
-double AD_SIZE=0.0;
 bool darkTheme=false;
+bool isLogoVisible=true;
 SharedPreferences prefs;
 
 void main() async {
   Brightness brightness;
   prefs = await SharedPreferences.getInstance();
   darkTheme = prefs.getBool("darkTheme") ?? false;
+  isLogoVisible = prefs.getBool("isLogoVisible") ?? true;
   brightness = darkTheme ? Brightness.dark: Brightness.light;
   runApp(new SandboxApp(brightness));
 }
