@@ -21,6 +21,7 @@ dependencies:
   url_launcher: ^5.0.2
   http: ^0.12.0+2
   dynamic_theme: ^1.0.1
+  quick_actions: ^0.3.0+1
   #fluttertoast: ^2.0.7
 
   # The following adds the Cupertino Icons font to your application.
