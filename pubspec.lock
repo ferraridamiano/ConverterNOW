@@ -101,7 +101,7 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.0+1"
+    version: "0.12.0+2"
   http_parser:
     dependency: transitive
     description:
@@ -171,7 +171,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.1+2"
+    version: "0.5.2"
   sky_engine:
     dependency: transitive
     description: flutter
