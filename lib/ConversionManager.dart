@@ -620,7 +620,6 @@ class _ConversionManager extends State<ConversionManager>{
     ];
 
     //final bool showFab = MediaQuery.of(context).viewInsets.bottom==0.0;
-
     return Scaffold(
       extendBody:true, //estende la schermata in modo che sia visibile anche dietro il notched fab
       resizeToAvoidBottomPadding: false,  //per evitare che il fab salga quando clicco
@@ -685,11 +684,44 @@ class _ConversionManager extends State<ConversionManager>{
   }
 
   _fabPressed(){
-    showModalBottomSheet<void>(context: context,
+    _showRateDialog();
+    /*showModalBottomSheet<void>(context: context,
       builder: (BuildContext context) {
         double displayWidth=MediaQuery.of(context).size.width;
         return Calculator(listaColori[_currentPage], displayWidth); 
       }
+    );*/
+  }
+
+  void _showRateDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text(MyLocalizations.of(context).trans('valuta_app')),
+          content: new Text(MyLocalizations.of(context).trans('valuta_app2')),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text(MyLocalizations.of(context).trans('gia_fatto')),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text(MyLocalizations.of(context).trans('piu_tardi')),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("OK"),
+              onPressed: () {
+                launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

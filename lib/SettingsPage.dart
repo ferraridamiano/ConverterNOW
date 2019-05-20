@@ -2,7 +2,7 @@ import 'package:converter_pro/Localization.dart';
 import 'package:converter_pro/main.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'Utils.dart';
 
 class SettingsPage extends StatelessWidget{
   @override
@@ -24,21 +24,21 @@ class SettingsPage extends StatelessWidget{
           new GestureDetector(
             child: new Text(MyLocalizations.of(context).trans('recensione'),style: TextStyle(fontSize: 28.0,color: darkTheme ? Color(0xFFCCCCCC) : Colors.black54),),
             onTap: (){
-              _launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+              launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
             },
           ),
           SizedBox(height: 20.0),
           new GestureDetector(
             child: new Text(MyLocalizations.of(context).trans('donazione'),style: TextStyle(fontSize: 28.0,color: darkTheme ? Color(0xFFCCCCCC) : Colors.black54),),
             onTap: (){
-              _launchURL("https://www.paypal.me/DemApps");
+              launchURL("https://www.paypal.me/DemApps");
             },
           ),
           SizedBox(height: 20.0),
           new GestureDetector(
             child: new Text(MyLocalizations.of(context).trans('contatta_sviluppatore'),style: TextStyle(fontSize: 28.0,color: darkTheme ? Color(0xFFCCCCCC) : Colors.black54),),
             onTap: (){
-              _launchURL("mailto:<damianoferrari1998@gmail.com>");
+              launchURL("mailto:<damianoferrari1998@gmail.com>");
             },
           ),
           SizedBox(height: 20.0),
@@ -69,13 +69,6 @@ class SettingsPage extends StatelessWidget{
 
       ),)
     );
-  }
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }
 

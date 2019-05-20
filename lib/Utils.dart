@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 
+import 'package:url_launcher/url_launcher.dart';
+
 const LINEAR_CONVERSION = 1;     // y=ax+b
 const RECIPROCO_CONVERSION = 2;  // y=(a/x)+b
 
@@ -697,5 +699,13 @@ class CurrencyJSONObject{
         "PHP":ratesJson['PHP'],
         "RON":ratesJson['RON']}
     );
+  }
+}
+
+launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
