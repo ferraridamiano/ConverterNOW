@@ -318,6 +318,10 @@ class _ConversionManager extends State<ConversionManager>{
   @override
   Widget build(BuildContext context) {
 
+    bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
+    if(numero_volte_accesso>=5 && !stopRequestRating /*&& getBoolWithProbability(30)*/)
+      _showRateDialog();
+
     Node metro=Node(name: MyLocalizations.of(context).trans('metro',),order: listaOrder[0][0],
         leafNodes: [
           Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centimetro'),order: listaOrder[0][1], leafNodes: [
@@ -684,19 +688,18 @@ class _ConversionManager extends State<ConversionManager>{
   }
 
   _fabPressed(){
-    _showRateDialog();
-    /*showModalBottomSheet<void>(context: context,
+    showModalBottomSheet<void>(context: context,
       builder: (BuildContext context) {
         double displayWidth=MediaQuery.of(context).size.width;
         return Calculator(listaColori[_currentPage], displayWidth); 
       }
-    );*/
+    );
   }
 
   void _showRateDialog() {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogcontext) {
         return AlertDialog(
           title: new Text(MyLocalizations.of(context).trans('valuta_app')),
           content: new Text(MyLocalizations.of(context).trans('valuta_app2')),
@@ -704,19 +707,21 @@ class _ConversionManager extends State<ConversionManager>{
             new FlatButton(
               child: new Text(MyLocalizations.of(context).trans('gia_fatto')),
               onPressed: () {
-                Navigator.of(context).pop();
+                prefs.setBool("stop_request_rating",true);
+                Navigator.of(dialogcontext).pop();
               },
             ),
             new FlatButton(
               child: new Text(MyLocalizations.of(context).trans('piu_tardi')),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(dialogcontext).pop();
               },
             ),
             new FlatButton(
               child: new Text("OK"),
               onPressed: () {
                 launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+                Navigator.of(dialogcontext).pop();
               },
             ),
           ],

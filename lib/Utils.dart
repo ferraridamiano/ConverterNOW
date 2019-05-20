@@ -3,7 +3,6 @@ import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
-
 import 'package:url_launcher/url_launcher.dart';
 
 const LINEAR_CONVERSION = 1;     // y=ax+b
@@ -708,4 +707,10 @@ launchURL(String url) async {
   } else {
     throw 'Could not launch $url';
   }
+}
+
+bool getBoolWithProbability(int probability){
+  Random random = new Random();
+  int num=random.nextInt(100);//numero da 0 a 99
+  return num<probability;
 }

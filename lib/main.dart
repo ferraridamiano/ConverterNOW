@@ -8,12 +8,18 @@ import 'package:dynamic_theme/dynamic_theme.dart';
 bool darkTheme=false;
 bool isLogoVisible=true;
 SharedPreferences prefs;
+int numero_volte_accesso;
 
 void main() async {
   Brightness brightness;
   prefs = await SharedPreferences.getInstance();
   darkTheme = prefs.getBool("darkTheme") ?? false;
   isLogoVisible = prefs.getBool("isLogoVisible") ?? true;
+  numero_volte_accesso=prefs.getInt("access_number") ?? 0;
+  numero_volte_accesso++;
+  print(numero_volte_accesso);
+  if(numero_volte_accesso<5)                                  //traccio solo i primi 5 accessi per dialog rating
+    prefs.setInt("access_number", numero_volte_accesso);
   brightness = darkTheme ? Brightness.dark: Brightness.light;
   runApp(new SandboxApp(brightness));
 }
