@@ -7,6 +7,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 const LINEAR_CONVERSION = 1;     // y=ax+b
 const RECIPROCO_CONVERSION = 2;  // y=(a/x)+b
+const BASE_CONVERSION = 3;       // conversione speciale (dec è father e tutti gli altri figlio)
+const KEYBOARD_NUMBER_DECIMAL = 1; //tastiera con solo numeri (anche decimali)
+const KEYBOARD_COMPLETE = 2;       //tastiera con anche le lettere
 
 abstract class ListItem {}
 
@@ -108,6 +111,7 @@ class Node {
     this.convertedNode=false,
     this.selectedNode=false,
     this.conversionType=LINEAR_CONVERSION,
+    this.keyboardType=KEYBOARD_NUMBER_DECIMAL,
     @required this.order
   });
 
@@ -122,6 +126,7 @@ class Node {
   bool selectedNode;
   int conversionType;
   int order;
+  int keyboardType;
 
   @override
   String toString() {

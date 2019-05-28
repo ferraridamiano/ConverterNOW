@@ -1,6 +1,7 @@
 import 'package:converter_pro/Utils.dart';
 import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ConversionPage extends StatefulWidget {
 
@@ -78,6 +79,16 @@ class _ConversionPage extends State<ConversionPage> {
         controller.text = nodo.MantissaCorrection();
       else if (nodo.value == null && !nodo.selectedNode) controller.text = "";
 
+      TextInputType keyboardType;
+      switch(nodo.keyboardType){
+        case KEYBOARD_NUMBER_DECIMAL:
+          keyboardType=TextInputType.numberWithOptions(decimal: true, signed: false);
+          break;
+        case KEYBOARD_COMPLETE:
+          keyboardType=TextInputType.text;
+          break;
+      }
+
       listaCard.add(myCard(
           node: nodo,
           textField: TextField(
@@ -85,8 +96,7 @@ class _ConversionPage extends State<ConversionPage> {
               fontSize: 16.0,
               color: darkTheme ? Colors.white : Colors.black,
             ),
-            keyboardType:
-                TextInputType.numberWithOptions(decimal: true, signed: false),
+            keyboardType: keyboardType,
             controller: controller,
             focusNode: listaFocus[i],
             onChanged: (String txt) {
