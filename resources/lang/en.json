@@ -35,6 +35,7 @@
   "momento": "Torque",
   "forza": "Force",
   "consumo_carburante": "Fuel consumption",
+  "basi_numeriche": "Numeral systems",
 
   "metro": "Metres [m]",
   "centimetro": "Centimetres [cm]",
@@ -197,6 +198,11 @@
   "chilometri_litro": "Kilometres per liter [km/l]",
   "litri_100km": "Litres per 100 km [l/100km]",
   "miglia_gallone_us": "Miles per US Gallon [mpg]",
-  "miglia_gallone_uk": "Miles per imperial Gallon [mpg]"
+  "miglia_gallone_uk": "Miles per imperial Gallon [mpg]",
+
+  "decimale": "Decimal [₁₀]",
+  "esadecimale": "Hexadecimal [₁₆]",
+  "ottale": "Octal [₈]",
+  "binario": "Binary [₂]"
 
 }

@@ -35,6 +35,7 @@
   "momento": "Momento",
   "forza": "Forza",
   "consumo_carburante": "Consumo carburante",
+  "basi_numeriche": "Basi numeriche",
 
   "metro": "Metri [m]",
   "centimetro": "Centimetri [cm]",
@@ -197,7 +198,10 @@
   "chilometri_litro": "Chilometri con un litro [km/l]",
   "litri_100km": "Litri ogni 100 km [l/100km]",
   "miglia_gallone_us": "Miglia per Gallone US [mpg]",
-  "miglia_gallone_uk": "Miglia per Gallone imperiale [mpg]"
+  "miglia_gallone_uk": "Miglia per Gallone imperiale [mpg]",
 
-
+  "decimale": "Decimale [₁₀]",
+  "esadecimale": "Esadecimale [₁₆]",
+  "ottale": "Ottale [₈]",
+  "binario": "Binario [₂]"
 }

@@ -120,12 +120,12 @@ class _ConversionManager extends State<ConversionManager>{
   void initializeTiles(){
     listaDrawer[0]=(Stack(
       children: <Widget>[
-        isLogoVisible ? DrawerHeader(
-          child: Container(
-              child:Image.asset("resources/images/logo.png")
-          ),
-          decoration: BoxDecoration(color: listaColori[_currentPage],),
-        ): Container(
+        isLogoVisible ? Container(
+          padding: EdgeInsets.only(top:25.0, bottom: 10.0),
+              child:Image.asset("resources/images/logo.png"),
+              alignment: Alignment.centerRight,
+              decoration: BoxDecoration(color: listaColori[_currentPage],),
+          ): Container(
           height:70.0,
           decoration:BoxDecoration(color: listaColori[_currentPage],),
           child:Row(
@@ -152,7 +152,7 @@ class _ConversionManager extends State<ConversionManager>{
           ),
         ),  
         isLogoVisible ? Container(
-          child:Column(
+          child:Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               IconButton(
