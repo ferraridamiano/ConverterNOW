@@ -75,18 +75,32 @@ class _ConversionPage extends State<ConversionPage> {
       TextEditingController controller;
       controller = listaController[i];
 
-      if (nodo.value != null && !nodo.selectedNode)
-        controller.text = nodo.MantissaCorrection();
+
+
+      if (nodo.value != null && !nodo.selectedNode){
+        if(nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL)
+          controller.text = nodo.MantissaCorrection();
+        else if (nodo.keyboardType==KEYBOARD_COMPLETE)
+          controller.text = nodo.valueString;
+        else if (nodo.keyboardType==KEYBOARD_NUMBER_INTEGER)
+          controller.text = nodo.valueInt.toString();
+      }
       else if (nodo.value == null && !nodo.selectedNode) controller.text = "";
 
       TextInputType keyboardType;
       switch(nodo.keyboardType){
-        case KEYBOARD_NUMBER_DECIMAL:
+        case KEYBOARD_NUMBER_DECIMAL:{
           keyboardType=TextInputType.numberWithOptions(decimal: true, signed: false);
           break;
-        case KEYBOARD_COMPLETE:
+        }
+        case KEYBOARD_COMPLETE:{
           keyboardType=TextInputType.text;
           break;
+        }
+        case KEYBOARD_NUMBER_INTEGER:{
+          keyboardType=TextInputType.numberWithOptions(decimal: false,signed: false);
+          break;
+        }
       }
 
       listaCard.add(myCard(
@@ -100,7 +114,20 @@ class _ConversionPage extends State<ConversionPage> {
             controller: controller,
             focusNode: listaFocus[i],
             onChanged: (String txt) {
-              nodo.value = txt == "" ? null : double.parse(txt);
+              switch(nodo.keyboardType){
+                case KEYBOARD_NUMBER_DECIMAL:{
+                  nodo.value = txt == "" ? null : double.parse(txt);
+                  break;
+                }
+                case KEYBOARD_COMPLETE:{
+                  nodo.valueString = txt == "" ? null : txt;
+                  break;
+                }
+                case KEYBOARD_NUMBER_INTEGER:{
+                  nodo.valueInt = txt == "" ? null : int.parse(txt);
+                  break;
+                }
+              }
               setState(() {
                 widget.fatherNode.ResetConvertedNode();
                 widget.fatherNode.Convert();

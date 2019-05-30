@@ -19,7 +19,7 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-  static final MAX_CONVERSION_UNITS=18;
+  static final MAX_CONVERSION_UNITS=19;
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   var currencyValues={"AUD":1.5987,"CHF":1.1407,"NZD":1.6993,"ILS":4.0104,"RUB":73.0256,"PHP":58.437,"CAD":1.5074,"USD":1.1202,"THB":35.622,"SGD":1.5257,"JPY":123.31,"TRY":6.9272,"HKD":8.7922,"MYR":4.6471,"NOK":9.8285,"SEK":10.7494,"IDR":16013.26,"DKK":7.4657,"CZK":25.727,"HUF":324.18,"GBP":0.86095,"MXN":21.3707,"KRW":1313.49,"ZAR":16.0691,"BRL":4.4293,"PLN":4.2912,"INR":78.0805,"RON":4.7598,"CNY":7.595}; //base euro (aggiornato a 04/04/2019)
 
@@ -28,7 +28,7 @@ class _ConversionManager extends State<ConversionManager>{
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
   Colors.purple,Colors.blueGrey,Colors.green,Colors.pinkAccent,Colors.teal,
   Colors.blue, Colors.yellow.shade700, Colors.brown, Colors.lightGreenAccent, Colors.deepPurple,
-  Colors.lightBlue, Colors.lime,Colors.yellow];
+  Colors.lightBlue, Colors.lime,Colors.yellow, Colors.orange];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List listaTitoli;
   static int _currentPage=0;
@@ -50,12 +50,13 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderForza=[0,1,2,3,4];
   static List orderTorque=[0,1,2,3,4];
   static List orderConsumo=[0,1,2,3];
+  static List orderBasi=[0,1,2,3];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,
-  orderAngoli, orderValute, orderScarpe, orderDati, orderPotenza, orderForza, orderTorque, orderConsumo];
+  orderAngoli, orderValute, orderScarpe, orderDati, orderPotenza, orderForza, orderTorque, orderConsumo, orderBasi];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+1);//+1 perchè c'è l'intestazione
-  static List<int> listaOrderDrawer=[0,1,2,4,5,6,16,7,10,11,13,3,14,15,12,8,17,9]; //fino a maxconversionunits-1
+  static List<int> listaOrderDrawer=[0,1,2,4,5,6,16,7,10,11,13,3,14,15,12,8,17,9,18]; //fino a maxconversionunits-1
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
   @override
@@ -198,6 +199,7 @@ class _ConversionManager extends State<ConversionManager>{
     listaDrawer[listaOrderDrawer[15]+1]=ListTileConversion(listaTitoli[15],"resources/images/forza.png",listaColori[15],_currentPage==15,(){_onSelectItem(15);});
     listaDrawer[listaOrderDrawer[16]+1]=ListTileConversion(listaTitoli[16],"resources/images/torque.png",listaColori[16],_currentPage==16,(){_onSelectItem(16);});
     listaDrawer[listaOrderDrawer[17]+1]=ListTileConversion(listaTitoli[17],"resources/images/consumo.png",listaColori[17],_currentPage==17,(){_onSelectItem(17);});
+    listaDrawer[listaOrderDrawer[18]+1]=ListTileConversion(listaTitoli[18],"resources/images/conversione_base.png",listaColori[18],_currentPage==18,(){_onSelectItem(18);});
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   }
 
@@ -606,15 +608,23 @@ class _ConversionManager extends State<ConversionManager>{
           Node(coefficientPer: 0.3540061899, name: MyLocalizations.of(context).trans('miglia_gallone_uk'),order: listaOrder[17][3],),
     ]);
 
+    Node base_decimale=Node(name: MyLocalizations.of(context).trans('decimale'),base: 10,keyboardType: KEYBOARD_NUMBER_INTEGER,order: listaOrder[18][0],
+        leafNodes: [
+          Node(conversionType: BASE_CONVERSION,base: 16,keyboardType: KEYBOARD_COMPLETE,name: MyLocalizations.of(context).trans('esadecimale'),order: listaOrder[18][1],),
+          Node(conversionType: BASE_CONVERSION,base: 8,keyboardType: KEYBOARD_NUMBER_INTEGER, name: MyLocalizations.of(context).trans('ottale'),order: listaOrder[18][2],),
+          Node(conversionType: BASE_CONVERSION,base: 2,keyboardType: KEYBOARD_NUMBER_INTEGER, name: MyLocalizations.of(context).trans('binario'),order: listaOrder[18][3],),
+    ]);
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,EUR, centimetri_scarpe,bit,watt,newton, newton_metro, chilometri_litro];
+
+    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,EUR, centimetri_scarpe,bit,watt,newton, newton_metro, chilometri_litro, base_decimale];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
     MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli'),MyLocalizations.of(context).trans('valuta'),
     MyLocalizations.of(context).trans('taglia_scarpe'),MyLocalizations.of(context).trans('dati_digitali'),MyLocalizations.of(context).trans('potenza'),
-    MyLocalizations.of(context).trans('forza'), MyLocalizations.of(context).trans('momento'),MyLocalizations.of(context).trans('consumo_carburante')];
+    MyLocalizations.of(context).trans('forza'), MyLocalizations.of(context).trans('momento'),MyLocalizations.of(context).trans('consumo_carburante'),
+    MyLocalizations.of(context).trans('basi_numeriche')];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     initializeTiles();
 

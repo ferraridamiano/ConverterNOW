@@ -9,7 +9,8 @@ const LINEAR_CONVERSION = 1;     // y=ax+b
 const RECIPROCO_CONVERSION = 2;  // y=(a/x)+b
 const BASE_CONVERSION = 3;       // conversione speciale (dec è father e tutti gli altri figlio)
 const KEYBOARD_NUMBER_DECIMAL = 1; //tastiera con solo numeri (anche decimali)
-const KEYBOARD_COMPLETE = 2;       //tastiera con anche le lettere
+const KEYBOARD_NUMBER_INTEGER = 2;//solo interi positivi
+const KEYBOARD_COMPLETE = 3;       //tastiera con anche le lettere
 
 abstract class ListItem {}
 
@@ -112,6 +113,9 @@ class Node {
     this.selectedNode=false,
     this.conversionType=LINEAR_CONVERSION,
     this.keyboardType=KEYBOARD_NUMBER_DECIMAL,
+    this.valueString,
+    this.valueInt,
+    this.base,
     @required this.order
   });
 
@@ -127,6 +131,9 @@ class Node {
   int conversionType;
   int order;
   int keyboardType;
+  int base;
+  String valueString;
+  int valueInt;
 
   @override
   String toString() {
@@ -139,11 +146,15 @@ class Node {
       for (Node node in leafNodes) { //per ogni nodo foglia controlla se ha valore
         switch(node.conversionType){
           case LINEAR_CONVERSION:{
-              _LinearConvert(node);
+            _LinearConvert(node);
             break;
           }
           case RECIPROCO_CONVERSION:{
-              _ReciprocoConvert(node);
+            _ReciprocoConvert(node);
+            break;
+          }
+          case BASE_CONVERSION:{
+            _BaseConvert(node);
             break;
           }
         }
@@ -169,6 +180,11 @@ class Node {
           _Reciproco_ApplyDown(node);
           break;
         }
+        case BASE_CONVERSION:{
+          _Base_ApplyDown(node);
+          break;
+        }
+
       }
     }
   }
@@ -220,6 +236,45 @@ class Node {
       ? null
       : node.coefficientPer/(value-node.coefficientPlus);//attenzione qui funziona al contrario
     node.convertedNode=true;
+
+    if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
+      node._ApplyDown();
+  }
+
+  //attenzione! Questo tipo di conversione è stata costruita esclusivamente sulla struttura dec-(bin-oct-hex). Un padre con 3 figli
+  void _BaseConvert(Node node) { //da basso a alto
+    if (node.convertedNode) {    //se un nodo foglia è già stato convertito
+      if(node.valueInt==null && node.valueString==null) valueInt=null;
+      else if(node.valueInt!=null){
+        valueInt=int.parse(baseToDec(node.valueInt.toString(), node.base));
+        convertedNode = true;
+      }
+      else if(node.valueString!=null){
+        valueInt=int.parse(baseToDec(node.valueString, node.base));
+        convertedNode = true;
+      }
+      //convertedNode = true; //moved up
+      _ApplyDown(); //converto i nodi sottostanti
+    }
+    else if (node.leafNodes != null) { //Però ha almeno un nodo foglia
+        node.Convert(); //ripeti la procedura    
+        if(node.convertedNode)
+          Convert();                             
+    }
+  }
+
+  void _Base_ApplyDown(Node node){//da alto a a basso
+    if(valueInt==null && valueString==null) node.valueInt=null;
+    else if(valueInt!=null){
+      if(node.base>10){
+        node.valueString=decToBase(valueInt.toString(), node.base);
+      }
+      else{
+        node.valueInt=int.parse(decToBase(valueInt.toString(), node.base));
+      }
+      node.convertedNode=true;
+    }
+    //node.convertedNode=true; //moved up
 
     if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
       node._ApplyDown();
@@ -643,7 +698,7 @@ String decToBase(String stringDec, int base){
   return myString;
 }
 
-String basetoDec(String daConvertire, int base){
+String baseToDec(String daConvertire, int base){
 
   int conversione=0;
   int len=daConvertire.length;
