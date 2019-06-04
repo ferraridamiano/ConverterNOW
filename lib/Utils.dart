@@ -244,16 +244,15 @@ class Node {
   //attenzione! Questo tipo di conversione è stata costruita esclusivamente sulla struttura dec-(bin-oct-hex). Un padre con 3 figli
   void _BaseConvert(Node node) { //da basso a alto
     if (node.convertedNode) {    //se un nodo foglia è già stato convertito
-      if(node.valueInt==null && node.valueString==null) valueInt=null;
-      else if(node.valueInt!=null){
-        valueInt=int.parse(baseToDec(node.valueInt.toString(), node.base));
-        convertedNode = true;
+      if((node.valueInt==null && node.keyboardType==KEYBOARD_NUMBER_INTEGER) || (node.valueString==null && node.keyboardType==KEYBOARD_COMPLETE))
+        valueInt=null;
+      else{
+        if(node.keyboardType==KEYBOARD_NUMBER_INTEGER)
+          valueInt=int.parse(baseToDec(node.valueInt.toString(), node.base));
+        else if(node.keyboardType==KEYBOARD_COMPLETE)
+          valueInt=int.parse(baseToDec(node.valueString, node.base));
       }
-      else if(node.valueString!=null){
-        valueInt=int.parse(baseToDec(node.valueString, node.base));
-        convertedNode = true;
-      }
-      //convertedNode = true; //moved up
+      convertedNode = true;
       _ApplyDown(); //converto i nodi sottostanti
     }
     else if (node.leafNodes != null) { //Però ha almeno un nodo foglia
@@ -264,17 +263,20 @@ class Node {
   }
 
   void _Base_ApplyDown(Node node){//da alto a a basso
-    if(valueInt==null && valueString==null) node.valueInt=null;
-    else if(valueInt!=null){
-      if(node.base>10){
-        node.valueString=decToBase(valueInt.toString(), node.base);
-      }
-      else{
-        node.valueInt=int.parse(decToBase(valueInt.toString(), node.base));
-      }
-      node.convertedNode=true;
+    if(valueInt==null){
+      if(node.keyboardType==KEYBOARD_NUMBER_INTEGER)
+        node.valueInt=null;
+      else if(node.keyboardType==KEYBOARD_COMPLETE)
+        node.valueString=null;
     }
-    //node.convertedNode=true; //moved up
+    else{
+      if(node.keyboardType==KEYBOARD_NUMBER_INTEGER)
+        node.valueInt=int.parse(decToBase(valueInt.toString(), node.base));
+      else if(node.keyboardType==KEYBOARD_COMPLETE)
+        node.valueString=decToBase(valueInt.toString(), node.base);
+    }
+
+    node.convertedNode=true;
 
     if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
       node._ApplyDown();
@@ -665,32 +667,7 @@ String decToBase(String stringDec, int base){
     resto=(dec%base);
     restoString=resto.toString();
     if(resto>=10){
-      switch(resto){
-        case 10:{
-          restoString="A";
-          break;
-        }
-        case 11:{
-          restoString="B";
-          break;
-        }
-        case 12:{
-          restoString="C";
-          break;
-        }
-        case 13:{
-          restoString="D";
-          break;
-        }
-        case 14:{
-          restoString="E";
-          break;
-        }
-        case 15:{
-          restoString="F";
-          break;
-        }
-      }
+      restoString=String.fromCharCode(resto+55);
     }
     myString= restoString + myString; //aggiungo in testa
     dec=dec~/base;
@@ -699,7 +676,7 @@ String decToBase(String stringDec, int base){
 }
 
 String baseToDec(String daConvertire, int base){
-
+  daConvertire=daConvertire.toUpperCase();
   int conversione=0;
   int len=daConvertire.length;
   for(int i=0;i<len;i++){

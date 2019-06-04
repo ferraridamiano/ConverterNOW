@@ -77,7 +77,7 @@ class _ConversionPage extends State<ConversionPage> {
 
 
 
-      if (nodo.value != null && !nodo.selectedNode){
+      if ((nodo.value != null || nodo.valueInt!=null || nodo.valueString!=null) && !nodo.selectedNode){
         if(nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL)
           controller.text = nodo.MantissaCorrection();
         else if (nodo.keyboardType==KEYBOARD_COMPLETE)
@@ -85,7 +85,12 @@ class _ConversionPage extends State<ConversionPage> {
         else if (nodo.keyboardType==KEYBOARD_NUMBER_INTEGER)
           controller.text = nodo.valueInt.toString();
       }
-      else if (nodo.value == null && !nodo.selectedNode) controller.text = "";
+      else if(!nodo.selectedNode && 
+      ((nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL && nodo.value == null) ||
+       (nodo.keyboardType==KEYBOARD_NUMBER_INTEGER && nodo.valueInt == null) || 
+       (nodo.keyboardType==KEYBOARD_COMPLETE && nodo.valueString == null))){
+         controller.text="";
+       }
 
       TextInputType keyboardType;
       switch(nodo.keyboardType){
