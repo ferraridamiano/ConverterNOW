@@ -608,7 +608,7 @@ class _ConversionManager extends State<ConversionManager>{
           Node(coefficientPer: 0.3540061899, name: MyLocalizations.of(context).trans('miglia_gallone_uk'),order: listaOrder[17][3],),
     ]);
 
-    Node base_decimale=Node(name: MyLocalizations.of(context).trans('decimale'),base: 10,valueInt:123456 ,keyboardType: KEYBOARD_NUMBER_INTEGER,order: listaOrder[18][0],
+    Node base_decimale=Node(name: MyLocalizations.of(context).trans('decimale'),base: 10,keyboardType: KEYBOARD_NUMBER_INTEGER,order: listaOrder[18][0],
         leafNodes: [
           Node(conversionType: BASE_CONVERSION,base: 16,keyboardType: KEYBOARD_COMPLETE,name: MyLocalizations.of(context).trans('esadecimale'),order: listaOrder[18][1],),
           Node(conversionType: BASE_CONVERSION,base: 8,keyboardType: KEYBOARD_NUMBER_INTEGER, name: MyLocalizations.of(context).trans('ottale'),order: listaOrder[18][2],),

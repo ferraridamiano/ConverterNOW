@@ -77,18 +77,15 @@ class _ConversionPage extends State<ConversionPage> {
 
 
 
-      if ((nodo.value != null || nodo.valueInt!=null || nodo.valueString!=null) && !nodo.selectedNode){
+      if ((nodo.value != null || nodo.valueString!=null) && !nodo.selectedNode){
         if(nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL)
           controller.text = nodo.MantissaCorrection();
-        else if (nodo.keyboardType==KEYBOARD_COMPLETE)
+        else if (nodo.keyboardType==KEYBOARD_COMPLETE || nodo.keyboardType==KEYBOARD_NUMBER_INTEGER)
           controller.text = nodo.valueString;
-        else if (nodo.keyboardType==KEYBOARD_NUMBER_INTEGER)
-          controller.text = nodo.valueInt.toString();
       }
       else if(!nodo.selectedNode && 
-      ((nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL && nodo.value == null) ||
-       (nodo.keyboardType==KEYBOARD_NUMBER_INTEGER && nodo.valueInt == null) || 
-       (nodo.keyboardType==KEYBOARD_COMPLETE && nodo.valueString == null))){
+      ((nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL && nodo.value == null) || 
+       ((nodo.keyboardType==KEYBOARD_COMPLETE || nodo.keyboardType==KEYBOARD_NUMBER_INTEGER) && nodo.valueString == null))){
          controller.text="";
        }
 
@@ -119,20 +116,13 @@ class _ConversionPage extends State<ConversionPage> {
             controller: controller,
             focusNode: listaFocus[i],
             onChanged: (String txt) {
-              switch(nodo.keyboardType){
-                case KEYBOARD_NUMBER_DECIMAL:{
-                  nodo.value = txt == "" ? null : double.parse(txt);
-                  break;
-                }
-                case KEYBOARD_COMPLETE:{
-                  nodo.valueString = txt == "" ? null : txt;
-                  break;
-                }
-                case KEYBOARD_NUMBER_INTEGER:{
-                  nodo.valueInt = txt == "" ? null : int.parse(txt);
-                  break;
-                }
+              if(nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL){
+                nodo.value = txt == "" ? null : double.parse(txt);
               }
+              else if(nodo.keyboardType==KEYBOARD_NUMBER_INTEGER || nodo.keyboardType==KEYBOARD_COMPLETE){
+                nodo.valueString = txt == "" ? null : txt;
+              }
+
               setState(() {
                 widget.fatherNode.ResetConvertedNode();
                 widget.fatherNode.Convert();

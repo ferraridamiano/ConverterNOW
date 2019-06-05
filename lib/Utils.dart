@@ -114,7 +114,6 @@ class Node {
     this.conversionType=LINEAR_CONVERSION,
     this.keyboardType=KEYBOARD_NUMBER_DECIMAL,
     this.valueString,
-    this.valueInt,
     this.base,
     @required this.order
   });
@@ -133,7 +132,6 @@ class Node {
   int keyboardType;
   int base;
   String valueString;
-  int valueInt;
 
   @override
   String toString() {
@@ -244,13 +242,10 @@ class Node {
   //attenzione! Questo tipo di conversione è stata costruita esclusivamente sulla struttura dec-(bin-oct-hex). Un padre con 3 figli
   void _BaseConvert(Node node) { //da basso a alto
     if (node.convertedNode) {    //se un nodo foglia è già stato convertito
-      if((node.valueInt==null && node.keyboardType==KEYBOARD_NUMBER_INTEGER) || (node.valueString==null && node.keyboardType==KEYBOARD_COMPLETE))
-        valueInt=null;
+      if(node.valueString==null)
+        valueString=null;
       else{
-        if(node.keyboardType==KEYBOARD_NUMBER_INTEGER)
-          valueInt=int.parse(baseToDec(node.valueInt.toString(), node.base));
-        else if(node.keyboardType==KEYBOARD_COMPLETE)
-          valueInt=int.parse(baseToDec(node.valueString, node.base));
+        valueString=baseToDec(node.valueString, node.base);
       }
       convertedNode = true;
       _ApplyDown(); //converto i nodi sottostanti
@@ -263,17 +258,11 @@ class Node {
   }
 
   void _Base_ApplyDown(Node node){//da alto a a basso
-    if(valueInt==null){
-      if(node.keyboardType==KEYBOARD_NUMBER_INTEGER)
-        node.valueInt=null;
-      else if(node.keyboardType==KEYBOARD_COMPLETE)
-        node.valueString=null;
+    if(valueString==null){
+      node.valueString=null;
     }
     else{
-      if(node.keyboardType==KEYBOARD_NUMBER_INTEGER)
-        node.valueInt=int.parse(decToBase(valueInt.toString(), node.base));
-      else if(node.keyboardType==KEYBOARD_COMPLETE)
-        node.valueString=decToBase(valueInt.toString(), node.base);
+      node.valueString=decToBase(valueString, node.base);
     }
 
     node.convertedNode=true;
