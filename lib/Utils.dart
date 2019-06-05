@@ -648,6 +648,11 @@ class CurrencyConversion{
 }
 
 String decToBase(String stringDec, int base){
+
+  RegExp regExp= getBaseRegExp(10);
+  if(!regExp.hasMatch(stringDec))
+    return "";
+
   String myString="";
   String restoString;
   int resto;
@@ -666,6 +671,12 @@ String decToBase(String stringDec, int base){
 
 String baseToDec(String daConvertire, int base){
   daConvertire=daConvertire.toUpperCase();
+
+  RegExp regExp=getBaseRegExp(base);
+
+  if(!regExp.hasMatch(daConvertire))
+    return "";
+
   int conversione=0;
   int len=daConvertire.length;
   for(int i=0;i<len;i++){
@@ -739,4 +750,27 @@ bool getBoolWithProbability(int probability){
   Random random = new Random();
   int num=random.nextInt(100);//numero da 0 a 99
   return num<probability;
+}
+
+RegExp getBaseRegExp(int base){
+  RegExp regExp;
+  switch(base){
+    case 2:{
+      regExp = new RegExp(r'^[0-1]+$');
+      break;
+    }
+    case 8:{
+      regExp = new RegExp(r'^[0-7]+$');
+      break;
+    }
+    case 10:{
+      regExp = new RegExp(r'^[0-9]+$');
+      break;
+    }
+    case 16:{
+      regExp = new RegExp(r'^[0-9A-F]+$');
+      break;
+    }
+  }
+  return regExp;
 }

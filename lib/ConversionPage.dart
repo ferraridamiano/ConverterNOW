@@ -75,8 +75,6 @@ class _ConversionPage extends State<ConversionPage> {
       TextEditingController controller;
       controller = listaController[i];
 
-
-
       if ((nodo.value != null || nodo.valueString!=null) && !nodo.selectedNode){
         if(nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL)
           controller.text = nodo.MantissaCorrection();

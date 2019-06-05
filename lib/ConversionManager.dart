@@ -21,9 +21,9 @@ class _ConversionManager extends State<ConversionManager>{
 
   static final MAX_CONVERSION_UNITS=19;
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  var currencyValues={"AUD":1.5987,"CHF":1.1407,"NZD":1.6993,"ILS":4.0104,"RUB":73.0256,"PHP":58.437,"CAD":1.5074,"USD":1.1202,"THB":35.622,"SGD":1.5257,"JPY":123.31,"TRY":6.9272,"HKD":8.7922,"MYR":4.6471,"NOK":9.8285,"SEK":10.7494,"IDR":16013.26,"DKK":7.4657,"CZK":25.727,"HUF":324.18,"GBP":0.86095,"MXN":21.3707,"KRW":1313.49,"ZAR":16.0691,"BRL":4.4293,"PLN":4.2912,"INR":78.0805,"RON":4.7598,"CNY":7.595}; //base euro (aggiornato a 04/04/2019)
+  var currencyValues={"AUD":1.6114,"CHF":1.1163,"NZD":1.6943,"ILS":4.0604,"RUB":73.3295,"PHP":58.28,"CAD":1.507,"USD":1.1257,"THB":35.302,"SGD":1.5364,"JPY":121.96,"TRY":6.4344,"HKD":8.8257,"MYR":4.6711,"NOK":9.7738,"SEK":10.6255,"IDR":15990.01,"DKK":7.4682,"CZK":25.657,"HUF":321.51,"GBP":0.88631,"MXN":22.0886,"KRW":1324.33,"ZAR":16.589,"BRL":4.3427,"PLN":4.2778,"INR":78.0475,"RON":4.7243,"CNY":7.7754}; //base euro (aggiornato a 05/06/2019)
 
-  static String lastUpdateCurrency="Last update: 2019-05-08";
+  static String lastUpdateCurrency="Last update: 2019-06-05";
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
   Colors.purple,Colors.blueGrey,Colors.green,Colors.pinkAccent,Colors.teal,
@@ -56,7 +56,7 @@ class _ConversionManager extends State<ConversionManager>{
   orderAngoli, orderValute, orderScarpe, orderDati, orderPotenza, orderForza, orderTorque, orderConsumo, orderBasi];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+1);//+1 perchè c'è l'intestazione
-  static List<int> listaOrderDrawer=[0,1,2,4,5,6,16,7,10,11,13,3,14,15,12,8,17,9,18]; //fino a maxconversionunits-1
+  static List<int> listaOrderDrawer=[0,1,2,4,5,6,17,7,11,12,14,3,15,16,13,8,18,9,10]; //fino a maxconversionunits-1
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
   @override
