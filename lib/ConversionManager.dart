@@ -588,7 +588,7 @@ class _ConversionManager extends State<ConversionManager>{
     Node newton=Node(name: MyLocalizations.of(context).trans('newton'),order: listaOrder[15][0],
         leafNodes: [
           Node(isMultiplication: false, coefficientPer: 100000.0, name: MyLocalizations.of(context).trans('dyne'),order: listaOrder[15][1],),
-          Node(isMultiplication: true, coefficientPer: 4.448222 , name: MyLocalizations.of(context).trans('libbra_forza'),order: listaOrder[15][2],),
+          Node(isMultiplication: true, coefficientPer: 4.4482216152605 , name: MyLocalizations.of(context).trans('libbra_forza'),order: listaOrder[15][2],),
           Node(isMultiplication: true, coefficientPer: 9.80665, name: MyLocalizations.of(context).trans('kilogrammo_forza'),order: listaOrder[15][3],),
           Node(isMultiplication: true, coefficientPer: 0.138254954376, name: MyLocalizations.of(context).trans('poundal'),order: listaOrder[15][4],),
     ]);
@@ -596,7 +596,7 @@ class _ConversionManager extends State<ConversionManager>{
     Node newton_metro=Node(name: MyLocalizations.of(context).trans('newton_metro'),order: listaOrder[16][0],
         leafNodes: [
           Node(isMultiplication: false, coefficientPer: 100000.0, name: MyLocalizations.of(context).trans('dyne_metro'),order: listaOrder[16][1],),
-          Node(isMultiplication: false, coefficientPer: 0.7374631268436578 , name: MyLocalizations.of(context).trans('libbra_forza_piede'),order: listaOrder[16][2],),
+          Node(isMultiplication: false, coefficientPer: 0.7375621489 , name: MyLocalizations.of(context).trans('libbra_forza_piede'),order: listaOrder[16][2],),
           Node(isMultiplication: false, coefficientPer: 0.10196798205363515, name: MyLocalizations.of(context).trans('kilogrammo_forza_metro'),order: listaOrder[16][3],),
           Node(isMultiplication: true, coefficientPer: 0.138254954376, name: MyLocalizations.of(context).trans('poundal_metro'),order: listaOrder[16][4],),
     ]);
@@ -608,7 +608,7 @@ class _ConversionManager extends State<ConversionManager>{
           Node(coefficientPer: 0.3540061899, name: MyLocalizations.of(context).trans('miglia_gallone_uk'),order: listaOrder[17][3],),
     ]);
 
-    Node base_decimale=Node(name: MyLocalizations.of(context).trans('decimale'),base: 10,keyboardType: KEYBOARD_NUMBER_INTEGER,order: listaOrder[18][0],
+    Node base_decimale=Node(name: MyLocalizations.of(context).trans('decimale'),base: 10,valueInt:123456 ,keyboardType: KEYBOARD_NUMBER_INTEGER,order: listaOrder[18][0],
         leafNodes: [
           Node(conversionType: BASE_CONVERSION,base: 16,keyboardType: KEYBOARD_COMPLETE,name: MyLocalizations.of(context).trans('esadecimale'),order: listaOrder[18][1],),
           Node(conversionType: BASE_CONVERSION,base: 8,keyboardType: KEYBOARD_NUMBER_INTEGER, name: MyLocalizations.of(context).trans('ottale'),order: listaOrder[18][2],),
