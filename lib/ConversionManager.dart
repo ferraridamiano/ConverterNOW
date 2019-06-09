@@ -119,68 +119,75 @@ class _ConversionManager extends State<ConversionManager>{
   }
 
   void initializeTiles(){
-    listaDrawer[0]=(Stack(
-      children: <Widget>[
-        isLogoVisible ? Container(
-          padding: EdgeInsets.only(top:25.0, bottom: 10.0),
-              child:Image.asset("resources/images/logo.png"),
-              alignment: Alignment.centerRight,
-              decoration: BoxDecoration(color: listaColori[_currentPage],),
-          ): Container(
-          height:70.0,
-          decoration:BoxDecoration(color: listaColori[_currentPage],),
-          child:Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.reorder,color: Colors.white,),
-                onPressed:(){
-                  _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaColori[_currentPage]);
-                }
+    listaDrawer[0]=
+        isLogoVisible ? 
+          Container(
+            decoration: BoxDecoration(color: listaColori[_currentPage],),
+            child:SafeArea(
+              child: Stack(
+                fit: StackFit.passthrough,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child:Image.asset("resources/images/logo.png"),
+                    alignment: Alignment.centerRight,
+                    decoration: BoxDecoration(color: listaColori[_currentPage],),),
+                  Container(
+                    child:Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.reorder,color: Colors.white,),
+                          onPressed:(){
+                            _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaColori[_currentPage]);
+                          }
+                        ),
+                        IconButton(
+                          icon:Icon(Icons.settings,color: Colors.white,),
+                          onPressed: (){
+                            Navigator.of(context).pop();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SettingsPage()),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    height: 160.0,
+                    alignment: FractionalOffset.bottomRight,
+                  )  
+                ]
+            )
+          ))
+          :
+          Container(
+            decoration: BoxDecoration(color: listaColori[_currentPage],),
+            child:SafeArea(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.reorder,color: Colors.white,),
+                    onPressed:(){
+                      _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaColori[_currentPage]);
+                    }
+                  ),
+                  IconButton(
+                    icon:Icon(Icons.settings,color: Colors.white,),
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SettingsPage()),
+                      );
+                    },
+                  ),
+                ],
               ),
-              IconButton(
-                icon:Icon(Icons.settings,color: Colors.white,),
-                onPressed: (){
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SettingsPage()),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),  
-        isLogoVisible ? Container(
-          child:Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.reorder,color: Colors.white,),
-                onPressed:(){
-                  _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaColori[_currentPage]);
-                }
-              ),
-              IconButton(
-                icon:Icon(Icons.settings,color: Colors.white,),
-                onPressed: (){
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SettingsPage()),
-                  );
-                },
-              ),
-            ],
-          ),
-          height: 190.0,
-          alignment: FractionalOffset.bottomRight,
-        ): SizedBox()
+          ));
 
-      ],
-      fit: StackFit.passthrough,
-    ));
     listaDrawer[listaOrderDrawer[0]+1]=ListTileConversion(listaTitoli[0],"resources/images/lunghezza.png",listaColori[0],_currentPage==0,(){_onSelectItem(0);});
     listaDrawer[listaOrderDrawer[1]+1]=ListTileConversion(listaTitoli[1],"resources/images/area.png",listaColori[1],_currentPage==1,(){_onSelectItem(1);});
     listaDrawer[listaOrderDrawer[2]+1]=ListTileConversion(listaTitoli[2],"resources/images/volume.png",listaColori[2],_currentPage==2,(){_onSelectItem(2);});
