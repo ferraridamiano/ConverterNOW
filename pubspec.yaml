@@ -7,7 +7,7 @@ description: A new Flutter application.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 2.2.1+17 
+version: 2.2.2+18 
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -16,9 +16,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_launcher_icons: ^0.7.0
-  shared_preferences: ^0.5.2
-  url_launcher: ^5.0.2
+  #flutter_launcher_icons: ^0.7.0
+  shared_preferences: ^0.5.3+1
+  url_launcher: ^5.0.3
   http: ^0.12.0+2
   dynamic_theme: ^1.0.1
   #quick_actions: ^0.3.0+1
@@ -31,10 +31,10 @@ dependencies:
   flutter_localizations:
       sdk: flutter
 
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "resources/images/ic_launcher.png"
+#flutter_icons:
+#  android: true
+#  ios: true
+#  image_path: "resources/images/ic_launcher.png"
 
 
 dev_dependencies:

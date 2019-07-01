@@ -36,7 +36,7 @@ class _ConversionManager extends State<ConversionManager>{
   static List orderSuperficie=[0,1,2,3,4,5,6,7,8,9,10];
   static List orderVolume=[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
   static List orderTempo=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
-  static List orderTemperatura=[0,1,2];
+  static List orderTemperatura=[0,1,2,3,4,5,6];
   static List orderVelocita=[0,1,2,3,4];
   static List orderPrefissi=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
   static List orderMassa=[0,1,2,3,4,5,6,7,8,9];
@@ -416,7 +416,11 @@ class _ConversionManager extends State<ConversionManager>{
     Node celsius=Node(name: MyLocalizations.of(context).trans('fahrenheit'),order: listaOrder[4][0],leafNodes:[
       Node(isMultiplication: true, coefficientPer: 1.8, isSum: true, coefficientPlus: 32.0, name: MyLocalizations.of(context).trans('celsius'),order: listaOrder[4][1],leafNodes: [
         Node(isSum: false, coefficientPlus: 273.15, name: MyLocalizations.of(context).trans('kelvin'),order: listaOrder[4][2],),
+        Node(isMultiplication: true, coefficientPer: 5/4, name: "Reamur [°Re]",order: listaOrder[4][3],),
+        Node(isMultiplication: true, coefficientPer: 40/21, isSum: true, coefficientPlus: -100/7,  name: "Rømer [°Rø]",order: listaOrder[4][4],),
+        Node(isMultiplication: true, coefficientPer: -2/3, isSum: true, coefficientPlus: 100,  name: "Delisle [°De]",order: listaOrder[4][5],),
       ]),
+      Node(isSum: false, coefficientPlus: 459.67, name: "Rankine [°R]",order: listaOrder[4][6],),
     ]);
 
     Node metri_secondo=Node(name: MyLocalizations.of(context).trans('metri_secondo'), order: listaOrder[5][0], leafNodes: [
