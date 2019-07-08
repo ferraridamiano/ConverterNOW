@@ -21,9 +21,9 @@ class _ConversionManager extends State<ConversionManager>{
 
   static final MAX_CONVERSION_UNITS=19;
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  var currencyValues={"AUD":1.6114,"CHF":1.1163,"NZD":1.6943,"ILS":4.0604,"RUB":73.3295,"PHP":58.28,"CAD":1.507,"USD":1.1257,"THB":35.302,"SGD":1.5364,"JPY":121.96,"TRY":6.4344,"HKD":8.8257,"MYR":4.6711,"NOK":9.7738,"SEK":10.6255,"IDR":15990.01,"DKK":7.4682,"CZK":25.657,"HUF":321.51,"GBP":0.88631,"MXN":22.0886,"KRW":1324.33,"ZAR":16.589,"BRL":4.3427,"PLN":4.2778,"INR":78.0475,"RON":4.7243,"CNY":7.7754}; //base euro (aggiornato a 05/06/2019)
+  var currencyValues={"CAD":1.4642,"HKD":8.7482,"RUB":71.5025,"PHP":57.58,"DKK":7.4631,"NZD":1.6888,"CNY":7.7173,"AUD":1.6058,"RON":4.72,"SEK":10.5973,"IDR":15824.37,"INR":76.8955,"BRL":4.2752,"USD":1.1215,"ILS":4.0095,"JPY":121.8,"THB":34.514,"CHF":1.1127,"CZK":25.509,"MYR":4.6436,"TRY":6.4304,"MXN":21.2581,"NOK":9.684,"HUF":324.66,"ZAR":15.8813,"SGD":1.5247,"GBP":0.89625,"KRW":1322.07,"PLN":4.253}; //base euro (aggiornato a 08/07/2019)
 
-  static String lastUpdateCurrency="Last update: 2019-06-05";
+  static String lastUpdateCurrency="Last update: 2019-07-08";
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
   Colors.purple,Colors.blueGrey,Colors.green,Colors.pinkAccent,Colors.teal,
