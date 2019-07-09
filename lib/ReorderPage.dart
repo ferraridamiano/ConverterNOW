@@ -75,7 +75,7 @@ class _ReorderPage extends State<ReorderPage> {
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.check),
+          child: Icon(Icons.check,color: Colors.white,),
           onPressed: (){
             List<int> orderedList=new List(_items.length);
               for(int i=0;i<_items.length;i++){
@@ -141,7 +141,7 @@ class Item extends StatelessWidget {
     return Container(
       // slightly transparent background white dragging (just like on iOS)
         decoration:
-        BoxDecoration(color: dragging ? (darkTheme ? Color(0xD02e2e2e) : Color(0xD0FFFFFF)) : Colors.transparent),
+        BoxDecoration(color: dragging ? (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xD02e2e2e) : Color(0xD0FFFFFF)) : Colors.transparent),
         child: SafeArea(
             top: false,
             bottom: false,

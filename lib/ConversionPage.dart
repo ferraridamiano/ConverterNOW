@@ -108,7 +108,7 @@ class _ConversionPage extends State<ConversionPage> {
           textField: TextField(
             style: TextStyle(
               fontSize: 16.0,
-              color: darkTheme ? Colors.white : Colors.black,
+              color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white : Colors.black,
             ),
             keyboardType: keyboardType,
             controller: controller,

@@ -47,7 +47,7 @@ class bigTitle extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
             Container(
-              child: Text(text,style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,color: darkTheme ? Color(0xFFDDDDDD) : Color(0xFF666666)),),
+              child: Text(text,style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666)),),
             ),
             Container(
               height: 30.0,
@@ -401,7 +401,6 @@ class _Calculator extends State<Calculator>{
   String text="";
   static const double buttonHeight=70.0;
   static const double buttonOpSize=buttonHeight*0.8;
-  static Color textButtonColor=Color(darkTheme ? 0xFFBBBBBB : 0xFF777777);
   static const double textSize=35.0;  
 
   bool alreadyDeleted=false;
@@ -410,10 +409,11 @@ class _Calculator extends State<Calculator>{
   int operation=0;
   @override
   Widget build(BuildContext context) {
+    Color textButtonColor=Color(MediaQuery.of(context).platformBrightness==Brightness.dark ? 0xFFBBBBBB : 0xFF777777);
     return Container(
       height: 5*buttonHeight,
       decoration: BoxDecoration(
-                  color: darkTheme ? Color(0xFF2e2e2e) : Colors.white
+                  color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFF2e2e2e) : Colors.white
                   ),
       child: Column(
         children: <Widget>[
@@ -428,19 +428,19 @@ class _Calculator extends State<Calculator>{
             children: <Widget>[
               Container(
                 width: (widget.width*0.9*3)/4,
-                child:Text(text,style: TextStyle(fontSize: 45.0,fontWeight: FontWeight.bold,color: darkTheme ? Colors.white : Colors.black),maxLines: 1,),
+                child:Text(text,style: TextStyle(fontSize: 45.0,fontWeight: FontWeight.bold,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white : Colors.black),maxLines: 1,),
               ),
               Container(
                 width: (widget.width*0.9)/4,
                 alignment: Alignment.center,
-                child:isResult ? IconButton(icon: Icon(Icons.content_copy,color: darkTheme ? Colors.white54 : Colors.black54,), onPressed: (){
+                child:isResult ? IconButton(icon: Icon(Icons.content_copy,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white54 : Colors.black54,), onPressed: (){
                   Clipboard.setData(new ClipboardData(text: text));
-                },) : Text(operation ==1 ? "+" : operation==2 ? "−" : operation==3? "×" : operation==4? "÷" : "",style: TextStyle(fontSize: 45.0,fontWeight: FontWeight.bold,color: darkTheme? Colors.white54 : Colors.black54),maxLines: 1,),
+                },) : Text(operation ==1 ? "+" : operation==2 ? "−" : operation==3? "×" : operation==4? "÷" : "",style: TextStyle(fontSize: 45.0,fontWeight: FontWeight.bold,color: MediaQuery.of(context).platformBrightness==Brightness.dark? Colors.white54 : Colors.black54),maxLines: 1,),
               ),
             ],),
           ),
           decoration: new BoxDecoration(
-            color: darkTheme ? Color(0xFF2e2e2e) : Colors.white,
+            color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFF2e2e2e) : Colors.white,
             boxShadow: [new BoxShadow(
               color: Colors.black,
               blurRadius: 5.0,

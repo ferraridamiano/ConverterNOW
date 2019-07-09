@@ -1,6 +1,5 @@
 import 'package:converter_pro/Localization.dart';
 import 'package:converter_pro/main.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'Utils.dart';
 
@@ -22,28 +21,28 @@ class SettingsPage extends StatelessWidget{
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('recensione'),style: TextStyle(fontSize: 28.0,color: darkTheme ? Color(0xFFCCCCCC) : Colors.black54),),
+            child: new Text(MyLocalizations.of(context).trans('recensione'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
             onTap: (){
               launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
             },
           ),
           SizedBox(height: 20.0),
           new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('donazione'),style: TextStyle(fontSize: 28.0,color: darkTheme ? Color(0xFFCCCCCC) : Colors.black54),),
+            child: new Text(MyLocalizations.of(context).trans('donazione'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
             onTap: (){
               launchURL("https://www.paypal.me/DemApps");
             },
           ),
           SizedBox(height: 20.0),
           new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('contatta_sviluppatore'),style: TextStyle(fontSize: 28.0,color: darkTheme ? Color(0xFFCCCCCC) : Colors.black54),),
+            child: new Text(MyLocalizations.of(context).trans('contatta_sviluppatore'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
             onTap: (){
               launchURL("mailto:<damianoferrari1998@gmail.com>");
             },
           ),
           SizedBox(height: 20.0),
           new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('about'),style: TextStyle(fontSize: 28.0,color:darkTheme ? Color(0xFFCCCCCC) : Colors.black54),),
+            child: new Text(MyLocalizations.of(context).trans('about'),style: TextStyle(fontSize: 28.0,color:MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
             onTap: (){
               showLicensePage (context: context,applicationName: MyLocalizations.of(context).trans('app_name'),
                   applicationLegalese: "Icons made by https://www.flaticon.com/authors/yannick Yannick from https://www.flaticon.com/ www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n"+ //termometro
@@ -55,7 +54,7 @@ class SettingsPage extends StatelessWidget{
           ),
           SizedBox(height: 20.0),
           new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('impostazioni'),style: TextStyle(fontSize: 28.0,color: darkTheme ? Color(0xFFCCCCCC) : Colors.black54),),
+            child: new Text(MyLocalizations.of(context).trans('impostazioni'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
             onTap: (){
               Navigator.push(
                     context,
@@ -98,23 +97,11 @@ class _SettingsPage2 extends State<SettingsPage2>{
             reverse: true,
             children:<Widget>[
               ListTile(
-                title: Text(MyLocalizations.of(context).trans('abilita_tema_scuro')),
-                trailing: Checkbox(value: darkTheme,activeColor: Colors.red,
-                onChanged: (bool val) {
-                  setState(() {
-                    darkTheme=val;
-                    DynamicTheme.of(context).setBrightness(Brightness.dark);
-                    prefs.setBool("darkTheme", darkTheme);
-                  });
-                },),
-              ),
-              ListTile(
                 title: Text(MyLocalizations.of(context).trans('logo_drawer')),
                 trailing: Checkbox(value: isLogoVisible,activeColor: Colors.red,
                 onChanged: (bool val) {
                   setState(() {
                     isLogoVisible=val;
-                    DynamicTheme.of(context).setBrightness(Brightness.dark);
                     prefs.setBool("isLogoVisible", isLogoVisible);
                   });
                 },),
