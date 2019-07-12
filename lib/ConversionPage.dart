@@ -105,7 +105,30 @@ class _ConversionPage extends State<ConversionPage> {
 
       listaCard.add(myCard(
           node: nodo,
-          textField: TextField(
+          textField: TextFormField(
+            style: TextStyle(
+              fontSize: 16.0,
+              color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white : Colors.black,
+            ),
+            keyboardType: keyboardType,
+            controller: controller,
+            focusNode: listaFocus[i],
+            decoration: InputDecoration(labelText: nodo.name),
+            onChanged: (String txt) {
+              if(nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL){
+                nodo.value = txt == "" ? null : double.parse(txt);
+              }
+              else if(nodo.keyboardType==KEYBOARD_NUMBER_INTEGER || nodo.keyboardType==KEYBOARD_COMPLETE){
+                nodo.valueString = txt == "" ? null : txt;
+              }
+
+              setState(() {
+                widget.fatherNode.ResetConvertedNode();
+                widget.fatherNode.Convert();
+              });
+            },
+          )
+          /*textField: TextField(
             style: TextStyle(
               fontSize: 16.0,
               color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white : Colors.black,
@@ -126,7 +149,9 @@ class _ConversionPage extends State<ConversionPage> {
                 widget.fatherNode.Convert();
               });
             },
-          )));
+          )*/
+          
+          ));
     }
     return listaCard;
   }

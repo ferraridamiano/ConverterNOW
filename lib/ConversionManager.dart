@@ -330,26 +330,26 @@ class _ConversionManager extends State<ConversionManager>{
   @override
   Widget build(BuildContext context) {
 
-    Node metro=Node(name: MyLocalizations.of(context).trans('metro',),order: listaOrder[0][0],
+    Node metro=Node(name: MyLocalizations.of(context).trans('metro',),symbol:"[m]",order: listaOrder[0][0],
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centimetro'),order: listaOrder[0][1], leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 2.54, name: MyLocalizations.of(context).trans('pollice'),order: listaOrder[0][2], leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 12.0, name: MyLocalizations.of(context).trans('piede'),order: listaOrder[0][3]),
+          Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centimetro'),symbol:"[cm]",order: listaOrder[0][1], leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 2.54, name: MyLocalizations.of(context).trans('pollice'),symbol:"[in]",order: listaOrder[0][2], leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 12.0, name: MyLocalizations.of(context).trans('piede'),symbol:"[ft]",order: listaOrder[0][3]),
             ]),
           ]),
-          Node(isMultiplication: true, coefficientPer: 1852.0, name: MyLocalizations.of(context).trans('miglio_marino'),order: listaOrder[0][4],),
-          Node(isMultiplication: true, coefficientPer: 0.9144, name: MyLocalizations.of(context).trans('yard'),order: listaOrder[0][5], leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 1760.0, name: MyLocalizations.of(context).trans('miglio_terrestre'),order: listaOrder[0][6],),
+          Node(isMultiplication: true, coefficientPer: 1852.0, name: MyLocalizations.of(context).trans('miglio_marino'),symbol:"[M]",order: listaOrder[0][4],),
+          Node(isMultiplication: true, coefficientPer: 0.9144, name: MyLocalizations.of(context).trans('yard'),symbol:"[yd]",order: listaOrder[0][5], leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 1760.0, name: MyLocalizations.of(context).trans('miglio_terrestre'),symbol:"[mi]",order: listaOrder[0][6],),
           ]),
-          Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millimetro'),order: listaOrder[0][7],),
-          Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('micrometro'), order: listaOrder[0][8],),
-          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('nanometro'),order: listaOrder[0][9],),
-          Node(isMultiplication: false, coefficientPer: 10000000000.0, name: MyLocalizations.of(context).trans('angstrom'),order: listaOrder[0][10],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: MyLocalizations.of(context).trans('picometro'),order: listaOrder[0][11],),
-          Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('chilometro'),order: listaOrder[0][12],leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 149597870.7, name: MyLocalizations.of(context).trans('unita_astronomica'),order: listaOrder[0][13],leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 63241.1, name: MyLocalizations.of(context).trans('anno_luce'),order: listaOrder[0][14],leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 3.26, name: MyLocalizations.of(context).trans('parsec'),order: listaOrder[0][15],),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('millimetro'),symbol:"[mm]",order: listaOrder[0][7],),
+          Node(isMultiplication: false, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('micrometro'),symbol:"[µm]", order: listaOrder[0][8],),
+          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: MyLocalizations.of(context).trans('nanometro'),symbol:"[nm]",order: listaOrder[0][9],),
+          Node(isMultiplication: false, coefficientPer: 10000000000.0, name: MyLocalizations.of(context).trans('angstrom'),symbol:"[Å]",order: listaOrder[0][10],),
+          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: MyLocalizations.of(context).trans('picometro'),symbol:"[pm]",order: listaOrder[0][11],),
+          Node(isMultiplication: true, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('chilometro'),symbol:"[km]",order: listaOrder[0][12],leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 149597870.7, name: MyLocalizations.of(context).trans('unita_astronomica'),symbol:"[au]",order: listaOrder[0][13],leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 63241.1, name: MyLocalizations.of(context).trans('anno_luce'),symbol:"[ly]",order: listaOrder[0][14],leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 3.26, name: MyLocalizations.of(context).trans('parsec'),symbol:"[pc]",order: listaOrder[0][15],),
               ]),
             ]),
           ]),
@@ -648,44 +648,45 @@ class _ConversionManager extends State<ConversionManager>{
       extendBody:true, //estende la schermata in modo che sia visibile anche dietro il notched fab
       resizeToAvoidBottomPadding: false,  //per evitare che il fab salga quando clicco
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        color: listaColori[_currentPage],
-        notchMargin: 4.0,
-        child: new Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            new Builder(builder: (context) {
-              return IconButton(icon: Icon(Icons.menu,color: Colors.white,), onPressed: () {
-                Scaffold.of(context).openDrawer();
-              });
-            }),
-            Row(children: <Widget>[
-              IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Clear all',),
-                onPressed: () {
-                  setState(() {
-                    listaConversioni[_currentPage].ClearAllValues();
-                  });
-                },),
-              PopupMenuButton<Choice>(
-                icon: Icon(Icons.more_vert,color: Colors.white,),
-                onSelected: (Choice choice){
-                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage].getStringOrderedNodiFiglio(), listaColori[_currentPage]);
-                },
-                itemBuilder: (BuildContext context) {
-                  return choices.map((Choice choice) {
-                    return PopupMenuItem<Choice>(
-                      value: choice,
-                      child: Text(choice.title),
-                    );
-                  }).toList();
-                },
-              ),
-            ],)
-          ],
-      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 5)]),
+        child: BottomAppBar(
+          color: Colors.white,//listaColori[_currentPage],
+          child: new Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              new Builder(builder: (context) {
+                return IconButton(icon: Icon(Icons.menu,), onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                });
+              }),
+              Row(children: <Widget>[
+                IconButton(icon: Icon(Icons.clear,semanticLabel: 'Clear all',),
+                  onPressed: () {
+                    setState(() {
+                      listaConversioni[_currentPage].ClearAllValues();
+                    });
+                  },),
+                PopupMenuButton<Choice>(
+                  icon: Icon(Icons.more_vert),
+                  onSelected: (Choice choice){
+                    _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage].getStringOrderedNodiFiglio(), listaColori[_currentPage]);
+                  },
+                  itemBuilder: (BuildContext context) {
+                    return choices.map((Choice choice) {
+                      return PopupMenuItem<Choice>(
+                        value: choice,
+                        child: Text(choice.title),
+                      );
+                    }).toList();
+                  },
+                ),
+              ],)
+            ],
+        ),
     ),
+      ),
       drawer: new Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -694,13 +695,13 @@ class _ConversionManager extends State<ConversionManager>{
       ),
       body: SafeArea(child:ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : "")),
       
-      floatingActionButton: /*!showFab ? null : */FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         child: Image.asset("resources/images/calculator.png",width: 30.0,),
         onPressed: (){
           _fabPressed();
         },
         
-        elevation: 10.0,
+        elevation: 6.0,
         backgroundColor: listaColori[_currentPage],
       ),
 

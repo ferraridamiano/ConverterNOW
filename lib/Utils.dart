@@ -1,5 +1,4 @@
 import 'package:converter_pro/ConversionManager.dart';
-import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
@@ -75,28 +74,33 @@ class UnitCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-        padding: EdgeInsets.only(bottom: 5.0),
-        child: new Card(
-          child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-              child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    new Text(
-                      node.name,
-                      style: TextStyle(
-                          fontSize: 18.0,
-                          //fontWeight: FontWeight.bold
-                      ),
-                    ),
-                    new SizedBox(
-                      width: 20.0,
-                    ),
-                    this.textField
-                  ])),
-          elevation: 4.0,
-        ));
+    return Stack(
+      children: <Widget>[
+        new Container(
+            padding: EdgeInsets.only(top: 14.0),
+            child: new Card(
+              child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                  child: new Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        this.textField
+                      ])),
+              elevation: 4.0,
+            )),
+            Align(
+              alignment: Alignment(0.95, 0),
+              child: Card(
+                elevation: 4.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Text(node.symbol, style: TextStyle(color: Colors.white, fontSize: 13.0,fontWeight: FontWeight.bold),),
+                ),
+                color: Colors.red,
+              ),
+            )
+      ],
+    );
   }
 }
 
@@ -109,6 +113,7 @@ class Node {
     this.coefficientPlus=0.0,
     this.name,
     this.value,
+    this.symbol="ERROREEEEEEEEEEEEEEEEEE",
     this.convertedNode=false,
     this.selectedNode=false,
     this.conversionType=LINEAR_CONVERSION,
@@ -125,6 +130,7 @@ class Node {
   double coefficientPlus;
   double value;
   String name;
+  String symbol;
   bool convertedNode;
   bool selectedNode;
   int conversionType;
@@ -132,12 +138,6 @@ class Node {
   int keyboardType;
   int base;
   String valueString;
-
-  @override
-  String toString() {
-    return "isMultiplication:$isMultiplication, coefficient:$coefficientPer, "
-        "value:$value, name:$name, coonvertedNode:$convertedNode, selectedNode:$selectedNode";
-  }
 
   void Convert() {
     if(!convertedNode) {             //se non è già convertito
