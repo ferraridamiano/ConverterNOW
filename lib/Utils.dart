@@ -88,7 +88,7 @@ class UnitCard extends StatelessWidget{
                       ])),
               elevation: 4.0,
             )),
-            Align(
+            node.symbol==null?SizedBox() : Align(
               alignment: Alignment(0.95, 0),
               child: Card(
                 elevation: 4.0,
@@ -113,7 +113,7 @@ class Node {
     this.coefficientPlus=0.0,
     this.name,
     this.value,
-    this.symbol="ERROREEEEEEEEEEEEEEEEEE",
+    this.symbol,
     this.convertedNode=false,
     this.selectedNode=false,
     this.conversionType=LINEAR_CONVERSION,

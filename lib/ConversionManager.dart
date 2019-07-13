@@ -131,7 +131,7 @@ class _ConversionManager extends State<ConversionManager>{
                     padding: EdgeInsets.only(bottom: 10.0),
                     child:Image.asset("resources/images/logo.png"),
                     alignment: Alignment.centerRight,
-                    decoration: BoxDecoration(color: listaColori[_currentPage],),),
+                    decoration: BoxDecoration(color:Colors.red /*listaColori[_currentPage],*/),),
                   Container(
                     child:Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -643,15 +643,12 @@ class _ConversionManager extends State<ConversionManager>{
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
     ];
 
-    //final bool showFab = MediaQuery.of(context).viewInsets.bottom==0.0;
     return Scaffold(
-      extendBody:true, //estende la schermata in modo che sia visibile anche dietro il notched fab
       resizeToAvoidBottomPadding: false,  //per evitare che il fab salga quando clicco
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 5)]),
         child: BottomAppBar(
-          color: Colors.white,//listaColori[_currentPage],
           child: new Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -702,7 +699,7 @@ class _ConversionManager extends State<ConversionManager>{
         },
         
         elevation: 6.0,
-        backgroundColor: listaColori[_currentPage],
+        backgroundColor: Colors.red//listaColori[_currentPage],
       ),
 
     );
