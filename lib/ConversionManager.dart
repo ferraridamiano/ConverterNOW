@@ -122,7 +122,7 @@ class _ConversionManager extends State<ConversionManager>{
     listaDrawer[0]=
         isLogoVisible ? 
           Container(
-            decoration: BoxDecoration(color: listaColori[_currentPage],),
+            decoration: BoxDecoration(color: Colors.red /*listaColori[_currentPage],*/),
             child:SafeArea(
               child: Stack(
                 fit: StackFit.passthrough,
@@ -139,7 +139,7 @@ class _ConversionManager extends State<ConversionManager>{
                         IconButton(
                           icon: Icon(Icons.reorder,color: Colors.white,),
                           onPressed:(){
-                            _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaColori[_currentPage]);
+                            _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), Colors.red/*listaColori[_currentPage]*/);
                           }
                         ),
                         IconButton(
@@ -668,7 +668,7 @@ class _ConversionManager extends State<ConversionManager>{
                 PopupMenuButton<Choice>(
                   icon: Icon(Icons.more_vert),
                   onSelected: (Choice choice){
-                    _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage].getStringOrderedNodiFiglio(), listaColori[_currentPage]);
+                    _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage].getStringOrderedNodiFiglio(), Colors.red/*listaColori[_currentPage]*/);
                   },
                   itemBuilder: (BuildContext context) {
                     return choices.map((Choice choice) {
@@ -780,14 +780,14 @@ class _ListTileConversion extends State<ListTileConversion>{
     return ListTileTheme(
       child:ListTile(
         title: Row(children: <Widget>[
-          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? widget.color : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
+          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? Colors.red/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
           SizedBox(width: 20.0,),
           Text(widget.text)
         ],),
         selected: widget.selected,
         onTap: widget.onTapFunction
       ),
-      selectedColor: widget.color,
+      selectedColor: Colors.red//widget.color,
     );
   }
 }
