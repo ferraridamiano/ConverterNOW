@@ -96,7 +96,7 @@ class UnitCard extends StatelessWidget{
                   padding: const EdgeInsets.all(6.0),
                   child: Text(node.symbol, style: TextStyle(color: Colors.white, fontSize: 13.0,fontWeight: FontWeight.bold),),
                 ),
-                color: Colors.red,
+                color: Colors.indigo,
               ),
             )
       ],
