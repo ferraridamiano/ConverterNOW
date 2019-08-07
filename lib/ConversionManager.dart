@@ -643,7 +643,7 @@ class _ConversionManager extends State<ConversionManager>{
     List<Choice> choices = <Choice>[
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
     ];
-    double appbarSize = 0.06;
+    double appbarSize = 48.0/MediaQuery.of(context).size.height;
     double offsetVisibility = 100.0;
     
 
@@ -701,12 +701,12 @@ class _ConversionManager extends State<ConversionManager>{
           SizedBox.expand(
           child: NotificationListener<DraggableScrollableNotification>(
             onNotification: (DraggableScrollableNotification DSNotification){
-              if(FAB_visibility && DSNotification.extent>=0.2){
+              if(FAB_visibility && DSNotification.extent>=0.15){
                 setState(() {
                   FAB_visibility=false;
                 });
               }
-              else if(!FAB_visibility && DSNotification.extent<0.2){
+              else if(!FAB_visibility && DSNotification.extent<0.15){
                 setState(() {
                   FAB_visibility=true;
                 });
