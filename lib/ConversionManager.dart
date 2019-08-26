@@ -1,7 +1,6 @@
 import 'package:converter_pro/ConversionPage.dart';
 import 'package:converter_pro/Localization.dart';
 import 'package:converter_pro/ReorderPage.dart';
-import 'package:converter_pro/SettingsPage.dart';
 import 'package:converter_pro/Utils.dart';
 import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +10,8 @@ import "dart:convert";
 
 bool isCurrencyLoading=true;
 bool FAB_visibility = true;
+int i=0;
+double appBarSize;
 
 class ConversionManager extends StatefulWidget{
   @override
@@ -62,12 +63,12 @@ class _ConversionManager extends State<ConversionManager>{
 
   @override
   void initState() {
-    super.initState();
     _getOrders();
     _getCurrency();
     bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
     if(numero_volte_accesso>=5 && !stopRequestRating && getBoolWithProbability(30))
       _showRateDialog();
+    super.initState();
   }
 
 
@@ -215,7 +216,7 @@ class _ConversionManager extends State<ConversionManager>{
     if(_currentPage!=index) {
       setState(() {
         _currentPage = index;
-        Navigator.of(context).pop();
+        //Navigator.of(context).pop();
       });
     }
   }
@@ -229,7 +230,6 @@ class _ConversionManager extends State<ConversionManager>{
     prefs.setStringList("conversion_$_currentPage", toConvertList);
   }
   _getOrders() async {
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
 
     //aggiorno lista del drawer
     List <String> stringList=prefs.getStringList("orderDrawer");
@@ -643,58 +643,9 @@ class _ConversionManager extends State<ConversionManager>{
     List<Choice> choices = <Choice>[
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
     ];
-    double appbarSize = 48.0/MediaQuery.of(context).size.height;
-    double offsetVisibility = 100.0;
     
-
     return Scaffold(
-      resizeToAvoidBottomPadding: false,  //per evitare che il fab salga quando clicco
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
-      /*bottomNavigationBar: Container(
-        decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.black54, blurRadius: 5)]),
-        child: BottomAppBar(
-          child: new Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              new Builder(builder: (context) {
-                return IconButton(icon: Icon(Icons.menu,), onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                });
-              }),
-              Row(children: <Widget>[
-                IconButton(icon: Icon(Icons.clear,semanticLabel: 'Clear all',),
-                  onPressed: () {
-                    setState(() {
-                      listaConversioni[_currentPage].ClearAllValues();
-                    });
-                  },),
-                PopupMenuButton<Choice>(
-                  icon: Icon(Icons.more_vert),
-                  onSelected: (Choice choice){
-                    _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage].getStringOrderedNodiFiglio(), Colors.red/*listaColori[_currentPage]*/);
-                  },
-                  itemBuilder: (BuildContext context) {
-                    return choices.map((Choice choice) {
-                      return PopupMenuItem<Choice>(
-                        value: choice,
-                        child: Text(choice.title),
-                      );
-                    }).toList();
-                  },
-                ),
-              ],)
-            ],
-        ),
-    ),
-      ),
-      drawer: new Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: listaDrawer,
-      ),
-      ),*/
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           SafeArea(child:ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : "")),
@@ -712,40 +663,24 @@ class _ConversionManager extends State<ConversionManager>{
                 });
               }
             },
-        child: DraggableScrollableSheet(
-          maxChildSize: 0.8,
-          minChildSize: appbarSize,
-          initialChildSize: appbarSize,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return Container(
-              decoration: new BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: new BorderRadius.only(
-                      topLeft: const Radius.circular(10.0),
-                      topRight: const Radius.circular(10.0))),
-              child: ListView.builder(
-                controller: scrollController,
-                itemCount: listaDrawer.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return listaDrawer[index];
-                },
-              ),
-            );
-          },
-        ),
+        child: myDraggableScrollableSheet(listaDrawer)
       )),
         ],
       ),
       
-      floatingActionButton: Visibility(
-        visible: FAB_visibility,
-        child: FloatingActionButton(
-          child: Image.asset("resources/images/calculator.png",width: 30.0,),
-          onPressed: (){
-            _fabPressed();
-          },
-          elevation: 6.0,
-          backgroundColor: Colors.indigo//listaColori[_currentPage],
+      floatingActionButton: IgnorePointer(
+        ignoring: !FAB_visibility,
+        child: AnimatedOpacity(
+          opacity: FAB_visibility ? 1.0 : 0.0,
+          duration: Duration(milliseconds: 400),
+          child: FloatingActionButton(
+            child: Image.asset("resources/images/calculator.png",width: 30.0,),
+            onPressed: (){
+              _fabPressed();
+            },
+            elevation: 6.0,
+            backgroundColor: Colors.indigo//listaColori[_currentPage],
+          ),
         ),
       ),
 
@@ -796,6 +731,37 @@ class _ConversionManager extends State<ConversionManager>{
       );
       }
     );
+  }
+}
+
+class myDraggableScrollableSheet extends StatelessWidget{
+
+  final listaDrawer;
+  myDraggableScrollableSheet(this.listaDrawer);
+
+  @override
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+          maxChildSize: 0.8,
+          minChildSize: 55.0/MediaQuery.of(context).size.height,
+          initialChildSize: 55.0/MediaQuery.of(context).size.height,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return Container(
+              decoration: new BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: new BorderRadius.only(
+                      topLeft: const Radius.circular(10.0),
+                      topRight: const Radius.circular(10.0))),
+              child: ListView.builder(
+                controller: scrollController,
+                itemCount: listaDrawer.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return listaDrawer[index];
+                },
+              ),
+            );
+          },
+        );
   }
 }
 
