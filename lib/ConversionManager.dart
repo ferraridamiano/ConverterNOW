@@ -67,9 +67,27 @@ class _ConversionManager extends State<ConversionManager>{
     _getCurrency();
     bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
     if(numero_volte_accesso>=5 && !stopRequestRating && getBoolWithProbability(30))
-      _showRateDialog();
+      _showRateDialog();    
     super.initState();
   }
+  
+  @override
+void didChangeDependencies() {
+  print("I'm in didChangeDependencies");
+
+  listaConversioni=InitializeUnits(context, listaOrder, currencyValues);
+
+  listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
+    MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
+    MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
+    MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli'),MyLocalizations.of(context).trans('valuta'),
+    MyLocalizations.of(context).trans('taglia_scarpe'),MyLocalizations.of(context).trans('dati_digitali'),MyLocalizations.of(context).trans('potenza'),
+    MyLocalizations.of(context).trans('forza'), MyLocalizations.of(context).trans('momento'),MyLocalizations.of(context).trans('consumo_carburante'),
+    MyLocalizations.of(context).trans('basi_numeriche')];
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  
+  super.didChangeDependencies();
+}
 
 
   _leggiCurrenciesSalvate(){
@@ -121,75 +139,7 @@ class _ConversionManager extends State<ConversionManager>{
   }
 
   void initializeTiles(){
-    /*listaDrawer[0]=
-        isLogoVisible ? 
-          Container(
-            decoration: BoxDecoration(color: Colors.red /*listaColori[_currentPage],*/),
-            child:SafeArea(
-              child: Stack(
-                fit: StackFit.passthrough,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(bottom: 10.0),
-                    child:Image.asset("resources/images/logo.png"),
-                    alignment: Alignment.centerRight,
-                    decoration: BoxDecoration(color:Colors.red /*listaColori[_currentPage],*/),),
-                  Container(
-                    child:Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.reorder,color: Colors.white,),
-                          onPressed:(){
-                            _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), Colors.red/*listaColori[_currentPage]*/);
-                          }
-                        ),
-                        IconButton(
-                          icon:Icon(Icons.settings,color: Colors.white,),
-                          onPressed: (){
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => SettingsPage()),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    height: 160.0,
-                    alignment: FractionalOffset.bottomRight,
-                  )  
-                ]
-            )
-          ))
-          :
-          Container(
-            decoration: BoxDecoration(color: listaColori[_currentPage],),
-            child:SafeArea(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.reorder,color: Colors.white,),
-                    onPressed:(){
-                      _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaColori[_currentPage]);
-                    }
-                  ),
-                  IconButton(
-                    icon:Icon(Icons.settings,color: Colors.white,),
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SettingsPage()),
-                      );
-                    },
-                  ),
-                ],
-              ),
-          ));
-    */
+
     listaDrawer[listaOrderDrawer[0]]=ListTileConversion(listaTitoli[0],"resources/images/lunghezza.png",listaColori[0],_currentPage==0,(){_onSelectItem(0);});
     listaDrawer[listaOrderDrawer[1]]=ListTileConversion(listaTitoli[1],"resources/images/area.png",listaColori[1],_currentPage==1,(){_onSelectItem(1);});
     listaDrawer[listaOrderDrawer[2]]=ListTileConversion(listaTitoli[2],"resources/images/volume.png",listaColori[2],_currentPage==2,(){_onSelectItem(2);});
@@ -331,7 +281,182 @@ class _ConversionManager extends State<ConversionManager>{
   @override
   Widget build(BuildContext context) {
 
-    Node metro=Node(name: MyLocalizations.of(context).trans('metro',),symbol:"[m]",order: listaOrder[0][0],
+    if(i==2){
+      print("debug");
+    }
+    i++;
+
+    print("I'm in build");
+    initializeTiles();
+
+    List<Choice> choices = <Choice>[
+      Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
+    ];
+    
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: <Widget>[
+          SafeArea(child:ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : "")),
+          SizedBox.expand(
+          child: NotificationListener<DraggableScrollableNotification>(
+            onNotification: (DraggableScrollableNotification DSNotification){
+              if(FAB_visibility && DSNotification.extent>=0.15){
+                setState(() {
+                  FAB_visibility=false;
+                });
+              }
+              else if(!FAB_visibility && DSNotification.extent<0.15){
+                setState(() {
+                  FAB_visibility=true;
+                });
+              }
+            },
+        child: myDraggableScrollableSheet(listaDrawer)
+      )),
+        ],
+      ),
+      
+      floatingActionButton: IgnorePointer(
+        ignoring: !FAB_visibility,
+        child: AnimatedOpacity(
+          opacity: FAB_visibility ? 1.0 : 0.0,
+          duration: Duration(milliseconds: 400),
+          child: FloatingActionButton(
+            child: Image.asset("resources/images/calculator.png",width: 30.0,),
+            onPressed: (){
+              _fabPressed();
+            },
+            elevation: 6.0,
+            backgroundColor: Color(0xff2196f3)//listaColori[_currentPage],
+          ),
+        ),
+      ),
+
+    );
+  }
+
+  _fabPressed(){
+    print("Hi");
+    /*showModalBottomSheet<void>(context: context,
+      builder: (BuildContext context) {
+        double displayWidth=MediaQuery.of(context).size.width;
+        return Calculator(listaColori[_currentPage], displayWidth); 
+      }
+    );*/
+  }
+
+  void _showRateDialog() async {
+    new Future.delayed(Duration.zero,() {
+      showDialog(
+        context: context,
+        builder: (BuildContext dialogcontext) {
+          return AlertDialog(
+            title: new Text(MyLocalizations.of(context).trans('valuta_app')),
+            content: new Text(MyLocalizations.of(context).trans('valuta_app2')),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text(MyLocalizations.of(context).trans('gia_fatto')),
+                onPressed: () {
+                  prefs.setBool("stop_request_rating",true);
+                  Navigator.of(dialogcontext).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text(MyLocalizations.of(context).trans('piu_tardi')),
+                onPressed: () {
+                  Navigator.of(dialogcontext).pop();
+                },
+              ),
+              new FlatButton(
+                child: new Text("OK"),
+                onPressed: () {
+                  launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+                  Navigator.of(dialogcontext).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      }
+    );
+  }
+}
+
+class myDraggableScrollableSheet extends StatelessWidget{
+
+  final listaDrawer;
+  myDraggableScrollableSheet(this.listaDrawer);
+
+  @override
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+          maxChildSize: 0.8,
+          minChildSize: 55.0/MediaQuery.of(context).size.height,
+          initialChildSize: 55.0/MediaQuery.of(context).size.height,
+          builder: (BuildContext context, ScrollController scrollController) {
+            return Container(
+              decoration: new BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: new BorderRadius.only(
+                      topLeft: const Radius.circular(10.0),
+                      topRight: const Radius.circular(10.0))),
+              child: ListView.builder(
+                controller: scrollController,
+                itemCount: listaDrawer.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return listaDrawer[index];
+                },
+              ),
+            );
+          },
+        );
+  }
+}
+
+class Choice {
+  const Choice({this.title, this.icon});
+
+  final String title;
+  final IconData icon;
+}
+
+class ListTileConversion extends StatefulWidget{
+  String text;
+  String imagePath;
+  Color color;
+  bool selected;
+  Function onTapFunction;
+  ListTileConversion(this.text, this.imagePath, this.color, this.selected,this.onTapFunction);
+
+  @override
+  _ListTileConversion createState() => new _ListTileConversion();
+} 
+
+class _ListTileConversion extends State<ListTileConversion>{
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTileTheme(
+      child:ListTile(
+        title: Row(children: <Widget>[
+          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  Colors.white),//widget.selected ? Colors.red/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
+          SizedBox(width: 20.0,),
+          Text(widget.text, style: TextStyle(color: Colors.white),)
+        ],),
+        selected: widget.selected,
+        onTap: widget.onTapFunction
+      ),
+      selectedColor: Colors.red//widget.color,
+    );
+  }
+}
+
+InitializeUnits(BuildContext context, listaOrder, currencyValues){
+  Node metro=Node(name: MyLocalizations.of(context).trans('metro',),symbol:"[m]",order: listaOrder[0][0],
         leafNodes: [
           Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centimetro'),symbol:"[cm]",order: listaOrder[0][1], leafNodes: [
             Node(isMultiplication: true, coefficientPer: 2.54, name: MyLocalizations.of(context).trans('pollice'),symbol:"[in]",order: listaOrder[0][2], leafNodes: [
@@ -628,179 +753,7 @@ class _ConversionManager extends State<ConversionManager>{
     ]);
 
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,EUR, centimetri_scarpe,bit,watt,newton, newton_metro, chilometri_litro, base_decimale];
+    return [metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,EUR, centimetri_scarpe,bit,watt,newton, newton_metro, chilometri_litro, base_decimale];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
-    MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
-    MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
-    MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli'),MyLocalizations.of(context).trans('valuta'),
-    MyLocalizations.of(context).trans('taglia_scarpe'),MyLocalizations.of(context).trans('dati_digitali'),MyLocalizations.of(context).trans('potenza'),
-    MyLocalizations.of(context).trans('forza'), MyLocalizations.of(context).trans('momento'),MyLocalizations.of(context).trans('consumo_carburante'),
-    MyLocalizations.of(context).trans('basi_numeriche')];
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    initializeTiles();
-
-    List<Choice> choices = <Choice>[
-      Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
-    ];
     
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: <Widget>[
-          SafeArea(child:ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : "")),
-          SizedBox.expand(
-          child: NotificationListener<DraggableScrollableNotification>(
-            onNotification: (DraggableScrollableNotification DSNotification){
-              if(FAB_visibility && DSNotification.extent>=0.15){
-                setState(() {
-                  FAB_visibility=false;
-                });
-              }
-              else if(!FAB_visibility && DSNotification.extent<0.15){
-                setState(() {
-                  FAB_visibility=true;
-                });
-              }
-            },
-        child: myDraggableScrollableSheet(listaDrawer)
-      )),
-        ],
-      ),
-      
-      floatingActionButton: IgnorePointer(
-        ignoring: !FAB_visibility,
-        child: AnimatedOpacity(
-          opacity: FAB_visibility ? 1.0 : 0.0,
-          duration: Duration(milliseconds: 400),
-          child: FloatingActionButton(
-            child: Image.asset("resources/images/calculator.png",width: 30.0,),
-            onPressed: (){
-              _fabPressed();
-            },
-            elevation: 6.0,
-            backgroundColor: Colors.indigo//listaColori[_currentPage],
-          ),
-        ),
-      ),
-
-    );
-  }
-
-  _fabPressed(){
-    showModalBottomSheet<void>(context: context,
-      builder: (BuildContext context) {
-        double displayWidth=MediaQuery.of(context).size.width;
-        return Calculator(listaColori[_currentPage], displayWidth); 
-      }
-    );
-  }
-
-  void _showRateDialog() async {
-    new Future.delayed(Duration.zero,() {
-      showDialog(
-        context: context,
-        builder: (BuildContext dialogcontext) {
-          return AlertDialog(
-            title: new Text(MyLocalizations.of(context).trans('valuta_app')),
-            content: new Text(MyLocalizations.of(context).trans('valuta_app2')),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text(MyLocalizations.of(context).trans('gia_fatto')),
-                onPressed: () {
-                  prefs.setBool("stop_request_rating",true);
-                  Navigator.of(dialogcontext).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text(MyLocalizations.of(context).trans('piu_tardi')),
-                onPressed: () {
-                  Navigator.of(dialogcontext).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text("OK"),
-                onPressed: () {
-                  launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
-                  Navigator.of(dialogcontext).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-      }
-    );
-  }
-}
-
-class myDraggableScrollableSheet extends StatelessWidget{
-
-  final listaDrawer;
-  myDraggableScrollableSheet(this.listaDrawer);
-
-  @override
-  Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-          maxChildSize: 0.8,
-          minChildSize: 55.0/MediaQuery.of(context).size.height,
-          initialChildSize: 55.0/MediaQuery.of(context).size.height,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return Container(
-              decoration: new BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: new BorderRadius.only(
-                      topLeft: const Radius.circular(10.0),
-                      topRight: const Radius.circular(10.0))),
-              child: ListView.builder(
-                controller: scrollController,
-                itemCount: listaDrawer.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return listaDrawer[index];
-                },
-              ),
-            );
-          },
-        );
-  }
-}
-
-class Choice {
-  const Choice({this.title, this.icon});
-
-  final String title;
-  final IconData icon;
-}
-
-class ListTileConversion extends StatefulWidget{
-  String text;
-  String imagePath;
-  Color color;
-  bool selected;
-  Function onTapFunction;
-  ListTileConversion(this.text, this.imagePath, this.color, this.selected,this.onTapFunction);
-
-  @override
-  _ListTileConversion createState() => new _ListTileConversion();
-} 
-
-class _ListTileConversion extends State<ListTileConversion>{
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTileTheme(
-      child:ListTile(
-        title: Row(children: <Widget>[
-          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  Colors.white),//widget.selected ? Colors.red/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
-          SizedBox(width: 20.0,),
-          Text(widget.text, style: TextStyle(color: Colors.white),)
-        ],),
-        selected: widget.selected,
-        onTap: widget.onTapFunction
-      ),
-      selectedColor: Colors.red//widget.color,
-    );
-  }
 }

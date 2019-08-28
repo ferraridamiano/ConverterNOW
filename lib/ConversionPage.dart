@@ -19,11 +19,12 @@ class _ConversionPage extends State<ConversionPage> {
   Node selectedNode;
   List listaNodi;
 
-  @override
+  //Da valutare la parte commentata qua sotto
+  /*@override
   void didUpdateWidget(ConversionPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     initialize();
-  }
+  }*/
 
 @override
   void initState() {
