@@ -2,6 +2,8 @@ import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+String currentTitle;
+
 class ConversionPage extends StatefulWidget {
 
   Node fatherNode;
@@ -19,20 +21,29 @@ class _ConversionPage extends State<ConversionPage> {
   Node selectedNode;
   List listaNodi;
 
-  //Da valutare la parte commentata qua sotto
-  /*@override
+  
+  @override
   void didUpdateWidget(ConversionPage oldWidget) {
+    print("didupdatewidget failure");
+    if(widget.title != currentTitle){               //Se cambio pagina di misura voglio che si aggiornino le unità
+      print("DidupdateWidget success");
+      initialize();
+      currentTitle=widget.title;
+    }
     super.didUpdateWidget(oldWidget);
-    initialize();
-  }*/
+  }
 
 @override
   void initState() {
-    super.initState();
     initialize();
+    print("Conversionpage initstate");
+    currentTitle=widget.title;
+    super.initState();
   }
 
   void initialize(){
+    widget.fatherNode.ClearSelectedNode();
+    
     listaController.clear();
     listaFocus.clear();
     listaNodi=widget.fatherNode.getOrderedNodiFiglio();

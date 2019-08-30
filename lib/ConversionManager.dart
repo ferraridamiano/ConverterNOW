@@ -164,6 +164,7 @@ void didChangeDependencies() {
 
   _onSelectItem(int index) {
     if(_currentPage!=index) {
+      listaConversioni[_currentPage].ClearSelectedNode();
       setState(() {
         _currentPage = index;
         //Navigator.of(context).pop();

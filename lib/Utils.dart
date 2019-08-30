@@ -295,6 +295,14 @@ class Node {
     }
   }
 
+  //Da chiamare sul nodo padre, resetta lo stato di selezionato per tutti i nodi (utile per cambio pagina)
+  void ClearSelectedNode(){
+    List<Node> listanodi=_getNodiFiglio();
+    for(Node nodo in listanodi){
+      nodo.selectedNode=false;
+    }
+  }
+
   List<Node> _getNodiFiglio(){
 
     List<Node> listaNodi=[this];
