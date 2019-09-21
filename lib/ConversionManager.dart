@@ -8,6 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import "dart:convert";
 
+import 'SettingsPage.dart';
+
 bool isCurrencyLoading=true;
 bool FAB_visibility = true;
 int i=0;
@@ -139,26 +141,94 @@ void didChangeDependencies() {
   }
 
   void initializeTiles(){
+    listaDrawer[0]=
+        isLogoVisible ? 
+          Container(
+            decoration: BoxDecoration(color: listaColori[_currentPage],),
+            child:SafeArea(
+              child: Stack(
+                fit: StackFit.passthrough,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child:Image.asset("resources/images/logo.png"),
+                    alignment: Alignment.centerRight,
+                    decoration: BoxDecoration(color: listaColori[_currentPage],),),
+                  Container(
+                    child:Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.reorder,color: Colors.white,),
+                          onPressed:(){
+                            _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaColori[_currentPage]);
+                          }
+                        ),
+                        IconButton(
+                          icon:Icon(Icons.settings,color: Colors.white,),
+                          onPressed: (){
+                            Navigator.of(context).pop();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SettingsPage()),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    height: 160.0,
+                    alignment: FractionalOffset.bottomRight,
+                  )  
+                ]
+            )
+          ))
+          :
+          Container(
+            decoration: BoxDecoration(color: listaColori[_currentPage],),
+            child:SafeArea(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.reorder,color: Colors.white,),
+                    onPressed:(){
+                      _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaColori[_currentPage]);
+                    }
+                  ),
+                  IconButton(
+                    icon:Icon(Icons.settings,color: Colors.white,),
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SettingsPage()),
+                      );
+                    },
+                  ),
+                ],
+              ),
+          ));
 
-    listaDrawer[listaOrderDrawer[0]]=ListTileConversion(listaTitoli[0],"resources/images/lunghezza.png",listaColori[0],_currentPage==0,(){_onSelectItem(0);});
-    listaDrawer[listaOrderDrawer[1]]=ListTileConversion(listaTitoli[1],"resources/images/area.png",listaColori[1],_currentPage==1,(){_onSelectItem(1);});
-    listaDrawer[listaOrderDrawer[2]]=ListTileConversion(listaTitoli[2],"resources/images/volume.png",listaColori[2],_currentPage==2,(){_onSelectItem(2);});
-    listaDrawer[listaOrderDrawer[3]]=ListTileConversion(listaTitoli[3],"resources/images/tempo.png",listaColori[3],_currentPage==3,(){_onSelectItem(3);});
-    listaDrawer[listaOrderDrawer[4]]=ListTileConversion(listaTitoli[4],"resources/images/temperatura.png",listaColori[4],_currentPage==4,(){_onSelectItem(4);});
-    listaDrawer[listaOrderDrawer[5]]=ListTileConversion(listaTitoli[5],"resources/images/velocita.png",listaColori[5],_currentPage==5,(){_onSelectItem(5);});
-    listaDrawer[listaOrderDrawer[6]]=ListTileConversion(listaTitoli[6],"resources/images/prefissi.png",listaColori[6],_currentPage==6,(){_onSelectItem(6);});
-    listaDrawer[listaOrderDrawer[7]]=ListTileConversion(listaTitoli[7],"resources/images/massa.png",listaColori[7],_currentPage==7,(){_onSelectItem(7);});
-    listaDrawer[listaOrderDrawer[8]]=ListTileConversion(listaTitoli[8],"resources/images/pressione.png",listaColori[8],_currentPage==8,(){_onSelectItem(8);});
-    listaDrawer[listaOrderDrawer[9]]=ListTileConversion(listaTitoli[9],"resources/images/energia.png",listaColori[9],_currentPage==9,(){_onSelectItem(9);});
-    listaDrawer[listaOrderDrawer[10]]=ListTileConversion(listaTitoli[10],"resources/images/angoli.png",listaColori[10],_currentPage==10,(){_onSelectItem(10);});
-    listaDrawer[listaOrderDrawer[11]]=ListTileConversion(listaTitoli[11],"resources/images/valuta.png",listaColori[11],_currentPage==11,(){_onSelectItem(11);});
-    listaDrawer[listaOrderDrawer[12]]=ListTileConversion(listaTitoli[12],"resources/images/scarpe.png",listaColori[12],_currentPage==12,(){_onSelectItem(12);});
-    listaDrawer[listaOrderDrawer[13]]=ListTileConversion(listaTitoli[13],"resources/images/dati.png",listaColori[13],_currentPage==13,(){_onSelectItem(13);});
-    listaDrawer[listaOrderDrawer[14]]=ListTileConversion(listaTitoli[14],"resources/images/potenza.png",listaColori[14],_currentPage==14,(){_onSelectItem(14);});
-    listaDrawer[listaOrderDrawer[15]]=ListTileConversion(listaTitoli[15],"resources/images/forza.png",listaColori[15],_currentPage==15,(){_onSelectItem(15);});
-    listaDrawer[listaOrderDrawer[16]]=ListTileConversion(listaTitoli[16],"resources/images/torque.png",listaColori[16],_currentPage==16,(){_onSelectItem(16);});
-    listaDrawer[listaOrderDrawer[17]]=ListTileConversion(listaTitoli[17],"resources/images/consumo.png",listaColori[17],_currentPage==17,(){_onSelectItem(17);});
-    listaDrawer[listaOrderDrawer[18]]=ListTileConversion(listaTitoli[18],"resources/images/conversione_base.png",listaColori[18],_currentPage==18,(){_onSelectItem(18);});
+    listaDrawer[listaOrderDrawer[0]+1]=ListTileConversion(listaTitoli[0],"resources/images/lunghezza.png",listaColori[0],_currentPage==0,(){_onSelectItem(0);});
+    listaDrawer[listaOrderDrawer[1]+1]=ListTileConversion(listaTitoli[1],"resources/images/area.png",listaColori[1],_currentPage==1,(){_onSelectItem(1);});
+    listaDrawer[listaOrderDrawer[2]+1]=ListTileConversion(listaTitoli[2],"resources/images/volume.png",listaColori[2],_currentPage==2,(){_onSelectItem(2);});
+    listaDrawer[listaOrderDrawer[3]+1]=ListTileConversion(listaTitoli[3],"resources/images/tempo.png",listaColori[3],_currentPage==3,(){_onSelectItem(3);});
+    listaDrawer[listaOrderDrawer[4]+1]=ListTileConversion(listaTitoli[4],"resources/images/temperatura.png",listaColori[4],_currentPage==4,(){_onSelectItem(4);});
+    listaDrawer[listaOrderDrawer[5]+1]=ListTileConversion(listaTitoli[5],"resources/images/velocita.png",listaColori[5],_currentPage==5,(){_onSelectItem(5);});
+    listaDrawer[listaOrderDrawer[6]+1]=ListTileConversion(listaTitoli[6],"resources/images/prefissi.png",listaColori[6],_currentPage==6,(){_onSelectItem(6);});
+    listaDrawer[listaOrderDrawer[7]+1]=ListTileConversion(listaTitoli[7],"resources/images/massa.png",listaColori[7],_currentPage==7,(){_onSelectItem(7);});
+    listaDrawer[listaOrderDrawer[8]+1]=ListTileConversion(listaTitoli[8],"resources/images/pressione.png",listaColori[8],_currentPage==8,(){_onSelectItem(8);});
+    listaDrawer[listaOrderDrawer[9]+1]=ListTileConversion(listaTitoli[9],"resources/images/energia.png",listaColori[9],_currentPage==9,(){_onSelectItem(9);});
+    listaDrawer[listaOrderDrawer[10]+1]=ListTileConversion(listaTitoli[10],"resources/images/angoli.png",listaColori[10],_currentPage==10,(){_onSelectItem(10);});
+    listaDrawer[listaOrderDrawer[11]+1]=ListTileConversion(listaTitoli[11],"resources/images/valuta.png",listaColori[11],_currentPage==11,(){_onSelectItem(11);});
+    listaDrawer[listaOrderDrawer[12]+1]=ListTileConversion(listaTitoli[12],"resources/images/scarpe.png",listaColori[12],_currentPage==12,(){_onSelectItem(12);});
+    listaDrawer[listaOrderDrawer[13]+1]=ListTileConversion(listaTitoli[13],"resources/images/dati.png",listaColori[13],_currentPage==13,(){_onSelectItem(13);});
+    listaDrawer[listaOrderDrawer[14]+1]=ListTileConversion(listaTitoli[14],"resources/images/potenza.png",listaColori[14],_currentPage==14,(){_onSelectItem(14);});
+    listaDrawer[listaOrderDrawer[15]+1]=ListTileConversion(listaTitoli[15],"resources/images/forza.png",listaColori[15],_currentPage==15,(){_onSelectItem(15);});
+    listaDrawer[listaOrderDrawer[16]+1]=ListTileConversion(listaTitoli[16],"resources/images/torque.png",listaColori[16],_currentPage==16,(){_onSelectItem(16);});
+    listaDrawer[listaOrderDrawer[17]+1]=ListTileConversion(listaTitoli[17],"resources/images/consumo.png",listaColori[17],_currentPage==17,(){_onSelectItem(17);});
+    listaDrawer[listaOrderDrawer[18]+1]=ListTileConversion(listaTitoli[18],"resources/images/conversione_base.png",listaColori[18],_currentPage==18,(){_onSelectItem(18);});
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   }
 
@@ -167,7 +237,7 @@ void didChangeDependencies() {
       listaConversioni[_currentPage].ClearSelectedNode();
       setState(() {
         _currentPage = index;
-        //Navigator.of(context).pop();
+        Navigator.of(context).pop();
       });
     }
   }
@@ -282,12 +352,6 @@ void didChangeDependencies() {
   @override
   Widget build(BuildContext context) {
 
-    if(i==2){
-      print("debug");
-    }
-    i++;
-
-    print("I'm in build");
     initializeTiles();
 
     List<Choice> choices = <Choice>[
@@ -296,26 +360,49 @@ void didChangeDependencies() {
     
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: <Widget>[
-          SafeArea(child:ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : "")),
-          SizedBox.expand(
-          child: NotificationListener<DraggableScrollableNotification>(
-            onNotification: (DraggableScrollableNotification DSNotification){
-              if(FAB_visibility && DSNotification.extent>=0.15){
-                setState(() {
-                  FAB_visibility=false;
-                });
-              }
-              else if(!FAB_visibility && DSNotification.extent<0.15){
-                setState(() {
-                  FAB_visibility=true;
-                });
-              }
-            },
-        child: myDraggableScrollableSheet(listaDrawer)
-      )),
-        ],
+      body: SafeArea(child:ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : "")),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      drawer: new Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: listaDrawer,
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).primaryColor,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            new Builder(builder: (context) {
+              return IconButton(icon: Icon(Icons.menu,color: Colors.white,), onPressed: () {
+                Scaffold.of(context).openDrawer();
+              });
+            }),
+            Row(children: <Widget>[
+              IconButton(icon: Icon(Icons.clear,color: Colors.white,semanticLabel: 'Clear all',),
+                onPressed: () {
+                  setState(() {
+                    listaConversioni[_currentPage].ClearAllValues();
+                  });
+                },),
+              PopupMenuButton<Choice>(
+                icon: Icon(Icons.more_vert,color: Colors.white,),
+                onSelected: (Choice choice){
+                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage].getStringOrderedNodiFiglio(), listaColori[_currentPage]);
+                },
+                itemBuilder: (BuildContext context) {
+                  return choices.map((Choice choice) {
+                    return PopupMenuItem<Choice>(
+                      value: choice,
+                      child: Text(choice.title),
+                    );
+                  }).toList();
+                },
+              ),
+            ],)
+          ],
+        ),
       ),
       
       floatingActionButton: IgnorePointer(
@@ -328,8 +415,8 @@ void didChangeDependencies() {
             onPressed: (){
               _fabPressed();
             },
-            elevation: 6.0,
-            backgroundColor: Color(0xff2196f3)//listaColori[_currentPage],
+            elevation: 5.0,
+            backgroundColor: Theme.of(context).accentColor,//Color(0xff2196f3)//listaColori[_currentPage],
           ),
         ),
       ),
@@ -338,13 +425,12 @@ void didChangeDependencies() {
   }
 
   _fabPressed(){
-    print("Hi");
-    /*showModalBottomSheet<void>(context: context,
+    showModalBottomSheet<void>(context: context,
       builder: (BuildContext context) {
         double displayWidth=MediaQuery.of(context).size.width;
         return Calculator(listaColori[_currentPage], displayWidth); 
       }
-    );*/
+    );
   }
 
   void _showRateDialog() async {
@@ -385,36 +471,6 @@ void didChangeDependencies() {
   }
 }
 
-class myDraggableScrollableSheet extends StatelessWidget{
-
-  final listaDrawer;
-  myDraggableScrollableSheet(this.listaDrawer);
-
-  @override
-  Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-          maxChildSize: 0.8,
-          minChildSize: 55.0/MediaQuery.of(context).size.height,
-          initialChildSize: 55.0/MediaQuery.of(context).size.height,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return Container(
-              decoration: new BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: new BorderRadius.only(
-                      topLeft: const Radius.circular(10.0),
-                      topRight: const Radius.circular(10.0))),
-              child: ListView.builder(
-                controller: scrollController,
-                itemCount: listaDrawer.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return listaDrawer[index];
-                },
-              ),
-            );
-          },
-        );
-  }
-}
 
 class Choice {
   const Choice({this.title, this.icon});
@@ -444,14 +500,14 @@ class _ListTileConversion extends State<ListTileConversion>{
     return ListTileTheme(
       child:ListTile(
         title: Row(children: <Widget>[
-          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  Colors.white),//widget.selected ? Colors.red/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
+          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? Theme.of(context).primaryColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
           SizedBox(width: 20.0,),
-          Text(widget.text, style: TextStyle(color: Colors.white),)
+          Text(widget.text, style: TextStyle(color: widget.selected ? Theme.of(context).primaryColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),)
         ],),
         selected: widget.selected,
         onTap: widget.onTapFunction
       ),
-      selectedColor: Colors.red//widget.color,
+      selectedColor: Theme.of(context).primaryColor//widget.color,
     );
   }
 }

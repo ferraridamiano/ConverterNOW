@@ -34,8 +34,8 @@ class _SandboxAppState extends State<SandboxApp> {
       title: 'Converter NOW',
       home: ConversionManager(),
       theme: ThemeData(
-          primaryColor: Colors.red,
-          accentColor: Colors.indigo,
+          primaryColor: Color(0xFFF44336),
+          accentColor: Color(0xFF03A9F4),
           brightness: Brightness.light),
       darkTheme: ThemeData(brightness: Brightness.dark),
       supportedLocales: [const Locale('en', 'US'), const Locale('it', 'IT')],
