@@ -12,7 +12,6 @@ import 'SettingsPage.dart';
 
 bool isCurrencyLoading=true;
 bool FAB_visibility = true;
-int i=0;
 double appBarSize;
 
 class ConversionManager extends StatefulWidget{
@@ -75,8 +74,6 @@ class _ConversionManager extends State<ConversionManager>{
   
   @override
 void didChangeDependencies() {
-  print("I'm in didChangeDependencies");
-
   listaConversioni=InitializeUnits(context, listaOrder, currencyValues);
 
   listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
@@ -141,10 +138,11 @@ void didChangeDependencies() {
   }
 
   void initializeTiles(){
+    Color boxColor=Theme.of(context).primaryColor;
     listaDrawer[0]=
         isLogoVisible ? 
           Container(
-            decoration: BoxDecoration(color: listaColori[_currentPage],),
+            decoration: BoxDecoration(color: boxColor/*listaColori[_currentPage],*/),
             child:SafeArea(
               child: Stack(
                 fit: StackFit.passthrough,
@@ -153,7 +151,7 @@ void didChangeDependencies() {
                     padding: EdgeInsets.only(bottom: 10.0),
                     child:Image.asset("resources/images/logo.png"),
                     alignment: Alignment.centerRight,
-                    decoration: BoxDecoration(color: listaColori[_currentPage],),),
+                    decoration: BoxDecoration(color: boxColor,),),
                   Container(
                     child:Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -500,14 +498,21 @@ class _ListTileConversion extends State<ListTileConversion>{
     return ListTileTheme(
       child:ListTile(
         title: Row(children: <Widget>[
-          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? Theme.of(context).primaryColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
+          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? Theme.of(context).accentColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
           SizedBox(width: 20.0,),
-          Text(widget.text, style: TextStyle(color: widget.selected ? Theme.of(context).primaryColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),)
+          Text(
+            widget.text,
+            style: TextStyle(
+              color: widget.selected ? Theme.of(context).accentColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
+              fontWeight: widget.selected ? FontWeight.bold : FontWeight.normal,
+            ),
+            
+          )
         ],),
         selected: widget.selected,
         onTap: widget.onTapFunction
       ),
-      selectedColor: Theme.of(context).primaryColor//widget.color,
+      selectedColor: Theme.of(context).accentColor//widget.color,
     );
   }
 }

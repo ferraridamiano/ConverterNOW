@@ -1,4 +1,3 @@
-import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
 import 'reorderable_list.dart';
 
@@ -85,13 +84,11 @@ class _ReorderPage extends State<ReorderPage> {
               Navigator.pop(context,orderedList);
           },
           elevation: 10.0,
-          backgroundColor: widget.color,
+          backgroundColor: Theme.of(context).accentColor,
         ),
 
         bottomNavigationBar: BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          color: widget.color,
-          notchMargin: 4.0,
+          color: Theme.of(context).primaryColor,
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -160,7 +157,7 @@ class Item extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ReorderableItem(
-        key: data.key, //
+        key: data.key, 
         childBuilder: _buildChild,
         decorationBuilder: _buildDecoration,
 
