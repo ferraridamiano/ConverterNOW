@@ -384,6 +384,12 @@ void didChangeDependencies() {
                     listaConversioni[_currentPage].ClearAllValues();
                   });
                 },),
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: (){
+                  showSearch(context: context,delegate: CustomSearchDelegate());
+                },
+              ),
               PopupMenuButton<Choice>(
                 icon: Icon(Icons.more_vert,color: Colors.white,),
                 onSelected: (Choice choice){
@@ -516,6 +522,79 @@ class _ListTileConversion extends State<ListTileConversion>{
     );
   }
 }
+
+class CustomSearchDelegate extends SearchDelegate {
+  List<SearchUnit> _dataSearch = 
+  [
+    SearchUnit(icon: Image.asset("resources/images/lunghezza.png",height: 26.0,color: Colors.white,), unitName: "Lunghezza", onTap: (){print("Temperaura");}),
+    SearchUnit(icon: Icon(Icons.timer), unitName: "Tempo", onTap: (){print("Tempo");}),
+    SearchUnit(icon: Icon(Icons.battery_charging_full), unitName: "Energia", onTap: (){print("Energia");}),
+    SearchUnit(icon: Icon(Icons.lightbulb_outline), unitName: "Potenza", onTap: (){print("Potenza");})
+  ];
+  
+
+  List<SearchUnit> _history = [
+    SearchUnit(icon: Icon(Icons.ac_unit), unitName: "Temperatura", onTap: (){print("Temperaura");}),
+    SearchUnit(icon: Icon(Icons.timer), unitName: "Tempo", onTap: (){print("Tempo");}),
+    SearchUnit(icon: Icon(Icons.battery_charging_full), unitName: "Energia", onTap: (){print("Energia");}),
+    SearchUnit(icon: Icon(Icons.lightbulb_outline), unitName: "Potenza", onTap: (){print("Potenza");})
+  ];
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      tooltip: 'Back',
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.menu_arrow,
+        progress: transitionAnimation,
+      ),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+
+    final Iterable<SearchUnit> suggestions = query.isEmpty
+        ? _history
+        : _dataSearch.where((searchUnit) => searchUnit.unitName.contains(query));
+
+    return SuggestionList(
+      suggestions: suggestions.toList()
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Container();
+  }
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return <Widget>[
+      /*if (query.isEmpty)
+        IconButton(
+          tooltip: 'Voice Search',
+          icon: const Icon(Icons.mic),
+          onPressed: () {
+            query = 'TODO: implement voice input';
+          },
+        )*/
+      if(query.isNotEmpty)
+        IconButton(
+          tooltip: 'Clear',
+          icon: const Icon(Icons.clear),
+          onPressed: () {
+            query = '';
+            showSuggestions(context);
+          },
+        ),
+    ];
+  }
+}
+
 
 InitializeUnits(BuildContext context, listaOrder, currencyValues){
   Node metro=Node(name: MyLocalizations.of(context).trans('metro',),symbol:"[m]",order: listaOrder[0][0],

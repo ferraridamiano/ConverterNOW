@@ -782,3 +782,44 @@ RegExp getBaseRegExp(int base){
   }
   return regExp;
 }
+
+class SearchUnit{
+  Widget icon;
+  String unitName;
+  Function onTap;
+  SearchUnit({this.icon,this.unitName, this.onTap});
+}
+
+class SearchUnitTile extends StatelessWidget{
+
+  const SearchUnitTile(this.searchUnit);
+  final SearchUnit searchUnit;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: searchUnit.icon,
+      title: Text(searchUnit.unitName),
+      onTap: searchUnit.onTap,
+    );
+  }
+
+}
+
+class SuggestionList extends StatelessWidget {
+  const SuggestionList({this.suggestions});
+
+  final List<SearchUnit> suggestions;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return ListView(
+      children: <Widget>[
+        for(int i=0;i<suggestions.length;i++)
+          SearchUnitTile(suggestions[i])
+      ],
+
+    );
+  }
+}
