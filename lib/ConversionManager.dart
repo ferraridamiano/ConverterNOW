@@ -4,6 +4,7 @@ import 'package:converter_pro/ReorderPage.dart';
 import 'package:converter_pro/Utils.dart';
 import 'package:converter_pro/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import "dart:convert";
@@ -13,6 +14,7 @@ import 'SettingsPage.dart';
 bool isCurrencyLoading=true;
 bool FAB_visibility = true;
 double appBarSize;
+Map jsonSearch;
 
 class ConversionManager extends StatefulWidget{
   @override
@@ -25,7 +27,7 @@ class _ConversionManager extends State<ConversionManager>{
   static final MAX_CONVERSION_UNITS=19;
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   var currencyValues={"CAD":1.4642,"HKD":8.7482,"RUB":71.5025,"PHP":57.58,"DKK":7.4631,"NZD":1.6888,"CNY":7.7173,"AUD":1.6058,"RON":4.72,"SEK":10.5973,"IDR":15824.37,"INR":76.8955,"BRL":4.2752,"USD":1.1215,"ILS":4.0095,"JPY":121.8,"THB":34.514,"CHF":1.1127,"CZK":25.509,"MYR":4.6436,"TRY":6.4304,"MXN":21.2581,"NOK":9.684,"HUF":324.66,"ZAR":15.8813,"SGD":1.5247,"GBP":0.89625,"KRW":1322.07,"PLN":4.253}; //base euro (aggiornato a 08/07/2019)
-
+  CustomSearchDelegate _customSearchDelegate=CustomSearchDelegate();
   static String lastUpdateCurrency="Last update: 2019-07-08";
   static List listaConversioni;
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
@@ -68,12 +70,13 @@ class _ConversionManager extends State<ConversionManager>{
     _getCurrency();
     bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
     if(numero_volte_accesso>=5 && !stopRequestRating && getBoolWithProbability(30))
-      _showRateDialog();    
+      _showRateDialog();
     super.initState();
   }
   
   @override
-void didChangeDependencies() {
+  void didChangeDependencies() {
+    _getJsonSearch(context);
   listaConversioni=InitializeUnits(context, listaOrder, currencyValues);
 
   listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
@@ -240,6 +243,10 @@ void didChangeDependencies() {
     }
   }
 
+  _getJsonSearch(BuildContext context) async {
+    String data = await DefaultAssetBundle.of(context).loadString("resources/lang/${Localizations.localeOf(context).languageCode}.json");
+    jsonSearch = json.decode(data);
+  }
 
   _saveOrders() async {
     //SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -387,7 +394,7 @@ void didChangeDependencies() {
               IconButton(
                 icon: Icon(Icons.search),
                 onPressed: (){
-                  showSearch(context: context,delegate: CustomSearchDelegate());
+                  showSearch(context: context,delegate: CustomSearchDelegate(selectPage: _onSelectItem));
                 },
               ),
               PopupMenuButton<Choice>(
@@ -524,20 +531,36 @@ class _ListTileConversion extends State<ListTileConversion>{
 }
 
 class CustomSearchDelegate extends SearchDelegate {
-  List<SearchUnit> _dataSearch = 
-  [
-    SearchUnit(icon: Image.asset("resources/images/lunghezza.png",height: 26.0,color: Colors.white,), unitName: "Lunghezza", onTap: (){print("Temperaura");}),
-    SearchUnit(icon: Icon(Icons.timer), unitName: "Tempo", onTap: (){print("Tempo");}),
-    SearchUnit(icon: Icon(Icons.battery_charging_full), unitName: "Energia", onTap: (){print("Energia");}),
-    SearchUnit(icon: Icon(Icons.lightbulb_outline), unitName: "Potenza", onTap: (){print("Potenza");})
-  ];
+
+  Function selectPage;
+  CustomSearchDelegate({this.selectPage});
+  
+  
+  /*[
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["lunghezza"], onTap: (){selectPage(0);}),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["metro"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["pollice"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["piede"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["miglio_marino"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["miglio_terrestre"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["yard"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["millimetro"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["micrometro"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["nanometro"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["angstrom"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["picometro"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["chilometro"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["unita_astronomica"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["anno_luce"]),
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["parsec"]),
+    ];*/
   
 
   List<SearchUnit> _history = [
-    SearchUnit(icon: Icon(Icons.ac_unit), unitName: "Temperatura", onTap: (){print("Temperaura");}),
-    SearchUnit(icon: Icon(Icons.timer), unitName: "Tempo", onTap: (){print("Tempo");}),
-    SearchUnit(icon: Icon(Icons.battery_charging_full), unitName: "Energia", onTap: (){print("Energia");}),
-    SearchUnit(icon: Icon(Icons.lightbulb_outline), unitName: "Potenza", onTap: (){print("Potenza");})
+    SearchUnit(iconAsset: "lunghezza", unitName: "Lunghezza", onTap: (){print("Temperaura");}),
+    SearchUnit(iconAsset: "tempo", unitName: "Tempo", onTap: (){print("Tempo");}),
+    SearchUnit(iconAsset: "energia", unitName: "Energia", onTap: (){print("Energia");}),
+    SearchUnit(iconAsset: "potenza", unitName: "Potenza", onTap: (){print("Potenza");})
   ];
 
   @override
@@ -556,6 +579,9 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    List<SearchUnit> _dataSearch=[
+      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["lunghezza"], onTap: (){selectPage(0); close(context, null);})
+    ];
 
     final Iterable<SearchUnit> suggestions = query.isEmpty
         ? _history

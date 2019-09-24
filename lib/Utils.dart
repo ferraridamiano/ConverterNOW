@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:convert';
 
 const LINEAR_CONVERSION = 1;     // y=ax+b
 const RECIPROCO_CONVERSION = 2;  // y=(a/x)+b
@@ -784,10 +785,10 @@ RegExp getBaseRegExp(int base){
 }
 
 class SearchUnit{
-  Widget icon;
+  String iconAsset;
   String unitName;
   Function onTap;
-  SearchUnit({this.icon,this.unitName, this.onTap});
+  SearchUnit({this.iconAsset,this.unitName, this.onTap});
 }
 
 class SearchUnitTile extends StatelessWidget{
@@ -798,7 +799,7 @@ class SearchUnitTile extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: searchUnit.icon,
+      leading: Image.asset("resources/images/${searchUnit.iconAsset}.png",height: 26.0,color: Colors.white),
       title: Text(searchUnit.unitName),
       onTap: searchUnit.onTap,
     );
