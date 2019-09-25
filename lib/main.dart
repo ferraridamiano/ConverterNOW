@@ -18,15 +18,15 @@ void main() async {
   if (numero_volte_accesso <
       5) //traccio solo i primi 5 accessi per dialog rating
     prefs.setInt("access_number", numero_volte_accesso);
-  runApp(new SandboxApp());
+  runApp(new MyApp());
 }
 
-class SandboxApp extends StatefulWidget {
+class MyApp extends StatefulWidget {
   @override
-  _SandboxAppState createState() => _SandboxAppState();
+  _MyApp createState() => _MyApp();
 }
 
-class _SandboxAppState extends State<SandboxApp> {
+class _MyApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
