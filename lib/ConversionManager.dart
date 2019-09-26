@@ -576,46 +576,173 @@ class CustomSearchDelegate extends SearchDelegate<int> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<SearchUnit> _dataSearch=[
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["lunghezza"], onTap: (){close(context, 0);})
-    ];
+    getListSearch(context);
+        List<SearchUnit> _dataSearch=[
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["lunghezza"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["metro"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["centimetro"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["pollice"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["piede"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["miglio_marino"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["miglio_terrestre"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["yard"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["millimetro"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["micrometro"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["nanometro"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["angstrom"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["picometro"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["chilometro"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["unita_astronomica"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["anno_luce"], onTap: (){close(context, 0);}),
+          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["parsec"], onTap: (){close(context, 0);}),
+    
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["superficie"], onTap: (){close(context, 1);}),
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["metro_quadrato"], onTap: (){close(context, 1);}),
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["centimetro_quadrato"], onTap: (){close(context, 1);}),
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["pollice_quadrato"], onTap: (){close(context, 1);}),
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["piede_quadrato"], onTap: (){close(context, 1);}),
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["miglio_quadrato"], onTap: (){close(context, 1);}),
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["yard_quadrato"], onTap: (){close(context, 1);}),
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["millimetro_quadrato"], onTap: (){close(context, 1);}),
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["chilometro_quadrato"], onTap: (){close(context, 1);}),
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["ettaro"], onTap: (){close(context, 1);}),
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["acri"], onTap: (){close(context, 1);}),
+          SearchUnit(iconAsset: "area", unitName: jsonSearch["ara"], onTap: (){close(context, 1);}),
+          
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["volume"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["metro_cubo"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["litro"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["gallone_imperiale"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["gallone_us"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["pinta_imperiale"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["pinta_us"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["millilitro"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["tablespoon_us"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["tablespoon_australian"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["cup_us"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["centimetro_cubo"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["piede_cubo"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["pollice_cubo"], onTap: (){close(context, 2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["millimetro_cubo"], onTap: (){close(context, 2);}),
+    
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["tempo"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["secondo"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["decimo_secondo"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["centesimo_secondo"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["millisecondo"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["microsecondo"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["nanosecondo"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["minuti"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["ore"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["giorni"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["settimane"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["anno"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["lustro"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["decade"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["secolo"], onTap: (){close(context, 3);}),
+          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["millennio"], onTap: (){close(context, 3);}),
+    
+          SearchUnit(iconAsset: "temperatura", unitName: jsonSearch["temperatura"], onTap: (){close(context, 4);}),
+          SearchUnit(iconAsset: "temperatura", unitName: jsonSearch["fahrenheit"], onTap: (){close(context, 4);}),
+          SearchUnit(iconAsset: "temperatura", unitName: jsonSearch["celsius"], onTap: (){close(context, 4);}),
+          SearchUnit(iconAsset: "temperatura", unitName: jsonSearch["kelvin"], onTap: (){close(context, 4);}),
+          SearchUnit(iconAsset: "temperatura", unitName: "Delisle", onTap: (){close(context, 4);}),
+          SearchUnit(iconAsset: "temperatura", unitName: "Rømer", onTap: (){close(context, 4);}),
+          SearchUnit(iconAsset: "temperatura", unitName: "Reamur", onTap: (){close(context, 4);}),
+          SearchUnit(iconAsset: "temperatura", unitName: "Rankine", onTap: (){close(context, 4);}),
+    
+          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["velocita"], onTap: (){close(context, 5);}),
+          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["metri_secondo"], onTap: (){close(context, 5);}),
+          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["chilometri_ora"], onTap: (){close(context, 5);}),
+          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["miglia_ora"], onTap: (){close(context, 5);}),
+          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["nodi"], onTap: (){close(context, 5);}),
+          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["piedi_secondo"], onTap: (){close(context, 5);}),
 
-    final Iterable<SearchUnit> suggestions = query.isEmpty
-        ? _history
-        : _dataSearch.where((searchUnit) => searchUnit.unitName.contains(query));
+          SearchUnit(iconAsset: "prefissi", unitName: jsonSearch["prefissi_si"], onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Base", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Deca", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Hecto", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Kilo", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Mega", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Giga", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Tera", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Peta", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Exa", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Zetta", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Yotta", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Deci", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Centi", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Milli", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Micro", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Nano", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Pico", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Femto", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Atto", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Zepto", onTap: (){close(context, 6);}),
+          SearchUnit(iconAsset: "prefissi", unitName: "Yocto", onTap: (){close(context, 6);}),
 
-    return SuggestionList(
-      suggestions: suggestions.toList()
-    );
-  }
+          SearchUnit(iconAsset: "massa", unitName: jsonSearch["massa"], onTap: (){close(context, 7);}),
+          SearchUnit(iconAsset: "massa", unitName: jsonSearch["grammo"], onTap: (){close(context, 7);}),
+          SearchUnit(iconAsset: "massa", unitName: jsonSearch["ettogrammo"], onTap: (){close(context, 7);}),
+          SearchUnit(iconAsset: "massa", unitName: jsonSearch["chilogrammo"], onTap: (){close(context, 7);}),
+          SearchUnit(iconAsset: "massa", unitName: jsonSearch["libbra"], onTap: (){close(context, 7);}),
+          SearchUnit(iconAsset: "massa", unitName: jsonSearch["quintale"], onTap: (){close(context, 7);}),
+          SearchUnit(iconAsset: "massa", unitName: jsonSearch["tonnellata"], onTap: (){close(context, 7);}),
+          SearchUnit(iconAsset: "massa", unitName: jsonSearch["milligrammo"], onTap: (){close(context, 7);}),
+          SearchUnit(iconAsset: "massa", unitName: jsonSearch["uma"], onTap: (){close(context, 7);}),
+          SearchUnit(iconAsset: "massa", unitName: jsonSearch["carato"], onTap: (){close(context, 7);}),
 
-  @override
-  Widget buildResults(BuildContext context) {
-    return Container();
-  }
+          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["pressione"], onTap: (){close(context, 8);}),
+          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["pascal"], onTap: (){close(context, 8);}),
+          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["atmosfere"], onTap: (){close(context, 8);}),
+          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["bar"], onTap: (){close(context, 8);}),
+          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["millibar"], onTap: (){close(context, 8);}),
+          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["psi"], onTap: (){close(context, 8);}),
+          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["torr"], onTap: (){close(context, 8);}),
 
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return <Widget>[
-      /*if (query.isEmpty)
-        IconButton(
-          tooltip: 'Voice Search',
-          icon: const Icon(Icons.mic),
-          onPressed: () {
-            query = 'TODO: implement voice input';
-          },
-        )*/
-      if(query.isNotEmpty)
-        IconButton(
-          tooltip: 'Clear',
-          icon: const Icon(Icons.clear),
-          onPressed: () {
-            query = '';
-            showSuggestions(context);
-          },
-        ),
-    ];
-  }
+          SearchUnit(iconAsset: "energia", unitName: jsonSearch["energia"], onTap: (){close(context, 9);}),
+          SearchUnit(iconAsset: "energia", unitName: jsonSearch["joule"], onTap: (){close(context, 9);}),
+          SearchUnit(iconAsset: "energia", unitName: jsonSearch["calorie"], onTap: (){close(context, 9);}),
+          SearchUnit(iconAsset: "energia", unitName: jsonSearch["kilowattora"], onTap: (){close(context, 9);}),
+          SearchUnit(iconAsset: "energia", unitName: jsonSearch["elettronvolt"], onTap: (){close(context, 9);}),
+        ];
+    
+        final Iterable<SearchUnit> suggestions = query.isEmpty
+            ? _history
+            : _dataSearch.where((searchUnit) => searchUnit.unitName.toLowerCase().contains(query.toLowerCase())); //.toLowercase per essere case insesitive
+    
+        return SuggestionList(
+          suggestions: suggestions.toList()
+        );
+      }
+    
+      @override
+      Widget buildResults(BuildContext context) {
+        return Container();
+      }
+    
+      @override
+      List<Widget> buildActions(BuildContext context) {
+        return <Widget>[
+          /*if (query.isEmpty)
+            IconButton(
+              tooltip: 'Voice Search',
+              icon: const Icon(Icons.mic),
+              onPressed: () {
+                query = 'TODO: implement voice input';
+              },
+            )*/
+          if(query.isNotEmpty)
+            IconButton(
+              tooltip: 'Clear',
+              icon: const Icon(Icons.clear),
+              onPressed: () {
+                query = '';
+                showSuggestions(context);
+              },
+            ),
+        ];
+      }
 }
 
 
@@ -920,4 +1047,8 @@ InitializeUnits(BuildContext context, listaOrder, currencyValues){
     return [metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,EUR, centimetri_scarpe,bit,watt,newton, newton_metro, chilometri_litro, base_decimale];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     
+}
+
+void getListSearch(BuildContext context) {
+  
 }
