@@ -533,26 +533,6 @@ class _ListTileConversion extends State<ListTileConversion>{
 
 class CustomSearchDelegate extends SearchDelegate<int> {  
   
-  /*[
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["lunghezza"], onTap: (){selectPage(0);}),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["metro"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["pollice"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["piede"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["miglio_marino"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["miglio_terrestre"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["yard"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["millimetro"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["micrometro"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["nanometro"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["angstrom"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["picometro"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["chilometro"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["unita_astronomica"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["anno_luce"]),
-      SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["parsec"]),
-    ];*/
-  
-
   List<SearchUnit> _history = [
     SearchUnit(iconAsset: "lunghezza", unitName: "Lunghezza", onTap: (){print("Temperaura");}),
     SearchUnit(iconAsset: "tempo", unitName: "Tempo", onTap: (){print("Tempo");}),
@@ -577,7 +557,7 @@ class CustomSearchDelegate extends SearchDelegate<int> {
   @override
   Widget buildSuggestions(BuildContext context) {
     getListSearch(context);
-        List<SearchUnit> _dataSearch=[
+        final List<SearchUnit> _dataSearch=[
           SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["lunghezza"], onTap: (){close(context, 0);}),
           SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["metro"], onTap: (){close(context, 0);}),
           SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["centimetro"], onTap: (){close(context, 0);}),
@@ -796,7 +776,7 @@ class CustomSearchDelegate extends SearchDelegate<int> {
           SearchUnit(iconAsset: "torque", unitName: jsonSearch["libbra_forza_piede"], onTap: (){close(context, 16);}),
           SearchUnit(iconAsset: "torque", unitName: jsonSearch["kilogrammo_forza_metro"], onTap: (){close(context, 16);}),
           SearchUnit(iconAsset: "torque", unitName: jsonSearch["poundal_metro"], onTap: (){close(context, 16);}),
-          
+
           SearchUnit(iconAsset: "consumo", unitName: jsonSearch["consumo_carburante"], onTap: (){close(context, 17);}),
           SearchUnit(iconAsset: "consumo", unitName: jsonSearch["chilometri_litro"], onTap: (){close(context, 17);}),
           SearchUnit(iconAsset: "consumo", unitName: jsonSearch["litri_100km"], onTap: (){close(context, 17);}),
@@ -811,13 +791,42 @@ class CustomSearchDelegate extends SearchDelegate<int> {
 
 
         ];
+
+        final List<SearchGridTile> allConversions=[
+          SearchGridTile(iconAsset: "lunghezza", footer: jsonSearch["lunghezza"]),
+          SearchGridTile(iconAsset: "area", footer: jsonSearch["superficie"]),
+          SearchGridTile(iconAsset: "volume", footer: jsonSearch["volume"]),
+          SearchGridTile(iconAsset: "tempo", footer: jsonSearch["tempo"]),
+          SearchGridTile(iconAsset: "temperatura", footer: jsonSearch["temperatura"]),
+          SearchGridTile(iconAsset: "velocita", footer: jsonSearch["velocita"]),
+          SearchGridTile(iconAsset: "massa", footer: jsonSearch["massa"]),
+          SearchGridTile(iconAsset: "pressione", footer: jsonSearch["pressione"]),
+          SearchGridTile(iconAsset: "energia", footer: jsonSearch["energia"]),
+          SearchGridTile(iconAsset: "angoli", footer: jsonSearch["angoli"]),
+          SearchGridTile(iconAsset: "valuta", footer: jsonSearch["valuta"]),
+          SearchGridTile(iconAsset: "potenza", footer: jsonSearch["potenza"]),
+          SearchGridTile(iconAsset: "forza", footer: jsonSearch["forza"]),
+          SearchGridTile(iconAsset: "conversione_base", footer: jsonSearch["basi_numeriche"]),
+          SearchGridTile(iconAsset: "consumo", footer: jsonSearch["consumo_carburante"]),
+          SearchGridTile(iconAsset: "torque", footer: jsonSearch["momento"]),
+          SearchGridTile(iconAsset: "dati", footer: jsonSearch["dati_digitali"]),
+          SearchGridTile(iconAsset: "scarpe", footer: jsonSearch["taglia_scarpe"]),
+          SearchGridTile(iconAsset: "prefissi", footer: jsonSearch["prefissi_si"]),
+        ];
+
+        final Iterable<SearchUnit> suggestions = _dataSearch.where((searchUnit) => searchUnit.unitName.toLowerCase().contains(query.toLowerCase())); //.toLowercase per essere case insesitive
+
     
-        final Iterable<SearchUnit> suggestions = query.isEmpty
-            ? _history
-            : _dataSearch.where((searchUnit) => searchUnit.unitName.toLowerCase().contains(query.toLowerCase())); //.toLowercase per essere case insesitive
     
-        return SuggestionList(
+        
+        return query.isNotEmpty ? SuggestionList(
           suggestions: suggestions.toList()
+        )
+        : GridView(
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200.0),
+          children: allConversions,
+          
         );
       }
     

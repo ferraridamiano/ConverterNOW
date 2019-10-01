@@ -824,3 +824,33 @@ class SuggestionList extends StatelessWidget {
     );
   }
 }
+
+class SearchGridTile extends StatelessWidget {
+
+  final String iconAsset;
+  final String footer;
+  SearchGridTile({this.iconAsset, this.footer});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(5.0),
+      child: Center(
+        child: GridTile(
+          footer: Text(footer, textAlign: TextAlign.center,style: TextStyle(fontSize: 18.0),),
+          child: Align(
+            alignment:Alignment.center,
+            child: Container(
+              width:55.0,
+              height:55.0,
+              child: Image.asset(
+                "resources/images/$iconAsset.png",
+                color: Colors.white
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+}
