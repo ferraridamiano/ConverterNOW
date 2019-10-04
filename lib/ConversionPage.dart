@@ -24,12 +24,13 @@ class _ConversionPage extends State<ConversionPage> {
   
   @override
   void didUpdateWidget(ConversionPage oldWidget) {
-    print("didupdatewidget failure");
+    /*print("didupdatewidget failure");
     if(widget.title != currentTitle){               //Se cambio pagina di misura voglio che si aggiornino le unità
       print("DidupdateWidget success");
       initialize();
       currentTitle=widget.title;
-    }
+    }*/
+    initialize();
     super.didUpdateWidget(oldWidget);
   }
 
