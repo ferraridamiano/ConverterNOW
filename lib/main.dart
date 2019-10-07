@@ -3,7 +3,6 @@ import 'package:converter_pro/Localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:dynamic_theme/dynamic_theme.dart';
 
 bool isLogoVisible = true;
 SharedPreferences prefs;
@@ -37,7 +36,10 @@ class _MyApp extends State<MyApp> {
           primaryColor: Color(0xFFF44336),
           accentColor: Color(0xFF03A9F4),
           brightness: Brightness.light),
-      darkTheme: ThemeData(brightness: Brightness.dark),
+      darkTheme: ThemeData(
+        primaryColor: Color(0xFFF44336),
+        accentColor: Color(0xFF03A9F4),
+        brightness: Brightness.dark),
       supportedLocales: [const Locale('en', 'US'), const Locale('it', 'IT')],
       localizationsDelegates: [
         const MyLocalizationsDelegate(),

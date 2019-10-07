@@ -793,13 +793,17 @@ class SearchUnit{
 
 class SearchUnitTile extends StatelessWidget{
 
-  const SearchUnitTile(this.searchUnit);
   final SearchUnit searchUnit;
+  final bool darkMode;
+  SearchUnitTile(this.searchUnit, this.darkMode);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset("resources/images/${searchUnit.iconAsset}.png",height: 26.0,color: Colors.white),
+      leading: Image.asset(
+        "resources/images/${searchUnit.iconAsset}.png",
+        height: 26.0,
+        color: darkMode ? Colors.white : Colors.grey),
       title: Text(searchUnit.unitName),
       onTap: searchUnit.onTap,
     );
@@ -808,9 +812,11 @@ class SearchUnitTile extends StatelessWidget{
 }
 
 class SuggestionList extends StatelessWidget {
-  const SuggestionList({this.suggestions});
 
   final List<SearchUnit> suggestions;
+  final bool darkMode;
+  const SuggestionList({this.suggestions, this.darkMode});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -818,7 +824,7 @@ class SuggestionList extends StatelessWidget {
     return ListView(
       children: <Widget>[
         for(int i=0;i<suggestions.length;i++)
-          SearchUnitTile(suggestions[i])
+          SearchUnitTile(suggestions[i], darkMode)
       ],
 
     );
@@ -830,7 +836,8 @@ class SearchGridTile extends StatelessWidget {
   final String iconAsset;
   final String footer;
   final onTap;
-  SearchGridTile({this.iconAsset, this.footer, this.onTap});
+  final bool darkMode;
+  SearchGridTile({this.iconAsset, this.footer, this.onTap, this.darkMode});
 
   @override
   Widget build(BuildContext context) {
@@ -848,7 +855,7 @@ class SearchGridTile extends StatelessWidget {
                 height:55.0,
                 child: Image.asset(
                   "resources/images/$iconAsset.png",
-                  color: Colors.white
+                  color: darkMode ? Colors.white : Colors.grey
                 )
               )
             )
