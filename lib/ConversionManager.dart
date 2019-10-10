@@ -66,7 +66,9 @@ class _ConversionManager extends State<ConversionManager>{
   @override
   void initState() {
     _getOrders();
-    _getCurrency();
+    Future.delayed(Duration.zero, () {
+      _getCurrency();
+    });
     bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
     if(numero_volte_accesso>=5 && !stopRequestRating && getBoolWithProbability(30))
       _showRateDialog();
