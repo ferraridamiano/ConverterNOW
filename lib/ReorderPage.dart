@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'reorderable_list.dart';
 
 class ReorderPage extends StatefulWidget {
-  ReorderPage({Key key, this.title ,this.listaElementi, this.color}) : super(key: key);
+  ReorderPage({Key key, this.title ,this.listaElementi}) : super(key: key);
 
   final String title;
   List listaElementi;
-  Color color;
 
   @override
   _ReorderPage createState() => new _ReorderPage();
