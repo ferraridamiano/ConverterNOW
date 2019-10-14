@@ -9,6 +9,7 @@ SharedPreferences prefs;
 int numero_volte_accesso;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
   isLogoVisible = prefs.getBool("isLogoVisible") ?? true;
   numero_volte_accesso = prefs.getInt("access_number") ?? 0;
