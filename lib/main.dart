@@ -6,18 +6,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 bool isLogoVisible = true;
 SharedPreferences prefs;
-int numero_volte_accesso;
+int numeroVolteAccesso;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
   isLogoVisible = prefs.getBool("isLogoVisible") ?? true;
-  numero_volte_accesso = prefs.getInt("access_number") ?? 0;
-  numero_volte_accesso++;
-  print(numero_volte_accesso);
-  if (numero_volte_accesso <
-      5) //traccio solo i primi 5 accessi per dialog rating
-    prefs.setInt("access_number", numero_volte_accesso);
+  numeroVolteAccesso = prefs.getInt("access_number") ?? 0;
+  numeroVolteAccesso++;
+  print(numeroVolteAccesso);
+  if (numeroVolteAccesso < 5) //traccio solo i primi 5 accessi per dialog rating
+    prefs.setInt("access_number", numeroVolteAccesso);
   runApp(new MyApp());
 }
 

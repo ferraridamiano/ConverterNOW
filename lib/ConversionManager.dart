@@ -23,7 +23,7 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-  static final MAX_CONVERSION_UNITS=19;
+  static const MAX_CONVERSION_UNITS=19;
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   var currencyValues={"CAD":1.4642,"HKD":8.7482,"RUB":71.5025,"PHP":57.58,"DKK":7.4631,"NZD":1.6888,"CNY":7.7173,"AUD":1.6058,"RON":4.72,"SEK":10.5973,"IDR":15824.37,"INR":76.8955,"BRL":4.2752,"USD":1.1215,"ILS":4.0095,"JPY":121.8,"THB":34.514,"CHF":1.1127,"CZK":25.509,"MYR":4.6436,"TRY":6.4304,"MXN":21.2581,"NOK":9.684,"HUF":324.66,"ZAR":15.8813,"SGD":1.5247,"GBP":0.89625,"KRW":1322.07,"PLN":4.253}; //base euro (aggiornato a 08/07/2019)
   static String lastUpdateCurrency="Last update: 2019-07-08";
@@ -70,7 +70,7 @@ class _ConversionManager extends State<ConversionManager>{
       _getCurrency();
     });
     bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
-    if(numero_volte_accesso>=5 && !stopRequestRating && getBoolWithProbability(30))
+    if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30))
       _showRateDialog();
     super.initState();  
   }
@@ -219,7 +219,7 @@ class _ConversionManager extends State<ConversionManager>{
 
   _onSelectItem(int index) {
     if(_currentPage!=index) {
-      listaConversioni[_currentPage].ClearSelectedNode();
+      listaConversioni[_currentPage].clearSelectedNode();
       setState(() {
         _currentPage = index;
       });
@@ -338,7 +338,7 @@ class _ConversionManager extends State<ConversionManager>{
   Widget build(BuildContext context) {
     _getJsonSearch(context);
 
-    listaConversioni=InitializeUnits(context, listaOrder, currencyValues);
+    listaConversioni=initializeUnits(context, listaOrder, currencyValues);
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
@@ -381,7 +381,7 @@ class _ConversionManager extends State<ConversionManager>{
                 icon: Icon(Icons.clear,color: Colors.white),
                 onPressed: () {
                   setState(() {
-                    listaConversioni[_currentPage].ClearAllValues();
+                    listaConversioni[_currentPage].clearAllValues();
                   });
                 },),
               IconButton(
@@ -479,10 +479,10 @@ class Choice {
 }
 
 class ListTileConversion extends StatefulWidget{
-  String text;
-  String imagePath;
-  bool selected;
-  Function onTapFunction;
+  final String text;
+  final String imagePath;
+  final bool selected;
+  final Function onTapFunction;
   ListTileConversion(this.text, this.imagePath, this.selected,this.onTapFunction);
 
   @override
@@ -518,13 +518,6 @@ class _ListTileConversion extends State<ListTileConversion>{
 }
 
 class CustomSearchDelegate extends SearchDelegate<int> {  
-  
-  List<SearchUnit> _history = [
-    SearchUnit(iconAsset: "lunghezza", unitName: "Lunghezza", onTap: (){print("Temperaura");}),
-    SearchUnit(iconAsset: "tempo", unitName: "Tempo", onTap: (){print("Tempo");}),
-    SearchUnit(iconAsset: "energia", unitName: "Energia", onTap: (){print("Energia");}),
-    SearchUnit(iconAsset: "potenza", unitName: "Potenza", onTap: (){print("Potenza");})
-  ];
 
   @override
   Widget buildLeading(BuildContext context) {
@@ -542,8 +535,8 @@ class CustomSearchDelegate extends SearchDelegate<int> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-        final List<SearchUnit> _dataSearch=InitializeSearchUnits((int pageNumber){close(context,pageNumber);}, jsonSearch);
-        final List<SearchGridTile> allConversions=InitializeGridSearch((int pageNumber) {close(context, pageNumber);}, jsonSearch, MediaQuery.of(context).platformBrightness==Brightness.dark);
+        final List<SearchUnit> _dataSearch=initializeSearchUnits((int pageNumber){close(context,pageNumber);}, jsonSearch);
+        final List<SearchGridTile> allConversions=initializeGridSearch((int pageNumber) {close(context, pageNumber);}, jsonSearch, MediaQuery.of(context).platformBrightness==Brightness.dark);
 
         final Iterable<SearchUnit> suggestions = _dataSearch.where((searchUnit) => searchUnit.unitName.toLowerCase().contains(query.toLowerCase())); //.toLowercase per essere case insesitive
         

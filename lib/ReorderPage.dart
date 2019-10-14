@@ -5,7 +5,7 @@ class ReorderPage extends StatefulWidget {
   ReorderPage({Key key, this.title ,this.listaElementi}) : super(key: key);
 
   final String title;
-  List listaElementi;
+  final List listaElementi;
 
   @override
   _ReorderPage createState() => new _ReorderPage();

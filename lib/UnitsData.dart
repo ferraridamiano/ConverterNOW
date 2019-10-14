@@ -2,7 +2,7 @@ import 'package:converter_pro/Localization.dart';
 import 'package:flutter/widgets.dart';
 import 'Utils.dart';
 
-InitializeUnits(BuildContext context, listaOrder, currencyValues){
+initializeUnits(BuildContext context, listaOrder, currencyValues){
   Node metro=Node(name: MyLocalizations.of(context).trans('metro',),symbol:"[m]",order: listaOrder[0][0],
         leafNodes: [
           Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centimetro'),symbol:"[cm]",order: listaOrder[0][1], leafNodes: [
@@ -96,7 +96,7 @@ InitializeUnits(BuildContext context, listaOrder, currencyValues){
       Node(isSum: false, coefficientPlus: 459.67, name: "Rankine",symbol:"[°R]",order: listaOrder[4][6],),
     ]);
 
-    Node metri_secondo=Node(name: MyLocalizations.of(context).trans('metri_secondo'),symbol:"[m/s]", order: listaOrder[5][0], leafNodes: [
+    Node metriSecondo=Node(name: MyLocalizations.of(context).trans('metri_secondo'),symbol:"[m/s]", order: listaOrder[5][0], leafNodes: [
       Node(isMultiplication: false, coefficientPer: 3.6, name: MyLocalizations.of(context).trans('chilometri_ora'),symbol:"[km/h]",order: listaOrder[5][1], leafNodes:[
         Node(isMultiplication: true, coefficientPer: 1.609344, name: MyLocalizations.of(context).trans('miglia_ora'),symbol:"[mph]",order: listaOrder[5][2],),
         Node(isMultiplication: true, coefficientPer: 1.852, name: MyLocalizations.of(context).trans('nodi'),symbol:"[kts]",order: listaOrder[5][3],),
@@ -104,7 +104,7 @@ InitializeUnits(BuildContext context, listaOrder, currencyValues){
       Node(isMultiplication: true, coefficientPer: 0.3048, name: MyLocalizations.of(context).trans('piedi_secondo'),symbol:"[ft/s]",order: listaOrder[5][4],),
     ]);
 
-    Node SI=Node(name: "Base",symbol:"[10º]",order: listaOrder[6][0],
+    Node si=Node(name: "Base",symbol:"[10º]",order: listaOrder[6][0],
         leafNodes: [
           Node(isMultiplication: true, coefficientPer: 10.0, name: "Deca-",symbol:"[da][10¹]",order: listaOrder[6][1],),
           Node(isMultiplication: true, coefficientPer: 100.0, name: "Hecto-",symbol:"[h][10²]",order: listaOrder[6][2],),
@@ -168,7 +168,7 @@ InitializeUnits(BuildContext context, listaOrder, currencyValues){
           Node(isMultiplication: true, coefficientPer: 57.295779513, name: MyLocalizations.of(context).trans('radianti'),symbol:"[rad]",order: listaOrder[10][3]),
     ]);
 
-    Node EUR=Node(name:MyLocalizations.of(context).trans('EUR',),symbol:MyLocalizations.of(context).trans('eu'),order: listaOrder[11][0],
+    Node eur=Node(name:MyLocalizations.of(context).trans('EUR',),symbol:MyLocalizations.of(context).trans('eu'),order: listaOrder[11][0],
         leafNodes: [
           Node(isMultiplication: false, coefficientPer: currencyValues['USD'], name: MyLocalizations.of(context).trans('USD'),symbol:MyLocalizations.of(context).trans('us'),order: listaOrder[11][1]),
           Node(isMultiplication: false, coefficientPer: currencyValues['GBP'], name: MyLocalizations.of(context).trans('GBP'),symbol:MyLocalizations.of(context).trans('gb'),order: listaOrder[11][2]),
@@ -201,7 +201,7 @@ InitializeUnits(BuildContext context, listaOrder, currencyValues){
           Node(isMultiplication: false, coefficientPer: currencyValues['RON'], name: MyLocalizations.of(context).trans('RON'),symbol:MyLocalizations.of(context).trans('ro'),order: listaOrder[11][29]),
     ]);
 
-    Node centimetri_scarpe=Node(name:MyLocalizations.of(context).trans('centimetro',), symbol: "[cm]",order: listaOrder[12][0],
+    Node centimetriScarpe=Node(name:MyLocalizations.of(context).trans('centimetro',), symbol: "[cm]",order: listaOrder[12][0],
         leafNodes: [
           Node(isMultiplication: false, coefficientPer: 1.5, coefficientPlus: 1.5, isSum: false, name: MyLocalizations.of(context).trans('eu_cina'),order: listaOrder[12][1]),
           Node(isMultiplication: true, coefficientPer: 2.54, name: MyLocalizations.of(context).trans('pollice'),symbol: '[in]',order: listaOrder[12][2], 
@@ -277,7 +277,7 @@ InitializeUnits(BuildContext context, listaOrder, currencyValues){
           Node(isMultiplication: true, coefficientPer: 0.138254954376, name: MyLocalizations.of(context).trans('poundal'),symbol: "[pdl]",order: listaOrder[15][4],),
     ]);
 
-    Node newton_metro=Node(name: MyLocalizations.of(context).trans('newton_metro'),symbol: "[N·m]",order: listaOrder[16][0],
+    Node newtonMetro=Node(name: MyLocalizations.of(context).trans('newton_metro'),symbol: "[N·m]",order: listaOrder[16][0],
         leafNodes: [
           Node(isMultiplication: false, coefficientPer: 100000.0, name: MyLocalizations.of(context).trans('dyne_metro'),symbol:"[dyn·m]",order: listaOrder[16][1],),
           Node(isMultiplication: false, coefficientPer: 0.7375621489 , name: MyLocalizations.of(context).trans('libbra_forza_piede'),symbol: "[lbf·ft]",order: listaOrder[16][2],),
@@ -285,14 +285,14 @@ InitializeUnits(BuildContext context, listaOrder, currencyValues){
           Node(isMultiplication: true, coefficientPer: 0.138254954376, name: MyLocalizations.of(context).trans('poundal_metro'),symbol: "[pdl·m]",order: listaOrder[16][4],),
     ]);
 
-    Node chilometri_litro=Node(name: MyLocalizations.of(context).trans('chilometri_litro'),symbol: "[km/l]",order: listaOrder[17][0],
+    Node chilometriLitro=Node(name: MyLocalizations.of(context).trans('chilometri_litro'),symbol: "[km/l]",order: listaOrder[17][0],
         leafNodes: [
           Node(conversionType: RECIPROCO_CONVERSION,coefficientPer: 100.0, name: MyLocalizations.of(context).trans('litri_100km'),symbol: "[l/100km]",order: listaOrder[17][1],),
           Node(coefficientPer: 0.4251437074 , name: MyLocalizations.of(context).trans('miglia_gallone_us'),symbol: "[mpg]",order: listaOrder[17][2],),
           Node(coefficientPer: 0.3540061899, name: MyLocalizations.of(context).trans('miglia_gallone_uk'),symbol: "[mpg]",order: listaOrder[17][3],),
     ]);
 
-    Node base_decimale=Node(name: MyLocalizations.of(context).trans('decimale'),base: 10,keyboardType: KEYBOARD_NUMBER_INTEGER,symbol: "[₁₀]",order: listaOrder[18][0],
+    Node baseDecimale=Node(name: MyLocalizations.of(context).trans('decimale'),base: 10,keyboardType: KEYBOARD_NUMBER_INTEGER,symbol: "[₁₀]",order: listaOrder[18][0],
         leafNodes: [
           Node(conversionType: BASE_CONVERSION,base: 16,keyboardType: KEYBOARD_COMPLETE,name: MyLocalizations.of(context).trans('esadecimale'),symbol: "[₁₆]",order: listaOrder[18][1],),
           Node(conversionType: BASE_CONVERSION,base: 8,keyboardType: KEYBOARD_NUMBER_INTEGER, name: MyLocalizations.of(context).trans('ottale'),symbol: "[₈]",order: listaOrder[18][2],),
@@ -300,12 +300,12 @@ InitializeUnits(BuildContext context, listaOrder, currencyValues){
     ]);
 
 
-    return [metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,EUR, centimetri_scarpe,bit,watt,newton, newton_metro, chilometri_litro, base_decimale];
+    return [metro,metroq, metroc,secondo, celsius, metriSecondo,si,grammo,pascal,joule,gradi,eur, centimetriScarpe,bit,watt,newton, newtonMetro, chilometriLitro, baseDecimale];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     
 }
 
-List<SearchUnit> InitializeSearchUnits(Function onTap, Map jsonSearch) {
+List<SearchUnit> initializeSearchUnits(Function onTap, Map jsonSearch) {
 
   return [
           SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["lunghezza"], onTap: (){onTap(0);}),
@@ -540,7 +540,7 @@ List<SearchUnit> InitializeSearchUnits(Function onTap, Map jsonSearch) {
           SearchUnit(iconAsset: "conversione_base", unitName: jsonSearch["binario"], onTap: (){onTap(18);}),
         ];
 }
-List<SearchGridTile> InitializeGridSearch(Function onTap, Map jsonSearch, bool darkMode){
+List<SearchGridTile> initializeGridSearch(Function onTap, Map jsonSearch, bool darkMode){
   return [
           SearchGridTile(iconAsset: "lunghezza", footer: jsonSearch["lunghezza"], onTap: (){onTap(0);}, darkMode: darkMode,),
           SearchGridTile(iconAsset: "area", footer: jsonSearch["superficie"], onTap: (){onTap(1);}, darkMode: darkMode,),

@@ -2,13 +2,11 @@ import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-String currentTitle;
-
 class ConversionPage extends StatefulWidget {
 
-  Node fatherNode;
-  String title;
-  String subtitle;
+  final Node fatherNode;
+  final String title;
+  final String subtitle;
   ConversionPage(this.fatherNode, this.title, this.subtitle);
 
   @override
@@ -24,12 +22,6 @@ class _ConversionPage extends State<ConversionPage> {
   
   @override
   void didUpdateWidget(ConversionPage oldWidget) {
-    /*print("didupdatewidget failure");
-    if(widget.title != currentTitle){               //Se cambio pagina di misura voglio che si aggiornino le unità
-      print("DidupdateWidget success");
-      initialize();
-      currentTitle=widget.title;
-    }*/
     initialize();
     super.didUpdateWidget(oldWidget);
   }
@@ -37,13 +29,11 @@ class _ConversionPage extends State<ConversionPage> {
 @override
   void initState() {
     initialize();
-    print("Conversionpage initstate");
-    currentTitle=widget.title;
     super.initState();
   }
 
   void initialize(){
-    widget.fatherNode.ClearSelectedNode();
+    widget.fatherNode.clearSelectedNode();
     
     listaController.clear();
     listaFocus.clear();
@@ -68,20 +58,20 @@ class _ConversionPage extends State<ConversionPage> {
   @override
   void dispose() {
     FocusNode focus;
-    TextEditingController TEC;
+    TextEditingController tec;
     for (int i = 0; i < listaFocus.length; i++) {
       focus = listaFocus[i];
       focus.removeListener(() {});
       focus.dispose();
-      TEC = listaController[i];
-      TEC.dispose();
+      tec = listaController[i];
+      tec.dispose();
     }
     super.dispose();
   }
 
   List<ListItem> createList() {
     List<ListItem> listaCard = new List();
-    listaCard.add(bigHeader(title:widget.title, subTitle: widget.subtitle));
+    listaCard.add(BigHeader(title:widget.title, subTitle: widget.subtitle));
     for (int i = 0; i < listaNodi.length; i++) {
       Node nodo = listaNodi[i];
       TextEditingController controller;
@@ -89,7 +79,7 @@ class _ConversionPage extends State<ConversionPage> {
 
       if ((nodo.value != null || nodo.valueString!=null) && !nodo.selectedNode){
         if(nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL)
-          controller.text = nodo.MantissaCorrection();
+          controller.text = nodo.mantissaCorrection();
         else if (nodo.keyboardType==KEYBOARD_COMPLETE || nodo.keyboardType==KEYBOARD_NUMBER_INTEGER)
           controller.text = nodo.valueString;
       }
@@ -115,7 +105,7 @@ class _ConversionPage extends State<ConversionPage> {
         }
       }
 
-      listaCard.add(myCard(
+      listaCard.add(MyCard(
           node: nodo,
           textField: TextFormField(
             style: TextStyle(
@@ -135,35 +125,12 @@ class _ConversionPage extends State<ConversionPage> {
               }
 
               setState(() {
-                widget.fatherNode.ResetConvertedNode();
-                widget.fatherNode.Convert();
+                widget.fatherNode.resetConvertedNode();
+                widget.fatherNode.convert();
               });
             },
-          )
-          /*textField: TextField(
-            style: TextStyle(
-              fontSize: 16.0,
-              color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white : Colors.black,
-            ),
-            keyboardType: keyboardType,
-            controller: controller,
-            focusNode: listaFocus[i],
-            onChanged: (String txt) {
-              if(nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL){
-                nodo.value = txt == "" ? null : double.parse(txt);
-              }
-              else if(nodo.keyboardType==KEYBOARD_NUMBER_INTEGER || nodo.keyboardType==KEYBOARD_COMPLETE){
-                nodo.valueString = txt == "" ? null : txt;
-              }
-
-              setState(() {
-                widget.fatherNode.ResetConvertedNode();
-                widget.fatherNode.Convert();
-              });
-            },
-          )*/
-          
-          ));
+          )          
+      ));
     }
     return listaCard;
   }
@@ -178,12 +145,11 @@ class _ConversionPage extends State<ConversionPage> {
         itemCount: itemList.length,
         itemBuilder: (context, index) {
           final item = itemList[index];
-
-          if (item is bigHeader) {
-            return bigTitle(item.title, item.subTitle);
-          }
-          else if (item is myCard) {
+          if (item is MyCard) {
             return UnitCard(node: item.node,textField: item.textField,);
+          }
+          else  { //(item is BigHeader)
+            return BigTitle(item.title, item.subTitle);
           }
         }
       )

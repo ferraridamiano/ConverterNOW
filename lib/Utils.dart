@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:convert';
 
 const LINEAR_CONVERSION = 1;     // y=ax+b
 const RECIPROCO_CONVERSION = 2;  // y=(a/x)+b
@@ -14,24 +13,24 @@ const KEYBOARD_COMPLETE = 3;       //tastiera con anche le lettere
 
 abstract class ListItem {}
 
-class myCard implements ListItem{
-  myCard({this.node, this.textField});
+class MyCard implements ListItem{
+  MyCard({this.node, this.textField});
 
   Node node;
   final Widget textField;
 }
 
-class bigHeader implements ListItem{
-  bigHeader({this.title, this.subTitle});
+class BigHeader implements ListItem{
+  BigHeader({this.title, this.subTitle});
   String title;
   String subTitle;
 }
 
-class bigTitle extends StatelessWidget{
+class BigTitle extends StatelessWidget{
 
-  bigTitle(this.text, this.subtitle);
-  String text;
-  String subtitle="";
+  BigTitle(this.text, this.subtitle);
+  final String text;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +69,7 @@ class bigTitle extends StatelessWidget{
 class UnitCard extends StatelessWidget{
   UnitCard({this.node, this.textField});
 
-  Node node;
+  final Node node;
   final Widget textField;
 
   @override
@@ -140,20 +139,20 @@ class Node {
   int base;
   String valueString;
 
-  void Convert() {
+  void convert() {
     if(!convertedNode) {             //se non è già convertito
       for (Node node in leafNodes) { //per ogni nodo foglia controlla se ha valore
         switch(node.conversionType){
           case LINEAR_CONVERSION:{
-            _LinearConvert(node);
+            _linearConvert(node);
             break;
           }
           case RECIPROCO_CONVERSION:{
-            _ReciprocoConvert(node);
+            _reciprocoConvert(node);
             break;
           }
           case BASE_CONVERSION:{
-            _BaseConvert(node);
+            _baseConvert(node);
             break;
           }
         }
@@ -162,25 +161,25 @@ class Node {
     else{ //se ha valore
       for (Node node in leafNodes) {
         if(node.convertedNode==false)
-          _ApplyDown();
+          _applyDown();
       }
     }
   }
 
-  void _ApplyDown(){
+  void _applyDown(){
 
     for(Node node in leafNodes){
       switch(node.conversionType){
         case LINEAR_CONVERSION:{
-          _Linear_ApplyDown(node);
+          _linearApplyDown(node);
           break;
         }
         case RECIPROCO_CONVERSION:{
-          _Reciproco_ApplyDown(node);
+          _reciprocoApplyDown(node);
           break;
         }
         case BASE_CONVERSION:{
-          _Base_ApplyDown(node);
+          _baseApplyDown(node);
           break;
         }
 
@@ -189,59 +188,59 @@ class Node {
   }
 
 
-  void _LinearConvert(Node node) { //da basso a alto
+  void _linearConvert(Node node) { //da basso a alto
     if (node.convertedNode) {    //se un nodo foglia è già stato convertito
       value = node.value == null //faccio in calcoli del nodo padre rispetto a lui
           ? null
           : (node.isMultiplication ? node.value * node.coefficientPer : node.value / node.coefficientPer) +
           (node.isSum ? node.coefficientPlus : -node.coefficientPlus); //metto in questo nodo il valore convertito
       convertedNode = true;
-      _ApplyDown(); //converto i nodi sottostanti
+      _applyDown(); //converto i nodi sottostanti
     }
     else if (node.leafNodes != null) { //Però ha almeno un nodo foglia
-        node.Convert(); //ripeti la procedura    
+        node.convert(); //ripeti la procedura    
         if(node.convertedNode)
-          Convert();                             
+          convert();                             
     }
   }
 
-  void _Linear_ApplyDown(Node node){//da alto a a basso
+  void _linearApplyDown(Node node){//da alto a a basso
     node.value= value==null
       ? null
       : (node.isSum ? value-node.coefficientPlus : value+node.coefficientPlus)*(node.isMultiplication ? 1/node.coefficientPer : node.coefficientPer);//attenzione qui funziona al contrario
     node.convertedNode=true;
 
     if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
-      node._ApplyDown();
+      node._applyDown();
   }
 
-  void _ReciprocoConvert(Node node) { //da basso a alto
+  void _reciprocoConvert(Node node) { //da basso a alto
     if (node.convertedNode) {    //se un nodo foglia è già stato convertito
       value = node.value == null //faccio in calcoli del nodo padre rispetto a lui
           ? null
           : (node.coefficientPer/node.value)+node.coefficientPlus; //metto in questo nodo il valore convertito
       convertedNode = true;
-      _ApplyDown(); //converto i nodi sottostanti
+      _applyDown(); //converto i nodi sottostanti
     }
     else if (node.leafNodes != null) { //Però ha almeno un nodo foglia
-        node.Convert(); //ripeti la procedura    
+        node.convert(); //ripeti la procedura    
         if(node.convertedNode)
-          Convert();                             
+          convert();                             
     }
   }
 
-  void _Reciproco_ApplyDown(Node node){//da alto a a basso
+  void _reciprocoApplyDown(Node node){//da alto a a basso
     node.value= value==null
       ? null
       : node.coefficientPer/(value-node.coefficientPlus);//attenzione qui funziona al contrario
     node.convertedNode=true;
 
     if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
-      node._ApplyDown();
+      node._applyDown();
   }
 
   //attenzione! Questo tipo di conversione è stata costruita esclusivamente sulla struttura dec-(bin-oct-hex). Un padre con 3 figli
-  void _BaseConvert(Node node) { //da basso a alto
+  void _baseConvert(Node node) { //da basso a alto
     if (node.convertedNode) {    //se un nodo foglia è già stato convertito
       if(node.valueString==null)
         valueString=null;
@@ -249,16 +248,16 @@ class Node {
         valueString=baseToDec(node.valueString, node.base);
       }
       convertedNode = true;
-      _ApplyDown(); //converto i nodi sottostanti
+      _applyDown(); //converto i nodi sottostanti
     }
     else if (node.leafNodes != null) { //Però ha almeno un nodo foglia
-        node.Convert(); //ripeti la procedura    
+        node.convert(); //ripeti la procedura    
         if(node.convertedNode)
-          Convert();                             
+          convert();                             
     }
   }
 
-  void _Base_ApplyDown(Node node){//da alto a a basso
+  void _baseApplyDown(Node node){//da alto a a basso
     if(valueString==null){
       node.valueString=null;
     }
@@ -269,27 +268,23 @@ class Node {
     node.convertedNode=true;
 
     if(node.leafNodes != null)                                                //se ha almeno un nodo foglia allora continuo
-      node._ApplyDown();
+      node._applyDown();
   }
 
 
-  /**
-   * Resetta convertedNode su false per i nodi non selezionati dall'alto al basso (bisogna quindi chiamarlo dal nodo padre)
-   */
-  void ResetConvertedNode(){
+  //Resetta convertedNode su false per i nodi non selezionati dall'alto al basso (bisogna quindi chiamarlo dal nodo padre)
+  void resetConvertedNode(){
     if(!selectedNode)                                                           //se non è il nodo selezionato
       convertedNode=false;                                                      //resetto il fatto che il nodo sia già stato convertito
     if(leafNodes!=null) {
       for (Node node in leafNodes) { //per ogni nodo dell'albero
-        node.ResetConvertedNode();
+        node.resetConvertedNode();
       }
     }
   }
 
-  /**
-   * Resetta tutti i valori dei nodi (da chiamare sul nodo padre)
-   */
-  void ClearAllValues(){
+  // Resetta tutti i valori dei nodi (da chiamare sul nodo padre)
+  void clearAllValues(){
     List<Node> listanodi=_getNodiFiglio();
     for(Node nodo in listanodi){
       nodo.value=null;
@@ -297,7 +292,7 @@ class Node {
   }
 
   //Da chiamare sul nodo padre, resetta lo stato di selezionato per tutti i nodi (utile per cambio pagina)
-  void ClearSelectedNode(){
+  void clearSelectedNode(){
     List<Node> listanodi=_getNodiFiglio();
     for(Node nodo in listanodi){
       nodo.selectedNode=false;
@@ -338,13 +333,13 @@ class Node {
     return listaString;
   }
 
-  void ReorderNodes(List<int> listaOrdine){
+  void reorderNodes(List<int> listaOrdine){
     List<Node> listaNodi=getOrderedNodiFiglio();
     for(int i=0; i<listaNodi.length;i++)
       listaNodi[i].order=listaOrdine[i];
   }
 
-  String MantissaCorrection(){
+  String mantissaCorrection(){
     String stringValue=value.toString();
 
     //stacco la parte esponenziale e la attacco alla fine
@@ -400,8 +395,8 @@ class Node {
 class Calculator extends StatefulWidget{
 
   Calculator(this.color, this.width);
-  Color color;
-  double width;
+  final Color color;
+  final double width;
   @override
   _Calculator createState() => new _Calculator();
 }
