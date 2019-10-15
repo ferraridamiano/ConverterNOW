@@ -1,6 +1,7 @@
 import 'package:converter_pro/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'UtilsConversion.dart';
 
 class ConversionPage extends StatefulWidget {
 
