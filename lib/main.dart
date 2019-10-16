@@ -1,4 +1,4 @@
-import 'package:converter_pro/ConversionManager.dart';
+import 'package:converter_pro/AppManager.dart';
 import 'package:converter_pro/Localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -31,7 +31,7 @@ class _MyApp extends State<MyApp> {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Converter NOW',
-      home: ConversionManager(),
+      home: AppManager(),
       theme: ThemeData(
           primaryColor: Color(0xFFF44336),
           accentColor: Color(0xFF03A9F4),

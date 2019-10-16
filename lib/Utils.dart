@@ -406,3 +406,40 @@ class SearchGridTile extends StatelessWidget {
     );
   }
 }
+
+class ListTileConversion extends StatefulWidget{
+  final String text;
+  final String imagePath;
+  final bool selected;
+  final Function onTapFunction;
+  ListTileConversion(this.text, this.imagePath, this.selected,this.onTapFunction);
+
+  @override
+  _ListTileConversion createState() => new _ListTileConversion();
+} 
+
+class _ListTileConversion extends State<ListTileConversion>{
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTileTheme(
+      child:ListTile(
+        title: Row(children: <Widget>[
+          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? Theme.of(context).accentColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
+          SizedBox(width: 20.0,),
+          Text(
+            widget.text,
+            style: TextStyle(
+              color: widget.selected ? Theme.of(context).accentColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
+              fontWeight: widget.selected ? FontWeight.bold : FontWeight.normal,
+            ),
+            
+          )
+        ],),
+        selected: widget.selected,
+        onTap: widget.onTapFunction
+      ),
+      selectedColor: Theme.of(context).accentColor//widget.color,
+    );
+  }
+}

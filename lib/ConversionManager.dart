@@ -7,15 +7,23 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import "dart:convert";
-import 'SettingsPage.dart';
 import 'UnitsData.dart';
 import 'UtilsConversion.dart';
+import 'AppManager.dart';
 
 bool isCurrencyLoading=true;
 double appBarSize;
 Map jsonSearch;
-
+const MAX_CONVERSION_UNITS=19;
 class ConversionManager extends StatefulWidget{
+
+  final Function openDrawer;
+  final int startPage;
+  final Function changeToPage;
+  final List<String> listaTitoli;
+
+  ConversionManager(this.openDrawer, this.startPage, this.changeToPage, this.listaTitoli);
+
   @override
   _ConversionManager createState() => new _ConversionManager();
 
@@ -23,18 +31,11 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-  static const MAX_CONVERSION_UNITS=19;
+  
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   var currencyValues={"CAD":1.4642,"HKD":8.7482,"RUB":71.5025,"PHP":57.58,"DKK":7.4631,"NZD":1.6888,"CNY":7.7173,"AUD":1.6058,"RON":4.72,"SEK":10.5973,"IDR":15824.37,"INR":76.8955,"BRL":4.2752,"USD":1.1215,"ILS":4.0095,"JPY":121.8,"THB":34.514,"CHF":1.1127,"CZK":25.509,"MYR":4.6436,"TRY":6.4304,"MXN":21.2581,"NOK":9.684,"HUF":324.66,"ZAR":15.8813,"SGD":1.5247,"GBP":0.89625,"KRW":1322.07,"PLN":4.253}; //base euro (aggiornato a 08/07/2019)
   static String lastUpdateCurrency="Last update: 2019-07-08";
   static List listaConversioni;
-  /*static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
-  Colors.purple,Colors.blueGrey,Colors.green,Colors.pinkAccent,Colors.teal,
-  Colors.blue, Colors.yellow.shade700, Colors.brown, Colors.lightGreenAccent, Colors.deepPurple,
-  Colors.lightBlue, Colors.lime,Colors.yellow, Colors.orange];*/
-  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  static List listaTitoli;
-  static int _currentPage=0;
   static List orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
   static List orderSuperficie=[0,1,2,3,4,5,6,7,8,9,10];
   static List orderVolume=[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
@@ -58,20 +59,18 @@ class _ConversionManager extends State<ConversionManager>{
   static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,
   orderAngoli, orderValute, orderScarpe, orderDati, orderPotenza, orderForza, orderTorque, orderConsumo, orderBasi];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+1);//+1 perchè c'è l'intestazione
-  static List<int> listaOrderDrawer=[0,1,2,4,5,6,17,7,11,12,14,3,15,16,13,8,18,9,10]; //fino a maxconversionunits-1
-  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   final SearchDelegate _searchDelegate=CustomSearchDelegate();
 
   @override
   void initState() {
+    currentPage=widget.startPage;
     _getOrders();
     Future.delayed(Duration.zero, () {
       _getCurrency();
     });
-    bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
+    /*bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
     if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30))
-      _showRateDialog();
+      _showRateDialog();*/
     super.initState();  
   }
 
@@ -124,105 +123,13 @@ class _ConversionManager extends State<ConversionManager>{
     });
   }
 
-  void initializeTiles(){
-    Color boxColor=Theme.of(context).primaryColor;
-    listaDrawer[0]=
-        isLogoVisible ? 
-          Container(
-            decoration: BoxDecoration(color: boxColor/*listaColori[_currentPage],*/),
-            child:SafeArea(
-              child: Stack(
-                fit: StackFit.passthrough,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(bottom: 10.0),
-                    child:Image.asset("resources/images/logo.png"),
-                    alignment: Alignment.centerRight,
-                    decoration: BoxDecoration(color: boxColor,),),
-                  Container(
-                    child:Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.reorder,color: Colors.white,),
-                          onPressed:(){
-                            _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'));
-                          }
-                        ),
-                        IconButton(
-                          icon:Icon(Icons.settings,color: Colors.white,),
-                          onPressed: (){
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => SettingsPage()),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                    height: 160.0,
-                    alignment: FractionalOffset.bottomRight,
-                  )  
-                ]
-            )
-          ))
-          :
-          Container(
-            decoration: BoxDecoration(color: Theme.of(context).primaryColor/*listaColori[_currentPage],*/),
-            child:SafeArea(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.reorder,color: Colors.white,),
-                    onPressed:(){
-                      _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'));
-                    }
-                  ),
-                  IconButton(
-                    icon:Icon(Icons.settings,color: Colors.white,),
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SettingsPage()),
-                      );
-                    },
-                  ),
-                ],
-              ),
-          ));
-
-    listaDrawer[listaOrderDrawer[0]+1]=ListTileConversion(listaTitoli[0],"resources/images/lunghezza.png",_currentPage==0,(){_onSelectItem(0);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[1]+1]=ListTileConversion(listaTitoli[1],"resources/images/area.png",_currentPage==1,(){_onSelectItem(1);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[2]+1]=ListTileConversion(listaTitoli[2],"resources/images/volume.png",_currentPage==2,(){_onSelectItem(2);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[3]+1]=ListTileConversion(listaTitoli[3],"resources/images/tempo.png",_currentPage==3,(){_onSelectItem(3);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[4]+1]=ListTileConversion(listaTitoli[4],"resources/images/temperatura.png",_currentPage==4,(){_onSelectItem(4);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[5]+1]=ListTileConversion(listaTitoli[5],"resources/images/velocita.png",_currentPage==5,(){_onSelectItem(5);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[6]+1]=ListTileConversion(listaTitoli[6],"resources/images/prefissi.png",_currentPage==6,(){_onSelectItem(6);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[7]+1]=ListTileConversion(listaTitoli[7],"resources/images/massa.png",_currentPage==7,(){_onSelectItem(7);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[8]+1]=ListTileConversion(listaTitoli[8],"resources/images/pressione.png",_currentPage==8,(){_onSelectItem(8);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[9]+1]=ListTileConversion(listaTitoli[9],"resources/images/energia.png",_currentPage==9,(){_onSelectItem(9);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[10]+1]=ListTileConversion(listaTitoli[10],"resources/images/angoli.png",_currentPage==10,(){_onSelectItem(10);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[11]+1]=ListTileConversion(listaTitoli[11],"resources/images/valuta.png",_currentPage==11,(){_onSelectItem(11);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[12]+1]=ListTileConversion(listaTitoli[12],"resources/images/scarpe.png",_currentPage==12,(){_onSelectItem(12);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[13]+1]=ListTileConversion(listaTitoli[13],"resources/images/dati.png",_currentPage==13,(){_onSelectItem(13);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[14]+1]=ListTileConversion(listaTitoli[14],"resources/images/potenza.png",_currentPage==14,(){_onSelectItem(14);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[15]+1]=ListTileConversion(listaTitoli[15],"resources/images/forza.png",_currentPage==15,(){_onSelectItem(15);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[16]+1]=ListTileConversion(listaTitoli[16],"resources/images/torque.png",_currentPage==16,(){_onSelectItem(16);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[17]+1]=ListTileConversion(listaTitoli[17],"resources/images/consumo.png",_currentPage==17,(){_onSelectItem(17);Navigator.of(context).pop();});
-    listaDrawer[listaOrderDrawer[18]+1]=ListTileConversion(listaTitoli[18],"resources/images/conversione_base.png",_currentPage==18,(){_onSelectItem(18);Navigator.of(context).pop();});
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  }
-
   _onSelectItem(int index) {
-    if(_currentPage!=index) {
-      listaConversioni[_currentPage].clearSelectedNode();
-      setState(() {
-        _currentPage = index;
-      });
+    if(currentPage!=index) {
+      listaConversioni[currentPage].clearSelectedNode();
+      widget.changeToPage(index);
+      /*setState((){
+        currentPage=index;
+      });*/
     }
   }
 
@@ -233,30 +140,13 @@ class _ConversionManager extends State<ConversionManager>{
   _saveOrders() async {
     //SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> toConvertList=new List();
-    for(int item in listaOrder[_currentPage])
+    for(int item in listaOrder[currentPage])
       toConvertList.add(item.toString());
-    prefs.setStringList("conversion_$_currentPage", toConvertList);
+    prefs.setStringList("conversion_$currentPage", toConvertList);
   }
   _getOrders() async {
 
-    //aggiorno lista del drawer
-    List <String> stringList=prefs.getStringList("orderDrawer");
-    setState((){
-      if(stringList!=null){
-        final int len=stringList.length;
-        for(int i=0;i<len;i++){
-          listaOrderDrawer[i]=int.parse(stringList[i]);
-          if(listaOrderDrawer[i]==0)
-             _currentPage=i;
-        }
-        //risolve il problema di aggiunta di unità dopo un aggiornamento
-        for(int i=len;i<MAX_CONVERSION_UNITS;i++){
-          listaOrderDrawer[i]=i;
-        }
-      }
-    });
-
-
+    List <String> stringList;
     //aggiorno ordine unità di ogni grandezza fisica
     for(int i=0;i<MAX_CONVERSION_UNITS;i++){
       stringList=prefs.getStringList("conversion_$i");
@@ -271,49 +161,15 @@ class _ConversionManager extends State<ConversionManager>{
         for(int j=len; j<listaOrder[i].length;j++)     
           intList.add(j);
         
-        if(i==_currentPage){
+        if(i==currentPage){
           setState(() {
             listaOrder[i]=intList;
           });
         }
         else
           listaOrder[i]=intList;
-
       }
     }
-  }
-
-  _changeOrderDrawer(BuildContext context,String title) async{
-
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
-    Navigator.of(context).pop();
-
-    List orderedList=new List(MAX_CONVERSION_UNITS);
-    for(int i=0;i<MAX_CONVERSION_UNITS;i++){
-      orderedList[listaOrderDrawer[i]]=listaTitoli[i];
-    }
-
-
-    final result = await Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ReorderPage(
-            title: title,
-            listaElementi: orderedList,
-        ),));
-
-    List arrayCopia=new List(listaOrderDrawer.length);
-    for(int i=0;i<listaOrderDrawer.length;i++)
-      arrayCopia[i]=listaOrderDrawer[i];
-    setState(() {
-      for(int i=0;i<listaOrderDrawer.length;i++)
-        listaOrderDrawer[i]=result.indexOf(arrayCopia[i]);
-    });
-
-    List<String> toConvertList=new List();
-    for(int item in listaOrderDrawer)
-      toConvertList.add(item.toString());
-    prefs.setStringList("orderDrawer", toConvertList);
-
   }
 
   _changeOrderUnita(BuildContext context,String title, List listaStringhe) async{
@@ -323,12 +179,12 @@ class _ConversionManager extends State<ConversionManager>{
             title: title,
             listaElementi: listaStringhe,
         ),));
-    List arrayCopia=new List(listaOrder[_currentPage].length);
-    for(int i=0;i<listaOrder[_currentPage].length;i++)
-      arrayCopia[i]=listaOrder[_currentPage][i];
+    List arrayCopia=new List(listaOrder[currentPage].length);
+    for(int i=0;i<listaOrder[currentPage].length;i++)
+      arrayCopia[i]=listaOrder[currentPage][i];
     setState(() {
-      for(int i=0;i<listaOrder[_currentPage].length;i++)
-        listaOrder[_currentPage][i]=result.indexOf(arrayCopia[i]);
+      for(int i=0;i<listaOrder[currentPage].length;i++)
+        listaOrder[currentPage][i]=result.indexOf(arrayCopia[i]);
     });
     _saveOrders();
   }
@@ -338,18 +194,7 @@ class _ConversionManager extends State<ConversionManager>{
   Widget build(BuildContext context) {
     _getJsonSearch(context);
 
-    listaConversioni=initializeUnits(context, listaOrder, currencyValues);
-    listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
-    MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
-    MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
-    MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli'),MyLocalizations.of(context).trans('valuta'),
-    MyLocalizations.of(context).trans('taglia_scarpe'),MyLocalizations.of(context).trans('dati_digitali'),MyLocalizations.of(context).trans('potenza'),
-    MyLocalizations.of(context).trans('forza'), MyLocalizations.of(context).trans('momento'),MyLocalizations.of(context).trans('consumo_carburante'),
-    MyLocalizations.of(context).trans('basi_numeriche')];
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    
-    initializeTiles();
-    
+    listaConversioni=initializeUnits(context, listaOrder, currencyValues);  
 
     List<Choice> choices = <Choice>[
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
@@ -357,14 +202,8 @@ class _ConversionManager extends State<ConversionManager>{
     
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(child:ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : "")),
+      body: SafeArea(child:ConversionPage(listaConversioni[currentPage],widget.listaTitoli[currentPage], currentPage==11 ? lastUpdateCurrency : "")),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      drawer: new Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: listaDrawer,
-        ),
-      ),
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,
         child: Row(
@@ -373,7 +212,7 @@ class _ConversionManager extends State<ConversionManager>{
           children: <Widget>[
             new Builder(builder: (context) {
               return IconButton(icon: Icon(Icons.menu,color: Colors.white,), onPressed: () {
-                Scaffold.of(context).openDrawer();
+                widget.openDrawer();
               });
             }),
             Row(children: <Widget>[
@@ -381,7 +220,7 @@ class _ConversionManager extends State<ConversionManager>{
                 icon: Icon(Icons.clear,color: Colors.white),
                 onPressed: () {
                   setState(() {
-                    listaConversioni[_currentPage].clearAllValues();
+                    listaConversioni[currentPage].clearAllValues();
                   });
                 },),
               IconButton(
@@ -395,7 +234,7 @@ class _ConversionManager extends State<ConversionManager>{
               PopupMenuButton<Choice>(
                 icon: Icon(Icons.more_vert,color: Colors.white,),
                 onSelected: (Choice choice){
-                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[_currentPage].getStringOrderedNodiFiglio());
+                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[currentPage].getStringOrderedNodiFiglio());
                 },
                 itemBuilder: (BuildContext context) {
                   return choices.map((Choice choice) {
@@ -417,7 +256,7 @@ class _ConversionManager extends State<ConversionManager>{
           _fabPressed();
         },
         elevation: 5.0,
-        backgroundColor: Theme.of(context).accentColor,//Color(0xff2196f3)//listaColori[_currentPage],
+        backgroundColor: Theme.of(context).accentColor,//Color(0xff2196f3)//listaColori[currentPage],
       )
 
     );
@@ -432,7 +271,7 @@ class _ConversionManager extends State<ConversionManager>{
     );
   }
 
-  void _showRateDialog() async {
+  /*void _showRateDialog() async {
     new Future.delayed(Duration.zero,() {
       showDialog(
         context: context,
@@ -467,7 +306,7 @@ class _ConversionManager extends State<ConversionManager>{
       );
       }
     );
-  }
+  }*/
 }
 
 
@@ -478,44 +317,6 @@ class Choice {
   final IconData icon;
 }
 
-class ListTileConversion extends StatefulWidget{
-  final String text;
-  final String imagePath;
-  final bool selected;
-  final Function onTapFunction;
-  ListTileConversion(this.text, this.imagePath, this.selected,this.onTapFunction);
-
-  @override
-  _ListTileConversion createState() => new _ListTileConversion();
-} 
-
-class _ListTileConversion extends State<ListTileConversion>{
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTileTheme(
-      child:ListTile(
-        title: Row(children: <Widget>[
-          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? Theme.of(context).accentColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
-          SizedBox(width: 20.0,),
-          Text(
-            widget.text,
-            style: TextStyle(
-              color: widget.selected ? Theme.of(context).accentColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
-              fontWeight: widget.selected ? FontWeight.bold : FontWeight.normal,
-            ),
-            
-          )
-        ],),
-        selected: widget.selected,
-        onTap: widget.onTapFunction
-      ),
-      selectedColor: Theme.of(context).accentColor//widget.color,
-    );
-  }
-}
 
 class CustomSearchDelegate extends SearchDelegate<int> {  
 
