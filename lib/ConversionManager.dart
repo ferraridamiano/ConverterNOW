@@ -69,7 +69,7 @@ class _ConversionManager extends State<ConversionManager>{
     Future.delayed(Duration.zero, () {
       _getCurrency();
     });
-    Future.delayed(const Duration(seconds: 10), () {
+    Future.delayed(const Duration(seconds: 3), () {
       _showReviewSnackBar();
     });
     
@@ -192,32 +192,63 @@ class _ConversionManager extends State<ConversionManager>{
   }
 
   _showReviewSnackBar(){
-    
+
+    final SnackBar positiveResponseSnackBar = SnackBar(
+      duration: const Duration(milliseconds: 3000),
+      behavior: SnackBarBehavior.floating,
+      content: Text(MyLocalizations.of(context).trans('valuta_app3'), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0)),
+      action: SnackBarAction(
+        label: MyLocalizations.of(context).trans('valuta_app5'),
+        textColor: Theme.of(context).accentColor,
+        onPressed: (){
+         launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+        },
+      ),
+    );
+
+    final SnackBar negativeResponseSnackBar = SnackBar(
+      duration: const Duration(milliseconds: 2000),
+      behavior: SnackBarBehavior.floating,
+      content: Text(MyLocalizations.of(context).trans('valuta_app4'), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0)),
+      action: SnackBarAction(
+        label: MyLocalizations.of(context).trans('valuta_app5'),
+        textColor: Theme.of(context).accentColor,
+        onPressed: (){
+         launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+        },
+      ),
+    );
+
     final SnackBar reviewSnackBar = SnackBar(
+      duration: const Duration(seconds: 5),
       behavior: SnackBarBehavior.floating,
       content: SizedBox(
-        height: 70.0,
-        child: Column(
-          children: <Widget>[
-            Text('Ti piace Converter NOW? ☺️', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FlatButton(
-                  child: Text("Non molto", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Theme.of(context).accentColor),),
-                  onPressed: (){
-                    print("Non molto");
-                  },
-                ),
-                FlatButton(
-                  child: Text("Lo adoro", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Theme.of(context).accentColor),),
-                  onPressed: (){
-                    print("Lo adoro");
-                  },
-                ),
-              ]
-            )
-          ],
+        height: 65.0,
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Text(MyLocalizations.of(context).trans('valuta_app2'), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0),),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FlatButton(
+                    child: Text(MyLocalizations.of(context).trans('valuta_app2NO'), style: TextStyle(color: Theme.of(context).accentColor),),
+                    onPressed: (){
+                      scaffoldKey.currentState.hideCurrentSnackBar();
+                      scaffoldKey.currentState.showSnackBar(negativeResponseSnackBar);
+                    },
+                  ),
+                  FlatButton(
+                    child: Text(MyLocalizations.of(context).trans('valuta_app2SI'), style: TextStyle(color: Theme.of(context).accentColor),),
+                    onPressed: (){
+                      scaffoldKey.currentState.hideCurrentSnackBar();
+                      scaffoldKey.currentState.showSnackBar(positiveResponseSnackBar);
+                    },
+                  ),
+                ]
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -306,42 +337,6 @@ class _ConversionManager extends State<ConversionManager>{
     );
   }
 
-  /*void _showRateDialog() async {
-    new Future.delayed(Duration.zero,() {
-      showDialog(
-        context: context,
-        builder: (BuildContext dialogcontext) {
-          return AlertDialog(
-            title: new Text(MyLocalizations.of(context).trans('valuta_app')),
-            content: new Text(MyLocalizations.of(context).trans('valuta_app2')),
-            actions: <Widget>[
-              new FlatButton(
-                child: new Text(MyLocalizations.of(context).trans('gia_fatto')),
-                onPressed: () {
-                  prefs.setBool("stop_request_rating",true);
-                  Navigator.of(dialogcontext).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text(MyLocalizations.of(context).trans('piu_tardi')),
-                onPressed: () {
-                  Navigator.of(dialogcontext).pop();
-                },
-              ),
-              new FlatButton(
-                child: new Text("OK"),
-                onPressed: () {
-                  launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
-                  Navigator.of(dialogcontext).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-      }
-    );
-  }*/
 }
 
 
