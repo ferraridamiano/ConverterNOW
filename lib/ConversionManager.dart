@@ -60,6 +60,7 @@ class _ConversionManager extends State<ConversionManager>{
   orderAngoli, orderValute, orderScarpe, orderDati, orderPotenza, orderForza, orderTorque, orderConsumo, orderBasi];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   final SearchDelegate _searchDelegate=CustomSearchDelegate();
+  final GlobalKey<ScaffoldState> scaffoldKey =GlobalKey();
 
   @override
   void initState() {
@@ -68,6 +69,10 @@ class _ConversionManager extends State<ConversionManager>{
     Future.delayed(Duration.zero, () {
       _getCurrency();
     });
+    Future.delayed(const Duration(seconds: 10), () {
+      _showReviewSnackBar();
+    });
+    
     /*bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
     if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30))
       _showRateDialog();*/
@@ -127,9 +132,6 @@ class _ConversionManager extends State<ConversionManager>{
     if(currentPage!=index) {
       listaConversioni[currentPage].clearSelectedNode();
       widget.changeToPage(index);
-      /*setState((){
-        currentPage=index;
-      });*/
     }
   }
 
@@ -189,6 +191,38 @@ class _ConversionManager extends State<ConversionManager>{
     _saveOrders();
   }
 
+  _showReviewSnackBar(){
+    
+    final SnackBar reviewSnackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      content: SizedBox(
+        height: 70.0,
+        child: Column(
+          children: <Widget>[
+            Text('Ti piace Converter NOW? ☺️', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FlatButton(
+                  child: Text("Non molto", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Theme.of(context).accentColor),),
+                  onPressed: (){
+                    print("Non molto");
+                  },
+                ),
+                FlatButton(
+                  child: Text("Lo adoro", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Theme.of(context).accentColor),),
+                  onPressed: (){
+                    print("Lo adoro");
+                  },
+                ),
+              ]
+            )
+          ],
+        ),
+      ),
+    );
+    scaffoldKey.currentState.showSnackBar(reviewSnackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -201,6 +235,7 @@ class _ConversionManager extends State<ConversionManager>{
     ];
     
     return Scaffold(
+      key:scaffoldKey,
       resizeToAvoidBottomInset: false,
       body: SafeArea(child:ConversionPage(listaConversioni[currentPage],widget.listaTitoli[currentPage], currentPage==11 ? lastUpdateCurrency : "")),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
