@@ -69,13 +69,13 @@ class _ConversionManager extends State<ConversionManager>{
     Future.delayed(Duration.zero, () {
       _getCurrency();
     });
-    Future.delayed(const Duration(seconds: 3), () {
-      _showReviewSnackBar();
-    });
-    
-    /*bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
-    if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30))
-      _showRateDialog();*/
+        
+    bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
+    if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30)){
+      Future.delayed(const Duration(seconds: 5), () {
+        _showReviewSnackBar();
+      });
+    }
     super.initState();  
   }
 
@@ -194,27 +194,29 @@ class _ConversionManager extends State<ConversionManager>{
   _showReviewSnackBar(){
 
     final SnackBar positiveResponseSnackBar = SnackBar(
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 4000),
       behavior: SnackBarBehavior.floating,
       content: Text(MyLocalizations.of(context).trans('valuta_app3'), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0)),
       action: SnackBarAction(
         label: MyLocalizations.of(context).trans('valuta_app5'),
         textColor: Theme.of(context).accentColor,
         onPressed: (){
-         launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+          prefs.setBool("stop_request_rating", true);
+          launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
         },
       ),
     );
 
     final SnackBar negativeResponseSnackBar = SnackBar(
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 3000),
       behavior: SnackBarBehavior.floating,
       content: Text(MyLocalizations.of(context).trans('valuta_app4'), style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.0)),
       action: SnackBarAction(
         label: MyLocalizations.of(context).trans('valuta_app5'),
         textColor: Theme.of(context).accentColor,
         onPressed: (){
-         launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+          prefs.setBool("stop_request_rating", true);
+          launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
         },
       ),
     );
