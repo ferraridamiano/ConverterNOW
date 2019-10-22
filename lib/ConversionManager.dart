@@ -21,8 +21,9 @@ class ConversionManager extends StatefulWidget{
   final int startPage;
   final Function changeToPage;
   final List<String> listaTitoli;
+  final bool showRateSnackBar;
 
-  ConversionManager(this.openDrawer, this.startPage, this.changeToPage, this.listaTitoli);
+  ConversionManager(this.openDrawer, this.startPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar);
 
   @override
   _ConversionManager createState() => new _ConversionManager();
@@ -70,8 +71,7 @@ class _ConversionManager extends State<ConversionManager>{
       _getCurrency();
     });
         
-    bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
-    if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30)){
+    if(widget.showRateSnackBar){
       Future.delayed(const Duration(seconds: 5), () {
         _showReviewSnackBar();
       });

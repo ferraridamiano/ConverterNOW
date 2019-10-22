@@ -18,10 +18,15 @@ class _AppManagerState extends State<AppManager> {
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+1);//+1 perchè c'è l'intestazione
   static List<int> listaOrderDrawer=[0,1,2,4,5,6,17,7,11,12,14,3,15,16,13,8,18,9,10]; //fino a maxconversionunits-1
   static List<String> listaTitoli;
+  static bool showRateSnackBar = false;
 
   @override
   void initState() {
     _getOrders();
+    bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
+    if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30))
+      showRateSnackBar=true;
+      
     super.initState();  
   }
 
@@ -191,11 +196,7 @@ class _AppManagerState extends State<AppManager> {
 
     initializeTiles();
 
-    GlobalKey scaffoldKey = GlobalKey();
-
-
     return Scaffold(
-      key: scaffoldKey,
       drawer: new Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -208,7 +209,8 @@ class _AppManagerState extends State<AppManager> {
           () { Scaffold.of(context).openDrawer(); },   //open Drawer
           currentPage,                              //first page
           _onSelectItem,                             //change page
-          listaTitoli
+          listaTitoli,
+          showRateSnackBar
         ),
       )
     );
