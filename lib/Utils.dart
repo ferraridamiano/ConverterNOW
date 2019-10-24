@@ -111,8 +111,9 @@ class _Calculator extends State<Calculator>{
   String text="";
   static const double buttonHeight=70.0;
   static const double buttonOpSize=buttonHeight*0.8;
-  static const double textSize=35.0;  
-
+  static const double textSize=35.0;
+  
+  double result=0;
   bool alreadyDeleted=false;
   bool isResult=false;
   double firstNumber,secondNumber;
@@ -223,18 +224,15 @@ class _Calculator extends State<Calculator>{
   }
 
   void addChar(String char){
-    //Se il risultato è stato scritto e premo su un numero azzero tutto
-    if(isResult){
-      isResult=false;
-      operation=0;
-      firstNumber=null;
-      secondNumber=null;
-      text="";
-    }
+
+    isResult=false;
+    
     //Se premo un tasto dopo aver premuto su un operazione devo cancellare
     if(!alreadyDeleted && firstNumber!=null && text.length>0){
-      text="";
       alreadyDeleted=true;
+      setState(() {
+        text="";
+      });
     }
     //Se premo un tasto devo aggiornare il testo dei numeri visualizzati
     if(char != "." || (char=="." && !text.contains(".") && text.length>0)){
@@ -252,14 +250,19 @@ class _Calculator extends State<Calculator>{
   }
 
   void setOperation(int op){
+
+    //Se voglio usare il risulato concatenandolo a una nuova operazione
+    isResult=false;
+    firstNumber=double.parse(text);
+    secondNumber=null;
+    alreadyDeleted=false;
+
     setState((){
       operation=op;
-      firstNumber=double.parse(text);
     });
   }
   void computeCalculus(){
     secondNumber=double.parse(text);
-    double result;
     if(firstNumber==null || secondNumber==null || operation==0 || (operation==4 && secondNumber==0))
       result=null;
     else{
@@ -289,6 +292,7 @@ class _Calculator extends State<Calculator>{
     }
     alreadyDeleted=false;
     isResult=true;
+    operation=0;
   }
 
 

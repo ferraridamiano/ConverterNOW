@@ -321,24 +321,18 @@ class _ConversionManager extends State<ConversionManager>{
       floatingActionButton: FloatingActionButton(
         child: Image.asset("resources/images/calculator.png",width: 30.0,),
         onPressed: (){
-          _fabPressed();
+          showModalBottomSheet<void>(context: context,
+            builder: (BuildContext context) {
+              double displayWidth=MediaQuery.of(context).size.width;
+              return Calculator(Theme.of(context).accentColor, displayWidth); 
+            }
+          );
         },
         elevation: 5.0,
         backgroundColor: Theme.of(context).accentColor,//Color(0xff2196f3)//listaColori[currentPage],
       )
-
     );
   }
-
-  _fabPressed(){
-    showModalBottomSheet<void>(context: context,
-      builder: (BuildContext context) {
-        double displayWidth=MediaQuery.of(context).size.width;
-        return Calculator(Theme.of(context).primaryColor, displayWidth); 
-      }
-    );
-  }
-
 }
 
 
