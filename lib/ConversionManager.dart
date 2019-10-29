@@ -34,8 +34,8 @@ class _ConversionManager extends State<ConversionManager>{
 
   
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  var currencyValues={"CAD":1.4642,"HKD":8.7482,"RUB":71.5025,"PHP":57.58,"DKK":7.4631,"NZD":1.6888,"CNY":7.7173,"AUD":1.6058,"RON":4.72,"SEK":10.5973,"IDR":15824.37,"INR":76.8955,"BRL":4.2752,"USD":1.1215,"ILS":4.0095,"JPY":121.8,"THB":34.514,"CHF":1.1127,"CZK":25.509,"MYR":4.6436,"TRY":6.4304,"MXN":21.2581,"NOK":9.684,"HUF":324.66,"ZAR":15.8813,"SGD":1.5247,"GBP":0.89625,"KRW":1322.07,"PLN":4.253}; //base euro (aggiornato a 08/07/2019)
-  static String lastUpdateCurrency="Last update: 2019-07-08";
+  var currencyValues={"CAD":1.4487,"HKD":8.6923,"RUB":70.5328,"PHP":56.731,"DKK":7.4707,"NZD":1.7482,"CNY":7.8366,"AUD":1.6245,"RON":4.7559,"SEK":10.7503,"IDR":15536.21,"INR":78.4355,"BRL":4.4158,"USD":1.1087,"ILS":3.9187,"JPY":120.69,"THB":33.488,"CHF":1.1047,"CZK":25.48,"MYR":4.641,"TRY":6.3479,"MXN":21.1244,"NOK":10.2105,"HUF":328.16,"ZAR":16.1202,"SGD":1.5104,"GBP":0.86328,"KRW":1297.1,"PLN":4.2715}; //base euro (aggiornato a 29/10/2019)
+  static String lastUpdateCurrency="Last update: 2019-10-29";
   static List listaConversioni;
   static List orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
   static List orderSuperficie=[0,1,2,3,4,5,6,7,8,9,10];
