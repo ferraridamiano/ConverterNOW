@@ -33,12 +33,12 @@ class _MyApp extends State<MyApp> {
       title: 'Converter NOW',
       home: AppManager(),
       theme: ThemeData(
-          primaryColor: Color(0xFFF44336),
-          accentColor: Color(0xFF03A9F4),
+          primaryColor: Color(0xFFF2542D),
+          accentColor: Color(0xFF0E9594),
           brightness: Brightness.light),
       darkTheme: ThemeData(
-        primaryColor: Color(0xFFF44336),
-        accentColor: Color(0xFF03A9F4),
+        primaryColor: Color(0xFFF2542D),
+        accentColor: Color(0xFF0E9594),
         brightness: Brightness.dark),
       supportedLocales: [const Locale('en', 'US'), const Locale('it', 'IT')],
       localizationsDelegates: [

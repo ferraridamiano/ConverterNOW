@@ -140,9 +140,10 @@ initializeUnits(BuildContext context, listaOrder, currencyValues){
       ]),
       Node(isMultiplication: true, coefficientPer: 100000.0, name: MyLocalizations.of(context).trans('quintale'),order: listaOrder[7][5],),
       Node(isMultiplication: true, coefficientPer: 1000000.0, name: MyLocalizations.of(context).trans('tonnellata'),symbol:"[t]",order: listaOrder[7][6],),
-      Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('milligrammo'),symbol:"[mg]",order: listaOrder[7][7],),
-      Node(isMultiplication: true, coefficientPer: 1.660539e-24, name: MyLocalizations.of(context).trans('uma'),symbol:"[u]",order: listaOrder[7][8],),
-      Node(isMultiplication: true, coefficientPer: 0.2, name: MyLocalizations.of(context).trans('carato'),symbol:"[ct]",order: listaOrder[7][9],),
+      Node(isMultiplication: false, coefficientPer: 100.0, name: MyLocalizations.of(context).trans('centigrammo'),symbol:"[cg]",order: listaOrder[7][7],),
+      Node(isMultiplication: false, coefficientPer: 1000.0, name: MyLocalizations.of(context).trans('milligrammo'),symbol:"[mg]",order: listaOrder[7][8],),
+      Node(isMultiplication: true, coefficientPer: 1.660539e-24, name: MyLocalizations.of(context).trans('uma'),symbol:"[u]",order: listaOrder[7][9],),
+      Node(isMultiplication: true, coefficientPer: 0.2, name: MyLocalizations.of(context).trans('carato'),symbol:"[ct]",order: listaOrder[7][10],),
     ]);
 
     Node pascal=Node(name: MyLocalizations.of(context).trans('pascal'),symbol:"[Pa]",order: listaOrder[8][0],

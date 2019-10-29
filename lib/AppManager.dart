@@ -62,7 +62,7 @@ class _AppManagerState extends State<AppManager> {
                             Navigator.of(context).pop();
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => SettingsPage()),
+                              MaterialPageRoute(builder: (context) => SettingsPage(Theme.of(context).primaryColor, Theme.of(context).accentColor)),
                             );
                           },
                         ),
@@ -94,7 +94,7 @@ class _AppManagerState extends State<AppManager> {
                       Navigator.of(context).pop();
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SettingsPage()),
+                        MaterialPageRoute(builder: (context) => SettingsPage(Theme.of(context).primaryColor, Theme.of(context).accentColor)),
                       );
                     },
                   ),

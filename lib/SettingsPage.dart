@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 import 'Utils.dart';
 
 class SettingsPage extends StatelessWidget{
+
+  final Color primaryColor;
+  final Color accentColor;
+  SettingsPage(this.primaryColor, this.accentColor);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-          color: Colors.red,
+          color: primaryColor,
           child: new Stack(
             children: <Widget>[
               IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,), onPressed: () {Navigator.pop(context);},),
@@ -58,7 +63,7 @@ class SettingsPage extends StatelessWidget{
             onTap: (){
               Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SettingsPage2()),
+                    MaterialPageRoute(builder: (context) => SettingsPage2(primaryColor, accentColor)),
                   );
             },
           ),
@@ -72,6 +77,12 @@ class SettingsPage extends StatelessWidget{
 }
 
 class SettingsPage2 extends StatefulWidget{
+
+  final Color primaryColor;
+  final Color accentColor;
+
+  SettingsPage2(this.primaryColor, this.accentColor);
+
   @override
   _SettingsPage2 createState() => _SettingsPage2();
 }
@@ -83,7 +94,7 @@ class _SettingsPage2 extends State<SettingsPage2>{
     
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-          color: Colors.red,
+          color: widget.primaryColor,
           child: new Stack(
             children: <Widget>[
               IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,), onPressed: () {Navigator.pop(context);},),
@@ -98,7 +109,7 @@ class _SettingsPage2 extends State<SettingsPage2>{
             children:<Widget>[
               ListTile(
                 title: Text(MyLocalizations.of(context).trans('logo_drawer')),
-                trailing: Checkbox(value: isLogoVisible,activeColor: Colors.red,
+                trailing: Checkbox(value: isLogoVisible,activeColor: widget.accentColor,
                 onChanged: (bool val) {
                   setState(() {
                     isLogoVisible=val;
