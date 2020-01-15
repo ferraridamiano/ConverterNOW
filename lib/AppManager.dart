@@ -197,6 +197,7 @@ class _AppManagerState extends State<AppManager> {
     initializeTiles();
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       drawer: new Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
