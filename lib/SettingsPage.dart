@@ -1,5 +1,5 @@
-import 'package:converter_pro/Localization.dart';
-import 'package:converter_pro/main.dart';
+import 'package:converternow/Localization.dart';
+import 'package:converternow/main.dart';
 import 'package:flutter/material.dart';
 import 'Utils.dart';
 

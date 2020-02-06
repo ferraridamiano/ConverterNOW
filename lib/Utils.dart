@@ -1,4 +1,4 @@
-import 'package:converter_pro/ConversionManager.dart';
+import 'package:converternow/ConversionManager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
@@ -22,7 +22,7 @@ class BigHeader implements ListItem{
 
 class BigTitle extends StatelessWidget{
 
-  BigTitle(this.text, this.subtitle);
+  BigTitle({this.text, this.subtitle});
   final String text;
   final String subtitle;
 
@@ -74,16 +74,14 @@ class UnitCard extends StatelessWidget{
             padding: EdgeInsets.only(top: 14.0),
             child: new Card(
               child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                  child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        this.textField
-                      ])),
+                  padding: EdgeInsets.all(10.0),
+                  child: new Center(
+                    child:this.textField
+                  )),
               elevation: 4.0,
             )),
             node.symbol==null?SizedBox() : Align(
-              alignment: Alignment(0.95, 0),
+              alignment: Alignment(0.95, -0.9),
               child: Card(
                 elevation: 4.0,
                 child: Padding(
@@ -429,12 +427,12 @@ class _ListTileConversion extends State<ListTileConversion>{
     return ListTileTheme(
       child:ListTile(
         title: Row(children: <Widget>[
-          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  widget.selected ? Theme.of(context).accentColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
+          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  Colors.white/*(widget.selected ? Theme.of(context).accentColor : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54))*/),
           SizedBox(width: 20.0,),
           Text(
             widget.text,
             style: TextStyle(
-              color: widget.selected ? Theme.of(context).accentColor/*widget.color*/ : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
+              color: widget.selected ? Theme.of(context).accentColor : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
               fontWeight: widget.selected ? FontWeight.bold : FontWeight.normal,
             ),
             

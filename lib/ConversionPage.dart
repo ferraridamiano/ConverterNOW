@@ -1,14 +1,16 @@
-import 'package:converter_pro/Utils.dart';
+import 'package:converternow/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'UtilsConversion.dart';
+import 'helpers/responsive_helper.dart';
 
 class ConversionPage extends StatefulWidget {
 
   final Node fatherNode;
   final String title;
   final String subtitle;
-  ConversionPage(this.fatherNode, this.title, this.subtitle);
+  MediaQueryData mediaQuery;
+  ConversionPage(this.fatherNode, this.title, this.subtitle, this.mediaQuery);
 
   @override
   _ConversionPage createState() => new _ConversionPage();
@@ -136,10 +138,62 @@ class _ConversionPage extends State<ConversionPage> {
     return listaCard;
   }
 
+  Widget _buildConversionGrid(MediaQueryData mediaQuery) {
+    
+    List itemList=createList();
+    //List<GridTile> tiles = [];
+    
+    List gridTiles = new List();
+    for(ListItem item in itemList){
+      if (item is MyCard) {
+        gridTiles.add(UnitCard(node: item.node, textField: item.textField,));
+      }
+      else if(item is BigHeader) { //(item is BigHeader)
+        gridTiles.add(BigTitle(text: item.title, subtitle: item.subTitle,));
+      }
+    }
+
+    return Padding(
+      padding: responsivePadding(mediaQuery),
+      child: GridView.count(
+        crossAxisCount: responsiveNumGridTiles(mediaQuery),
+        mainAxisSpacing: 30.0,
+        crossAxisSpacing: 30.0,
+        shrinkWrap: true,
+        //physics: NeverScrollableScrollPhysics(),
+        children: gridTiles,
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     List itemList=createList();
+    List<Widget> gridTiles = new List();
+
+    for(ListItem item in itemList){
+      if (item is MyCard) {
+        gridTiles.add(UnitCard(node: item.node, textField: item.textField,));
+      }
+      else if(item is BigHeader) { //(item is BigHeader)
+        gridTiles.add(BigTitle(text: item.title, subtitle: item.subTitle,));
+      }
+    }
     return Scrollbar(
+      child: Padding(
+        padding: responsivePadding(widget.mediaQuery),
+        child: GridView.count(
+          childAspectRatio: responsiveChildAspectRatio(widget.mediaQuery),
+          crossAxisCount: responsiveNumGridTiles(widget.mediaQuery),
+          shrinkWrap: true,
+          crossAxisSpacing: 15.0,
+          children: gridTiles,
+        ),
+      ),
+    );
+    
+    /*return Scrollbar(
       child:ListView.builder(
         shrinkWrap: true,
         padding: new EdgeInsets.only(left: 10.0,right:10.0,bottom: 25.0),
@@ -154,6 +208,6 @@ class _ConversionPage extends State<ConversionPage> {
           }
         }
       )
-    );
+    );*/
   }
 }

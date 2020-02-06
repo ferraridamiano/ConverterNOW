@@ -1,4 +1,4 @@
-import 'package:converter_pro/Localization.dart';
+import 'package:converternow/Localization.dart';
 import 'package:flutter/widgets.dart';
 import 'Utils.dart';
 import 'UtilsConversion.dart';

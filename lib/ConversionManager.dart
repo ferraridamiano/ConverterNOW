@@ -1,8 +1,8 @@
-import 'package:converter_pro/ConversionPage.dart';
-import 'package:converter_pro/Localization.dart';
-import 'package:converter_pro/ReorderPage.dart';
-import 'package:converter_pro/Utils.dart';
-import 'package:converter_pro/main.dart';
+import 'package:converternow/ConversionPage.dart';
+import 'package:converternow/Localization.dart';
+import 'package:converternow/ReorderPage.dart';
+import 'package:converternow/Utils.dart';
+import 'package:converternow/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -270,7 +270,7 @@ class _ConversionManager extends State<ConversionManager>{
     return Scaffold(
       key:scaffoldKey,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(child:ConversionPage(listaConversioni[currentPage],widget.listaTitoli[currentPage], currentPage==11 ? lastUpdateCurrency : "")),
+      body: SafeArea(child:ConversionPage(listaConversioni[currentPage],widget.listaTitoli[currentPage], currentPage==11 ? lastUpdateCurrency : "", MediaQuery.of(context))),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,

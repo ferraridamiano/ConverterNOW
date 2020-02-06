@@ -3,7 +3,7 @@ import 'ReorderPage.dart';
 import 'SettingsPage.dart';
 import 'Utils.dart';
 import 'ConversionManager.dart';
-import 'package:converter_pro/Localization.dart';
+import 'package:converternow/Localization.dart';
 import 'main.dart';
 
 int currentPage=0;
@@ -211,7 +211,7 @@ class _AppManagerState extends State<AppManager> {
           currentPage,                              //first page
           _onSelectItem,                             //change page
           listaTitoli,
-          showRateSnackBar
+          showRateSnackBar,
         ),
       )
     );

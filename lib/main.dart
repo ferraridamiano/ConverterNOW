@@ -1,5 +1,5 @@
-import 'package:converter_pro/AppManager.dart';
-import 'package:converter_pro/Localization.dart';
+import 'package:converternow/AppManager.dart';
+import 'package:converternow/Localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
