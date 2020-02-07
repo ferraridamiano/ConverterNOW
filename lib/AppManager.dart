@@ -51,12 +51,14 @@ class _AppManagerState extends State<AppManager> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         IconButton(
+                          tooltip: MyLocalizations.of(context).trans('riordina'),
                           icon: Icon(Icons.reorder,color: Colors.white,),
                           onPressed:(){
                             _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'));
                           }
                         ),
                         IconButton(
+                          tooltip: MyLocalizations.of(context).trans('impostazioni'),
                           icon:Icon(Icons.settings,color: Colors.white,),
                           onPressed: (){
                             Navigator.of(context).pop();
@@ -83,12 +85,14 @@ class _AppManagerState extends State<AppManager> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   IconButton(
+                    tooltip: MyLocalizations.of(context).trans('riordina'),
                     icon: Icon(Icons.reorder,color: Colors.white,),
                     onPressed:(){
                       _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'));
                     }
                   ),
                   IconButton(
+                    tooltip: MyLocalizations.of(context).trans('impostazioni'),
                     icon:Icon(Icons.settings,color: Colors.white,),
                     onPressed: (){
                       Navigator.of(context).pop();
@@ -197,7 +201,7 @@ class _AppManagerState extends State<AppManager> {
     initializeTiles();
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       drawer: new Drawer(
         child: ListView(
           padding: EdgeInsets.zero,

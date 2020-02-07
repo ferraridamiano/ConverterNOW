@@ -279,12 +279,16 @@ class _ConversionManager extends State<ConversionManager>{
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             new Builder(builder: (context) {
-              return IconButton(icon: Icon(Icons.menu,color: Colors.white,), onPressed: () {
+              return IconButton(
+                tooltip: MyLocalizations.of(context).trans('menu'),
+                icon: Icon(Icons.menu,color: Colors.white,),
+                onPressed: () {
                 widget.openDrawer();
               });
             }),
             Row(children: <Widget>[
               IconButton(
+                tooltip: MyLocalizations.of(context).trans('elimina_tutto'),
                 icon: Icon(Icons.clear,color: Colors.white),
                 onPressed: () {
                   setState(() {
@@ -292,7 +296,8 @@ class _ConversionManager extends State<ConversionManager>{
                   });
                 },),
               IconButton(
-                icon: Icon(Icons.search,color: Colors.white, semanticLabel: "Search",),
+                tooltip: MyLocalizations.of(context).trans('cerca'),
+                icon: Icon(Icons.search,color: Colors.white,),
                 onPressed: () async {
                   final int paginaReindirizzamento=await showSearch(context: context,delegate: _searchDelegate);
                   if(paginaReindirizzamento!=null)
@@ -319,6 +324,7 @@ class _ConversionManager extends State<ConversionManager>{
       ),
       
       floatingActionButton: FloatingActionButton(
+        tooltip: MyLocalizations.of(context).trans('calcolatrice'),
         child: Image.asset("resources/images/calculator.png",width: 30.0,),
         onPressed: (){
           showModalBottomSheet<void>(context: context,
