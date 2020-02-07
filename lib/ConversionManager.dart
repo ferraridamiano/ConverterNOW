@@ -292,7 +292,7 @@ class _ConversionManager extends State<ConversionManager>{
                   });
                 },),
               IconButton(
-                icon: Icon(Icons.search, color: Colors.white),
+                icon: Icon(Icons.search,color: Colors.white, semanticLabel: "Search",),
                 onPressed: () async {
                   final int paginaReindirizzamento=await showSearch(context: context,delegate: _searchDelegate);
                   if(paginaReindirizzamento!=null)
@@ -345,6 +345,9 @@ class Choice {
 
 
 class CustomSearchDelegate extends SearchDelegate<int> {  
+
+  @override
+  ThemeData appBarTheme(BuildContext context) => Theme.of(context);
 
   @override
   Widget buildLeading(BuildContext context) {
