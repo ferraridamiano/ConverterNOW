@@ -427,7 +427,7 @@ class _ListTileConversion extends State<ListTileConversion>{
     return ListTileTheme(
       child:ListTile(
         title: Row(children: <Widget>[
-          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  Colors.white/*(widget.selected ? Theme.of(context).accentColor : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54))*/),
+          Image.asset(widget.imagePath,width: 30.0,height: 30.0, color:  (widget.selected ? Theme.of(context).accentColor : (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54))),
           SizedBox(width: 20.0,),
           Text(
             widget.text,
