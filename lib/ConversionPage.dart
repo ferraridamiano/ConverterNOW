@@ -29,8 +29,13 @@ class _ConversionPage extends State<ConversionPage> {
     super.didUpdateWidget(oldWidget);
   }
 
-@override
+  @override
   void initState() {
+
+    for(int i=0; i<100; i++){
+      listaFocus.add(FocusNode());
+    }
+    
     initialize();
     super.initState();
   }
@@ -39,22 +44,21 @@ class _ConversionPage extends State<ConversionPage> {
     widget.fatherNode.clearSelectedNode();
     
     listaController.clear();
-    listaFocus.clear();
+    //listaFocus.clear();
     listaNodi=widget.fatherNode.getOrderedNodiFiglio();
-    for (Node node in listaNodi) {
+    for(int i=0; i<100; i++){ //(Node node in listaNodi) {
       listaController.add(new TextEditingController());
-      FocusNode focus = new FocusNode();
-      focus.addListener(() {
-        if (focus.hasFocus) {
+      listaFocus[i].addListener(() {
+        if (listaFocus[i].hasFocus) {
           if (selectedNode != null) {
             selectedNode.selectedNode = false;
           }
-          node.selectedNode = true;
-          node.convertedNode = true;
-          selectedNode = node;
+          listaNodi[i].selectedNode = true;
+          listaNodi[i].convertedNode = true;
+          selectedNode = listaNodi[i];
         }
       });
-      listaFocus.add(focus);
+      listaFocus.add(listaFocus[i]);
     }
   }
 
@@ -76,24 +80,21 @@ class _ConversionPage extends State<ConversionPage> {
     List<ListItem> listaCard = new List();
     listaCard.add(BigHeader(title:widget.title, subTitle: widget.subtitle));
     for (int i = 0; i < listaNodi.length; i++) {
-      Node nodo = listaNodi[i];
-      TextEditingController controller;
-      controller = listaController[i];
 
-      if ((nodo.value != null || nodo.valueString!=null) && !nodo.selectedNode){
-        if(nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL)
-          controller.text = nodo.mantissaCorrection();
-        else if (nodo.keyboardType==KEYBOARD_COMPLETE || nodo.keyboardType==KEYBOARD_NUMBER_INTEGER)
-          controller.text = nodo.valueString;
+      if ((listaNodi[i].value != null || listaNodi[i].valueString!=null) && !listaNodi[i].selectedNode){
+        if(listaNodi[i].keyboardType==KEYBOARD_NUMBER_DECIMAL)
+          listaController[i].text = listaNodi[i].mantissaCorrection();
+        else if (listaNodi[i].keyboardType==KEYBOARD_COMPLETE || listaNodi[i].keyboardType==KEYBOARD_NUMBER_INTEGER)
+          listaController[i].text = listaNodi[i].valueString;
       }
-      else if(!nodo.selectedNode && 
-      ((nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL && nodo.value == null) || 
-       ((nodo.keyboardType==KEYBOARD_COMPLETE || nodo.keyboardType==KEYBOARD_NUMBER_INTEGER) && nodo.valueString == null))){
-         controller.text="";
+      else if(!listaNodi[i].selectedNode && 
+      ((listaNodi[i].keyboardType==KEYBOARD_NUMBER_DECIMAL && listaNodi[i].value == null) || 
+       ((listaNodi[i].keyboardType==KEYBOARD_COMPLETE || listaNodi[i].keyboardType==KEYBOARD_NUMBER_INTEGER) && listaNodi[i].valueString == null))){
+         listaController[i].text="";
        }
 
       TextInputType keyboardType;
-      switch(nodo.keyboardType){
+      switch(listaNodi[i].keyboardType){
         case KEYBOARD_NUMBER_DECIMAL:{
           keyboardType=TextInputType.numberWithOptions(decimal: true, signed: false);
           break;
@@ -109,22 +110,22 @@ class _ConversionPage extends State<ConversionPage> {
       }
 
       listaCard.add(MyCard(
-          node: nodo,
+          node: listaNodi[i],
           textField: TextFormField(
             style: TextStyle(
               fontSize: 16.0,
               color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white : Colors.black,
             ),
             keyboardType: keyboardType,
-            controller: controller,
+            controller: listaController[i],
             focusNode: listaFocus[i],
-            decoration: InputDecoration(labelText: nodo.name),
+            decoration: InputDecoration(labelText: listaNodi[i].name),
             onChanged: (String txt) {
-              if(nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL){
-                nodo.value = txt == "" ? null : double.parse(txt);
+              if(listaNodi[i].keyboardType==KEYBOARD_NUMBER_DECIMAL){
+                listaNodi[i].value = txt == "" ? null : double.parse(txt);
               }
-              else if(nodo.keyboardType==KEYBOARD_NUMBER_INTEGER || nodo.keyboardType==KEYBOARD_COMPLETE){
-                nodo.valueString = txt == "" ? null : txt;
+              else if(listaNodi[i].keyboardType==KEYBOARD_NUMBER_INTEGER || listaNodi[i].keyboardType==KEYBOARD_COMPLETE){
+                listaNodi[i].valueString = txt == "" ? null : txt;
               }
 
               setState(() {
@@ -192,22 +193,6 @@ class _ConversionPage extends State<ConversionPage> {
         ),
       ),
     );
-    
-    /*return Scrollbar(
-      child:ListView.builder(
-        shrinkWrap: true,
-        padding: new EdgeInsets.only(left: 10.0,right:10.0,bottom: 25.0),
-        itemCount: itemList.length,
-        itemBuilder: (context, index) {
-          final item = itemList[index];
-          if (item is MyCard) {
-            return UnitCard(node: item.node,textField: item.textField,);
-          }
-          else  { //(item is BigHeader)
-            return BigTitle(item.title, item.subTitle);
-          }
-        }
-      )
-    );*/
+
   }
 }
