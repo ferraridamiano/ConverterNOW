@@ -60,7 +60,6 @@ class _AppManagerState extends State<AppManager> {
       showRateSnackBar=true;
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      initializeTiles();
       _getCurrency();
       listaConversioni=initializeUnits(context, listaOrder, currencyValues); 
     });
@@ -284,6 +283,8 @@ class _AppManagerState extends State<AppManager> {
     MyLocalizations.of(context).trans('taglia_scarpe'),MyLocalizations.of(context).trans('dati_digitali'),MyLocalizations.of(context).trans('potenza'),
     MyLocalizations.of(context).trans('forza'), MyLocalizations.of(context).trans('momento'),MyLocalizations.of(context).trans('consumo_carburante'),
     MyLocalizations.of(context).trans('basi_numeriche')];
+
+    initializeTiles();
 
     if(listaConversioni==null)
       return SizedBox();

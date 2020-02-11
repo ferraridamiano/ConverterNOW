@@ -36,10 +36,6 @@ class _ConversionPage extends State<ConversionPage> {
 
   @override
   void initState() {
-
-    for(int i=0; i<100; i++){
-      listaFocus.add(FocusNode());
-    }
     previousNode=widget.fatherNode.hashCode;
     initialize();
     super.initState();
@@ -49,21 +45,22 @@ class _ConversionPage extends State<ConversionPage> {
     widget.fatherNode.clearSelectedNode();
     
     listaController.clear();
-    //listaFocus.clear();
+    listaFocus.clear();
     listaNodi=widget.fatherNode.getOrderedNodiFiglio();
-    for(int i=0; i<100; i++){ //(Node node in listaNodi) {
+    for(Node node in listaNodi){ //(Node node in listaNodi) {
       listaController.add(new TextEditingController());
-      listaFocus[i].addListener(() {
-        if (listaFocus[i].hasFocus) {
+      FocusNode focus = new FocusNode();
+      focus.addListener(() {
+        if (focus.hasFocus) {
           if (selectedNode != null) {
             selectedNode.selectedNode = false;
           }
-          listaNodi[i].selectedNode = true;
-          listaNodi[i].convertedNode = true;
-          selectedNode = listaNodi[i];
+          node.selectedNode = true;
+          node.convertedNode = true;
+          selectedNode = node;
         }
       });
-      listaFocus.add(listaFocus[i]);
+      listaFocus.add(focus);
     }
   }
 

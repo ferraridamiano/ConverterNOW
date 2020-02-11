@@ -20,10 +20,10 @@ class ConversionManager extends StatefulWidget{
   final List<String> listaTitoli;
   final bool showRateSnackBar;
   final List listaConversioni;
-  final List listaOrder;
+  final List listaOrderUnita;
   final String lastUpdateCurrency;
 
-  ConversionManager(this.openDrawer, this.startPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar, this.listaConversioni, this. listaOrder, this.lastUpdateCurrency);
+  ConversionManager(this.openDrawer, this.startPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar, this.listaConversioni, this.listaOrderUnita, this.lastUpdateCurrency);
 
   @override
   _ConversionManager createState() => new _ConversionManager();
@@ -34,10 +34,12 @@ class _ConversionManager extends State<ConversionManager>{
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   final SearchDelegate _searchDelegate=CustomSearchDelegate();
   final GlobalKey<ScaffoldState> scaffoldKey =GlobalKey();
+  List listaOrder;
 
   @override
   void initState() {
     currentPage=widget.startPage;
+    listaOrder=widget.listaOrderUnita;
     _getOrders();
         
     if(widget.showRateSnackBar){
@@ -62,7 +64,7 @@ class _ConversionManager extends State<ConversionManager>{
   _saveOrders() async {
     //SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> toConvertList=new List();
-    for(int item in widget.listaOrder[currentPage])
+    for(int item in listaOrder[currentPage])
       toConvertList.add(item.toString());
     prefs.setStringList("conversion_$currentPage", toConvertList);
   }
@@ -80,16 +82,16 @@ class _ConversionManager extends State<ConversionManager>{
           intList.add(int.parse(stringList[j]));
         }
         //risolve il problema di aggiunta di unità dopo un aggiornamento
-        for(int j=len; j<widget.listaOrder[i].length;j++)     
+        for(int j=len; j<listaOrder[i].length;j++)     
           intList.add(j);
         
         if(i==currentPage){
           setState(() {
-            widget.listaOrder[i]=intList;
+            listaOrder[i]=intList;
           });
         }
         else
-          widget.listaOrder[i]=intList;
+          listaOrder[i]=intList;
       }
     }
   }
@@ -101,12 +103,12 @@ class _ConversionManager extends State<ConversionManager>{
             title: title,
             listaElementi: listaStringhe,
         ),));
-    List arrayCopia=new List(widget.listaOrder[currentPage].length);
-    for(int i=0;i<widget.listaOrder[currentPage].length;i++)
-      arrayCopia[i]=widget.listaOrder[currentPage][i];
+    List arrayCopia=new List(listaOrder[currentPage].length);
+    for(int i=0;i<listaOrder[currentPage].length;i++)
+      arrayCopia[i]=listaOrder[currentPage][i];
     setState(() {
-      for(int i=0;i<widget.listaOrder[currentPage].length;i++)
-        widget.listaOrder[currentPage][i]=result.indexOf(arrayCopia[i]);
+      for(int i=0;i<listaOrder[currentPage].length;i++)
+        listaOrder[currentPage][i]=result.indexOf(arrayCopia[i]);
     });
     _saveOrders();
   }
