@@ -1,7 +1,9 @@
-import 'package:converternow/Localization.dart';
-import 'package:converternow/main.dart';
+import 'package:converterpro/utils/Localization.dart';
+import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
-import 'Utils.dart';
+
+import '../main.dart';
+
 
 class SettingsPage extends StatelessWidget{
 

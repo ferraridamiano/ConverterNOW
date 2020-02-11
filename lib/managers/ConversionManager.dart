@@ -1,10 +1,10 @@
-import 'package:converternow/ConversionPage.dart';
-import 'package:converternow/Localization.dart';
-import 'package:converternow/ReorderPage.dart';
-import 'package:converternow/Utils.dart';
-import 'package:converternow/main.dart';
+import 'package:converterpro/pages/ConversionPage.dart';
+import 'package:converterpro/pages/ReorderPage.dart';
+import 'package:converterpro/utils/Localization.dart';
+import 'package:converterpro/utils/UnitsData.dart';
+import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
-import 'UnitsData.dart';
+import '../main.dart';
 import 'AppManager.dart';
 import "dart:convert";
 

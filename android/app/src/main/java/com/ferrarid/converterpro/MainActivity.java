@@ -1,4 +1,4 @@
-package com.ferrarid.converternow;
+package com.ferrarid.converterpro;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

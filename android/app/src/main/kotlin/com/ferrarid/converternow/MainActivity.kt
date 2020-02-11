@@ -1,4 +1,4 @@
-package com.ferrarid.converternow
+package com.ferrarid.converterpro
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
