@@ -191,12 +191,8 @@ class Node {
   void clearAllValues(){
     List<Node> listanodi=_getNodiFiglio();
     for(Node nodo in listanodi){
-      if (nodo.selectedNode){
-        if(nodo.keyboardType==KEYBOARD_NUMBER_DECIMAL)
-          nodo.value=null;
-        else
-          nodo.valueString=null;
-      }
+      nodo.value=null;
+      nodo.valueString=null;
     }
   }
 

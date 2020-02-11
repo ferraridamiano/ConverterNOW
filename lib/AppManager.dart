@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'ReorderPage.dart';
 import 'SettingsPage.dart';
+import 'UnitsData.dart';
 import 'Utils.dart';
 import 'ConversionManager.dart';
 import 'package:converternow/Localization.dart';
+import 'UtilsConversion.dart';
 import 'main.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import "dart:convert";
 
 int currentPage=0;
 
@@ -19,6 +25,32 @@ class _AppManagerState extends State<AppManager> {
   static List<int> listaOrderDrawer=[0,1,2,4,5,6,17,7,11,12,14,3,15,16,13,8,18,9,10]; //fino a maxconversionunits-1
   static List<String> listaTitoli;
   static bool showRateSnackBar = false;
+  static List<Node> listaConversioni;
+  static String lastUpdateCurrency="Last update: 2019-10-29";
+  var currencyValues={"CAD":1.4487,"HKD":8.6923,"RUB":70.5328,"PHP":56.731,"DKK":7.4707,"NZD":1.7482,"CNY":7.8366,"AUD":1.6245,"RON":4.7559,"SEK":10.7503,"IDR":15536.21,"INR":78.4355,"BRL":4.4158,"USD":1.1087,"ILS":3.9187,"JPY":120.69,"THB":33.488,"CHF":1.1047,"CZK":25.48,"MYR":4.641,"TRY":6.3479,"MXN":21.1244,"NOK":10.2105,"HUF":328.16,"ZAR":16.1202,"SGD":1.5104,"GBP":0.86328,"KRW":1297.1,"PLN":4.2715}; //base euro (aggiornato a 29/10/2019)
+  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  static List orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  static List orderSuperficie=[0,1,2,3,4,5,6,7,8,9,10];
+  static List orderVolume=[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
+  static List orderTempo=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+  static List orderTemperatura=[0,1,2,3,4,5,6];
+  static List orderVelocita=[0,1,2,3,4];
+  static List orderPrefissi=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+  static List orderMassa=[0,1,2,3,4,5,6,7,8,9,10];
+  static List orderPressione=[0,1,2,3,4,5];
+  static List orderEnergia=[0,1,2,3];
+  static List orderAngoli=[0,1,2,3];
+  static List orderValute=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
+  static List orderScarpe=[0,1,2,3,4,5,6,7,8,9];
+  static List orderDati=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26];
+  static List orderPotenza=[0,1,2,3,4,5,6];
+  static List orderForza=[0,1,2,3,4];
+  static List orderTorque=[0,1,2,3,4];
+  static List orderConsumo=[0,1,2,3];
+  static List orderBasi=[0,1,2,3];
+  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  static List listaOrder=[orderLunghezza,orderSuperficie, orderVolume,orderTempo,orderTemperatura,orderVelocita,orderPrefissi,orderMassa,orderPressione,orderEnergia,
+  orderAngoli, orderValute, orderScarpe, orderDati, orderPotenza, orderForza, orderTorque, orderConsumo, orderBasi];
 
   @override
   void initState() {
@@ -26,8 +58,63 @@ class _AppManagerState extends State<AppManager> {
     bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
     if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30))
       showRateSnackBar=true;
+
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      initializeTiles();
+      _getCurrency();
+      listaConversioni=initializeUnits(context, listaOrder, currencyValues); 
+    });
+    
       
     super.initState();  
+  }
+
+  _leggiCurrenciesSalvate(){
+    String currencyRead=prefs.getString("currencyRates");
+    if(currencyRead!=null){
+      CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(currencyRead));
+      currencyValues=currencyObject.rates;
+
+      String lastUpdateRead=currencyObject.date;
+      if(lastUpdateRead!=null)
+        lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
+    }
+  }
+
+  _getCurrency() async {
+    //SharedPreferences prefs = await SharedPreferences.getInstance();
+    String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
+   
+    String dataFetched=prefs.getString("currencyRates");
+    if(dataFetched==null || CurrencyJSONObject.fromJson(json.decode(dataFetched)).date!=now){//se non ho mai aggiornato oppure se non aggiorno la lista da piú di un giorno allora aggiorno
+        try{
+          final response =await http.get('https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD,AUD,NZD,MXN,SGD,NOK,TRY,ZAR,DKK,PLN,THB,MYR,HUF,CZK,ILS,IDR,PHP,RON');
+          if (response.statusCode == 200) { //if successful
+
+            CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(response.body));
+            currencyValues=currencyObject.rates;  
+
+            //se tutte le richieste vanno a buon fine aggiorna la data di ultimo aggiornamento
+            lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
+
+            //salva in memoria
+            prefs.setString("currencyRates", response.body);
+          }
+          else    //se ho un'errore nella lettura dati dal web (per es non sono connesso)
+            _leggiCurrenciesSalvate();//leggi ultimi dati salvati
+
+        }catch(e){//se ho un'errore di comunicazione
+          print(e);
+          _leggiCurrenciesSalvate(); //leggi ultimi dati salvati
+      }
+    }
+    else{         //se ho già i dati alavati di oggi perchè sono già entrato la prima volta nell'app
+      _leggiCurrenciesSalvate();
+      lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
+    }
+    setState(() {
+      isCurrencyLoading=false;
+    });
   }
 
 
@@ -198,7 +285,8 @@ class _AppManagerState extends State<AppManager> {
     MyLocalizations.of(context).trans('forza'), MyLocalizations.of(context).trans('momento'),MyLocalizations.of(context).trans('consumo_carburante'),
     MyLocalizations.of(context).trans('basi_numeriche')];
 
-    initializeTiles();
+    if(listaConversioni==null)
+      return SizedBox();
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -216,6 +304,9 @@ class _AppManagerState extends State<AppManager> {
           _onSelectItem,                             //change page
           listaTitoli,
           showRateSnackBar,
+          listaConversioni,
+          listaOrder,
+          lastUpdateCurrency
         ),
       )
     );

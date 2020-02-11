@@ -21,11 +21,16 @@ class _ConversionPage extends State<ConversionPage> {
   List<FocusNode> listaFocus = new List();
   Node selectedNode;
   List listaNodi;
+  int previousNode;
 
   
   @override
   void didUpdateWidget(ConversionPage oldWidget) {
-    initialize();
+    if(previousNode != widget.fatherNode.hashCode){
+      initialize();
+      previousNode = widget.fatherNode.hashCode;
+    }
+      
     super.didUpdateWidget(oldWidget);
   }
 
@@ -35,7 +40,7 @@ class _ConversionPage extends State<ConversionPage> {
     for(int i=0; i<100; i++){
       listaFocus.add(FocusNode());
     }
-    
+    previousNode=widget.fatherNode.hashCode;
     initialize();
     super.initState();
   }
@@ -92,6 +97,8 @@ class _ConversionPage extends State<ConversionPage> {
        ((listaNodi[i].keyboardType==KEYBOARD_COMPLETE || listaNodi[i].keyboardType==KEYBOARD_NUMBER_INTEGER) && listaNodi[i].valueString == null))){
          listaController[i].text="";
        }
+      else if(listaNodi[i].selectedNode && listaNodi[i].value == null && listaNodi[i].valueString == null)
+        listaController[i].text="";
 
       TextInputType keyboardType;
       switch(listaNodi[i].keyboardType){
