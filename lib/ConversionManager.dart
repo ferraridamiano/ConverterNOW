@@ -22,8 +22,9 @@ class ConversionManager extends StatefulWidget{
   final List listaConversioni;
   final List listaOrderUnita;
   final String lastUpdateCurrency;
+  final currencyValues;
 
-  ConversionManager(this.openDrawer, this.startPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar, this.listaConversioni, this.listaOrderUnita, this.lastUpdateCurrency);
+  ConversionManager(this.openDrawer, this.startPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar, this.listaConversioni, this.listaOrderUnita, this.lastUpdateCurrency, this.currencyValues);
 
   @override
   _ConversionManager createState() => new _ConversionManager();
@@ -35,12 +36,13 @@ class _ConversionManager extends State<ConversionManager>{
   final SearchDelegate _searchDelegate=CustomSearchDelegate();
   final GlobalKey<ScaffoldState> scaffoldKey =GlobalKey();
   List listaOrder;
+  List listaConversioni;
 
   @override
   void initState() {
     currentPage=widget.startPage;
     listaOrder=widget.listaOrderUnita;
-    _getOrders();
+    listaConversioni=widget.listaConversioni;
         
     if(widget.showRateSnackBar){
       Future.delayed(const Duration(seconds: 5), () {
@@ -52,7 +54,7 @@ class _ConversionManager extends State<ConversionManager>{
 
   _onSelectItem(int index) {
     if(currentPage!=index) {
-      widget.listaConversioni[currentPage].clearSelectedNode();
+      listaConversioni[currentPage].clearSelectedNode();
       widget.changeToPage(index);
     }
   }
@@ -68,33 +70,6 @@ class _ConversionManager extends State<ConversionManager>{
       toConvertList.add(item.toString());
     prefs.setStringList("conversion_$currentPage", toConvertList);
   }
-  _getOrders() async {
-
-    List <String> stringList;
-    //aggiorno ordine unità di ogni grandezza fisica
-    for(int i=0;i<MAX_CONVERSION_UNITS;i++){
-      stringList=prefs.getStringList("conversion_$i");
-
-      if(stringList!=null){
-        final int len=stringList.length;
-        List intList=new List();
-        for(int j=0;j<len;j++){
-          intList.add(int.parse(stringList[j]));
-        }
-        //risolve il problema di aggiunta di unità dopo un aggiornamento
-        for(int j=len; j<listaOrder[i].length;j++)     
-          intList.add(j);
-        
-        if(i==currentPage){
-          setState(() {
-            listaOrder[i]=intList;
-          });
-        }
-        else
-          listaOrder[i]=intList;
-      }
-    }
-  }
 
   _changeOrderUnita(BuildContext context,String title, List listaStringhe) async{
     final result = await Navigator.push(
@@ -109,6 +84,7 @@ class _ConversionManager extends State<ConversionManager>{
     setState(() {
       for(int i=0;i<listaOrder[currentPage].length;i++)
         listaOrder[currentPage][i]=result.indexOf(arrayCopia[i]);
+      listaConversioni=initializeUnits(context, listaOrder, widget.currencyValues); 
     });
     _saveOrders();
   }
@@ -192,7 +168,7 @@ class _ConversionManager extends State<ConversionManager>{
     return Scaffold(
       key:scaffoldKey,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(child:ConversionPage(widget.listaConversioni[currentPage],widget.listaTitoli[currentPage], currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context))),
+      body: SafeArea(child:ConversionPage(listaConversioni[currentPage],widget.listaTitoli[currentPage], currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context))),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,
@@ -214,7 +190,7 @@ class _ConversionManager extends State<ConversionManager>{
                 icon: Icon(Icons.clear,color: Colors.white),
                 onPressed: () {
                   setState(() {
-                    widget.listaConversioni[currentPage].clearAllValues();
+                    listaConversioni[currentPage].clearAllValues();
                   });
                 },),
               IconButton(
@@ -229,7 +205,7 @@ class _ConversionManager extends State<ConversionManager>{
               PopupMenuButton<Choice>(
                 icon: Icon(Icons.more_vert,color: Colors.white,),
                 onSelected: (Choice choice){
-                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), widget.listaConversioni[currentPage].getStringOrderedNodiFiglio());
+                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[currentPage].getStringOrderedNodiFiglio());
                 },
                 itemBuilder: (BuildContext context) {
                   return choices.map((Choice choice) {

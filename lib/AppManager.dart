@@ -54,7 +54,8 @@ class _AppManagerState extends State<AppManager> {
 
   @override
   void initState() {
-    _getOrders();
+    _getOrdersDrawer();
+    _getOrdersUnita();
     bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
     if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30))
       showRateSnackBar=true;
@@ -253,7 +254,7 @@ class _AppManagerState extends State<AppManager> {
     }
   }
 
-  _getOrders() async {
+  _getOrdersDrawer() async {
     //aggiorno lista del drawer
     List <String> stringList=prefs.getStringList("orderDrawer");
     setState((){
@@ -270,6 +271,34 @@ class _AppManagerState extends State<AppManager> {
         }
       }
     });
+  }
+
+  _getOrdersUnita() async {
+
+    List <String> stringList;
+    //aggiorno ordine unità di ogni grandezza fisica
+    for(int i=0;i<MAX_CONVERSION_UNITS;i++){
+      stringList=prefs.getStringList("conversion_$i");
+
+      if(stringList!=null){
+        final int len=stringList.length;
+        List intList=new List();
+        for(int j=0;j<len;j++){
+          intList.add(int.parse(stringList[j]));
+        }
+        //risolve il problema di aggiunta di unità dopo un aggiornamento
+        for(int j=len; j<listaOrder[i].length;j++)     
+          intList.add(j);
+        
+        if(i==currentPage){
+          setState(() {
+            listaOrder[i]=intList;
+          });
+        }
+        else
+          listaOrder[i]=intList;
+      }
+    }
   }
 
 
@@ -307,7 +336,8 @@ class _AppManagerState extends State<AppManager> {
           showRateSnackBar,
           listaConversioni,
           listaOrder,
-          lastUpdateCurrency
+          lastUpdateCurrency,
+          currencyValues 
         ),
       )
     );
