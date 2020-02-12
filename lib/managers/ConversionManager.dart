@@ -123,7 +123,7 @@ class _ConversionManager extends State<ConversionManager>{
       duration: const Duration(seconds: 5),
       behavior: SnackBarBehavior.floating,
       content: SizedBox(
-        height: 65.0,
+        height: 69.0,
         child: Center(
           child: Column(
             children: <Widget>[

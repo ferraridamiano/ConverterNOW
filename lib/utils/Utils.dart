@@ -118,29 +118,27 @@ class _Calculator extends State<Calculator>{
   int operation=0;
   @override
   Widget build(BuildContext context) {
+    double calcWidth = widget.width < 800 ? widget.width : 800;
     Color textButtonColor=Color(MediaQuery.of(context).platformBrightness==Brightness.dark ? 0xFFBBBBBB : 0xFF777777);
     return Container(
       height: 5*buttonHeight,
-      decoration: BoxDecoration(
-                  color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFF2e2e2e) : Colors.white
-                  ),
       child: Column(
         children: <Widget>[
         Container( 
           height: buttonHeight,
           alignment: Alignment(0, 0),
           child: Container(
-            width: (widget.width*0.9),
+            width: (calcWidth*0.9),
             child:Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                width: (widget.width*0.9*3)/4,
+                width: (calcWidth*0.9*3)/4,
                 child:Text(text,style: TextStyle(fontSize: 45.0,fontWeight: FontWeight.bold,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white : Colors.black),maxLines: 1,),
               ),
               Container(
-                width: (widget.width*0.9)/4,
+                width: (calcWidth*0.9)/4,
                 alignment: Alignment.center,
                 child:isResult ? IconButton(icon: Icon(Icons.content_copy,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white54 : Colors.black54,), onPressed: (){
                   Clipboard.setData(new ClipboardData(text: text));
@@ -158,6 +156,7 @@ class _Calculator extends State<Calculator>{
         ),
         //Divider(color: Colors.black,),
         Container(
+          width: calcWidth,
           color: Colors.black.withAlpha(15),
           child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -166,27 +165,27 @@ class _Calculator extends State<Calculator>{
             children: <Widget>[
             Row(
             children: <Widget>[
-              _button("7", (){addChar("7");},buttonHeight,textButtonColor),
-              _button("8", (){addChar("8");},buttonHeight,textButtonColor),
-              _button("9", (){addChar("9");},buttonHeight,textButtonColor),
+              _button("7", (){addChar("7");},buttonHeight,textButtonColor,calcWidth),
+              _button("8", (){addChar("8");},buttonHeight,textButtonColor,calcWidth),
+              _button("9", (){addChar("9");},buttonHeight,textButtonColor,calcWidth),
             ],),
             Row(
               children: <Widget>[
-                _button("4", (){addChar("4");},buttonHeight,textButtonColor),
-                _button("5", (){addChar("5");},buttonHeight,textButtonColor),
-                _button("6", (){addChar("6");},buttonHeight,textButtonColor),
+                _button("4", (){addChar("4");},buttonHeight,textButtonColor,calcWidth),
+                _button("5", (){addChar("5");},buttonHeight,textButtonColor,calcWidth),
+                _button("6", (){addChar("6");},buttonHeight,textButtonColor,calcWidth),
             ],),
             Row(
               children: <Widget>[
-                _button("1", (){addChar("1");},buttonHeight,textButtonColor),
-                _button("2", (){addChar("2");},buttonHeight,textButtonColor),
-                _button("3", (){addChar("3");},buttonHeight,textButtonColor),
+                _button("1", (){addChar("1");},buttonHeight,textButtonColor,calcWidth),
+                _button("2", (){addChar("2");},buttonHeight,textButtonColor,calcWidth),
+                _button("3", (){addChar("3");},buttonHeight,textButtonColor,calcWidth),
             ],),
             Row(
               children: <Widget>[
-                _button(".", (){addChar(".");},buttonHeight,textButtonColor),
-                _button("0", (){addChar("0");},buttonHeight,textButtonColor),
-                _button("=", (){computeCalculus();},buttonHeight,textButtonColor),
+                _button(".", (){addChar(".");},buttonHeight,textButtonColor,calcWidth),
+                _button("0", (){addChar("0");},buttonHeight,textButtonColor,calcWidth),
+                _button("=", (){computeCalculus();},buttonHeight,textButtonColor,calcWidth),
               ]
             )
           ],),
@@ -206,11 +205,11 @@ class _Calculator extends State<Calculator>{
               }
               isResult=false;
               deleteLastChar();
-            },buttonOpSize,widget.color),
-            _button("÷", (){setOperation(4);},buttonOpSize,widget.color),
-            _button("×", (){setOperation(3);},buttonOpSize,widget.color),
-            _button("−", (){setOperation(2);},buttonOpSize,widget.color),
-            _button("+", (){setOperation(1);},buttonOpSize,widget.color),
+            },buttonOpSize,widget.color,calcWidth),
+            _button("÷", (){setOperation(4);},buttonOpSize,widget.color,calcWidth),
+            _button("×", (){setOperation(3);},buttonOpSize,widget.color,calcWidth),
+            _button("−", (){setOperation(2);},buttonOpSize,widget.color,calcWidth),
+            _button("+", (){setOperation(1);},buttonOpSize,widget.color,calcWidth),
             ],)   
       ],),),
         
@@ -294,9 +293,9 @@ class _Calculator extends State<Calculator>{
   }
 
 
-  Widget _button (String number, Function() f, double size, Color color){ // Creating a method of return type Widget with number and function f as a parameter
+  Widget _button (String number, Function() f, double size, Color color, width){ // Creating a method of return type Widget with number and function f as a parameter
     return ButtonTheme(
-      minWidth: ((widget.width*0.9)/4),
+      minWidth: (width*0.9)/4,
       height: size,
       child:RaisedButton(
         child: number=="←" ? Icon(Icons.backspace,color: color,) : Text(number,
