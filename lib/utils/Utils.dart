@@ -74,10 +74,9 @@ class UnitCard extends StatelessWidget{
             padding: EdgeInsets.only(top: 14.0),
             child: new Card(
               child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: new Center(
-                    child:this.textField
-                  )),
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+                  child: this.textField
+                  ),
               elevation: 4.0,
             )),
             node.symbol==null?SizedBox() : Align(

@@ -9,3 +9,4 @@ build/
 .flutter-plugins
 *.jks
 .flutter-plugins-dependencies
+ios/Flutter/flutter_export_environment.sh
