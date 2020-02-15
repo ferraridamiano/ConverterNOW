@@ -405,7 +405,7 @@ RegExp getBaseRegExp(int base){
       break;
     }
     case 16:{
-      regExp = new RegExp(r'^[0-9A-F]+$');
+      regExp = new RegExp(r'^[0-9A-Fa-f]+$');
       break;
     }
   }

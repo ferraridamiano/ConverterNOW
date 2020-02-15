@@ -22,6 +22,11 @@ class _ConversionPage extends State<ConversionPage> {
   Node selectedNode;
   List listaNodi;
   int previousNode;
+  RegExp decimalRegExp=RegExp(r'^[0-9/./e/+/-]+$');
+  RegExp binRegExp=getBaseRegExp(2);
+  RegExp octRegExp=getBaseRegExp(8);
+  RegExp decRegExp=getBaseRegExp(10);
+  RegExp hexRegExp=getBaseRegExp(16);
 
   
   @override
@@ -112,7 +117,6 @@ class _ConversionPage extends State<ConversionPage> {
           break;
         }
       }
-
       listaCard.add(MyCard(
           node: listaNodi[i],
           textField: TextFormField(
@@ -123,7 +127,22 @@ class _ConversionPage extends State<ConversionPage> {
             keyboardType: keyboardType,
             controller: listaController[i],
             focusNode: listaFocus[i],
-            decoration: InputDecoration(labelText: listaNodi[i].name),
+            autovalidate: true,
+            validator: (String input){
+              if(input != "" && (
+                listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL && !decimalRegExp.hasMatch(input) ||   //numeri decimali
+                listaNodi[i].base==2 && !binRegExp.hasMatch(input)  ||   //binario
+                listaNodi[i].base==8 && !octRegExp.hasMatch(input)  ||   //ottale
+                listaNodi[i].base==10 && !decRegExp.hasMatch(input) ||   //decimale
+                listaNodi[i].base==16 && !hexRegExp.hasMatch(input)      //esadecimale
+              )){
+                  return "Errore, caratteri non validi";
+                }
+              return null;
+            },
+            decoration: InputDecoration(
+              labelText: listaNodi[i].name,
+              ),
             onChanged: (String txt) {
               if(listaNodi[i].keyboardType==KEYBOARD_NUMBER_DECIMAL){
                 listaNodi[i].value = txt == "" ? null : double.parse(txt);

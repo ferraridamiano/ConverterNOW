@@ -35,5 +35,5 @@ double responsiveChildAspectRatio(MediaQueryData mediaQuery) {
     tileWidth=(deviceWidth-45.0)/4;
   }
 
-  return tileWidth/100.0;
+  return tileWidth/107.0;
 }
