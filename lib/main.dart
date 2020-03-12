@@ -1,79 +1,62 @@
-import 'package:converter_pro/ConversionManager.dart';
-import 'package:converter_pro/Localization.dart';
+import 'package:converterpro/utils/Localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
 
-double AD_SIZE=0.0;
-bool darkTheme=false;
+import 'managers/AppManager.dart';
+
+bool isLogoVisible = true;
 SharedPreferences prefs;
+int numeroVolteAccesso;
 
 void main() async {
-  Brightness brightness;
+  WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
-  darkTheme = prefs.getBool("darkTheme") ?? false;
-  brightness = darkTheme ? Brightness.dark: Brightness.light;
-  runApp(new SandboxApp(brightness));
+  isLogoVisible = prefs.getBool("isLogoVisible") ?? true;
+  numeroVolteAccesso = prefs.getInt("access_number") ?? 0;
+  numeroVolteAccesso++;
+  print(numeroVolteAccesso);
+  if (numeroVolteAccesso < 5) //traccio solo i primi 5 accessi per dialog rating
+    prefs.setInt("access_number", numeroVolteAccesso);
+  runApp(new MyApp());
 }
 
-
-class SandboxApp extends StatefulWidget {
-  Brightness brightness;
-  SandboxApp(this.brightness);
+class MyApp extends StatefulWidget {
   @override
-  _SandboxAppState createState() => _SandboxAppState();
+  _MyApp createState() => _MyApp();
 }
 
-class _SandboxAppState extends State<SandboxApp> {
-
-  /*@override
-  void initState() {
-    super.initState();
-  }*/
-
+class _MyApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-
-    return new DynamicTheme(
-      defaultBrightness: Brightness.light,
-      data: (brightness) => new ThemeData(
-        primarySwatch: Colors.indigo,
-        brightness: widget.brightness,
-      ),
-      themedWidgetBuilder: (context, theme) {
-        return new MaterialApp(
-          title: 'Flutter Demo',
-          theme: theme,
-          home: MaterialApp(
-            title: 'Converter NOW',
-            home: ConversionManager(),
-            theme: ThemeData(
-            primaryColor: Colors.red,
-            accentColor: Colors.indigo,
-            brightness: darkTheme ? Brightness.dark : Brightness.light
-        ),
-        supportedLocales: [
-        const Locale('en', 'US'),
-        const Locale('it', 'IT')
-        ],
+    return new MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Converter NOW',
+      home: AppManager(),
+      theme: ThemeData(
+          primaryColor: Color(0xFFF2542D),
+          accentColor: Color(0xFF0E9594),
+          brightness: Brightness.light),
+      darkTheme: ThemeData(
+        primaryColor: Color(0xFFF2542D),
+        accentColor: Color(0xFF0E9594),
+        brightness: Brightness.dark),
+      supportedLocales: [const Locale('en', 'US'), const Locale('it', 'IT')],
       localizationsDelegates: [
         const MyLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
-      localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+      localeResolutionCallback:
+          (Locale locale, Iterable<Locale> supportedLocales) {
         for (Locale supportedLocale in supportedLocales) {
-          if (supportedLocale.languageCode == locale.languageCode || supportedLocale.countryCode == locale.countryCode) {
+          if (supportedLocale.languageCode == locale.languageCode ||
+              supportedLocale.countryCode == locale.countryCode) {
             return supportedLocale;
           }
         }
-
         return supportedLocales.first;
       },
-    ),
-        );
-      }
     );
   }
 }

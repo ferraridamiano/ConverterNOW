@@ -7,5 +7,6 @@
 build/
 
 .flutter-plugins
-android/app/key.jks
-android/key.jks
+*.jks
+.flutter-plugins-dependencies
+ios/Flutter/flutter_export_environment.sh

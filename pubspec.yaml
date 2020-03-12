@@ -1,5 +1,5 @@
-name: converter_pro
-description: A new Flutter application.
+name: converterpro
+description: Convertitore di unità di misura e di valute
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -7,22 +7,18 @@ description: A new Flutter application.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 2.1.1+10 
+version: 2.3.1+20
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  flutter_launcher_icons: ^0.7.0
-  shared_preferences: ^0.4.3
-  url_launcher: ^4.0.3
-  flutter_svg: ^0.10.2
-  http: ^0.12.0+1
-  dynamic_theme: ^1.0.0
-  #fluttertoast: ^2.0.7
+  shared_preferences: ^0.5.6+1
+  url_launcher: ^5.4.1
+  http: ^0.12.0+4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -31,10 +27,10 @@ dependencies:
   flutter_localizations:
       sdk: flutter
 
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "resources/images/ic_launcher.png"
+#flutter_icons:
+#  android: true
+#  ios: true
+#  image_path: "resources/images/ic_launcher.png"
 
 
 dev_dependencies:
@@ -57,49 +53,24 @@ flutter:
   assets:
         - resources/lang/en.json
         - resources/lang/it.json
-        - resources/images/logo.svg
-        - resources/images/lunghezza.svg
-        - resources/images/massa.svg
-        - resources/images/energia.svg
-        - resources/images/potenza.svg 
-        - resources/images/pressione.svg
-        - resources/images/velocita.svg
-        - resources/images/temperatura.svg
-        - resources/images/volume.svg
-        - resources/images/area.svg
-        - resources/images/prefissi.svg
-        - resources/images/tempo.svg
-        - resources/images/angoli.svg
-        - resources/images/calculator.svg
-        - resources/images/valuta.svg
-        - resources/images/scarpe.svg 
-        - resources/images/dati.svg 
-        - resources/images/torque.svg
-        - resources/images/forza.svg 
-
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.io/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.io/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.io/custom-fonts/#from-packages
+        - resources/images/logo.png
+        - resources/images/lunghezza.png
+        - resources/images/massa.png
+        - resources/images/energia.png
+        - resources/images/potenza.png 
+        - resources/images/pressione.png
+        - resources/images/velocita.png
+        - resources/images/temperatura.png
+        - resources/images/volume.png
+        - resources/images/area.png
+        - resources/images/prefissi.png
+        - resources/images/tempo.png
+        - resources/images/angoli.png
+        - resources/images/calculator.png
+        - resources/images/valuta.png
+        - resources/images/scarpe.png 
+        - resources/images/dati.png 
+        - resources/images/torque.png
+        - resources/images/forza.png
+        - resources/images/consumo.png
+        - resources/images/conversione_base.png
