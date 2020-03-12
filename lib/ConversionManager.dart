@@ -1,4 +1,3 @@
-import 'package:converter_pro/ConversionBaseNumerica.dart';
 import 'package:converter_pro/ConversionPage.dart';
 import 'package:converter_pro/Localization.dart';
 import 'package:converter_pro/ReorderPage.dart';
@@ -20,7 +19,7 @@ class ConversionManager extends StatefulWidget{
 
 class _ConversionManager extends State<ConversionManager>{
 
-  static final MAX_CONVERSION_UNITS=18;
+  static final MAX_CONVERSION_UNITS=17;
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static final List<String> currencyList=["EUR","GBP","INR","CNY","JPY","CHF","SEK","RUB","CAD","KRW","BRL","BTC"];
   static List<double> currencyValue=[0.880365,0.774845,71.362395,6.807703,109.429042,0.99706,9.02914,66.466703,1.33225,1131.44981,3.75085,0.00028]; //aggiornato al 22/01/2019
@@ -29,7 +28,7 @@ class _ConversionManager extends State<ConversionManager>{
   static List listaColori=[Colors.red,Colors.deepOrange,Colors.amber,Colors.cyan, Colors.indigo,
   Colors.purple,Colors.blueGrey,Colors.green,Colors.pinkAccent,Colors.teal,
   Colors.blue, Colors.yellow.shade700, Colors.brown, Colors.lightGreenAccent, Colors.deepPurple,
-  Colors.lightBlue, Colors.lime, Colors.pink];
+  Colors.lightBlue, Colors.lime];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List listaTitoli;
   static int _currentPage=0;
@@ -55,7 +54,7 @@ class _ConversionManager extends State<ConversionManager>{
   orderAngoli, orderValute, orderScarpe, orderDati, orderPotenza, orderForza, orderTorque];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+2);//+2 perchè c'è l'intestazione con il logo e lo spazio finale
-  static List<int> listaOrderDrawer=[0,1,2,4,5,6,16,7,10,11,13,3,14,15,12,8,9,17]; //fino a maxconversionunits-1
+  static List<int> listaOrderDrawer=[0,1,2,4,5,6,16,7,10,11,13,3,14,15,12,8,9]; //fino a maxconversionunits-1
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
   @override
@@ -186,7 +185,6 @@ class _ConversionManager extends State<ConversionManager>{
     listaDrawer[listaOrderDrawer[14]+1]=ListTileConversion(listaTitoli[14],"resources/images/potenza.svg",listaColori[14],_currentPage==14,(){_onSelectItem(14);});
     listaDrawer[listaOrderDrawer[15]+1]=ListTileConversion(listaTitoli[15],"resources/images/forza.svg",listaColori[15],_currentPage==15,(){_onSelectItem(15);});
     listaDrawer[listaOrderDrawer[16]+1]=ListTileConversion(listaTitoli[16],"resources/images/torque.svg",listaColori[16],_currentPage==16,(){_onSelectItem(16);});
-    listaDrawer[listaOrderDrawer[17]+1]=ListTileConversion("base","resources/images/base.svg",listaColori[16],_currentPage==17,(){_onSelectItem(17);});
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     listaDrawer[MAX_CONVERSION_UNITS+1]=SizedBox(height: AD_SIZE,);
   }
@@ -572,14 +570,14 @@ class _ConversionManager extends State<ConversionManager>{
     ]);
 
 
-    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,USD, centimetri_scarpe,bit,watt,newton, newton_metro,null];
+    listaConversioni=[metro,metroq, metroc,secondo, celsius, metri_secondo,SI,grammo,pascal,joule,gradi,USD, centimetri_scarpe,bit,watt,newton, newton_metro];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     listaTitoli=[MyLocalizations.of(context).trans('lunghezza'),MyLocalizations.of(context).trans('superficie'),MyLocalizations.of(context).trans('volume'),
     MyLocalizations.of(context).trans('tempo'),MyLocalizations.of(context).trans('temperatura'),MyLocalizations.of(context).trans('velocita'),
     MyLocalizations.of(context).trans('prefissi_si'),MyLocalizations.of(context).trans('massa'),MyLocalizations.of(context).trans('pressione'),
     MyLocalizations.of(context).trans('energia'), MyLocalizations.of(context).trans('angoli'),MyLocalizations.of(context).trans('valuta'),
     MyLocalizations.of(context).trans('taglia_scarpe'),MyLocalizations.of(context).trans('dati_digitali'),MyLocalizations.of(context).trans('potenza'),
-    MyLocalizations.of(context).trans('forza'), MyLocalizations.of(context).trans('momento'), "base"];
+    MyLocalizations.of(context).trans('forza'), MyLocalizations.of(context).trans('momento')];
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     initializeTiles();
 
@@ -633,7 +631,7 @@ class _ConversionManager extends State<ConversionManager>{
           children: listaDrawer,
       ),
       ),
-      body: _currentPage==17 ? ConversionBaseNumerica("base num")  : ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : ""),
+      body: ConversionPage(listaConversioni[_currentPage],listaTitoli[_currentPage], _currentPage==11 ? lastUpdateCurrency : ""),
       
       floatingActionButton: FloatingActionButton(
         child: SvgPicture.asset("resources/images/calculator.svg",width: 30.0,),

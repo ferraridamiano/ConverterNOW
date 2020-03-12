@@ -76,7 +76,6 @@ flutter:
         - resources/images/dati.svg 
         - resources/images/torque.svg
         - resources/images/forza.svg 
-        - resources/images/base.svg 
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
