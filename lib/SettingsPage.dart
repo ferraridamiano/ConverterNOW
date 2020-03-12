@@ -96,14 +96,14 @@ class _SettingsPage2 extends State<SettingsPage2>{
           alignment: Alignment.bottomCenter,
           child:ListTile(
             title: Text(MyLocalizations.of(context).trans('abilita_tema_scuro')),
-            trailing: Checkbox(value: darkTheme,activeColor: Colors.red,
-            onChanged: (bool val) {
+            trailing: Checkbox(value: darkTheme,activeColor: Colors.red,),
+            onTap: () {
               setState(() {
-                darkTheme=val;
+                darkTheme=!darkTheme;
                 DynamicTheme.of(context).setBrightness(Brightness.dark);
                 prefs.setBool("darkTheme", darkTheme);
               });
-            },),
+            },
           )
         )
     );

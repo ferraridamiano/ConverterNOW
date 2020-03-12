@@ -102,7 +102,7 @@
   "ettogrammo": "Ettogrammi [hg]",
   "chilogrammo": "Chilogrammi [Kg]",
   "libbra":" Libbre [lb]",
-  "oncia": "Once [oz]",
+  "oncia": "Oncia [oz]",
   "quintale": "Quintali",
   "tonnellata": "Tonnellate [t]",
   "milligrammo": "Milligrammi [mg]",
@@ -165,8 +165,8 @@
 
   "newton_metro": "Newton metro [N·m]",
   "dyne_metro": "Dyne metro [dyn·m]",
-  "libbra_forza_piede": "Libbre-forza piede [lbf·ft]",
-  "kilogrammo_forza_metro": "Chilogrammmi-forza metro [kgf·m]",
+  "libbra_forza_piede": "Libbra-forza piede [lbf·ft]",
+  "kilogrammo_forza_metro": "Chilogrammmo-forza metro [kgf·m]",
   "poundal_metro": "Poundal metro [pdl·m]"
 
 }
