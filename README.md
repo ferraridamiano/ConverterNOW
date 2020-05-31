@@ -24,9 +24,9 @@ Converter NOW is an effective unit and currencies converter
 
 ### Screenshots
 
-<img title="" src="screenshots/SS_android_01.jpg" alt="SS_android_01.jpg" width="155"> <img src="screenshots/SS_android_02.jpg" title="" alt="SS_android_02.jpg" width="155"> <img title="" src="screenshots/SS_android_03.jpg" alt="SS_android_03.jpg" width="155"> <img title="" src="screenshots/SS_android_04.jpg" alt="SS_android_04.jpg" width="155">
+<img src="screenshots/SS_android_01.jpg" width="160"> <img src="screenshots/SS_android_02.jpg" width="160"> <img src="screenshots/SS_android_03.jpg" width="160"> <img src="screenshots/SS_android_04.jpg" width="155">
 
-<img title="" src="screenshots/SS_web_01.png" width="620">
+<img src="screenshots/SS_web_01.png" width="645">
 
 The upper 4 screenshots show the main screen of the app on an android phone. The screenshot below shows how easy the app adapts on large screens in a PWA.
 
@@ -44,37 +44,21 @@ If you belive in this project you can donate to this [PayPal donation link](http
 
 ### Structure of the project
 
-```mermaid
-graph TD;
-    main-->AppManager;
-    AppManager-->ConversionManager;
-    AppManager-->Others-Unimplemented-Managers;
-    AppManager-->SettingsPage;
-    AppManager-->ReorderPage;
-    ConversionManager-->ConversionPage;
-```
+<img src="images/graph01.png" width="645">
 
 ### Conversion algorithm
 
 I imagined a conversion as a tree graph. Here I reported part of the graph of the length conversion:
 
-```mermaid
-graph TD;
-    centimeter --"x0.01"--> meter;
-    inch --"x2.54"--> centimeter;
-    foot --"x12"--> inch;
-    kilometer --"x1000"--> meter;
-    yard --"x0.9144"--> meter;
-    mile --"x1760"--> yard;
-```
+<img src="images/graph02.png" width="300">
 
 As you can see, all units depends by other units by 1 (or more) costant. Most of the conversion between two units $`x`$ and $`y`$ could be done with one of these structures:
 
-$`y=ax+b`$
+<img src="http://www.sciweavers.org/tex2img.php?eq=y%3Dax%2Bb&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" width="90" height="19"/>
 
-$`y=\frac{a}{x}+b`$
+<img src="http://www.sciweavers.org/tex2img.php?eq=y%3D%5Cfrac%7Ba%7D%7Bx%7D%2Bb&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" width="83" height="40" />
 
-The first one is the most common linear conversion (the costant help with faraday-celsius conversion).  The second one is used in fuel conversion like $`\frac{km}{l}`$  to $`\frac{l}{100 km}`$.
+The first one is the most common linear conversion (the costant help with faraday-celsius conversion). The second one is used in fuel conversion like km/l  to l/100 km.
 
 It can also be defined other types of custom conversion such between different numeral system (bynary-octal-decimal-exadecimal).
 
