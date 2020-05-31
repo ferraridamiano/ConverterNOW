@@ -1,5 +1,7 @@
 # Converter NOW
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/DemApps)
+
 ### Why Converter NOW
 
 Converter NOW is an effective unit and currencies converter
@@ -39,8 +41,6 @@ That year (2018) I first heard of Flutter, it still was in beta, but I decided t
 The project is not well structured. I made it to learn more on programming. **It is not perfect but I hope that with your help we can improve it!**
 
 How can you improve it? Open issues (or feature requests), send pull requests, fork, star, share, donate to this project. Or you can just tell me this app is useful for you. 
-
-If you belive in this project you can donate to this [PayPal donation link](https://www.paypal.me/DemApps).
 
 ### Structure of the project
 
