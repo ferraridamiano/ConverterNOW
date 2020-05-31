@@ -52,9 +52,9 @@ I imagined a conversion as a tree graph. Here I reported part of the graph of th
 
 <img src="images/graph02.png" width="300">
 
-As you can see, all units depends by other units by 1 (or more) costant. Most of the conversion between two units $`x`$ and $`y`$ could be done with one of these structures:
+As you can see, all units depends by other units by 1 (or more) costant. Most of the conversion between two units x and y can be done with one of these structures:
 
-<img src="http://www.sciweavers.org/tex2img.php?eq=y%3Dax%2Bb&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" width="90" height="19"/>
+<img src="http://www.sciweavers.org/tex2img.php?eq=y%20%3D%20ax%2Bb&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" width="90" height="19" />
 
 <img src="http://www.sciweavers.org/tex2img.php?eq=y%3D%5Cfrac%7Ba%7D%7Bx%7D%2Bb&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" width="83" height="40" />
 
