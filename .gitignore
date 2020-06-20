@@ -4,7 +4,8 @@
 .packages
 .pub/
 
-build/
+build/*
+!build/web/
 
 .flutter-plugins
 *.jks
