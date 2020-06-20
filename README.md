@@ -22,7 +22,7 @@ Converter NOW is an effective unit and currencies converter
 
 🔗 [Play Store link](https://play.google.com/store/apps/details?id=com.ferrarid.converterpro)
 
-🔗 [Web App link](https://ferraridamiano.github.io/ConverterNowWeb/#/)
+🔗 [Web App link](https://ferraridamiano.github.io/ConverterNOW/build/web/index.html#/)
 
 ### Screenshots
 
