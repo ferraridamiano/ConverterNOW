@@ -23,57 +23,60 @@ class SettingsPage extends StatelessWidget{
             ],
           ),
         ),
-      body: Center(child:
-        Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('recensione'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
-            onTap: (){
-              launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
-            },
-          ),
-          SizedBox(height: 20.0),
-          new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('donazione'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
-            onTap: (){
-              launchURL("https://www.paypal.me/DemApps");
-            },
-          ),
-          SizedBox(height: 20.0),
-          new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('contatta_sviluppatore'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
-            onTap: (){
-              launchURL("mailto:<damianoferrari1998@gmail.com>");
-            },
-          ),
-          SizedBox(height: 20.0),
-          new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('about'),style: TextStyle(fontSize: 28.0,color:MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
-            onTap: (){
-              showLicensePage (context: context,applicationName: MyLocalizations.of(context).trans('app_name'),
+      body: Center(
+        child: ListView(
+          reverse: true,
+          children: [
+            ListTile(
+              title: Center(
+                child: Text(MyLocalizations.of(context).trans('recensione'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),)
+              ),
+              onTap: (){
+                launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+              },
+            ),
+            ListTile(
+              title: Center(
+                child: Text(MyLocalizations.of(context).trans('donazione'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),)
+              ),
+              onTap: (){
+                launchURL("https://www.paypal.me/DemApps");
+              },
+            ),
+            ListTile(
+              title: Center(
+                child: Text(MyLocalizations.of(context).trans('contatta_sviluppatore'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),)
+              ),
+              onTap: (){
+                launchURL("mailto:<damianoferrari1998@gmail.com>");
+              },
+            ),
+            ListTile(
+              title: Center(
+                child: Text(MyLocalizations.of(context).trans('about'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),)
+              ),
+              onTap: (){
+                showLicensePage (context: context,applicationName: MyLocalizations.of(context).trans('app_name'),
                   applicationLegalese: "Icons made by https://www.flaticon.com/authors/yannick Yannick from https://www.flaticon.com/ www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n"+ //termometro
                                        "Icons made by http://www.freepik.com Freepik from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" +//lunghezza, velocità, pressione, area, energia, massa
-                                       "Icons made by https://www.flaticon.com/authors/bogdan-rosu Bogdan Rosu from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY" //volume
-
-              );
-            },
-          ),
-          SizedBox(height: 20.0),
-          new GestureDetector(
-            child: new Text(MyLocalizations.of(context).trans('impostazioni'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),),
-            onTap: (){
-              Navigator.push(
+                                       "Icons made by https://www.flaticon.com/authors/bogdan-rosu Bogdan Rosu from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY"); //volume
+              },
+            ),
+            ListTile(
+              title: Center(
+                child: Text(MyLocalizations.of(context).trans('impostazioni'),style: TextStyle(fontSize: 28.0,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),)
+              ),
+              onTap: (){
+                Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => SettingsPage2(primaryColor, accentColor)),
                   );
-            },
-          ),
-          SizedBox(height: 20.0,),
-        ],
-        crossAxisAlignment: CrossAxisAlignment.center,
+              },
+            ),
 
-      ),)
+          ],
+        )
+      )
     );
   }
 }
@@ -109,15 +112,16 @@ class _SettingsPage2 extends State<SettingsPage2>{
           child:ListView(
             reverse: true,
             children:<Widget>[
-              ListTile(
+              CheckboxListTile(
                 title: Text(MyLocalizations.of(context).trans('logo_drawer')),
-                trailing: Checkbox(value: isLogoVisible,activeColor: widget.accentColor,
+                value: isLogoVisible,
+                activeColor: widget.accentColor,
                 onChanged: (bool val) {
                   setState(() {
                     isLogoVisible=val;
                     prefs.setBool("isLogoVisible", isLogoVisible);
                   });
-                },),
+                },
               ),
             ]
           )
