@@ -3,6 +3,7 @@ import 'package:converterpro/pages/ReorderPage.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:converterpro/utils/UnitsData.dart';
 import 'package:converterpro/utils/Utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import 'AppManager.dart';
@@ -44,7 +45,7 @@ class _ConversionManager extends State<ConversionManager>{
     listaOrder=widget.listaOrderUnita;
     listaConversioni=widget.listaConversioni;
         
-    if(widget.showRateSnackBar){
+    if(!kIsWeb && widget.showRateSnackBar){
       Future.delayed(const Duration(seconds: 5), () {
         _showReviewSnackBar();
       });
