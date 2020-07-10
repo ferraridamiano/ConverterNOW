@@ -1,4 +1,3 @@
-import 'dart:io' show Platform;
 import 'package:converterpro/utils/Localization.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
@@ -38,8 +37,7 @@ class SettingsPage extends StatelessWidget {
             child: ListView(
           reverse: true,
           children: [
-            !kIsWeb
-                ? ListTile(
+            !kIsWeb ? ListTile(
                     title: Center(
                         child: Text(
                       MyLocalizations.of(context).trans('recensione'),
@@ -55,7 +53,37 @@ class SettingsPage extends StatelessWidget {
                           "https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
                     },
                   )
-                : SizedBox(),
+              : SizedBox(),
+            ListTile(
+              title: Center(
+                  child: Text(
+                MyLocalizations.of(context).trans('traduzione_app'),
+                style: TextStyle(
+                    fontSize: 28.0,
+                    color: MediaQuery.of(context).platformBrightness ==
+                            Brightness.dark
+                        ? Color(0xFFCCCCCC)
+                        : Colors.black54),
+              )),
+              onTap: () {
+                launchURL("https://github.com/ferraridamiano/ConverterNOW/issues/2");
+              },
+            ),
+            ListTile(
+              title: Center(
+                  child: Text(
+                MyLocalizations.of(context).trans('repo_github'),
+                style: TextStyle(
+                    fontSize: 28.0,
+                    color: MediaQuery.of(context).platformBrightness ==
+                            Brightness.dark
+                        ? Color(0xFFCCCCCC)
+                        : Colors.black54),
+              )),
+              onTap: () {
+                launchURL("https://github.com/ferraridamiano/ConverterNOW");
+              },
+            ),
             ListTile(
               title: Center(
                   child: Text(
