@@ -37,127 +37,84 @@ class SettingsPage extends StatelessWidget {
             child: ListView(
           reverse: true,
           children: [
-            !kIsWeb ? ListTile(
-                    title: Center(
-                        child: Text(
-                      MyLocalizations.of(context).trans('recensione'),
-                      style: TextStyle(
-                          fontSize: 28.0,
-                          color: MediaQuery.of(context).platformBrightness ==
-                                  Brightness.dark
-                              ? Color(0xFFCCCCCC)
-                              : Colors.black54),
-                    )),
-                    onTap: () {
-                      launchURL(
-                          "https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
-                    },
-                  )
-              : SizedBox(),
-            ListTile(
-              title: Center(
-                  child: Text(
-                MyLocalizations.of(context).trans('traduzione_app'),
-                style: TextStyle(
-                    fontSize: 28.0,
-                    color: MediaQuery.of(context).platformBrightness ==
-                            Brightness.dark
-                        ? Color(0xFFCCCCCC)
-                        : Colors.black54),
-              )),
+            !kIsWeb? SettingsListTile(
+              title: MyLocalizations.of(context).trans('recensione'),
               onTap: () {
-                launchURL("https://github.com/ferraridamiano/ConverterNOW/issues/2");
-              },
+                      launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+              }
+            ): SizedBox(),
+            SettingsListTile(
+              title: MyLocalizations.of(context).trans('traduzione_app'),
+              onTap: () {
+                launchURL(
+                    "https://github.com/ferraridamiano/ConverterNOW/issues/2");
+              }
             ),
-            ListTile(
-              title: Center(
-                  child: Text(
-                MyLocalizations.of(context).trans('repo_github'),
-                style: TextStyle(
-                    fontSize: 28.0,
-                    color: MediaQuery.of(context).platformBrightness ==
-                            Brightness.dark
-                        ? Color(0xFFCCCCCC)
-                        : Colors.black54),
-              )),
+            SettingsListTile(
+              title: MyLocalizations.of(context).trans('repo_github'),
               onTap: () {
                 launchURL("https://github.com/ferraridamiano/ConverterNOW");
-              },
+              }
             ),
-            ListTile(
-              title: Center(
-                  child: Text(
-                MyLocalizations.of(context).trans('donazione'),
-                style: TextStyle(
-                    fontSize: 28.0,
-                    color: MediaQuery.of(context).platformBrightness ==
-                            Brightness.dark
-                        ? Color(0xFFCCCCCC)
-                        : Colors.black54),
-              )),
+            SettingsListTile(
+              title: MyLocalizations.of(context).trans('donazione'),
               onTap: () {
                 launchURL("https://www.paypal.me/DemApps");
               },
             ),
-            ListTile(
-              title: Center(
-                  child: Text(
-                MyLocalizations.of(context).trans('contatta_sviluppatore'),
-                style: TextStyle(
-                    fontSize: 28.0,
-                    color: MediaQuery.of(context).platformBrightness ==
-                            Brightness.dark
-                        ? Color(0xFFCCCCCC)
-                        : Colors.black54),
-              )),
-              onTap: () {
-                launchURL("mailto:<damianoferrari1998@gmail.com>");
-              },
-            ),
-            ListTile(
-              title: Center(
-                  child: Text(
-                MyLocalizations.of(context).trans('about'),
-                style: TextStyle(
-                    fontSize: 28.0,
-                    color: MediaQuery.of(context).platformBrightness ==
-                            Brightness.dark
-                        ? Color(0xFFCCCCCC)
-                        : Colors.black54),
-              )),
-              onTap: () {
-                showLicensePage(
-                    context: context,
-                    applicationName:
-                        MyLocalizations.of(context).trans('app_name'),
-                    applicationLegalese:
-                        "Icons made by https://www.flaticon.com/authors/yannick Yannick from https://www.flaticon.com/ www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //termometro
-                            "Icons made by http://www.freepik.com Freepik from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //lunghezza, velocità, pressione, area, energia, massa
-                            "Icons made by https://www.flaticon.com/authors/bogdan-rosu Bogdan Rosu from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY"); //volume
-              },
-            ),
-            ListTile(
-              title: Center(
-                  child: Text(
-                MyLocalizations.of(context).trans('impostazioni'),
-                style: TextStyle(
-                    fontSize: 28.0,
-                    color: MediaQuery.of(context).platformBrightness ==
-                            Brightness.dark
-                        ? Color(0xFFCCCCCC)
-                        : Colors.black54),
-              )),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          SettingsPage2(primaryColor, accentColor)),
-                );
-              },
-            ),
+            !kIsWeb? SettingsListTile(
+                title: MyLocalizations.of(context).trans('contatta_sviluppatore'),
+                onTap: () {
+                  launchURL("mailto:<damianoferrari1998@gmail.com>");
+            }) : SizedBox(),
+            SettingsListTile(
+                title: MyLocalizations.of(context).trans('about'),
+                onTap: () {
+                  showLicensePage(
+                      context: context,
+                      applicationName:
+                          MyLocalizations.of(context).trans('app_name'),
+                      applicationLegalese:
+                          "Icons made by https://www.flaticon.com/authors/yannick Yannick from https://www.flaticon.com/ www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //termometro
+                              "Icons made by http://www.freepik.com Freepik from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //lunghezza, velocità, pressione, area, energia, massa
+                              "Icons made by https://www.flaticon.com/authors/bogdan-rosu Bogdan Rosu from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY"); //volume
+            }),
+            SettingsListTile(
+                title: MyLocalizations.of(context).trans('impostazioni'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            SettingsPage2(primaryColor, accentColor)),
+                  );
+                }),
           ],
         )));
+  }
+}
+
+class SettingsListTile extends StatelessWidget {
+  final String title;
+  final Function onTap;
+  SettingsListTile({this.title, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Center(
+          child: Text(
+        title,
+        style: TextStyle(
+            fontSize: 24.0,
+            color: MediaQuery.of(context).platformBrightness == Brightness.dark
+                ? Color(0xFFCCCCCC)
+                : Colors.black54),
+      )),
+      onTap: () {
+        onTap();
+      },
+    );
   }
 }
 
