@@ -10,3 +10,4 @@ build/
 *.jks
 .flutter-plugins-dependencies
 ios/Flutter/flutter_export_environment.sh
+android/key.properties
