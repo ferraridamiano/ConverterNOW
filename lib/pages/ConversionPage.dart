@@ -119,7 +119,7 @@ class _ConversionPage extends State<ConversionPage> {
         }
       }
       listaCard.add(MyCard(
-          node: listaNodi[i],
+          symbol: listaNodi[i].symbol,
           textField: TextFormField(
             style: TextStyle(
               fontSize: 16.0,
@@ -166,12 +166,11 @@ class _ConversionPage extends State<ConversionPage> {
   Widget _buildConversionGrid(MediaQueryData mediaQuery) {
     
     List itemList=createList();
-    //List<GridTile> tiles = [];
     
     List gridTiles = new List();
     for(ListItem item in itemList){
       if (item is MyCard) {
-        gridTiles.add(UnitCard(node: item.node, textField: item.textField,));
+        gridTiles.add(UnitCard(symbol: item.symbol, textField: item.textField,));
       }
       else if(item is BigHeader) { //(item is BigHeader)
         gridTiles.add(BigTitle(text: item.title, subtitle: item.subTitle,));
@@ -199,7 +198,7 @@ class _ConversionPage extends State<ConversionPage> {
 
     for(ListItem item in itemList){
       if (item is MyCard) {
-        gridTiles.add(UnitCard(node: item.node, textField: item.textField,));
+        gridTiles.add(UnitCard(symbol: item.symbol, textField: item.textField,));
       }
       else if(item is BigHeader) { //(item is BigHeader)
         gridTiles.add(BigTitle(text: item.title, subtitle: item.subTitle,));

@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
-import 'UtilsConversion.dart';
 
 abstract class ListItem {}
 
 class MyCard implements ListItem{
-  MyCard({this.node, this.textField});
+  MyCard({this.symbol, this.textField});
 
-  Node node;
+  String symbol;
   final Widget textField;
 }
 
@@ -61,9 +60,9 @@ class BigTitle extends StatelessWidget{
 }
 
 class UnitCard extends StatelessWidget{
-  UnitCard({this.node, this.textField});
+  UnitCard({this.symbol, this.textField});
 
-  final Node node;
+  final String symbol;
   final Widget textField;
 
   @override
@@ -79,13 +78,13 @@ class UnitCard extends StatelessWidget{
                   ),
               elevation: 4.0,
             )),
-            node.symbol==null?SizedBox() : Align(
+            symbol==null?SizedBox() : Align(
               alignment: Alignment(0.95, -0.9),
               child: Card(
                 elevation: 4.0,
                 child: Padding(
                   padding: const EdgeInsets.all(6.0),
-                  child: Text(node.symbol, style: TextStyle(color: Colors.white, fontSize: 13.0,fontWeight: FontWeight.bold),),
+                  child: Text(symbol, style: TextStyle(color: Colors.white, fontSize: 13.0,fontWeight: FontWeight.bold),),
                 ),
                 color: Theme.of(context).accentColor,
               ),
