@@ -59,10 +59,9 @@ class _AppManagerState extends State<AppManager> {
     bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
     if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30))
       showRateSnackBar=true;
-
+    listaConversioni=initializeUnits(listaOrder, currencyValues); 
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _getCurrency();
-      listaConversioni=initializeUnits(context, listaOrder, currencyValues); 
     });
     
       
@@ -228,7 +227,7 @@ class _AppManagerState extends State<AppManager> {
         context,
         MaterialPageRoute(builder: (context) => ReorderPage(
             title: title,
-            listaElementi: orderedList,
+            listaElementi: orderedList, 
         ),));
 
     List arrayCopia=new List(listaOrderDrawer.length);
@@ -315,9 +314,9 @@ class _AppManagerState extends State<AppManager> {
 
     initializeTiles();
 
-    if(listaConversioni==null)
+    /*if(listaConversioni==null)
       return SizedBox();
-
+    */
     return Scaffold(
       resizeToAvoidBottomInset: true,
       drawer: new Drawer(

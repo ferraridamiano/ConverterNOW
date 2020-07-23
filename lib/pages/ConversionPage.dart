@@ -1,4 +1,5 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
+import 'package:converterpro/utils/Localization.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:converterpro/utils/UtilsConversion.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +142,7 @@ class _ConversionPage extends State<ConversionPage> {
               return null;
             },
             decoration: InputDecoration(
-              labelText: listaNodi[i].name,
+              labelText: MyLocalizations.of(context).trans(listaNodi[i].name)//listaNodi[i].name,
               ),
             onChanged: (String txt) {
               if(listaNodi[i].keyboardType==KEYBOARD_NUMBER_DECIMAL){

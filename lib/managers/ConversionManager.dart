@@ -73,11 +73,14 @@ class _ConversionManager extends State<ConversionManager>{
   }
 
   _changeOrderUnita(BuildContext context,String title, List listaStringhe) async{
+    List<String> listaUnitaTradotte = List();
+    for(String stringa in listaStringhe)
+      listaUnitaTradotte.add(MyLocalizations.of(context).trans(stringa));
     final result = await Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ReorderPage(
             title: title,
-            listaElementi: listaStringhe,
+            listaElementi: listaUnitaTradotte,
         ),));
     List arrayCopia=new List(listaOrder[currentPage].length);
     for(int i=0;i<listaOrder[currentPage].length;i++)
@@ -85,7 +88,7 @@ class _ConversionManager extends State<ConversionManager>{
     setState(() {
       for(int i=0;i<listaOrder[currentPage].length;i++)
         listaOrder[currentPage][i]=result.indexOf(arrayCopia[i]);
-      listaConversioni=initializeUnits(context, listaOrder, widget.currencyValues); 
+      listaConversioni=initializeUnits(listaOrder, widget.currencyValues); 
     });
     _saveOrders();
   }
@@ -159,8 +162,6 @@ class _ConversionManager extends State<ConversionManager>{
   @override
   Widget build(BuildContext context) {
     _getJsonSearch(context);
-
-    
 
     List<Choice> choices = <Choice>[
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
