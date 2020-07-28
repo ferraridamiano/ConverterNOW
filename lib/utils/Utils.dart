@@ -406,18 +406,18 @@ class SearchGridTile extends StatelessWidget {
   }
 }
 
-class ListTileConversion extends StatefulWidget{
+class ListTileDrawer extends StatefulWidget{
   final String text;
   final String imagePath;
   final bool selected;
   final Function onTapFunction;
-  ListTileConversion(this.text, this.imagePath, this.selected,this.onTapFunction);
+  ListTileDrawer(this.text, this.imagePath, this.selected,this.onTapFunction);
 
   @override
   _ListTileConversion createState() => new _ListTileConversion();
 } 
 
-class _ListTileConversion extends State<ListTileConversion>{
+class _ListTileConversion extends State<ListTileDrawer>{
 
   @override
   Widget build(BuildContext context) {
@@ -439,6 +439,44 @@ class _ListTileConversion extends State<ListTileConversion>{
         onTap: widget.onTapFunction
       ),
       selectedColor: Theme.of(context).accentColor//widget.color,
+    );
+  }
+}
+
+class myExpansionTile extends StatefulWidget{
+
+  final String title;
+  final String leadingImageAsset;
+  final Color selectedColor;
+  final Color unSelectedColor;
+  final List<Widget> children;
+  bool selected;
+
+  myExpansionTile({this.title, this.leadingImageAsset, this.selectedColor, this.unSelectedColor, this.selected=false, this.children});
+
+  @override
+  _myExpansionTile createState() => new _myExpansionTile();
+}
+
+class _myExpansionTile extends State<myExpansionTile>{
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: ThemeData(unselectedWidgetColor: widget.unSelectedColor, accentColor: widget.selectedColor),
+      child: ExpansionTile(
+        title: Text(
+          widget.title,
+          style: TextStyle(fontSize: 20, color: widget.selected ? widget.selectedColor : widget.unSelectedColor, fontWeight: FontWeight.bold),
+        ),
+        leading: Image.asset(widget.leadingImageAsset, width: 30, color: widget.selected ? widget.selectedColor : widget.unSelectedColor),
+        onExpansionChanged: (bool expansion){
+          setState(() {
+            widget.selected=expansion;
+          });
+        },
+        children: widget.children,
+      ),
     );
   }
 }

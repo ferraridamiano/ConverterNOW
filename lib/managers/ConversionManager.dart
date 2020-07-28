@@ -12,7 +12,7 @@ import "dart:convert";
 bool isCurrencyLoading=true;
 double appBarSize;
 Map jsonSearch;
-const MAX_CONVERSION_UNITS=19;
+
 class ConversionManager extends StatefulWidget{
 
   final Function openDrawer;
