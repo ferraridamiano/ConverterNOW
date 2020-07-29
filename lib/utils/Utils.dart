@@ -470,11 +470,7 @@ class _myExpansionTile extends State<myExpansionTile>{
           style: TextStyle(fontSize: 20, color: widget.selected ? widget.selectedColor : widget.unSelectedColor, fontWeight: FontWeight.bold),
         ),
         leading: Image.asset(widget.leadingImageAsset, width: 30, color: widget.selected ? widget.selectedColor : widget.unSelectedColor),
-        onExpansionChanged: (bool expansion){
-          setState(() {
-            widget.selected=expansion;
-          });
-        },
+        initiallyExpanded: widget.selected,
         children: widget.children,
       ),
     );
