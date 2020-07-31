@@ -94,6 +94,41 @@ class UnitCard extends StatelessWidget{
   }
 }
 
+class GenericCard extends StatelessWidget{
+  GenericCard({this.title, this.body});
+
+  final String title;
+  final Widget body;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        new Container(
+            padding: EdgeInsets.only(top: 14.0),
+            child: new Card(
+              child: Padding(
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+                  child: this.body
+                  ),
+              elevation: 4.0,
+            )),
+            title==null?SizedBox() : Align(
+              alignment: Alignment(0.95, -0.9),
+              child: Card(
+                elevation: 4.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Text(title, style: TextStyle(color: Colors.white, fontSize: 13.0,fontWeight: FontWeight.bold),),
+                ),
+                color: Theme.of(context).accentColor,
+              ),
+            )
+      ],
+    );
+  }
+}
+
 class Calculator extends StatefulWidget{
 
   Calculator(this.color, this.width);

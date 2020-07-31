@@ -14,7 +14,7 @@ import 'package:intl/intl.dart';
 import "dart:convert";
 
 int currentPage=0;    //page of a topic (e.g. length)
-int currentTopic=1;   //topic (e.g. conversions)
+int currentTopic=0;   //topic (e.g. conversions)
 const MAX_CONVERSION_UNITS=19;
 const MAX_TOOLS_NUMBER=1;
 
