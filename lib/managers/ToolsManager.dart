@@ -2,11 +2,9 @@ import 'package:converterpro/utils/Localization.dart';
 import 'package:flutter/material.dart';
 import 'package:converterpro/utils/Utils.dart';
 
-const int ANIMATION_DURATION = 3000; //milliseconds
-const int ANIMATIONS_OVERLAY = 10;  //percentage (0-100)
-int currentSelection = 0;
-List<int> positions = [0, 1];
-int ciao = 2;
+const int ANIMATION_DURATION = 300; //milliseconds
+const int ANIMATIONS_OVERLAY = 10; //percentage (0-100)
+List<int> positions = [0, 1, 2];
 String dataSize = "MB";
 String dataSpeed = "MB/s";
 String dataDuration = "s";
@@ -29,7 +27,7 @@ class _ToolsManager extends State<ToolsManager> {
   Widget build(BuildContext context) {
     firstCard[0] = myListTile(
       key: ValueKey(0),
-      selected: currentSelection == 0,
+      selected: positions[2]==0,
       selectedLeading: Image.asset("resources/images/x.png",
           width: 40,
           color: MediaQuery.of(context).platformBrightness == Brightness.dark
@@ -42,7 +40,7 @@ class _ToolsManager extends State<ToolsManager> {
               : Colors.black54),
       title: TextFormField(
         controller: TEC1,
-        enabled: currentSelection != 0,
+        enabled: positions[2] != 0,
         decoration: InputDecoration(labelText: "Data size"),
         keyboardType:
             TextInputType.numberWithOptions(decimal: true, signed: false),
@@ -75,15 +73,17 @@ class _ToolsManager extends State<ToolsManager> {
         ),
       ),
       onTap: () {
-        setState(() {
-          currentSelection = 0;
-        });
+        if (positions[2] != 0) {
+          setState(() {
+            swapTwoElementsList(positions, positions.indexWhere((element) => element == 0), 2);
+          });
+        }
       },
     );
 
     firstCard[1] = myListTile(
       key: ValueKey(1),
-      selected: currentSelection == 1,
+      selected: positions[2] == 1,
       selectedLeading: Image.asset("resources/images/x.png",
           width: 40,
           color: MediaQuery.of(context).platformBrightness == Brightness.dark
@@ -96,7 +96,7 @@ class _ToolsManager extends State<ToolsManager> {
               : Colors.black54),
       title: TextFormField(
         controller: TEC2,
-        enabled: currentSelection != 1,
+        enabled: positions[2] !=1,
         decoration: InputDecoration(labelText: "Transmission speed"),
         keyboardType:
             TextInputType.numberWithOptions(decimal: true, signed: false),
@@ -129,15 +129,17 @@ class _ToolsManager extends State<ToolsManager> {
         ),
       ),
       onTap: () {
-        setState(() {
-          currentSelection = 1;
-        });
+        if (positions[2] != 1) {
+          setState(() {
+            swapTwoElementsList(positions, positions.indexWhere((element) => element == 1), 2);
+          });
+        }
       },
     );
 
     firstCard[2] = myListTile(
       key: ValueKey(2),
-      selected: currentSelection == 2,
+      selected: positions[2] == 2,
       selectedLeading: Image.asset("resources/images/x.png",
           width: 40,
           color: MediaQuery.of(context).platformBrightness == Brightness.dark
@@ -150,7 +152,7 @@ class _ToolsManager extends State<ToolsManager> {
               : Colors.black54),
       title: TextFormField(
         controller: TEC3,
-        enabled: currentSelection != 2,
+        enabled: positions[2] != 2,
         decoration: InputDecoration(labelText: "Data transfer duration"),
         keyboardType:
             TextInputType.numberWithOptions(decimal: true, signed: false),
@@ -175,9 +177,11 @@ class _ToolsManager extends State<ToolsManager> {
         ),
       ),
       onTap: () {
-        setState(() {
-          currentSelection = 2;
-        });
+        if (positions[2] != 2) {
+          setState(() {
+            swapTwoElementsList(positions, positions.indexWhere((element) => element == 2), 2);
+          });
+        }
       },
     );
 
@@ -241,7 +245,7 @@ class _ToolsManager extends State<ToolsManager> {
               body: Column(
                 children: [
                   AnimatedSwitcher(
-                    child: getfirstTwoTiles(firstCard, currentSelection)[0],
+                    child: firstCard[positions[0]],
                     duration: Duration(
                       milliseconds: ANIMATION_DURATION,
                     ),
@@ -280,7 +284,7 @@ class _ToolsManager extends State<ToolsManager> {
                     },
                   ),
                   AnimatedSwitcher(
-                    child: getfirstTwoTiles(firstCard, currentSelection)[1],
+                    child: firstCard[positions[1]],
                     duration: Duration(
                       milliseconds: ANIMATION_DURATION,
                     ),
@@ -324,14 +328,19 @@ class _ToolsManager extends State<ToolsManager> {
                   Container(
                     height: 70.0,
                     child: AnimatedSwitcher(
-                      child: firstCard[currentSelection],
+                      child: firstCard[positions[2]],
                       duration: Duration(
-                        milliseconds: (ANIMATION_DURATION*200 / (ANIMATIONS_OVERLAY+100)).round(),
+                        milliseconds: (ANIMATION_DURATION *
+                                200 /
+                                (ANIMATIONS_OVERLAY + 100))
+                            .round(),
                       ),
-                      switchInCurve: Interval((100-ANIMATIONS_OVERLAY)/200, 1,
-                          curve: Curves.linear), //Curves.elasticIn,
-                      switchOutCurve: Interval(0, (ANIMATIONS_OVERLAY+100)/200,
-                          curve: Curves.linear), //Curves.elasticOut,
+                      switchInCurve: Interval(
+                          (100 - ANIMATIONS_OVERLAY) / 200, 1,
+                          curve: Curves.linear),
+                      switchOutCurve: Interval(
+                          0, (ANIMATIONS_OVERLAY + 100) / 200,
+                          curve: Curves.linear),
                       transitionBuilder:
                           (Widget child, Animation<double> animation) {
                         final outAnimation = Tween<Offset>(
@@ -341,7 +350,7 @@ class _ToolsManager extends State<ToolsManager> {
                                 begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
                             .animate(animation);
 
-                        if (child.key == ValueKey(currentSelection)) {
+                        if (child.key == ValueKey(positions[2])) {
                           return ClipRect(
                             child: SlideTransition(
                               position: inAnimation,
@@ -371,19 +380,6 @@ class _ToolsManager extends State<ToolsManager> {
           ],
         ));
   }
-}
-
-List getfirstTwoTiles(List tiles, selectedTile) {
-  List returnTiles = new List();
-  int position = 0;
-  for (int i = 0; i < tiles.length; i++) {
-    if (i != selectedTile) {
-      returnTiles.add(tiles[i]);
-      positions[position] = i;
-      position++;
-    }
-  }
-  return returnTiles;
 }
 
 class myListTile extends StatelessWidget {

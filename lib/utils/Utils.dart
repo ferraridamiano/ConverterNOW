@@ -511,3 +511,13 @@ class _myExpansionTile extends State<myExpansionTile>{
     );
   }
 }
+
+List swapTwoElementsList(List list, int pos1, int pos2){
+  if(list.length>=max(pos1,pos2)){
+    var temp = list[pos1];
+    list[pos1] = list[pos2];
+    list[pos2] = temp;
+    return list;
+  }
+  throw ("OutOfBoundsException");
+}
