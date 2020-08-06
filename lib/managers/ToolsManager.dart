@@ -27,28 +27,20 @@ class _ToolsManager extends State<ToolsManager> {
   Widget build(BuildContext context) {
     firstCard[0] = myListTile(
       key: ValueKey(0),
-      selected: positions[2]==0,
+      selected: positions[2] == 0,
       selectedLeading: Image.asset("resources/images/x.png",
-          width: 40,
-          color: MediaQuery.of(context).platformBrightness == Brightness.dark
-              ? Color(0xFFCCCCCC)
-              : Colors.black54),
-      unselectedLeading: Icon(Icons.expand_more,
-          size: 40,
-          color: MediaQuery.of(context).platformBrightness == Brightness.dark
-              ? Color(0xFFCCCCCC)
-              : Colors.black54),
+          width: 40, color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
+      unselectedLeading:
+          Icon(Icons.expand_more, size: 40, color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
       title: TextFormField(
         controller: TEC1,
         enabled: positions[2] != 0,
         decoration: InputDecoration(labelText: "Data size"),
-        keyboardType:
-            TextInputType.numberWithOptions(decimal: true, signed: false),
+        keyboardType: TextInputType.numberWithOptions(decimal: true, signed: false),
         onChanged: (String text) {
           if (text != "" && TEC2.text != "") {
             setState(() {
-              TEC3.text =
-                  (double.parse(text) / double.parse(TEC2.text)).toString();
+              TEC3.text = (double.parse(text) / double.parse(TEC2.text)).toString();
             });
           }
         },
@@ -85,26 +77,18 @@ class _ToolsManager extends State<ToolsManager> {
       key: ValueKey(1),
       selected: positions[2] == 1,
       selectedLeading: Image.asset("resources/images/x.png",
-          width: 40,
-          color: MediaQuery.of(context).platformBrightness == Brightness.dark
-              ? Color(0xFFCCCCCC)
-              : Colors.black54),
-      unselectedLeading: Icon(Icons.expand_more,
-          size: 40,
-          color: MediaQuery.of(context).platformBrightness == Brightness.dark
-              ? Color(0xFFCCCCCC)
-              : Colors.black54),
+          width: 40, color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
+      unselectedLeading:
+          Icon(Icons.expand_more, size: 40, color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
       title: TextFormField(
         controller: TEC2,
-        enabled: positions[2] !=1,
+        enabled: positions[2] != 1,
         decoration: InputDecoration(labelText: "Transmission speed"),
-        keyboardType:
-            TextInputType.numberWithOptions(decimal: true, signed: false),
+        keyboardType: TextInputType.numberWithOptions(decimal: true, signed: false),
         onChanged: (String text) {
           if (text != "" && TEC1.text != "") {
             setState(() {
-              TEC3.text =
-                  (double.parse(TEC1.text) / double.parse(text)).toString();
+              TEC3.text = (double.parse(TEC1.text) / double.parse(text)).toString();
             });
           }
         },
@@ -141,21 +125,14 @@ class _ToolsManager extends State<ToolsManager> {
       key: ValueKey(2),
       selected: positions[2] == 2,
       selectedLeading: Image.asset("resources/images/x.png",
-          width: 40,
-          color: MediaQuery.of(context).platformBrightness == Brightness.dark
-              ? Color(0xFFCCCCCC)
-              : Colors.black54),
-      unselectedLeading: Icon(Icons.expand_more,
-          size: 40,
-          color: MediaQuery.of(context).platformBrightness == Brightness.dark
-              ? Color(0xFFCCCCCC)
-              : Colors.black54),
+          width: 40, color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
+      unselectedLeading:
+          Icon(Icons.expand_more, size: 40, color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
       title: TextFormField(
         controller: TEC3,
         enabled: positions[2] != 2,
         decoration: InputDecoration(labelText: "Data transfer duration"),
-        keyboardType:
-            TextInputType.numberWithOptions(decimal: true, signed: false),
+        keyboardType: TextInputType.numberWithOptions(decimal: true, signed: false),
       ),
       trailing: Container(
         width: 70,
@@ -227,6 +204,7 @@ class _ToolsManager extends State<ToolsManager> {
                       Icons.search,
                       color: Colors.white,
                     ),
+                    onPressed: (){},
                   ),
                 ],
               )
@@ -244,141 +222,83 @@ class _ToolsManager extends State<ToolsManager> {
               title: "Data size - Speed - Data transfer duration",
               body: Column(
                 children: [
-                  AnimatedSwitcher(
+                  MyAnimatedSwitcher(
                     child: firstCard[positions[0]],
-                    duration: Duration(
-                      milliseconds: ANIMATION_DURATION,
-                    ),
-                    switchInCurve: Curves.linear,
-                    switchOutCurve: Curves.linear,
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      final outAnimation = Tween<Offset>(
-                              begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
-                          .animate(animation);
-                      final inAnimation = Tween<Offset>(
-                              begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
-                          .animate(animation);
-
-                      if (child.key == ValueKey(positions[0])) {
-                        return ClipRect(
-                          child: SlideTransition(
-                            position: inAnimation,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: child,
-                            ),
-                          ),
-                        );
-                      } else {
-                        return ClipRect(
-                          child: SlideTransition(
-                            position: outAnimation,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: child,
-                            ),
-                          ),
-                        );
-                      }
-                    },
+                    tilePosition: positions[0],
+                    duration: ANIMATION_DURATION,
+                    animationsOverlay: ANIMATIONS_OVERLAY,
+                    selected: false,
                   ),
-                  AnimatedSwitcher(
+                  MyAnimatedSwitcher(
                     child: firstCard[positions[1]],
-                    duration: Duration(
-                      milliseconds: ANIMATION_DURATION,
-                    ),
-                    switchInCurve: Curves.linear,
-                    switchOutCurve: Curves.linear,
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      final outAnimation = Tween<Offset>(
-                              begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
-                          .animate(animation);
-                      final inAnimation = Tween<Offset>(
-                              begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
-                          .animate(animation);
-
-                      if (child.key == ValueKey(positions[1])) {
-                        return ClipRect(
-                          child: SlideTransition(
-                            position: inAnimation,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: child,
-                            ),
-                          ),
-                        );
-                      } else {
-                        return ClipRect(
-                          child: SlideTransition(
-                            position: outAnimation,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: child,
-                            ),
-                          ),
-                        );
-                      }
-                    },
+                    tilePosition: positions[1],
+                    duration: ANIMATION_DURATION,
+                    animationsOverlay: ANIMATIONS_OVERLAY,
+                    selected: false,
                   ),
-                  Divider(
-                    thickness: 1,
+                  Divider(thickness: 1),
+                  MyAnimatedSwitcher(
+                    child: firstCard[positions[2]],
+                    tilePosition: positions[2],
+                    duration: ANIMATION_DURATION,
+                    animationsOverlay: ANIMATIONS_OVERLAY,
+                    selected: true,
                   ),
-                  Container(
-                    height: 70.0,
-                    child: AnimatedSwitcher(
-                      child: firstCard[positions[2]],
-                      duration: Duration(
-                        milliseconds: (ANIMATION_DURATION *
-                                200 /
-                                (ANIMATIONS_OVERLAY + 100))
-                            .round(),
-                      ),
-                      switchInCurve: Interval(
-                          (100 - ANIMATIONS_OVERLAY) / 200, 1,
-                          curve: Curves.linear),
-                      switchOutCurve: Interval(
-                          0, (ANIMATIONS_OVERLAY + 100) / 200,
-                          curve: Curves.linear),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        final outAnimation = Tween<Offset>(
-                                begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
-                            .animate(animation);
-                        final inAnimation = Tween<Offset>(
-                                begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0))
-                            .animate(animation);
-
-                        if (child.key == ValueKey(positions[2])) {
-                          return ClipRect(
-                            child: SlideTransition(
-                              position: inAnimation,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: child,
-                              ),
-                            ),
-                          );
-                        } else {
-                          return ClipRect(
-                            child: SlideTransition(
-                              position: outAnimation,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: child,
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  )
                 ],
               ),
             )
           ],
         ));
+  }
+}
+
+class MyAnimatedSwitcher extends StatelessWidget {
+  final int duration;
+  final int animationsOverlay;
+  final Widget child;
+  final bool selected;
+  final int tilePosition;
+
+  MyAnimatedSwitcher({
+    this.duration,
+    this.animationsOverlay,
+    this.child,
+    this.selected,
+    this.tilePosition
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+        duration: Duration(milliseconds: selected ? (duration * 200 / (animationsOverlay + 100)).round() : duration),
+        switchInCurve: selected ? Interval((100 - ANIMATIONS_OVERLAY) / 200, 1, curve: Curves.linear) : Curves.linear,
+        switchOutCurve: selected ? Interval(0, (ANIMATIONS_OVERLAY + 100) / 200, curve: Curves.linear) : Curves.linear,
+        child: child,
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          final outAnimation = Tween<Offset>(begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0)).animate(animation);
+          final inAnimation = Tween<Offset>(begin: Offset(0.0, -1.0), end: Offset(0.0, 0.0)).animate(animation);
+
+          if (child.key == ValueKey(tilePosition)) {
+            return ClipRect(
+              child: SlideTransition(
+                position: inAnimation,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: child,
+                ),
+              ),
+            );
+          }
+          return ClipRect(
+            child: SlideTransition(
+              position: outAnimation,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: child,
+              ),
+            ),
+          );
+        });
   }
 }
 
@@ -391,20 +311,12 @@ class myListTile extends StatelessWidget {
   final Widget trailing;
   final bool selected;
 
-  myListTile(
-      {this.key,
-      this.onTap,
-      this.title,
-      this.unselectedLeading,
-      this.selectedLeading,
-      this.selected,
-      this.trailing});
+  myListTile({this.key, this.onTap, this.title, this.unselectedLeading, this.selectedLeading, this.selected, this.trailing});
 
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent, highlightColor: Colors.transparent),
+      data: Theme.of(context).copyWith(splashColor: Colors.transparent, highlightColor: Colors.transparent),
       child: ListTile(
         key: key,
         leading: selected ? selectedLeading : unselectedLeading,
