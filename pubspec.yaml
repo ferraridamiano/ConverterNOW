@@ -7,7 +7,7 @@ description: Convertitore di unità di misura e di valute
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
 # Read more about versioning at semver.org.
-version: 2.3.1+20
+version: 2.3.2+21
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
@@ -16,9 +16,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  shared_preferences: ^0.5.7+3
-  url_launcher: ^5.4.11
-  http: ^0.12.1
+  shared_preferences: ^0.5.8
+  url_launcher: ^5.5.0
+  http: ^0.12.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
