@@ -8,9 +8,7 @@ List<int> positions = [0, 1, 2];
 String dataSize = "MB";
 String dataSpeed = "MB/s";
 String dataDuration = "s";
-TextEditingController TEC1 = TextEditingController();
-TextEditingController TEC2 = TextEditingController();
-TextEditingController TEC3 = TextEditingController();
+List<TextEditingController> tecList = [TextEditingController(), TextEditingController(), TextEditingController()];
 
 class ToolsManager extends StatefulWidget {
   final Function openDrawer;
@@ -25,7 +23,7 @@ class _ToolsManager extends State<ToolsManager> {
   List<Widget> firstCard = new List(3);
   @override
   Widget build(BuildContext context) {
-    firstCard[0] = myListTile(
+    firstCard[0] = MyListTile(
       key: ValueKey(0),
       selected: positions[2] == 0,
       selectedLeading: Image.asset("resources/images/x.png",
@@ -33,14 +31,18 @@ class _ToolsManager extends State<ToolsManager> {
       unselectedLeading:
           Icon(Icons.expand_more, size: 40, color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
       title: TextFormField(
-        controller: TEC1,
+        controller: tecList[0],
         enabled: positions[2] != 0,
         decoration: InputDecoration(labelText: "Data size"),
         keyboardType: TextInputType.numberWithOptions(decimal: true, signed: false),
         onChanged: (String text) {
-          if (text != "" && TEC2.text != "") {
+          if (tecList[positions[0]].text != "" && tecList[positions[1]].text != "") {
             setState(() {
-              TEC3.text = (double.parse(text) / double.parse(TEC2.text)).toString();
+              tecList[positions[2]].text = getResults(positions[2],
+                      dataSize: double.tryParse(tecList[0].text),
+                      transmissionSpeed: double.tryParse(tecList[1].text),
+                      transferDuration: double.tryParse(tecList[2].text))
+                  .toString();
             });
           }
         },
@@ -73,7 +75,7 @@ class _ToolsManager extends State<ToolsManager> {
       },
     );
 
-    firstCard[1] = myListTile(
+    firstCard[1] = MyListTile(
       key: ValueKey(1),
       selected: positions[2] == 1,
       selectedLeading: Image.asset("resources/images/x.png",
@@ -81,14 +83,18 @@ class _ToolsManager extends State<ToolsManager> {
       unselectedLeading:
           Icon(Icons.expand_more, size: 40, color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
       title: TextFormField(
-        controller: TEC2,
+        controller: tecList[1],
         enabled: positions[2] != 1,
         decoration: InputDecoration(labelText: "Transmission speed"),
         keyboardType: TextInputType.numberWithOptions(decimal: true, signed: false),
         onChanged: (String text) {
-          if (text != "" && TEC1.text != "") {
+          if (tecList[positions[0]].text != "" && tecList[positions[1]].text != "") {
             setState(() {
-              TEC3.text = (double.parse(TEC1.text) / double.parse(text)).toString();
+              tecList[positions[2]].text = getResults(positions[2],
+                      dataSize: double.tryParse(tecList[0].text),
+                      transmissionSpeed: double.tryParse(tecList[1].text),
+                      transferDuration: double.tryParse(tecList[2].text))
+                  .toString();
             });
           }
         },
@@ -121,7 +127,7 @@ class _ToolsManager extends State<ToolsManager> {
       },
     );
 
-    firstCard[2] = myListTile(
+    firstCard[2] = MyListTile(
       key: ValueKey(2),
       selected: positions[2] == 2,
       selectedLeading: Image.asset("resources/images/x.png",
@@ -129,10 +135,21 @@ class _ToolsManager extends State<ToolsManager> {
       unselectedLeading:
           Icon(Icons.expand_more, size: 40, color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
       title: TextFormField(
-        controller: TEC3,
+        controller: tecList[2],
         enabled: positions[2] != 2,
         decoration: InputDecoration(labelText: "Data transfer duration"),
         keyboardType: TextInputType.numberWithOptions(decimal: true, signed: false),
+        onChanged: (String text) {
+          if (tecList[positions[0]].text != "" && tecList[positions[1]].text != "") {
+            setState(() {
+              tecList[positions[2]].text = getResults(positions[2],
+                      dataSize: double.tryParse(tecList[0].text),
+                      transmissionSpeed: double.tryParse(tecList[1].text),
+                      transferDuration: double.tryParse(tecList[2].text))
+                  .toString();
+            });
+          }
+        },
       ),
       trailing: Container(
         width: 70,
@@ -194,7 +211,7 @@ class _ToolsManager extends State<ToolsManager> {
                     icon: Icon(Icons.clear, color: Colors.white),
                     onPressed: () {
                       setState(() {
-                        TEC1.text = TEC2.text = TEC3.text = "";
+                        tecList[0].text = tecList[1].text = tecList[2].text = "";
                       });
                     },
                   ),
@@ -204,7 +221,7 @@ class _ToolsManager extends State<ToolsManager> {
                       Icons.search,
                       color: Colors.white,
                     ),
-                    onPressed: (){},
+                    onPressed: () {},
                   ),
                 ],
               )
@@ -252,6 +269,18 @@ class _ToolsManager extends State<ToolsManager> {
   }
 }
 
+double getResults(int selection, {double transmissionSpeed, double transferDuration, double dataSize}) {
+  switch (selection) {
+    case 0:
+      return (transmissionSpeed * transferDuration);
+    case 1:
+      return (dataSize / transferDuration);
+    case 2:
+      return (dataSize / transmissionSpeed);
+  }
+  return null;
+}
+
 class MyAnimatedSwitcher extends StatelessWidget {
   final int duration;
   final int animationsOverlay;
@@ -259,13 +288,7 @@ class MyAnimatedSwitcher extends StatelessWidget {
   final bool selected;
   final int tilePosition;
 
-  MyAnimatedSwitcher({
-    this.duration,
-    this.animationsOverlay,
-    this.child,
-    this.selected,
-    this.tilePosition
-  });
+  MyAnimatedSwitcher({this.duration, this.animationsOverlay, this.child, this.selected, this.tilePosition});
 
   @override
   Widget build(BuildContext context) {
@@ -302,7 +325,7 @@ class MyAnimatedSwitcher extends StatelessWidget {
   }
 }
 
-class myListTile extends StatelessWidget {
+class MyListTile extends StatelessWidget {
   final Key key;
   final Function onTap;
   final Widget title;
@@ -311,7 +334,7 @@ class myListTile extends StatelessWidget {
   final Widget trailing;
   final bool selected;
 
-  myListTile({this.key, this.onTap, this.title, this.unselectedLeading, this.selectedLeading, this.selected, this.trailing});
+  MyListTile({this.key, this.onTap, this.title, this.unselectedLeading, this.selectedLeading, this.selected, this.trailing});
 
   @override
   Widget build(BuildContext context) {
