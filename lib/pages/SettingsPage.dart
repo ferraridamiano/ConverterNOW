@@ -130,6 +130,9 @@ class SettingsPage2 extends StatefulWidget {
 
 class _SettingsPage2 extends State<SettingsPage2> {
   bool value1 = false;
+  final List<String> significantFiguresList = <String>['6','8', '10', '12', '14'];
+  String selectedFigure = '10';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,6 +171,23 @@ class _SettingsPage2 extends State<SettingsPage2> {
                   });
                 },
               ),
-            ])));
+              ListTile(
+                title: Text(MyLocalizations.of(context).trans('significant_figures')),
+                trailing: DropdownButton<String>(
+                  value: selectedFigure,
+                  onChanged: (String string) => setState(() => selectedFigure = string),
+                  selectedItemBuilder: (BuildContext context) {
+                    return significantFiguresList.map<Widget>((String item) {
+                      return Center(child: Text(item));
+                    }).toList();
+                  },
+                  items: significantFiguresList.map((String item) {
+                    return DropdownMenuItem<String>(
+                      child: Text(item),
+                      value: item,
+                    );
+                  }).toList(),
+              ),),
+            ],),),);
   }
 }
