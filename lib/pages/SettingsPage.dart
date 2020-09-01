@@ -130,6 +130,8 @@ class SettingsPage2 extends StatefulWidget {
 
 class _SettingsPage2 extends State<SettingsPage2> {
   bool value1 = false;
+  final List<int> significantFiguresList = <int>[6, 8, 10, 12, 14];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,17 +159,44 @@ class _SettingsPage2 extends State<SettingsPage2> {
         body: Align(
             alignment: Alignment.bottomCenter,
             child: ListView(reverse: true, children: <Widget>[
-              CheckboxListTile(
+              SwitchListTile(
                 title: Text(MyLocalizations.of(context).trans('logo_drawer')),
                 value: isLogoVisible,
                 activeColor: widget.accentColor,
                 onChanged: (bool val) {
-                  setState(() {
-                    isLogoVisible = val;
-                    prefs.setBool("isLogoVisible", isLogoVisible);
-                  });
+                  setState(() => isLogoVisible = val);
+                  prefs.setBool("isLogoVisible", isLogoVisible);
                 },
               ),
-            ])));
+              SwitchListTile(
+                title: Text(MyLocalizations.of(context).trans('remove_trailing_zeros')),
+                value: removeTrailingZeros,
+                activeColor: widget.accentColor,
+                onChanged: (bool val) {
+                  setState(() => removeTrailingZeros = val);
+                  prefs.setBool("remove_trailing_zeros", removeTrailingZeros);
+                },
+              ),
+              ListTile(
+                title: Text(MyLocalizations.of(context).trans('significant_figures')),
+                trailing: DropdownButton<String>(
+                  value: significantFigures.toString(),
+                  onChanged: (String string) {
+                    setState(() => significantFigures = int.parse(string));
+                    prefs.setInt("significant_figures", significantFigures);
+                  },
+                  selectedItemBuilder: (BuildContext context) {
+                    return significantFiguresList.map<Widget>((int item) {
+                      return Center(child: Text(item.toString()));
+                    }).toList();
+                  },
+                  items: significantFiguresList.map((int item) {
+                    return DropdownMenuItem<String>(
+                      child: Text(item.toString()),
+                      value: item.toString(),
+                    );
+                  }).toList(),
+              ),),
+            ],),),);
   }
 }

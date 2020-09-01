@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:converterpro/main.dart';
 
 const LINEAR_CONVERSION = 1;     // y=ax+b
 const RECIPROCO_CONVERSION = 2;  // y=(a/x)+b
@@ -245,53 +245,31 @@ class Node {
   }
 
   String mantissaCorrection(){
-    String stringValue=value.toString();
-
-    //stacco la parte esponenziale e la attacco alla fine
+    //Round to a fixed number of significant figures
+    String stringValue=value.toStringAsPrecision(significantFigures);
     String append="";
-    if(stringValue.contains("e")) {
-      append = "e" + stringValue.split("e")[1];
-      stringValue=stringValue.split("e")[0];
-    }
 
-    //risoluzione problema 0.99999999999 -> 1.0
-    if(stringValue.contains("999999")){
-      if(stringValue.indexOf("999999")>(stringValue.indexOf(".") ==-1 ? stringValue.indexOf("999999")+1 : stringValue.indexOf("."))){ // se il numero cercato è dopo la virgola
-        int index=stringValue.split(".")[1].indexOf("999999"); //es:    1.999999 index=1;
-        value=value+pow(10,-index-6);                          //10^-6 =0.000001 che sommato a value dà 2 (6 perchè 999999 ha 6 cifre)
-        stringValue=value.toString();
+    //if the user want to remove the trailing zeros
+    if(removeTrailingZeros){
+      //remove exponential part and append to the end
+      if(stringValue.contains("e")) {
+        append = "e" + stringValue.split("e")[1];
+        stringValue=stringValue.split("e")[0];
       }
-    }
 
-    //eliminazione problema 1.00000000000000003 --> 1.0
-    if(stringValue.contains(".")){
-      List<String> parteIntDec=stringValue.split(".");
-      if(parteIntDec[1].contains("000000")){
-        parteIntDec[1]=parteIntDec[1].split("000000")[0];
-        stringValue=parteIntDec[0]+"."+parteIntDec[1];
+      //remove trailing zeros (just fractional part)
+      if (stringValue.contains(".")) {
+        int firstZeroIndex = stringValue.length;
+        for (; firstZeroIndex > stringValue.indexOf("."); firstZeroIndex--) {
+          String charAtIndex = stringValue.substring(firstZeroIndex - 1, firstZeroIndex);
+          if (charAtIndex != "0" && charAtIndex != ".")
+            break;
+        }
+        stringValue = stringValue.substring(0, firstZeroIndex);
       }
     }
     
-
-    //riduzione a 9 cifre significative dopo la virgola
-    bool nonZero=false;
-    bool virgola=false;
-    int i;
-    for(i=0;i<stringValue.length && !nonZero;i++){    //cerco l'indice del primo carattere non nullo dopo la virgola
-      String char =stringValue.substring(i,i+1);      //estraggo ogni carattere
-      if(char==".")                                   //se è passata la virgola
-        virgola=true;                                 //metto il flag che è già stata passata
-      else if(virgola && char!="0")                   //se la virgola è passata e il primo carattere  è diverso da "0"
-        nonZero=true;
-    }
-    if(i+9<stringValue.length) {
-      stringValue = stringValue.substring(0,i+9);
-    }
-
-    //correzione finali con .
-    if(stringValue.endsWith("."))
-      stringValue=stringValue+"0";
-    return stringValue+append; //aggiungo la parte esponenziale se c'è
+    return stringValue+append; //append exponential part
 
   }
 
