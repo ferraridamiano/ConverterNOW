@@ -15,3 +15,4 @@ android/key.properties
 pubspec.lock
 .metadata
 .idea/
+ios/Flutter/flutter_export_environment.sh
