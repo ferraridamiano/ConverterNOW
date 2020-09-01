@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:converterpro/main.dart';
 
 const LINEAR_CONVERSION = 1;     // y=ax+b
 const RECIPROCO_CONVERSION = 2;  // y=(a/x)+b
@@ -246,7 +246,7 @@ class Node {
 
   String mantissaCorrection(){
     //Round to a fixed number of significant figures
-    String stringValue=value.toStringAsPrecision(10);
+    String stringValue=value.toStringAsPrecision(significantFigures);
 
     //remove exponential part and append to the end
     String append="";

@@ -8,12 +8,14 @@ import 'managers/AppManager.dart';
 bool isLogoVisible = true;
 SharedPreferences prefs;
 int numeroVolteAccesso;
+int significantFigures;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
   isLogoVisible = prefs.getBool("isLogoVisible") ?? true;
   numeroVolteAccesso = prefs.getInt("access_number") ?? 0;
+  significantFigures = prefs.getInt("significant_figures") ?? 10;
   numeroVolteAccesso++;
   print(numeroVolteAccesso);
   if (numeroVolteAccesso < 5) //traccio solo i primi 5 accessi per dialog rating
