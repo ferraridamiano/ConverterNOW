@@ -163,7 +163,7 @@ class _ConversionPage extends State<ConversionPage> {
     return listaCard;
   }
 
-  Widget _buildConversionGrid(MediaQueryData mediaQuery) {
+  /*Widget _buildConversionGrid(MediaQueryData mediaQuery) {
     
     List itemList=createList();
     
@@ -188,7 +188,7 @@ class _ConversionPage extends State<ConversionPage> {
         children: gridTiles,
       ),
     );
-  }
+  }*/
 
 
   @override
@@ -213,6 +213,7 @@ class _ConversionPage extends State<ConversionPage> {
           shrinkWrap: true,
           crossAxisSpacing: 15.0,
           children: gridTiles,
+          padding: EdgeInsets.only(bottom: 22),     //So FAB doesn't overlap the card
         ),
       ),
     );
