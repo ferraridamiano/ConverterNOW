@@ -9,6 +9,7 @@ bool isLogoVisible = true;
 SharedPreferences prefs;
 int numeroVolteAccesso;
 int significantFigures;
+bool removeTrailingZeros;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,7 @@ void main() async {
   isLogoVisible = prefs.getBool("isLogoVisible") ?? true;
   numeroVolteAccesso = prefs.getInt("access_number") ?? 0;
   significantFigures = prefs.getInt("significant_figures") ?? 10;
+  removeTrailingZeros = prefs.getBool("remove_trailing_zeros") ?? true;
   numeroVolteAccesso++;
   print(numeroVolteAccesso);
   if (numeroVolteAccesso < 5) //traccio solo i primi 5 accessi per dialog rating

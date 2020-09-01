@@ -159,15 +159,22 @@ class _SettingsPage2 extends State<SettingsPage2> {
         body: Align(
             alignment: Alignment.bottomCenter,
             child: ListView(reverse: true, children: <Widget>[
-              CheckboxListTile(
+              SwitchListTile(
                 title: Text(MyLocalizations.of(context).trans('logo_drawer')),
                 value: isLogoVisible,
                 activeColor: widget.accentColor,
                 onChanged: (bool val) {
-                  setState(() {
-                    isLogoVisible = val;
-                    prefs.setBool("isLogoVisible", isLogoVisible);
-                  });
+                  setState(() => isLogoVisible = val);
+                  prefs.setBool("isLogoVisible", isLogoVisible);
+                },
+              ),
+              SwitchListTile(
+                title: Text(MyLocalizations.of(context).trans('remove_trailing_zeros')),
+                value: removeTrailingZeros,
+                activeColor: widget.accentColor,
+                onChanged: (bool val) {
+                  setState(() => removeTrailingZeros = val);
+                  prefs.setBool("remove_trailing_zeros", removeTrailingZeros);
                 },
               ),
               ListTile(

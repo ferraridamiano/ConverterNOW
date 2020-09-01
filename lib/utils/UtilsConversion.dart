@@ -247,23 +247,26 @@ class Node {
   String mantissaCorrection(){
     //Round to a fixed number of significant figures
     String stringValue=value.toStringAsPrecision(significantFigures);
-
-    //remove exponential part and append to the end
     String append="";
-    if(stringValue.contains("e")) {
-      append = "e" + stringValue.split("e")[1];
-      stringValue=stringValue.split("e")[0];
-    }
 
-    //remove trailing zeros (just fractional part)
-    if (stringValue.contains(".")) {
-      int firstZeroIndex = stringValue.length;
-      for (; firstZeroIndex > stringValue.indexOf("."); firstZeroIndex--) {
-        String charAtIndex = stringValue.substring(firstZeroIndex - 1, firstZeroIndex);
-        if (charAtIndex != "0" && charAtIndex != ".")
-          break;
+    //if the user want to remove the trailing zeros
+    if(removeTrailingZeros){
+      //remove exponential part and append to the end
+      if(stringValue.contains("e")) {
+        append = "e" + stringValue.split("e")[1];
+        stringValue=stringValue.split("e")[0];
       }
-      stringValue = stringValue.substring(0, firstZeroIndex);
+
+      //remove trailing zeros (just fractional part)
+      if (stringValue.contains(".")) {
+        int firstZeroIndex = stringValue.length;
+        for (; firstZeroIndex > stringValue.indexOf("."); firstZeroIndex--) {
+          String charAtIndex = stringValue.substring(firstZeroIndex - 1, firstZeroIndex);
+          if (charAtIndex != "0" && charAtIndex != ".")
+            break;
+        }
+        stringValue = stringValue.substring(0, firstZeroIndex);
+      }
     }
     
     return stringValue+append; //append exponential part
