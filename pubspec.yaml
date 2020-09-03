@@ -1,12 +1,6 @@
 name: converterpro
-description: Convertitore di unità di misura e di valute
+description: Unit and currencies converter
 
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# Read more about versioning at semver.org.
 version: 2.3.2+21
 
 environment:
@@ -16,61 +10,23 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #Needed to store the customizations and the latest currencies convertions
   shared_preferences: ^0.5.8
+  #Needed to open external pages such as GitHub repo, Play Store, etc
   url_launcher: ^5.5.0
+  #Needed to download the latest currencies convertions
   http: ^0.12.2
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-
 
   flutter_localizations:
       sdk: flutter
-
-#flutter_icons:
-#  android: true
-#  ios: true
-#  image_path: "resources/images/ic_launcher.png"
-
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
-# For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
-        - resources/lang/en.json
-        - resources/lang/it.json
-        - resources/images/logo.png
-        - resources/images/lunghezza.png
-        - resources/images/massa.png
-        - resources/images/energia.png
-        - resources/images/potenza.png 
-        - resources/images/pressione.png
-        - resources/images/velocita.png
-        - resources/images/temperatura.png
-        - resources/images/volume.png
-        - resources/images/area.png
-        - resources/images/prefissi.png
-        - resources/images/tempo.png
-        - resources/images/angoli.png
-        - resources/images/calculator.png
-        - resources/images/valuta.png
-        - resources/images/scarpe.png 
-        - resources/images/dati.png 
-        - resources/images/torque.png
-        - resources/images/forza.png
-        - resources/images/consumo.png
-        - resources/images/conversione_base.png
+        - resources/images/
+        - resources/lang/
