@@ -27,7 +27,7 @@ jobs:
       with:
         name: gitversion
         path: version.txt
-  build:
+  build_android:
     name: Build APK and Create release
     needs: [ version ]
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
     - uses: actions/setup-java@v1
       with:
         java-version: '12.x'
-    - uses: subosito/flutter-action@v1
+    - uses: subosito/flutter-action@v1.3.2
       with:
         flutter-version: '1.17.0'
     - name: Get version.txt
@@ -51,10 +51,33 @@ jobs:
     - run: flutter pub get
     - run: flutter build apk --release --split-per-abi
     - run: flutter build appbundle
-    - name: Create a Release in GitHub
-      uses: ncipollo/release-action@v1
+    - name: Build and Release in GitHub 🔧🚀
+      uses: ncipollo/release-action@v1.7.2
       with:
         artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab"
         token: ${{ secrets.GH_TOKEN }}
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}
+  build_and_deploy_web:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v2.3.1
+      with:
+        persist-credentials: false
+    - name: Install and Build 🔧
+      uses: subosito/flutter-action@v1.3.2
+      with:
+        channel: beta
+      run: flutter config --enable-web
+      run: flutter pub get
+      run: flutter build web
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@3.5.9
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPOSITORY_NAME: ferraridamiano/Converter-NOW-WEB
+        BRANCH: master # The branch the action should deploy to.
+        FOLDER: build # The folder the action should deploy.
+        CLEAN: true # Automatically remove deleted files from the deploy branch
+        COMMIT_MESSAGE: CD deploy 🚀
