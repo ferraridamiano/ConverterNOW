@@ -49,7 +49,6 @@ jobs:
       with:
         path: version.txt
     - run: flutter pub get
-    - run: flutter test
     - run: flutter build apk --release --split-per-abi
     - run: flutter build appbundle
     - name: Create a Release in GitHub
