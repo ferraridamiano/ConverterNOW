@@ -28,7 +28,7 @@ jobs:
         name: gitversion
         path: version.txt
   build_android:
-    name: Build APK and Create release
+    name: Build 🔧 APK and Create release 🚀
     needs: [ version ]
     runs-on: ubuntu-latest
     steps:
@@ -59,7 +59,7 @@ jobs:
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}
   build_and_deploy_web:
-    name: Build Flutter 🔧
+    name: Build 🔧 and deploy 🚀 Flutter web 
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -73,6 +73,7 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@3.5.9
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         REPOSITORY_NAME: ferraridamiano/Converter-NOW-WEB
         BRANCH: master # The branch the action should deploy to.
         FOLDER: build/web # The folder the action should deploy.
