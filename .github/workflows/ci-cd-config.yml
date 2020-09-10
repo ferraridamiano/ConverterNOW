@@ -59,21 +59,16 @@ jobs:
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}
   build_and_deploy_web:
+    name: Build Flutter 🔧
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout 🛎️
-      uses: actions/checkout@v2.3.1
+    - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1.3.2
       with:
-        persist-credentials: false
-    - name: Install 🔧
-      uses: subosito/flutter-action@v1.3.2
-      with:
-        channel: beta
-    - name: Build 🔧
-      run: |
-        flutter config --enable-web
-        run: flutter pub get
-        run: flutter build web
+          channel: 'beta'
+    - run: flutter pub get
+    - run: flutter config --enable-web
+    - run: flutter build web
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@3.5.9
       with:
