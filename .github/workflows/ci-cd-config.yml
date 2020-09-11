@@ -72,7 +72,7 @@ jobs:
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@3.5.9
       with:
-        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
         REPOSITORY_NAME: ferraridamiano/Converter-NOW-WEB
         BRANCH: master # The branch the action should deploy to.
         FOLDER: build/web # The folder the action should deploy.
