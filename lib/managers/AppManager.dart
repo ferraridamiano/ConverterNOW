@@ -4,7 +4,6 @@ import 'package:converterpro/pages/SettingsPage.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
 import 'ConversionManager.dart';
 import 'package:provider/provider.dart';
 
@@ -26,9 +25,10 @@ class _AppManagerState extends State<AppManager> {
   void initState() {
     //_getOrdersDrawer();
     //_getOrdersUnita();
-    bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
-    if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30))
-      showRateSnackBar=true;
+    //TODO: snackbar
+    //bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
+    //if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30))
+      //showRateSnackBar=true;
     /*SchedulerBinding.instance.addPostFrameCallback((_) {
       _getCurrency();
     });*/

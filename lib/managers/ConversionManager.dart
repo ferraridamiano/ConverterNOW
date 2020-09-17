@@ -20,12 +20,12 @@ class ConversionManager extends StatefulWidget{
   final Function changeToPage;
   final List<String> listaTitoli;
   final bool showRateSnackBar;
-  final List listaConversioni;
-  final List listaOrderUnita;
+  final List conversionsList;
+  final List conversionsOrder;
   final String lastUpdateCurrency;
   final currencyValues;
 
-  ConversionManager(this.openDrawer, this.startPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar, this.listaConversioni, this.listaOrderUnita, this.lastUpdateCurrency, this.currencyValues);
+  ConversionManager(this.openDrawer, this.startPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar, this.conversionsList, this.conversionsOrder, this.lastUpdateCurrency, this.currencyValues);
 
   @override
   _ConversionManager createState() => new _ConversionManager();
@@ -36,14 +36,14 @@ class _ConversionManager extends State<ConversionManager>{
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   final SearchDelegate _searchDelegate=CustomSearchDelegate();
   final GlobalKey<ScaffoldState> scaffoldKey =GlobalKey();
-  List listaOrder;
-  List listaConversioni;
+  List conversionsOrder;
+  List conversionsList;
 
   @override
   void initState() {
     currentPage=widget.startPage;
-    listaOrder=widget.listaOrderUnita;
-    listaConversioni=widget.listaConversioni;
+    conversionsOrder=widget.conversionsOrder;
+    conversionsList=widget.conversionsList;
         
     if(!kIsWeb && widget.showRateSnackBar){
       Future.delayed(const Duration(seconds: 5), () {
@@ -55,7 +55,7 @@ class _ConversionManager extends State<ConversionManager>{
 
   _onSelectItem(int index) {
     if(currentPage!=index) {
-      listaConversioni[currentPage].clearSelectedNode();
+      conversionsList[currentPage].clearSelectedNode();
       widget.changeToPage(index);
     }
   }
@@ -67,7 +67,7 @@ class _ConversionManager extends State<ConversionManager>{
   _saveOrders() async {
     //SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> toConvertList=new List();
-    for(int item in listaOrder[currentPage])
+    for(int item in conversionsOrder[currentPage])
       toConvertList.add(item.toString());
     prefs.setStringList("conversion_$currentPage", toConvertList);
   }
@@ -82,13 +82,13 @@ class _ConversionManager extends State<ConversionManager>{
             title: title,
             listaElementi: listaUnitaTradotte,
         ),));
-    List arrayCopia=new List(listaOrder[currentPage].length);
-    for(int i=0;i<listaOrder[currentPage].length;i++)
-      arrayCopia[i]=listaOrder[currentPage][i];
+    List arrayCopia=new List(conversionsOrder[currentPage].length);
+    for(int i=0;i<conversionsOrder[currentPage].length;i++)
+      arrayCopia[i]=conversionsOrder[currentPage][i];
     setState(() {
-      for(int i=0;i<listaOrder[currentPage].length;i++)
-        listaOrder[currentPage][i]=result.indexOf(arrayCopia[i]);
-      listaConversioni=initializeUnits(listaOrder, widget.currencyValues); 
+      for(int i=0;i<conversionsOrder[currentPage].length;i++)
+        conversionsOrder[currentPage][i]=result.indexOf(arrayCopia[i]);
+      conversionsList=initializeUnits(conversionsOrder, widget.currencyValues); 
     });
     _saveOrders();
   }
@@ -170,7 +170,7 @@ class _ConversionManager extends State<ConversionManager>{
     return Scaffold(
       key:scaffoldKey,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(child:ConversionPage(listaConversioni[currentPage],widget.listaTitoli[currentPage], currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context))),
+      body: SafeArea(child:ConversionPage(conversionsList[currentPage],widget.listaTitoli[currentPage], currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context))),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,
@@ -192,7 +192,7 @@ class _ConversionManager extends State<ConversionManager>{
                 icon: Icon(Icons.clear,color: Colors.white),
                 onPressed: () {
                   setState(() {
-                    listaConversioni[currentPage].clearAllValues();
+                    conversionsList[currentPage].clearAllValues();
                   });
                 },),
               IconButton(
@@ -207,7 +207,7 @@ class _ConversionManager extends State<ConversionManager>{
               PopupMenuButton<Choice>(
                 icon: Icon(Icons.more_vert,color: Colors.white,),
                 onSelected: (Choice choice){
-                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), listaConversioni[currentPage].getStringOrderedNodiFiglio());
+                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), conversionsList[currentPage].getStringOrderedNodiFiglio());
                 },
                 itemBuilder: (BuildContext context) {
                   return choices.map((Choice choice) {
