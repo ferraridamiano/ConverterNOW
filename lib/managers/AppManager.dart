@@ -1,3 +1,4 @@
+import 'package:converterpro/models/Settings.dart';
 import 'package:converterpro/pages/ReorderPage.dart';
 import 'package:converterpro/pages/SettingsPage.dart';
 import 'package:converterpro/utils/Localization.dart';
@@ -11,6 +12,7 @@ import 'ConversionManager.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import "dart:convert";
+import 'package:provider/provider.dart';
 
 int currentPage=0;
 
@@ -119,8 +121,33 @@ class _AppManagerState extends State<AppManager> {
 
   void initializeTiles(){
     Color boxColor=Theme.of(context).primaryColor;
+
+    List<Widget> drawerActions = <Widget>[
+      IconButton(
+        tooltip: MyLocalizations.of(context).trans('riordina'),
+        icon: Icon(Icons.reorder,color: Colors.white,),
+        onPressed:() => _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'))
+      ),
+      IconButton(
+        tooltip: MyLocalizations.of(context).trans('impostazioni'),
+        icon:Icon(Icons.settings,color: Colors.white,),
+        onPressed: (){
+          Navigator.of(context).pop();
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SettingsPage(Theme.of(context).primaryColor, Theme.of(context).accentColor)),
+          );
+        },
+      ),
+    ];
+
+    bool logoVisibility = context.select<Settings, bool>(
+      // Here, we are only interested whether [item] is inside the cart.
+      (settings) => settings.isLogoVisible,
+    );
+
     listaDrawer[0]=
-        isLogoVisible ? 
+        logoVisibility ? 
           Container(
             decoration: BoxDecoration(color: boxColor/*listaColori[currentPage],*/),
             child:SafeArea(
@@ -135,26 +162,7 @@ class _AppManagerState extends State<AppManager> {
                   Container(
                     child:Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        IconButton(
-                          tooltip: MyLocalizations.of(context).trans('riordina'),
-                          icon: Icon(Icons.reorder,color: Colors.white,),
-                          onPressed:(){
-                            _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'));
-                          }
-                        ),
-                        IconButton(
-                          tooltip: MyLocalizations.of(context).trans('impostazioni'),
-                          icon:Icon(Icons.settings,color: Colors.white,),
-                          onPressed: (){
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => SettingsPage(Theme.of(context).primaryColor, Theme.of(context).accentColor)),
-                            );
-                          },
-                        ),
-                      ],
+                      children: drawerActions
                     ),
                     height: 160.0,
                     alignment: FractionalOffset.bottomRight,
@@ -169,26 +177,7 @@ class _AppManagerState extends State<AppManager> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  IconButton(
-                    tooltip: MyLocalizations.of(context).trans('riordina'),
-                    icon: Icon(Icons.reorder,color: Colors.white,),
-                    onPressed:(){
-                      _changeOrderDrawer(context, MyLocalizations.of(context).trans('mio_ordinamento'));
-                    }
-                  ),
-                  IconButton(
-                    tooltip: MyLocalizations.of(context).trans('impostazioni'),
-                    icon:Icon(Icons.settings,color: Colors.white,),
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SettingsPage(Theme.of(context).primaryColor, Theme.of(context).accentColor)),
-                      );
-                    },
-                  ),
-                ],
+                children: drawerActions,
               ),
           ));
 
