@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'managers/AppManager.dart';
+import 'models/Conversions.dart';
 
 bool isLogoVisible = true;
 SharedPreferences prefs;
@@ -35,8 +36,11 @@ class MyApp extends StatefulWidget {
 class _MyApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => Settings(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Settings(),),
+        ChangeNotifierProvider(create: (context) => Conversions(),),
+      ],
       child: new MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Converter NOW',
