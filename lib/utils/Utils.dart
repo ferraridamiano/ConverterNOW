@@ -1,4 +1,3 @@
-import 'package:converterpro/managers/ConversionManager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
@@ -21,9 +20,10 @@ class BigHeader implements ListItem{
 
 class BigTitle extends StatelessWidget{
 
-  BigTitle({this.text, this.subtitle});
+  BigTitle({this.text, this.subtitle, this.isCurrenciesLoading});
   final String text;
   final String subtitle;
+  final bool isCurrenciesLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class BigTitle extends StatelessWidget{
             Container(
               height: 30.0,
               alignment: Alignment.bottomRight,
-              child: (isCurrencyLoading && subtitle!="") ? Container(child:CircularProgressIndicator(),height: 25.0,width: 25.0,) : Text(subtitle,style: TextStyle(fontSize: 15.0,color: Color(0xFF999999)),),
+              child: (isCurrenciesLoading && subtitle!="") ? Container(child:CircularProgressIndicator(),height: 25.0,width: 25.0,) : Text(subtitle,style: TextStyle(fontSize: 15.0,color: Color(0xFF999999)),),
             ),
 
           ],

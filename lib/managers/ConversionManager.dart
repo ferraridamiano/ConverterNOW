@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import "dart:convert";
 
-bool isCurrencyLoading=true;
 double appBarSize;
 Map jsonSearch;
 const MAX_CONVERSION_UNITS=19;
@@ -23,8 +22,9 @@ class ConversionManager extends StatefulWidget{
   final List conversionsOrder;
   final String lastUpdateCurrency;
   final currencyValues;
+  final bool isCurrenciesLoading;
 
-  ConversionManager(this.openDrawer, this.currentPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar, this.conversionsList, this.conversionsOrder, this.lastUpdateCurrency, this.currencyValues);
+  ConversionManager(this.openDrawer, this.currentPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar, this.conversionsList, this.conversionsOrder, this.lastUpdateCurrency, this.currencyValues, this.isCurrenciesLoading);
 
   @override
   _ConversionManager createState() => new _ConversionManager();
@@ -168,7 +168,7 @@ class _ConversionManager extends State<ConversionManager>{
     return Scaffold(
       key:scaffoldKey,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(child:ConversionPage(conversionsList[widget.currentPage],widget.listaTitoli[widget.currentPage], widget.currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context))),
+      body: SafeArea(child:ConversionPage(conversionsList[widget.currentPage],widget.listaTitoli[widget.currentPage], widget.currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context), widget.isCurrenciesLoading)),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,

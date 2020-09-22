@@ -8,10 +8,9 @@ import 'package:http/http.dart' as http;
 
 class Conversions with ChangeNotifier {
 
-  static List<int> _conversionsOrderDrawer = [0,1,2,4,5,6,17,7,11,12,14,3,15,16,13,8,18,9,10]; //fino a maxconversionunits-1
   static List<Node> _conversionsList;
-  DateTime _lastUpdateCurrencies = DateTime(2020, 1, 1);
-  Map<String, double> _currencyValues={"CAD":1.4487,"HKD":8.6923,"RUB":70.5328,"PHP":56.731,"DKK":7.4707,"NZD":1.7482,"CNY":7.8366,"AUD":1.6245,"RON":4.7559,"SEK":10.7503,"IDR":15536.21,"INR":78.4355,"BRL":4.4158,"USD":1.1087,"ILS":3.9187,"JPY":120.69,"THB":33.488,"CHF":1.1047,"CZK":25.48,"MYR":4.641,"TRY":6.3479,"MXN":21.1244,"NOK":10.2105,"HUF":328.16,"ZAR":16.1202,"SGD":1.5104,"GBP":0.86328,"KRW":1297.1,"PLN":4.2715}; //base euro (aggiornato a 29/10/2019)
+  DateTime _lastUpdateCurrencies = DateTime(2019, 10, 29);
+  Map<String, double> _currencyValues={"CAD":1.4487,"HKD":8.6923,"RUB":70.5328,"PHP":56.731,"DKK":7.4707,"NZD":1.7482,"CNY":7.8366,"AUD":1.6245,"RON":4.7559,"SEK":10.7503,"IDR":15536.21,"INR":78.4355,"BRL":4.4158,"USD":1.1087,"ILS":3.9187,"JPY":120.69,"THB":33.488,"CHF":1.1047,"CZK":25.48,"MYR":4.641,"TRY":6.3479,"MXN":21.1244,"NOK":10.2105,"HUF":328.16,"ZAR":16.1202,"SGD":1.5104,"GBP":0.86328,"KRW":1297.1,"PLN":4.2715};
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List _orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
   static List _orderSuperficie=[0,1,2,3,4,5,6,7,8,9,10];
@@ -35,11 +34,10 @@ class Conversions with ChangeNotifier {
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List _conversionsOrder=[_orderLunghezza,_orderSuperficie, _orderVolume,_orderTempo,_orderTemperatura,_orderVelocita,_orderPrefissi,_orderMassa,_orderPressione,_orderEnergia,
   _orderAngoli, _orderValute, _orderScarpe, _orderDati, _orderPotenza, _orderForza, _orderTorque, _orderConsumo, _orderBasi];
-  bool _isCurrenciesRead = false;
+  bool _isCurrenciesLoading = true;
 
-  Conversions(){
+  Conversions() {
     _checkCurrencies();   //update the currencies with the latest conversions rates and then
-    notifyListeners();    //change the value of the current conversions
   }
 
   get conversionsList{
@@ -54,13 +52,20 @@ class Conversions with ChangeNotifier {
   ///Returns the order of the units of measurement of every conversions
   get conversionsOrder => _conversionsOrder;
 
-  ///Returns the order of the tile of the conversions in the drawer
-  get conversionsOrderDrawer => _conversionsOrderDrawer;
-
+  ///Returns the DateTime of the latest update of the currencies conversions
+  ///ratio (year, month, day)
   get lastUpdateCurrency => _lastUpdateCurrencies;
 
+  ///Returns a Map<String, double> of the latest currencies rate referred
+  ///to the euro
   get currencyValues => _currencyValues;
 
+  ///returns true if the currencies conversions ratio are not ready yet,
+  ///returns false otherwise
+  get isCurrenciesLoading => _isCurrenciesLoading;
+
+  ///This method is used by _checkCurrencies to read the currencies conversions if
+  ///the smartphone is offline
   _readSavedCurrencies() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String currencyRead = prefs.getString("currencyRates");
@@ -74,6 +79,8 @@ class Conversions with ChangeNotifier {
     
   }
 
+  ///Updates the currencies conversions ratio with the latest values. The data comes from
+  ///the internet if the connection is available or from memory if the smartphone is offline
   _checkCurrencies() async {
     String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -81,14 +88,12 @@ class Conversions with ChangeNotifier {
     String dataFetched = prefs.getString("currencyRates");
     if(dataFetched==null || CurrencyJSONObject.fromJson(json.decode(dataFetched)).date!=now){//se non ho mai aggiornato oppure se non aggiorno la lista da piú di un giorno allora aggiorno
       try{
-        
         var response = await http.get('https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD,AUD,NZD,MXN,SGD,NOK,TRY,ZAR,DKK,PLN,THB,MYR,HUF,CZK,ILS,IDR,PHP,RON');
         if (response.statusCode == 200) { //if successful
           CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(response.body));
           _currencyValues = currencyObject.rates;
           //If the request recive an accettable response the last update is now
           _lastUpdateCurrencies = DateTime.now();
-          print(_lastUpdateCurrencies);
           //save to memory
           prefs.setString("currencyRates", response.body);
         }
@@ -103,6 +108,8 @@ class Conversions with ChangeNotifier {
       _readSavedCurrencies();
       _lastUpdateCurrencies = DateTime.now();
     }
+    _isCurrenciesLoading = false; // stop the progress indicator to show the date of the latest update
+    notifyListeners();    //change the value of the current conversions
   }
 
   _getOrdersUnita() async {
@@ -131,58 +138,4 @@ class Conversions with ChangeNotifier {
         }
       }
   }
-  
-  //TODO: implement this features in the model
-  /*
-  _getOrdersDrawer() async {
-    //aggiorno lista del drawer
-    List <String> stringList=prefs.getStringList("orderDrawer");
-    setState((){
-      if(stringList!=null){
-        final int len=stringList.length;
-        for(int i=0;i<len;i++){
-          listaOrderDrawer[i]=int.parse(stringList[i]);
-          if(listaOrderDrawer[i]==0)
-             currentPage=i;
-        }
-        //risolve il problema di aggiunta di unità dopo un aggiornamento
-        for(int i=len;i<MAX_CONVERSION_UNITS;i++){
-          listaOrderDrawer[i]=i;
-        }
-      }
-    });
-  }
-
-  _changeOrderDrawer(BuildContext context,String title) async{
-
-    Navigator.of(context).pop();
-
-    List orderedList=new List(MAX_CONVERSION_UNITS);
-    for(int i=0;i<MAX_CONVERSION_UNITS;i++){
-      orderedList[listaOrderDrawer[i]]=listaTitoli[i];
-    }
-
-    final result = await Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ReorderPage(
-            title: title,
-            listaElementi: orderedList, 
-        ),));
-
-    List arrayCopia=new List(listaOrderDrawer.length);
-    for(int i=0;i<listaOrderDrawer.length;i++)
-      arrayCopia[i]=listaOrderDrawer[i];
-    setState(() {
-      for(int i=0;i<listaOrderDrawer.length;i++)
-        listaOrderDrawer[i]=result.indexOf(arrayCopia[i]);
-    });
-
-    List<String> toConvertList=new List();
-    for(int item in listaOrderDrawer)
-      toConvertList.add(item.toString());
-    prefs.setStringList("orderDrawer", toConvertList);
-
-  }
-  
-  */
 }

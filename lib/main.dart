@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'managers/AppManager.dart';
+import 'models/AppModel.dart';
 import 'models/Conversions.dart';
 
 bool isLogoVisible = true;
@@ -38,8 +39,9 @@ class _MyApp extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => Settings(),),
-        ChangeNotifierProvider(create: (context) => Conversions(),),
+        ChangeNotifierProvider(create: (_) => AppModel()),
+        ChangeNotifierProvider(create: (_) => Settings(),),
+        ChangeNotifierProvider(create: (_) => Conversions(),),
       ],
       child: new MaterialApp(
         debugShowCheckedModeBanner: false,
