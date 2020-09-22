@@ -1,12 +1,16 @@
 import 'package:converterpro/utils/UnitsData.dart';
 import 'package:converterpro/utils/UtilsConversion.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import "dart:convert";
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class Conversions with ChangeNotifier {
 
   static List<int> _conversionsOrderDrawer = [0,1,2,4,5,6,17,7,11,12,14,3,15,16,13,8,18,9,10]; //fino a maxconversionunits-1
   static List<Node> _conversionsList;
-  static String _lastUpdateCurrency = "Last update: 2019-10-29";
+  DateTime _lastUpdateCurrencies = DateTime(2020, 1, 1);
   Map<String, double> _currencyValues={"CAD":1.4487,"HKD":8.6923,"RUB":70.5328,"PHP":56.731,"DKK":7.4707,"NZD":1.7482,"CNY":7.8366,"AUD":1.6245,"RON":4.7559,"SEK":10.7503,"IDR":15536.21,"INR":78.4355,"BRL":4.4158,"USD":1.1087,"ILS":3.9187,"JPY":120.69,"THB":33.488,"CHF":1.1047,"CZK":25.48,"MYR":4.641,"TRY":6.3479,"MXN":21.1244,"NOK":10.2105,"HUF":328.16,"ZAR":16.1202,"SGD":1.5104,"GBP":0.86328,"KRW":1297.1,"PLN":4.2715}; //base euro (aggiornato a 29/10/2019)
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List _orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
@@ -31,6 +35,12 @@ class Conversions with ChangeNotifier {
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List _conversionsOrder=[_orderLunghezza,_orderSuperficie, _orderVolume,_orderTempo,_orderTemperatura,_orderVelocita,_orderPrefissi,_orderMassa,_orderPressione,_orderEnergia,
   _orderAngoli, _orderValute, _orderScarpe, _orderDati, _orderPotenza, _orderForza, _orderTorque, _orderConsumo, _orderBasi];
+  bool _isCurrenciesRead = false;
+
+  Conversions(){
+    _checkCurrencies();   //update the currencies with the latest conversions rates and then
+    notifyListeners();    //change the value of the current conversions
+  }
 
   get conversionsList{
     //if _conversionsList is initialized it returns it
@@ -47,59 +57,83 @@ class Conversions with ChangeNotifier {
   ///Returns the order of the tile of the conversions in the drawer
   get conversionsOrderDrawer => _conversionsOrderDrawer;
 
-  get lastUpdateCurrency => _lastUpdateCurrency;
+  get lastUpdateCurrency => _lastUpdateCurrencies;
 
   get currencyValues => _currencyValues;
 
-  //TODO: implement this features in the model
-  /*_leggiCurrenciesSalvate(){
-    String currencyRead=prefs.getString("currencyRates");
+  _readSavedCurrencies() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String currencyRead = prefs.getString("currencyRates");
     if(currencyRead!=null){
       CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(currencyRead));
-      currencyValues=currencyObject.rates;
-
-      String lastUpdateRead=currencyObject.date;
-      if(lastUpdateRead!=null)
-        lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+lastUpdateRead;
+      _currencyValues = currencyObject.rates;
+      String lastUpdateRead = currencyObject.date;
+      if(lastUpdateRead != null)
+        _lastUpdateCurrencies = DateTime.parse(lastUpdateRead);
     }
+    
   }
 
-  _getCurrency() async {
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
+  _checkCurrencies() async {
     String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
-   
-    String dataFetched=prefs.getString("currencyRates");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String dataFetched = prefs.getString("currencyRates");
     if(dataFetched==null || CurrencyJSONObject.fromJson(json.decode(dataFetched)).date!=now){//se non ho mai aggiornato oppure se non aggiorno la lista da piú di un giorno allora aggiorno
-        try{
-          final response =await http.get('https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD,AUD,NZD,MXN,SGD,NOK,TRY,ZAR,DKK,PLN,THB,MYR,HUF,CZK,ILS,IDR,PHP,RON');
-          if (response.statusCode == 200) { //if successful
-
-            CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(response.body));
-            currencyValues=currencyObject.rates;  
-
-            //se tutte le richieste vanno a buon fine aggiorna la data di ultimo aggiornamento
-            lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
-
-            //salva in memoria
-            prefs.setString("currencyRates", response.body);
-          }
-          else    //se ho un'errore nella lettura dati dal web (per es non sono connesso)
-            _leggiCurrenciesSalvate();//leggi ultimi dati salvati
-
-        }catch(e){//se ho un'errore di comunicazione
-          print(e);
-          _leggiCurrenciesSalvate(); //leggi ultimi dati salvati
+      try{
+        
+        var response = await http.get('https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD,AUD,NZD,MXN,SGD,NOK,TRY,ZAR,DKK,PLN,THB,MYR,HUF,CZK,ILS,IDR,PHP,RON');
+        if (response.statusCode == 200) { //if successful
+          CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(response.body));
+          _currencyValues = currencyObject.rates;
+          //If the request recive an accettable response the last update is now
+          _lastUpdateCurrencies = DateTime.now();
+          print(_lastUpdateCurrencies);
+          //save to memory
+          prefs.setString("currencyRates", response.body);
+        }
+        else  //if there's some error in the data read (e.g. I'm not connected)
+          _readSavedCurrencies();//read the saved data
+      }catch(e){//catch communication error
+        print(e);
+        _readSavedCurrencies(); //read the saved data
       }
     }
-    else{         //se ho già i dati alavati di oggi perchè sono già entrato la prima volta nell'app
-      _leggiCurrenciesSalvate();
-      lastUpdateCurrency=MyLocalizations.of(context).trans('ultimo_update_valute')+MyLocalizations.of(context).trans('oggi');
+    else{  //If I already have the data of today I just use it, no need of read them from the web
+      _readSavedCurrencies();
+      _lastUpdateCurrencies = DateTime.now();
     }
-    setState(() {
-      isCurrencyLoading=false;
-    });
+  }
+
+  _getOrdersUnita() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List <String> stringList;
+      //Update every order of every conversion
+    for(int i=0; i<conversionsList.length; i++){
+      stringList = prefs.getStringList("conversion_$i");
+      if(stringList!=null){
+        final int len=stringList.length;
+        List intList=new List();
+        for(int j=0;j<len;j++){
+          intList.add(int.parse(stringList[j]));
+        }
+        //risolve il problema di aggiunta di unità dopo un aggiornamento
+        for(int j=len; j<_conversionsOrder[i].length;j++)     
+          intList.add(j);
+          
+        /*if(i==currentPage){
+          setState(() {
+            listaOrder[i]=intList;
+          });
+        }*/
+        /*else
+          listaOrder[i]=intList;*/
+        }
+      }
   }
   
+  //TODO: implement this features in the model
+  /*
   _getOrdersDrawer() async {
     //aggiorno lista del drawer
     List <String> stringList=prefs.getStringList("orderDrawer");
@@ -117,34 +151,6 @@ class Conversions with ChangeNotifier {
         }
       }
     });
-  }
-
-  _getOrdersUnita() async {
-
-    List <String> stringList;
-    //aggiorno ordine unità di ogni grandezza fisica
-    for(int i=0;i<MAX_CONVERSION_UNITS;i++){
-      stringList=prefs.getStringList("conversion_$i");
-
-      if(stringList!=null){
-        final int len=stringList.length;
-        List intList=new List();
-        for(int j=0;j<len;j++){
-          intList.add(int.parse(stringList[j]));
-        }
-        //risolve il problema di aggiunta di unità dopo un aggiornamento
-        for(int j=len; j<listaOrder[i].length;j++)     
-          intList.add(j);
-        
-        if(i==currentPage){
-          setState(() {
-            listaOrder[i]=intList;
-          });
-        }
-        else
-          listaOrder[i]=intList;
-      }
-    }
   }
 
   _changeOrderDrawer(BuildContext context,String title) async{

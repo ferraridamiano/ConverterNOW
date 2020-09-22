@@ -6,8 +6,7 @@ import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'ConversionManager.dart';
 import 'package:provider/provider.dart';
-
-int currentPage=0;
+import 'package:intl/intl.dart';
 
 class AppManager extends StatefulWidget{
   @override
@@ -19,7 +18,8 @@ class _AppManagerState extends State<AppManager> {
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+1);//+1 perchè c'è l'intestazione
   static List<String> listaTitoli;
   static bool showRateSnackBar = false;
-  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  int _currentPage = 0;
+  
 
   @override
   void initState() {
@@ -35,6 +35,13 @@ class _AppManagerState extends State<AppManager> {
     
       
     super.initState();  
+  }
+
+  ///Method needed to change the selected conversion page
+  onSelectItem(int index) {
+    if(_currentPage!=index){
+      setState(() =>_currentPage = index);
+    }
   }
 
 
@@ -104,38 +111,27 @@ class _AppManagerState extends State<AppManager> {
       (conversions) => conversions.conversionsOrderDrawer
     );
 
-    listaDrawer[conversionsOrderDrawer[0]+1]=ListTileConversion(listaTitoli[0],"resources/images/lunghezza.png",currentPage==0,(){_onSelectItem(0);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[1]+1]=ListTileConversion(listaTitoli[1],"resources/images/area.png",currentPage==1,(){_onSelectItem(1);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[2]+1]=ListTileConversion(listaTitoli[2],"resources/images/volume.png",currentPage==2,(){_onSelectItem(2);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[3]+1]=ListTileConversion(listaTitoli[3],"resources/images/tempo.png",currentPage==3,(){_onSelectItem(3);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[4]+1]=ListTileConversion(listaTitoli[4],"resources/images/temperatura.png",currentPage==4,(){_onSelectItem(4);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[5]+1]=ListTileConversion(listaTitoli[5],"resources/images/velocita.png",currentPage==5,(){_onSelectItem(5);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[6]+1]=ListTileConversion(listaTitoli[6],"resources/images/prefissi.png",currentPage==6,(){_onSelectItem(6);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[7]+1]=ListTileConversion(listaTitoli[7],"resources/images/massa.png",currentPage==7,(){_onSelectItem(7);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[8]+1]=ListTileConversion(listaTitoli[8],"resources/images/pressione.png",currentPage==8,(){_onSelectItem(8);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[9]+1]=ListTileConversion(listaTitoli[9],"resources/images/energia.png",currentPage==9,(){_onSelectItem(9);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[10]+1]=ListTileConversion(listaTitoli[10],"resources/images/angoli.png",currentPage==10,(){_onSelectItem(10);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[11]+1]=ListTileConversion(listaTitoli[11],"resources/images/valuta.png",currentPage==11,(){_onSelectItem(11);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[12]+1]=ListTileConversion(listaTitoli[12],"resources/images/scarpe.png",currentPage==12,(){_onSelectItem(12);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[13]+1]=ListTileConversion(listaTitoli[13],"resources/images/dati.png",currentPage==13,(){_onSelectItem(13);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[14]+1]=ListTileConversion(listaTitoli[14],"resources/images/potenza.png",currentPage==14,(){_onSelectItem(14);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[15]+1]=ListTileConversion(listaTitoli[15],"resources/images/forza.png",currentPage==15,(){_onSelectItem(15);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[16]+1]=ListTileConversion(listaTitoli[16],"resources/images/torque.png",currentPage==16,(){_onSelectItem(16);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[17]+1]=ListTileConversion(listaTitoli[17],"resources/images/consumo.png",currentPage==17,(){_onSelectItem(17);Navigator.of(context).pop();});
-    listaDrawer[conversionsOrderDrawer[18]+1]=ListTileConversion(listaTitoli[18],"resources/images/conversione_base.png",currentPage==18,(){_onSelectItem(18);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[0]+1]=ListTileConversion(listaTitoli[0],"resources/images/lunghezza.png",_currentPage==0,(){ onSelectItem(0);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[1]+1]=ListTileConversion(listaTitoli[1],"resources/images/area.png",_currentPage==1,(){ onSelectItem(1);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[2]+1]=ListTileConversion(listaTitoli[2],"resources/images/volume.png",_currentPage==2,(){ onSelectItem(2);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[3]+1]=ListTileConversion(listaTitoli[3],"resources/images/tempo.png",_currentPage==3,(){ onSelectItem(3);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[4]+1]=ListTileConversion(listaTitoli[4],"resources/images/temperatura.png",_currentPage==4,(){ onSelectItem(4);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[5]+1]=ListTileConversion(listaTitoli[5],"resources/images/velocita.png",_currentPage==5,(){ onSelectItem(5);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[6]+1]=ListTileConversion(listaTitoli[6],"resources/images/prefissi.png",_currentPage==6,(){ onSelectItem(6);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[7]+1]=ListTileConversion(listaTitoli[7],"resources/images/massa.png",_currentPage==7,(){ onSelectItem(7);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[8]+1]=ListTileConversion(listaTitoli[8],"resources/images/pressione.png",_currentPage==8,(){ onSelectItem(8);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[9]+1]=ListTileConversion(listaTitoli[9],"resources/images/energia.png",_currentPage==9,(){ onSelectItem(9);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[10]+1]=ListTileConversion(listaTitoli[10],"resources/images/angoli.png",_currentPage==10,(){ onSelectItem(10);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[11]+1]=ListTileConversion(listaTitoli[11],"resources/images/valuta.png",_currentPage==11,(){ onSelectItem(11);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[12]+1]=ListTileConversion(listaTitoli[12],"resources/images/scarpe.png",_currentPage==12,(){ onSelectItem(12);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[13]+1]=ListTileConversion(listaTitoli[13],"resources/images/dati.png",_currentPage==13,(){ onSelectItem(13);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[14]+1]=ListTileConversion(listaTitoli[14],"resources/images/potenza.png",_currentPage==14,(){ onSelectItem(14);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[15]+1]=ListTileConversion(listaTitoli[15],"resources/images/forza.png",_currentPage==15,(){ onSelectItem(15);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[16]+1]=ListTileConversion(listaTitoli[16],"resources/images/torque.png",_currentPage==16,(){ onSelectItem(16);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[17]+1]=ListTileConversion(listaTitoli[17],"resources/images/consumo.png",_currentPage==17,(){ onSelectItem(17);Navigator.of(context).pop();});
+    listaDrawer[conversionsOrderDrawer[18]+1]=ListTileConversion(listaTitoli[18],"resources/images/conversione_base.png",_currentPage==18,(){ onSelectItem(18);Navigator.of(context).pop();});
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   }
-
-  _onSelectItem(int index) {
-    if(currentPage!=index){
-      setState(() {
-        currentPage = index;
-      });
-    }
-  }
-
-  
-
 
   @override
   Widget build(BuildContext context) {
@@ -153,6 +149,17 @@ class _AppManagerState extends State<AppManager> {
     /*if(listaConversioni==null)
       return SizedBox();
     */
+    DateTime lastUpdateCurrencies = context.select<Conversions, DateTime>(
+      (settings) => settings.lastUpdateCurrency,
+    );
+
+    String stringLastUpdateCurrencies;
+    DateTime dateNow = DateTime.now();
+    if(lastUpdateCurrencies.day == dateNow.day && lastUpdateCurrencies.month == dateNow.month && lastUpdateCurrencies.year == dateNow.year)
+      stringLastUpdateCurrencies = MyLocalizations.of(context).trans('ultimo_update_valute') + MyLocalizations.of(context).trans('oggi');
+    else
+      stringLastUpdateCurrencies = MyLocalizations.of(context).trans('ultimo_update_valute') + DateFormat("yyyy-MM-dd").format(lastUpdateCurrencies);
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       drawer: new Drawer(
@@ -166,13 +173,13 @@ class _AppManagerState extends State<AppManager> {
         Consumer<Conversions>(
           builder: (context, conversions, _) => ConversionManager(
             () { Scaffold.of(context).openDrawer(); },   //open Drawer
-            currentPage,                              //first page
-            _onSelectItem,                             //change page
+            _currentPage,                              //current page
+            onSelectItem,                             //change page
             listaTitoli,
             showRateSnackBar,
             conversions.conversionsList,
             conversions.conversionsOrder,
-            conversions.lastUpdateCurrency,
+            stringLastUpdateCurrencies,
             conversions.currencyValues
           ),
         ),

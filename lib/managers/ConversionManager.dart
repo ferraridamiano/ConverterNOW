@@ -6,7 +6,6 @@ import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
-import 'AppManager.dart';
 import "dart:convert";
 
 bool isCurrencyLoading=true;
@@ -16,7 +15,7 @@ const MAX_CONVERSION_UNITS=19;
 class ConversionManager extends StatefulWidget{
 
   final Function openDrawer;
-  final int startPage;
+  final int currentPage;
   final Function changeToPage;
   final List<String> listaTitoli;
   final bool showRateSnackBar;
@@ -25,7 +24,7 @@ class ConversionManager extends StatefulWidget{
   final String lastUpdateCurrency;
   final currencyValues;
 
-  ConversionManager(this.openDrawer, this.startPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar, this.conversionsList, this.conversionsOrder, this.lastUpdateCurrency, this.currencyValues);
+  ConversionManager(this.openDrawer, this.currentPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar, this.conversionsList, this.conversionsOrder, this.lastUpdateCurrency, this.currencyValues);
 
   @override
   _ConversionManager createState() => new _ConversionManager();
@@ -41,7 +40,6 @@ class _ConversionManager extends State<ConversionManager>{
 
   @override
   void initState() {
-    currentPage=widget.startPage;
     conversionsOrder=widget.conversionsOrder;
     conversionsList=widget.conversionsList;
         
@@ -54,8 +52,8 @@ class _ConversionManager extends State<ConversionManager>{
   }
 
   _onSelectItem(int index) {
-    if(currentPage!=index) {
-      conversionsList[currentPage].clearSelectedNode();
+    if(widget.currentPage!=index) {
+      conversionsList[widget.currentPage].clearSelectedNode();
       widget.changeToPage(index);
     }
   }
@@ -67,9 +65,9 @@ class _ConversionManager extends State<ConversionManager>{
   _saveOrders() async {
     //SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> toConvertList=new List();
-    for(int item in conversionsOrder[currentPage])
+    for(int item in conversionsOrder[widget.currentPage])
       toConvertList.add(item.toString());
-    prefs.setStringList("conversion_$currentPage", toConvertList);
+    prefs.setStringList("conversion_${widget.currentPage}", toConvertList);
   }
 
   _changeOrderUnita(BuildContext context,String title, List listaStringhe) async{
@@ -82,12 +80,12 @@ class _ConversionManager extends State<ConversionManager>{
             title: title,
             listaElementi: listaUnitaTradotte,
         ),));
-    List arrayCopia=new List(conversionsOrder[currentPage].length);
-    for(int i=0;i<conversionsOrder[currentPage].length;i++)
-      arrayCopia[i]=conversionsOrder[currentPage][i];
+    List arrayCopia=new List(conversionsOrder[widget.currentPage].length);
+    for(int i=0;i<conversionsOrder[widget.currentPage].length;i++)
+      arrayCopia[i]=conversionsOrder[widget.currentPage][i];
     setState(() {
-      for(int i=0;i<conversionsOrder[currentPage].length;i++)
-        conversionsOrder[currentPage][i]=result.indexOf(arrayCopia[i]);
+      for(int i=0;i<conversionsOrder[widget.currentPage].length;i++)
+        conversionsOrder[widget.currentPage][i]=result.indexOf(arrayCopia[i]);
       conversionsList=initializeUnits(conversionsOrder, widget.currencyValues); 
     });
     _saveOrders();
@@ -170,7 +168,7 @@ class _ConversionManager extends State<ConversionManager>{
     return Scaffold(
       key:scaffoldKey,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(child:ConversionPage(conversionsList[currentPage],widget.listaTitoli[currentPage], currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context))),
+      body: SafeArea(child:ConversionPage(conversionsList[widget.currentPage],widget.listaTitoli[widget.currentPage], widget.currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context))),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,
@@ -192,7 +190,7 @@ class _ConversionManager extends State<ConversionManager>{
                 icon: Icon(Icons.clear,color: Colors.white),
                 onPressed: () {
                   setState(() {
-                    conversionsList[currentPage].clearAllValues();
+                    conversionsList[widget.currentPage].clearAllValues();
                   });
                 },),
               IconButton(
@@ -207,7 +205,7 @@ class _ConversionManager extends State<ConversionManager>{
               PopupMenuButton<Choice>(
                 icon: Icon(Icons.more_vert,color: Colors.white,),
                 onSelected: (Choice choice){
-                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), conversionsList[currentPage].getStringOrderedNodiFiglio());
+                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), conversionsList[widget.currentPage].getStringOrderedNodiFiglio());
                 },
                 itemBuilder: (BuildContext context) {
                   return choices.map((Choice choice) {
