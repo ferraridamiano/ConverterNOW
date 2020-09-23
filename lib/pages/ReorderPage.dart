@@ -2,9 +2,8 @@ import 'package:converterpro/utils/reorderable_list.dart';
 import 'package:flutter/material.dart';
 
 class ReorderPage extends StatefulWidget {
-  ReorderPage({Key key, this.title ,this.listaElementi}) : super(key: key);
+  ReorderPage({Key key ,this.listaElementi}) : super(key: key);
 
-  final String title;
   final List listaElementi;
 
   @override

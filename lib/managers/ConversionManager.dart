@@ -77,7 +77,6 @@ class _ConversionManager extends State<ConversionManager>{
     final result = await Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ReorderPage(
-            title: title,
             listaElementi: listaUnitaTradotte,
         ),));
     List arrayCopia=new List(conversionsOrder[widget.currentPage].length);
