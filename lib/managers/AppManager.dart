@@ -166,11 +166,9 @@ class _AppManagerState extends State<AppManager> {
       ),
       body: Builder(
         builder: (context) => 
-        Consumer2<AppModel,Conversions>(
-          builder: (context, appModel, conversions, _) => ConversionManager(
+        Consumer<Conversions>(
+          builder: (context, conversions, _) => ConversionManager(
             openDrawer: () { Scaffold.of(context).openDrawer(); },
-            currentPage: appModel.currentPage,
-            changeToPage: appModel.changeToPage,
             titlesList: titlesList,
             showRateSnackBar: showRateSnackBar,
             lastUpdateCurrency: stringLastUpdateCurrencies,

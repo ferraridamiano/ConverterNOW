@@ -1,3 +1,4 @@
+import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/models/Conversions.dart';
 import 'package:converterpro/pages/ConversionPage.dart';
 import 'package:converterpro/utils/Localization.dart';
@@ -15,15 +16,13 @@ const MAX_CONVERSION_UNITS=19;
 class ConversionManager extends StatefulWidget{
 
   final Function openDrawer;
-  final int currentPage;
-  final Function changeToPage;
   final List<String> titlesList;
   final bool showRateSnackBar;
   final String lastUpdateCurrency;
   final currencyValues;
   final bool isCurrenciesLoading;
 
-  ConversionManager({this.openDrawer, this.currentPage, this.changeToPage, this.titlesList, this.showRateSnackBar, this.lastUpdateCurrency, this.currencyValues, this.isCurrenciesLoading});
+  ConversionManager({this.openDrawer, this.titlesList, this.showRateSnackBar, this.lastUpdateCurrency, this.currencyValues, this.isCurrenciesLoading});
 
   @override
   _ConversionManager createState() => new _ConversionManager();
@@ -44,13 +43,12 @@ class _ConversionManager extends State<ConversionManager>{
     }
     super.initState();  
   }
-  //TODO to implement
-  /*_onSelectItem(int index) {
-    if(widget.currentPage!=index) {
-      conversionsList[widget.currentPage].clearSelectedNode();
-      widget.changeToPage(index);
-    }
-  }*/
+
+  _onSelectItem(int index) {
+    AppModel appModel = context.read<AppModel>();
+    if(appModel.currentPage!=index) 
+      appModel.changeToPage(index);
+  }
 
   _getJsonSearch(BuildContext context) async {
     jsonSearch ??= json.decode(await DefaultAssetBundle.of(context).loadString("resources/lang/${Localizations.localeOf(context).languageCode}.json"));
@@ -130,11 +128,11 @@ class _ConversionManager extends State<ConversionManager>{
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
     ];
     
-    return Consumer<Conversions>(
-        builder: (context, conversions, _) => Scaffold(
+    return Consumer2<AppModel,Conversions>(
+        builder: (context, appModel, conversions, _) => Scaffold(
         key:scaffoldKey,
         resizeToAvoidBottomInset: false,
-        body: SafeArea(child:ConversionPage(conversions.conversionsList[widget.currentPage],widget.titlesList[widget.currentPage], widget.currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context), widget.isCurrenciesLoading)),
+        body: SafeArea(child:ConversionPage(conversions.conversionsList[appModel.currentPage],widget.titlesList[appModel.currentPage], appModel.currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context), widget.isCurrenciesLoading)),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
           color: Theme.of(context).primaryColor,
@@ -156,26 +154,25 @@ class _ConversionManager extends State<ConversionManager>{
                   icon: Icon(Icons.clear,color: Colors.white),
                   onPressed: () {
                     setState(() {
-                      conversions.conversionsList[widget.currentPage].clearAllValues();
+                      conversions.conversionsList[appModel.currentPage].clearAllValues();
                     });
                   },),
                 IconButton(
                   tooltip: MyLocalizations.of(context).trans('cerca'),
                   icon: Icon(Icons.search,color: Colors.white,),
                   onPressed: () async {
-                    final int paginaReindirizzamento=await showSearch(context: context,delegate: _searchDelegate);
-                    //TODO: uncomment the next two lines
-                    //if(paginaReindirizzamento!=null)
-                      //_onSelectItem(paginaReindirizzamento);
+                    final int newPage = await showSearch(context: context,delegate: _searchDelegate);
+                    if(newPage!=null)
+                      _onSelectItem(newPage);
                   },
                 ),
                 PopupMenuButton<Choice>(
                   icon: Icon(Icons.more_vert,color: Colors.white,),
                   onSelected: (Choice choice){
                     List<String> listTranslatedUnits = List();
-                    for(String stringa in conversions.conversionsList[widget.currentPage].getStringOrderedNodiFiglio())
+                    for(String stringa in conversions.conversionsList[appModel.currentPage].getStringOrderedNodiFiglio())
                       listTranslatedUnits.add(MyLocalizations.of(context).trans(stringa));
-                    conversions.changeOrderUnits(context, listTranslatedUnits, widget.currentPage);
+                    conversions.changeOrderUnits(context, listTranslatedUnits, appModel.currentPage);
                   },
                   itemBuilder: (BuildContext context) {
                     return choices.map((Choice choice) {
