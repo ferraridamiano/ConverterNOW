@@ -16,7 +16,9 @@ class AppManager extends StatefulWidget{
 
 class _AppManagerState extends State<AppManager> {
 
-  static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+1);//+1 perchè c'è l'intestazione
+  static const MAX_CONVERSION_UNITS=19;
+
+  static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+1);//+1 because of the header
   static List<String> titlesList;
   static bool showRateSnackBar = false;  
 
@@ -166,17 +168,13 @@ class _AppManagerState extends State<AppManager> {
       ),
       body: Builder(
         builder: (context) => 
-        Consumer<Conversions>(
-          builder: (context, conversions, _) => ConversionManager(
-            openDrawer: () { Scaffold.of(context).openDrawer(); },
-            titlesList: titlesList,
-            showRateSnackBar: showRateSnackBar,
-            lastUpdateCurrency: stringLastUpdateCurrencies,
-            currencyValues: conversions.currencyValues,
-            isCurrenciesLoading: conversions.isCurrenciesLoading,
-          ),
+        ConversionManager(
+          openDrawer: () { Scaffold.of(context).openDrawer(); },
+          titlesList: titlesList,
+          showRateSnackBar: showRateSnackBar,
+          lastUpdateCurrency: stringLastUpdateCurrencies,
         ),
-      )
+      ),
     );
   }
 }

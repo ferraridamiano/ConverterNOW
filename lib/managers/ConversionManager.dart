@@ -6,23 +6,20 @@ import 'package:converterpro/utils/UnitsData.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
 import "dart:convert";
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-double appBarSize;
 Map jsonSearch;
-const MAX_CONVERSION_UNITS=19;
+
 class ConversionManager extends StatefulWidget{
 
   final Function openDrawer;
   final List<String> titlesList;
   final bool showRateSnackBar;
   final String lastUpdateCurrency;
-  final currencyValues;
-  final bool isCurrenciesLoading;
 
-  ConversionManager({this.openDrawer, this.titlesList, this.showRateSnackBar, this.lastUpdateCurrency, this.currencyValues, this.isCurrenciesLoading});
+  ConversionManager({this.openDrawer, this.titlesList, this.showRateSnackBar, this.lastUpdateCurrency});
 
   @override
   _ConversionManager createState() => new _ConversionManager();
@@ -54,7 +51,7 @@ class _ConversionManager extends State<ConversionManager>{
     jsonSearch ??= json.decode(await DefaultAssetBundle.of(context).loadString("resources/lang/${Localizations.localeOf(context).languageCode}.json"));
   }
 
-  _showReviewSnackBar(){
+  _showReviewSnackBar() async {
 
     final SnackBar positiveResponseSnackBar = SnackBar(
       duration: const Duration(milliseconds: 4000),
@@ -63,7 +60,8 @@ class _ConversionManager extends State<ConversionManager>{
       action: SnackBarAction(
         label: MyLocalizations.of(context).trans('valuta_app5'),
         textColor: Theme.of(context).accentColor,
-        onPressed: (){
+        onPressed: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setBool("stop_request_rating", true);
           launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
         },
@@ -77,7 +75,8 @@ class _ConversionManager extends State<ConversionManager>{
       action: SnackBarAction(
         label: MyLocalizations.of(context).trans('valuta_app5'),
         textColor: Theme.of(context).accentColor,
-        onPressed: (){
+        onPressed: ()async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setBool("stop_request_rating", true);
           launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
         },
@@ -132,7 +131,7 @@ class _ConversionManager extends State<ConversionManager>{
         builder: (context, appModel, conversions, _) => Scaffold(
         key:scaffoldKey,
         resizeToAvoidBottomInset: false,
-        body: SafeArea(child:ConversionPage(conversions.conversionsList[appModel.currentPage],widget.titlesList[appModel.currentPage], appModel.currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context), widget.isCurrenciesLoading)),
+        body: SafeArea(child:ConversionPage(conversions.conversionsList[appModel.currentPage],widget.titlesList[appModel.currentPage], appModel.currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context), conversions.isCurrenciesLoading)),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
           color: Theme.of(context).primaryColor,

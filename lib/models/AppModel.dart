@@ -49,7 +49,6 @@ class AppModel with ChangeNotifier {
 
   ///Changes the orders of the tiles in the Drawer
   changeOrderDrawer(BuildContext context, List<String> titlesList) async{
-    print(_conversionsOrderDrawer.toString());
     Navigator.of(context).pop();    //Close the drawer
 
     List orderedList=new List(_conversionsOrderDrawer.length);
@@ -72,7 +71,6 @@ class AppModel with ChangeNotifier {
       toConvertList.add(item.toString());
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList("orderDrawer", toConvertList);
-    print(_conversionsOrderDrawer.toString());
   }
 
 }
