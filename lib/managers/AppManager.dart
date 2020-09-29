@@ -101,8 +101,8 @@ class _AppManagerState extends State<AppManager> {
     
     List<int> conversionsOrderDrawer = context.watch<AppModel>().conversionsOrderDrawer;
 
-    //the following lines are more optimized then the prvious one but don't know
-    //why they don't work :(
+    //*the following lines are more optimized then the prvious one but don't know
+    //*why they don't work :(
     /*List<int> conversionsOrderDrawer = context.select<AppModel, List<int>>(
       (appModel) => appModel.conversionsOrderDrawer
     );*/
@@ -168,16 +168,14 @@ class _AppManagerState extends State<AppManager> {
         builder: (context) => 
         Consumer2<AppModel,Conversions>(
           builder: (context, appModel, conversions, _) => ConversionManager(
-            () { Scaffold.of(context).openDrawer(); },   //open Drawer
-            appModel.currentPage,                        //current page
-            appModel.changeToPage,                       //change page
-            titlesList,
-            showRateSnackBar,
-            conversions.conversionsList,
-            conversions.conversionsOrder,
-            stringLastUpdateCurrencies,
-            conversions.currencyValues,
-            conversions.isCurrenciesLoading,
+            openDrawer: () { Scaffold.of(context).openDrawer(); },
+            currentPage: appModel.currentPage,
+            changeToPage: appModel.changeToPage,
+            titlesList: titlesList,
+            showRateSnackBar: showRateSnackBar,
+            lastUpdateCurrency: stringLastUpdateCurrencies,
+            currencyValues: conversions.currencyValues,
+            isCurrenciesLoading: conversions.isCurrenciesLoading,
           ),
         ),
       )

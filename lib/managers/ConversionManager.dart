@@ -1,5 +1,5 @@
+import 'package:converterpro/models/Conversions.dart';
 import 'package:converterpro/pages/ConversionPage.dart';
-import 'package:converterpro/pages/ReorderPage.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:converterpro/utils/UnitsData.dart';
 import 'package:converterpro/utils/Utils.dart';
@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import "dart:convert";
+import 'package:provider/provider.dart';
 
 double appBarSize;
 Map jsonSearch;
@@ -16,15 +17,13 @@ class ConversionManager extends StatefulWidget{
   final Function openDrawer;
   final int currentPage;
   final Function changeToPage;
-  final List<String> listaTitoli;
+  final List<String> titlesList;
   final bool showRateSnackBar;
-  final List conversionsList;
-  final List conversionsOrder;
   final String lastUpdateCurrency;
   final currencyValues;
   final bool isCurrenciesLoading;
 
-  ConversionManager(this.openDrawer, this.currentPage, this.changeToPage, this.listaTitoli, this.showRateSnackBar, this.conversionsList, this.conversionsOrder, this.lastUpdateCurrency, this.currencyValues, this.isCurrenciesLoading);
+  ConversionManager({this.openDrawer, this.currentPage, this.changeToPage, this.titlesList, this.showRateSnackBar, this.lastUpdateCurrency, this.currencyValues, this.isCurrenciesLoading});
 
   @override
   _ConversionManager createState() => new _ConversionManager();
@@ -35,14 +34,9 @@ class _ConversionManager extends State<ConversionManager>{
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   final SearchDelegate _searchDelegate=CustomSearchDelegate();
   final GlobalKey<ScaffoldState> scaffoldKey =GlobalKey();
-  List conversionsOrder;
-  List conversionsList;
 
   @override
-  void initState() {
-    conversionsOrder=widget.conversionsOrder;
-    conversionsList=widget.conversionsList;
-        
+  void initState() {        
     if(!kIsWeb && widget.showRateSnackBar){
       Future.delayed(const Duration(seconds: 5), () {
         _showReviewSnackBar();
@@ -50,44 +44,16 @@ class _ConversionManager extends State<ConversionManager>{
     }
     super.initState();  
   }
-
-  _onSelectItem(int index) {
+  //TODO to implement
+  /*_onSelectItem(int index) {
     if(widget.currentPage!=index) {
       conversionsList[widget.currentPage].clearSelectedNode();
       widget.changeToPage(index);
     }
-  }
+  }*/
 
   _getJsonSearch(BuildContext context) async {
     jsonSearch ??= json.decode(await DefaultAssetBundle.of(context).loadString("resources/lang/${Localizations.localeOf(context).languageCode}.json"));
-  }
-
-  _saveOrders() async {
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> toConvertList=new List();
-    for(int item in conversionsOrder[widget.currentPage])
-      toConvertList.add(item.toString());
-    prefs.setStringList("conversion_${widget.currentPage}", toConvertList);
-  }
-
-  _changeOrderUnita(BuildContext context,String title, List listaStringhe) async{
-    List<String> listaUnitaTradotte = List();
-    for(String stringa in listaStringhe)
-      listaUnitaTradotte.add(MyLocalizations.of(context).trans(stringa));
-    final result = await Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ReorderPage(
-            listaElementi: listaUnitaTradotte,
-        ),));
-    List arrayCopia=new List(conversionsOrder[widget.currentPage].length);
-    for(int i=0;i<conversionsOrder[widget.currentPage].length;i++)
-      arrayCopia[i]=conversionsOrder[widget.currentPage][i];
-    setState(() {
-      for(int i=0;i<conversionsOrder[widget.currentPage].length;i++)
-        conversionsOrder[widget.currentPage][i]=result.indexOf(arrayCopia[i]);
-      conversionsList=initializeUnits(conversionsOrder, widget.currencyValues); 
-    });
-    _saveOrders();
   }
 
   _showReviewSnackBar(){
@@ -164,76 +130,82 @@ class _ConversionManager extends State<ConversionManager>{
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
     ];
     
-    return Scaffold(
-      key:scaffoldKey,
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(child:ConversionPage(conversionsList[widget.currentPage],widget.listaTitoli[widget.currentPage], widget.currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context), widget.isCurrenciesLoading)),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: Theme.of(context).primaryColor,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            new Builder(builder: (context) {
-              return IconButton(
-                tooltip: MyLocalizations.of(context).trans('menu'),
-                icon: Icon(Icons.menu,color: Colors.white,),
-                onPressed: () {
-                widget.openDrawer();
-              });
-            }),
-            Row(children: <Widget>[
-              IconButton(
-                tooltip: MyLocalizations.of(context).trans('elimina_tutto'),
-                icon: Icon(Icons.clear,color: Colors.white),
-                onPressed: () {
-                  setState(() {
-                    conversionsList[widget.currentPage].clearAllValues();
-                  });
-                },),
-              IconButton(
-                tooltip: MyLocalizations.of(context).trans('cerca'),
-                icon: Icon(Icons.search,color: Colors.white,),
-                onPressed: () async {
-                  final int paginaReindirizzamento=await showSearch(context: context,delegate: _searchDelegate);
-                  if(paginaReindirizzamento!=null)
-                    _onSelectItem(paginaReindirizzamento);
-                },
-              ),
-              PopupMenuButton<Choice>(
-                icon: Icon(Icons.more_vert,color: Colors.white,),
-                onSelected: (Choice choice){
-                  _changeOrderUnita(context, MyLocalizations.of(context).trans('mio_ordinamento'), conversionsList[widget.currentPage].getStringOrderedNodiFiglio());
-                },
-                itemBuilder: (BuildContext context) {
-                  return choices.map((Choice choice) {
-                    return PopupMenuItem<Choice>(
-                      value: choice,
-                      child: Text(choice.title),
-                    );
-                  }).toList();
-                },
-              ),
-            ],)
-          ],
+    return Consumer<Conversions>(
+        builder: (context, conversions, _) => Scaffold(
+        key:scaffoldKey,
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(child:ConversionPage(conversions.conversionsList[widget.currentPage],widget.titlesList[widget.currentPage], widget.currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context), widget.isCurrenciesLoading)),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          color: Theme.of(context).primaryColor,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              new Builder(builder: (context) {
+                return IconButton(
+                  tooltip: MyLocalizations.of(context).trans('menu'),
+                  icon: Icon(Icons.menu,color: Colors.white,),
+                  onPressed: () {
+                  widget.openDrawer();
+                });
+              }),
+              Row(children: <Widget>[
+                IconButton(
+                  tooltip: MyLocalizations.of(context).trans('elimina_tutto'),
+                  icon: Icon(Icons.clear,color: Colors.white),
+                  onPressed: () {
+                    setState(() {
+                      conversions.conversionsList[widget.currentPage].clearAllValues();
+                    });
+                  },),
+                IconButton(
+                  tooltip: MyLocalizations.of(context).trans('cerca'),
+                  icon: Icon(Icons.search,color: Colors.white,),
+                  onPressed: () async {
+                    final int paginaReindirizzamento=await showSearch(context: context,delegate: _searchDelegate);
+                    //TODO: uncomment the next two lines
+                    //if(paginaReindirizzamento!=null)
+                      //_onSelectItem(paginaReindirizzamento);
+                  },
+                ),
+                PopupMenuButton<Choice>(
+                  icon: Icon(Icons.more_vert,color: Colors.white,),
+                  onSelected: (Choice choice){
+                    List<String> listTranslatedUnits = List();
+                    for(String stringa in conversions.conversionsList[widget.currentPage].getStringOrderedNodiFiglio())
+                      listTranslatedUnits.add(MyLocalizations.of(context).trans(stringa));
+                    conversions.changeOrderUnits(context, listTranslatedUnits, widget.currentPage);
+                  },
+                  itemBuilder: (BuildContext context) {
+                    return choices.map((Choice choice) {
+                      return PopupMenuItem<Choice>(
+                        value: choice,
+                        child: Text(choice.title),
+                      );
+                    }).toList();
+                  },
+                ),
+              ],)
+            ],
+          ),
         ),
+        
+        floatingActionButton: FloatingActionButton(
+          tooltip: MyLocalizations.of(context).trans('calcolatrice'),
+          child: Image.asset("resources/images/calculator.png",width: 30.0,),
+          onPressed: (){
+            showModalBottomSheet<void>(context: context,
+              builder: (BuildContext context) {
+                double displayWidth=MediaQuery.of(context).size.width;
+                return Calculator(Theme.of(context).accentColor, displayWidth); 
+              }
+            );
+          },
+          elevation: 5.0,
+          backgroundColor: Theme.of(context).accentColor,//Color(0xff2196f3)//listaColori[currentPage],
+        )
       ),
-      
-      floatingActionButton: FloatingActionButton(
-        tooltip: MyLocalizations.of(context).trans('calcolatrice'),
-        child: Image.asset("resources/images/calculator.png",width: 30.0,),
-        onPressed: (){
-          showModalBottomSheet<void>(context: context,
-            builder: (BuildContext context) {
-              double displayWidth=MediaQuery.of(context).size.width;
-              return Calculator(Theme.of(context).accentColor, displayWidth); 
-            }
-          );
-        },
-        elevation: 5.0,
-        backgroundColor: Theme.of(context).accentColor,//Color(0xff2196f3)//listaColori[currentPage],
-      )
     );
   }
 }

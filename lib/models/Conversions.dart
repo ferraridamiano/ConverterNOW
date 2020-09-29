@@ -1,6 +1,8 @@
+import 'package:converterpro/pages/ReorderPage.dart';
 import 'package:converterpro/utils/UnitsData.dart';
 import 'package:converterpro/utils/UtilsConversion.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import "dart:convert";
 import 'package:intl/intl.dart';
@@ -8,36 +10,37 @@ import 'package:http/http.dart' as http;
 
 class Conversions with ChangeNotifier {
 
-  static List<Node> _conversionsList;
+  List<Node> _conversionsList;
   DateTime _lastUpdateCurrencies = DateTime(2019, 10, 29);
   Map<String, double> _currencyValues={"CAD":1.4487,"HKD":8.6923,"RUB":70.5328,"PHP":56.731,"DKK":7.4707,"NZD":1.7482,"CNY":7.8366,"AUD":1.6245,"RON":4.7559,"SEK":10.7503,"IDR":15536.21,"INR":78.4355,"BRL":4.4158,"USD":1.1087,"ILS":3.9187,"JPY":120.69,"THB":33.488,"CHF":1.1047,"CZK":25.48,"MYR":4.641,"TRY":6.3479,"MXN":21.1244,"NOK":10.2105,"HUF":328.16,"ZAR":16.1202,"SGD":1.5104,"GBP":0.86328,"KRW":1297.1,"PLN":4.2715};
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  static List _orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-  static List _orderSuperficie=[0,1,2,3,4,5,6,7,8,9,10];
-  static List _orderVolume=[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
-  static List _orderTempo=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
-  static List _orderTemperatura=[0,1,2,3,4,5,6];
-  static List _orderVelocita=[0,1,2,3,4];
-  static List _orderPrefissi=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-  static List _orderMassa=[0,1,2,3,4,5,6,7,8,9,10];
-  static List _orderPressione=[0,1,2,3,4,5];
-  static List _orderEnergia=[0,1,2,3];
-  static List _orderAngoli=[0,1,2,3];
-  static List _orderValute=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
-  static List _orderScarpe=[0,1,2,3,4,5,6,7,8,9];
-  static List _orderDati=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26];
-  static List _orderPotenza=[0,1,2,3,4,5,6];
-  static List _orderForza=[0,1,2,3,4];
-  static List _orderTorque=[0,1,2,3,4];
-  static List _orderConsumo=[0,1,2,3];
-  static List _orderBasi=[0,1,2,3];
+  static List<int> _orderLunghezza=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  static List<int> _orderSuperficie=[0,1,2,3,4,5,6,7,8,9,10];
+  static List<int> _orderVolume=[0,1,2,3,4,5,6,7,8,9,10,11,12,13];
+  static List<int> _orderTempo=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+  static List<int> _orderTemperatura=[0,1,2,3,4,5,6];
+  static List<int> _orderVelocita=[0,1,2,3,4];
+  static List<int> _orderPrefissi=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+  static List<int> _orderMassa=[0,1,2,3,4,5,6,7,8,9,10];
+  static List<int> _orderPressione=[0,1,2,3,4,5];
+  static List<int> _orderEnergia=[0,1,2,3];
+  static List<int> _orderAngoli=[0,1,2,3];
+  static List<int> _orderValute=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29];
+  static List<int> _orderScarpe=[0,1,2,3,4,5,6,7,8,9];
+  static List<int> _orderDati=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26];
+  static List<int> _orderPotenza=[0,1,2,3,4,5,6];
+  static List<int> _orderForza=[0,1,2,3,4];
+  static List<int> _orderTorque=[0,1,2,3,4];
+  static List<int> _orderConsumo=[0,1,2,3];
+  static List<int> _orderBasi=[0,1,2,3];
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  static List _conversionsOrder=[_orderLunghezza,_orderSuperficie, _orderVolume,_orderTempo,_orderTemperatura,_orderVelocita,_orderPrefissi,_orderMassa,_orderPressione,_orderEnergia,
+  static List<List<int>> _conversionsOrder=[_orderLunghezza,_orderSuperficie, _orderVolume,_orderTempo,_orderTemperatura,_orderVelocita,_orderPrefissi,_orderMassa,_orderPressione,_orderEnergia,
   _orderAngoli, _orderValute, _orderScarpe, _orderDati, _orderPotenza, _orderForza, _orderTorque, _orderConsumo, _orderBasi];
   bool _isCurrenciesLoading = true;
 
   Conversions() {
     _checkCurrencies();   //update the currencies with the latest conversions rates and then
+    _checkOrdersUnits();
   }
 
   get conversionsList{
@@ -50,7 +53,7 @@ class Conversions with ChangeNotifier {
   }
 
   ///Returns the order of the units of measurement of every conversions
-  get conversionsOrder => _conversionsOrder;
+  //get conversionsOrder => _conversionsOrder;
 
   ///Returns the DateTime of the latest update of the currencies conversions
   ///ratio (year, month, day)
@@ -112,7 +115,8 @@ class Conversions with ChangeNotifier {
     notifyListeners();    //change the value of the current conversions
   }
 
-  _getOrdersUnita() async {
+  ///Get the orders of each units of measurement from the memory
+  _checkOrdersUnits() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List <String> stringList;
       //Update every order of every conversion
@@ -120,22 +124,43 @@ class Conversions with ChangeNotifier {
       stringList = prefs.getStringList("conversion_$i");
       if(stringList!=null){
         final int len=stringList.length;
-        List intList=new List();
+        List<int> intList=new List();
         for(int j=0;j<len;j++){
           intList.add(int.parse(stringList[j]));
         }
-        //risolve il problema di aggiunta di unità dopo un aggiornamento
+        //solves the problem of adding new units after an update
         for(int j=len; j<_conversionsOrder[i].length;j++)     
           intList.add(j);
-          
-        /*if(i==currentPage){
-          setState(() {
-            listaOrder[i]=intList;
-          });
-        }*/
-        /*else
-          listaOrder[i]=intList;*/
-        }
+        _conversionsOrder[i]=intList;
       }
+    }
+    _conversionsList = initializeUnits(_conversionsOrder, currencyValues);
+    notifyListeners();
+  }
+
+  ///Given a list of translated units of measurement it changes the order
+  ///of the units (_conversionsOrder) opening a separate page (ReorderPage)
+  changeOrderUnits(BuildContext context, List<String> listUnitsNames, int currentPage) async{
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ReorderPage(
+            listaElementi: listUnitsNames,
+        ),));
+    List arrayCopy=new List(_conversionsOrder[currentPage].length);
+    for(int i=0;i<_conversionsOrder[currentPage].length;i++)
+      arrayCopy[i]=_conversionsOrder[currentPage][i];
+    for(int i=0;i<_conversionsOrder[currentPage].length;i++)
+      _conversionsOrder[currentPage][i]=result.indexOf(arrayCopy[i]);
+    _conversionsList = initializeUnits(_conversionsOrder, currencyValues);
+    notifyListeners(); 
+    _saveOrders(currentPage);
+  }
+
+  _saveOrders(int currentPage) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> toConvertList=new List();
+    for(int item in _conversionsOrder[currentPage])
+      toConvertList.add(item.toString());
+    prefs.setStringList("conversion_$currentPage", toConvertList);
   }
 }
