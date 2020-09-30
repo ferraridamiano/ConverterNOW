@@ -20,23 +20,6 @@ class _AppManagerState extends State<AppManager> {
 
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+1);//+1 because of the header
   static List<String> titlesList;
-  static bool showRateSnackBar = false;  
-
-  @override
-  void initState() {
-    //_getOrdersDrawer();
-    //_getOrdersUnita();
-    //TODO: snackbar
-    //bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
-    //if(numeroVolteAccesso>=5 && !stopRequestRating && getBoolWithProbability(30))
-      //showRateSnackBar=true;
-    /*SchedulerBinding.instance.addPostFrameCallback((_) {
-      _getCurrency();
-    });*/
-    
-      
-    super.initState();  
-  }
 
   void initializeTiles(){
     Color boxColor=Theme.of(context).primaryColor;
@@ -171,7 +154,7 @@ class _AppManagerState extends State<AppManager> {
         ConversionManager(
           openDrawer: () { Scaffold.of(context).openDrawer(); },
           titlesList: titlesList,
-          showRateSnackBar: showRateSnackBar,
+          showRateSnackBar: context.select<AppModel, bool>((appModel) => appModel.showRateSnackbar),
           lastUpdateCurrency: stringLastUpdateCurrencies,
         ),
       ),

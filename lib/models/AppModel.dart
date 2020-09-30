@@ -1,4 +1,5 @@
 import 'package:converterpro/pages/ReorderPage.dart';
+import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,9 +8,11 @@ class AppModel with ChangeNotifier {
 
   List<int> _conversionsOrderDrawer = [0,1,2,4,5,6,17,7,11,12,14,3,15,16,13,8,18,9,10]; //until a max conversion units - 1
   int _currentPage = 0;
+  bool _showRateSnackBar = false;
 
   AppModel(){
     _checkOrdersDrawer();
+    _getShowRateSnackBar();
   }
 
   ///Returns the order of the tile of the conversions in the drawer
@@ -17,6 +20,11 @@ class AppModel with ChangeNotifier {
 
   ///Returns the current page (e.g: temperature, mass, etc)
   get currentPage => _currentPage;
+
+  ///Returns true if the UI have to request if the user wants to rate the app, false otherwise.
+  ///Returns true if the user has accessed the app at least 5 times AND if the user has not
+  ///already rated the app AND with a probability of 30%
+  get showRateSnackbar => _showRateSnackBar;
 
   ///Method needed to change the selected conversion page
   ///e.g: from temperature to mass, etc
@@ -71,6 +79,22 @@ class AppModel with ChangeNotifier {
       toConvertList.add(item.toString());
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList("orderDrawer", toConvertList);
+  }
+
+  ///Returns true if the UI have to request if the user wants to rate the app, false otherwise.
+  ///Returns true if the user has accessed the app at least 5 times AND if the user has not
+  ///already rated the app AND with a probability of 30%
+  _getShowRateSnackBar() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int numberOfAccess = prefs.getInt("access_number") ?? 0;
+    numberOfAccess++;
+    if (numberOfAccess < 5) //traccio solo i primi 5 accessi per dialog rating
+      prefs.setInt("access_number", numberOfAccess);
+    bool stopRequestRating = prefs.getBool("stop_request_rating") ?? false;
+    if(numberOfAccess >=5 && !stopRequestRating && getBoolWithProbability(30))
+      _showRateSnackBar = true;
+    _showRateSnackBar = false;
+    notifyListeners();
   }
 
 }
