@@ -52,16 +52,10 @@ class Conversions with ChangeNotifier {
     return _conversionsList;
   }
 
-  ///Returns the order of the units of measurement of every conversions
-  //get conversionsOrder => _conversionsOrder;
-
   ///Returns the DateTime of the latest update of the currencies conversions
   ///ratio (year, month, day)
   get lastUpdateCurrency => _lastUpdateCurrencies;
 
-  ///Returns a Map<String, double> of the latest currencies rate referred
-  ///to the euro
-  get currencyValues => _currencyValues;
 
   ///returns true if the currencies conversions ratio are not ready yet,
   ///returns false otherwise
@@ -89,16 +83,20 @@ class Conversions with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String dataFetched = prefs.getString("currencyRates");
-    if(dataFetched==null || CurrencyJSONObject.fromJson(json.decode(dataFetched)).date!=now){//se non ho mai aggiornato oppure se non aggiorno la lista da piú di un giorno allora aggiorno
+    if(dataFetched==null || CurrencyJSONObject.fromJson(json.decode(dataFetched)).date!=now){//if I have never updated the conversions or if I have updated before today I have to update
       try{
         var response = await http.get('https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD,AUD,NZD,MXN,SGD,NOK,TRY,ZAR,DKK,PLN,THB,MYR,HUF,CZK,ILS,IDR,PHP,RON');
         if (response.statusCode == 200) { //if successful
           CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(response.body));
-          _currencyValues = currencyObject.rates;
+          //the following line solves the problem that the http request gives a date refered to some
+          //time zone that may be not the same of the time zone of the user. So I rewrite the date of
+          //the response to be the same of the date of the user
+          currencyObject.date = now;
+          _currencyValues = currencyObject.rates; //updates the currency value with the new values
           //If the request recive an accettable response the last update is now
           _lastUpdateCurrencies = DateTime.now();
           //save to memory
-          prefs.setString("currencyRates", response.body);
+          prefs.setString("currencyRates", currencyObject.toString());
         }
         else  //if there's some error in the data read (e.g. I'm not connected)
           _readSavedCurrencies();//read the saved data
@@ -112,6 +110,7 @@ class Conversions with ChangeNotifier {
       _lastUpdateCurrencies = DateTime.now();
     }
     _isCurrenciesLoading = false; // stop the progress indicator to show the date of the latest update
+    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues);
     notifyListeners();    //change the value of the current conversions
   }
 
@@ -134,7 +133,7 @@ class Conversions with ChangeNotifier {
         _conversionsOrder[i]=intList;
       }
     }
-    _conversionsList = initializeUnits(_conversionsOrder, currencyValues);
+    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues);
     notifyListeners();
   }
 
@@ -151,7 +150,7 @@ class Conversions with ChangeNotifier {
       arrayCopy[i]=_conversionsOrder[currentPage][i];
     for(int i=0;i<_conversionsOrder[currentPage].length;i++)
       _conversionsOrder[currentPage][i]=result.indexOf(arrayCopy[i]);
-    _conversionsList = initializeUnits(_conversionsOrder, currencyValues);
+    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues);
     notifyListeners(); 
     _saveOrders(currentPage);
   }

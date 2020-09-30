@@ -392,7 +392,7 @@ RegExp getBaseRegExp(int base){
 
 class CurrencyJSONObject{
   String base;
-  var rates={"AUD":1.5794,"CHF":1.1206,"NZD":1.6551,"ILS":4.0513,"RUB":73.36,"PHP":58.608,"CAD":1.4964,"USD":1.1243,"THB":35.697,"SGD":1.5209,"JPY":125.3,"TRY":6.3014,"HKD":8.8246,"MYR":4.59,"NOK":9.6218,"SEK":10.43,"IDR":15939.2,"DKK":7.4643,"CZK":25.724,"HUF":320.05,"GBP":0.8539,"MXN":21.5195,"KRW":1275.35,"ZAR":15.912,"BRL":4.313,"PLN":4.293,"INR":76.9305,"RON":4.7555,"CNY":7.5423}; //base euro (aggiornato a 04/04/2019)
+  Map<String, double> rates={"AUD":1.5794,"CHF":1.1206,"NZD":1.6551,"ILS":4.0513,"RUB":73.36,"PHP":58.608,"CAD":1.4964,"USD":1.1243,"THB":35.697,"SGD":1.5209,"JPY":125.3,"TRY":6.3014,"HKD":8.8246,"MYR":4.59,"NOK":9.6218,"SEK":10.43,"IDR":15939.2,"DKK":7.4643,"CZK":25.724,"HUF":320.05,"GBP":0.8539,"MXN":21.5195,"KRW":1275.35,"ZAR":15.912,"BRL":4.313,"PLN":4.293,"INR":76.9305,"RON":4.7555,"CNY":7.5423}; //base euro (aggiornato a 04/04/2019)
 
   String date;
 
@@ -434,5 +434,14 @@ class CurrencyJSONObject{
         "PHP":ratesJson['PHP'],
         "RON":ratesJson['RON']}
     );
+  }
+
+  ///Recreates the body of the http response (json format) as a String
+  String toString(){
+    String myString = '{"rates":{';
+    rates.forEach((key, value) => myString += '"$key":${value.toString()},'); //add all the currency values
+    myString = myString.replaceRange(myString.length-1, myString.length,''); //remove latest comma
+    myString += '},"base":"$base","date":"$date"}';
+    return myString;
   }
 }
