@@ -1,6 +1,5 @@
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/models/Conversions.dart';
-import 'package:converterpro/models/Settings.dart';
 import 'package:converterpro/pages/SettingsPage.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:converterpro/utils/Utils.dart';
@@ -45,8 +44,8 @@ class _AppManagerState extends State<AppManager> {
       ),
     ];
 
-    bool logoVisibility = context.select<Settings, bool>(
-      (settings) => settings.isLogoVisible,
+    bool logoVisibility = context.select<AppModel, bool>(
+      (appModel) => appModel.isLogoVisible,
     );
 
     listaDrawer[0]=

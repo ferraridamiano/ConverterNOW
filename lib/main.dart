@@ -1,4 +1,3 @@
-import 'package:converterpro/models/Settings.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -34,7 +33,6 @@ class _MyApp extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppModel()),
-        ChangeNotifierProvider(create: (_) => Settings(),),
         ChangeNotifierProvider(create: (_) => Conversions(),),
       ],
       child: new MaterialApp(
