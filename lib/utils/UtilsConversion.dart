@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:converterpro/main.dart';
 
 const LINEAR_CONVERSION = 1;     // y=ax+b
 const RECIPROCO_CONVERSION = 2;  // y=(a/x)+b
@@ -24,7 +23,9 @@ class Node {
     this.keyboardType=KEYBOARD_NUMBER_DECIMAL,
     this.valueString,
     this.base,
-    this.order
+    this.order,
+    this.removeTrailingZeros,
+    this.significantFigures
   });
 
   List<Node> leafNodes;
@@ -42,6 +43,8 @@ class Node {
   int keyboardType;
   int base;
   String valueString;
+  bool removeTrailingZeros;
+  int significantFigures;
 
   void convert() {
     if(!convertedNode) {             //se non è già convertito

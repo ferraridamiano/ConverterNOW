@@ -1,4 +1,5 @@
 import 'package:converterpro/models/AppModel.dart';
+import 'package:converterpro/models/Conversions.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
@@ -139,11 +140,11 @@ class _SettingsPage2 extends State<SettingsPage2> {
   @override
   void initState() { 
     super.initState();
-    AppModel appModel = context.read<AppModel>();
-    isLogoVisible = appModel.isLogoVisible;
-    removeTrailingZeros = appModel.removeTrailingZeros;
-    significantFigures = appModel.significantFigures;
-    significantFiguresList = appModel.significantFiguresList;
+    Conversions conversions = context.read<Conversions>();
+    isLogoVisible = context.read<AppModel>().isLogoVisible;
+    removeTrailingZeros = conversions.removeTrailingZeros;
+    significantFigures = conversions.significantFigures;
+    significantFiguresList = conversions.significantFiguresList;
   }
 
   @override
@@ -189,8 +190,8 @@ class _SettingsPage2 extends State<SettingsPage2> {
                 activeColor: widget.accentColor,
                 onChanged: (bool val) {
                   setState(() => removeTrailingZeros = val);
-                  AppModel appModel = context.read<AppModel>();
-                  appModel.removeTrailingZeros = val;
+                  Conversions conversions = context.read<Conversions>();
+                  conversions.removeTrailingZeros = val;
                 },
               ),
               ListTile(
@@ -200,8 +201,8 @@ class _SettingsPage2 extends State<SettingsPage2> {
                   onChanged: (String string) {
                     int val = int.parse(string);
                     setState(() => significantFigures = val);
-                    AppModel appModel = context.read<AppModel>();
-                    appModel.significantFigures = val;
+                    Conversions conversions = context.read<Conversions>();
+                    conversions.significantFigures = val;
                   },
                   selectedItemBuilder: (BuildContext context) {
                     return significantFiguresList.map<Widget>((int item) {

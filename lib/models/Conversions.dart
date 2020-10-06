@@ -37,6 +37,9 @@ class Conversions with ChangeNotifier {
   static List<List<int>> _conversionsOrder=[_orderLunghezza,_orderSuperficie, _orderVolume,_orderTempo,_orderTemperatura,_orderVelocita,_orderPrefissi,_orderMassa,_orderPressione,_orderEnergia,
   _orderAngoli, _orderValute, _orderScarpe, _orderDati, _orderPotenza, _orderForza, _orderTorque, _orderConsumo, _orderBasi];
   bool _isCurrenciesLoading = true;
+  bool _removeTrailingZeros = true;
+  static final List<int> _significantFiguresList = <int>[6, 8, 10, 12, 14];
+  int _significantFigures = _significantFiguresList[2];
 
   Conversions() {
     _checkCurrencies();   //update the currencies with the latest conversions rates and then
@@ -48,7 +51,7 @@ class Conversions with ChangeNotifier {
     if(_conversionsList != null)
       return _conversionsList;
     //otherwise it will be initialized and it returns it
-    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues);
+    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
     return _conversionsList;
   }
 
@@ -110,7 +113,7 @@ class Conversions with ChangeNotifier {
       _lastUpdateCurrencies = DateTime.now();
     }
     _isCurrenciesLoading = false; // stop the progress indicator to show the date of the latest update
-    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues);
+    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
     notifyListeners();    //change the value of the current conversions
   }
 
@@ -133,7 +136,7 @@ class Conversions with ChangeNotifier {
         _conversionsOrder[i]=intList;
       }
     }
-    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues);
+    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
     notifyListeners();
   }
 
@@ -150,7 +153,7 @@ class Conversions with ChangeNotifier {
       arrayCopy[i]=_conversionsOrder[currentPage][i];
     for(int i=0;i<_conversionsOrder[currentPage].length;i++)
       _conversionsOrder[currentPage][i]=result.indexOf(arrayCopy[i]);
-    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues);
+    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
     notifyListeners(); 
     _saveOrders(currentPage);
   }
@@ -162,4 +165,44 @@ class Conversions with ChangeNotifier {
       toConvertList.add(item.toString());
     prefs.setStringList("conversion_$currentPage", toConvertList);
   }
+
+  //Settings section------------------------------------------------------------------
+  
+  ///Returns true if you want to remove the trailing zeros of the conversions
+  ///e.g. 1.000000000e20 becomes 1e20
+  bool get removeTrailingZeros => _removeTrailingZeros;
+
+  ///Returns the list of possibile significant figures
+  List<int> get significantFiguresList => _significantFiguresList;
+
+  ///Returns the current significant figures selection
+  int get significantFigures => _significantFigures;
+
+  ///Set the ability of remove unecessary trailing zeros and save to SharedPreferences
+  ///e.g. 1.000000000e20 becomes 1e20
+  set removeTrailingZeros (bool value){
+    _removeTrailingZeros = value;
+    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
+    notifyListeners();
+    //it is not possibile to make a setter async, this is a workaround
+    // ignore: unnecessary_statements
+    () async{
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setBool("remove_trailing_zeros", _removeTrailingZeros);
+    };
+  }
+
+  ///Set the current significant figures selection and save to SharedPreferences
+  set significantFigures (int value){
+    _significantFigures = value;
+    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
+    notifyListeners();
+    //it is not possibile to make a setter async, this is a workaround
+    // ignore: unnecessary_statements
+    () async{
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setInt("significant_figures", significantFigures);
+    };
+  }
+
 }
