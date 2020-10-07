@@ -2,23 +2,12 @@ import 'package:converterpro/utils/Localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'managers/AppManager.dart';
 import 'models/AppModel.dart';
 import 'models/Conversions.dart';
 
-bool isLogoVisible = true;
-SharedPreferences prefs;
-int significantFigures;
-bool removeTrailingZeros;
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  prefs = await SharedPreferences.getInstance();
-  isLogoVisible = prefs.getBool("isLogoVisible") ?? true;
-  significantFigures = prefs.getInt("significant_figures") ?? 10;
-  removeTrailingZeros = prefs.getBool("remove_trailing_zeros") ?? true;
   runApp(new MyApp());
 }
 

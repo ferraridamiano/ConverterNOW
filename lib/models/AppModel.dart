@@ -13,6 +13,7 @@ class AppModel with ChangeNotifier {
 
   AppModel(){
     _checkOrdersDrawer();
+    _checkSettings();
     _getShowRateSnackBar();
   }
 
@@ -100,6 +101,17 @@ class AppModel with ChangeNotifier {
 
   //Settings section------------------------------------------------------------------
 
+  ///It reads the settings related to the appModel from the memory of the device
+  ///(if there are options saved)
+  _checkSettings() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool val = prefs.getBool("isLogoVisible");
+    if(val != null){
+      _isLogoVisible = val;
+      notifyListeners();
+    }
+  }
+
   ///Returns true if the drawer logo is visible, false otherwise
   bool get isLogoVisible => _isLogoVisible;
 
@@ -107,12 +119,13 @@ class AppModel with ChangeNotifier {
   set isLogoVisible (bool value){
     _isLogoVisible = value;
     notifyListeners();
-    //it is not possibile to make a setter async, this is a workaround
-    // ignore: unnecessary_statements
-    () async{
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool("isLogoVisible", _isLogoVisible);
-    };
+    _saveSettingsBool('isLogoVisible', _isLogoVisible);
+  }
+
+  ///Saves the key value with SharedPreferences
+  _saveSettingsBool(String key, bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(key, value);
   }
 
 }

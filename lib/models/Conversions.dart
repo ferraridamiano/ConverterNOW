@@ -44,6 +44,7 @@ class Conversions with ChangeNotifier {
   Conversions() {
     _checkCurrencies();   //update the currencies with the latest conversions rates and then
     _checkOrdersUnits();
+    _checkSettings();
   }
 
   get conversionsList{
@@ -167,6 +168,25 @@ class Conversions with ChangeNotifier {
   }
 
   //Settings section------------------------------------------------------------------
+
+  ///It reads the settings related to the conversions model from the memory of the device
+  ///(if there are options saved)
+  _checkSettings() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int val1 = prefs.getInt("significant_figures");
+    bool val2 = prefs.getBool("remove_trailing_zeros");
+
+    if(val1 != null || val2!= null){
+      if(val1 != null)
+        _significantFigures = val1;
+    
+      if(val2 != null)
+        _removeTrailingZeros = val2;
+    
+      _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
+      notifyListeners();
+    }
+  }
   
   ///Returns true if you want to remove the trailing zeros of the conversions
   ///e.g. 1.000000000e20 becomes 1e20
@@ -184,12 +204,7 @@ class Conversions with ChangeNotifier {
     _removeTrailingZeros = value;
     _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
     notifyListeners();
-    //it is not possibile to make a setter async, this is a workaround
-    // ignore: unnecessary_statements
-    () async{
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setBool("remove_trailing_zeros", _removeTrailingZeros);
-    };
+    _saveSettingsBool('remove_trailing_zeros', _removeTrailingZeros);
   }
 
   ///Set the current significant figures selection and save to SharedPreferences
@@ -197,12 +212,19 @@ class Conversions with ChangeNotifier {
     _significantFigures = value;
     _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
     notifyListeners();
-    //it is not possibile to make a setter async, this is a workaround
-    // ignore: unnecessary_statements
-    () async{
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setInt("significant_figures", significantFigures);
-    };
+    _saveSettingsInt('significant_figures',_significantFigures);
+  }
+
+  ///Saves the key value with SharedPreferences
+  _saveSettingsInt(String key, int value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(key, value);
+  }
+
+  ///Saves the key value with SharedPreferences
+  _saveSettingsBool(String key, bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(key, value);
   }
 
 }
