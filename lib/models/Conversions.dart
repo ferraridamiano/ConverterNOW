@@ -103,14 +103,14 @@ class Conversions with ChangeNotifier {
           prefs.setString("currencyRates", currencyObject.toString());
         }
         else  //if there's some error in the data read (e.g. I'm not connected)
-          _readSavedCurrencies();//read the saved data
+          await _readSavedCurrencies();//read the saved data
       }catch(e){//catch communication error
         print(e);
-        _readSavedCurrencies(); //read the saved data
+        await _readSavedCurrencies(); //read the saved data
       }
     }
     else{  //If I already have the data of today I just use it, no need of read them from the web
-      _readSavedCurrencies();
+      await _readSavedCurrencies();
       _lastUpdateCurrencies = DateTime.now();
     }
     _isCurrenciesLoading = false; // stop the progress indicator to show the date of the latest update
