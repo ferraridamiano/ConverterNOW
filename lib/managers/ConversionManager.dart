@@ -12,46 +12,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Map jsonSearch;
 
-class ConversionManager extends StatefulWidget{
+class ConversionManager extends StatelessWidget{
 
   final Function openDrawer;
   final List<String> titlesList;
   final bool showRateSnackBar;
   final String lastUpdateCurrency;
 
-  ConversionManager({this.openDrawer, this.titlesList, this.showRateSnackBar, this.lastUpdateCurrency});
-
-  @override
-  _ConversionManager createState() => new _ConversionManager();
-
-}
-
-class _ConversionManager extends State<ConversionManager>{
-  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+  ConversionManager({this.openDrawer, this.titlesList, this.showRateSnackBar, this.lastUpdateCurrency}) {
+    /*if(!kIsWeb && showRateSnackBar){
+          Future.delayed(const Duration(seconds: 5), () {
+            _showReviewSnackBar();
+          });
+        }*/
+  }
+  
   final SearchDelegate _searchDelegate=CustomSearchDelegate();
   final GlobalKey<ScaffoldState> scaffoldKey =GlobalKey();
-
-  @override
-  void initState() {        
-    if(!kIsWeb && widget.showRateSnackBar){
-      Future.delayed(const Duration(seconds: 5), () {
-        _showReviewSnackBar();
-      });
-    }
-    super.initState();  
-  }
-
-  _onSelectItem(int index) {
-    AppModel appModel = context.read<AppModel>();
-    if(appModel.currentPage!=index) 
-      appModel.changeToPage(index);
-  }
 
   _getJsonSearch(BuildContext context) async {
     jsonSearch ??= json.decode(await DefaultAssetBundle.of(context).loadString("resources/lang/${Localizations.localeOf(context).languageCode}.json"));
   }
 
-  _showReviewSnackBar() async {
+  /*_showReviewSnackBar() async {
 
     final SnackBar positiveResponseSnackBar = SnackBar(
       duration: const Duration(milliseconds: 4000),
@@ -117,7 +100,7 @@ class _ConversionManager extends State<ConversionManager>{
       ),
     );
     scaffoldKey.currentState.showSnackBar(reviewSnackBar);
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +114,7 @@ class _ConversionManager extends State<ConversionManager>{
         builder: (context, appModel, conversions, _) => Scaffold(
         key:scaffoldKey,
         resizeToAvoidBottomInset: false,
-        body: SafeArea(child:ConversionPage(conversions.conversionsList[appModel.currentPage],widget.titlesList[appModel.currentPage], appModel.currentPage==11 ? widget.lastUpdateCurrency : "", MediaQuery.of(context), conversions.isCurrenciesLoading)),
+        body: SafeArea(child:ConversionPage(conversions.conversionsList[appModel.currentPage], titlesList[appModel.currentPage], appModel.currentPage==11 ? lastUpdateCurrency : "", MediaQuery.of(context), conversions.isCurrenciesLoading)),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
           color: Theme.of(context).primaryColor,
@@ -144,25 +127,27 @@ class _ConversionManager extends State<ConversionManager>{
                   tooltip: MyLocalizations.of(context).trans('menu'),
                   icon: Icon(Icons.menu,color: Colors.white,),
                   onPressed: () {
-                  widget.openDrawer();
-                });
+                    openDrawer();
+                  });
               }),
               Row(children: <Widget>[
                 IconButton(
                   tooltip: MyLocalizations.of(context).trans('elimina_tutto'),
                   icon: Icon(Icons.clear,color: Colors.white),
                   onPressed: () {
-                    setState(() {
-                      conversions.conversionsList[appModel.currentPage].clearAllValues();
-                    });
+                    conversions.clearValues(appModel.currentPage);
+                    //conversions.conversionsList[appModel.currentPage].clearAllValues();
                   },),
                 IconButton(
                   tooltip: MyLocalizations.of(context).trans('cerca'),
                   icon: Icon(Icons.search,color: Colors.white,),
                   onPressed: () async {
                     final int newPage = await showSearch(context: context,delegate: _searchDelegate);
-                    if(newPage!=null)
-                      _onSelectItem(newPage);
+                    if(newPage!=null){
+                      AppModel appModel = context.read<AppModel>();
+                      if(appModel.currentPage != newPage) 
+                        appModel.changeToPage(newPage);
+                    }
                   },
                 ),
                 PopupMenuButton<Choice>(

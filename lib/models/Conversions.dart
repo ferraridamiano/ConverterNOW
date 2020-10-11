@@ -167,6 +167,12 @@ class Conversions with ChangeNotifier {
     prefs.setStringList("conversion_$currentPage", toConvertList);
   }
 
+  ///Clears the values of a page. E.g. clear all the values of length or all the values of mass, etc.
+  clearValues(int page){
+    _conversionsList[page].clearAllValues();
+    notifyListeners();
+  }
+
   //Settings section------------------------------------------------------------------
 
   ///It reads the settings related to the conversions model from the memory of the device
