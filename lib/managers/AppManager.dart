@@ -153,7 +153,6 @@ class _AppManagerState extends State<AppManager> {
         ConversionManager(
           openDrawer: () { Scaffold.of(context).openDrawer(); },
           titlesList: titlesList,
-          showRateSnackBar: context.select<AppModel, bool>((appModel) => appModel.showRateSnackbar),
           lastUpdateCurrency: stringLastUpdateCurrencies,
         ),
       ),
