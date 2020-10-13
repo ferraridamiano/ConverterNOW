@@ -1,8 +1,10 @@
+import 'package:converterpro/models/AppModel.dart';
+import 'package:converterpro/models/Conversions.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatelessWidget {
   final Color primaryColor;
@@ -130,7 +132,20 @@ class SettingsPage2 extends StatefulWidget {
 
 class _SettingsPage2 extends State<SettingsPage2> {
   bool value1 = false;
-  final List<int> significantFiguresList = <int>[6, 8, 10, 12, 14];
+  List<int> significantFiguresList;
+  bool isLogoVisible;
+  bool removeTrailingZeros;
+  int significantFigures;
+
+  @override
+  void initState() { 
+    super.initState();
+    Conversions conversions = context.read<Conversions>();
+    isLogoVisible = context.read<AppModel>().isLogoVisible;
+    removeTrailingZeros = conversions.removeTrailingZeros;
+    significantFigures = conversions.significantFigures;
+    significantFiguresList = conversions.significantFiguresList;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +180,8 @@ class _SettingsPage2 extends State<SettingsPage2> {
                 activeColor: widget.accentColor,
                 onChanged: (bool val) {
                   setState(() => isLogoVisible = val);
-                  prefs.setBool("isLogoVisible", isLogoVisible);
+                  AppModel appModel = context.read<AppModel>();
+                  appModel.isLogoVisible = val;
                 },
               ),
               SwitchListTile(
@@ -174,7 +190,8 @@ class _SettingsPage2 extends State<SettingsPage2> {
                 activeColor: widget.accentColor,
                 onChanged: (bool val) {
                   setState(() => removeTrailingZeros = val);
-                  prefs.setBool("remove_trailing_zeros", removeTrailingZeros);
+                  Conversions conversions = context.read<Conversions>();
+                  conversions.removeTrailingZeros = val;
                 },
               ),
               ListTile(
@@ -182,8 +199,10 @@ class _SettingsPage2 extends State<SettingsPage2> {
                 trailing: DropdownButton<String>(
                   value: significantFigures.toString(),
                   onChanged: (String string) {
-                    setState(() => significantFigures = int.parse(string));
-                    prefs.setInt("significant_figures", significantFigures);
+                    int val = int.parse(string);
+                    setState(() => significantFigures = val);
+                    Conversions conversions = context.read<Conversions>();
+                    conversions.significantFigures = val;
                   },
                   selectedItemBuilder: (BuildContext context) {
                     return significantFiguresList.map<Widget>((int item) {

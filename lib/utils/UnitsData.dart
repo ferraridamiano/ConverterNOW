@@ -1,255 +1,255 @@
 import 'Utils.dart';
 import 'UtilsConversion.dart';
 
-initializeUnits(listaOrder, currencyValues){
-  Node metro=Node(name: 'metro',symbol:"[m]",order: listaOrder[0][0],
+initializeUnits(List listaOrder, Map currencyValues, int signFig, bool rmTr0s){
+  Node metro=Node(name: 'metro',symbol:"[m]",order: listaOrder[0][0], significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 100.0, name: 'centimetro',symbol:"[cm]",order: listaOrder[0][1], leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 2.54, name: 'pollice',symbol:"[in]",order: listaOrder[0][2], leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 12.0, name: 'piede',symbol:"[ft]",order: listaOrder[0][3]),
+          Node(isMultiplication: false, coefficientPer: 100.0, name: 'centimetro',symbol:"[cm]",order: listaOrder[0][1], significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 2.54, name: 'pollice',symbol:"[in]",order: listaOrder[0][2], significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 12.0, name: 'piede',symbol:"[ft]",order: listaOrder[0][3], significantFigures: signFig, removeTrailingZeros: rmTr0s,),
             ]),
           ]),
-          Node(isMultiplication: true, coefficientPer: 1852.0, name: 'miglio_marino',symbol:"[M]",order: listaOrder[0][4],),
-          Node(isMultiplication: true, coefficientPer: 0.9144, name: 'yard',symbol:"[yd]",order: listaOrder[0][5], leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 1760.0, name: 'miglio_terrestre',symbol:"[mi]",order: listaOrder[0][6],),
+          Node(isMultiplication: true, coefficientPer: 1852.0, name: 'miglio_marino',symbol:"[M]",order: listaOrder[0][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 0.9144, name: 'yard',symbol:"[yd]",order: listaOrder[0][5], significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 1760.0, name: 'miglio_terrestre',symbol:"[mi]",order: listaOrder[0][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
           ]),
-          Node(isMultiplication: false, coefficientPer: 1000.0, name: 'millimetro',symbol:"[mm]",order: listaOrder[0][7],),
-          Node(isMultiplication: false, coefficientPer: 1000000.0, name: 'micrometro',symbol:"[µm]", order: listaOrder[0][8],),
-          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: 'nanometro',symbol:"[nm]",order: listaOrder[0][9],),
-          Node(isMultiplication: false, coefficientPer: 10000000000.0, name: 'angstrom',symbol:"[Å]",order: listaOrder[0][10],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: 'picometro',symbol:"[pm]",order: listaOrder[0][11],),
-          Node(isMultiplication: true, coefficientPer: 1000.0, name: 'chilometro',symbol:"[km]",order: listaOrder[0][12],leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 149597870.7, name: 'unita_astronomica',symbol:"[au]",order: listaOrder[0][13],leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 63241.1, name: 'anno_luce',symbol:"[ly]",order: listaOrder[0][14],leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 3.26, name: 'parsec',symbol:"[pc]",order: listaOrder[0][15],),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name: 'millimetro',symbol:"[mm]",order: listaOrder[0][7],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000.0, name: 'micrometro',symbol:"[µm]", order: listaOrder[0][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: 'nanometro',symbol:"[nm]",order: listaOrder[0][9],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 10000000000.0, name: 'angstrom',symbol:"[Å]",order: listaOrder[0][10],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: 'picometro',symbol:"[pm]",order: listaOrder[0][11],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000.0, name: 'chilometro',symbol:"[km]",order: listaOrder[0][12],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 149597870.7, name: 'unita_astronomica',symbol:"[au]",order: listaOrder[0][13],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 63241.1, name: 'anno_luce',symbol:"[ly]",order: listaOrder[0][14],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 3.26, name: 'parsec',symbol:"[pc]",order: listaOrder[0][15],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
               ]),
             ]),
           ]),
         ]);
 
-    Node metroq=Node(name: 'metro_quadrato',symbol:"[m²]",order: listaOrder[1][0],leafNodes: [
-      Node(isMultiplication: false, coefficientPer: 10000.0, name: 'centimetro_quadrato',symbol:"[cm²]",order: listaOrder[1][1], leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 6.4516, name: 'pollice_quadrato',symbol:"[in²]",order: listaOrder[1][2], leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 144.0, name: 'piede_quadrato',symbol:"[ft²]",order: listaOrder[1][3]),
+    Node metroq=Node(name: 'metro_quadrato',symbol:"[m²]",order: listaOrder[1][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+      Node(isMultiplication: false, coefficientPer: 10000.0, name: 'centimetro_quadrato',symbol:"[cm²]",order: listaOrder[1][1],significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 6.4516, name: 'pollice_quadrato',symbol:"[in²]",order: listaOrder[1][2],significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 144.0, name: 'piede_quadrato',symbol:"[ft²]",significantFigures: signFig, removeTrailingZeros: rmTr0s,order: listaOrder[1][3]),
         ]),
       ]),
-      Node(isMultiplication: false, coefficientPer: 1000000.0, name: 'millimetro_quadrato',symbol:"[mm²]",order: listaOrder[1][4],),
-      Node(isMultiplication: true, coefficientPer: 10000.0, name: 'ettaro',symbol:"[he]",order: listaOrder[1][5],),
-      Node(isMultiplication: true, coefficientPer: 1000000.0, name:  'chilometro_quadrato',symbol:"[km²]",order: listaOrder[1][6],),
-      Node(isMultiplication: true, coefficientPer: 0.83612736, name: 'yard_quadrato',symbol:"[yd²]",order: listaOrder[1][7], leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 3097600.0, name: 'miglio_quadrato',symbol:"[mi²]",order: listaOrder[1][8]),
-        Node(isMultiplication: true, coefficientPer: 4840.0, name:  'acri',symbol:"[ac]",order: listaOrder[1][9],),
+      Node(isMultiplication: false, coefficientPer: 1000000.0, name: 'millimetro_quadrato',symbol:"[mm²]",significantFigures: signFig, removeTrailingZeros: rmTr0s,order: listaOrder[1][4],),
+      Node(isMultiplication: true, coefficientPer: 10000.0, name: 'ettaro',symbol:"[he]",significantFigures: signFig, removeTrailingZeros: rmTr0s,order: listaOrder[1][5],),
+      Node(isMultiplication: true, coefficientPer: 1000000.0, name:  'chilometro_quadrato',symbol:"[km²]",order: listaOrder[1][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+      Node(isMultiplication: true, coefficientPer: 0.83612736, name: 'yard_quadrato',symbol:"[yd²]",order: listaOrder[1][7],significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 3097600.0, name: 'miglio_quadrato',symbol:"[mi²]",order: listaOrder[1][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: true, coefficientPer: 4840.0, name:  'acri',symbol:"[ac]",order: listaOrder[1][9],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
       ]),
-      Node(isMultiplication: true, coefficientPer: 100.0, name:  'ara',symbol:"[a]",order: listaOrder[1][10],),
+      Node(isMultiplication: true, coefficientPer: 100.0, name:  'ara',symbol:"[a]",order: listaOrder[1][10],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node metroc=Node(name:  'metro_cubo',symbol:"[m³]",order: listaOrder[2][0],leafNodes: [
-      Node(isMultiplication: false, coefficientPer: 1000.0, name:  'litro',symbol:"[l]",order: listaOrder[2][1],leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 4.54609, name:  'gallone_imperiale',symbol:"[imp gal]",order: listaOrder[2][2],),
-        Node(isMultiplication: true, coefficientPer: 3.785411784, name:  'gallone_us',symbol:"[US gal]",order: listaOrder[2][3],),
-        Node(isMultiplication: true, coefficientPer: 0.56826125, name:  'pinta_imperiale',symbol:"[imp pt]",order: listaOrder[2][4],),
-        Node(isMultiplication: true, coefficientPer: 0.473176473, name:  'pinta_us',symbol:"[US pt]",order: listaOrder[2][5],),
-        Node(isMultiplication: false, coefficientPer: 1000.0, name:  'millilitro',symbol:"[ml]",order: listaOrder[2][6], leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 14.8, name:  'tablespoon_us',symbol:"[tbsp.]",order: listaOrder[2][7],),
-          Node(isMultiplication: true, coefficientPer: 20.0, name:  'tablespoon_australian',symbol:"[tbsp.]",order:listaOrder[2][8],),
-          Node(isMultiplication: true, coefficientPer: 240.0, name:  'cup_us',symbol:"[cup]",order: listaOrder[2][9],),
+    Node metroc=Node(name:  'metro_cubo',symbol:"[m³]",order: listaOrder[2][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+      Node(isMultiplication: false, coefficientPer: 1000.0, name:  'litro',symbol:"[l]",order: listaOrder[2][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 4.54609, name:  'gallone_imperiale',symbol:"[imp gal]",order: listaOrder[2][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: true, coefficientPer: 3.785411784, name:  'gallone_us',symbol:"[US gal]",order: listaOrder[2][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: true, coefficientPer: 0.56826125, name:  'pinta_imperiale',symbol:"[imp pt]",order: listaOrder[2][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: true, coefficientPer: 0.473176473, name:  'pinta_us',symbol:"[US pt]",order: listaOrder[2][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: false, coefficientPer: 1000.0, name:  'millilitro',symbol:"[ml]",order: listaOrder[2][6],significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 14.8, name:  'tablespoon_us',symbol:"[tbsp.]",significantFigures: signFig, removeTrailingZeros: rmTr0s,order: listaOrder[2][7],),
+          Node(isMultiplication: true, coefficientPer: 20.0, name:  'tablespoon_australian',symbol:"[tbsp.]",order:listaOrder[2][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 240.0, name:  'cup_us',symbol:"[cup]",order: listaOrder[2][9],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
         ]),
       ]),
-      Node(isMultiplication: false, coefficientPer: 1000000.0, name:  'centimetro_cubo',symbol:"[cm³]",order: listaOrder[2][10], leafNodes: [
-        Node(isMultiplication: true, coefficientPer: 16.387064, name:  'pollice_cubo',symbol:"[in³]",order: listaOrder[2][11], leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 1728.0, name:  'piede_cubo',symbol:"[ft³]",order: listaOrder[2][12],),
+      Node(isMultiplication: false, coefficientPer: 1000000.0, name:  'centimetro_cubo',symbol:"[cm³]",order: listaOrder[2][10],significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes: [
+        Node(isMultiplication: true, coefficientPer: 16.387064, name:  'pollice_cubo',symbol:"[in³]",order: listaOrder[2][11],significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 1728.0, name:  'piede_cubo',symbol:"[ft³]",order: listaOrder[2][12],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
         ]),
       ]),
-      Node(isMultiplication: false, coefficientPer: 1000000000.0, name:  'millimetro_cubo',symbol:"[mm³]",order: listaOrder[2][13],),
+      Node(isMultiplication: false, coefficientPer: 1000000000.0, name:  'millimetro_cubo',symbol:"[mm³]",order: listaOrder[2][13],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node secondo=Node(name:  'secondo',symbol:"[s]",order: listaOrder[3][0],
+    Node secondo=Node(name:  'secondo',symbol:"[s]",order: listaOrder[3][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 10.0, name:  'decimo_secondo',symbol:"[ds]",order: listaOrder[3][1],),
-          Node(isMultiplication: false, coefficientPer: 100.0, name:  'centesimo_secondo',symbol:"[cs]", order: listaOrder[3][2],),
-          Node(isMultiplication: false, coefficientPer: 1000.0, name:  'millisecondo',symbol:"[ms]",order: listaOrder[3][3],),
-          Node(isMultiplication: false, coefficientPer: 1000000.0, name:  'microsecondo',symbol:"[µs]",order: listaOrder[3][4],),
-          Node(isMultiplication: false, coefficientPer: 1000000000.0, name:  'nanosecondo',symbol:"[ns]",order: listaOrder[3][5],),
-          Node(isMultiplication: true, coefficientPer: 60.0, name:  'minuti', symbol:"[min]",order: listaOrder[3][6],leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 60.0, name:  'ore',symbol:"[h]",order: listaOrder[3][7],leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 24.0, name:  'giorni',symbol:"[d]",order: listaOrder[3][8],leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 7.0, name:  'settimane',order: listaOrder[3][9],),
-                Node(isMultiplication: true, coefficientPer: 365.0, name:  'anno',symbol:"[a]",order: listaOrder[3][10],leafNodes: [
-                  Node(isMultiplication: true, coefficientPer: 5.0, name:  'lustro',order: listaOrder[3][11],),
-                  Node(isMultiplication: true, coefficientPer: 10.0, name:  'decade',order: listaOrder[3][12],),
-                  Node(isMultiplication: true, coefficientPer: 100.0, name:  'secolo',symbol:"[c.]",order: listaOrder[3][13],),
-                  Node(isMultiplication: true, coefficientPer: 1000.0, name:  'millennio',order: listaOrder[3][14],),
+          Node(isMultiplication: false, coefficientPer: 10.0, name:  'decimo_secondo',symbol:"[ds]",order: listaOrder[3][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 100.0, name:  'centesimo_secondo',symbol:"[cs]", order: listaOrder[3][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name:  'millisecondo',symbol:"[ms]",order: listaOrder[3][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000.0, name:  'microsecondo',symbol:"[µs]",order: listaOrder[3][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000000.0, name:  'nanosecondo',symbol:"[ns]",order: listaOrder[3][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 60.0, name:  'minuti', symbol:"[min]",order: listaOrder[3][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 60.0, name:  'ore',symbol:"[h]",order: listaOrder[3][7],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 24.0, name:  'giorni',symbol:"[d]",order: listaOrder[3][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 7.0, name:  'settimane',order: listaOrder[3][9],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+                Node(isMultiplication: true, coefficientPer: 365.0, name:  'anno',symbol:"[a]",order: listaOrder[3][10],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+                  Node(isMultiplication: true, coefficientPer: 5.0, name:  'lustro',order: listaOrder[3][11],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+                  Node(isMultiplication: true, coefficientPer: 10.0, name:  'decade',order: listaOrder[3][12],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+                  Node(isMultiplication: true, coefficientPer: 100.0, name:  'secolo',symbol:"[c.]",order: listaOrder[3][13],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+                  Node(isMultiplication: true, coefficientPer: 1000.0, name:  'millennio',order: listaOrder[3][14],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
                 ]),
               ]),
             ]),
           ]),
         ]);
 
-    Node celsius=Node(name:  'fahrenheit',symbol:"[°F]",order: listaOrder[4][0],leafNodes:[
-      Node(isMultiplication: true, coefficientPer: 1.8, isSum: true, coefficientPlus: 32.0, name:  'celsius',symbol:"[°C]",order: listaOrder[4][1],leafNodes: [
-        Node(isSum: false, coefficientPlus: 273.15, name:  'kelvin',symbol:"[K]",order: listaOrder[4][2],),
-        Node(isMultiplication: true, coefficientPer: 5/4, name: "reamur",symbol:"[°Re]",order: listaOrder[4][3],),
-        Node(isMultiplication: true, coefficientPer: 40/21, isSum: true, coefficientPlus: -100/7,  name: "romer",symbol:"[°Rø]",order: listaOrder[4][4],),
-        Node(isMultiplication: true, coefficientPer: -2/3, isSum: true, coefficientPlus: 100,  name: "delisle",symbol:"[°De]",order: listaOrder[4][5],),
+    Node celsius=Node(name:  'fahrenheit',symbol:"[°F]",order: listaOrder[4][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes:[
+      Node(isMultiplication: true, coefficientPer: 1.8, isSum: true, coefficientPlus: 32.0, name:  'celsius',symbol:"[°C]",order: listaOrder[4][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+        Node(isSum: false, coefficientPlus: 273.15, name:  'kelvin',symbol:"[K]",order: listaOrder[4][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: true, coefficientPer: 5/4, name: "reamur",symbol:"[°Re]",order: listaOrder[4][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: true, coefficientPer: 40/21, isSum: true, coefficientPlus: -100/7,  name: "romer",symbol:"[°Rø]",order: listaOrder[4][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: true, coefficientPer: -2/3, isSum: true, coefficientPlus: 100,  name: "delisle",symbol:"[°De]",order: listaOrder[4][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
       ]),
-      Node(isSum: false, coefficientPlus: 459.67, name: "rankine",symbol:"[°R]",order: listaOrder[4][6],),
+      Node(isSum: false, coefficientPlus: 459.67, name: "rankine",symbol:"[°R]",order: listaOrder[4][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node metriSecondo=Node(name:  'metri_secondo',symbol:"[m/s]", order: listaOrder[5][0], leafNodes: [
-      Node(isMultiplication: false, coefficientPer: 3.6, name:  'chilometri_ora',symbol:"[km/h]",order: listaOrder[5][1], leafNodes:[
-        Node(isMultiplication: true, coefficientPer: 1.609344, name:  'miglia_ora',symbol:"[mph]",order: listaOrder[5][2],),
-        Node(isMultiplication: true, coefficientPer: 1.852, name:  'nodi',symbol:"[kts]",order: listaOrder[5][3],),
+    Node metriSecondo=Node(name:  'metri_secondo',symbol:"[m/s]", order: listaOrder[5][0],significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes: [
+      Node(isMultiplication: false, coefficientPer: 3.6, name:  'chilometri_ora',symbol:"[km/h]",order: listaOrder[5][1],significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes:[
+        Node(isMultiplication: true, coefficientPer: 1.609344, name:  'miglia_ora',symbol:"[mph]",order: listaOrder[5][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: true, coefficientPer: 1.852, name:  'nodi',symbol:"[kts]",order: listaOrder[5][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
       ]),
-      Node(isMultiplication: true, coefficientPer: 0.3048, name:  'piedi_secondo',symbol:"[ft/s]",order: listaOrder[5][4],),
+      Node(isMultiplication: true, coefficientPer: 0.3048, name:  'piedi_secondo',symbol:"[ft/s]",order: listaOrder[5][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node si=Node(name: "base",symbol:"[10º]",order: listaOrder[6][0],
+    Node si=Node(name: "base",symbol:"[10º]",order: listaOrder[6][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 10.0, name: "deca",symbol:"[da][10¹]",order: listaOrder[6][1],),
-          Node(isMultiplication: true, coefficientPer: 100.0, name: "hecto",symbol:"[h][10²]",order: listaOrder[6][2],),
-          Node(isMultiplication: true, coefficientPer: 1000.0, name: "kilo",symbol:"[k][10³]",order: listaOrder[6][3],),
-          Node(isMultiplication: true, coefficientPer: 1000000.0, name: "mega",symbol:"[M][10⁶]",order: listaOrder[6][4],),
-          Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "giga",symbol:"[G][10⁹]",order: listaOrder[6][5],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "tera",symbol:"[T][10¹²]",order: listaOrder[6][6],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "peta",symbol:"[P][10¹⁵]",order: listaOrder[6][7],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "exa",symbol:"[E][10¹⁸]",order: listaOrder[6][8],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000000000.0, name: "zetta",symbol:"[Z][10²¹]",order: listaOrder[6][9],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000000000000.0, name: "yotta",symbol:"[Y][10²⁴]",order: listaOrder[6][10],),
-          Node(isMultiplication: false, coefficientPer: 10.0, name: "deci",symbol:"[d][10⁻¹]",order: listaOrder[6][11],),
-          Node(isMultiplication: false, coefficientPer: 100.0, name: "centi",symbol:"[c][10⁻²]",order: listaOrder[6][12],),
-          Node(isMultiplication: false, coefficientPer: 1000.0, name: "milli",symbol:"[m][10⁻³]",order: listaOrder[6][13],),
-          Node(isMultiplication: false, coefficientPer: 1000000.0, name: "micro",symbol:"[µ][10⁻⁶]",order: listaOrder[6][14],),
-          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "nano",symbol:"[n][10⁻⁹]",order: listaOrder[6][15],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: "pico",symbol:"[p][10⁻¹²]",order: listaOrder[6][16],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000.0, name: "femto",symbol:"[f][10⁻¹⁵]",order: listaOrder[6][17],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000000.0, name: "atto",symbol:"[a][10⁻¹⁸]",order: listaOrder[6][18],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000000000.0, name: "zepto",symbol:"[z][10⁻²¹]",order: listaOrder[6][19],),
-          Node(isMultiplication: false, coefficientPer: 1000000000000000000000000.0, name: "yocto",symbol:"[y][10⁻²⁴]",order: listaOrder[6][20],),
+          Node(isMultiplication: true, coefficientPer: 10.0, name: "deca",symbol:"[da][10¹]",order: listaOrder[6][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 100.0, name: "hecto",symbol:"[h][10²]",order: listaOrder[6][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000.0, name: "kilo",symbol:"[k][10³]",order: listaOrder[6][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000.0, name: "mega",symbol:"[M][10⁶]",order: listaOrder[6][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "giga",symbol:"[G][10⁹]",order: listaOrder[6][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "tera",symbol:"[T][10¹²]",order: listaOrder[6][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "peta",symbol:"[P][10¹⁵]",order: listaOrder[6][7],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "exa",symbol:"[E][10¹⁸]",order: listaOrder[6][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000000.0, name: "zetta",symbol:"[Z][10²¹]",order: listaOrder[6][9],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000000000.0, name: "yotta",symbol:"[Y][10²⁴]",order: listaOrder[6][10],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 10.0, name: "deci",symbol:"[d][10⁻¹]",order: listaOrder[6][11],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 100.0, name: "centi",symbol:"[c][10⁻²]",order: listaOrder[6][12],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name: "milli",symbol:"[m][10⁻³]",order: listaOrder[6][13],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000.0, name: "micro",symbol:"[µ][10⁻⁶]",order: listaOrder[6][14],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000000.0, name: "nano",symbol:"[n][10⁻⁹]",order: listaOrder[6][15],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000000000.0, name: "pico",symbol:"[p][10⁻¹²]",order: listaOrder[6][16],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000.0, name: "femto",symbol:"[f][10⁻¹⁵]",order: listaOrder[6][17],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000000.0, name: "atto",symbol:"[a][10⁻¹⁸]",order: listaOrder[6][18],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000000000.0, name: "zepto",symbol:"[z][10⁻²¹]",order: listaOrder[6][19],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 1000000000000000000000000.0, name: "yocto",symbol:"[y][10⁻²⁴]",order: listaOrder[6][20],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
         ]
     );
 
-    Node grammo=Node(name:  'grammo',symbol:"[g]",order: listaOrder[7][0],
+    Node grammo=Node(name:  'grammo',symbol:"[g]",order: listaOrder[7][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
       leafNodes: [
-      Node(isMultiplication: true, coefficientPer: 100.0, name:  'ettogrammo',symbol:"[hg]",order: listaOrder[7][1],),
-      Node(isMultiplication: true, coefficientPer: 1000.0, name:  'chilogrammo',symbol:"[kg]",order: listaOrder[7][2],leafNodes:[
-        Node(isMultiplication: true, coefficientPer: 0.45359237, name:  'libbra',symbol:"[lb]",order: listaOrder[7][3],leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 16.0, name:  'oncia',symbol:"[oz]",order: listaOrder[7][4],)
+      Node(isMultiplication: true, coefficientPer: 100.0, name:  'ettogrammo',symbol:"[hg]",order: listaOrder[7][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+      Node(isMultiplication: true, coefficientPer: 1000.0, name:  'chilogrammo',symbol:"[kg]",order: listaOrder[7][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes:[
+        Node(isMultiplication: true, coefficientPer: 0.45359237, name:  'libbra',symbol:"[lb]",order: listaOrder[7][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+          Node(isMultiplication: false, coefficientPer: 16.0, name:  'oncia',symbol:"[oz]",order: listaOrder[7][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,)
         ]),
       ]),
-      Node(isMultiplication: true, coefficientPer: 100000.0, name:  'quintale',order: listaOrder[7][5],),
-      Node(isMultiplication: true, coefficientPer: 1000000.0, name:  'tonnellata',symbol:"[t]",order: listaOrder[7][6],),
-      Node(isMultiplication: false, coefficientPer: 100.0, name:  'centigrammo',symbol:"[cg]",order: listaOrder[7][7],),
-      Node(isMultiplication: false, coefficientPer: 1000.0, name:  'milligrammo',symbol:"[mg]",order: listaOrder[7][8],),
-      Node(isMultiplication: true, coefficientPer: 1.660539e-24, name:  'uma',symbol:"[u]",order: listaOrder[7][9],),
-      Node(isMultiplication: true, coefficientPer: 0.2, name:  'carato',symbol:"[ct]",order: listaOrder[7][10],),
+      Node(isMultiplication: true, coefficientPer: 100000.0, name:  'quintale',order: listaOrder[7][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+      Node(isMultiplication: true, coefficientPer: 1000000.0, name:  'tonnellata',symbol:"[t]",order: listaOrder[7][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+      Node(isMultiplication: false, coefficientPer: 100.0, name:  'centigrammo',symbol:"[cg]",order: listaOrder[7][7],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+      Node(isMultiplication: false, coefficientPer: 1000.0, name:  'milligrammo',symbol:"[mg]",order: listaOrder[7][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+      Node(isMultiplication: true, coefficientPer: 1.660539e-24, name:  'uma',symbol:"[u]",order: listaOrder[7][9],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+      Node(isMultiplication: true, coefficientPer: 0.2, name:  'carato',symbol:"[ct]",order: listaOrder[7][10],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node pascal=Node(name:  'pascal',symbol:"[Pa]",order: listaOrder[8][0],
+    Node pascal=Node(name:  'pascal',symbol:"[Pa]",order: listaOrder[8][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 101325.0, name:  'atmosfere',symbol:"[atm]",order: listaOrder[8][1],leafNodes:[
-            Node(isMultiplication: true, coefficientPer: 0.987, name:  'bar',symbol:"[bar]",order: listaOrder[8][2],leafNodes:[
-              Node(isMultiplication: false, coefficientPer: 1000.0, name:  'millibar',symbol:"[mbar]",order: listaOrder[8][3],),
+          Node(isMultiplication: true, coefficientPer: 101325.0, name:  'atmosfere',symbol:"[atm]",order: listaOrder[8][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes:[
+            Node(isMultiplication: true, coefficientPer: 0.987, name:  'bar',symbol:"[bar]",order: listaOrder[8][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes:[
+              Node(isMultiplication: false, coefficientPer: 1000.0, name:  'millibar',symbol:"[mbar]",order: listaOrder[8][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
             ]),
           ]),
-          Node(isMultiplication: true, coefficientPer: 6894.757293168, name:  'psi',symbol:"[psi]",order: listaOrder[8][4],),
-          Node(isMultiplication: true, coefficientPer: 133.322368421, name:  'torr',symbol:"(mmHg) [torr]",order: listaOrder[8][5],),
+          Node(isMultiplication: true, coefficientPer: 6894.757293168, name:  'psi',symbol:"[psi]",order: listaOrder[8][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 133.322368421, name:  'torr',symbol:"(mmHg) [torr]",order: listaOrder[8][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node joule=Node(name:  'joule',symbol:"[J]",order: listaOrder[9][0],
+    Node joule=Node(name:  'joule',symbol:"[J]",order: listaOrder[9][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 4.1867999409, name:  'calorie',symbol:"[cal]",order: listaOrder[9][1]),
-          Node(isMultiplication: true, coefficientPer: 3600000.0, name:  'kilowattora',symbol:"[kwh]",order: listaOrder[9][2],),
-          Node(isMultiplication: true, coefficientPer: 1.60217646e-19, name:  'elettronvolt',symbol:"[eV]",order: listaOrder[9][3],),
+          Node(isMultiplication: true, coefficientPer: 4.1867999409, name:  'calorie',symbol:"[cal]",order: listaOrder[9][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 3600000.0, name:  'kilowattora',symbol:"[kwh]",order: listaOrder[9][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1.60217646e-19, name:  'elettronvolt',symbol:"[eV]",order: listaOrder[9][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
         ]);
-    Node gradi=Node(name: 'gradi',symbol:"[°]",order: listaOrder[10][0],
+    Node gradi=Node(name: 'gradi',symbol:"[°]",order: listaOrder[10][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 60.0, name:  'primi',symbol:"[']",order: listaOrder[10][1]),
-          Node(isMultiplication: false, coefficientPer: 3600.0, name:  'secondi',symbol:"['']",order: listaOrder[10][2]),
-          Node(isMultiplication: true, coefficientPer: 57.295779513, name:  'radianti',symbol:"[rad]",order: listaOrder[10][3]),
+          Node(isMultiplication: false, coefficientPer: 60.0, name:  'primi',symbol:"[']",order: listaOrder[10][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 3600.0, name:  'secondi',symbol:"['']",order: listaOrder[10][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 57.295779513, name:  'radianti',symbol:"[rad]",order: listaOrder[10][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node eur=Node(name: 'EUR', symbol: '[€] 🇪🇺',order: listaOrder[11][0],
+    Node eur=Node(name: 'EUR', symbol: '[€] 🇪🇺',order: listaOrder[11][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: currencyValues['USD'], name:  'USD',symbol: '[\$] 🇺🇸',order: listaOrder[11][1]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['GBP'], name:  'GBP',symbol: '[£] 🇬🇧',order: listaOrder[11][2]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['INR'], name:  'INR',symbol: '[₹] 🇮🇳',order: listaOrder[11][3]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['CNY'], name:  'CNY',symbol: '[¥] 🇨🇳',order: listaOrder[11][4]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['JPY'], name:  'JPY',symbol: '[¥] 🇯🇵',order: listaOrder[11][5]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['CHF'], name:  'CHF',symbol: '[Fr.]🇨🇭',order: listaOrder[11][6]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['SEK'], name:  'SEK',symbol: '[kr] 🇸🇪',order: listaOrder[11][7]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['RUB'], name:  'RUB',symbol: '[₽] 🇷🇺',order: listaOrder[11][8]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['CAD'], name:  'CAD',symbol: '[\$] 🇨🇦',order: listaOrder[11][9]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['KRW'], name:  'KRW',symbol: '[₩] 🇰🇷',order: listaOrder[11][10]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['BRL'], name:  'BRL',symbol: '[R\$] 🇧🇷',order: listaOrder[11][11]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['HKD'], name:  'HKD',symbol: '[HK\$] 🇭🇰',order: listaOrder[11][12]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['AUD'], name:  'AUD',symbol: '[A\$] 🇦🇺',order: listaOrder[11][13]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['NZD'], name:  'NZD',symbol: '[NZ\$] 🇳🇿',order: listaOrder[11][14]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['MXN'], name:  'MXN',symbol: '[\$] 🇲🇽',order: listaOrder[11][15]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['SGD'], name:  'SGD',symbol: '[S\$] 🇸🇬',order: listaOrder[11][16]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['NOK'], name:  'NOK',symbol: '[kr] 🇳🇴',order: listaOrder[11][17]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['TRY'], name:  'TRY',symbol: '[₺] 🇹🇷',order: listaOrder[11][18]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['ZAR'], name:  'ZAR',symbol: '[R] 🇿🇦',order: listaOrder[11][19]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['DKK'], name:  'DKK',symbol: '[kr] 🇩🇰',order: listaOrder[11][20]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['PLN'], name:  'PLN',symbol: '[zł] 🇵🇱',order: listaOrder[11][21]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['THB'], name:  'THB',symbol: '[฿] 🇹🇭',order: listaOrder[11][22]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['MYR'], name:  'MYR',symbol: '[RM] 🇲🇾',order: listaOrder[11][23]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['HUF'], name:  'HUF',symbol: '[Ft] 🇭🇺',order: listaOrder[11][24]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['CZK'], name:  'CZK',symbol: '[Kč] 🇨🇿',order: listaOrder[11][25]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['ILS'], name:  'ILS',symbol: '[₪] 🇮🇱',order: listaOrder[11][26]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['IDR'], name:  'IDR',symbol: '[Rp] 🇮🇩',order: listaOrder[11][27]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['PHP'], name:  'PHP',symbol: '[₱] 🇵🇭',order: listaOrder[11][28]),
-          Node(isMultiplication: false, coefficientPer: currencyValues['RON'], name:  'RON',symbol: '[L] 🇷🇴',order: listaOrder[11][29]),
+          Node(isMultiplication: false, coefficientPer: currencyValues['USD'], name:  'USD',symbol: '[\$] 🇺🇸',order: listaOrder[11][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['GBP'], name:  'GBP',symbol: '[£] 🇬🇧',order: listaOrder[11][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['INR'], name:  'INR',symbol: '[₹] 🇮🇳',order: listaOrder[11][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['CNY'], name:  'CNY',symbol: '[¥] 🇨🇳',order: listaOrder[11][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['JPY'], name:  'JPY',symbol: '[¥] 🇯🇵',order: listaOrder[11][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['CHF'], name:  'CHF',symbol: '[Fr.]🇨🇭',order: listaOrder[11][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['SEK'], name:  'SEK',symbol: '[kr] 🇸🇪',order: listaOrder[11][7],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['RUB'], name:  'RUB',symbol: '[₽] 🇷🇺',order: listaOrder[11][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['CAD'], name:  'CAD',symbol: '[\$] 🇨🇦',order: listaOrder[11][9],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['KRW'], name:  'KRW',symbol: '[₩] 🇰🇷',order: listaOrder[11][10],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['BRL'], name:  'BRL',symbol: '[R\$] 🇧🇷',order: listaOrder[11][11],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['HKD'], name:  'HKD',symbol: '[HK\$] 🇭🇰',order: listaOrder[11][12],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['AUD'], name:  'AUD',symbol: '[A\$] 🇦🇺',order: listaOrder[11][13],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['NZD'], name:  'NZD',symbol: '[NZ\$] 🇳🇿',order: listaOrder[11][14],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['MXN'], name:  'MXN',symbol: '[\$] 🇲🇽',order: listaOrder[11][15],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['SGD'], name:  'SGD',symbol: '[S\$] 🇸🇬',order: listaOrder[11][16],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['NOK'], name:  'NOK',symbol: '[kr] 🇳🇴',order: listaOrder[11][17],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['TRY'], name:  'TRY',symbol: '[₺] 🇹🇷',order: listaOrder[11][18],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['ZAR'], name:  'ZAR',symbol: '[R] 🇿🇦',order: listaOrder[11][19],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['DKK'], name:  'DKK',symbol: '[kr] 🇩🇰',order: listaOrder[11][20],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['PLN'], name:  'PLN',symbol: '[zł] 🇵🇱',order: listaOrder[11][21],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['THB'], name:  'THB',symbol: '[฿] 🇹🇭',order: listaOrder[11][22],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['MYR'], name:  'MYR',symbol: '[RM] 🇲🇾',order: listaOrder[11][23],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['HUF'], name:  'HUF',symbol: '[Ft] 🇭🇺',order: listaOrder[11][24],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['CZK'], name:  'CZK',symbol: '[Kč] 🇨🇿',order: listaOrder[11][25],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['ILS'], name:  'ILS',symbol: '[₪] 🇮🇱',order: listaOrder[11][26],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['IDR'], name:  'IDR',symbol: '[Rp] 🇮🇩',order: listaOrder[11][27],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['PHP'], name:  'PHP',symbol: '[₱] 🇵🇭',order: listaOrder[11][28],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: currencyValues['RON'], name:  'RON',symbol: '[L] 🇷🇴',order: listaOrder[11][29],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node centimetriScarpe=Node(name: 'centimetro', symbol: "[cm]",order: listaOrder[12][0],
+    Node centimetriScarpe=Node(name: 'centimetro', symbol: "[cm]",order: listaOrder[12][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 1.5, coefficientPlus: 1.5, isSum: false, name:  'eu_cina',order: listaOrder[12][1]),
-          Node(isMultiplication: true, coefficientPer: 2.54, name:  'pollice',symbol: '[in]',order: listaOrder[12][2], 
+          Node(isMultiplication: false, coefficientPer: 1.5, coefficientPlus: 1.5, isSum: false, name:  'eu_cina',order: listaOrder[12][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 2.54, name:  'pollice',symbol: '[in]',order: listaOrder[12][2], significantFigures: signFig, removeTrailingZeros: rmTr0s,
           leafNodes: [
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 4, isSum: true, name:  'uk_india_bambino',order: listaOrder[12][3]),
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.3333333, name:  'uk_india_uomo',order: listaOrder[12][4]),
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.5, name:  'uk_india_donna',order: listaOrder[12][5]),
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 3.89, isSum: true, name:  'usa_canada_bambino',order: listaOrder[12][6]),
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.0, name:  'usa_canada_uomo',order: listaOrder[12][7]),
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 7.5, name:  'usa_canada_donna',order: listaOrder[12][8]),
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 4, isSum: true, name:  'uk_india_bambino',order: listaOrder[12][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.3333333, name:  'uk_india_uomo',order: listaOrder[12][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.5, name:  'uk_india_donna',order: listaOrder[12][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 3.89, isSum: true, name:  'usa_canada_bambino',order: listaOrder[12][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.0, name:  'usa_canada_uomo',order: listaOrder[12][7],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 7.5, name:  'usa_canada_donna',order: listaOrder[12][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
           ]),
-          Node(coefficientPlus: 1.5, isSum: false, name:  'giappone',order: listaOrder[12][9]),
+          Node(coefficientPlus: 1.5, isSum: false, name:  'giappone',order: listaOrder[12][9],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
           
     ]);
 
-    Node bit=Node(name: "bit",symbol: "[b]",order: listaOrder[13][0],
+    Node bit=Node(name: "bit",symbol: "[b]",order: listaOrder[13][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 4.0, name: "nibble",order: listaOrder[13][2],),
-          Node(isMultiplication: true, coefficientPer: 1000.0, name: "kilobit",symbol: "[kb]",order: listaOrder[13][3],),
-          Node(isMultiplication: true, coefficientPer: 1000000.0, name: "megabit",symbol: "[Mb]",order: listaOrder[13][7],),
-          Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "gigabit",symbol: "[Gb]",order: listaOrder[13][11],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "terabit",symbol: "[Tb]",order: listaOrder[13][15],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "petabit",symbol: "[Pb]",order: listaOrder[13][19],),
-          Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "exabit",symbol: "[Eb]",order: listaOrder[13][23],),
-          Node(isMultiplication: true, coefficientPer: 1024.0, name: "kibibit",symbol: "[Kibit]",order: listaOrder[13][5],leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 1024.0, name: "mebibit",symbol: "[Mibit]",order: listaOrder[13][9],leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 1024.0, name: "gibibit",symbol: "[Gibit]",order: listaOrder[13][13],leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 1024.0, name: "tebibit",symbol: "[Tibit]",order: listaOrder[13][17],leafNodes: [
-                  Node(isMultiplication: true, coefficientPer: 1024.0, name: "pebibit",symbol: "[Pibit]",order: listaOrder[13][21],leafNodes: [
-                    Node(isMultiplication: true, coefficientPer: 1024.0, name: "exbibit",symbol: "[Eibit]",order: listaOrder[13][25])
+          Node(isMultiplication: true, coefficientPer: 4.0, name: "nibble",order: listaOrder[13][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000.0, name: "kilobit",symbol: "[kb]",order: listaOrder[13][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000.0, name: "megabit",symbol: "[Mb]",order: listaOrder[13][7],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "gigabit",symbol: "[Gb]",order: listaOrder[13][11],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "terabit",symbol: "[Tb]",order: listaOrder[13][15],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "petabit",symbol: "[Pb]",order: listaOrder[13][19],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "exabit",symbol: "[Eb]",order: listaOrder[13][23],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1024.0, name: "kibibit",symbol: "[Kibit]",order: listaOrder[13][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 1024.0, name: "mebibit",symbol: "[Mibit]",order: listaOrder[13][9],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 1024.0, name: "gibibit",symbol: "[Gibit]",order: listaOrder[13][13],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 1024.0, name: "tebibit",symbol: "[Tibit]",order: listaOrder[13][17],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+                  Node(isMultiplication: true, coefficientPer: 1024.0, name: "pebibit",symbol: "[Pibit]",order: listaOrder[13][21],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+                    Node(isMultiplication: true, coefficientPer: 1024.0, name: "exbibit",symbol: "[Eibit]",order: listaOrder[13][25],significantFigures: signFig, removeTrailingZeros: rmTr0s,)
                   ])
                 ])
               ])
             ])
           ]),
-          Node(isMultiplication: true, coefficientPer: 8.0, name: "byte",symbol: "[B]",order: listaOrder[13][1],leafNodes: [
-            Node(isMultiplication: true, coefficientPer: 1000.0, name: "kilobyte",symbol: "[kB]",order: listaOrder[13][4],),
-            Node(isMultiplication: true, coefficientPer: 1000000.0, name: "megabyte",symbol: "[MB]",order: listaOrder[13][8],),
-            Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "gigabyte",symbol: "[GB]",order: listaOrder[13][12],),
-            Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "terabyte",symbol: "[TB]",order: listaOrder[13][16],),
-            Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "petabyte",symbol: "[PB]",order: listaOrder[13][20],),
-            Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "exabyte",symbol: "[EB]",order: listaOrder[13][24],),
-            Node(isMultiplication: true, coefficientPer: 1024.0, name: "kibibyte",symbol: "[KiB]",order: listaOrder[13][6],leafNodes: [
-              Node(isMultiplication: true, coefficientPer: 1024.0, name: "mebibyte",symbol: "[MiB]",order: listaOrder[13][10],leafNodes: [
-                Node(isMultiplication: true, coefficientPer: 1024.0, name: "gibibyte",symbol: "[GiB]",order: listaOrder[13][14],leafNodes: [
-                  Node(isMultiplication: true, coefficientPer: 1024.0, name: "tebibyte",symbol: "[TiB]",order: listaOrder[13][18],leafNodes: [
-                    Node(isMultiplication: true, coefficientPer: 1024.0, name: "pebibyte",symbol: "[PiB]",order: listaOrder[13][22],leafNodes: [
-                      Node(isMultiplication: true, coefficientPer: 1024.0, name: "exbibyte",symbol: "[EiB]",order: listaOrder[13][26])
+          Node(isMultiplication: true, coefficientPer: 8.0, name: "byte",symbol: "[B]",order: listaOrder[13][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+            Node(isMultiplication: true, coefficientPer: 1000.0, name: "kilobyte",symbol: "[kB]",order: listaOrder[13][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1000000.0, name: "megabyte",symbol: "[MB]",order: listaOrder[13][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1000000000.0, name: "gigabyte",symbol: "[GB]",order: listaOrder[13][12],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1000000000000.0, name: "terabyte",symbol: "[TB]",order: listaOrder[13][16],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1000000000000000.0, name: "petabyte",symbol: "[PB]",order: listaOrder[13][20],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1000000000000000000.0, name: "exabyte",symbol: "[EB]",order: listaOrder[13][24],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1024.0, name: "kibibyte",symbol: "[KiB]",order: listaOrder[13][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+              Node(isMultiplication: true, coefficientPer: 1024.0, name: "mebibyte",symbol: "[MiB]",order: listaOrder[13][10],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+                Node(isMultiplication: true, coefficientPer: 1024.0, name: "gibibyte",symbol: "[GiB]",order: listaOrder[13][14],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+                  Node(isMultiplication: true, coefficientPer: 1024.0, name: "tebibyte",symbol: "[TiB]",order: listaOrder[13][18],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+                    Node(isMultiplication: true, coefficientPer: 1024.0, name: "pebibyte",symbol: "[PiB]",order: listaOrder[13][22],significantFigures: signFig, removeTrailingZeros: rmTr0s,leafNodes: [
+                      Node(isMultiplication: true, coefficientPer: 1024.0, name: "exbibyte",symbol: "[EiB]",order: listaOrder[13][26],significantFigures: signFig, removeTrailingZeros: rmTr0s,)
                     ])
                   ])
                 ])
@@ -259,44 +259,44 @@ initializeUnits(listaOrder, currencyValues){
         ]
     );
 
-    Node watt=Node(name:  'watt', symbol: "[W]",order: listaOrder[14][0],
+    Node watt=Node(name:  'watt', symbol: "[W]",order: listaOrder[14][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 1000.0, name:  'milliwatt', symbol: "[W]",order: listaOrder[14][1],),
-          Node(isMultiplication: true, coefficientPer: 1000.0, name:  'kilowatt', symbol: "[kW]",order: listaOrder[14][2],),
-          Node(isMultiplication: true, coefficientPer: 1000000.0, name:  'megawatt', symbol: "[MW]",order: listaOrder[14][3],),
-          Node(isMultiplication: true, coefficientPer: 1000000000.0, name:  'gigawatt', symbol: "[GW]",order: listaOrder[14][4],),
-          Node(isMultiplication: true, coefficientPer: 735.49875, name:  'cavallo_vapore_eurpeo', symbol: "[hp(M)]",order: listaOrder[14][5],),
-          Node(isMultiplication: true, coefficientPer: 745.69987158, name:  'cavallo_vapore_imperiale', symbol: "[hp(I)]",order: listaOrder[14][6],),
+          Node(isMultiplication: false, coefficientPer: 1000.0, name:  'milliwatt', symbol: "[W]",order: listaOrder[14][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000.0, name:  'kilowatt', symbol: "[kW]",order: listaOrder[14][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000.0, name:  'megawatt', symbol: "[MW]",order: listaOrder[14][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1000000000.0, name:  'gigawatt', symbol: "[GW]",order: listaOrder[14][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 735.49875, name:  'cavallo_vapore_eurpeo', symbol: "[hp(M)]",order: listaOrder[14][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 745.69987158, name:  'cavallo_vapore_imperiale', symbol: "[hp(I)]",order: listaOrder[14][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node newton=Node(name:  'newton',symbol: "[N]",order: listaOrder[15][0],
+    Node newton=Node(name:  'newton',symbol: "[N]",order: listaOrder[15][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 100000.0, name:  'dyne',symbol: "[dyn]",order: listaOrder[15][1],),
-          Node(isMultiplication: true, coefficientPer: 4.4482216152605 , name:  'libbra_forza',symbol: "[lbf]",order: listaOrder[15][2],),
-          Node(isMultiplication: true, coefficientPer: 9.80665, name:  'kilogrammo_forza',symbol: "[kgf]",order: listaOrder[15][3],),
-          Node(isMultiplication: true, coefficientPer: 0.138254954376, name:  'poundal',symbol: "[pdl]",order: listaOrder[15][4],),
+          Node(isMultiplication: false, coefficientPer: 100000.0, name:  'dyne',symbol: "[dyn]",order: listaOrder[15][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 4.4482216152605 , name:  'libbra_forza',symbol: "[lbf]",order: listaOrder[15][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 9.80665, name:  'kilogrammo_forza',symbol: "[kgf]",order: listaOrder[15][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 0.138254954376, name:  'poundal',symbol: "[pdl]",order: listaOrder[15][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node newtonMetro=Node(name:  'newton_metro',symbol: "[N·m]",order: listaOrder[16][0],
+    Node newtonMetro=Node(name:  'newton_metro',symbol: "[N·m]",order: listaOrder[16][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 100000.0, name:  'dyne_metro',symbol:"[dyn·m]",order: listaOrder[16][1],),
-          Node(isMultiplication: false, coefficientPer: 0.7375621489 , name:  'libbra_forza_piede',symbol: "[lbf·ft]",order: listaOrder[16][2],),
-          Node(isMultiplication: false, coefficientPer: 0.10196798205363515, name:  'kilogrammo_forza_metro',symbol: "[kgf·m]",order: listaOrder[16][3],),
-          Node(isMultiplication: true, coefficientPer: 0.138254954376, name:  'poundal_metro',symbol: "[pdl·m]",order: listaOrder[16][4],),
+          Node(isMultiplication: false, coefficientPer: 100000.0, name:  'dyne_metro',symbol:"[dyn·m]",order: listaOrder[16][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 0.7375621489 , name:  'libbra_forza_piede',symbol: "[lbf·ft]",order: listaOrder[16][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: false, coefficientPer: 0.10196798205363515, name:  'kilogrammo_forza_metro',symbol: "[kgf·m]",order: listaOrder[16][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 0.138254954376, name:  'poundal_metro',symbol: "[pdl·m]",order: listaOrder[16][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node chilometriLitro=Node(name:  'chilometri_litro',symbol: "[km/l]",order: listaOrder[17][0],
+    Node chilometriLitro=Node(name:  'chilometri_litro',symbol: "[km/l]",order: listaOrder[17][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(conversionType: RECIPROCO_CONVERSION,coefficientPer: 100.0, name:  'litri_100km',symbol: "[l/100km]",order: listaOrder[17][1],),
-          Node(coefficientPer: 0.4251437074 , name:  'miglia_gallone_us',symbol: "[mpg]",order: listaOrder[17][2],),
-          Node(coefficientPer: 0.3540061899, name:  'miglia_gallone_uk',symbol: "[mpg]",order: listaOrder[17][3],),
+          Node(conversionType: RECIPROCO_CONVERSION,coefficientPer: 100.0, name:  'litri_100km',symbol: "[l/100km]",order: listaOrder[17][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(coefficientPer: 0.4251437074 , name:  'miglia_gallone_us',symbol: "[mpg]",order: listaOrder[17][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(coefficientPer: 0.3540061899, name:  'miglia_gallone_uk',symbol: "[mpg]",order: listaOrder[17][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
-    Node baseDecimale=Node(name:  'decimale',base: 10,keyboardType: KEYBOARD_NUMBER_INTEGER,symbol: "[₁₀]",order: listaOrder[18][0],
+    Node baseDecimale=Node(name:  'decimale',base: 10,keyboardType: KEYBOARD_NUMBER_INTEGER,symbol: "[₁₀]",order: listaOrder[18][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(conversionType: BASE_CONVERSION,base: 16,keyboardType: KEYBOARD_COMPLETE,name:  'esadecimale',symbol: "[₁₆]",order: listaOrder[18][1],),
-          Node(conversionType: BASE_CONVERSION,base: 8,keyboardType: KEYBOARD_NUMBER_INTEGER, name:  'ottale',symbol: "[₈]",order: listaOrder[18][2],),
-          Node(conversionType: BASE_CONVERSION,base: 2,keyboardType: KEYBOARD_NUMBER_INTEGER, name:  'binario',symbol: "[₂]",order: listaOrder[18][3],),
+          Node(conversionType: BASE_CONVERSION,base: 16,keyboardType: KEYBOARD_COMPLETE,name:  'esadecimale',symbol: "[₁₆]",order: listaOrder[18][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(conversionType: BASE_CONVERSION,base: 8,keyboardType: KEYBOARD_NUMBER_INTEGER, name:  'ottale',symbol: "[₈]",order: listaOrder[18][2],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(conversionType: BASE_CONVERSION,base: 2,keyboardType: KEYBOARD_NUMBER_INTEGER, name:  'binario',symbol: "[₂]",order: listaOrder[18][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
     ]);
 
 

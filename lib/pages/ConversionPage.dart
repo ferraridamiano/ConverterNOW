@@ -10,8 +10,9 @@ class ConversionPage extends StatefulWidget {
   final Node fatherNode;
   final String title;
   final String subtitle;
+  final bool isCurrenciesLoading;
   MediaQueryData mediaQuery;
-  ConversionPage(this.fatherNode, this.title, this.subtitle, this.mediaQuery);
+  ConversionPage(this.fatherNode, this.title, this.subtitle, this.mediaQuery, this.isCurrenciesLoading);
 
   @override
   _ConversionPage createState() => new _ConversionPage();
@@ -201,7 +202,7 @@ class _ConversionPage extends State<ConversionPage> {
         gridTiles.add(UnitCard(symbol: item.symbol, textField: item.textField,));
       }
       else if(item is BigHeader) { //(item is BigHeader)
-        gridTiles.add(BigTitle(text: item.title, subtitle: item.subTitle,));
+        gridTiles.add(BigTitle(text: item.title, subtitle: item.subTitle,isCurrenciesLoading: widget.isCurrenciesLoading,));
       }
     }
     return Scrollbar(

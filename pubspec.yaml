@@ -16,6 +16,8 @@ dependencies:
   url_launcher: ^5.5.0
   #Needed to download the latest currencies convertions
   http: ^0.12.2
+  #Needed to improve the state management
+  provider: ^4.3.2+2
 
   flutter_localizations:
       sdk: flutter
