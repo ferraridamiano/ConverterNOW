@@ -8,19 +8,14 @@ import 'ConversionManager.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class AppManager extends StatefulWidget{
-  @override
-  _AppManagerState createState() => _AppManagerState();
-}
-
-class _AppManagerState extends State<AppManager> {
+class AppManager extends StatelessWidget{
 
   static const MAX_CONVERSION_UNITS=19;
 
   static List<Widget> listaDrawer=new List(MAX_CONVERSION_UNITS+1);//+1 because of the header
   static List<String> titlesList;
 
-  void initializeTiles(){
+  void _initializeTiles(BuildContext context){
     Color boxColor=Theme.of(context).primaryColor;
 
     List<Widget> drawerActions = <Widget>[
@@ -127,7 +122,7 @@ class _AppManagerState extends State<AppManager> {
     MyLocalizations.of(context).trans('forza'), MyLocalizations.of(context).trans('momento'),MyLocalizations.of(context).trans('consumo_carburante'),
     MyLocalizations.of(context).trans('basi_numeriche')];
 
-    initializeTiles();
+    _initializeTiles(context);
 
     DateTime lastUpdateCurrencies = context.select<Conversions, DateTime>(
       (settings) => settings.lastUpdateCurrency,
