@@ -17,3 +17,4 @@ pubspec.lock
 .idea/
 ios/Flutter/flutter_export_environment.sh
 lib/generated_plugin_registrant.dart
+.vscode/
