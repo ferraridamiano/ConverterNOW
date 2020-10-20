@@ -11,7 +11,7 @@ class ConversionPage extends StatefulWidget {
   final String title;
   final String subtitle;
   final bool isCurrenciesLoading;
-  MediaQueryData mediaQuery;
+  final MediaQueryData mediaQuery;
   ConversionPage(this.fatherNode, this.title, this.subtitle, this.mediaQuery, this.isCurrenciesLoading);
 
   @override
@@ -129,7 +129,7 @@ class _ConversionPage extends State<ConversionPage> {
             keyboardType: keyboardType,
             controller: listaController[i],
             focusNode: listaFocus[i],
-            autovalidate: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (String input){
               if(input != "" && (
                 listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL && !decimalRegExp.hasMatch(input) ||   //numeri decimali
