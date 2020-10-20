@@ -144,19 +144,21 @@ class Conversions with ChangeNotifier {
   ///Given a list of translated units of measurement it changes the order
   ///of the units (_conversionsOrder) opening a separate page (ReorderPage)
   changeOrderUnits(BuildContext context, List<String> listUnitsNames, int currentPage) async{
-    final result = await Navigator.push(
+    final List<int> result = await Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ReorderPage(
-            listaElementi: listUnitsNames,
-        ),));
-    List arrayCopy=new List(_conversionsOrder[currentPage].length);
-    for(int i=0;i<_conversionsOrder[currentPage].length;i++)
-      arrayCopy[i]=_conversionsOrder[currentPage][i];
-    for(int i=0;i<_conversionsOrder[currentPage].length;i++)
-      _conversionsOrder[currentPage][i]=result.indexOf(arrayCopy[i]);
-    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
-    notifyListeners(); 
-    _saveOrders(currentPage);
+        MaterialPageRoute(builder: (context) => ReorderPage(listUnitsNames),),
+    );
+    //if there arent't any modifications, do nothing
+    if(result != null){
+      List arrayCopy=new List(_conversionsOrder[currentPage].length);
+      for(int i=0;i<_conversionsOrder[currentPage].length;i++)
+        arrayCopy[i]=_conversionsOrder[currentPage][i];
+      for(int i=0;i<_conversionsOrder[currentPage].length;i++)
+        _conversionsOrder[currentPage][i]=result.indexOf(arrayCopy[i]);
+      _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
+      notifyListeners(); 
+      _saveOrders(currentPage);
+    }
   }
 
   _saveOrders(int currentPage) async {

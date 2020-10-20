@@ -1,0 +1,2 @@
+const double SINGLE_PAGE_FIXED_HEIGHT = 650;
+const double SINGLE_PAGE_TEXT_SIZE = 18.0;

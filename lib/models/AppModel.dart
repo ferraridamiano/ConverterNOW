@@ -53,26 +53,30 @@ class AppModel with ChangeNotifier {
   changeOrderDrawer(BuildContext context, List<String> titlesList) async{
     Navigator.of(context).pop();    //Close the drawer
 
-    List orderedList=new List(_conversionsOrderDrawer.length);
+    List<String> orderedList = new List(_conversionsOrderDrawer.length);
     for(int i=0;i<_conversionsOrderDrawer.length;i++){
       orderedList[_conversionsOrderDrawer[i]]=titlesList[i];
     }
 
-    final result = await Navigator.push(context,MaterialPageRoute(builder: (context) => ReorderPage(listaElementi: orderedList,)));
+    final List<int> result = await Navigator.push(context,MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));
 
-    List arrayCopia=new List(_conversionsOrderDrawer.length);
-    for(int i=0;i<_conversionsOrderDrawer.length;i++)
-      arrayCopia[i]=_conversionsOrderDrawer[i];
-    for(int i=0;i<_conversionsOrderDrawer.length;i++)
-      _conversionsOrderDrawer[i]=result.indexOf(arrayCopia[i]);
+    //if there arent't any modifications, do nothing
+    if(result != null){
+      List arrayCopia=new List(_conversionsOrderDrawer.length);
+      for(int i=0;i<_conversionsOrderDrawer.length;i++)
+        arrayCopia[i]=_conversionsOrderDrawer[i];
+      for(int i=0;i<_conversionsOrderDrawer.length;i++)
+        _conversionsOrderDrawer[i]=result.indexOf(arrayCopia[i]);
 
-    notifyListeners();
-    //save new orders to memory
-    List<String> toConvertList=new List();
-    for(int item in _conversionsOrderDrawer)
-      toConvertList.add(item.toString());
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList("orderDrawer", toConvertList);
+      notifyListeners();
+      //save new orders to memory
+      List<String> toConvertList=new List();
+      for(int item in _conversionsOrderDrawer)
+        toConvertList.add(item.toString());
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setStringList("orderDrawer", toConvertList);
+    }
+    
   }
 
   //Settings section------------------------------------------------------------------

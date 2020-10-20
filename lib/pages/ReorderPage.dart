@@ -1,164 +1,111 @@
-import 'package:converterpro/utils/reorderable_list.dart';
+import 'package:converterpro/styles/consts.dart';
+import 'package:converterpro/utils/Localization.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as Math;
 
 class ReorderPage extends StatefulWidget {
-  ReorderPage({Key key ,this.listaElementi}) : super(key: key);
+  final List<String> itemsList;
 
-  final List listaElementi;
-
-  @override
-  _ReorderPage createState() => new _ReorderPage();
-}
-
-class ItemData {
-  ItemData(this.title, this.key);
-
-  final String title;
-
-  // Each item in reorderable list needs stable and unique key
-  final Key key;
-}
-
-class _ReorderPage extends State<ReorderPage> {
-  List<ItemData> _items;
-
-  initialize() {
-    _items = new List();
-    for (int i = 0; i < widget.listaElementi.length; ++i)
-      _items.add(new ItemData(widget.listaElementi[i], new ValueKey(i)));
-  }
+  const ReorderPage(this.itemsList);
 
   @override
-  void didUpdateWidget(ReorderPage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    initialize();
-  }
+  _ReorderPageState createState() => _ReorderPageState();
+}
+
+class _ReorderPageState extends State<ReorderPage> {
+  List<Item> _itemsList = new List();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    initialize();
+    for (int i = 0; i < widget.itemsList.length; i++)
+      _itemsList.add(Item(i, widget.itemsList[i]));
   }
 
-
-
-  // Returns index of item with given key
-  int _indexOfKey(Key key) {
-    for (int i = 0; i < _items.length; ++i) {
-      if (_items[i].key == key) return i;
-    }
-    return -1;
-  }
-
-  bool _reorderCallback(Key item, Key newPosition) {
-    int draggingIndex = _indexOfKey(item);
-    int newPositionIndex = _indexOfKey(newPosition);
-
-    // Uncomment to allow only even target reorder possition
-    // if (newPositionIndex % 2 == 1)
-    //   return false;
-
-    final draggedItem = _items[draggingIndex];
-    setState(() {
-      debugPrint(
-          "Reordering " + item.toString() + " -> " + newPosition.toString());
-      _items.removeAt(draggingIndex);
-      _items.insert(newPositionIndex, draggedItem);
-    });
-    return true;
-  }
-
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.check,color: Colors.white,),
-          onPressed: (){
-            List<int> orderedList=new List(_items.length);
-              for(int i=0;i<_items.length;i++){
-                ValueKey myKey=_items[i].key;
-                orderedList[i]=myKey.value;
-              }
-              Navigator.pop(context,orderedList);
+          child: Icon(
+            Icons.check,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            List<int> orderList = new List();
+            bool hasSomethingchanged = false;
+            for (int i = 0; i < _itemsList.length; i++) {
+              int currentIndex = _itemsList[i].id;
+              orderList.add(currentIndex);
+              if (i != currentIndex) hasSomethingchanged = true;
+            }
+            //if some modification has been done returns them, otherwise it will return null
+            Navigator.pop(context, hasSomethingchanged ? orderList : null);
           },
           elevation: 10.0,
           backgroundColor: Theme.of(context).accentColor,
         ),
-
         bottomNavigationBar: BottomAppBar(
           color: Theme.of(context).primaryColor,
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,), onPressed: () {Navigator.pop(context);},),
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.pop(context, null); // no modifications will be done
+                },
+              ),
             ],
           ),
         ),
-
-        body: Column(children: <Widget>[
-          Expanded(
-              child: ReorderableList(
-                  onReorder: this._reorderCallback,
-                  child: ListView.builder(
-                    itemCount: _items.length,
-                    itemBuilder: (BuildContext c, index) => new Item(
-                        data: _items[index],
-                        // first and last attributes affect border drawn during dragging
-                        first: index == 0,
-                        last: index == _items.length - 1),
-                  ))),
-        ]),
+        body: ReorderableListView(
+          padding: EdgeInsets.symmetric(
+            horizontal:
+                Math.max(0, (MediaQuery.of(context).size.width - SINGLE_PAGE_FIXED_HEIGHT) / 2),
+          ),
+          onReorder: (int oldIndex, int newIndex) {
+            setState(() => _updateItemsOrder(oldIndex, newIndex));
+          },
+          children: List.generate(_itemsList.length, (index) {
+            return SizedBox(
+              width: SINGLE_PAGE_FIXED_HEIGHT,
+              height: 48,
+              child: ListTile(
+                title: Center(
+                  child: Text(
+                    _itemsList[index].title,
+                    style: TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE),),),
+                onTap: () {
+                  final snackBar = SnackBar(content: Text(MyLocalizations.of(context).trans('long_press_advice')));
+                  _scaffoldKey.currentState.showSnackBar(snackBar);
+                },
+              ),
+              key: ValueKey(_itemsList[index].id),
+            );
+          }),
+        ),
+      ),
     );
+  }
+
+  void _updateItemsOrder(int oldIndex, int newIndex) {
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+    final Item item = _itemsList.removeAt(oldIndex);
+    _itemsList.insert(newIndex, item);
   }
 }
 
-class Item extends StatelessWidget {
-  Item({this.data, this.first, this.last});
-
-  final ItemData data;
-  final bool first;
-  final bool last;
-
-  // Builds decoration for list item; During dragging we don't want top border on first item
-  // and bottom border on last item
-  BoxDecoration _buildDecoration(BuildContext context, bool dragging) {
-    return BoxDecoration(
-        border: Border(
-            top: first && !dragging
-                ? Divider.createBorderSide(context) //
-                : BorderSide.none,
-            bottom: last && dragging
-                ? BorderSide.none //
-                : Divider.createBorderSide(context)));
-  }
-
-  Widget _buildChild(BuildContext context, bool dragging) {
-    return Container(
-      // slightly transparent background white dragging (just like on iOS)
-        decoration:
-        BoxDecoration(color: dragging ? (MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xD02e2e2e) : Color(0xD0FFFFFF)) : Colors.transparent),
-        child: SafeArea(
-            top: false,
-            bottom: false,
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: Text(data.title,
-                        style: Theme.of(context).textTheme.subhead)),
-                Icon(Icons.reorder,
-                    color: dragging ? Color(0xFF555555) : Color(0xFF888888)),
-              ],
-            )),
-        padding: new EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ReorderableItem(
-        key: data.key, 
-        childBuilder: _buildChild,
-        decorationBuilder: _buildDecoration,
-
-    );
-  }
+class Item {
+  final int id;
+  final String title;
+  Item(this.id, this.title);
 }

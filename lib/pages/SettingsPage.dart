@@ -1,5 +1,6 @@
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/models/Conversions.dart';
+import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
@@ -21,7 +22,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isLogoVisible;
   bool removeTrailingZeros;
   int significantFigures;
-  TextStyle textStyle = TextStyle(fontSize: 18.0);
+  TextStyle textStyle = TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE);
 
   @override
   void initState() {
@@ -63,7 +64,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: ListView(
           padding: EdgeInsets.symmetric(
             horizontal:
-                Math.max(0, (MediaQuery.of(context).size.width - 650) / 2),
+                Math.max(0, (MediaQuery.of(context).size.width - SINGLE_PAGE_FIXED_HEIGHT) / 2),
           ),
           reverse: true,
           children: [
