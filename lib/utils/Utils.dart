@@ -133,7 +133,17 @@ class _Calculator extends State<Calculator>{
             children: <Widget>[
               Container(
                 width: (calcWidth*0.9*3)/4,
-                child:Text(text,style: TextStyle(fontSize: 45.0,fontWeight: FontWeight.bold,color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white : Colors.black),maxLines: 1,),
+                child: SelectableText(
+                  text,
+                  style: TextStyle(
+                    fontSize: 45.0,
+                    fontWeight: FontWeight.bold,
+                    color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white : Colors.black,
+                  ),
+                  maxLines: 1,
+                  scrollPhysics: ClampingScrollPhysics(),
+                  toolbarOptions: ToolbarOptions(copy: true, selectAll: true),
+                ),
               ),
               Container(
                 width: (calcWidth*0.9)/4,

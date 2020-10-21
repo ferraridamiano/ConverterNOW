@@ -1,6 +1,5 @@
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/models/Conversions.dart';
-import 'package:converterpro/pages/SettingsPage.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
