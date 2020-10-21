@@ -2,7 +2,7 @@ name: Converter NOW
 
 on:
   push:
-    branches: [ master ]
+    branches: [ stable ]
 
 jobs:
   version:
@@ -36,7 +36,7 @@ jobs:
     - uses: actions/setup-java@v1
       with:
         java-version: '12.x'
-    - uses: subosito/flutter-action@v1.3.2
+    - uses: subosito/flutter-action@v1.4.0
       with:
         channel: 'stable'
     - name: Get version.txt
@@ -62,18 +62,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: subosito/flutter-action@v1.3.2
+    - uses: subosito/flutter-action@v1.4.0
       with:
           channel: 'beta'
     - run: flutter pub get
     - run: flutter config --enable-web
     - run: flutter build web
     - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@3.5.9
+      uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
-        REPOSITORY_NAME: ferraridamiano/Converter-NOW-WEB
-        BRANCH: master # The branch the action should deploy to.
+        BRANCH: gh-pages # The branch the action should deploy to.
         FOLDER: build/web # The folder the action should deploy.
         CLEAN: true # Automatically remove deleted files from the deploy branch
         COMMIT_MESSAGE: CD deploy 🚀
