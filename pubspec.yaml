@@ -11,9 +11,9 @@ dependencies:
     sdk: flutter
 
   #Needed to store the customizations and the latest currencies convertions
-  shared_preferences: ^0.5.8
+  shared_preferences: ^0.5.12+2
   #Needed to open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^5.5.0
+  url_launcher: ^5.7.5
   #Needed to download the latest currencies convertions
   http: ^0.12.2
   #Needed to improve the state management
