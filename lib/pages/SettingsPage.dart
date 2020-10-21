@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'dart:math' as Math;
 
 class SettingsPage extends StatefulWidget {
-
   @override
   _SettingsPageState createState() => _SettingsPageState();
 }
@@ -61,8 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
       body: Center(
         child: ListView(
           padding: EdgeInsets.symmetric(
-            horizontal:
-                Math.max(0, (MediaQuery.of(context).size.width - SINGLE_PAGE_FIXED_HEIGHT) / 2),
+            horizontal: Math.max(0, (MediaQuery.of(context).size.width - SINGLE_PAGE_FIXED_HEIGHT) / 2),
           ),
           reverse: true,
           children: [
@@ -132,8 +130,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       style: textStyle,
                     ),
                     onTap: () {
-                      launchURL(
-                          "https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
+                      launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
                     },
                   )
                 : SizedBox(),
@@ -143,8 +140,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 style: textStyle,
               ),
               onTap: () {
-                launchURL(
-                    "https://github.com/ferraridamiano/ConverterNOW/issues/2");
+                launchURL("https://github.com/ferraridamiano/ConverterNOW/issues/2");
               },
             ),
             ListTile(
@@ -168,8 +164,7 @@ class _SettingsPageState extends State<SettingsPage> {
             !kIsWeb
                 ? ListTile(
                     title: Text(
-                      MyLocalizations.of(context)
-                          .trans('contatta_sviluppatore'),
+                      MyLocalizations.of(context).trans('contatta_sviluppatore'),
                       style: textStyle,
                     ),
                     onTap: () {
@@ -185,8 +180,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 showLicensePage(
                     context: context,
-                    applicationName:
-                        MyLocalizations.of(context).trans('app_name'),
+                    applicationName: MyLocalizations.of(context).trans('app_name'),
                     applicationLegalese:
                         "Icons made by https://www.flaticon.com/authors/yannick Yannick from https://www.flaticon.com/ www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //termometro
                             "Icons made by http://www.freepik.com Freepik from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //lunghezza, velocità, pressione, area, energia, massa

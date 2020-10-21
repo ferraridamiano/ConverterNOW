@@ -19,8 +19,7 @@ class _ReorderPageState extends State<ReorderPage> {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < widget.itemsList.length; i++)
-      _itemsList.add(Item(i, widget.itemsList[i]));
+    for (int i = 0; i < widget.itemsList.length; i++) _itemsList.add(Item(i, widget.itemsList[i]));
   }
 
   @override
@@ -69,32 +68,36 @@ class _ReorderPageState extends State<ReorderPage> {
         ),
         body: ReorderableListView(
           padding: EdgeInsets.symmetric(
-            horizontal:
-                Math.max(0, (MediaQuery.of(context).size.width - SINGLE_PAGE_FIXED_HEIGHT) / 2),
+            horizontal: Math.max(0, (MediaQuery.of(context).size.width - SINGLE_PAGE_FIXED_HEIGHT) / 2),
           ),
           onReorder: (int oldIndex, int newIndex) {
             setState(() => _updateItemsOrder(oldIndex, newIndex));
           },
-          children: List.generate(_itemsList.length, (index) {
-            return SizedBox(
-              width: SINGLE_PAGE_FIXED_HEIGHT,
-              height: 48,
-              child: ListTile(
-                title: Center(
-                  child: Text(
-                    _itemsList[index].title,
-                    style: TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE),),),
-                onTap: () {
-                  final snackBar = SnackBar(
-                    content: Text(MyLocalizations.of(context).trans('long_press_advice')),
-                    behavior: SnackBarBehavior.floating,
+          children: List.generate(
+            _itemsList.length,
+            (index) {
+              return SizedBox(
+                width: SINGLE_PAGE_FIXED_HEIGHT,
+                height: 48,
+                child: ListTile(
+                  title: Center(
+                    child: Text(
+                      _itemsList[index].title,
+                      style: TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE),
+                    ),
+                  ),
+                  onTap: () {
+                    final snackBar = SnackBar(
+                      content: Text(MyLocalizations.of(context).trans('long_press_advice')),
+                      behavior: SnackBarBehavior.floating,
                     );
-                  _scaffoldKey.currentState.showSnackBar(snackBar);
-                },
-              ),
-              key: ValueKey(_itemsList[index].id),
-            );
-          }),
+                    _scaffoldKey.currentState.showSnackBar(snackBar);
+                  },
+                ),
+                key: ValueKey(_itemsList[index].id),
+              );
+            },
+          ),
         ),
       ),
     );

@@ -1,2 +1,5 @@
 const double SINGLE_PAGE_FIXED_HEIGHT = 650;
 const double SINGLE_PAGE_TEXT_SIZE = 18.0;
+const double PIXEL_WIDTH_1_COLUMN = 750;
+const double PIXEL_WIDTH_2_COLUMNS = 1200;
+const double PIXEL_WIDTH_3_COLUMNS = 1650;

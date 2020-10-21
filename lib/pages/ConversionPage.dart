@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ConversionPage extends StatefulWidget {
-
   final Node fatherNode;
   final String title;
   final String subtitle;
@@ -24,37 +23,36 @@ class _ConversionPage extends State<ConversionPage> {
   Node selectedNode;
   List listaNodi;
   int previousNode;
-  RegExp decimalRegExp=RegExp(r'^[0-9/./e/+/-]+$');
-  RegExp binRegExp=getBaseRegExp(2);
-  RegExp octRegExp=getBaseRegExp(8);
-  RegExp decRegExp=getBaseRegExp(10);
-  RegExp hexRegExp=getBaseRegExp(16);
+  RegExp decimalRegExp = RegExp(r'^[0-9/./e/+/-]+$');
+  RegExp binRegExp = getBaseRegExp(2);
+  RegExp octRegExp = getBaseRegExp(8);
+  RegExp decRegExp = getBaseRegExp(10);
+  RegExp hexRegExp = getBaseRegExp(16);
 
-  
   @override
   void didUpdateWidget(ConversionPage oldWidget) {
-    if(previousNode != widget.fatherNode.hashCode){
+    if (previousNode != widget.fatherNode.hashCode) {
       initialize();
       previousNode = widget.fatherNode.hashCode;
     }
-      
+
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void initState() {
-    previousNode=widget.fatherNode.hashCode;
+    previousNode = widget.fatherNode.hashCode;
     initialize();
     super.initState();
   }
 
-  void initialize(){
+  void initialize() {
     widget.fatherNode.clearSelectedNode();
-    
+
     listaController.clear();
     listaFocus.clear();
-    listaNodi=widget.fatherNode.getOrderedNodiFiglio();
-    for(Node node in listaNodi){ //(Node node in listaNodi) {
+    listaNodi = widget.fatherNode.getOrderedNodiFiglio();
+    for (Node node in listaNodi) {
       listaController.add(new TextEditingController());
       FocusNode focus = new FocusNode();
       focus.addListener(() {
@@ -87,69 +85,73 @@ class _ConversionPage extends State<ConversionPage> {
 
   List<ListItem> createList() {
     List<ListItem> listaCard = new List();
-    listaCard.add(BigHeader(title:widget.title, subTitle: widget.subtitle));
+    listaCard.add(BigHeader(title: widget.title, subTitle: widget.subtitle));
     for (int i = 0; i < listaNodi.length; i++) {
-
-      if ((listaNodi[i].value != null || listaNodi[i].valueString!=null) && !listaNodi[i].selectedNode){
-        if(listaNodi[i].keyboardType==KEYBOARD_NUMBER_DECIMAL)
+      if ((listaNodi[i].value != null || listaNodi[i].valueString != null) && !listaNodi[i].selectedNode) {
+        if (listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL)
           listaController[i].text = listaNodi[i].mantissaCorrection();
-        else if (listaNodi[i].keyboardType==KEYBOARD_COMPLETE || listaNodi[i].keyboardType==KEYBOARD_NUMBER_INTEGER)
+        else if (listaNodi[i].keyboardType == KEYBOARD_COMPLETE || listaNodi[i].keyboardType == KEYBOARD_NUMBER_INTEGER)
           listaController[i].text = listaNodi[i].valueString;
-      }
-      else if(!listaNodi[i].selectedNode && 
-      ((listaNodi[i].keyboardType==KEYBOARD_NUMBER_DECIMAL && listaNodi[i].value == null) || 
-       ((listaNodi[i].keyboardType==KEYBOARD_COMPLETE || listaNodi[i].keyboardType==KEYBOARD_NUMBER_INTEGER) && listaNodi[i].valueString == null))){
-         listaController[i].text="";
-       }
-      else if(listaNodi[i].selectedNode && listaNodi[i].value == null && listaNodi[i].valueString == null)
-        listaController[i].text="";
+      } else if (!listaNodi[i].selectedNode &&
+          ((listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL && listaNodi[i].value == null) ||
+              ((listaNodi[i].keyboardType == KEYBOARD_COMPLETE ||
+                      listaNodi[i].keyboardType == KEYBOARD_NUMBER_INTEGER) &&
+                  listaNodi[i].valueString == null))) {
+        listaController[i].text = "";
+      } else if (listaNodi[i].selectedNode && listaNodi[i].value == null && listaNodi[i].valueString == null)
+        listaController[i].text = "";
 
       TextInputType keyboardType;
-      switch(listaNodi[i].keyboardType){
-        case KEYBOARD_NUMBER_DECIMAL:{
-          keyboardType=TextInputType.numberWithOptions(decimal: true, signed: false);
-          break;
-        }
-        case KEYBOARD_COMPLETE:{
-          keyboardType=TextInputType.text;
-          break;
-        }
-        case KEYBOARD_NUMBER_INTEGER:{
-          keyboardType=TextInputType.numberWithOptions(decimal: false,signed: false);
-          break;
-        }
+      switch (listaNodi[i].keyboardType) {
+        case KEYBOARD_NUMBER_DECIMAL:
+          {
+            keyboardType = TextInputType.numberWithOptions(decimal: true, signed: false);
+            break;
+          }
+        case KEYBOARD_COMPLETE:
+          {
+            keyboardType = TextInputType.text;
+            break;
+          }
+        case KEYBOARD_NUMBER_INTEGER:
+          {
+            keyboardType = TextInputType.numberWithOptions(decimal: false, signed: false);
+            break;
+          }
       }
-      listaCard.add(MyCard(
+      listaCard.add(
+        MyCard(
           symbol: listaNodi[i].symbol,
           textField: TextFormField(
             style: TextStyle(
               fontSize: 16.0,
-              color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white : Colors.black,
+              color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white : Colors.black,
             ),
             keyboardType: keyboardType,
             controller: listaController[i],
             focusNode: listaFocus[i],
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (String input){
-              if(input != "" && (
-                listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL && !decimalRegExp.hasMatch(input) ||   //numeri decimali
-                listaNodi[i].base==2 && !binRegExp.hasMatch(input)  ||   //binario
-                listaNodi[i].base==8 && !octRegExp.hasMatch(input)  ||   //ottale
-                listaNodi[i].base==10 && !decRegExp.hasMatch(input) ||   //decimale
-                listaNodi[i].base==16 && !hexRegExp.hasMatch(input)      //esadecimale
-              )){
-                  return "Errore, caratteri non validi";
-                }
+            validator: (String input) {
+              if (input != "" &&
+                  (listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL &&
+                          !decimalRegExp.hasMatch(input) || //numeri decimali
+                      listaNodi[i].base == 2 && !binRegExp.hasMatch(input) || //binario
+                      listaNodi[i].base == 8 && !octRegExp.hasMatch(input) || //ottale
+                      listaNodi[i].base == 10 && !decRegExp.hasMatch(input) || //decimale
+                      listaNodi[i].base == 16 && !hexRegExp.hasMatch(input) //esadecimale
+                  )) {
+                return "Errore, caratteri non validi";
+              }
               return null;
             },
-            decoration: InputDecoration(
-              labelText: MyLocalizations.of(context).trans(listaNodi[i].name)//listaNodi[i].name,
-              ),
+            decoration:
+                InputDecoration(labelText: MyLocalizations.of(context).trans(listaNodi[i].name) //listaNodi[i].name,
+                    ),
             onChanged: (String txt) {
-              if(listaNodi[i].keyboardType==KEYBOARD_NUMBER_DECIMAL){
+              if (listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL) {
                 listaNodi[i].value = txt == "" ? null : double.parse(txt);
-              }
-              else if(listaNodi[i].keyboardType==KEYBOARD_NUMBER_INTEGER || listaNodi[i].keyboardType==KEYBOARD_COMPLETE){
+              } else if (listaNodi[i].keyboardType == KEYBOARD_NUMBER_INTEGER ||
+                  listaNodi[i].keyboardType == KEYBOARD_COMPLETE) {
                 listaNodi[i].valueString = txt == "" ? null : txt;
               }
 
@@ -158,51 +160,30 @@ class _ConversionPage extends State<ConversionPage> {
                 widget.fatherNode.convert();
               });
             },
-          )          
-      ));
+          ),
+        ),
+      );
     }
     return listaCard;
   }
 
-  /*Widget _buildConversionGrid(MediaQueryData mediaQuery) {
-    
-    List itemList=createList();
-    
-    List gridTiles = new List();
-    for(ListItem item in itemList){
-      if (item is MyCard) {
-        gridTiles.add(UnitCard(symbol: item.symbol, textField: item.textField,));
-      }
-      else if(item is BigHeader) { //(item is BigHeader)
-        gridTiles.add(BigTitle(text: item.title, subtitle: item.subTitle,));
-      }
-    }
-
-    return Padding(
-      padding: responsivePadding(mediaQuery),
-      child: GridView.count(
-        crossAxisCount: responsiveNumGridTiles(mediaQuery),
-        mainAxisSpacing: 30.0,
-        crossAxisSpacing: 30.0,
-        shrinkWrap: true,
-        //physics: NeverScrollableScrollPhysics(),
-        children: gridTiles,
-      ),
-    );
-  }*/
-
-
   @override
   Widget build(BuildContext context) {
-    List itemList=createList();
+    List itemList = createList();
     List<Widget> gridTiles = new List();
 
-    for(ListItem item in itemList){
+    for (ListItem item in itemList) {
       if (item is MyCard) {
-        gridTiles.add(UnitCard(symbol: item.symbol, textField: item.textField,));
-      }
-      else if(item is BigHeader) { //(item is BigHeader)
-        gridTiles.add(BigTitle(text: item.title, subtitle: item.subTitle,isCurrenciesLoading: widget.isCurrenciesLoading,));
+        gridTiles.add(UnitCard(
+          symbol: item.symbol,
+          textField: item.textField,
+        ));
+      } else if (item is BigHeader) {
+        gridTiles.add(BigTitle(
+          text: item.title,
+          subtitle: item.subTitle,
+          isCurrenciesLoading: widget.isCurrenciesLoading,
+        ));
       }
     }
     return Scrollbar(
@@ -214,10 +195,9 @@ class _ConversionPage extends State<ConversionPage> {
           shrinkWrap: true,
           crossAxisSpacing: 15.0,
           children: gridTiles,
-          padding: EdgeInsets.only(bottom: 22),     //So FAB doesn't overlap the card
+          padding: EdgeInsets.only(bottom: 22), //So FAB doesn't overlap the card
         ),
       ),
     );
-
   }
 }
