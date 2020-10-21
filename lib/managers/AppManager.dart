@@ -31,10 +31,7 @@ class AppManager extends StatelessWidget{
         icon:Icon(Icons.settings,color: Colors.white,),
         onPressed: (){
           Navigator.of(context).pop();
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SettingsPage(Theme.of(context).primaryColor, Theme.of(context).accentColor)),
-          );
+          Navigator.pushNamed(context, '/settings');
         },
       ),
     ];

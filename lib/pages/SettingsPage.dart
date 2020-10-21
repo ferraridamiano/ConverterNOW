@@ -9,9 +9,6 @@ import 'package:provider/provider.dart';
 import 'dart:math' as Math;
 
 class SettingsPage extends StatefulWidget {
-  final Color primaryColor;
-  final Color accentColor;
-  SettingsPage(this.primaryColor, this.accentColor);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -38,10 +35,11 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
-        color: widget.primaryColor,
+        color: Theme.of(context).primaryColor,
         child: new Stack(
           children: <Widget>[
             IconButton(
+              tooltip: MyLocalizations.of(context).trans('back'),
               icon: Icon(
                 Icons.arrow_back,
                 color: Colors.white,
@@ -52,7 +50,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             Container(
                 child: Text(
-                  MyLocalizations.of(context).trans('menu'),
+                  MyLocalizations.of(context).trans('impostazioni'),
                   style: TextStyle(fontSize: 25.0, color: Colors.white),
                 ),
                 height: 48.0,
@@ -107,7 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 style: textStyle,
               ),
               value: isLogoVisible,
-              activeColor: widget.accentColor,
+              activeColor: Theme.of(context).accentColor,
               onChanged: (bool val) {
                 setState(() => isLogoVisible = val);
                 AppModel appModel = context.read<AppModel>();
@@ -120,7 +118,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 style: textStyle,
               ),
               value: removeTrailingZeros,
-              activeColor: widget.accentColor,
+              activeColor: Theme.of(context).accentColor,
               onChanged: (bool val) {
                 setState(() => removeTrailingZeros = val);
                 Conversions conversions = context.read<Conversions>();

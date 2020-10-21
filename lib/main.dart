@@ -1,3 +1,5 @@
+import 'package:converterpro/pages/ReorderPage.dart';
+import 'package:converterpro/pages/SettingsPage.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -27,7 +29,11 @@ class _MyApp extends State<MyApp> {
       child: new MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Converter NOW',
-        home: AppManager(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => AppManager(),
+          '/settings': (context) => SettingsPage(),
+        },
         theme: ThemeData(
             primaryColor: Color(0xFFF2542D),
             accentColor: Color(0xFF0E9594),
