@@ -30,6 +30,7 @@ class _ReorderPageState extends State<ReorderPage> {
         key: _scaffoldKey,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
+          tooltip: MyLocalizations.of(context).trans('save'),
           child: Icon(
             Icons.check,
             color: Colors.white,
@@ -54,6 +55,7 @@ class _ReorderPageState extends State<ReorderPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               IconButton(
+                tooltip: MyLocalizations.of(context).trans('back'),
                 icon: Icon(
                   Icons.arrow_back,
                   color: Colors.white,
@@ -83,7 +85,10 @@ class _ReorderPageState extends State<ReorderPage> {
                     _itemsList[index].title,
                     style: TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE),),),
                 onTap: () {
-                  final snackBar = SnackBar(content: Text(MyLocalizations.of(context).trans('long_press_advice')));
+                  final snackBar = SnackBar(
+                    content: Text(MyLocalizations.of(context).trans('long_press_advice')),
+                    behavior: SnackBarBehavior.floating,
+                    );
                   _scaffoldKey.currentState.showSnackBar(snackBar);
                 },
               ),
