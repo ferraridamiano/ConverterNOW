@@ -14,7 +14,6 @@ class ReorderPage extends StatefulWidget {
 
 class _ReorderPageState extends State<ReorderPage> {
   List<Item> _itemsList = new List();
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -26,7 +25,6 @@ class _ReorderPageState extends State<ReorderPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        key: _scaffoldKey,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           tooltip: MyLocalizations.of(context).trans('save'),
@@ -87,11 +85,13 @@ class _ReorderPageState extends State<ReorderPage> {
                     ),
                   ),
                   onTap: () {
-                    final snackBar = SnackBar(
-                      content: Text(MyLocalizations.of(context).trans('long_press_advice')),
-                      behavior: SnackBarBehavior.floating,
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(MyLocalizations.of(context).trans('long_press_advice')),
+                        behavior: SnackBarBehavior.floating,
+                        duration: Duration(seconds: 1),
+                      ),
                     );
-                    _scaffoldKey.currentState.showSnackBar(snackBar);
                   },
                 ),
                 key: ValueKey(_itemsList[index].id),
