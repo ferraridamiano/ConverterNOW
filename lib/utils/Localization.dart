@@ -35,7 +35,7 @@ class MyLocalizationsDelegate extends LocalizationsDelegate<MyLocalizations> {
   const MyLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['it', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => ['it', 'en', 'pt'].contains(locale.languageCode);
 
   @override
   Future<MyLocalizations> load(Locale locale) async {
