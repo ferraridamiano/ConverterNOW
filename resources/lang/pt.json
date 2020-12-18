@@ -1,5 +1,5 @@
 {
-  "app_name":"Conversor AGORA",
+  "app_name":"Converter NOW",
   "riordina": "Reorganizar",
   "mio_ordinamento": "Minha classificação",
   "contatta_sviluppatore":"Entrar em contato com o desenvolvedor",
@@ -15,7 +15,7 @@
   "valuta_app": "Avaliar o App",
   "repo_github": "Abrir repo no GitHub",
   "traduzione_app": "Contribua traduzindo o App 🌍",
-  "valuta_app2": "Você está gostando de Conversor AGORA? ☺️",
+  "valuta_app2": "Você está gostando de Converter NOW? ☺️",
   "valuta_app2SI": "Muito!",
   "valuta_app2NO": "Não tanto",
   "valuta_app3": "Ótimo! Por favor, faça avaliação do App! ☺️",
@@ -42,7 +42,7 @@
   "energia":"Energia",
   "angoli":"Ângulos",
   "valuta":"Moedas",
-  "taglia_scarpe": "Tamanho em Pés",
+  "taglia_scarpe": "Medida em Pés",
   "dati_digitali": "Dados digitais",
   "potenza": "Potência",
   "momento": "Torque",
@@ -108,7 +108,7 @@
   "lustro": "Lustra",
   "decade": "Décadas",
   "secolo":"Séculos",
-  "millennio": "Millennia",
+  "millennio": "Milénio",
 
   "fahrenheit": "Fahrenheit",
   "celsius": "Celsius (Centígrado)",
@@ -188,9 +188,9 @@
   "uk_india_bambino": "UK & Índia - Criança",
   "uk_india_uomo": "UK & Índia - Homem",
   "uk_india_donna": "UK & Índia - Mulher",
-  "usa_canada_bambino": "USA & Canada - Criança",
-  "usa_canada_uomo": "USA & Canada - Homem",
-  "usa_canada_donna": "USA & Canada - Mulher",
+  "usa_canada_bambino": "EUA & Canada - Criança",
+  "usa_canada_uomo": "EUA & Canada - Homem",
+  "usa_canada_donna": "EUA & Canada - Mulher",
   "giappone": "Japão",
 
   "watt": "Watt",
@@ -198,8 +198,8 @@
   "kilowatt": "Kilowatt",
   "megawatt": "Megawatt",
   "gigawatt": "GigaWatt",
-  "cavallo_vapore_eurpeo": "Poder do cavalo europeu",
-  "cavallo_vapore_imperiale": "Poder do cavalo Imperial",
+  "cavallo_vapore_eurpeo": "Cavalo-vapor europeu",
+  "cavallo_vapore_imperiale": "Cavalo-vapor Imperial",
 
   "newton": "Newton",
   "dyne": "Dyne",
@@ -209,9 +209,9 @@
 
   "newton_metro": "Newton metro",
   "dyne_metro": "Dyne metro",
-  "libbra_forza_piede": "Pés de libra-força",
+  "libbra_forza_piede": "Libra-força pé",
   "kilogrammo_forza_metro": "Quilograma-força por metro",
-  "poundal_metro": "Metro Poundal",
+  "poundal_metro": "Poundal Metro",
 
   "chilometri_litro": "Kilómetros por litro",
   "litri_100km": "Litros por 100 km",
@@ -272,5 +272,6 @@
   "atto": "Atto-",
   "zepto": "Zepto-",
   "yocto": "Yocto-"
-  
+
+
 }
