@@ -1,7 +1,3 @@
-Convertitore di Unità
-
-Un convertitore semplice, immediato e veloce! ⚡
-
 <b>Converter NOW è un efficace convertitore di unità di misura e di valute made in Italy.</b>
 ✔️ <b>Semplifica</b> il noioso processo di conversione tra unità di misura in qualche click.
 🚀 È <b>veloce e immediato</b>: basta cominciare a digitare e subito si ha la conversione in real-time con tutte le altre unità di misura.

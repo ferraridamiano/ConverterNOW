@@ -4,7 +4,7 @@
 [![webApp](https://img.shields.io/badge/Open-Web%20App-blue?style=flat-square)](https://ferraridamiano.github.io/ConverterNOW/#/)
 [![playStore](https://img.shields.io/badge/Download-Play%20Store-red?style=flat-square)](https://play.google.com/store/apps/details?id=com.ferrarid.converterpro)
 
-<img src="playstore/screenshots/1.jpg" width="140"> <img src="playstore/screenshots/2.jpg" width="140"> <img src="playstore/screenshots/3.jpg" width="140"> <img src="playstore/screenshots/4.jpg" width="140"> <img src="playstore/screenshots/5.jpg" width="140">
+<img src="fastlane/metadata/android/en/images/phoneScreenshots/1.jpg" width="140"> <img src="fastlane/metadata/android/en/images/phoneScreenshots/2.jpg" width="140"> <img src="fastlane/metadata/android/en/images/phoneScreenshots/3.jpg" width="140"> <img src="fastlane/metadata/android/en/images/phoneScreenshots/4.jpg" width="140"> <img src="fastlane/metadata/android/en/images/phoneScreenshots/5.jpg" width="140">
 
 ## Why Converter NOW
 

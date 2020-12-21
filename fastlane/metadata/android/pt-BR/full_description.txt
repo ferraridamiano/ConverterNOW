@@ -1,7 +1,3 @@
-Conversor de unidades
-
-Um conversor simples, imediato e rápido! ⚡
-
 <b>Converter NOW é um conversor eficaz de unidades e moedas</b>
 ✔️ <b>Simplificar</b> em poucos cliques o tedioso processo de conversão entre unidades de medida.
 🚀 É <b> rápido e imediato</b>: basta começar a digitar e em tempo real você obtém a conversão com todas as outras unidades de medida.
