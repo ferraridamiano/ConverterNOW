@@ -2,9 +2,15 @@
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat-square)](https://www.paypal.me/DemApps)
 [![webApp](https://img.shields.io/badge/Open-Web%20App-blue?style=flat-square)](https://ferraridamiano.github.io/ConverterNOW/#/)
-[![playStore](https://img.shields.io/badge/Download-Play%20Store-red?style=flat-square)](https://play.google.com/store/apps/details?id=com.ferrarid.converterpro)
 
-<img src="fastlane/metadata/android/en/images/phoneScreenshots/1.jpg" width="140"> <img src="fastlane/metadata/android/en/images/phoneScreenshots/2.jpg" width="140"> <img src="fastlane/metadata/android/en/images/phoneScreenshots/3.jpg" width="140"> <img src="fastlane/metadata/android/en/images/phoneScreenshots/4.jpg" width="140"> <img src="fastlane/metadata/android/en/images/phoneScreenshots/5.jpg" width="140">
+[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+    alt="Get it on Google Play"
+    height="80">](https://play.google.com/store/apps/details?id=com.ferrarid.converterpro)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">](https://f-droid.org/packages/com.ferrarid.converterpro)
+
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" width="140">
 
 ## Why Converter NOW
 

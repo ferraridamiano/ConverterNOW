@@ -4,7 +4,8 @@ We invite you to join our team! Everyone is welcome to contribute code via pull 
 
 ## Translating the app
 
-Right now the app is translated in english and italian. If you know other languages and wants to help internationalizing the app is very simple. You can see the words to translate [here](https://github.com/ferraridamiano/ConverterNOW/blob/master/resources/lang/en.json). If you want to translate the words in spanish for example you first have to fork the project, then write the es.json file in the same path of en.json. That's all, I will take care of the rest. Thank you!
+Right now the app is translated in english, italian and portoguese. If you know other languages and wants to help internationalizing the app is very simple. You can see the words to translate [here](https://github.com/ferraridamiano/ConverterNOW/blob/master/resources/lang/en.json). Than, if you want you can also translate the PlayStore/F-droid app page. You can find the page to translate [here](https://github.com/ferraridamiano/ConverterNOW/tree/master/fastlane/metadata/android/en-US). You first have to fork the project, then write all the translation files then sumbit a new PR. If you have some question please contact me via e-mail or submit a new issue. That's all, I will take care of the rest. Thank you!
+[Related issue](https://github.com/ferraridamiano/ConverterNOW/issues/2)
 
 ## Design a new logo
 
