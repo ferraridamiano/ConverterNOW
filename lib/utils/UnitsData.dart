@@ -203,15 +203,15 @@ initializeUnits(List listaOrder, Map currencyValues, int signFig, bool rmTr0s){
 
     Node centimetriScarpe=Node(name: 'centimetro', symbol: "[cm]",order: listaOrder[12][0],significantFigures: signFig, removeTrailingZeros: rmTr0s,
         leafNodes: [
-          Node(isMultiplication: false, coefficientPer: 1.5, coefficientPlus: 1.5, isSum: false, name:  'eu_cina',order: listaOrder[12][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 1/1.5, coefficientPlus: -1.5, name:  'eu_cina',order: listaOrder[12][1],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
           Node(isMultiplication: true, coefficientPer: 2.54, name:  'pollice',symbol: '[in]',order: listaOrder[12][2], significantFigures: signFig, removeTrailingZeros: rmTr0s,
           leafNodes: [
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 4, isSum: true, name:  'uk_india_bambino',order: listaOrder[12][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.3333333, name:  'uk_india_uomo',order: listaOrder[12][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.5, name:  'uk_india_donna',order: listaOrder[12][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 3.89, isSum: true, name:  'usa_canada_bambino',order: listaOrder[12][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 8.0, name:  'usa_canada_uomo',order: listaOrder[12][7],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
-            Node(isMultiplication: false, coefficientPer: 3.0, coefficientPlus: 7.5, name:  'usa_canada_donna',order: listaOrder[12][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1/3, coefficientPlus: 10/3, name:  'uk_india_bambino',order: listaOrder[12][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1/3, coefficientPlus: 23/3, name:  'uk_india_uomo',order: listaOrder[12][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1/3, coefficientPlus: 23.5/3, name:  'uk_india_donna',order: listaOrder[12][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1/3, coefficientPlus: 49/9, name:  'usa_canada_bambino',order: listaOrder[12][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1/3, coefficientPlus: 22/3, name:  'usa_canada_uomo',order: listaOrder[12][7],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+            Node(isMultiplication: true, coefficientPer: 1/3, coefficientPlus: 21/3, name:  'usa_canada_donna',order: listaOrder[12][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
           ]),
           Node(coefficientPlus: 1.5, isSum: false, name:  'giappone',order: listaOrder[12][9],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
           
