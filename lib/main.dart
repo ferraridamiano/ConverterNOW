@@ -41,7 +41,7 @@ class _MyApp extends State<MyApp> {
           primaryColor: Color(0xFFF2542D),
           accentColor: Color(0xFF0E9594),
           brightness: Brightness.dark),
-        supportedLocales: [const Locale('en', 'US'), const Locale('it', 'IT'), const Locale('pt', 'BR')],
+        supportedLocales: [const Locale('en', 'US'), const Locale('it', 'IT'), const Locale('pt', 'BR'), const Locale('nb'),],
         localizationsDelegates: [
           const MyLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
