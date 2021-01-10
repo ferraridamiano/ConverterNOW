@@ -23,7 +23,9 @@ class _MyApp extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppModel()),
-        ChangeNotifierProvider(create: (_) => Conversions(),),
+        ChangeNotifierProvider(
+          create: (_) => Conversions(),
+        ),
       ],
       child: new MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -33,22 +35,22 @@ class _MyApp extends State<MyApp> {
           '/': (context) => AppManager(),
           '/settings': (context) => SettingsPage(),
         },
-        theme: ThemeData(
-            primaryColor: Color(0xFFF2542D),
-            accentColor: Color(0xFF0E9594),
-            brightness: Brightness.light),
-        darkTheme: ThemeData(
-          primaryColor: Color(0xFFF2542D),
-          accentColor: Color(0xFF0E9594),
-          brightness: Brightness.dark),
-        supportedLocales: [const Locale('en', 'US'), const Locale('it', 'IT'), const Locale('pt', 'BR'), const Locale('nb'),],
+        theme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.light),
+        darkTheme:
+            ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.dark),
+        supportedLocales: [
+          const Locale('en', 'US'),
+          const Locale('it', 'IT'),
+          const Locale('pt', 'BR'),
+          const Locale('fr', 'FR'),
+          const Locale('nb'),
+        ],
         localizationsDelegates: [
           const MyLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate
         ],
-        localeResolutionCallback:
-            (Locale locale, Iterable<Locale> supportedLocales) {
+        localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
           for (Locale supportedLocale in supportedLocales) {
             if (supportedLocale.languageCode == locale.languageCode ||
                 supportedLocale.countryCode == locale.countryCode) {
