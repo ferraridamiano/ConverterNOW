@@ -43,6 +43,7 @@ class _MyApp extends State<MyApp> {
           const Locale('it', 'IT'),
           const Locale('pt', 'BR'),
           const Locale('fr', 'FR'),
+          const Locale('nb'),
         ],
         localizationsDelegates: [
           const MyLocalizationsDelegate(),
