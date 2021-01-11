@@ -55,6 +55,7 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}
+        allowUpdates: true     #so if you rerun a job it will overwrite the existing files
 
   release_web_app:
     name: Build and deploy Web App
