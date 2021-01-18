@@ -22,32 +22,36 @@ jobs:
       uses: subosito/flutter-action@v1.4.0
       with:
         channel: stable
+      env:
+        keyPassword: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        storePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: echo $KEY_JKS > key.jks && flutter pub get && flutter build appbundle && flutter build apk --release --split-per-abi
 
-    - name: Flutter version
-      run: flutter --version
-
-    - name: Download pub dependencies
-      run: flutter pub get
-
-    - name: Download Android keystore
-      id: android_keystore
-      uses: timheuer/base64-to-file@v1.0.3
-      with:
-        fileName: key.jks
-        encodedString: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-  
-    - name: Create key.properties
-      run: |
-        echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
-        echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> android/key.properties
-        echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
-        echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
-  
-    - name: Build Android App Bundle
-      run: flutter build appbundle
-
-    - name: Build Android APK files
-      run: flutter build apk --release --split-per-abi
+#    - name: Flutter version
+#      run: flutter --version
+#
+#    - name: Download pub dependencies
+#      run: flutter pub get
+#
+#    - name: Download Android keystore
+#      id: android_keystore
+#      uses: timheuer/base64-to-file@v1.0.3
+#      with:
+#        fileName: key.jks
+#        encodedString: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+#  
+#    - name: Create key.properties
+#      run: |
+#        echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
+#        echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> android/key.properties
+#        echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
+#        echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
+#  
+#    - name: Build Android App Bundle
+#      run: flutter build appbundle
+#
+#    - name: Build Android APK files
+#      run: flutter build apk --release --split-per-abi
 
     - name: Build and Release in GitHub
       uses: ncipollo/release-action@v1.7.2
