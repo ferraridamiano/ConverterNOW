@@ -2,8 +2,7 @@ name: Converter NOW
 
 on:
   push:
-    branch: [fix_cicd]
-    #tags: ['v*']
+    tags: ['v*']
 
 jobs:
   release_android:
@@ -58,27 +57,27 @@ jobs:
         commit: ${{ github.sha }}
         allowUpdates: true     #so if you rerun a job it will overwrite the existing files
 
-#  release_web_app:
-#    name: Build and deploy Web App
-#    runs-on: ubuntu-latest
-#    steps:
-#    - name: Checkout
-#      uses: actions/checkout@v1
-#    - name: Setup Flutter
-#      uses: subosito/flutter-action@v1.4.0
-#      with:
-#        channel: beta
-#    - name: Enable web in Flutter Beta
-#      run: flutter config --enable-web
-#    - name: Download pub dependencies
-#      run: flutter pub get
-#    - name: Build
-#      run: flutter build web
-#    - name: Deploy to Github
-#      uses: JamesIves/github-pages-deploy-action@3.7.1
-#      with:
-#        ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
-#        BRANCH: gh-pages # The branch the action should deploy to.
-#        FOLDER: build/web # The folder the action should deploy.
-#        CLEAN: true # Automatically remove deleted files from the deploy branch
-#        COMMIT_MESSAGE: CD deploy 🚀
+  release_web_app:
+    name: Build and deploy Web App
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v1.4.0
+      with:
+        channel: beta
+    - name: Enable web in Flutter Beta
+      run: flutter config --enable-web
+    - name: Download pub dependencies
+      run: flutter pub get
+    - name: Build
+      run: flutter build web
+    - name: Deploy to Github
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        ACCESS_TOKEN: ${{ secrets.GH_TOKEN }}
+        BRANCH: gh-pages # The branch the action should deploy to.
+        FOLDER: build/web # The folder the action should deploy.
+        CLEAN: true # Automatically remove deleted files from the deploy branch
+        COMMIT_MESSAGE: CD deploy 🚀
