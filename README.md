@@ -1,7 +1,10 @@
+<div align="center">
+
 # Converter NOW
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat-square)](https://www.paypal.me/DemApps)
 [![webApp](https://img.shields.io/badge/Open-Web%20App-blue?style=flat-square)](https://ferraridamiano.github.io/ConverterNOW/#/)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat-square)](https://www.paypal.me/DemApps)
+![contributors](https://img.shields.io/github/contributors/ferraridamiano/ConverterNOW?style=flat-square)
 
 [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
     alt="Get it on Google Play"
@@ -11,6 +14,7 @@
     height="80">](https://f-droid.org/packages/com.ferrarid.converterpro)
 
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" width="140">
+</div>
 
 ## Why Converter NOW
 
