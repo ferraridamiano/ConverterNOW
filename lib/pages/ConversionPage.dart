@@ -140,7 +140,7 @@ class _ConversionPage extends State<ConversionPage> {
                       listaNodi[i].base == 10 && !decRegExp.hasMatch(input) || //decimale
                       listaNodi[i].base == 16 && !hexRegExp.hasMatch(input) //esadecimale
                   )) {
-                return "Errore, caratteri non validi";
+                return MyLocalizations.of(context).trans('invalid_characters');
               }
               return null;
             },
