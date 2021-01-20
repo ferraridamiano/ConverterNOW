@@ -351,7 +351,7 @@ String baseToDec(String daConvertire, int base) {
     int unitCode = daConvertire.codeUnitAt(i);
     if (unitCode >= 65 && unitCode <= 70) {
       // da A a F
-      conversione = conversione + (unitCode - 55) * pow(base, i);
+      conversione = conversione + (unitCode - 55) * pow(base, len - i - 1);
     } else if (unitCode >= 48 && unitCode <= 57) {
       //da 0 a 9
       conversione = conversione + (unitCode - 48) * pow(base, len - i - 1);
