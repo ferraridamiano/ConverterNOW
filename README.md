@@ -13,7 +13,7 @@
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/packages/com.ferrarid.converterpro)
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" width="140">
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpeg" width="140">
 </div>
 
 ## Why Converter NOW
