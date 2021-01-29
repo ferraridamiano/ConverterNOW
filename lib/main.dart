@@ -22,10 +22,19 @@ class _MyApp extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AppModel()),
         ChangeNotifierProvider(
-          create: (_) => Conversions(),
+          create: (_) => AppModel(),
         ),
+        ChangeNotifierProxyProvider<AppModel, Conversions>(
+          create: (context) => Conversions(),
+          update: (context, appModel, conversions) {
+            conversions.currentPage = appModel.currentPage;
+            return conversions;
+          },
+        ),
+        /*ChangeNotifierProvider(
+          create: (_) => Conversions(),
+        ),*/
       ],
       child: new MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -36,8 +45,7 @@ class _MyApp extends State<MyApp> {
           '/settings': (context) => SettingsPage(),
         },
         theme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.light),
-        darkTheme:
-            ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.dark),
+        darkTheme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.dark),
         supportedLocales: [
           const Locale('en', 'US'),
           const Locale('it', 'IT'),
@@ -45,15 +53,10 @@ class _MyApp extends State<MyApp> {
           const Locale('fr', 'FR'),
           const Locale('nb'),
         ],
-        localizationsDelegates: [
-          const MyLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate
-        ],
+        localizationsDelegates: [const MyLocalizationsDelegate(), GlobalMaterialLocalizations.delegate, GlobalWidgetsLocalizations.delegate],
         localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
           for (Locale supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale.languageCode ||
-                supportedLocale.countryCode == locale.countryCode) {
+            if (supportedLocale.languageCode == locale.languageCode || supportedLocale.countryCode == locale.countryCode) {
               return supportedLocale;
             }
           }

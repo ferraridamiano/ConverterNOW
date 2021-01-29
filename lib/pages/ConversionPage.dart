@@ -54,20 +54,6 @@ class ConversionPage extends StatelessWidget {
     }
   }*/
 
-  /*@override
-  void dispose() {
-    FocusNode focus;
-    TextEditingController tec;
-    for (int i = 0; i < listaFocus.length; i++) {
-      focus = listaFocus[i];
-      focus.removeListener(() {});
-      focus.dispose();
-      tec = listaController[i];
-      tec.dispose();
-    }
-    super.dispose();
-  }*/
-
   @override
   Widget build(BuildContext context) {
     _getJsonSearch(context);
@@ -75,34 +61,21 @@ class ConversionPage extends StatelessWidget {
     List<Choice> choices = <Choice>[
       Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
     ];
-    int currentPage = context.select<AppModel, int>((appModel) => appModel.currentPage);
 
     List<UnitData> unitDataList = context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);
-    //List<UnitData> unitDataList = context.watch<Conversions>().currentUnitData;
     UnitData selectedUnit = context.watch<Conversions>().selectedUnit;
 
     List<ListItem> itemList = [];
+    String subTitle = context.select<Conversions, String>((conversions) => conversions.currentSubTitle);
     itemList.add(
       BigHeader(
-        title: titlesList[currentPage],
-        subTitle: currentPage == 11 ? lastUpdateCurrency : "",
+        title: MyLocalizations.of(context).trans(
+          context.select<Conversions, String>((conversions) => conversions.currentTitle),
+        ),
+        subTitle: subTitle ?? '',
       ),
     );
     for (UnitData unitData in unitDataList) {
-      /*if ((listaNodi[i].value != null || listaNodi[i].valueString != null) && !listaNodi[i].selectedNode) {
-        if (listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL)
-          listaController[i].text = listaNodi[i].mantissaCorrection();
-        else if (listaNodi[i].keyboardType == KEYBOARD_COMPLETE || listaNodi[i].keyboardType == KEYBOARD_NUMBER_INTEGER)
-          listaController[i].text = listaNodi[i].valueString;
-      } else if (!listaNodi[i].selectedNode &&
-          ((listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL && listaNodi[i].value == null) ||
-              ((listaNodi[i].keyboardType == KEYBOARD_COMPLETE ||
-                      listaNodi[i].keyboardType == KEYBOARD_NUMBER_INTEGER) &&
-                  listaNodi[i].valueString == null))) {
-        listaController[i].text = "";
-      } else if (listaNodi[i].selectedNode && listaNodi[i].value == null && listaNodi[i].valueString == null)
-        listaController[i].text = "";
-      */
       itemList.add(
         MyCard(
           symbol: unitData.unit.symbol,
@@ -124,12 +97,14 @@ class ConversionPage extends StatelessWidget {
             decoration: InputDecoration(labelText: MyLocalizations.of(context).trans(unitData.getTranslationKey()) //listaNodi[i].name,
                 ),
             onChanged: (String txt) {
-              Conversions conversions = context.read<Conversions>();
-              //just numeral system uses a string for conversion
-              if (unitData.unit.name == PROPERTY.NUMERAL_SYSTEMS) {
-                conversions.convert(unitData, txt == "" ? null : txt);
-              } else {
-                conversions.convert(unitData, txt == "" ? null : double.parse(txt));
+              if (txt == '' || unitData.getValidator().hasMatch(txt)) {
+                Conversions conversions = context.read<Conversions>();
+                //just numeral system uses a string for conversion
+                if (unitData.unit.name == PROPERTY.NUMERAL_SYSTEMS) {
+                  conversions.convert(unitData, txt == "" ? null : txt);
+                } else {
+                  conversions.convert(unitData, txt == "" ? null : double.parse(txt));
+                }
               }
             },
           ),
@@ -339,4 +314,3 @@ class CustomSearchDelegate extends SearchDelegate<int> {
     ];
   }
 }
-//ConversionPage(this.unitDataList, this.currentProperty, this.title, this.subtitle, this.mediaQuery, this.isCurrenciesLoading);

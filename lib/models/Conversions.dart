@@ -14,6 +14,7 @@ class Conversions with ChangeNotifier {
   List<UnitData> currentUnitDataList;
   Property currentProperty;
   UnitData selectedUnit; //unit where the user is writing the value
+  int _currentPage = 0; //from appModel
   DateTime _lastUpdateCurrencies = DateTime(2019, 10, 29);
   Map<String, double> _currencyValues = {
     "CAD": 1.4487,
@@ -93,6 +94,10 @@ class Conversions with ChangeNotifier {
   static final List<int> _significantFiguresList = <int>[6, 8, 10, 12, 14];
   int _significantFigures = _significantFiguresList[2];
 
+  Map<PROPERTY, String> _titlesList = {
+    PROPERTY.LENGTH: 'lunghezza',
+  };
+
   Conversions() {
     //_checkCurrencies(); //update the currencies with the latest conversions rates and then
     //_checkOrdersUnits();
@@ -161,6 +166,17 @@ class Conversions with ChangeNotifier {
     selectedUnit = unitData;
     _refreshCurrentUnitDataList();
     notifyListeners();
+  }
+
+  set currentPage(int currentPage) {
+    _currentPage = currentPage;
+    notifyListeners();
+  }
+
+  get currentTitle => _titlesList[currentProperty.name];
+
+  get currentSubTitle {
+    return null;
   }
 
   ///Clears the values of the current page
