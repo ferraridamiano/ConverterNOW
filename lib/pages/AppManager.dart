@@ -1,9 +1,9 @@
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/models/Conversions.dart';
+import 'package:converterpro/pages/ConversionPage.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
-import 'ConversionManager.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -311,7 +311,7 @@ class AppManager extends StatelessWidget {
         ),
       ),
       body: Builder(
-        builder: (context) => ConversionManager(
+        builder: (context) => ConversionPage(
           openDrawer: () {
             Scaffold.of(context).openDrawer();
           },

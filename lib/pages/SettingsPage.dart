@@ -25,9 +25,9 @@ class _SettingsPageState extends State<SettingsPage> {
     super.initState();
     Conversions conversions = context.read<Conversions>();
     isLogoVisible = context.read<AppModel>().isLogoVisible;
-    removeTrailingZeros = conversions.removeTrailingZeros;
-    significantFigures = conversions.significantFigures;
-    significantFiguresList = conversions.significantFiguresList;
+    //removeTrailingZeros = conversions.removeTrailingZeros;
+    //significantFigures = conversions.significantFigures;
+    //significantFiguresList = conversions.significantFiguresList;
   }
 
   @override
@@ -75,7 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   int val = int.parse(string);
                   setState(() => significantFigures = val);
                   Conversions conversions = context.read<Conversions>();
-                  conversions.significantFigures = val;
+                  //conversions.significantFigures = val;
                 },
                 selectedItemBuilder: (BuildContext context) {
                   return significantFiguresList.map<Widget>((int item) {
@@ -120,7 +120,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onChanged: (bool val) {
                 setState(() => removeTrailingZeros = val);
                 Conversions conversions = context.read<Conversions>();
-                conversions.removeTrailingZeros = val;
+                //conversions.removeTrailingZeros = val;
               },
             ),
             !kIsWeb

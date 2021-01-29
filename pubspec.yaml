@@ -19,6 +19,9 @@ dependencies:
   #Needed to improve the state management
   provider: ^4.3.2+3
 
+  units_converter:
+    path: ../units_converter
+
   flutter_localizations:
       sdk: flutter
 

@@ -1,15 +1,19 @@
 import 'package:converterpro/pages/ReorderPage.dart';
-import 'package:converterpro/utils/UnitsData.dart';
-import 'package:converterpro/utils/UtilsConversion.dart';
+import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import "dart:convert";
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:units_converter/units_converter.dart';
 
 class Conversions with ChangeNotifier {
-  List<Node> _conversionsList;
+  List<Property> _propertyList;
+  List<List<UnitData>> _unitDataList = [];
+  List<UnitData> currentUnitDataList;
+  Property currentProperty;
+  UnitData selectedUnit; //unit where the user is writing the value
   DateTime _lastUpdateCurrencies = DateTime(2019, 10, 29);
   Map<String, double> _currencyValues = {
     "CAD": 1.4487,
@@ -90,17 +94,78 @@ class Conversions with ChangeNotifier {
   int _significantFigures = _significantFiguresList[2];
 
   Conversions() {
-    _checkCurrencies(); //update the currencies with the latest conversions rates and then
-    _checkOrdersUnits();
-    _checkSettings();
+    //_checkCurrencies(); //update the currencies with the latest conversions rates and then
+    //_checkOrdersUnits();
+    //_checkSettings();
+    _refreshConversionsList();
+    currentProperty = _propertyList[0];
+
+    //Initialize of all the UnitData: name, textEditingController, symbol
+    List<Unit> tempProperty;
+    List<UnitData> tempUnitData = [];
+    for (Property property in _propertyList) {
+      tempProperty = property.getAll();
+      for (Unit unit in tempProperty) {
+        tempUnitData.add(
+          UnitData(
+            unit,
+            property: property.name,
+            tec: TextEditingController(),
+          ),
+        );
+      }
+      _unitDataList.add(tempUnitData);
+      tempUnitData = [];
+    }
+    currentUnitDataList = _unitDataList[0];
   }
 
-  get conversionsList {
-    //if _conversionsList is initialized it returns it
-    if (_conversionsList != null) return _conversionsList;
-    //otherwise it will be initialized and it returns it
-    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
-    return _conversionsList;
+  _refreshConversionsList() {
+    _propertyList = [
+      Length(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Area(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Time(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Temperature(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Speed(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      SIPrefixes(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Mass(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Pressure(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Energy(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Angle(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      ShoeSize(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      DigitalData(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Power(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Force(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Torque(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      FuelConsumption(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      NumeralSystems(),
+    ];
+  }
+
+  _refreshCurrentUnitDataList() {
+    int len = currentUnitDataList.length;
+    List<Unit> updatedUnit = currentProperty.getAll();
+    for (int i = 0; i < len; i++) {
+      UnitData currentUnitData = currentUnitDataList[i];
+      currentUnitData.unit = updatedUnit[i];
+      if (currentUnitData != selectedUnit && currentUnitData.unit.stringValue != null) {
+        currentUnitDataList[i].tec.text = currentUnitData.unit.stringValue;
+      } else if (currentUnitData.unit.stringValue == null) {
+        currentUnitDataList[i].tec.text = '';
+      }
+    }
+  }
+
+  convert(UnitData unitData, var value) {
+    currentProperty.convert(unitData.unit.name, value);
+    selectedUnit = unitData;
+    _refreshCurrentUnitDataList();
+    notifyListeners();
+  }
+
+  ///Clears the values of the current page
+  clearAllValues() {
+    convert(selectedUnit ?? currentUnitDataList[0], null);
   }
 
   ///Returns the DateTime of the latest update of the currencies conversions
@@ -111,6 +176,7 @@ class Conversions with ChangeNotifier {
   ///returns false otherwise
   get isCurrenciesLoading => _isCurrenciesLoading;
 
+  /*
   ///This method is used by _checkCurrencies to read the currencies conversions if
   ///the smartphone is offline
   _readSavedCurrencies() async {
@@ -200,8 +266,7 @@ class Conversions with ChangeNotifier {
     if (result != null) {
       List arrayCopy = new List(_conversionsOrder[currentPage].length);
       for (int i = 0; i < _conversionsOrder[currentPage].length; i++) arrayCopy[i] = _conversionsOrder[currentPage][i];
-      for (int i = 0; i < _conversionsOrder[currentPage].length; i++)
-        _conversionsOrder[currentPage][i] = result.indexOf(arrayCopy[i]);
+      for (int i = 0; i < _conversionsOrder[currentPage].length; i++) _conversionsOrder[currentPage][i] = result.indexOf(arrayCopy[i]);
       _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
       notifyListeners();
       _saveOrders(currentPage);
@@ -213,12 +278,6 @@ class Conversions with ChangeNotifier {
     List<String> toConvertList = new List();
     for (int item in _conversionsOrder[currentPage]) toConvertList.add(item.toString());
     prefs.setStringList("conversion_$currentPage", toConvertList);
-  }
-
-  ///Clears the values of a page. E.g. clear all the values of length or all the values of mass, etc.
-  clearValues(int page) {
-    _conversionsList[page].clearAllValues();
-    notifyListeners();
   }
 
   //Settings section------------------------------------------------------------------
@@ -265,7 +324,7 @@ class Conversions with ChangeNotifier {
     _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
     notifyListeners();
     _saveSettingsInt('significant_figures', _significantFigures);
-  }
+  }*/
 
   ///Saves the key value with SharedPreferences
   _saveSettingsInt(String key, int value) async {

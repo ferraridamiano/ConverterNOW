@@ -1,9 +1,9 @@
+import 'package:converterpro/pages/AppManager.dart';
 import 'package:converterpro/pages/SettingsPage.dart';
 import 'package:converterpro/utils/Localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'managers/AppManager.dart';
 import 'models/AppModel.dart';
 import 'models/Conversions.dart';
 
