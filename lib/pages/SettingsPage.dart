@@ -1,7 +1,7 @@
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/models/Conversions.dart';
 import 'package:converterpro/styles/consts.dart';
-import 'package:converterpro/utils/Localization.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: new Stack(
           children: <Widget>[
             IconButton(
-              tooltip: MyLocalizations.of(context).trans('back'),
+              tooltip: AppLocalizations.of(context).back,
               icon: Icon(
                 Icons.arrow_back,
                 color: Colors.white,
@@ -49,7 +49,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             Container(
                 child: Text(
-                  MyLocalizations.of(context).trans('impostazioni'),
+                  AppLocalizations.of(context).settings,
                   style: TextStyle(fontSize: 25.0, color: Colors.white),
                 ),
                 height: 48.0,
@@ -66,7 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             ListTile(
               title: Text(
-                MyLocalizations.of(context).trans('significant_figures'),
+                AppLocalizations.of(context).significantFigures,
                 style: textStyle,
               ),
               trailing: DropdownButton<String>(
@@ -99,7 +99,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             SwitchListTile(
               title: Text(
-                MyLocalizations.of(context).trans('logo_drawer'),
+                AppLocalizations.of(context).drawerLogo,
                 style: textStyle,
               ),
               value: isLogoVisible,
@@ -112,7 +112,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             SwitchListTile(
               title: Text(
-                MyLocalizations.of(context).trans('remove_trailing_zeros'),
+                AppLocalizations.of(context).removeTrailingZeros,
                 style: textStyle,
               ),
               value: removeTrailingZeros,
@@ -126,7 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
             !kIsWeb
                 ? ListTile(
                     title: Text(
-                      MyLocalizations.of(context).trans('recensione'),
+                      AppLocalizations.of(context).rateApp,
                       style: textStyle,
                     ),
                     onTap: () {
@@ -136,7 +136,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 : SizedBox(),
             ListTile(
               title: Text(
-                MyLocalizations.of(context).trans('traduzione_app'),
+                AppLocalizations.of(context).contibuteTranslating,
                 style: textStyle,
               ),
               onTap: () {
@@ -145,7 +145,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             ListTile(
               title: Text(
-                MyLocalizations.of(context).trans('repo_github'),
+                AppLocalizations.of(context).repoGithub,
                 style: textStyle,
               ),
               onTap: () {
@@ -154,7 +154,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             ListTile(
               title: Text(
-                MyLocalizations.of(context).trans('donazione'),
+                AppLocalizations.of(context).donation,
                 style: textStyle,
               ),
               onTap: () {
@@ -164,7 +164,7 @@ class _SettingsPageState extends State<SettingsPage> {
             !kIsWeb
                 ? ListTile(
                     title: Text(
-                      MyLocalizations.of(context).trans('contatta_sviluppatore'),
+                      AppLocalizations.of(context).contactDeveloper,
                       style: textStyle,
                     ),
                     onTap: () {
@@ -174,13 +174,13 @@ class _SettingsPageState extends State<SettingsPage> {
                 : SizedBox(),
             ListTile(
               title: Text(
-                MyLocalizations.of(context).trans('about'),
+                AppLocalizations.of(context).about,
                 style: textStyle,
               ),
               onTap: () {
                 showLicensePage(
                     context: context,
-                    applicationName: MyLocalizations.of(context).trans('app_name'),
+                    applicationName: AppLocalizations.of(context).appName,
                     applicationLegalese:
                         "Icons made by https://www.flaticon.com/authors/yannick Yannick from https://www.flaticon.com/ www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //termometro
                             "Icons made by http://www.freepik.com Freepik from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //lunghezza, velocità, pressione, area, energia, massa

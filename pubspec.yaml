@@ -18,9 +18,14 @@ dependencies:
   http: ^0.12.2
   #Needed to improve the state management
   provider: ^4.3.2+3
-
+  #Needed for translation
+  intl_translation: ^0.17.10+1
+  #Needed for unit conversion
   units_converter:
     path: ../units_converter
+
+dependency_overrides:
+  intl: ^0.17.0-nullsafety.2
 
   flutter_localizations:
       sdk: flutter
@@ -31,7 +36,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   assets:
         - resources/images/
-        - resources/lang/

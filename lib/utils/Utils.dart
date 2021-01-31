@@ -532,25 +532,6 @@ class _ListTileConversion extends State<ListTileConversion> {
   }
 }
 
-Map<dynamic, String> translationMap = {
-  LENGTH.meters: 'meters',
-  LENGTH.centimeters: 'centimeters',
-  LENGTH.inches: 'inches',
-  LENGTH.feet: 'feet',
-  LENGTH.nautical_miles: 'nautical_miles',
-  LENGTH.yards: 'yards',
-  LENGTH.miles: 'miles',
-  LENGTH.millimeters: 'millimeters',
-  LENGTH.micrometers: 'micrometers',
-  LENGTH.nanometers: 'nanometers',
-  LENGTH.angstroms: 'angstroms',
-  LENGTH.picometers: 'picometers',
-  LENGTH.kilometers: 'kilometers',
-  LENGTH.astronomical_units: 'astronomical_units',
-  LENGTH.light_years: 'light_years',
-  LENGTH.parsec: 'parsec',
-};
-
 enum VALIDATOR{
   BINARY,
   DECIMAL,
@@ -573,8 +554,6 @@ class UnitData {
     this.validator = VALIDATOR.RATIONAL_NON_NEGATIVE,
     this.textInputType = const TextInputType.numberWithOptions(decimal: true, signed: false),
   });
-
-  String getTranslationKey() => translationMap[unit.name];
 
   RegExp getValidator(){
     switch(validator){

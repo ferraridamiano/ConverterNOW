@@ -1,6 +1,7 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/Conversions.dart';
-import 'package:converterpro/utils/Localization.dart';
+import 'package:converterpro/utils/Translation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,64 +15,38 @@ Map jsonSearch;
 
 class ConversionPage extends StatelessWidget {
   final Function openDrawer;
-  final List<String> titlesList;
   final String lastUpdateCurrency;
   List<TextEditingController> listaController = [];
   List<FocusNode> listaFocus = [];
   List listaNodi;
 
-  ConversionPage({this.openDrawer, this.titlesList, this.lastUpdateCurrency});
+  ConversionPage({this.openDrawer, this.lastUpdateCurrency});
 
   final SearchDelegate _searchDelegate = CustomSearchDelegate();
 
-  _getJsonSearch(BuildContext context) async {
+  /*_getJsonSearch(BuildContext context) async {
     jsonSearch ??= json.decode(
       await DefaultAssetBundle.of(context).loadString("resources/lang/${Localizations.localeOf(context).languageCode}.json"),
     );
-  }
-
-  /*@override
-  void initState() {
-    initialize();
-    super.initState();
-  }*/
-
-  /*void initialize() {
-    for (Node node in listaNodi) {
-      listaController.add(new TextEditingController());
-      FocusNode focus = new FocusNode();
-      focus.addListener(() {
-        if (focus.hasFocus) {
-          if (selectedNode != null) {
-            selectedNode.selectedNode = false;
-          }
-          node.selectedNode = true;
-          node.convertedNode = true;
-          selectedNode = node;
-        }
-      });
-      listaFocus.add(focus);
-    }
   }*/
 
   @override
   Widget build(BuildContext context) {
-    _getJsonSearch(context);
+    //_getJsonSearch(context);
 
     List<Choice> choices = <Choice>[
-      Choice(title: MyLocalizations.of(context).trans('riordina'), icon: Icons.reorder),
+      Choice(title: AppLocalizations.of(context).reorder, icon: Icons.reorder),
     ];
 
     List<UnitData> unitDataList = context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);
     UnitData selectedUnit = context.watch<Conversions>().selectedUnit;
 
     List<ListItem> itemList = [];
-    String subTitle = context.select<Conversions, String>((conversions) => conversions.currentSubTitle);
+    String subTitle = ''; //context.select<Conversions, String>((conversions) => conversions.currentSubTitle);
+    PROPERTY currentProperty = context.select<Conversions, PROPERTY>((conversions) => conversions.currentPropertyName);
     itemList.add(
       BigHeader(
-        title: MyLocalizations.of(context).trans(
-          context.select<Conversions, String>((conversions) => conversions.currentTitle),
-        ),
+        title: getPropertyTranslation(context, currentProperty),
         subTitle: subTitle ?? '',
       ),
     );
@@ -90,12 +65,13 @@ class ConversionPage extends StatelessWidget {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (String input) {
               if (input != "" && !unitData.getValidator().hasMatch(input)) {
-                return MyLocalizations.of(context).trans('invalid_characters');
+                return AppLocalizations.of(context).invalidCharacters;
               }
               return null;
             },
-            decoration: InputDecoration(labelText: MyLocalizations.of(context).trans(unitData.getTranslationKey()) //listaNodi[i].name,
-                ),
+            decoration: InputDecoration(
+              labelText: getUnitTranslation(context, unitData.unit.name),
+            ),
             onChanged: (String txt) {
               if (txt == '' || unitData.getValidator().hasMatch(txt)) {
                 Conversions conversions = context.read<Conversions>();
@@ -135,14 +111,6 @@ class ConversionPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        /*child: ConversionPage(
-            conversions.currentUnitData,
-            conversions.currentProperty,
-            titlesList[appModel.currentPage],
-            appModel.currentPage == 11 ? lastUpdateCurrency : "",
-            MediaQuery.of(context),
-            conversions.isCurrenciesLoading,
-          ),*/
         child: Scrollbar(
           child: Padding(
             padding: responsivePadding(MediaQuery.of(context)),
@@ -166,7 +134,7 @@ class ConversionPage extends StatelessWidget {
           children: <Widget>[
             new Builder(builder: (context) {
               return IconButton(
-                  tooltip: MyLocalizations.of(context).trans('menu'),
+                  tooltip: AppLocalizations.of(context).menu,
                   icon: Icon(
                     Icons.menu,
                     color: Colors.white,
@@ -178,7 +146,7 @@ class ConversionPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 IconButton(
-                  tooltip: MyLocalizations.of(context).trans('elimina_tutto'),
+                  tooltip: AppLocalizations.of(context).clearAll,
                   icon: Icon(Icons.clear, color: Colors.white),
                   onPressed: () {
                     Conversions conversions = context.read<Conversions>();
@@ -186,7 +154,7 @@ class ConversionPage extends StatelessWidget {
                   },
                 ),
                 IconButton(
-                  tooltip: MyLocalizations.of(context).trans('cerca'),
+                  tooltip: AppLocalizations.of(context).search,
                   icon: Icon(
                     Icons.search,
                     color: Colors.white,
@@ -208,7 +176,7 @@ class ConversionPage extends StatelessWidget {
                     /*List<String> listTranslatedUnits = [];
                       for (String stringa
                           in conversions.conversionsList[appModel.currentPage].getStringOrderedNodiFiglio())
-                        listTranslatedUnits.add(MyLocalizations.of(context).trans(stringa));
+                        listTranslatedUnits.add(AppLocalizations.of(context).trans(stringa));
                       conversions.changeOrderUnits(context, listTranslatedUnits, appModel.currentPage);*/
                   },
                   itemBuilder: (BuildContext context) {
@@ -226,7 +194,7 @@ class ConversionPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: MyLocalizations.of(context).trans('calcolatrice'),
+        tooltip: AppLocalizations.of(context).calculator,
         child: Image.asset(
           "resources/images/calculator.png",
           width: 30.0,
@@ -260,7 +228,7 @@ class CustomSearchDelegate extends SearchDelegate<int> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      tooltip: MyLocalizations.of(context).trans('back'),
+      tooltip: AppLocalizations.of(context).back,
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,

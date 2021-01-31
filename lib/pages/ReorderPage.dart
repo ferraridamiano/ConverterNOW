@@ -1,5 +1,5 @@
 import 'package:converterpro/styles/consts.dart';
-import 'package:converterpro/utils/Localization.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as Math;
 
@@ -13,7 +13,7 @@ class ReorderPage extends StatefulWidget {
 }
 
 class _ReorderPageState extends State<ReorderPage> {
-  List<Item> _itemsList = new List();
+  List<Item> _itemsList = [];
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -29,13 +29,13 @@ class _ReorderPageState extends State<ReorderPage> {
         key: _scaffoldKey,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-          tooltip: MyLocalizations.of(context).trans('save'),
+          tooltip: AppLocalizations.of(context).save,
           child: Icon(
             Icons.check,
             color: Colors.white,
           ),
           onPressed: () {
-            List<int> orderList = new List();
+            List<int> orderList = [];
             bool hasSomethingchanged = false;
             for (int i = 0; i < _itemsList.length; i++) {
               int currentIndex = _itemsList[i].id;
@@ -54,7 +54,7 @@ class _ReorderPageState extends State<ReorderPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               IconButton(
-                tooltip: MyLocalizations.of(context).trans('back'),
+                tooltip: AppLocalizations.of(context).back,
                 icon: Icon(
                   Icons.arrow_back,
                   color: Colors.white,
@@ -88,7 +88,7 @@ class _ReorderPageState extends State<ReorderPage> {
                   ),
                   onTap: () {
                     final snackBar = SnackBar(
-                      content: Text(MyLocalizations.of(context).trans('long_press_advice')),
+                      content: Text(AppLocalizations.of(context).longPressAdvice),
                       behavior: SnackBarBehavior.floating,
                     );
                     _scaffoldKey.currentState.showSnackBar(snackBar);

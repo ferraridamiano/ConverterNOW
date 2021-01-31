@@ -12,40 +12,40 @@ class Conversions with ChangeNotifier {
   List<Property> _propertyList;
   List<List<UnitData>> _unitDataList = [];
   List<UnitData> currentUnitDataList;
-  Property currentProperty;
+  Property _currentProperty;
   UnitData selectedUnit; //unit where the user is writing the value
   int _currentPage = 0; //from appModel
   DateTime _lastUpdateCurrencies = DateTime(2019, 10, 29);
   Map<String, double> _currencyValues = {
     "CAD": 1.4487,
-    "HKD": 8.6923,
+    "hkd": 8.6923,
     "RUB": 70.5328,
-    "PHP": 56.731,
-    "DKK": 7.4707,
-    "NZD": 1.7482,
-    "CNY": 7.8366,
-    "AUD": 1.6245,
+    "php": 56.731,
+    "dkk": 7.4707,
+    "nzd": 1.7482,
+    "cny": 7.8366,
+    "aud": 1.6245,
     "RON": 4.7559,
-    "SEK": 10.7503,
+    "sek": 10.7503,
     "IDR": 15536.21,
-    "INR": 78.4355,
-    "BRL": 4.4158,
-    "USD": 1.1087,
+    "inr": 78.4355,
+    "brl": 4.4158,
+    "usd": 1.1087,
     "ILS": 3.9187,
-    "JPY": 120.69,
-    "THB": 33.488,
-    "CHF": 1.1047,
-    "CZK": 25.48,
-    "MYR": 4.641,
+    "jpy": 120.69,
+    "thb": 33.488,
+    "chf": 1.1047,
+    "czk": 25.48,
+    "myr": 4.641,
     "TRY": 6.3479,
-    "MXN": 21.1244,
-    "NOK": 10.2105,
-    "HUF": 328.16,
-    "ZAR": 16.1202,
-    "SGD": 1.5104,
-    "GBP": 0.86328,
-    "KRW": 1297.1,
-    "PLN": 4.2715
+    "mxn": 21.1244,
+    "nok": 10.2105,
+    "huf": 328.16,
+    "zar": 16.1202,
+    "sgd": 1.5104,
+    "gbp": 0.86328,
+    "krw": 1297.1,
+    "pln": 4.2715
   };
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List<int> _orderLunghezza = List.generate(16, (index) => index);
@@ -94,16 +94,12 @@ class Conversions with ChangeNotifier {
   static final List<int> _significantFiguresList = <int>[6, 8, 10, 12, 14];
   int _significantFigures = _significantFiguresList[2];
 
-  Map<PROPERTY, String> _titlesList = {
-    PROPERTY.LENGTH: 'lunghezza',
-  };
-
   Conversions() {
     //_checkCurrencies(); //update the currencies with the latest conversions rates and then
     //_checkOrdersUnits();
     //_checkSettings();
     _refreshConversionsList();
-    currentProperty = _propertyList[0];
+    _currentProperty = _propertyList[0];
 
     //Initialize of all the UnitData: name, textEditingController, symbol
     List<Unit> tempProperty;
@@ -149,7 +145,7 @@ class Conversions with ChangeNotifier {
 
   _refreshCurrentUnitDataList() {
     int len = currentUnitDataList.length;
-    List<Unit> updatedUnit = currentProperty.getAll();
+    List<Unit> updatedUnit = _currentProperty.getAll();
     for (int i = 0; i < len; i++) {
       UnitData currentUnitData = currentUnitDataList[i];
       currentUnitData.unit = updatedUnit[i];
@@ -162,7 +158,7 @@ class Conversions with ChangeNotifier {
   }
 
   convert(UnitData unitData, var value) {
-    currentProperty.convert(unitData.unit.name, value);
+    _currentProperty.convert(unitData.unit.name, value);
     selectedUnit = unitData;
     _refreshCurrentUnitDataList();
     notifyListeners();
@@ -173,11 +169,7 @@ class Conversions with ChangeNotifier {
     notifyListeners();
   }
 
-  get currentTitle => _titlesList[currentProperty.name];
-
-  get currentSubTitle {
-    return null;
-  }
+  get currentPropertyName =>  _currentProperty.name;
 
   ///Clears the values of the current page
   clearAllValues() {
@@ -217,7 +209,7 @@ class Conversions with ChangeNotifier {
       //if I have never updated the conversions or if I have updated before today I have to update
       try {
         var response = await http.get(
-            'https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD,AUD,NZD,MXN,SGD,NOK,TRY,ZAR,DKK,PLN,THB,MYR,HUF,CZK,ILS,IDR,PHP,RON');
+            'https://api.exchangeratesapi.io/latest?symbols=usd,gbp,inr,cny,jpy,chf,sek,RUB,CAD,krw,brl,hkd,aud,nzd,mxn,sgd,nok,TRY,zar,dkk,pln,thb,myr,huf,czk,ILS,IDR,php,RON');
         if (response.statusCode == 200) {
           //if successful
           CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(response.body));

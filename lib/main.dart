@@ -1,8 +1,7 @@
 import 'package:converterpro/pages/AppManager.dart';
 import 'package:converterpro/pages/SettingsPage.dart';
-import 'package:converterpro/utils/Localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'models/AppModel.dart';
 import 'models/Conversions.dart';
@@ -46,14 +45,8 @@ class _MyApp extends State<MyApp> {
         },
         theme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.light),
         darkTheme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.dark),
-        supportedLocales: [
-          const Locale('en', 'US'),
-          const Locale('it', 'IT'),
-          const Locale('pt', 'BR'),
-          const Locale('fr', 'FR'),
-          const Locale('nb'),
-        ],
-        localizationsDelegates: [const MyLocalizationsDelegate(), GlobalMaterialLocalizations.delegate, GlobalWidgetsLocalizations.delegate],
+        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
         localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
           for (Locale supportedLocale in supportedLocales) {
             if (supportedLocale.languageCode == locale.languageCode || supportedLocale.countryCode == locale.countryCode) {

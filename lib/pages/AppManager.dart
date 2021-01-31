@@ -1,7 +1,7 @@
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/models/Conversions.dart';
 import 'package:converterpro/pages/ConversionPage.dart';
-import 'package:converterpro/utils/Localization.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +19,7 @@ class AppManager extends StatelessWidget {
     List<Widget> drawerActions = <Widget>[
       Consumer<AppModel>(
         builder: (context, appModel, _) => IconButton(
-            tooltip: MyLocalizations.of(context).trans('riordina'),
+            tooltip: AppLocalizations.of(context).reorder,
             icon: Icon(
               Icons.reorder,
               color: Colors.white,
@@ -27,7 +27,7 @@ class AppManager extends StatelessWidget {
             onPressed: () => appModel.changeOrderDrawer(context, titlesList)),
       ),
       IconButton(
-        tooltip: MyLocalizations.of(context).trans('impostazioni'),
+        tooltip: AppLocalizations.of(context).settings,
         icon: Icon(
           Icons.settings,
           color: Colors.white,
@@ -264,25 +264,25 @@ class AppManager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     titlesList = [
-      MyLocalizations.of(context).trans('lunghezza'),
-      MyLocalizations.of(context).trans('superficie'),
-      MyLocalizations.of(context).trans('volume'),
-      MyLocalizations.of(context).trans('tempo'),
-      MyLocalizations.of(context).trans('temperatura'),
-      MyLocalizations.of(context).trans('velocita'),
-      MyLocalizations.of(context).trans('prefissi_si'),
-      MyLocalizations.of(context).trans('massa'),
-      MyLocalizations.of(context).trans('pressione'),
-      MyLocalizations.of(context).trans('energia'),
-      MyLocalizations.of(context).trans('angoli'),
-      MyLocalizations.of(context).trans('valuta'),
-      MyLocalizations.of(context).trans('taglia_scarpe'),
-      MyLocalizations.of(context).trans('dati_digitali'),
-      MyLocalizations.of(context).trans('potenza'),
-      MyLocalizations.of(context).trans('forza'),
-      MyLocalizations.of(context).trans('momento'),
-      MyLocalizations.of(context).trans('consumo_carburante'),
-      MyLocalizations.of(context).trans('basi_numeriche')
+      AppLocalizations.of(context).length,
+      AppLocalizations.of(context).area,
+      AppLocalizations.of(context).volume,
+      AppLocalizations.of(context).time,
+      AppLocalizations.of(context).temperature,
+      AppLocalizations.of(context).speed,
+      AppLocalizations.of(context).siPrefixes,
+      AppLocalizations.of(context).mass,
+      AppLocalizations.of(context).pressure,
+      AppLocalizations.of(context).energy,
+      AppLocalizations.of(context).angles,
+      AppLocalizations.of(context).currencies,
+      AppLocalizations.of(context).shoeSize,
+      AppLocalizations.of(context).digitalData,
+      AppLocalizations.of(context).power,
+      AppLocalizations.of(context).force,
+      AppLocalizations.of(context).torque,
+      AppLocalizations.of(context).fuelConsumption,
+      AppLocalizations.of(context).numeralSystems
     ];
 
     _initializeTiles(context);
@@ -293,14 +293,10 @@ class AppManager extends StatelessWidget {
 
     String stringLastUpdateCurrencies;
     DateTime dateNow = DateTime.now();
-    if (lastUpdateCurrencies.day == dateNow.day &&
-        lastUpdateCurrencies.month == dateNow.month &&
-        lastUpdateCurrencies.year == dateNow.year)
-      stringLastUpdateCurrencies =
-          MyLocalizations.of(context).trans('ultimo_update_valute') + MyLocalizations.of(context).trans('oggi');
+    if (lastUpdateCurrencies.day == dateNow.day && lastUpdateCurrencies.month == dateNow.month && lastUpdateCurrencies.year == dateNow.year)
+      stringLastUpdateCurrencies = AppLocalizations.of(context).lastCurrenciesUpdate + AppLocalizations.of(context).today;
     else
-      stringLastUpdateCurrencies = MyLocalizations.of(context).trans('ultimo_update_valute') +
-          DateFormat("yyyy-MM-dd").format(lastUpdateCurrencies);
+      stringLastUpdateCurrencies = AppLocalizations.of(context).lastCurrenciesUpdate + DateFormat("yyyy-MM-dd").format(lastUpdateCurrencies);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -315,7 +311,6 @@ class AppManager extends StatelessWidget {
           openDrawer: () {
             Scaffold.of(context).openDrawer();
           },
-          titlesList: titlesList,
           lastUpdateCurrency: stringLastUpdateCurrencies,
         ),
       ),
