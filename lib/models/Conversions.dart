@@ -13,7 +13,7 @@ class Conversions with ChangeNotifier {
   List<List<UnitData>> _unitDataList = [];
   List<UnitData> currentUnitDataList;
   Property _currentProperty;
-  UnitData selectedUnit; //unit where the user is writing the value
+  UnitData _selectedUnit; //unit where the user is writing the value
   int _currentPage = 0; //from appModel
   DateTime _lastUpdateCurrencies = DateTime(2019, 10, 29);
   Map<String, double> _currencyValues = {
@@ -99,7 +99,7 @@ class Conversions with ChangeNotifier {
     //_checkOrdersUnits();
     //_checkSettings();
     _refreshConversionsList();
-    _currentProperty = _propertyList[0];
+    _currentProperty = _propertyList[_currentPage];
 
     //Initialize of all the UnitData: name, textEditingController, symbol
     List<Unit> tempProperty;
@@ -118,28 +118,29 @@ class Conversions with ChangeNotifier {
       _unitDataList.add(tempUnitData);
       tempUnitData = [];
     }
-    currentUnitDataList = _unitDataList[0];
+    currentUnitDataList = _unitDataList[_currentPage];
   }
 
   _refreshConversionsList() {
     _propertyList = [
-      Length(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Area(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Time(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Temperature(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Speed(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      SIPrefixes(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Mass(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Pressure(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Energy(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
       Angle(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      ShoeSize(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Area(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
       DigitalData(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Power(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Energy(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
       Force(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Torque(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
       FuelConsumption(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Length(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Mass(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
       NumeralSystems(),
+      Power(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Pressure(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      ShoeSize(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      SIPrefixes(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Speed(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Temperature(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Time(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Torque(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Volume(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
     ];
   }
 
@@ -149,7 +150,7 @@ class Conversions with ChangeNotifier {
     for (int i = 0; i < len; i++) {
       UnitData currentUnitData = currentUnitDataList[i];
       currentUnitData.unit = updatedUnit[i];
-      if (currentUnitData != selectedUnit && currentUnitData.unit.stringValue != null) {
+      if (currentUnitData != _selectedUnit && currentUnitData.unit.stringValue != null) {
         currentUnitDataList[i].tec.text = currentUnitData.unit.stringValue;
       } else if (currentUnitData.unit.stringValue == null) {
         currentUnitDataList[i].tec.text = '';
@@ -159,21 +160,23 @@ class Conversions with ChangeNotifier {
 
   convert(UnitData unitData, var value) {
     _currentProperty.convert(unitData.unit.name, value);
-    selectedUnit = unitData;
+    _selectedUnit = unitData;
     _refreshCurrentUnitDataList();
     notifyListeners();
   }
 
   set currentPage(int currentPage) {
     _currentPage = currentPage;
+    _currentProperty = _propertyList[_currentPage];
+    currentUnitDataList = _unitDataList[_currentPage];
     notifyListeners();
   }
 
-  get currentPropertyName =>  _currentProperty.name;
+  get currentPropertyName => _currentProperty.name;
 
   ///Clears the values of the current page
   clearAllValues() {
-    convert(selectedUnit ?? currentUnitDataList[0], null);
+    convert(_selectedUnit ?? currentUnitDataList[0], null);
   }
 
   ///Returns the DateTime of the latest update of the currencies conversions

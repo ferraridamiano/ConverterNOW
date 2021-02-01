@@ -33,20 +33,21 @@ class ConversionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //_getJsonSearch(context);
+    Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
+    Map<PROPERTY, String> propertyTranslationMap = getPropertyTranslationMap(context);
 
     List<Choice> choices = <Choice>[
       Choice(title: AppLocalizations.of(context).reorder, icon: Icons.reorder),
     ];
 
     List<UnitData> unitDataList = context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);
-    UnitData selectedUnit = context.watch<Conversions>().selectedUnit;
 
     List<ListItem> itemList = [];
     String subTitle = ''; //context.select<Conversions, String>((conversions) => conversions.currentSubTitle);
     PROPERTY currentProperty = context.select<Conversions, PROPERTY>((conversions) => conversions.currentPropertyName);
     itemList.add(
       BigHeader(
-        title: getPropertyTranslation(context, currentProperty),
+        title: propertyTranslationMap[currentProperty],
         subTitle: subTitle ?? '',
       ),
     );
@@ -70,7 +71,7 @@ class ConversionPage extends StatelessWidget {
               return null;
             },
             decoration: InputDecoration(
-              labelText: getUnitTranslation(context, unitData.unit.name),
+              labelText: unitTranslationMap[unitData.unit.name],
             ),
             onChanged: (String txt) {
               if (txt == '' || unitData.getValidator().hasMatch(txt)) {

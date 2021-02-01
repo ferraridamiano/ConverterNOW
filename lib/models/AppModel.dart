@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AppModel with ChangeNotifier {
   //_conversionsOrderDrawer numbers until max conversion units - 1
-  List<int> _conversionsOrderDrawer = [0, 1, 2, 4, 5, 6, 17, 7, 11, 12, 14, 3, 15, 16, 13, 8, 18, 9, 10];
+  List<int> _conversionsOrderDrawer = List.generate(19, (index) => index);
   int _currentPage = 0;
   bool _isLogoVisible = true;
 
