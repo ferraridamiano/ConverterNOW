@@ -1,10 +1,10 @@
 {
   "@@locale": "it",
   
+
   "riordina": "Riordina",
   "mio_ordinamento": "Il mio ordinamento",
   "contatta_sviluppatore":"Contatta lo sviluppatore",
-  "recensione":"Valuta l'app",
   "about":"About",
   "ultimo_update_valute": "Aggiornato a: ",
   "oggi": "oggi",
@@ -16,12 +16,6 @@
   "valuta_app": "Valuta l'app",
   "repo_github": "Apri repository su GitHub",
   "traduzione_app": "Contribuisci a tradurre l'app 🌍",
-  "valuta_app2": "Ti piace Converter NOW? ☺️",
-  "valuta_app2SI": "Lo adoro!",
-  "valuta_app2NO": "Non molto",
-  "valuta_app3": "Fantastico! Lasciaci una recensione ☺️",
-  "valuta_app4": "😟 Ci piacerebbe che tu ci lasciassi una recensione, così possiamo migliorare",
-  "valuta_app5": "Valuta",
   "cerca": "Cerca",
   "elimina_tutto": "Elimina tutto",
   "calcolatrice": "Calcolatrice",
