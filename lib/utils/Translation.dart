@@ -5,25 +5,25 @@ import 'Utils.dart';
 
 Map<PROPERTYX, String> getPropertyTranslationMap(BuildContext context) {
   return {
-    PROPERTYX.ANGLE: AppLocalizations.of(context).angles,
+    PROPERTYX.LENGTH: AppLocalizations.of(context).length,
     PROPERTYX.AREA: AppLocalizations.of(context).area,
+    PROPERTYX.VOLUME: AppLocalizations.of(context).volume,
     PROPERTYX.CURRENCIES: AppLocalizations.of(context).currencies,
-    PROPERTYX.DIGITAL_DATA: AppLocalizations.of(context).digitalData,
-    PROPERTYX.ENERGY: AppLocalizations.of(context).energy,
+    PROPERTYX.TIME: AppLocalizations.of(context).time,
+    PROPERTYX.TEMPERATURE: AppLocalizations.of(context).temperature,
+    PROPERTYX.SPEED: AppLocalizations.of(context).speed,
+    PROPERTYX.MASS: AppLocalizations.of(context).mass,
     PROPERTYX.FORCE: AppLocalizations.of(context).force,
     PROPERTYX.FUEL_CONSUMPTION: AppLocalizations.of(context).fuelConsumption,
-    PROPERTYX.LENGTH: AppLocalizations.of(context).length,
-    PROPERTYX.MASS: AppLocalizations.of(context).mass,
     PROPERTYX.NUMERAL_SYSTEMS: AppLocalizations.of(context).numeralSystems,
-    PROPERTYX.POWER: AppLocalizations.of(context).power,
     PROPERTYX.PRESSURE: AppLocalizations.of(context).pressure,
+    PROPERTYX.ENERGY: AppLocalizations.of(context).energy,
+    PROPERTYX.POWER: AppLocalizations.of(context).power,
+    PROPERTYX.ANGLE: AppLocalizations.of(context).angles,
     PROPERTYX.SHOE_SIZE: AppLocalizations.of(context).shoeSize,
+    PROPERTYX.DIGITAL_DATA: AppLocalizations.of(context).digitalData,
     PROPERTYX.SI_PREFIXES: AppLocalizations.of(context).siPrefixes,
-    PROPERTYX.SPEED: AppLocalizations.of(context).speed,
-    PROPERTYX.TEMPERATURE: AppLocalizations.of(context).temperature,
-    PROPERTYX.TIME: AppLocalizations.of(context).time,
     PROPERTYX.TORQUE: AppLocalizations.of(context).torque,
-    PROPERTYX.VOLUME: AppLocalizations.of(context).volume,
   };
 }
 

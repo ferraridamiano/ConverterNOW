@@ -11,7 +11,7 @@ import 'package:converterpro/utils/Translation.dart';
 class AppManager extends StatelessWidget {
   static const MAX_CONVERSION_UNITS = 19;
 
-  static List<Widget> listaDrawer = List(MAX_CONVERSION_UNITS + 1); //+1 because of the header
+  static List<Widget> listaDrawer = List<Widget>.filled(MAX_CONVERSION_UNITS + 1, null); //+1 because of the header
 
   void _initializeTiles(BuildContext context) {
     List<String> titlesList = getPropertyTranslationList(context);
@@ -91,7 +91,7 @@ class AppManager extends StatelessWidget {
 
     listaDrawer[conversionsOrderDrawer[0] + 1] = ListTileConversion(
       titlesList[0],
-      "resources/images/angles.png",
+      "resources/images/length.png",
       currentPage == 0,
       () {
         context.read<AppModel>().changeToPage(0);
@@ -109,7 +109,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[2] + 1] = ListTileConversion(
       titlesList[2],
-      "resources/images/currencies.png",
+      "resources/images/volume.png",
       currentPage == 2,
       () {
         context.read<AppModel>().changeToPage(2);
@@ -118,7 +118,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[3] + 1] = ListTileConversion(
       titlesList[3],
-      "resources/images/data.png",
+      "resources/images/currencies.png",
       currentPage == 3,
       () {
         context.read<AppModel>().changeToPage(3);
@@ -127,7 +127,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[4] + 1] = ListTileConversion(
       titlesList[4],
-      "resources/images/energy.png",
+      "resources/images/time.png",
       currentPage == 4,
       () {
         context.read<AppModel>().changeToPage(4);
@@ -136,7 +136,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[5] + 1] = ListTileConversion(
       titlesList[5],
-      "resources/images/force.png",
+      "resources/images/temperature.png",
       currentPage == 5,
       () {
         context.read<AppModel>().changeToPage(5);
@@ -145,7 +145,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[6] + 1] = ListTileConversion(
       titlesList[6],
-      "resources/images/fuel.png",
+      "resources/images/speed.png",
       currentPage == 6,
       () {
         context.read<AppModel>().changeToPage(6);
@@ -154,7 +154,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[7] + 1] = ListTileConversion(
       titlesList[7],
-      "resources/images/length.png",
+      "resources/images/mass.png",
       currentPage == 7,
       () {
         context.read<AppModel>().changeToPage(7);
@@ -163,7 +163,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[8] + 1] = ListTileConversion(
       titlesList[8],
-      "resources/images/mass.png",
+      "resources/images/force.png",
       currentPage == 8,
       () {
         context.read<AppModel>().changeToPage(8);
@@ -172,7 +172,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[9] + 1] = ListTileConversion(
       titlesList[9],
-      "resources/images/num_systems.png",
+      "resources/images/fuel.png",
       currentPage == 9,
       () {
         context.read<AppModel>().changeToPage(9);
@@ -181,7 +181,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[10] + 1] = ListTileConversion(
       titlesList[10],
-      "resources/images/power.png",
+      "resources/images/num_systems.png",
       currentPage == 10,
       () {
         context.read<AppModel>().changeToPage(10);
@@ -199,7 +199,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[12] + 1] = ListTileConversion(
       titlesList[12],
-      "resources/images/shoe_size.png",
+      "resources/images/energy.png",
       currentPage == 12,
       () {
         context.read<AppModel>().changeToPage(12);
@@ -208,7 +208,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[13] + 1] = ListTileConversion(
       titlesList[13],
-      "resources/images/prefixes.png",
+      "resources/images/power.png",
       currentPage == 13,
       () {
         context.read<AppModel>().changeToPage(13);
@@ -217,7 +217,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[14] + 1] = ListTileConversion(
       titlesList[14],
-      "resources/images/speed.png",
+      "resources/images/angles.png",
       currentPage == 14,
       () {
         context.read<AppModel>().changeToPage(14);
@@ -226,7 +226,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[15] + 1] = ListTileConversion(
       titlesList[15],
-      "resources/images/temperature.png",
+      "resources/images/shoe_size.png",
       currentPage == 15,
       () {
         context.read<AppModel>().changeToPage(15);
@@ -235,7 +235,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[16] + 1] = ListTileConversion(
       titlesList[16],
-      "resources/images/time.png",
+      "resources/images/data.png",
       currentPage == 16,
       () {
         context.read<AppModel>().changeToPage(16);
@@ -244,7 +244,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[17] + 1] = ListTileConversion(
       titlesList[17],
-      "resources/images/torque.png",
+      "resources/images/prefixes.png",
       currentPage == 17,
       () {
         context.read<AppModel>().changeToPage(17);
@@ -253,7 +253,7 @@ class AppManager extends StatelessWidget {
     );
     listaDrawer[conversionsOrderDrawer[18] + 1] = ListTileConversion(
       titlesList[18],
-      "resources/images/volume.png",
+      "resources/images/torque.png",
       currentPage == 18,
       () {
         context.read<AppModel>().changeToPage(18);
