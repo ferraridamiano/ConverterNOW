@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:units_converter/Length.dart';
 import 'package:units_converter/Property.dart';
 import 'package:units_converter/Unit.dart';
 import 'dart:math';
@@ -532,20 +531,14 @@ class _ListTileConversion extends State<ListTileConversion> {
   }
 }
 
-enum VALIDATOR{
-  BINARY,
-  DECIMAL,
-  OCTAL,
-  HEXADECIMAL,
-  RATIONAL_NON_NEGATIVE
-}
+enum VALIDATOR { BINARY, DECIMAL, OCTAL, HEXADECIMAL, RATIONAL_NON_NEGATIVE }
 
 class UnitData {
   Unit unit;
   TextEditingController tec;
   TextInputType textInputType;
   VALIDATOR validator;
-  var property;
+  PROPERTYX property;
 
   UnitData(
     this.unit, {
@@ -555,8 +548,8 @@ class UnitData {
     this.textInputType = const TextInputType.numberWithOptions(decimal: true, signed: false),
   });
 
-  RegExp getValidator(){
-    switch(validator){
+  RegExp getValidator() {
+    switch (validator) {
       case VALIDATOR.BINARY:
         return RegExp(r'^[0-1]+$');
       case VALIDATOR.OCTAL:
@@ -570,4 +563,145 @@ class UnitData {
         return RegExp(r'^[0-9/./e/+/-]+$');
     }
   }
+}
+
+class CurrencyObject {
+  DoubleCurrencyConversion results;
+  CurrencyObject({this.results});
+
+  factory CurrencyObject.fromJson(Map<String, dynamic> json) {
+    return CurrencyObject(results: DoubleCurrencyConversion.fromJson(json['property']));
+  }
+}
+
+class DoubleCurrencyConversion {
+  CurrencyConversion conversion1;
+  CurrencyConversion conversion2;
+  DoubleCurrencyConversion({
+    this.conversion1,
+    this.conversion2,
+  });
+
+  factory DoubleCurrencyConversion.fromJson(Map<String, dynamic> json) {
+    return DoubleCurrencyConversion(conversion1: CurrencyConversion.fromJson(json['USD_EUR']), conversion2: CurrencyConversion.fromJson(json['USD_GBP']));
+  }
+}
+
+class CurrencyConversion {
+  String id, to, fr;
+  double val;
+
+  CurrencyConversion({this.id, this.val, this.to, this.fr});
+
+  factory CurrencyConversion.fromJson(Map<String, dynamic> json) {
+    return CurrencyConversion(id: json['id'], val: json['val'], to: json['to'], fr: json['fr']);
+  }
+}
+
+class CurrencyJSONObject {
+  String base;
+  Map<CURRENCIES, double> rates;
+  String date;
+
+  CurrencyJSONObject({this.base, this.rates, this.date});
+
+  factory CurrencyJSONObject.fromJson(Map<String, dynamic> parsedJson) {
+    Map<String, dynamic> ratesJson = parsedJson['rates'];
+    return CurrencyJSONObject(base: parsedJson['base'], date: parsedJson['date'], rates: {
+      CURRENCIES.INR: ratesJson['INR'],
+      CURRENCIES.SEK: ratesJson['SEK'],
+      CURRENCIES.GBP: ratesJson['GBP'],
+      CURRENCIES.CHF: ratesJson['CHF'],
+      CURRENCIES.CNY: ratesJson['CNY'],
+      CURRENCIES.RUB: ratesJson['RUB'],
+      CURRENCIES.USD: ratesJson['USD'],
+      CURRENCIES.KRW: ratesJson['KRW'],
+      CURRENCIES.JPY: ratesJson['JPY'],
+      CURRENCIES.BRL: ratesJson['BRL'],
+      CURRENCIES.CAD: ratesJson['CAD'],
+      CURRENCIES.HKD: ratesJson['HKD'],
+      CURRENCIES.AUD: ratesJson['AUD'],
+      CURRENCIES.NZD: ratesJson['NZD'],
+      CURRENCIES.MXN: ratesJson['MXN'],
+      CURRENCIES.SGD: ratesJson['SGD'],
+      CURRENCIES.NOK: ratesJson['NOK'],
+      CURRENCIES.TRY: ratesJson['TRY'],
+      CURRENCIES.ZAR: ratesJson['ZAR'],
+      CURRENCIES.DKK: ratesJson['DKK'],
+      CURRENCIES.PLN: ratesJson['PLN'],
+      CURRENCIES.THB: ratesJson['THB'],
+      CURRENCIES.MYR: ratesJson['MYR'],
+      CURRENCIES.HUF: ratesJson['HUF'],
+      CURRENCIES.CZK: ratesJson['CZK'],
+      CURRENCIES.ILS: ratesJson['ILS'],
+      CURRENCIES.IDR: ratesJson['IDR'],
+      CURRENCIES.PHP: ratesJson['PHP'],
+      CURRENCIES.RON: ratesJson['RON']
+    });
+  }
+
+  ///Recreates the body of the http response (json format) as a String
+  String toString() {
+    String myString = '{"rates":{';
+    rates.forEach((key, value) => myString += '"$key":${value.toString()},'); //add all the currency values
+    myString = myString.replaceRange(myString.length - 1, myString.length, ''); //remove latest comma
+    myString += '},"base":"$base","date":"$date"}';
+    return myString;
+  }
+}
+
+/// PROPERTYX stands for PROPERTY extended and want to extends the PROPERTY enum defined in units_converter package
+enum PROPERTYX {
+  ANGLE,
+  AREA,
+  CURRENCIES,
+  DIGITAL_DATA,
+  ENERGY,
+  FORCE,
+  FUEL_CONSUMPTION,
+  LENGTH,
+  MASS,
+  NUMERAL_SYSTEMS,
+  POWER,
+  PRESSURE,
+  SHOE_SIZE,
+  SI_PREFIXES,
+  SPEED,
+  TEMPERATURE,
+  TIME,
+  TORQUE,
+  VOLUME,
+}
+
+enum CURRENCIES {
+  EUR,
+  CAD,
+  HKD,
+  RUB,
+  PHP,
+  DKK,
+  NZD,
+  CNY,
+  AUD,
+  RON,
+  SEK,
+  IDR,
+  INR,
+  BRL,
+  USD,
+  ILS,
+  JPY,
+  THB,
+  CHF,
+  CZK,
+  MYR,
+  TRY,
+  MXN,
+  NOK,
+  HUF,
+  ZAR,
+  SGD,
+  GBP,
+  KRW,
+  PLN,
 }

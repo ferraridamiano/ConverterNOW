@@ -251,7 +251,7 @@ class AppManager extends StatelessWidget {
         Navigator.of(context).pop();
       },
     );
-    /*listaDrawer[conversionsOrderDrawer[18] + 1] = ListTileConversion(
+    listaDrawer[conversionsOrderDrawer[18] + 1] = ListTileConversion(
       titlesList[18],
       "resources/images/volume.png",
       currentPage == 18,
@@ -259,8 +259,7 @@ class AppManager extends StatelessWidget {
         context.read<AppModel>().changeToPage(18);
         Navigator.of(context).pop();
       },
-    );*/
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    );
   }
 
   @override

@@ -15,37 +15,70 @@ class Conversions with ChangeNotifier {
   Property _currentProperty;
   UnitData _selectedUnit; //unit where the user is writing the value
   int _currentPage = 0; //from appModel
-  DateTime _lastUpdateCurrencies = DateTime(2019, 10, 29);
-  Map<String, double> _currencyValues = {
-    "CAD": 1.4487,
-    "hkd": 8.6923,
-    "RUB": 70.5328,
-    "php": 56.731,
-    "dkk": 7.4707,
-    "nzd": 1.7482,
-    "cny": 7.8366,
-    "aud": 1.6245,
-    "RON": 4.7559,
-    "sek": 10.7503,
-    "IDR": 15536.21,
-    "inr": 78.4355,
-    "brl": 4.4158,
-    "usd": 1.1087,
-    "ILS": 3.9187,
-    "jpy": 120.69,
-    "thb": 33.488,
-    "chf": 1.1047,
-    "czk": 25.48,
-    "myr": 4.641,
-    "TRY": 6.3479,
-    "mxn": 21.1244,
-    "nok": 10.2105,
-    "huf": 328.16,
-    "zar": 16.1202,
-    "sgd": 1.5104,
-    "gbp": 0.86328,
-    "krw": 1297.1,
-    "pln": 4.2715
+  DateTime _lastUpdateCurrencies = DateTime(2021, 2, 1); //1st of february 2021
+  Map<CURRENCIES, double> _currencyValues = {
+    CURRENCIES.EUR: 1.0,
+    CURRENCIES.CAD: 1.5474,
+    CURRENCIES.HKD: 9.3687,
+    CURRENCIES.RUB: 91.6248,
+    CURRENCIES.PHP: 58.083,
+    CURRENCIES.DKK: 7.4373,
+    CURRENCIES.NZD: 1.6844,
+    CURRENCIES.CNY: 7.8143,
+    CURRENCIES.AUD: 1.5831,
+    CURRENCIES.RON: 4.8735,
+    CURRENCIES.SEK: 10.1627,
+    CURRENCIES.IDR: 17011.92,
+    CURRENCIES.INR: 88.345,
+    CURRENCIES.BRL: 6.5765,
+    CURRENCIES.USD: 1.2084,
+    CURRENCIES.ILS: 3.9739,
+    CURRENCIES.JPY: 126.77,
+    CURRENCIES.THB: 36.228,
+    CURRENCIES.CHF: 1.0816,
+    CURRENCIES.CZK: 25.975,
+    CURRENCIES.MYR: 4.885,
+    CURRENCIES.TRY: 8.6902,
+    CURRENCIES.MXN: 24.5157,
+    CURRENCIES.NOK: 10.389,
+    CURRENCIES.HUF: 356.35,
+    CURRENCIES.ZAR: 18.1574,
+    CURRENCIES.SGD: 1.6092,
+    CURRENCIES.GBP: 0.882,
+    CURRENCIES.KRW: 1351.21,
+    CURRENCIES.PLN: 4.508,
+  };
+  Map<CURRENCIES, String> _currenciesSymbols = {
+    CURRENCIES.EUR: '€ 🇪🇺',
+    CURRENCIES.CAD: '\$ 🇨🇦',
+    CURRENCIES.HKD: 'HK\$ 🇭🇰',
+    CURRENCIES.RUB: '₽ 🇷🇺',
+    CURRENCIES.PHP: '₱ 🇵🇭',
+    CURRENCIES.DKK: 'kr 🇩🇰',
+    CURRENCIES.NZD: 'NZ\$ 🇳🇿',
+    CURRENCIES.CNY: '¥ 🇨🇳',
+    CURRENCIES.AUD: 'A\$ 🇦🇺',
+    CURRENCIES.RON: 'L 🇷🇴',
+    CURRENCIES.SEK: 'kr 🇸🇪',
+    CURRENCIES.IDR: 'Rp 🇮🇩',
+    CURRENCIES.INR: '₹ 🇮🇳',
+    CURRENCIES.BRL: 'R\$ 🇧🇷',
+    CURRENCIES.USD: '\$ 🇺🇸',
+    CURRENCIES.ILS: '₪ 🇮🇱',
+    CURRENCIES.JPY: '¥ 🇯🇵',
+    CURRENCIES.THB: '฿ 🇹🇭',
+    CURRENCIES.CHF: 'Fr. 🇨🇭',
+    CURRENCIES.CZK: 'Kč 🇨🇿',
+    CURRENCIES.MYR: 'RM 🇲🇾',
+    CURRENCIES.TRY: '₺ 🇹🇷',
+    CURRENCIES.MXN: '\$ 🇲🇽',
+    CURRENCIES.NOK: 'kr 🇳🇴',
+    CURRENCIES.HUF: 'Ft 🇭🇺',
+    CURRENCIES.ZAR: 'R 🇿🇦',
+    CURRENCIES.SGD: 'S\$ 🇸🇬',
+    CURRENCIES.GBP: '£ 🇬🇧',
+    CURRENCIES.KRW: '₩ 🇰🇷',
+    CURRENCIES.PLN: 'zł 🇵🇱',
   };
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List<int> _orderLunghezza = List.generate(16, (index) => index);
@@ -95,7 +128,7 @@ class Conversions with ChangeNotifier {
   int _significantFigures = _significantFiguresList[2];
 
   Conversions() {
-    //_checkCurrencies(); //update the currencies with the latest conversions rates and then
+    _checkCurrencies(); //update the currencies with the latest conversions rates and then
     //_checkOrdersUnits();
     //_checkSettings();
     _refreshConversionsList();
@@ -123,24 +156,26 @@ class Conversions with ChangeNotifier {
 
   _refreshConversionsList() {
     _propertyList = [
-      Angle(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Area(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      DigitalData(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Energy(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Force(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      FuelConsumption(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Length(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Mass(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      NumeralSystems(),
-      Power(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Pressure(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      ShoeSize(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      SIPrefixes(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Speed(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Temperature(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Time(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Torque(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
-      Volume(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros),
+      Angle(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.ANGLE),
+      Area(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.AREA),
+      SimpleCustomConversion(_currencyValues,
+          mapSymbols: _currenciesSymbols, significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.CURRENCIES),
+      DigitalData(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.DIGITAL_DATA),
+      Energy(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.ENERGY),
+      Force(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.FORCE),
+      FuelConsumption(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.FUEL_CONSUMPTION),
+      Length(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.LENGTH),
+      Mass(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.MASS),
+      NumeralSystems(name: PROPERTYX.NUMERAL_SYSTEMS),
+      Power(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.POWER),
+      Pressure(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.PRESSURE),
+      ShoeSize(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.SHOE_SIZE),
+      SIPrefixes(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.SI_PREFIXES),
+      Speed(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.SPEED),
+      Temperature(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.TEMPERATURE),
+      Time(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.TIME),
+      Torque(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.TORQUE),
+      Volume(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.VOLUME),
     ];
   }
 
@@ -187,7 +222,6 @@ class Conversions with ChangeNotifier {
   ///returns false otherwise
   get isCurrenciesLoading => _isCurrenciesLoading;
 
-  /*
   ///This method is used by _checkCurrencies to read the currencies conversions if
   ///the smartphone is offline
   _readSavedCurrencies() async {
@@ -212,7 +246,7 @@ class Conversions with ChangeNotifier {
       //if I have never updated the conversions or if I have updated before today I have to update
       try {
         var response = await http.get(
-            'https://api.exchangeratesapi.io/latest?symbols=usd,gbp,inr,cny,jpy,chf,sek,RUB,CAD,krw,brl,hkd,aud,nzd,mxn,sgd,nok,TRY,zar,dkk,pln,thb,myr,huf,czk,ILS,IDR,php,RON');
+            'https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD,AUD,NZD,MXN,SGD,NOK,TRY,ZAR,DKK,PLN,THB,MYR,HUF,CZK,ILS,IDR,PHP,RON');
         if (response.statusCode == 200) {
           //if successful
           CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(response.body));
@@ -221,6 +255,7 @@ class Conversions with ChangeNotifier {
           //the response to be the same of the date of the user
           currencyObject.date = now;
           _currencyValues = currencyObject.rates; //updates the currency value with the new values
+          _currencyValues.putIfAbsent(CURRENCIES.EUR, () => 1.0);
           //If the request recive an accettable response the last update is now
           _lastUpdateCurrencies = DateTime.now();
           //save to memory
@@ -238,10 +273,11 @@ class Conversions with ChangeNotifier {
       _lastUpdateCurrencies = DateTime.now();
     }
     _isCurrenciesLoading = false; // stop the progress indicator to show the date of the latest update
-    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
+    _refreshConversionsList();
     notifyListeners(); //change the value of the current conversions
   }
 
+  /*
   ///Get the orders of each units of measurement from the memory
   _checkOrdersUnits() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

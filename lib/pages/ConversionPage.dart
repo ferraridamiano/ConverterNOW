@@ -34,7 +34,7 @@ class ConversionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //_getJsonSearch(context);
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
-    Map<PROPERTY, String> propertyTranslationMap = getPropertyTranslationMap(context);
+    Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
 
     List<Choice> choices = <Choice>[
       Choice(title: AppLocalizations.of(context).reorder, icon: Icons.reorder),
@@ -44,7 +44,7 @@ class ConversionPage extends StatelessWidget {
 
     List<ListItem> itemList = [];
     String subTitle = ''; //context.select<Conversions, String>((conversions) => conversions.currentSubTitle);
-    PROPERTY currentProperty = context.select<Conversions, PROPERTY>((conversions) => conversions.currentPropertyName);
+    PROPERTYX currentProperty = context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);
     itemList.add(
       BigHeader(
         title: propertyTranslationMap[currentProperty],
@@ -77,7 +77,7 @@ class ConversionPage extends StatelessWidget {
               if (txt == '' || unitData.getValidator().hasMatch(txt)) {
                 Conversions conversions = context.read<Conversions>();
                 //just numeral system uses a string for conversion
-                if (unitData.unit.name == PROPERTY.NUMERAL_SYSTEMS) {
+                if (unitData.unit.name == PROPERTYX.NUMERAL_SYSTEMS) {
                   conversions.convert(unitData, txt == "" ? null : txt);
                 } else {
                   conversions.convert(unitData, txt == "" ? null : double.parse(txt));
