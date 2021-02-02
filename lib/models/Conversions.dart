@@ -130,28 +130,8 @@ class Conversions with ChangeNotifier {
   Conversions() {
     _checkCurrencies(); //update the currencies with the latest conversions rates and then
     //_checkOrdersUnits();
-    //_checkSettings();
+    _checkSettings();
     _refreshConversionsList();
-    _currentProperty = _propertyList[_currentPage];
-
-    //Initialize of all the UnitData: name, textEditingController, symbol
-    List<Unit> tempProperty;
-    List<UnitData> tempUnitData = [];
-    for (Property property in _propertyList) {
-      tempProperty = property.getAll();
-      for (Unit unit in tempProperty) {
-        tempUnitData.add(
-          UnitData(
-            unit,
-            property: property.name,
-            tec: TextEditingController(),
-          ),
-        );
-      }
-      _unitDataList.add(tempUnitData);
-      tempUnitData = [];
-    }
-    currentUnitDataList = _unitDataList[_currentPage];
   }
 
   _refreshConversionsList() {
@@ -177,6 +157,26 @@ class Conversions with ChangeNotifier {
       Torque(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.TORQUE),
       Volume(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.VOLUME),
     ];
+    _currentProperty = _propertyList[_currentPage];
+
+    //Initialize of all the UnitData: name, textEditingController, symbol
+    List<Unit> tempProperty;
+    List<UnitData> tempUnitData = [];
+    for (Property property in _propertyList) {
+      tempProperty = property.getAll();
+      for (Unit unit in tempProperty) {
+        tempUnitData.add(
+          UnitData(
+            unit,
+            property: property.name,
+            tec: TextEditingController(),
+          ),
+        );
+      }
+      _unitDataList.add(tempUnitData);
+      tempUnitData = [];
+    }
+    currentUnitDataList = _unitDataList[_currentPage];
   }
 
   _refreshCurrentUnitDataList() {
@@ -230,6 +230,7 @@ class Conversions with ChangeNotifier {
     if (currencyRead != null) {
       CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(currencyRead));
       _currencyValues = currencyObject.rates;
+      _currencyValues.putIfAbsent(CURRENCIES.EUR, () => 1.0);
       String lastUpdateRead = currencyObject.date;
       if (lastUpdateRead != null) _lastUpdateCurrencies = DateTime.parse(lastUpdateRead);
     }
@@ -325,7 +326,7 @@ class Conversions with ChangeNotifier {
     List<String> toConvertList = new List();
     for (int item in _conversionsOrder[currentPage]) toConvertList.add(item.toString());
     prefs.setStringList("conversion_$currentPage", toConvertList);
-  }
+  }*/
 
   //Settings section------------------------------------------------------------------
 
@@ -341,7 +342,7 @@ class Conversions with ChangeNotifier {
 
       if (val2 != null) _removeTrailingZeros = val2;
 
-      _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
+      _refreshConversionsList();
       notifyListeners();
     }
   }
@@ -360,7 +361,7 @@ class Conversions with ChangeNotifier {
   ///e.g. 1.000000000e20 becomes 1e20
   set removeTrailingZeros(bool value) {
     _removeTrailingZeros = value;
-    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
+    _refreshConversionsList();
     notifyListeners();
     _saveSettingsBool('remove_trailing_zeros', _removeTrailingZeros);
   }
@@ -368,10 +369,10 @@ class Conversions with ChangeNotifier {
   ///Set the current significant figures selection and save to SharedPreferences
   set significantFigures(int value) {
     _significantFigures = value;
-    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
+    _refreshConversionsList();
     notifyListeners();
     _saveSettingsInt('significant_figures', _significantFigures);
-  }*/
+  }
 
   ///Saves the key value with SharedPreferences
   _saveSettingsInt(String key, int value) async {

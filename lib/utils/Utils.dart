@@ -603,6 +603,38 @@ class CurrencyJSONObject {
   Map<CURRENCIES, double> rates;
   String date;
 
+  Map<CURRENCIES, String> encodeMap = {
+    CURRENCIES.INR: 'INR',
+    CURRENCIES.SEK: 'SEK',
+    CURRENCIES.GBP: 'GBP',
+    CURRENCIES.CHF: 'CHF',
+    CURRENCIES.CNY: 'CNY',
+    CURRENCIES.RUB: 'RUB',
+    CURRENCIES.USD: 'USD',
+    CURRENCIES.KRW: 'KRW',
+    CURRENCIES.JPY: 'JPY',
+    CURRENCIES.BRL: 'BRL',
+    CURRENCIES.CAD: 'CAD',
+    CURRENCIES.HKD: 'HKD',
+    CURRENCIES.AUD: 'AUD',
+    CURRENCIES.NZD: 'NZD',
+    CURRENCIES.MXN: 'MXN',
+    CURRENCIES.SGD: 'SGD',
+    CURRENCIES.NOK: 'NOK',
+    CURRENCIES.TRY: 'TRY',
+    CURRENCIES.ZAR: 'ZAR',
+    CURRENCIES.DKK: 'DKK',
+    CURRENCIES.PLN: 'PLN',
+    CURRENCIES.THB: 'THB',
+    CURRENCIES.MYR: 'MYR',
+    CURRENCIES.HUF: 'HUF',
+    CURRENCIES.CZK: 'CZK',
+    CURRENCIES.ILS: 'ILS',
+    CURRENCIES.IDR: 'IDR',
+    CURRENCIES.PHP: 'PHP',
+    CURRENCIES.RON: 'RON',
+  };
+
   CurrencyJSONObject({this.base, this.rates, this.date});
 
   factory CurrencyJSONObject.fromJson(Map<String, dynamic> parsedJson) {
@@ -643,7 +675,7 @@ class CurrencyJSONObject {
   ///Recreates the body of the http response (json format) as a String
   String toString() {
     String myString = '{"rates":{';
-    rates.forEach((key, value) => myString += '"$key":${value.toString()},'); //add all the currency values
+    rates.forEach((key, value) => myString += '"${encodeMap[key]}":${value.toString()},'); //add all the currency values
     myString = myString.replaceRange(myString.length - 1, myString.length, ''); //remove latest comma
     myString += '},"base":"$base","date":"$date"}';
     return myString;
