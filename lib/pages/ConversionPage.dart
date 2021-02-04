@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/utils/SearchUnit.dart';
 import "dart:convert";
+import 'package:intl/intl.dart';
 
 Map jsonSearch;
 
@@ -43,8 +44,15 @@ class ConversionPage extends StatelessWidget {
     List<UnitData> unitDataList = context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);
 
     List<ListItem> itemList = [];
-    String subTitle = ''; //context.select<Conversions, String>((conversions) => conversions.currentSubTitle);
     PROPERTYX currentProperty = context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);
+
+    String subTitle;
+    if (currentProperty == PROPERTYX.CURRENCIES) {
+      subTitle = getLastUpdateString(context);
+    } else {
+      subTitle = '';
+    }
+
     itemList.add(
       BigHeader(
         title: propertyTranslationMap[currentProperty],
@@ -62,7 +70,6 @@ class ConversionPage extends StatelessWidget {
             ),
             keyboardType: unitData.textInputType,
             controller: unitData.tec,
-            //focusNode: listaFocus[i],
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (String input) {
               if (input != "" && !unitData.getValidator().hasMatch(input)) {
@@ -101,9 +108,7 @@ class ConversionPage extends StatelessWidget {
           BigTitle(
             text: item.title,
             subtitle: item.subTitle,
-            isCurrenciesLoading: context.select<Conversions, bool>(
-              (conversions) => conversions.isCurrenciesLoading,
-            ),
+            isCurrenciesLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
           ),
         );
       }
@@ -282,4 +287,13 @@ class CustomSearchDelegate extends SearchDelegate<int> {
         ),
     ];
   }
+}
+
+String getLastUpdateString(BuildContext context) {
+  DateTime lastUpdateCurrencies = context.select<Conversions, DateTime>((settings) => settings.lastUpdateCurrency);
+  DateTime dateNow = DateTime.now();
+  if (lastUpdateCurrencies.day == dateNow.day && lastUpdateCurrencies.month == dateNow.month && lastUpdateCurrencies.year == dateNow.year) {
+    return AppLocalizations.of(context).lastCurrenciesUpdate + AppLocalizations.of(context).today;
+  }
+  return AppLocalizations.of(context).lastCurrenciesUpdate + DateFormat("yyyy-MM-dd").format(lastUpdateCurrencies);
 }
