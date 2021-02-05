@@ -2,9 +2,18 @@
 
 # Converter NOW
 
-[![webApp](https://img.shields.io/badge/Open-Web%20App-blue?style=flat-square)](https://ferraridamiano.github.io/ConverterNOW/#/)
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat-square)](https://www.paypal.me/DemApps)
-![contributors](https://img.shields.io/github/contributors/ferraridamiano/ConverterNOW?style=flat-square)
+<img src="https://img.shields.io/github/contributors/ferraridamiano/ConverterNOW?style=flat-square"
+    alt="Contributors"
+    height="23">
+[<img src="https://img.shields.io/badge/Open-Web%20App-blue?style=flat-square"
+    alt="Open web app"
+    height="23">](https://ferraridamiano.github.io/ConverterNOW/#/)
+[<img src="https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat-square"
+    alt="Donate paypal"
+    height="23">](https://www.paypal.me/DemApps)
+[<img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png"
+    alt="Buy Me A Coffee"
+    height="23">](https://www.buymeacoffee.com/ferraridamiano)
 
 [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
     alt="Get it on Google Play"
