@@ -52,24 +52,22 @@ class AppModel with ChangeNotifier {
   changeOrderDrawer(BuildContext context, List<String> titlesList) async {
     Navigator.of(context).pop(); //Close the drawer
 
-    List<String> orderedList = new List(_conversionsOrderDrawer.length);
+    List<String> orderedList = List.filled(_conversionsOrderDrawer.length, null);
     for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
       orderedList[_conversionsOrderDrawer[i]] = titlesList[i];
     }
 
-    final List<int> result =
-        await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));
+    final List<int> result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));
 
     //if there arent't any modifications, do nothing
     if (result != null) {
-      List arrayCopia = new List(_conversionsOrderDrawer.length);
+      List arrayCopia = List.filled(_conversionsOrderDrawer.length, null);
       for (int i = 0; i < _conversionsOrderDrawer.length; i++) arrayCopia[i] = _conversionsOrderDrawer[i];
-      for (int i = 0; i < _conversionsOrderDrawer.length; i++)
-        _conversionsOrderDrawer[i] = result.indexOf(arrayCopia[i]);
+      for (int i = 0; i < _conversionsOrderDrawer.length; i++) _conversionsOrderDrawer[i] = result.indexOf(arrayCopia[i]);
 
       notifyListeners();
       //save new orders to memory
-      List<String> toConvertList = new List();
+      List<String> toConvertList = [];
       for (int item in _conversionsOrderDrawer) toConvertList.add(item.toString());
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setStringList("orderDrawer", toConvertList);

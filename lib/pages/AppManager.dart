@@ -25,7 +25,7 @@ class AppManager extends StatelessWidget {
             Icons.reorder,
             color: Colors.white,
           ),
-          //onPressed: () => appModel.changeOrderDrawer(context, titlesList),
+          onPressed: () => appModel.changeOrderDrawer(context, titlesList),
         ),
       ),
       IconButton(
