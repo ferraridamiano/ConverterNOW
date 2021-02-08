@@ -5,21 +5,21 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:units_converter/units_converter.dart';
 import 'package:provider/provider.dart';
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/utils/SearchUnit.dart';
-import "dart:convert";
 import 'package:intl/intl.dart';
+
+import 'ReorderPage.dart';
 
 Map jsonSearch;
 
 class ConversionPage extends StatelessWidget {
   final Function openDrawer;
   final String lastUpdateCurrency;
-  List<TextEditingController> listaController = [];
-  List<FocusNode> listaFocus = [];
-  List listaNodi;
+  //List<TextEditingController> listaController = [];
+  //List<FocusNode> listaFocus = [];
+  //List listaNodi;
 
   ConversionPage({this.openDrawer, this.lastUpdateCurrency});
 
@@ -178,7 +178,17 @@ class ConversionPage extends StatelessWidget {
                     Icons.more_vert,
                     color: Colors.white,
                   ),
-                  onSelected: (Choice choice) {
+                  onSelected: (Choice choice) async {
+                    //Let's generate the list of unit name in the current order
+                    List<String> listUnitsNames = List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]);
+                    final List<int> result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReorderPage(listUnitsNames),
+                      ),
+                    );
+                    context.read<Conversions>().changeOrderUnits(result);
+
                     /*List<String> listTranslatedUnits = [];
                       for (String stringa
                           in conversions.conversionsList[appModel.currentPage].getStringOrderedNodiFiglio())

@@ -1,4 +1,3 @@
-import 'package:converterpro/pages/ReorderPage.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ class Conversions with ChangeNotifier {
   Property _currentProperty;
   UnitData _selectedUnit; //unit where the user is writing the value
   int _currentPage = 0; //from appModel
+  //List<int> _currentOrder;
   DateTime _lastUpdateCurrencies = DateTime(2021, 2, 1); //1st of february 2021
   Map<CURRENCIES, double> _currencyValues = {
     CURRENCIES.EUR: 1.0,
@@ -81,46 +81,46 @@ class Conversions with ChangeNotifier {
     CURRENCIES.PLN: 'zł 🇵🇱',
   };
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  static List<int> _orderLunghezza = List.generate(16, (index) => index);
-  static List<int> _orderSuperficie = List.generate(11, (index) => index);
+  static List<int> _orderLength = List.generate(16, (index) => index);
+  static List<int> _orderArea = List.generate(11, (index) => index);
   static List<int> _orderVolume = List.generate(14, (index) => index);
-  static List<int> _orderTempo = List.generate(15, (index) => index);
-  static List<int> _orderTemperatura = List.generate(7, (index) => index);
-  static List<int> _orderVelocita = List.generate(5, (index) => index);
-  static List<int> _orderPrefissi = List.generate(21, (index) => index);
-  static List<int> _orderMassa = List.generate(11, (index) => index);
-  static List<int> _orderPressione = List.generate(6, (index) => index);
-  static List<int> _orderEnergia = List.generate(4, (index) => index);
-  static List<int> _orderAngoli = List.generate(4, (index) => index);
-  static List<int> _orderValute = List.generate(30, (index) => index);
-  static List<int> _orderScarpe = List.generate(10, (index) => index);
-  static List<int> _orderDati = List.generate(27, (index) => index);
-  static List<int> _orderPotenza = List.generate(7, (index) => index);
-  static List<int> _orderForza = List.generate(5, (index) => index);
+  static List<int> _orderTime = List.generate(15, (index) => index);
+  static List<int> _orderTemperature = List.generate(7, (index) => index);
+  static List<int> _orderSpeed = List.generate(5, (index) => index);
+  static List<int> _orderPrefixes = List.generate(21, (index) => index);
+  static List<int> _orderMass = List.generate(11, (index) => index);
+  static List<int> _orderPressure = List.generate(6, (index) => index);
+  static List<int> _orderEnergy = List.generate(4, (index) => index);
+  static List<int> _orderAngle = List.generate(4, (index) => index);
+  static List<int> _orderCurrencies = List.generate(30, (index) => index);
+  static List<int> _orderShoeSize = List.generate(10, (index) => index);
+  static List<int> _orderData = List.generate(27, (index) => index);
+  static List<int> _orderPower = List.generate(7, (index) => index);
+  static List<int> _orderForce = List.generate(5, (index) => index);
   static List<int> _orderTorque = List.generate(5, (index) => index);
-  static List<int> _orderConsumo = List.generate(4, (index) => index);
-  static List<int> _orderBasi = List.generate(4, (index) => index);
+  static List<int> _orderFuelConsumption = List.generate(4, (index) => index);
+  static List<int> _orderNumeralSystems = List.generate(4, (index) => index);
   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
   static List<List<int>> _conversionsOrder = [
-    _orderLunghezza,
-    _orderSuperficie,
+    _orderLength,
+    _orderArea,
     _orderVolume,
-    _orderTempo,
-    _orderTemperatura,
-    _orderVelocita,
-    _orderPrefissi,
-    _orderMassa,
-    _orderPressione,
-    _orderEnergia,
-    _orderAngoli,
-    _orderValute,
-    _orderScarpe,
-    _orderDati,
-    _orderPotenza,
-    _orderForza,
+    _orderCurrencies,
+    _orderTime,
+    _orderTemperature,
+    _orderSpeed,
+    _orderMass,
+    _orderForce,
+    _orderFuelConsumption,
+    _orderNumeralSystems,
+    _orderPressure,
+    _orderEnergy,
+    _orderPower,
+    _orderAngle,
+    _orderShoeSize,
+    _orderData,
+    _orderPrefixes,
     _orderTorque,
-    _orderConsumo,
-    _orderBasi
   ];
   bool _isCurrenciesLoading = true;
   bool _removeTrailingZeros = true;
@@ -129,7 +129,7 @@ class Conversions with ChangeNotifier {
 
   Conversions() {
     _checkCurrencies(); //update the currencies with the latest conversions rates and then
-    //_checkOrdersUnits();
+    _checkOrdersUnits();
     _checkSettings();
     _refreshConversionsList();
   }
@@ -140,7 +140,7 @@ class Conversions with ChangeNotifier {
       Area(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.AREA),
       Volume(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.VOLUME),
       SimpleCustomConversion(_currencyValues,
-                mapSymbols: _currenciesSymbols, significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.CURRENCIES),
+          mapSymbols: _currenciesSymbols, significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.CURRENCIES),
       Time(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.TIME),
       Temperature(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.TEMPERATURE),
       Speed(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.SPEED),
@@ -159,36 +159,20 @@ class Conversions with ChangeNotifier {
     ];
     _currentProperty = _propertyList[_currentPage];
 
-    //Initialize of all the UnitData: name, textEditingController, symbol
-    List<Unit> tempProperty;
-    List<UnitData> tempUnitData = [];
-    for (Property property in _propertyList) {
-      tempProperty = property.getAll();
-      for (Unit unit in tempProperty) {
-        tempUnitData.add(
-          UnitData(
-            unit,
-            property: property.name,
-            tec: TextEditingController(),
-          ),
-        );
-      }
-      _unitDataList.add(tempUnitData);
-      tempUnitData = [];
-    }
-    currentUnitDataList = _unitDataList[_currentPage];
+    //Initialize of all the UnitData: name, textEditingController, symbol with the given order
+    _refreshOrderUnits();
+    //_currentOrder = _conversionsOrder[_currentPage];
   }
 
+  /// This function get the value of the unit from currentProperty and update the currentUnitDataList values. It is used when a conversion changes the values of
+  /// the units
   _refreshCurrentUnitDataList() {
-    int len = currentUnitDataList.length;
-    List<Unit> updatedUnit = _currentProperty.getAll();
-    for (int i = 0; i < len; i++) {
-      UnitData currentUnitData = currentUnitDataList[i];
-      currentUnitData.unit = updatedUnit[i];
+    for (UnitData currentUnitData in currentUnitDataList) {
+      currentUnitData.unit = _currentProperty.getUnit(currentUnitData.unit.name);
       if (currentUnitData != _selectedUnit && currentUnitData.unit.stringValue != null) {
-        currentUnitDataList[i].tec.text = currentUnitData.unit.stringValue;
+        currentUnitData.tec.text = currentUnitData.unit.stringValue;
       } else if (currentUnitData.unit.stringValue == null) {
-        currentUnitDataList[i].tec.text = '';
+        currentUnitData.tec.text = '';
       }
     }
   }
@@ -204,6 +188,7 @@ class Conversions with ChangeNotifier {
     _currentPage = currentPage;
     _currentProperty = _propertyList[_currentPage];
     currentUnitDataList = _unitDataList[_currentPage];
+    //_currentOrder = _conversionsOrder[_currentPage]; //updates the current order List
     notifyListeners();
   }
 
@@ -278,17 +263,16 @@ class Conversions with ChangeNotifier {
     notifyListeners(); //change the value of the current conversions
   }
 
-  /*
   ///Get the orders of each units of measurement from the memory
   _checkOrdersUnits() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> stringList;
     //Update every order of every conversion
-    for (int i = 0; i < conversionsList.length; i++) {
+    for (int i = 0; i < _propertyList.length; i++) {
       stringList = prefs.getStringList("conversion_$i");
       if (stringList != null) {
         final int len = stringList.length;
-        List<int> intList = new List();
+        List<int> intList = [];
         for (int j = 0; j < len; j++) {
           intList.add(int.parse(stringList[j]));
         }
@@ -297,36 +281,57 @@ class Conversions with ChangeNotifier {
         _conversionsOrder[i] = intList;
       }
     }
-    _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
+    _refreshOrderUnits();
+    currentUnitDataList = _unitDataList[_currentPage];
+    //_currentOrder = _conversionsOrder[_currentPage];
     notifyListeners();
+  }
+
+  /// Apply the order defined in [_conversionsOrder] to [_unitDataList]. [_unitDataList] will be redefined, so this function is used also dureing initialization
+  _refreshOrderUnits() {
+    _unitDataList = [];
+    for (int i = 0; i < _propertyList.length; i++) {
+      List<UnitData> tempUnitData = List.filled(_conversionsOrder[i].length, null);
+      Property property = _propertyList[i];
+      List<Unit> tempProperty = property.getAll();
+      for (int j = 0; j < tempProperty.length; j++) {
+        tempUnitData[_conversionsOrder[i][j]] = UnitData(
+          tempProperty[j],
+          property: property.name,
+          tec: TextEditingController(),
+        );
+      }
+      _unitDataList.add(tempUnitData);
+    }
   }
 
   ///Given a list of translated units of measurement it changes the order
   ///of the units (_conversionsOrder) opening a separate page (ReorderPage)
-  changeOrderUnits(BuildContext context, List<String> listUnitsNames, int currentPage) async {
-    final List<int> result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ReorderPage(listUnitsNames),
-      ),
-    );
+  changeOrderUnits(List<int> result) async {
     //if there arent't any modifications, do nothing
     if (result != null) {
-      List arrayCopy = new List(_conversionsOrder[currentPage].length);
-      for (int i = 0; i < _conversionsOrder[currentPage].length; i++) arrayCopy[i] = _conversionsOrder[currentPage][i];
-      for (int i = 0; i < _conversionsOrder[currentPage].length; i++) _conversionsOrder[currentPage][i] = result.indexOf(arrayCopy[i]);
-      _conversionsList = initializeUnits(_conversionsOrder, _currencyValues, _significantFigures, _removeTrailingZeros);
+      List arrayCopy = List.filled(_conversionsOrder[_currentPage].length, null);
+      for (int i = 0; i < _conversionsOrder[_currentPage].length; i++) {
+        arrayCopy[i] = _conversionsOrder[_currentPage][i];
+      }
+      for (int i = 0; i < _conversionsOrder[_currentPage].length; i++) {
+        _conversionsOrder[_currentPage][i] = result.indexOf(arrayCopy[i]);
+      }
+      _refreshOrderUnits();
+      currentUnitDataList = _unitDataList[_currentPage];
+      //_currentOrder = _conversionsOrder[_currentPage];
       notifyListeners();
-      _saveOrders(currentPage);
+      _saveOrders();
     }
   }
 
-  _saveOrders(int currentPage) async {
+  ///Saves the order of _conversionsOrder of the _currentPage on memory
+  _saveOrders() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> toConvertList = new List();
-    for (int item in _conversionsOrder[currentPage]) toConvertList.add(item.toString());
-    prefs.setStringList("conversion_$currentPage", toConvertList);
-  }*/
+    List<String> toConvertList = [];
+    for (int item in _conversionsOrder[_currentPage]) toConvertList.add(item.toString());
+    prefs.setStringList("conversion_$_currentPage", toConvertList);
+  }
 
   //Settings section------------------------------------------------------------------
 
