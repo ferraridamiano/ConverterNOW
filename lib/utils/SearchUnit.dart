@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'Utils.dart';
 
 List<SearchUnit> initializeSearchUnits(Function onTap, Map jsonSearch) {
@@ -235,26 +237,28 @@ List<SearchUnit> initializeSearchUnits(Function onTap, Map jsonSearch) {
           SearchUnit(iconAsset: "conversione_base", unitName: jsonSearch["binario"], onTap: (){onTap(18);}),
         ];
 }
-List<SearchGridTile> initializeGridSearch(Function onTap, Map jsonSearch, bool darkMode){
-  return [
-          SearchGridTile(iconAsset: "lunghezza", footer: jsonSearch["lunghezza"], onTap: (){onTap(0);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "area", footer: jsonSearch["superficie"], onTap: (){onTap(1);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "volume", footer: jsonSearch["volume"], onTap: (){onTap(2);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "tempo", footer: jsonSearch["tempo"], onTap: (){onTap(3);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "temperatura", footer: jsonSearch["temperatura"], onTap: (){onTap(4);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "velocita", footer: jsonSearch["velocita"], onTap: (){onTap(5);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "massa", footer: jsonSearch["massa"], onTap: (){onTap(7);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "pressione", footer: jsonSearch["pressione"], onTap: (){onTap(8);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "energia", footer: jsonSearch["energia"], onTap: (){onTap(9);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "angoli", footer: jsonSearch["angoli"], onTap: (){onTap(10);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "valuta", footer: jsonSearch["valuta"], onTap: (){onTap(11);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "potenza", footer: jsonSearch["potenza"], onTap: (){onTap(14);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "forza", footer: jsonSearch["forza"], onTap: (){onTap(15);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "conversione_base", footer: jsonSearch["basi_numeriche"], onTap: (){onTap(18);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "consumo", footer: jsonSearch["consumo_carburante"], onTap: (){onTap(17);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "torque", footer: jsonSearch["momento"], onTap: (){onTap(16);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "dati", footer: jsonSearch["dati_digitali"], onTap: (){onTap(13);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "scarpe", footer: jsonSearch["taglia_scarpe"], onTap: (){onTap(12);}, darkMode: darkMode,),
-          SearchGridTile(iconAsset: "prefissi", footer: jsonSearch["prefissi_si"], onTap: (){onTap(6);}, darkMode: darkMode,),
-        ];
+List<SearchGridTile> initializeGridSearch(Function onTap, BuildContext context, bool darkMode, List<int> orderList){
+
+  List<SearchGridTile> list = List.filled(19, null); //list of 19 properties
+  list[orderList[0]] = SearchGridTile(iconAsset: "length", footer: AppLocalizations.of(context).length, onTap: (){onTap(0);}, darkMode: darkMode);
+  list[orderList[1]] = SearchGridTile(iconAsset: "area", footer: AppLocalizations.of(context).area, onTap: (){onTap(1);}, darkMode: darkMode);
+  list[orderList[2]] = SearchGridTile(iconAsset: "volume", footer: AppLocalizations.of(context).volume, onTap: (){onTap(2);}, darkMode: darkMode);
+  list[orderList[3]] = SearchGridTile(iconAsset: "currencies", footer: AppLocalizations.of(context).currencies, onTap: (){onTap(3);}, darkMode: darkMode);
+  list[orderList[4]] = SearchGridTile(iconAsset: "time", footer: AppLocalizations.of(context).time, onTap: (){onTap(4);}, darkMode: darkMode);
+  list[orderList[5]] = SearchGridTile(iconAsset: "temperature", footer: AppLocalizations.of(context).temperature, onTap: (){onTap(5);}, darkMode: darkMode);
+  list[orderList[6]] = SearchGridTile(iconAsset: "speed", footer: AppLocalizations.of(context).speed, onTap: (){onTap(6);}, darkMode: darkMode);
+  list[orderList[7]] = SearchGridTile(iconAsset: "mass", footer: AppLocalizations.of(context).mass, onTap: (){onTap(7);}, darkMode: darkMode);
+  list[orderList[8]] = SearchGridTile(iconAsset: "force", footer: AppLocalizations.of(context).force, onTap: (){onTap(8);}, darkMode: darkMode,);
+  list[orderList[9]] = SearchGridTile(iconAsset: "fuel", footer: AppLocalizations.of(context).fuelConsumption, onTap: (){onTap(9);}, darkMode: darkMode);
+  list[orderList[10]] = SearchGridTile(iconAsset: "num_systems", footer: AppLocalizations.of(context).numeralSystems, onTap: (){onTap(10);}, darkMode: darkMode);
+  list[orderList[11]] = SearchGridTile(iconAsset: "pressure", footer: AppLocalizations.of(context).pressure, onTap: (){onTap(11);}, darkMode: darkMode);
+  list[orderList[12]] = SearchGridTile(iconAsset: "energy", footer: AppLocalizations.of(context).energy, onTap: (){onTap(12);}, darkMode: darkMode);
+  list[orderList[13]] = SearchGridTile(iconAsset: "power", footer: AppLocalizations.of(context).power, onTap: (){onTap(13);}, darkMode: darkMode);
+  list[orderList[14]] = SearchGridTile(iconAsset: "angles", footer: AppLocalizations.of(context).angles, onTap: (){onTap(14);}, darkMode: darkMode);
+  list[orderList[15]] = SearchGridTile(iconAsset: "shoe_size", footer: AppLocalizations.of(context).shoeSize, onTap: (){onTap(15);}, darkMode: darkMode);
+  list[orderList[16]] = SearchGridTile(iconAsset: "data", footer: AppLocalizations.of(context).digitalData, onTap: (){onTap(15);}, darkMode: darkMode);
+  list[orderList[17]] = SearchGridTile(iconAsset: "prefixes", footer: AppLocalizations.of(context).siPrefixes, onTap: (){onTap(17);}, darkMode: darkMode);
+  list[orderList[18]] = SearchGridTile(iconAsset: "torque", footer: AppLocalizations.of(context).torque, onTap: (){onTap(18);}, darkMode: darkMode);
+
+  return list;
 }

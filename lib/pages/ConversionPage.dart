@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/utils/SearchUnit.dart';
 import 'package:intl/intl.dart';
-
 import 'ReorderPage.dart';
 
 Map jsonSearch;
@@ -17,13 +16,10 @@ Map jsonSearch;
 class ConversionPage extends StatelessWidget {
   final Function openDrawer;
   final String lastUpdateCurrency;
-  //List<TextEditingController> listaController = [];
   //List<FocusNode> listaFocus = [];
   //List listaNodi;
 
   ConversionPage({this.openDrawer, this.lastUpdateCurrency});
-
-  final SearchDelegate _searchDelegate = CustomSearchDelegate();
 
   /*_getJsonSearch(BuildContext context) async {
     jsonSearch ??= json.decode(
@@ -160,13 +156,18 @@ class ConversionPage extends StatelessWidget {
                   },
                 ),
                 IconButton(
+                  // search
                   tooltip: AppLocalizations.of(context).search,
                   icon: Icon(
                     Icons.search,
                     color: Colors.white,
                   ),
                   onPressed: () async {
-                    final int newPage = await showSearch(context: context, delegate: _searchDelegate);
+                    final orderList = context.read<AppModel>().conversionsOrderDrawer;
+                    final int newPage = await showSearch(
+                      context: context,
+                      delegate: CustomSearchDelegate(orderList),
+                    );
                     if (newPage != null) {
                       AppModel appModel = context.read<AppModel>();
                       if (appModel.currentPage != newPage) appModel.changeToPage(newPage);
@@ -188,12 +189,6 @@ class ConversionPage extends StatelessWidget {
                       ),
                     );
                     context.read<Conversions>().changeOrderUnits(result);
-
-                    /*List<String> listTranslatedUnits = [];
-                      for (String stringa
-                          in conversions.conversionsList[appModel.currentPage].getStringOrderedNodiFiglio())
-                        listTranslatedUnits.add(AppLocalizations.of(context).trans(stringa));
-                      conversions.changeOrderUnits(context, listTranslatedUnits, appModel.currentPage);*/
                   },
                   itemBuilder: (BuildContext context) {
                     return choices.map((Choice choice) {
@@ -238,6 +233,10 @@ class Choice {
 }
 
 class CustomSearchDelegate extends SearchDelegate<int> {
+  final List<int> orderList;
+
+  CustomSearchDelegate(this.orderList);
+
   @override
   ThemeData appBarTheme(BuildContext context) => Theme.of(context);
 
@@ -257,25 +256,32 @@ class CustomSearchDelegate extends SearchDelegate<int> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final List<SearchUnit> _dataSearch = initializeSearchUnits((int pageNumber) {
+    final List<SearchUnit> _dataSearch = null;
+    /*initializeSearchUnits((int pageNumber) {
       close(context, pageNumber);
-    }, jsonSearch);
-    final List<SearchGridTile> allConversions = initializeGridSearch((int pageNumber) {
-      close(context, pageNumber);
-    }, jsonSearch, MediaQuery.of(context).platformBrightness == Brightness.dark);
+    }, jsonSearch);*/
+    final List<SearchGridTile> allConversions = initializeGridSearch(
+      (int pageNumber) {
+        close(context, pageNumber);
+      },
+      context,
+      MediaQuery.of(context).platformBrightness == Brightness.dark,
+      orderList,
+    );
 
-    final Iterable<SearchUnit> suggestions =
-        _dataSearch.where((searchUnit) => searchUnit.unitName.toLowerCase().contains(query.toLowerCase())); //.toLowercase in order to be case insesitive
+    /*final Iterable<SearchUnit> suggestions =
+        _dataSearch.where((searchUnit) => searchUnit.unitName.toLowerCase().contains(query.toLowerCase()));*/ //.toLowercase in order to be case insesitive
 
-    return query.isNotEmpty
+    return /*query.isNotEmpty
         ? SuggestionList(
             suggestions: suggestions.toList(),
             darkMode: MediaQuery.of(context).platformBrightness == Brightness.dark,
           )
-        : GridView(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200.0),
-            children: allConversions,
-          );
+        : */
+        GridView(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200.0),
+      children: allConversions,
+    );
   }
 
   @override
