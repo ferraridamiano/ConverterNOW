@@ -49,10 +49,12 @@ initializeUnits(List listaOrder, Map currencyValues, int signFig, bool rmTr0s){
         Node(isMultiplication: true, coefficientPer: 3.785411784, name:  'gallone_us',symbol:"[US gal]",order: listaOrder[2][3],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
         Node(isMultiplication: true, coefficientPer: 0.56826125, name:  'pinta_imperiale',symbol:"[imp pt]",order: listaOrder[2][4],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
         Node(isMultiplication: true, coefficientPer: 0.473176473, name:  'pinta_us',symbol:"[US pt]",order: listaOrder[2][5],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
-        Node(isMultiplication: false, coefficientPer: 1000.0, name:  'millilitro',symbol:"[ml]",order: listaOrder[2][6],significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes: [
-          Node(isMultiplication: true, coefficientPer: 14.8, name:  'tablespoon_us',symbol:"[tbsp.]",significantFigures: signFig, removeTrailingZeros: rmTr0s,order: listaOrder[2][7],),
-          Node(isMultiplication: true, coefficientPer: 20.0, name:  'tablespoon_australian',symbol:"[tbsp.]",order:listaOrder[2][8],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
-          Node(isMultiplication: true, coefficientPer: 240.0, name:  'cup_us',symbol:"[cup]",order: listaOrder[2][9],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: true, coefficientPer: 35.19507973, name:  'fl_oncia_imperiale',symbol:"[imp fl oz]",order: listaOrder[2][6],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: true, coefficientPer: 33.8140227, name:  'fl_oncia_us',symbol:"[US fl oz]",order: listaOrder[2][7],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+        Node(isMultiplication: false, coefficientPer: 1000.0, name:  'millilitro',symbol:"[ml]",order: listaOrder[2][8],significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes: [
+          Node(isMultiplication: true, coefficientPer: 14.8, name:  'tablespoon_us',symbol:"[tbsp.]",significantFigures: signFig, removeTrailingZeros: rmTr0s,order: listaOrder[2][9],),
+          Node(isMultiplication: true, coefficientPer: 20.0, name:  'tablespoon_australian',symbol:"[tbsp.]",order:listaOrder[2][10],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
+          Node(isMultiplication: true, coefficientPer: 240.0, name:  'cup_us',symbol:"[cup]",order: listaOrder[2][11],significantFigures: signFig, removeTrailingZeros: rmTr0s,),
         ]),
       ]),
       Node(isMultiplication: false, coefficientPer: 1000000.0, name:  'centimetro_cubo',symbol:"[cm³]",order: listaOrder[2][10],significantFigures: signFig, removeTrailingZeros: rmTr0s, leafNodes: [
@@ -345,6 +347,8 @@ List<SearchUnit> initializeSearchUnits(Function onTap, Map jsonSearch) {
           SearchUnit(iconAsset: "volume", unitName: jsonSearch["gallone_us"], onTap: (){onTap(2);}),
           SearchUnit(iconAsset: "volume", unitName: jsonSearch["pinta_imperiale"], onTap: (){onTap(2);}),
           SearchUnit(iconAsset: "volume", unitName: jsonSearch["pinta_us"], onTap: (){onTap(2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["fl_oncia_imperiale"], onTap: (){onTap(2);}),
+          SearchUnit(iconAsset: "volume", unitName: jsonSearch["fl_oncia_us"], onTap: (){onTap(2);}),
           SearchUnit(iconAsset: "volume", unitName: jsonSearch["millilitro"], onTap: (){onTap(2);}),
           SearchUnit(iconAsset: "volume", unitName: jsonSearch["tablespoon_us"], onTap: (){onTap(2);}),
           SearchUnit(iconAsset: "volume", unitName: jsonSearch["tablespoon_australian"], onTap: (){onTap(2);}),
