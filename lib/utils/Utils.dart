@@ -736,3 +736,19 @@ enum CURRENCIES {
   KRW,
   PLN,
 }
+
+class PropertyUi {
+  final PROPERTYX property;
+  final String name; //uman readable name
+  final String imagePath;
+
+  PropertyUi(this.property, this.name, this.imagePath);
+}
+
+class UnitUi {
+  final unit; //name of the unit
+  final String name; //uman readable name
+  final PropertyUi propertyUi;
+
+  UnitUi(this.unit, this.name, this.propertyUi);
+}

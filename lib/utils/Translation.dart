@@ -3,34 +3,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:units_converter/units_converter.dart';
 import 'Utils.dart';
 
-Map<PROPERTYX, String> getPropertyTranslationMap(BuildContext context) {
-  return {
-    PROPERTYX.LENGTH: AppLocalizations.of(context).length,
-    PROPERTYX.AREA: AppLocalizations.of(context).area,
-    PROPERTYX.VOLUME: AppLocalizations.of(context).volume,
-    PROPERTYX.CURRENCIES: AppLocalizations.of(context).currencies,
-    PROPERTYX.TIME: AppLocalizations.of(context).time,
-    PROPERTYX.TEMPERATURE: AppLocalizations.of(context).temperature,
-    PROPERTYX.SPEED: AppLocalizations.of(context).speed,
-    PROPERTYX.MASS: AppLocalizations.of(context).mass,
-    PROPERTYX.FORCE: AppLocalizations.of(context).force,
-    PROPERTYX.FUEL_CONSUMPTION: AppLocalizations.of(context).fuelConsumption,
-    PROPERTYX.NUMERAL_SYSTEMS: AppLocalizations.of(context).numeralSystems,
-    PROPERTYX.PRESSURE: AppLocalizations.of(context).pressure,
-    PROPERTYX.ENERGY: AppLocalizations.of(context).energy,
-    PROPERTYX.POWER: AppLocalizations.of(context).power,
-    PROPERTYX.ANGLE: AppLocalizations.of(context).angles,
-    PROPERTYX.SHOE_SIZE: AppLocalizations.of(context).shoeSize,
-    PROPERTYX.DIGITAL_DATA: AppLocalizations.of(context).digitalData,
-    PROPERTYX.SI_PREFIXES: AppLocalizations.of(context).siPrefixes,
-    PROPERTYX.TORQUE: AppLocalizations.of(context).torque,
-  };
-}
-
-List<String> getPropertyTranslationList(BuildContext context) {
-
-  return getPropertyTranslationMap(context).values.toList();
-}
 
 Map<dynamic, String> getUnitTranslationMap(BuildContext context) {
   return {

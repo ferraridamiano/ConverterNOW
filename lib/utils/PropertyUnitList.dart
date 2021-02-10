@@ -2,6 +2,53 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'Utils.dart';
 
+List<PropertyUi> getPropertyUiList(BuildContext context){
+
+  const String basePath = 'resources/images/';
+
+  List<PropertyUi> propertyUiList = [];
+
+  propertyUiList.add(PropertyUi(PROPERTYX.LENGTH, AppLocalizations.of(context).length, basePath + 'length.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.AREA, AppLocalizations.of(context).area, basePath + 'area.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.VOLUME, AppLocalizations.of(context).volume, basePath + 'volume.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.CURRENCIES, AppLocalizations.of(context).currencies, basePath + 'currencies.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.TIME, AppLocalizations.of(context).time, basePath + 'time.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.TEMPERATURE, AppLocalizations.of(context).temperature, basePath + 'temperature.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.SPEED, AppLocalizations.of(context).speed, basePath + 'speed.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.MASS, AppLocalizations.of(context).mass, basePath + 'mass.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.FORCE, AppLocalizations.of(context).force, basePath + 'force.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.FUEL_CONSUMPTION, AppLocalizations.of(context).fuelConsumption, basePath + 'fuel.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.NUMERAL_SYSTEMS, AppLocalizations.of(context).numeralSystems, basePath + 'num_systems.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.PRESSURE, AppLocalizations.of(context).pressure, basePath + 'pressure.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.ENERGY, AppLocalizations.of(context).energy, basePath + 'energy.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.POWER, AppLocalizations.of(context).power, basePath + 'power.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.ANGLE, AppLocalizations.of(context).angles, basePath + 'angles.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.SHOE_SIZE, AppLocalizations.of(context).shoeSize, basePath + 'shoe_size.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.DIGITAL_DATA, AppLocalizations.of(context).digitalData, basePath + 'data.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.SI_PREFIXES, AppLocalizations.of(context).siPrefixes, basePath + 'prefixes.png'));
+  propertyUiList.add(PropertyUi(PROPERTYX.TORQUE, AppLocalizations.of(context).torque, basePath + 'torque.png'));
+
+  return propertyUiList;
+}
+
+/// This method will return a map of Property name translated: {PROPERTYX.LENGTH: 'Length', ...}
+Map<PROPERTYX, String> getPropertyTranslationMap(BuildContext context){
+
+  List<PropertyUi> propertyUiList = getPropertyUiList(context);
+  Map<PROPERTYX, String> propertyTranslationMap = {};
+
+  for(PropertyUi propertyUi in propertyUiList){
+    propertyTranslationMap.putIfAbsent(propertyUi.property, () => propertyUi.name);
+  }
+
+  return propertyTranslationMap;
+}
+
+/// This method will return the list of Property name translated: ['Length', 'Area', 'Volume', ...]
+List<String> getPropertyNameList(BuildContext context){
+  return getPropertyTranslationMap(context).values.toList();
+}
+
 List<SearchUnit> initializeSearchUnits(Function onTap, Map jsonSearch) {
 
   return [
