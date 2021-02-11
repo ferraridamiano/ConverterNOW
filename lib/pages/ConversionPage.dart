@@ -1,6 +1,5 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/Conversions.dart';
-import 'package:converterpro/utils/Translation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';

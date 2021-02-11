@@ -264,6 +264,18 @@ List<UnitUi> getUnitUiList(BuildContext context) {
   return unitUiList;
 }
 
+Map<dynamic, String> getUnitTranslationMap(BuildContext context) {
+  List<UnitUi> unitUiList = getUnitUiList(context);
+
+  Map<dynamic, String> unitTranslationMap = {};
+
+  for (UnitUi unitUi in unitUiList) {
+    unitTranslationMap.putIfAbsent(unitUi.unit, () => unitUi.name);
+  }
+
+  return unitTranslationMap;
+}
+
 List<SearchUnit> getSearchUnitsList(Function onTap, BuildContext context) {
   List<SearchUnit> searchUnitsList = [];
   List<UnitUi> unitUiList = getUnitUiList(context);
