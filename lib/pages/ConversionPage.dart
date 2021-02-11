@@ -256,7 +256,9 @@ class CustomSearchDelegate extends SearchDelegate<int> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final List<SearchUnit> _dataSearch = null;
+    final List<SearchUnit> _dataSearch = getSearchUnitsList((int pageNumber) {
+      close(context, pageNumber);
+    }, context);
     /*initializeSearchUnits((int pageNumber) {
       close(context, pageNumber);
     }, jsonSearch);*/
@@ -269,15 +271,15 @@ class CustomSearchDelegate extends SearchDelegate<int> {
       orderList,
     );
 
-    /*final Iterable<SearchUnit> suggestions =
-        _dataSearch.where((searchUnit) => searchUnit.unitName.toLowerCase().contains(query.toLowerCase()));*/ //.toLowercase in order to be case insesitive
+    final Iterable<SearchUnit> suggestions =
+        _dataSearch.where((searchUnit) => searchUnit.unitName.toLowerCase().contains(query.toLowerCase())); //.toLowercase in order to be case insesitive
 
-    return /*query.isNotEmpty
+    return query.isNotEmpty
         ? SuggestionList(
             suggestions: suggestions.toList(),
             darkMode: MediaQuery.of(context).platformBrightness == Brightness.dark,
           )
-        : */
+        : 
         GridView(
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200.0),
       children: allConversions,
@@ -294,7 +296,7 @@ class CustomSearchDelegate extends SearchDelegate<int> {
     return <Widget>[
       if (query.isNotEmpty)
         IconButton(
-          tooltip: 'Clear',
+          tooltip: AppLocalizations.of(context).clearAll,
           icon: const Icon(Icons.clear),
           onPressed: () {
             query = '';

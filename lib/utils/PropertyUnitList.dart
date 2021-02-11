@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:units_converter/units_converter.dart';
 import 'Utils.dart';
 
-List<PropertyUi> getPropertyUiList(BuildContext context){
-
+List<PropertyUi> getPropertyUiList(BuildContext context) {
   const String basePath = 'resources/images/';
 
   List<PropertyUi> propertyUiList = [];
@@ -32,12 +32,11 @@ List<PropertyUi> getPropertyUiList(BuildContext context){
 }
 
 /// This method will return a map of Property name translated: {PROPERTYX.LENGTH: 'Length', ...}
-Map<PROPERTYX, String> getPropertyTranslationMap(BuildContext context){
-
+Map<PROPERTYX, String> getPropertyTranslationMap(BuildContext context) {
   List<PropertyUi> propertyUiList = getPropertyUiList(context);
   Map<PROPERTYX, String> propertyTranslationMap = {};
 
-  for(PropertyUi propertyUi in propertyUiList){
+  for (PropertyUi propertyUi in propertyUiList) {
     propertyTranslationMap.putIfAbsent(propertyUi.property, () => propertyUi.name);
   }
 
@@ -45,267 +44,266 @@ Map<PROPERTYX, String> getPropertyTranslationMap(BuildContext context){
 }
 
 /// This method will return the list of Property name translated: ['Length', 'Area', 'Volume', ...]
-List<String> getPropertyNameList(BuildContext context){
+List<String> getPropertyNameList(BuildContext context) {
   return getPropertyTranslationMap(context).values.toList();
 }
 
-List<SearchUnit> initializeSearchUnits(Function onTap, Map jsonSearch) {
+List<UnitUi> getUnitUiList(BuildContext context) {
+  const String basePath = 'resources/images/';
+  List<UnitUi> unitUiList = [];
 
-  return [
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["lunghezza"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["metro"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["centimetro"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["pollice"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["piede"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["miglio_marino"], onTap: (){onTap( 0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["miglio_terrestre"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["yard"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["millimetro"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["micrometro"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["nanometro"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["angstrom"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["picometro"], onTap: (){onTap( 0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["chilometro"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["unita_astronomica"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["anno_luce"], onTap: (){onTap(0);}),
-          SearchUnit(iconAsset: "lunghezza", unitName: jsonSearch["parsec"], onTap: (){onTap(0);}),
-    
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["superficie"], onTap: (){onTap(1);}),
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["metro_quadrato"], onTap: (){onTap(1);}),
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["centimetro_quadrato"], onTap: (){onTap(1);}),
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["pollice_quadrato"], onTap: (){onTap(1);}),
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["piede_quadrato"], onTap: (){onTap(1);}),
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["miglio_quadrato"], onTap: (){onTap(1);}),
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["yard_quadrato"], onTap: (){onTap(1);}),
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["millimetro_quadrato"], onTap: (){onTap(1);}),
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["chilometro_quadrato"], onTap: (){onTap(1);}),
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["ettaro"], onTap: (){onTap(1);}),
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["acri"], onTap: (){onTap(1);}),
-          SearchUnit(iconAsset: "area", unitName: jsonSearch["ara"], onTap: (){onTap(1);}),
-          
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["volume"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["metro_cubo"], onTap: (){onTap();}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["litro"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["gallone_imperiale"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["gallone_us"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["pinta_imperiale"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["pinta_us"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["millilitro"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["tablespoon_us"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["tablespoon_australian"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["cup_us"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["centimetro_cubo"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["piede_cubo"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["pollice_cubo"], onTap: (){onTap(2);}),
-          SearchUnit(iconAsset: "volume", unitName: jsonSearch["millimetro_cubo"], onTap: (){onTap(2);}),
-    
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["tempo"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["secondo"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["decimo_secondo"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["centesimo_secondo"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["millisecondo"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["microsecondo"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["nanosecondo"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["minuti"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["ore"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["giorni"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["settimane"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["anno"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["lustro"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["decade"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["secolo"], onTap: (){onTap(3);}),
-          SearchUnit(iconAsset: "tempo", unitName: jsonSearch["millennio"], onTap: (){onTap(3);}),
-    
-          SearchUnit(iconAsset: "temperatura", unitName: jsonSearch["temperatura"], onTap: (){onTap(4);}),
-          SearchUnit(iconAsset: "temperatura", unitName: jsonSearch["fahrenheit"], onTap: (){onTap(4);}),
-          SearchUnit(iconAsset: "temperatura", unitName: jsonSearch["celsius"], onTap: (){onTap(4);}),
-          SearchUnit(iconAsset: "temperatura", unitName: jsonSearch["kelvin"], onTap: (){onTap(4);}),
-          SearchUnit(iconAsset: "temperatura", unitName: "Delisle", onTap: (){onTap(4);}),
-          SearchUnit(iconAsset: "temperatura", unitName: "Rømer", onTap: (){onTap(4);}),
-          SearchUnit(iconAsset: "temperatura", unitName: "Reamur", onTap: (){onTap(4);}),
-          SearchUnit(iconAsset: "temperatura", unitName: "Rankine", onTap: (){onTap(4);}),
-    
-          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["velocita"], onTap: (){onTap(5);}),
-          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["metri_secondo"], onTap: (){onTap(5);}),
-          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["chilometri_ora"], onTap: (){onTap(5);}),
-          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["miglia_ora"], onTap: (){onTap(5);}),
-          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["nodi"], onTap: (){onTap(5);}),
-          SearchUnit(iconAsset: "velocita", unitName: jsonSearch["piedi_secondo"], onTap: (){onTap(5);}),
+  unitUiList.add(UnitUi(LENGTH.meters, AppLocalizations.of(context).meters, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.centimeters, AppLocalizations.of(context).centimeters, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.inches, AppLocalizations.of(context).inches, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.feet, AppLocalizations.of(context).feet, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.nautical_miles, AppLocalizations.of(context).nauticalMiles, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.yards, AppLocalizations.of(context).yards, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.miles, AppLocalizations.of(context).miles, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.millimeters, AppLocalizations.of(context).millimeters, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.micrometers, AppLocalizations.of(context).micrometers, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.nanometers, AppLocalizations.of(context).nanometers, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.angstroms, AppLocalizations.of(context).angstroms, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.picometers, AppLocalizations.of(context).picometers, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.kilometers, AppLocalizations.of(context).kilometers, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.astronomical_units, AppLocalizations.of(context).astronomicalUnits, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.light_years, AppLocalizations.of(context).lightYears, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(LENGTH.parsec, AppLocalizations.of(context).parsec, basePath + 'length.png', PROPERTYX.LENGTH));
+  unitUiList.add(UnitUi(AREA.square_meters, AppLocalizations.of(context).squareMeters, basePath + 'area.png', PROPERTYX.AREA));
+  unitUiList.add(UnitUi(AREA.square_centimeters, AppLocalizations.of(context).squareCentimeters, basePath + 'area.png', PROPERTYX.AREA));
+  unitUiList.add(UnitUi(AREA.square_inches, AppLocalizations.of(context).squareInches, basePath + 'area.png', PROPERTYX.AREA));
+  unitUiList.add(UnitUi(AREA.square_feet, AppLocalizations.of(context).squareFeet, basePath + 'area.png', PROPERTYX.AREA));
+  unitUiList.add(UnitUi(AREA.square_miles, AppLocalizations.of(context).squareMiles, basePath + 'area.png', PROPERTYX.AREA));
+  unitUiList.add(UnitUi(AREA.square_yard, AppLocalizations.of(context).squareYard, basePath + 'area.png', PROPERTYX.AREA));
+  unitUiList.add(UnitUi(AREA.square_millimeters, AppLocalizations.of(context).squareMillimeters, basePath + 'area.png', PROPERTYX.AREA));
+  unitUiList.add(UnitUi(AREA.square_kilometers, AppLocalizations.of(context).squareKilometers, basePath + 'area.png', PROPERTYX.AREA));
+  unitUiList.add(UnitUi(AREA.hectares, AppLocalizations.of(context).hectares, basePath + 'area.png', PROPERTYX.AREA));
+  unitUiList.add(UnitUi(AREA.acres, AppLocalizations.of(context).acres, basePath + 'area.png', PROPERTYX.AREA));
+  unitUiList.add(UnitUi(AREA.are, AppLocalizations.of(context).are, basePath + 'area.png', PROPERTYX.AREA));
+  unitUiList.add(UnitUi(VOLUME.cubic_meters, AppLocalizations.of(context).cubicMeters, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.liters, AppLocalizations.of(context).liters, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.imperial_gallons, AppLocalizations.of(context).imperialGallons, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.us_gallons, AppLocalizations.of(context).usGallons, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.imperial_pints, AppLocalizations.of(context).imperialPints, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.us_pints, AppLocalizations.of(context).usPints, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.milliliters, AppLocalizations.of(context).milliliters, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.tablespoons_us, AppLocalizations.of(context).tablespoonUs, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.australian_tablespoons, AppLocalizations.of(context).tablespoonAustralian, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.cups, AppLocalizations.of(context).cups, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.cubic_centimeters, AppLocalizations.of(context).cubicCentimeters, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.cubic_feet, AppLocalizations.of(context).cubicFeet, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.cubic_inches, AppLocalizations.of(context).cubicInches, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(VOLUME.cubic_millimeters, AppLocalizations.of(context).cubicMillimeters, basePath + 'volume.png', PROPERTYX.VOLUME));
+  unitUiList.add(UnitUi(CURRENCIES.EUR, AppLocalizations.of(context).eur, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.CAD, AppLocalizations.of(context).cad, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.HKD, AppLocalizations.of(context).hkd, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.RUB, AppLocalizations.of(context).rub, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.PHP, AppLocalizations.of(context).php, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.DKK, AppLocalizations.of(context).dkk, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.NZD, AppLocalizations.of(context).nzd, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.CNY, AppLocalizations.of(context).cny, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.AUD, AppLocalizations.of(context).aud, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.RON, AppLocalizations.of(context).ron, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.SEK, AppLocalizations.of(context).sek, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.IDR, AppLocalizations.of(context).idr, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.INR, AppLocalizations.of(context).inr, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.BRL, AppLocalizations.of(context).brl, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.USD, AppLocalizations.of(context).usd, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.ILS, AppLocalizations.of(context).ils, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.JPY, AppLocalizations.of(context).jpy, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.THB, AppLocalizations.of(context).thb, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.CHF, AppLocalizations.of(context).chf, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.CZK, AppLocalizations.of(context).czk, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.MYR, AppLocalizations.of(context).myr, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.TRY, AppLocalizations.of(context).trY, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.MXN, AppLocalizations.of(context).mxn, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.NOK, AppLocalizations.of(context).nok, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.HUF, AppLocalizations.of(context).huf, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.ZAR, AppLocalizations.of(context).zar, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.SGD, AppLocalizations.of(context).sgd, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.GBP, AppLocalizations.of(context).gbp, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.KRW, AppLocalizations.of(context).krw, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(CURRENCIES.PLN, AppLocalizations.of(context).pln, basePath + 'currencies.png', PROPERTYX.CURRENCIES));
+  unitUiList.add(UnitUi(TIME.seconds, AppLocalizations.of(context).seconds, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.deciseconds, AppLocalizations.of(context).deciseconds, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.centiseconds, AppLocalizations.of(context).centiseconds, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.milliseconds, AppLocalizations.of(context).milliseconds, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.microseconds, AppLocalizations.of(context).microseconds, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.nanoseconds, AppLocalizations.of(context).nanoseconds, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.minutes, AppLocalizations.of(context).minutes, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.hours, AppLocalizations.of(context).hours, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.days, AppLocalizations.of(context).days, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.weeks, AppLocalizations.of(context).weeks, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.years_365, AppLocalizations.of(context).years, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.lustra, AppLocalizations.of(context).lustra, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.decades, AppLocalizations.of(context).decades, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.centuries, AppLocalizations.of(context).centuries, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.millennia, AppLocalizations.of(context).millennia, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TEMPERATURE.fahrenheit, AppLocalizations.of(context).fahrenheit, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
+  unitUiList.add(UnitUi(TEMPERATURE.celsius, AppLocalizations.of(context).celsius, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
+  unitUiList.add(UnitUi(TEMPERATURE.kelvin, AppLocalizations.of(context).kelvin, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
+  unitUiList.add(UnitUi(TEMPERATURE.reamur, AppLocalizations.of(context).reamur, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
+  unitUiList.add(UnitUi(TEMPERATURE.romer, AppLocalizations.of(context).romer, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
+  unitUiList.add(UnitUi(TEMPERATURE.delisle, AppLocalizations.of(context).delisle, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
+  unitUiList.add(UnitUi(TEMPERATURE.rankine, AppLocalizations.of(context).rankine, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
+  unitUiList.add(UnitUi(SPEED.meters_per_second, AppLocalizations.of(context).metersSecond, basePath + 'speed.png', PROPERTYX.SPEED));
+  unitUiList.add(UnitUi(SPEED.kilometers_per_hour, AppLocalizations.of(context).kilometersHour, basePath + 'speed.png', PROPERTYX.SPEED));
+  unitUiList.add(UnitUi(SPEED.miles_per_hour, AppLocalizations.of(context).milesHour, basePath + 'speed.png', PROPERTYX.SPEED));
+  unitUiList.add(UnitUi(SPEED.knots, AppLocalizations.of(context).knots, basePath + 'speed.png', PROPERTYX.SPEED));
+  unitUiList.add(UnitUi(SPEED.feets_per_second, AppLocalizations.of(context).feetsSecond, basePath + 'speed.png', PROPERTYX.SPEED));
+  unitUiList.add(UnitUi(MASS.grams, AppLocalizations.of(context).grams, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.ettograms, AppLocalizations.of(context).ettograms, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.kilograms, AppLocalizations.of(context).kilograms, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.pounds, AppLocalizations.of(context).pounds, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.ounces, AppLocalizations.of(context).ounces, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.quintals, AppLocalizations.of(context).quintals, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.tons, AppLocalizations.of(context).tons, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.milligrams, AppLocalizations.of(context).milligrams, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.uma, AppLocalizations.of(context).uma, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.carats, AppLocalizations.of(context).carats, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.centigrams, AppLocalizations.of(context).centigrams, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(FORCE.newton, AppLocalizations.of(context).newton, basePath + 'force.png', PROPERTYX.FORCE));
+  unitUiList.add(UnitUi(FORCE.dyne, AppLocalizations.of(context).dyne, basePath + 'force.png', PROPERTYX.FORCE));
+  unitUiList.add(UnitUi(FORCE.pound_force, AppLocalizations.of(context).poundForce, basePath + 'force.png', PROPERTYX.FORCE));
+  unitUiList.add(UnitUi(FORCE.kilogram_force, AppLocalizations.of(context).kilogramForce, basePath + 'force.png', PROPERTYX.FORCE));
+  unitUiList.add(UnitUi(FORCE.poundal, AppLocalizations.of(context).poundal, basePath + 'force.png', PROPERTYX.FORCE));
+  unitUiList
+      .add(UnitUi(FUEL_CONSUMPTION.kilometers_per_liter, AppLocalizations.of(context).kilometersLiter, basePath + 'fuel.png', PROPERTYX.FUEL_CONSUMPTION));
+  unitUiList.add(UnitUi(FUEL_CONSUMPTION.liters_per_100_km, AppLocalizations.of(context).liters100km, basePath + 'fuel.png', PROPERTYX.FUEL_CONSUMPTION));
+  unitUiList.add(UnitUi(FUEL_CONSUMPTION.miles_per_US_gallon, AppLocalizations.of(context).milesUsGallon, basePath + 'fuel.png', PROPERTYX.FUEL_CONSUMPTION));
+  unitUiList.add(
+      UnitUi(FUEL_CONSUMPTION.miles_per_imperial_gallon, AppLocalizations.of(context).milesImperialGallon, basePath + 'fuel.png', PROPERTYX.FUEL_CONSUMPTION));
+  unitUiList.add(UnitUi(NUMERAL_SYSTEMS.decimal, AppLocalizations.of(context).decimal, basePath + 'num_systems.png', PROPERTYX.NUMERAL_SYSTEMS));
+  unitUiList.add(UnitUi(NUMERAL_SYSTEMS.hexadecimal, AppLocalizations.of(context).hexadecimal, basePath + 'num_systems.png', PROPERTYX.NUMERAL_SYSTEMS));
+  unitUiList.add(UnitUi(NUMERAL_SYSTEMS.octal, AppLocalizations.of(context).octal, basePath + 'num_systems.png', PROPERTYX.NUMERAL_SYSTEMS));
+  unitUiList.add(UnitUi(NUMERAL_SYSTEMS.binary, AppLocalizations.of(context).binary, basePath + 'num_systems.png', PROPERTYX.NUMERAL_SYSTEMS));
+  unitUiList.add(UnitUi(PRESSURE.pascal, AppLocalizations.of(context).pascal, basePath + 'pressure.png', PROPERTYX.PRESSURE));
+  unitUiList.add(UnitUi(PRESSURE.atmosphere, AppLocalizations.of(context).atmosphere, basePath + 'pressure.png', PROPERTYX.PRESSURE));
+  unitUiList.add(UnitUi(PRESSURE.bar, AppLocalizations.of(context).bar, basePath + 'pressure.png', PROPERTYX.PRESSURE));
+  unitUiList.add(UnitUi(PRESSURE.millibar, AppLocalizations.of(context).millibar, basePath + 'pressure.png', PROPERTYX.PRESSURE));
+  unitUiList.add(UnitUi(PRESSURE.psi, AppLocalizations.of(context).psi, basePath + 'pressure.png', PROPERTYX.PRESSURE));
+  unitUiList.add(UnitUi(PRESSURE.torr, AppLocalizations.of(context).torr, basePath + 'pressure.png', PROPERTYX.PRESSURE));
+  unitUiList.add(UnitUi(ENERGY.joules, AppLocalizations.of(context).joule, basePath + 'energy.png', PROPERTYX.ENERGY));
+  unitUiList.add(UnitUi(ENERGY.calories, AppLocalizations.of(context).calorie, basePath + 'energy.png', PROPERTYX.ENERGY));
+  unitUiList.add(UnitUi(ENERGY.kilowatt_hours, AppLocalizations.of(context).kilowattHour, basePath + 'energy.png', PROPERTYX.ENERGY));
+  unitUiList.add(UnitUi(ENERGY.electronvolts, AppLocalizations.of(context).electronvolt, basePath + 'energy.png', PROPERTYX.ENERGY));
+  unitUiList.add(UnitUi(POWER.watt, AppLocalizations.of(context).watt, basePath + 'power.png', PROPERTYX.POWER));
+  unitUiList.add(UnitUi(POWER.milliwatt, AppLocalizations.of(context).milliwatt, basePath + 'power.png', PROPERTYX.POWER));
+  unitUiList.add(UnitUi(POWER.kilowatt, AppLocalizations.of(context).kilowatt, basePath + 'power.png', PROPERTYX.POWER));
+  unitUiList.add(UnitUi(POWER.megawatt, AppLocalizations.of(context).megawatt, basePath + 'power.png', PROPERTYX.POWER));
+  unitUiList.add(UnitUi(POWER.gigawatt, AppLocalizations.of(context).gigawatt, basePath + 'power.png', PROPERTYX.POWER));
+  unitUiList.add(UnitUi(POWER.european_horse_power, AppLocalizations.of(context).europeanHorsePower, basePath + 'power.png', PROPERTYX.POWER));
+  unitUiList.add(UnitUi(POWER.imperial_horse_power, AppLocalizations.of(context).imperialHorsePower, basePath + 'power.png', PROPERTYX.POWER));
+  unitUiList.add(UnitUi(ANGLE.degree, AppLocalizations.of(context).degree, basePath + 'angles.png', PROPERTYX.ANGLE));
+  unitUiList.add(UnitUi(ANGLE.minutes, AppLocalizations.of(context).minutesDegree, basePath + 'angles.png', PROPERTYX.ANGLE));
+  unitUiList.add(UnitUi(ANGLE.seconds, AppLocalizations.of(context).secondsDegree, basePath + 'angles.png', PROPERTYX.ANGLE));
+  unitUiList.add(UnitUi(ANGLE.radians, AppLocalizations.of(context).radiansDegree, basePath + 'angles.png', PROPERTYX.ANGLE));
+  unitUiList.add(UnitUi(SHOE_SIZE.centimeters, AppLocalizations.of(context).centimeters, basePath + 'shoe_size.png', PROPERTYX.SHOE_SIZE));
+  unitUiList.add(UnitUi(SHOE_SIZE.inches, AppLocalizations.of(context).inches, basePath + 'shoe_size.png', PROPERTYX.SHOE_SIZE));
+  unitUiList.add(UnitUi(SHOE_SIZE.eu_china, AppLocalizations.of(context).euChina, basePath + 'shoe_size.png', PROPERTYX.SHOE_SIZE));
+  unitUiList.add(UnitUi(SHOE_SIZE.uk_india_child, AppLocalizations.of(context).ukIndiaChild, basePath + 'shoe_size.png', PROPERTYX.SHOE_SIZE));
+  unitUiList.add(UnitUi(SHOE_SIZE.uk_india_man, AppLocalizations.of(context).ukIndiaMan, basePath + 'shoe_size.png', PROPERTYX.SHOE_SIZE));
+  unitUiList.add(UnitUi(SHOE_SIZE.uk_india_woman, AppLocalizations.of(context).ukIndiaWoman, basePath + 'shoe_size.png', PROPERTYX.SHOE_SIZE));
+  unitUiList.add(UnitUi(SHOE_SIZE.usa_canada_child, AppLocalizations.of(context).usaCanadaChild, basePath + 'shoe_size.png', PROPERTYX.SHOE_SIZE));
+  unitUiList.add(UnitUi(SHOE_SIZE.usa_canada_man, AppLocalizations.of(context).usaCanadaMan, basePath + 'shoe_size.png', PROPERTYX.SHOE_SIZE));
+  unitUiList.add(UnitUi(SHOE_SIZE.usa_canada_woman, AppLocalizations.of(context).usaCanadaWoman, basePath + 'shoe_size.png', PROPERTYX.SHOE_SIZE));
+  unitUiList.add(UnitUi(SHOE_SIZE.japan, AppLocalizations.of(context).japan, basePath + 'shoe_size.png', PROPERTYX.SHOE_SIZE));
+  unitUiList.add(UnitUi(DIGITAL_DATA.bit, AppLocalizations.of(context).bit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.nibble, AppLocalizations.of(context).nibble, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.kilobit, AppLocalizations.of(context).kilobit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.megabit, AppLocalizations.of(context).megabit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.gigabit, AppLocalizations.of(context).gigabit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.terabit, AppLocalizations.of(context).terabit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.petabit, AppLocalizations.of(context).petabit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.exabit, AppLocalizations.of(context).exabit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.kibibit, AppLocalizations.of(context).kibibit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.mebibit, AppLocalizations.of(context).mebibit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.gibibit, AppLocalizations.of(context).gibibit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.tebibit, AppLocalizations.of(context).tebibit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.pebibit, AppLocalizations.of(context).pebibit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.exbibit, AppLocalizations.of(context).exbibit, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.byte, AppLocalizations.of(context).byte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.kilobyte, AppLocalizations.of(context).kilobyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.megabyte, AppLocalizations.of(context).megabyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.gigabyte, AppLocalizations.of(context).gigabyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.terabyte, AppLocalizations.of(context).terabyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.petabyte, AppLocalizations.of(context).petabyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.exabyte, AppLocalizations.of(context).exabyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.kibibyte, AppLocalizations.of(context).kibibyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.mebibyte, AppLocalizations.of(context).mebibyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.gibibyte, AppLocalizations.of(context).gibibyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.tebibyte, AppLocalizations.of(context).tebibyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.pebibyte, AppLocalizations.of(context).pebibyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(DIGITAL_DATA.exbibyte, AppLocalizations.of(context).exbibyte, basePath + 'data.png', PROPERTYX.DIGITAL_DATA));
+  unitUiList.add(UnitUi(SI_PREFIXES.base, AppLocalizations.of(context).base, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.deca, AppLocalizations.of(context).deca, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.hecto, AppLocalizations.of(context).hecto, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.kilo, AppLocalizations.of(context).kilo, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.mega, AppLocalizations.of(context).mega, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.giga, AppLocalizations.of(context).giga, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.tera, AppLocalizations.of(context).tera, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.peta, AppLocalizations.of(context).peta, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.exa, AppLocalizations.of(context).exa, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.zetta, AppLocalizations.of(context).zetta, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.yotta, AppLocalizations.of(context).yotta, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.deci, AppLocalizations.of(context).deci, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.centi, AppLocalizations.of(context).centi, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.milli, AppLocalizations.of(context).milli, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.micro, AppLocalizations.of(context).micro, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.nano, AppLocalizations.of(context).nano, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.pico, AppLocalizations.of(context).pico, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.femto, AppLocalizations.of(context).femto, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.atto, AppLocalizations.of(context).atto, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.zepto, AppLocalizations.of(context).zepto, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(SI_PREFIXES.yocto, AppLocalizations.of(context).yocto, basePath + 'prefixes.png', PROPERTYX.SI_PREFIXES));
+  unitUiList.add(UnitUi(TORQUE.newton_meter, AppLocalizations.of(context).newtonMeter, basePath + 'torque.png', PROPERTYX.TORQUE));
+  unitUiList.add(UnitUi(TORQUE.dyne_meter, AppLocalizations.of(context).dyneMeter, basePath + 'torque.png', PROPERTYX.TORQUE));
+  unitUiList.add(UnitUi(TORQUE.pound_force_feet, AppLocalizations.of(context).poundForceFeet, basePath + 'torque.png', PROPERTYX.TORQUE));
+  unitUiList.add(UnitUi(TORQUE.kilogram_force_meter, AppLocalizations.of(context).kilogramForceMeter, basePath + 'torque.png', PROPERTYX.TORQUE));
+  unitUiList.add(UnitUi(TORQUE.poundal_meter, AppLocalizations.of(context).poundalMeter, basePath + 'torque.png', PROPERTYX.TORQUE));
 
-          SearchUnit(iconAsset: "prefissi", unitName: jsonSearch["prefissi_si"], onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Base", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Deca", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Hecto", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Kilo", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Mega", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Giga", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Tera", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Peta", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Exa", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Zetta", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Yotta", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Deci", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Centi", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Milli", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Micro", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Nano", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Pico", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Femto", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Atto", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Zepto", onTap: (){onTap(6);}),
-          SearchUnit(iconAsset: "prefissi", unitName: "Yocto", onTap: (){onTap(6);}),
-
-          SearchUnit(iconAsset: "massa", unitName: jsonSearch["massa"], onTap: (){onTap(7);}),
-          SearchUnit(iconAsset: "massa", unitName: jsonSearch["grammo"], onTap: (){onTap(7);}),
-          SearchUnit(iconAsset: "massa", unitName: jsonSearch["ettogrammo"], onTap: (){onTap(7);}),
-          SearchUnit(iconAsset: "massa", unitName: jsonSearch["chilogrammo"], onTap: (){onTap(7);}),
-          SearchUnit(iconAsset: "massa", unitName: jsonSearch["libbra"], onTap: (){onTap(7);}),
-          SearchUnit(iconAsset: "massa", unitName: jsonSearch["quintale"], onTap: (){onTap(7);}),
-          SearchUnit(iconAsset: "massa", unitName: jsonSearch["tonnellata"], onTap: (){onTap(7);}),
-          SearchUnit(iconAsset: "massa", unitName: jsonSearch["milligrammo"], onTap: (){onTap(7);}),
-          SearchUnit(iconAsset: "massa", unitName: jsonSearch["uma"], onTap: (){onTap(7);}),
-          SearchUnit(iconAsset: "massa", unitName: jsonSearch["carato"], onTap: (){onTap(7);}),
-
-          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["pressione"], onTap: (){onTap(8);}),
-          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["pascal"], onTap: (){onTap( 8);}),
-          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["atmosfere"], onTap: (){onTap(8);}),
-          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["bar"], onTap: (){onTap(8);}),
-          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["millibar"], onTap: (){onTap(8);}),
-          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["psi"], onTap: (){onTap(8);}),
-          SearchUnit(iconAsset: "pressione", unitName: jsonSearch["torr"], onTap: (){onTap(8);}),
-
-          SearchUnit(iconAsset: "energia", unitName: jsonSearch["energia"], onTap: (){onTap(9);}),
-          SearchUnit(iconAsset: "energia", unitName: jsonSearch["joule"], onTap: (){onTap(9);}),
-          SearchUnit(iconAsset: "energia", unitName: jsonSearch["calorie"], onTap: (){onTap(9);}),
-          SearchUnit(iconAsset: "energia", unitName: jsonSearch["kilowattora"], onTap: (){onTap(9);}),
-          SearchUnit(iconAsset: "energia", unitName: jsonSearch["elettronvolt"], onTap: (){onTap(9);}),
-
-          SearchUnit(iconAsset: "angoli", unitName: jsonSearch["angoli"], onTap: (){onTap(10);}),
-          SearchUnit(iconAsset: "angoli", unitName: jsonSearch["gradi"], onTap: (){onTap(10);}),
-          SearchUnit(iconAsset: "angoli", unitName: jsonSearch["primi"], onTap: (){onTap(10);}),
-          SearchUnit(iconAsset: "angoli", unitName: jsonSearch["secondi"], onTap: (){onTap(10);}),
-          SearchUnit(iconAsset: "angoli", unitName: jsonSearch["radianti"], onTap: (){onTap(10);}),
-
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["valuta"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["USD"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["EUR"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["GBP"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["INR"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["CNY"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["JPY"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["CHF"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["SEK"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["RUB"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["CAD"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["KRW"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["BRL"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["HKD"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["AUD"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["NZD"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["MXN"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["SGD"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["NOK"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["TRY"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["ZAR"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["DKK"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["PLN"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["THB"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["MYR"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["HUF"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["CZK"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["ILS"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["IDR"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["PHP"], onTap: (){onTap(11);}),
-          SearchUnit(iconAsset: "valuta", unitName: jsonSearch["RON"], onTap: (){onTap(11);}),
-
-          SearchUnit(iconAsset: "scarpe", unitName: jsonSearch["taglia_scarpe"], onTap: (){onTap(12);}),
-
-          SearchUnit(iconAsset: "dati", unitName: jsonSearch["dati_digitali"], onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Bit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Nibble", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Kilobit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Megabit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Gigabit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Terabit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Petabit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Exabit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Kibibit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Mebibit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Gibibit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Tebibit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Pebibit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Exbibit", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Byte", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Kilobyte", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Megabyte", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Gigabyte", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Terabyte", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Petabyte", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Kibibyte", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Mebibyte", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Gibibyte", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Tebibyte", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Pebibyte", onTap: (){onTap(13);}),
-          SearchUnit(iconAsset: "dati", unitName: "Exbibyte", onTap: (){onTap(13);}),
-
-          SearchUnit(iconAsset: "potenza", unitName: jsonSearch["potenza"], onTap: (){onTap(14);}),
-          SearchUnit(iconAsset: "potenza", unitName: jsonSearch["watt"], onTap: (){onTap(14);}),
-          SearchUnit(iconAsset: "potenza", unitName: jsonSearch["milliwatt"], onTap: (){onTap(14);}),
-          SearchUnit(iconAsset: "potenza", unitName: jsonSearch["kilowatt"], onTap: (){onTap(14);}),
-          SearchUnit(iconAsset: "potenza", unitName: jsonSearch["megawatt"], onTap: (){onTap(14);}),
-          SearchUnit(iconAsset: "potenza", unitName: jsonSearch["gigawatt"], onTap: (){onTap(14);}),
-          SearchUnit(iconAsset: "potenza", unitName: jsonSearch["cavallo_vapore_eurpeo"], onTap: (){onTap(14);}),
-          SearchUnit(iconAsset: "potenza", unitName: jsonSearch["cavallo_vapore_imperiale"], onTap: (){onTap(14);}),
-
-          SearchUnit(iconAsset: "forza", unitName: jsonSearch["forza"], onTap: (){onTap(15);}),
-          SearchUnit(iconAsset: "forza", unitName: jsonSearch["newton"], onTap: (){onTap(15);}),
-          SearchUnit(iconAsset: "forza", unitName: jsonSearch["dyne"], onTap: (){onTap(15);}),
-          SearchUnit(iconAsset: "forza", unitName: jsonSearch["libbra_forza"], onTap: (){onTap(15);}),
-          SearchUnit(iconAsset: "forza", unitName: jsonSearch["kilogrammo_forza"], onTap: (){onTap(15);}),
-          SearchUnit(iconAsset: "forza", unitName: jsonSearch["poundal"], onTap: (){onTap(15);}),
-
-          SearchUnit(iconAsset: "torque", unitName: jsonSearch["momento"], onTap: (){onTap(16);}),
-          SearchUnit(iconAsset: "torque", unitName: jsonSearch["newton_metro"], onTap: (){onTap(16);}),
-          SearchUnit(iconAsset: "torque", unitName: jsonSearch["dyne_metro"], onTap: (){onTap(16);}),
-          SearchUnit(iconAsset: "torque", unitName: jsonSearch["libbra_forza_piede"], onTap: (){onTap(16);}),
-          SearchUnit(iconAsset: "torque", unitName: jsonSearch["kilogrammo_forza_metro"], onTap: (){onTap(16);}),
-          SearchUnit(iconAsset: "torque", unitName: jsonSearch["poundal_metro"], onTap: (){onTap(16);}),
-
-          SearchUnit(iconAsset: "consumo", unitName: jsonSearch["consumo_carburante"], onTap: (){onTap(17);}),
-          SearchUnit(iconAsset: "consumo", unitName: jsonSearch["chilometri_litro"], onTap: (){onTap(17);}),
-          SearchUnit(iconAsset: "consumo", unitName: jsonSearch["litri_100km"], onTap: (){onTap(17);}),
-          SearchUnit(iconAsset: "consumo", unitName: jsonSearch["miglia_gallone_us"], onTap: (){onTap(17);}),
-          SearchUnit(iconAsset: "consumo", unitName: jsonSearch["miglia_gallone_uk"], onTap: (){onTap(17);}),
-
-          SearchUnit(iconAsset: "conversione_base", unitName: jsonSearch["basi_numeriche"], onTap: (){onTap(18);}),
-          SearchUnit(iconAsset: "conversione_base", unitName: jsonSearch["decimale"], onTap: (){onTap(18);}),
-          SearchUnit(iconAsset: "conversione_base", unitName: jsonSearch["esadecimale"], onTap: (){onTap(18);}),
-          SearchUnit(iconAsset: "conversione_base", unitName: jsonSearch["ottale"], onTap: (){onTap(18);}),
-          SearchUnit(iconAsset: "conversione_base", unitName: jsonSearch["binario"], onTap: (){onTap(18);}),
-        ];
+  return unitUiList;
 }
-List<SearchGridTile> initializeGridSearch(Function onTap, BuildContext context, bool darkMode, List<int> orderList){
 
-  List<SearchGridTile> list = List.filled(19, null); //list of 19 properties
-  list[orderList[0]] = SearchGridTile(iconAsset: "length", footer: AppLocalizations.of(context).length, onTap: (){onTap(0);}, darkMode: darkMode);
-  list[orderList[1]] = SearchGridTile(iconAsset: "area", footer: AppLocalizations.of(context).area, onTap: (){onTap(1);}, darkMode: darkMode);
-  list[orderList[2]] = SearchGridTile(iconAsset: "volume", footer: AppLocalizations.of(context).volume, onTap: (){onTap(2);}, darkMode: darkMode);
-  list[orderList[3]] = SearchGridTile(iconAsset: "currencies", footer: AppLocalizations.of(context).currencies, onTap: (){onTap(3);}, darkMode: darkMode);
-  list[orderList[4]] = SearchGridTile(iconAsset: "time", footer: AppLocalizations.of(context).time, onTap: (){onTap(4);}, darkMode: darkMode);
-  list[orderList[5]] = SearchGridTile(iconAsset: "temperature", footer: AppLocalizations.of(context).temperature, onTap: (){onTap(5);}, darkMode: darkMode);
-  list[orderList[6]] = SearchGridTile(iconAsset: "speed", footer: AppLocalizations.of(context).speed, onTap: (){onTap(6);}, darkMode: darkMode);
-  list[orderList[7]] = SearchGridTile(iconAsset: "mass", footer: AppLocalizations.of(context).mass, onTap: (){onTap(7);}, darkMode: darkMode);
-  list[orderList[8]] = SearchGridTile(iconAsset: "force", footer: AppLocalizations.of(context).force, onTap: (){onTap(8);}, darkMode: darkMode,);
-  list[orderList[9]] = SearchGridTile(iconAsset: "fuel", footer: AppLocalizations.of(context).fuelConsumption, onTap: (){onTap(9);}, darkMode: darkMode);
-  list[orderList[10]] = SearchGridTile(iconAsset: "num_systems", footer: AppLocalizations.of(context).numeralSystems, onTap: (){onTap(10);}, darkMode: darkMode);
-  list[orderList[11]] = SearchGridTile(iconAsset: "pressure", footer: AppLocalizations.of(context).pressure, onTap: (){onTap(11);}, darkMode: darkMode);
-  list[orderList[12]] = SearchGridTile(iconAsset: "energy", footer: AppLocalizations.of(context).energy, onTap: (){onTap(12);}, darkMode: darkMode);
-  list[orderList[13]] = SearchGridTile(iconAsset: "power", footer: AppLocalizations.of(context).power, onTap: (){onTap(13);}, darkMode: darkMode);
-  list[orderList[14]] = SearchGridTile(iconAsset: "angles", footer: AppLocalizations.of(context).angles, onTap: (){onTap(14);}, darkMode: darkMode);
-  list[orderList[15]] = SearchGridTile(iconAsset: "shoe_size", footer: AppLocalizations.of(context).shoeSize, onTap: (){onTap(15);}, darkMode: darkMode);
-  list[orderList[16]] = SearchGridTile(iconAsset: "data", footer: AppLocalizations.of(context).digitalData, onTap: (){onTap(15);}, darkMode: darkMode);
-  list[orderList[17]] = SearchGridTile(iconAsset: "prefixes", footer: AppLocalizations.of(context).siPrefixes, onTap: (){onTap(17);}, darkMode: darkMode);
-  list[orderList[18]] = SearchGridTile(iconAsset: "torque", footer: AppLocalizations.of(context).torque, onTap: (){onTap(18);}, darkMode: darkMode);
+List<SearchUnit> getSearchUnitsList(Function onTap, BuildContext context) {
+  List<SearchUnit> searchUnitsList = [];
+  List<UnitUi> unitUiList = getUnitUiList(context);
 
-  return list;
+  int propertyNumber = 0;
+  PROPERTYX previousProperty = PROPERTYX.LENGTH;
+
+  for (UnitUi unitUi in unitUiList) {
+    if (previousProperty != unitUi.property) {
+      propertyNumber++;
+      previousProperty = unitUi.property;
+    }
+    int currentNumber = propertyNumber;
+    searchUnitsList.add(SearchUnit(
+      iconAsset: unitUi.imagePath,
+      unitName: unitUi.name,
+      onTap: () {
+        onTap(currentNumber);
+      },
+    ));
+  }
+  return searchUnitsList;
+}
+
+List<SearchGridTile> initializeGridSearch(Function onTap, BuildContext context, bool darkMode, List<int> orderList) {
+  List<PropertyUi> propertyUiList = getPropertyUiList(context);
+  final int propertyCount = propertyUiList.length;
+  List<SearchGridTile> searchGridTileList = List.filled(propertyCount, null);
+
+  for (int i = 0; i < propertyCount; i++) {
+    PropertyUi propertyUi = propertyUiList[i];
+    searchGridTileList[orderList[i]] = SearchGridTile(
+      iconAsset: propertyUi.imagePath,
+      footer: propertyUi.name,
+      onTap: () {
+        onTap(i);
+      },
+      darkMode: darkMode,
+    );
+  }
+
+  return searchGridTileList;
 }

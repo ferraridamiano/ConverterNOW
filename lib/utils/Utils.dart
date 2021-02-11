@@ -427,7 +427,7 @@ class SearchUnitTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset("resources/images/${searchUnit.iconAsset}.png", height: 26.0, color: darkMode ? Colors.white : Colors.grey),
+      leading: Image.asset(searchUnit.iconAsset, height: 26.0, color: darkMode ? Colors.white : Colors.grey),
       title: Text(searchUnit.unitName),
       onTap: searchUnit.onTap,
     );
@@ -472,7 +472,7 @@ class SearchGridTile extends StatelessWidget {
               child: Container(
                 width: 55.0,
                 height: 55.0,
-                child: Image.asset("resources/images/$iconAsset.png", color: darkMode ? Colors.white : Colors.grey),
+                child: Image.asset(iconAsset, color: darkMode ? Colors.white : Colors.grey),
               ),
             ),
           ),
@@ -748,7 +748,8 @@ class PropertyUi {
 class UnitUi {
   final unit; //name of the unit
   final String name; //uman readable name
-  final PropertyUi propertyUi;
+  final String imagePath;
+  final PROPERTYX property;
 
-  UnitUi(this.unit, this.name, this.propertyUi);
+  UnitUi(this.unit, this.name, this.imagePath, this.property);
 }
