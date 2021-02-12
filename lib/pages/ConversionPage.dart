@@ -50,6 +50,7 @@ class ConversionPage extends StatelessWidget {
         MyCard(
           symbol: unitData.unit.symbol,
           textField: TextFormField(
+            key: Key(unitData.unit.name.toString()),
             style: TextStyle(
               fontSize: 16.0,
               color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white : Colors.black,

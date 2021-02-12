@@ -198,7 +198,7 @@ class Conversions with ChangeNotifier {
 
   ///Clears the values of the current page
   clearAllValues() {
-    convert(_selectedUnit ?? currentUnitDataList[0], null);
+    convert(currentUnitDataList[0], null);
   }
 
   ///Returns the DateTime of the latest update of the currencies conversions
