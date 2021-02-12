@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ferrarid.converterpro">
 
-    <!-- The INTERNET permission is required for development. Specifically,
-         flutter needs it to communicate with the running application
-         to allow setting breakpoints, to provide hot reload, etc.
-    -->
+    <!-- The INTERNET permission is required in order to update currencies rates -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- The following permission is needed starting from android 11 in order to
+    tell which packages the app will interact with -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
