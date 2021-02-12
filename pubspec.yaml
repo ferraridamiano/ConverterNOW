@@ -21,8 +21,8 @@ dependencies:
   #Needed for translation
   intl_translation: ^0.17.10+1
   #Needed for unit conversion
-  units_converter:
-    path: ../units_converter
+  units_converter: ^0.2.0
+#    path: ../units_converter
 
 dependency_overrides:
   intl: ^0.17.0-nullsafety.2
