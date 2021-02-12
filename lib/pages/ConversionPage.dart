@@ -15,20 +15,11 @@ Map jsonSearch;
 class ConversionPage extends StatelessWidget {
   final Function openDrawer;
   final String lastUpdateCurrency;
-  //List<FocusNode> listaFocus = [];
-  //List listaNodi;
 
   ConversionPage({this.openDrawer, this.lastUpdateCurrency});
 
-  /*_getJsonSearch(BuildContext context) async {
-    jsonSearch ??= json.decode(
-      await DefaultAssetBundle.of(context).loadString("resources/lang/${Localizations.localeOf(context).languageCode}.json"),
-    );
-  }*/
-
   @override
   Widget build(BuildContext context) {
-    //_getJsonSearch(context);
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
 
@@ -258,9 +249,6 @@ class CustomSearchDelegate extends SearchDelegate<int> {
     final List<SearchUnit> _dataSearch = getSearchUnitsList((int pageNumber) {
       close(context, pageNumber);
     }, context);
-    /*initializeSearchUnits((int pageNumber) {
-      close(context, pageNumber);
-    }, jsonSearch);*/
     final List<SearchGridTile> allConversions = initializeGridSearch(
       (int pageNumber) {
         close(context, pageNumber);

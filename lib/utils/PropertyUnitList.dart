@@ -3,11 +3,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:units_converter/units_converter.dart';
 import 'Utils.dart';
 
+/// This will return the list of [PropertyUi], an objext that contains all the data regarding the displaying of the
+/// property all over the app. From this List depends also other functions.
 List<PropertyUi> getPropertyUiList(BuildContext context) {
   const String basePath = 'resources/images/';
 
   List<PropertyUi> propertyUiList = [];
-
+  //The order is important!
   propertyUiList.add(PropertyUi(PROPERTYX.LENGTH, AppLocalizations.of(context).length, basePath + 'length.png'));
   propertyUiList.add(PropertyUi(PROPERTYX.AREA, AppLocalizations.of(context).area, basePath + 'area.png'));
   propertyUiList.add(PropertyUi(PROPERTYX.VOLUME, AppLocalizations.of(context).volume, basePath + 'volume.png'));
@@ -48,6 +50,8 @@ List<String> getPropertyNameList(BuildContext context) {
   return getPropertyTranslationMap(context).values.toList();
 }
 
+/// This will return the list of [UnitUi], an objext that contains all the data regarding the displaying of the
+/// units all over the app. From this List depends also other functions.
 List<UnitUi> getUnitUiList(BuildContext context) {
   const String basePath = 'resources/images/';
   List<UnitUi> unitUiList = [];
@@ -264,6 +268,7 @@ List<UnitUi> getUnitUiList(BuildContext context) {
   return unitUiList;
 }
 
+/// This method will return a map of Unit name translated: {LENGTH.meters: 'Meters', ...}
 Map<dynamic, String> getUnitTranslationMap(BuildContext context) {
   List<UnitUi> unitUiList = getUnitUiList(context);
 
@@ -276,6 +281,7 @@ Map<dynamic, String> getUnitTranslationMap(BuildContext context) {
   return unitTranslationMap;
 }
 
+/// This method will return a List of [SearchUnit], needed in order to display the tiles in the search
 List<SearchUnit> getSearchUnitsList(Function onTap, BuildContext context) {
   List<SearchUnit> searchUnitsList = [];
   List<UnitUi> unitUiList = getUnitUiList(context);
@@ -300,6 +306,7 @@ List<SearchUnit> getSearchUnitsList(Function onTap, BuildContext context) {
   return searchUnitsList;
 }
 
+/// This method will return a List of [SearchGridTile], needed in order to display the gridtiles in the search
 List<SearchGridTile> initializeGridSearch(Function onTap, BuildContext context, bool darkMode, List<int> orderList) {
   List<PropertyUi> propertyUiList = getPropertyUiList(context);
   final int propertyCount = propertyUiList.length;

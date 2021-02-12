@@ -134,6 +134,7 @@ class Conversions with ChangeNotifier {
     _refreshConversionsList();
   }
 
+  ///This function initialize the propertyList, this property will do the real computations
   _refreshConversionsList() {
     _propertyList = [
       Length(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.LENGTH),
@@ -177,6 +178,7 @@ class Conversions with ChangeNotifier {
     }
   }
 
+  /// This function is used to convert all the values from one that has been modified
   convert(UnitData unitData, var value) {
     _currentProperty.convert(unitData.unit.name, value);
     _selectedUnit = unitData;
@@ -184,11 +186,11 @@ class Conversions with ChangeNotifier {
     notifyListeners();
   }
 
+  /// this method is used by AppModel to change the page that is showed
   set currentPage(int currentPage) {
     _currentPage = currentPage;
     _currentProperty = _propertyList[_currentPage];
     currentUnitDataList = _unitDataList[_currentPage];
-    //_currentOrder = _conversionsOrder[_currentPage]; //updates the current order List
     notifyListeners();
   }
 
