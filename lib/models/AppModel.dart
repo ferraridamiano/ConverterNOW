@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AppModel with ChangeNotifier {
   //_conversionsOrderDrawer numbers until max conversion units - 1
-  List<int> _conversionsOrderDrawer = [0, 1, 2, 4, 5, 6, 17, 7, 11, 12, 14, 3, 15, 16, 13, 8, 18, 9, 10];
+  List<int> _conversionsOrderDrawer = List.generate(19, (index) => index);
   int _currentPage = 0;
   bool _isLogoVisible = true;
 
@@ -52,24 +52,22 @@ class AppModel with ChangeNotifier {
   changeOrderDrawer(BuildContext context, List<String> titlesList) async {
     Navigator.of(context).pop(); //Close the drawer
 
-    List<String> orderedList = new List(_conversionsOrderDrawer.length);
+    List<String> orderedList = List.filled(_conversionsOrderDrawer.length, null);
     for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
       orderedList[_conversionsOrderDrawer[i]] = titlesList[i];
     }
 
-    final List<int> result =
-        await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));
+    final List<int> result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));
 
     //if there arent't any modifications, do nothing
     if (result != null) {
-      List arrayCopia = new List(_conversionsOrderDrawer.length);
+      List arrayCopia = List.filled(_conversionsOrderDrawer.length, null);
       for (int i = 0; i < _conversionsOrderDrawer.length; i++) arrayCopia[i] = _conversionsOrderDrawer[i];
-      for (int i = 0; i < _conversionsOrderDrawer.length; i++)
-        _conversionsOrderDrawer[i] = result.indexOf(arrayCopia[i]);
+      for (int i = 0; i < _conversionsOrderDrawer.length; i++) _conversionsOrderDrawer[i] = result.indexOf(arrayCopia[i]);
 
       notifyListeners();
       //save new orders to memory
-      List<String> toConvertList = new List();
+      List<String> toConvertList = [];
       for (int item in _conversionsOrderDrawer) toConvertList.add(item.toString());
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setStringList("orderDrawer", toConvertList);

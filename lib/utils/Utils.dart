@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:units_converter/Unit.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -45,9 +46,7 @@ class BigTitle extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 40.0,
                     fontWeight: FontWeight.bold,
-                    color: MediaQuery.of(context).platformBrightness == Brightness.dark
-                        ? Color(0xFFDDDDDD)
-                        : Color(0xFF666666),
+                    color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
                   ),
                 ),
               ),
@@ -136,8 +135,7 @@ class _Calculator extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     double calcWidth = widget.width < 800 ? widget.width : 800;
-    Color textButtonColor =
-        Color(MediaQuery.of(context).platformBrightness == Brightness.dark ? 0xFFBBBBBB : 0xFF777777);
+    Color textButtonColor = Color(MediaQuery.of(context).platformBrightness == Brightness.dark ? 0xFFBBBBBB : 0xFF777777);
     return Container(
       height: 5 * buttonHeight,
       child: Column(
@@ -158,8 +156,7 @@ class _Calculator extends State<Calculator> {
                       style: TextStyle(
                         fontSize: 45.0,
                         fontWeight: FontWeight.bold,
-                        color:
-                            MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white : Colors.black,
+                        color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white : Colors.black,
                       ),
                       maxLines: 1,
                       scrollPhysics: ClampingScrollPhysics(),
@@ -173,9 +170,7 @@ class _Calculator extends State<Calculator> {
                         ? IconButton(
                             icon: Icon(
                               Icons.content_copy,
-                              color: MediaQuery.of(context).platformBrightness == Brightness.dark
-                                  ? Colors.white54
-                                  : Colors.black54,
+                              color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white54 : Colors.black54,
                             ),
                             onPressed: () {
                               Clipboard.setData(new ClipboardData(text: text));
@@ -194,23 +189,19 @@ class _Calculator extends State<Calculator> {
                             style: TextStyle(
                                 fontSize: 45.0,
                                 fontWeight: FontWeight.bold,
-                                color: MediaQuery.of(context).platformBrightness == Brightness.dark
-                                    ? Colors.white54
-                                    : Colors.black54),
+                                color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white54 : Colors.black54),
                             maxLines: 1,
                           ),
                   ),
                 ],
               ),
             ),
-            decoration: new BoxDecoration(
-                color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFF2e2e2e) : Colors.white,
-                boxShadow: [
-                  new BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 5.0,
-                  ),
-                ]),
+            decoration: new BoxDecoration(color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFF2e2e2e) : Colors.white, boxShadow: [
+              new BoxShadow(
+                color: Colors.black,
+                blurRadius: 5.0,
+              ),
+            ]),
           ),
           Container(
             width: calcWidth,
@@ -436,8 +427,7 @@ class SearchUnitTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset("resources/images/${searchUnit.iconAsset}.png",
-          height: 26.0, color: darkMode ? Colors.white : Colors.grey),
+      leading: Image.asset(searchUnit.iconAsset, height: 26.0, color: darkMode ? Colors.white : Colors.grey),
       title: Text(searchUnit.unitName),
       onTap: searchUnit.onTap,
     );
@@ -482,7 +472,7 @@ class SearchGridTile extends StatelessWidget {
               child: Container(
                 width: 55.0,
                 height: 55.0,
-                child: Image.asset("resources/images/$iconAsset.png", color: darkMode ? Colors.white : Colors.grey),
+                child: Image.asset(iconAsset, color: darkMode ? Colors.white : Colors.grey),
               ),
             ),
           ),
@@ -516,9 +506,7 @@ class _ListTileConversion extends State<ListTileConversion> {
               height: 30.0,
               color: (widget.selected
                   ? Theme.of(context).accentColor
-                  : (MediaQuery.of(context).platformBrightness == Brightness.dark
-                      ? Color(0xFFCCCCCC)
-                      : Colors.black54)),
+                  : (MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54)),
             ),
             SizedBox(
               width: 20.0,
@@ -528,9 +516,7 @@ class _ListTileConversion extends State<ListTileConversion> {
               style: TextStyle(
                 color: widget.selected
                     ? Theme.of(context).accentColor
-                    : (MediaQuery.of(context).platformBrightness == Brightness.dark
-                        ? Color(0xFFCCCCCC)
-                        : Colors.black54),
+                    : (MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
                 fontWeight: widget.selected ? FontWeight.bold : FontWeight.normal,
               ),
             )
@@ -542,4 +528,228 @@ class _ListTileConversion extends State<ListTileConversion> {
       selectedColor: Theme.of(context).accentColor,
     );
   }
+}
+
+enum VALIDATOR { BINARY, DECIMAL, OCTAL, HEXADECIMAL, RATIONAL_NON_NEGATIVE }
+
+class UnitData {
+  Unit unit;
+  TextEditingController tec;
+  TextInputType textInputType;
+  VALIDATOR validator;
+  PROPERTYX property;
+
+  UnitData(
+    this.unit, {
+    this.tec,
+    this.property,
+    this.validator = VALIDATOR.RATIONAL_NON_NEGATIVE,
+    this.textInputType = const TextInputType.numberWithOptions(decimal: true, signed: false),
+  });
+
+  RegExp getValidator() {
+    switch (validator) {
+      case VALIDATOR.BINARY:
+        return RegExp(r'^[0-1]+$');
+      case VALIDATOR.OCTAL:
+        return RegExp(r'^[0-7]+$');
+      case VALIDATOR.DECIMAL:
+        return RegExp(r'^[0-9]+$');
+      case VALIDATOR.HEXADECIMAL:
+        return RegExp(r'^[0-9A-Fa-f]+$');
+      case VALIDATOR.RATIONAL_NON_NEGATIVE:
+      default:
+        return RegExp(r'^[0-9/./e/+/-]+$');
+    }
+  }
+}
+
+class CurrencyObject {
+  DoubleCurrencyConversion results;
+  CurrencyObject({this.results});
+
+  factory CurrencyObject.fromJson(Map<String, dynamic> json) {
+    return CurrencyObject(results: DoubleCurrencyConversion.fromJson(json['property']));
+  }
+}
+
+class DoubleCurrencyConversion {
+  CurrencyConversion conversion1;
+  CurrencyConversion conversion2;
+  DoubleCurrencyConversion({
+    this.conversion1,
+    this.conversion2,
+  });
+
+  factory DoubleCurrencyConversion.fromJson(Map<String, dynamic> json) {
+    return DoubleCurrencyConversion(conversion1: CurrencyConversion.fromJson(json['USD_EUR']), conversion2: CurrencyConversion.fromJson(json['USD_GBP']));
+  }
+}
+
+class CurrencyConversion {
+  String id, to, fr;
+  double val;
+
+  CurrencyConversion({this.id, this.val, this.to, this.fr});
+
+  factory CurrencyConversion.fromJson(Map<String, dynamic> json) {
+    return CurrencyConversion(id: json['id'], val: json['val'], to: json['to'], fr: json['fr']);
+  }
+}
+
+class CurrencyJSONObject {
+  String base;
+  Map<CURRENCIES, double> rates;
+  String date;
+
+  Map<CURRENCIES, String> encodeMap = {
+    CURRENCIES.INR: 'INR',
+    CURRENCIES.SEK: 'SEK',
+    CURRENCIES.GBP: 'GBP',
+    CURRENCIES.CHF: 'CHF',
+    CURRENCIES.CNY: 'CNY',
+    CURRENCIES.RUB: 'RUB',
+    CURRENCIES.USD: 'USD',
+    CURRENCIES.KRW: 'KRW',
+    CURRENCIES.JPY: 'JPY',
+    CURRENCIES.BRL: 'BRL',
+    CURRENCIES.CAD: 'CAD',
+    CURRENCIES.HKD: 'HKD',
+    CURRENCIES.AUD: 'AUD',
+    CURRENCIES.NZD: 'NZD',
+    CURRENCIES.MXN: 'MXN',
+    CURRENCIES.SGD: 'SGD',
+    CURRENCIES.NOK: 'NOK',
+    CURRENCIES.TRY: 'TRY',
+    CURRENCIES.ZAR: 'ZAR',
+    CURRENCIES.DKK: 'DKK',
+    CURRENCIES.PLN: 'PLN',
+    CURRENCIES.THB: 'THB',
+    CURRENCIES.MYR: 'MYR',
+    CURRENCIES.HUF: 'HUF',
+    CURRENCIES.CZK: 'CZK',
+    CURRENCIES.ILS: 'ILS',
+    CURRENCIES.IDR: 'IDR',
+    CURRENCIES.PHP: 'PHP',
+    CURRENCIES.RON: 'RON',
+  };
+
+  CurrencyJSONObject({this.base, this.rates, this.date});
+
+  factory CurrencyJSONObject.fromJson(Map<String, dynamic> parsedJson) {
+    Map<String, dynamic> ratesJson = parsedJson['rates'];
+    return CurrencyJSONObject(base: parsedJson['base'], date: parsedJson['date'], rates: {
+      CURRENCIES.INR: ratesJson['INR'],
+      CURRENCIES.SEK: ratesJson['SEK'],
+      CURRENCIES.GBP: ratesJson['GBP'],
+      CURRENCIES.CHF: ratesJson['CHF'],
+      CURRENCIES.CNY: ratesJson['CNY'],
+      CURRENCIES.RUB: ratesJson['RUB'],
+      CURRENCIES.USD: ratesJson['USD'],
+      CURRENCIES.KRW: ratesJson['KRW'],
+      CURRENCIES.JPY: ratesJson['JPY'],
+      CURRENCIES.BRL: ratesJson['BRL'],
+      CURRENCIES.CAD: ratesJson['CAD'],
+      CURRENCIES.HKD: ratesJson['HKD'],
+      CURRENCIES.AUD: ratesJson['AUD'],
+      CURRENCIES.NZD: ratesJson['NZD'],
+      CURRENCIES.MXN: ratesJson['MXN'],
+      CURRENCIES.SGD: ratesJson['SGD'],
+      CURRENCIES.NOK: ratesJson['NOK'],
+      CURRENCIES.TRY: ratesJson['TRY'],
+      CURRENCIES.ZAR: ratesJson['ZAR'],
+      CURRENCIES.DKK: ratesJson['DKK'],
+      CURRENCIES.PLN: ratesJson['PLN'],
+      CURRENCIES.THB: ratesJson['THB'],
+      CURRENCIES.MYR: ratesJson['MYR'],
+      CURRENCIES.HUF: ratesJson['HUF'],
+      CURRENCIES.CZK: ratesJson['CZK'],
+      CURRENCIES.ILS: ratesJson['ILS'],
+      CURRENCIES.IDR: ratesJson['IDR'],
+      CURRENCIES.PHP: ratesJson['PHP'],
+      CURRENCIES.RON: ratesJson['RON']
+    });
+  }
+
+  ///Recreates the body of the http response (json format) as a String
+  String toString() {
+    String myString = '{"rates":{';
+    rates.forEach((key, value) => myString += '"${encodeMap[key]}":${value.toString()},'); //add all the currency values
+    myString = myString.replaceRange(myString.length - 1, myString.length, ''); //remove latest comma
+    myString += '},"base":"$base","date":"$date"}';
+    return myString;
+  }
+}
+
+/// PROPERTYX stands for PROPERTY extended and want to extends the PROPERTY enum defined in units_converter package
+enum PROPERTYX {
+  ANGLE,
+  AREA,
+  CURRENCIES,
+  DIGITAL_DATA,
+  ENERGY,
+  FORCE,
+  FUEL_CONSUMPTION,
+  LENGTH,
+  MASS,
+  NUMERAL_SYSTEMS,
+  POWER,
+  PRESSURE,
+  SHOE_SIZE,
+  SI_PREFIXES,
+  SPEED,
+  TEMPERATURE,
+  TIME,
+  TORQUE,
+  VOLUME,
+}
+
+enum CURRENCIES {
+  EUR,
+  CAD,
+  HKD,
+  RUB,
+  PHP,
+  DKK,
+  NZD,
+  CNY,
+  AUD,
+  RON,
+  SEK,
+  IDR,
+  INR,
+  BRL,
+  USD,
+  ILS,
+  JPY,
+  THB,
+  CHF,
+  CZK,
+  MYR,
+  TRY,
+  MXN,
+  NOK,
+  HUF,
+  ZAR,
+  SGD,
+  GBP,
+  KRW,
+  PLN,
+}
+
+class PropertyUi {
+  final PROPERTYX property;
+  final String name; //uman readable name
+  final String imagePath;
+
+  PropertyUi(this.property, this.name, this.imagePath);
+}
+
+class UnitUi {
+  final unit; //name of the unit
+  final String name; //uman readable name
+  final String imagePath;
+  final PROPERTYX property;
+
+  UnitUi(this.unit, this.name, this.imagePath, this.property);
 }

@@ -1,177 +1,89 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
-import 'package:converterpro/utils/Localization.dart';
+import 'package:converterpro/models/Conversions.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
-import 'package:converterpro/utils/UtilsConversion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:converterpro/models/AppModel.dart';
+import 'package:converterpro/utils/PropertyUnitList.dart';
+import 'package:intl/intl.dart';
+import 'ReorderPage.dart';
 
-class ConversionPage extends StatefulWidget {
-  final Node fatherNode;
-  final String title;
-  final String subtitle;
-  final bool isCurrenciesLoading;
-  final MediaQueryData mediaQuery;
-  ConversionPage(this.fatherNode, this.title, this.subtitle, this.mediaQuery, this.isCurrenciesLoading);
+Map jsonSearch;
 
-  @override
-  _ConversionPage createState() => new _ConversionPage();
-}
+class ConversionPage extends StatelessWidget {
+  final Function openDrawer;
+  final String lastUpdateCurrency;
 
-class _ConversionPage extends State<ConversionPage> {
-  List<TextEditingController> listaController = new List();
-  List<FocusNode> listaFocus = new List();
-  Node selectedNode;
-  List listaNodi;
-  int previousNode;
-  RegExp decimalRegExp = RegExp(r'^[0-9/./e/+/-]+$');
-  RegExp binRegExp = getBaseRegExp(2);
-  RegExp octRegExp = getBaseRegExp(8);
-  RegExp decRegExp = getBaseRegExp(10);
-  RegExp hexRegExp = getBaseRegExp(16);
+  ConversionPage({this.openDrawer, this.lastUpdateCurrency});
 
   @override
-  void didUpdateWidget(ConversionPage oldWidget) {
-    if (previousNode != widget.fatherNode.hashCode) {
-      initialize();
-      previousNode = widget.fatherNode.hashCode;
+  Widget build(BuildContext context) {
+    Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
+    Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
+
+    List<Choice> choices = <Choice>[
+      Choice(title: AppLocalizations.of(context).reorder, icon: Icons.reorder),
+    ];
+
+    List<UnitData> unitDataList = context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);
+
+    List<ListItem> itemList = [];
+    PROPERTYX currentProperty = context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);
+
+    String subTitle;
+    if (currentProperty == PROPERTYX.CURRENCIES) {
+      subTitle = getLastUpdateString(context);
+    } else {
+      subTitle = '';
     }
 
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void initState() {
-    previousNode = widget.fatherNode.hashCode;
-    initialize();
-    super.initState();
-  }
-
-  void initialize() {
-    widget.fatherNode.clearSelectedNode();
-
-    listaController.clear();
-    listaFocus.clear();
-    listaNodi = widget.fatherNode.getOrderedNodiFiglio();
-    for (Node node in listaNodi) {
-      listaController.add(new TextEditingController());
-      FocusNode focus = new FocusNode();
-      focus.addListener(() {
-        if (focus.hasFocus) {
-          if (selectedNode != null) {
-            selectedNode.selectedNode = false;
-          }
-          node.selectedNode = true;
-          node.convertedNode = true;
-          selectedNode = node;
-        }
-      });
-      listaFocus.add(focus);
-    }
-  }
-
-  @override
-  void dispose() {
-    FocusNode focus;
-    TextEditingController tec;
-    for (int i = 0; i < listaFocus.length; i++) {
-      focus = listaFocus[i];
-      focus.removeListener(() {});
-      focus.dispose();
-      tec = listaController[i];
-      tec.dispose();
-    }
-    super.dispose();
-  }
-
-  List<ListItem> createList() {
-    List<ListItem> listaCard = new List();
-    listaCard.add(BigHeader(title: widget.title, subTitle: widget.subtitle));
-    for (int i = 0; i < listaNodi.length; i++) {
-      if ((listaNodi[i].value != null || listaNodi[i].valueString != null) && !listaNodi[i].selectedNode) {
-        if (listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL)
-          listaController[i].text = listaNodi[i].mantissaCorrection();
-        else if (listaNodi[i].keyboardType == KEYBOARD_COMPLETE || listaNodi[i].keyboardType == KEYBOARD_NUMBER_INTEGER)
-          listaController[i].text = listaNodi[i].valueString;
-      } else if (!listaNodi[i].selectedNode &&
-          ((listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL && listaNodi[i].value == null) ||
-              ((listaNodi[i].keyboardType == KEYBOARD_COMPLETE ||
-                      listaNodi[i].keyboardType == KEYBOARD_NUMBER_INTEGER) &&
-                  listaNodi[i].valueString == null))) {
-        listaController[i].text = "";
-      } else if (listaNodi[i].selectedNode && listaNodi[i].value == null && listaNodi[i].valueString == null)
-        listaController[i].text = "";
-
-      TextInputType keyboardType;
-      switch (listaNodi[i].keyboardType) {
-        case KEYBOARD_NUMBER_DECIMAL:
-          {
-            keyboardType = TextInputType.numberWithOptions(decimal: true, signed: false);
-            break;
-          }
-        case KEYBOARD_COMPLETE:
-          {
-            keyboardType = TextInputType.text;
-            break;
-          }
-        case KEYBOARD_NUMBER_INTEGER:
-          {
-            keyboardType = TextInputType.numberWithOptions(decimal: false, signed: false);
-            break;
-          }
-      }
-      listaCard.add(
+    itemList.add(
+      BigHeader(
+        title: propertyTranslationMap[currentProperty],
+        subTitle: subTitle ?? '',
+      ),
+    );
+    for (UnitData unitData in unitDataList) {
+      itemList.add(
         MyCard(
-          symbol: listaNodi[i].symbol,
+          symbol: unitData.unit.symbol,
           textField: TextFormField(
+            key: Key(unitData.unit.name.toString()),
             style: TextStyle(
               fontSize: 16.0,
               color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white : Colors.black,
             ),
-            keyboardType: keyboardType,
-            controller: listaController[i],
-            focusNode: listaFocus[i],
+            keyboardType: unitData.textInputType,
+            controller: unitData.tec,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (String input) {
-              if (input != "" &&
-                  (listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL &&
-                          !decimalRegExp.hasMatch(input) || //numeri decimali
-                      listaNodi[i].base == 2 && !binRegExp.hasMatch(input) || //binario
-                      listaNodi[i].base == 8 && !octRegExp.hasMatch(input) || //ottale
-                      listaNodi[i].base == 10 && !decRegExp.hasMatch(input) || //decimale
-                      listaNodi[i].base == 16 && !hexRegExp.hasMatch(input) //esadecimale
-                  )) {
-                return MyLocalizations.of(context).trans('invalid_characters');
+              if (input != "" && !unitData.getValidator().hasMatch(input)) {
+                return AppLocalizations.of(context).invalidCharacters;
               }
               return null;
             },
-            decoration:
-                InputDecoration(labelText: MyLocalizations.of(context).trans(listaNodi[i].name) //listaNodi[i].name,
-                    ),
+            decoration: InputDecoration(
+              labelText: unitTranslationMap[unitData.unit.name],
+            ),
             onChanged: (String txt) {
-              if (listaNodi[i].keyboardType == KEYBOARD_NUMBER_DECIMAL) {
-                listaNodi[i].value = txt == "" ? null : double.parse(txt);
-              } else if (listaNodi[i].keyboardType == KEYBOARD_NUMBER_INTEGER ||
-                  listaNodi[i].keyboardType == KEYBOARD_COMPLETE) {
-                listaNodi[i].valueString = txt == "" ? null : txt;
+              if (txt == '' || unitData.getValidator().hasMatch(txt)) {
+                Conversions conversions = context.read<Conversions>();
+                //just numeral system uses a string for conversion
+                if (unitData.unit.name == PROPERTYX.NUMERAL_SYSTEMS) {
+                  conversions.convert(unitData, txt == "" ? null : txt);
+                } else {
+                  conversions.convert(unitData, txt == "" ? null : double.parse(txt));
+                }
               }
-
-              setState(() {
-                widget.fatherNode.resetConvertedNode();
-                widget.fatherNode.convert();
-              });
             },
           ),
         ),
       );
     }
-    return listaCard;
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    List itemList = createList();
-    List<Widget> gridTiles = new List();
-
+    List<Widget> gridTiles = [];
     for (ListItem item in itemList) {
       if (item is MyCard) {
         gridTiles.add(UnitCard(
@@ -179,25 +91,215 @@ class _ConversionPage extends State<ConversionPage> {
           textField: item.textField,
         ));
       } else if (item is BigHeader) {
-        gridTiles.add(BigTitle(
-          text: item.title,
-          subtitle: item.subTitle,
-          isCurrenciesLoading: widget.isCurrenciesLoading,
-        ));
+        gridTiles.add(
+          BigTitle(
+            text: item.title,
+            subtitle: item.subTitle,
+            isCurrenciesLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
+          ),
+        );
       }
     }
-    return Scrollbar(
-      child: Padding(
-        padding: responsivePadding(widget.mediaQuery),
-        child: GridView.count(
-          childAspectRatio: responsiveChildAspectRatio(widget.mediaQuery),
-          crossAxisCount: responsiveNumGridTiles(widget.mediaQuery),
-          shrinkWrap: true,
-          crossAxisSpacing: 15.0,
-          children: gridTiles,
-          padding: EdgeInsets.only(bottom: 22), //So FAB doesn't overlap the card
+
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Scrollbar(
+          child: Padding(
+            padding: responsivePadding(MediaQuery.of(context)),
+            child: GridView.count(
+              childAspectRatio: responsiveChildAspectRatio(MediaQuery.of(context)),
+              crossAxisCount: responsiveNumGridTiles(MediaQuery.of(context)),
+              shrinkWrap: true,
+              crossAxisSpacing: 15.0,
+              children: gridTiles,
+              padding: EdgeInsets.only(bottom: 22), //So FAB doesn't overlap the card
+            ),
+          ),
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).primaryColor,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            new Builder(builder: (context) {
+              return IconButton(
+                  tooltip: AppLocalizations.of(context).menu,
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    openDrawer();
+                  });
+            }),
+            Row(
+              children: <Widget>[
+                IconButton(
+                  tooltip: AppLocalizations.of(context).clearAll,
+                  icon: Icon(Icons.clear, color: Colors.white),
+                  onPressed: () {
+                    Conversions conversions = context.read<Conversions>();
+                    conversions.clearAllValues();
+                  },
+                ),
+                IconButton(
+                  // search
+                  tooltip: AppLocalizations.of(context).search,
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  onPressed: () async {
+                    final orderList = context.read<AppModel>().conversionsOrderDrawer;
+                    final int newPage = await showSearch(
+                      context: context,
+                      delegate: CustomSearchDelegate(orderList),
+                    );
+                    if (newPage != null) {
+                      AppModel appModel = context.read<AppModel>();
+                      if (appModel.currentPage != newPage) appModel.changeToPage(newPage);
+                    }
+                  },
+                ),
+                PopupMenuButton<Choice>(
+                  icon: Icon(
+                    Icons.more_vert,
+                    color: Colors.white,
+                  ),
+                  onSelected: (Choice choice) async {
+                    //Let's generate the list of unit name in the current order
+                    List<String> listUnitsNames = List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]);
+                    final List<int> result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReorderPage(listUnitsNames),
+                      ),
+                    );
+                    context.read<Conversions>().changeOrderUnits(result);
+                  },
+                  itemBuilder: (BuildContext context) {
+                    return choices.map((Choice choice) {
+                      return PopupMenuItem<Choice>(
+                        value: choice,
+                        child: Text(choice.title),
+                      );
+                    }).toList();
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: AppLocalizations.of(context).calculator,
+        child: Image.asset(
+          "resources/images/calculator.png",
+          width: 30.0,
+        ),
+        onPressed: () {
+          showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                double displayWidth = MediaQuery.of(context).size.width;
+                return Calculator(Theme.of(context).accentColor, displayWidth);
+              });
+        },
+        elevation: 5.0,
+        backgroundColor: Theme.of(context).accentColor,
       ),
     );
   }
+}
+
+class Choice {
+  const Choice({this.title, this.icon});
+
+  final String title;
+  final IconData icon;
+}
+
+class CustomSearchDelegate extends SearchDelegate<int> {
+  final List<int> orderList;
+
+  CustomSearchDelegate(this.orderList);
+
+  @override
+  ThemeData appBarTheme(BuildContext context) => Theme.of(context);
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      tooltip: AppLocalizations.of(context).back,
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.menu_arrow,
+        progress: transitionAnimation,
+      ),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final List<SearchUnit> _dataSearch = getSearchUnitsList((int pageNumber) {
+      close(context, pageNumber);
+    }, context);
+    final List<SearchGridTile> allConversions = initializeGridSearch(
+      (int pageNumber) {
+        close(context, pageNumber);
+      },
+      context,
+      MediaQuery.of(context).platformBrightness == Brightness.dark,
+      orderList,
+    );
+
+    final Iterable<SearchUnit> suggestions =
+        _dataSearch.where((searchUnit) => searchUnit.unitName.toLowerCase().contains(query.toLowerCase())); //.toLowercase in order to be case insesitive
+
+    return query.isNotEmpty
+        ? SuggestionList(
+            suggestions: suggestions.toList(),
+            darkMode: MediaQuery.of(context).platformBrightness == Brightness.dark,
+          )
+        : 
+        GridView(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200.0),
+      children: allConversions,
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Container();
+  }
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return <Widget>[
+      if (query.isNotEmpty)
+        IconButton(
+          tooltip: AppLocalizations.of(context).clearAll,
+          icon: const Icon(Icons.clear),
+          onPressed: () {
+            query = '';
+            showSuggestions(context);
+          },
+        ),
+    ];
+  }
+}
+
+String getLastUpdateString(BuildContext context) {
+  DateTime lastUpdateCurrencies = context.select<Conversions, DateTime>((settings) => settings.lastUpdateCurrency);
+  DateTime dateNow = DateTime.now();
+  if (lastUpdateCurrencies.day == dateNow.day && lastUpdateCurrencies.month == dateNow.month && lastUpdateCurrencies.year == dateNow.year) {
+    return AppLocalizations.of(context).lastCurrenciesUpdate + AppLocalizations.of(context).today;
+  }
+  return AppLocalizations.of(context).lastCurrenciesUpdate + DateFormat("yyyy-MM-dd").format(lastUpdateCurrencies);
 }
