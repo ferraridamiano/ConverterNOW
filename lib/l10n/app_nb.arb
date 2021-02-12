@@ -63,7 +63,7 @@
   "lightYears": "Lysår",
   "parsec": "Parsec",
 
-  "metro_quadrato": "Kvadratmeter",
+  "squareMeters": "Kvadratmeter",
   "squareCentimeters": "Kvadratcentimeter",
   "squareInches":"Kvadrattomme",
   "squareFeet": "Kvadratfot",
@@ -101,10 +101,10 @@
   "days": "Dag",
   "weeks": "Uke",
   "years": "År (365)",
-  "lustra": "Lustrum",
+  "lustrum": "Lustrum",
   "decades": "Tiår",
   "centuries": "Århundre",
-  "millennia": "Millennium",
+  "millennium": "Millennium",
 
   "fahrenheit": "Fahrenheit",
   "celsius": "Celsius",
@@ -118,7 +118,7 @@
   "kilometersHour": "Kilometer per time",
   "milesHour": "Engelsk mil per time",
   "knots": "Knop",
-  "feetsSecond": "Fot per sekund",
+  "feetSecond": "Fot per sekund",
 
   "grams": "Gram",
   "ettograms": "Ettogram",

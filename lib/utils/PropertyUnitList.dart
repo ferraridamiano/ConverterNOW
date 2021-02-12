@@ -138,10 +138,10 @@ List<UnitUi> getUnitUiList(BuildContext context) {
   unitUiList.add(UnitUi(TIME.days, AppLocalizations.of(context).days, basePath + 'time.png', PROPERTYX.TIME));
   unitUiList.add(UnitUi(TIME.weeks, AppLocalizations.of(context).weeks, basePath + 'time.png', PROPERTYX.TIME));
   unitUiList.add(UnitUi(TIME.years_365, AppLocalizations.of(context).years, basePath + 'time.png', PROPERTYX.TIME));
-  unitUiList.add(UnitUi(TIME.lustra, AppLocalizations.of(context).lustra, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.lustra, AppLocalizations.of(context).lustrum, basePath + 'time.png', PROPERTYX.TIME));
   unitUiList.add(UnitUi(TIME.decades, AppLocalizations.of(context).decades, basePath + 'time.png', PROPERTYX.TIME));
   unitUiList.add(UnitUi(TIME.centuries, AppLocalizations.of(context).centuries, basePath + 'time.png', PROPERTYX.TIME));
-  unitUiList.add(UnitUi(TIME.millennia, AppLocalizations.of(context).millennia, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.millennia, AppLocalizations.of(context).millennium, basePath + 'time.png', PROPERTYX.TIME));
   unitUiList.add(UnitUi(TEMPERATURE.fahrenheit, AppLocalizations.of(context).fahrenheit, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
   unitUiList.add(UnitUi(TEMPERATURE.celsius, AppLocalizations.of(context).celsius, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
   unitUiList.add(UnitUi(TEMPERATURE.kelvin, AppLocalizations.of(context).kelvin, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
@@ -153,7 +153,7 @@ List<UnitUi> getUnitUiList(BuildContext context) {
   unitUiList.add(UnitUi(SPEED.kilometers_per_hour, AppLocalizations.of(context).kilometersHour, basePath + 'speed.png', PROPERTYX.SPEED));
   unitUiList.add(UnitUi(SPEED.miles_per_hour, AppLocalizations.of(context).milesHour, basePath + 'speed.png', PROPERTYX.SPEED));
   unitUiList.add(UnitUi(SPEED.knots, AppLocalizations.of(context).knots, basePath + 'speed.png', PROPERTYX.SPEED));
-  unitUiList.add(UnitUi(SPEED.feets_per_second, AppLocalizations.of(context).feetsSecond, basePath + 'speed.png', PROPERTYX.SPEED));
+  unitUiList.add(UnitUi(SPEED.feets_per_second, AppLocalizations.of(context).feetSecond, basePath + 'speed.png', PROPERTYX.SPEED));
   unitUiList.add(UnitUi(MASS.grams, AppLocalizations.of(context).grams, basePath + 'mass.png', PROPERTYX.MASS));
   unitUiList.add(UnitUi(MASS.ettograms, AppLocalizations.of(context).ettograms, basePath + 'mass.png', PROPERTYX.MASS));
   unitUiList.add(UnitUi(MASS.kilograms, AppLocalizations.of(context).kilograms, basePath + 'mass.png', PROPERTYX.MASS));

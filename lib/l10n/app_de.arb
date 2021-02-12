@@ -101,10 +101,10 @@
   "days": "Tage",
   "weeks": "Wochen",
   "years": "Jahre (365)",
-  "lustra": "Jahrfünft",
+  "lustrum": "Jahrfünft",
   "decades": "Dekaden",
   "centuries":"Jahrhunderte",
-  "millennia": "Jahrtausende",
+  "millennium": "Jahrtausende",
 
   "fahrenheit": "Fahrenheit",
   "celsius": "Grad Celsius",
@@ -118,7 +118,7 @@
   "kilometersHour": "Kilometer pro Stunde",
   "milesHour": "Meilen pro Stunde",
   "knots": "Knoten",
-  "feetsSecond": "Fuß pro Sekunde",
+  "feetSecond": "Fuß pro Sekunde",
 
   "grams": "Gramm",
   "ettograms": "Hektogramm",

@@ -101,10 +101,10 @@
   "days": "Jours",
   "weeks":"Semaines",
   "years": "Années (365)",
-  "lustra": "Lustre",
+  "lustrum": "Lustre",
   "decades": "Décennies",
   "centuries":"Siècles",
-  "millennia": "Millénaires",
+  "millennium": "Millénaires",
 
   "fahrenheit": "Fahrenheit",
   "celsius": "Celsius (Centigrade)",
@@ -118,7 +118,7 @@
   "kilometersHour": "Kilomètres par heure",
   "milesHour": "Miles par heure",
   "knots": "Noeuds",
-  "feetsSecond": "Pieds par seconde",
+  "feetSecond": "Pieds par seconde",
 
   "grams": "Grammes",
   "ettograms": "Hectogramme",
@@ -147,7 +147,7 @@
   "degree": "Degré",
   "minutesDegree": "Minutes",
   "secondsDegree": "Secondes",
-  "radiaradiansDegreenti": "Radians",
+  "radiansDegree": "Radians",
 
   "usd": "Dollar US",
   "eur": "Euro",
