@@ -138,10 +138,10 @@ List<UnitUi> getUnitUiList(BuildContext context) {
   unitUiList.add(UnitUi(TIME.days, AppLocalizations.of(context).days, basePath + 'time.png', PROPERTYX.TIME));
   unitUiList.add(UnitUi(TIME.weeks, AppLocalizations.of(context).weeks, basePath + 'time.png', PROPERTYX.TIME));
   unitUiList.add(UnitUi(TIME.years_365, AppLocalizations.of(context).years, basePath + 'time.png', PROPERTYX.TIME));
-  unitUiList.add(UnitUi(TIME.lustra, AppLocalizations.of(context).lustrum, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.lustrum, AppLocalizations.of(context).lustrum, basePath + 'time.png', PROPERTYX.TIME));
   unitUiList.add(UnitUi(TIME.decades, AppLocalizations.of(context).decades, basePath + 'time.png', PROPERTYX.TIME));
   unitUiList.add(UnitUi(TIME.centuries, AppLocalizations.of(context).centuries, basePath + 'time.png', PROPERTYX.TIME));
-  unitUiList.add(UnitUi(TIME.millennia, AppLocalizations.of(context).millennium, basePath + 'time.png', PROPERTYX.TIME));
+  unitUiList.add(UnitUi(TIME.millennium, AppLocalizations.of(context).millennium, basePath + 'time.png', PROPERTYX.TIME));
   unitUiList.add(UnitUi(TEMPERATURE.fahrenheit, AppLocalizations.of(context).fahrenheit, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
   unitUiList.add(UnitUi(TEMPERATURE.celsius, AppLocalizations.of(context).celsius, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));
   unitUiList.add(UnitUi(TEMPERATURE.kelvin, AppLocalizations.of(context).kelvin, basePath + 'temperature.png', PROPERTYX.TEMPERATURE));

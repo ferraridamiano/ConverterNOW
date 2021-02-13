@@ -71,7 +71,7 @@ class ConversionPage extends StatelessWidget {
               if (txt == '' || unitData.getValidator().hasMatch(txt)) {
                 Conversions conversions = context.read<Conversions>();
                 //just numeral system uses a string for conversion
-                if (unitData.unit.name == PROPERTYX.NUMERAL_SYSTEMS) {
+                if (unitData.property == PROPERTYX.NUMERAL_SYSTEMS) {
                   conversions.convert(unitData, txt == "" ? null : txt);
                 } else {
                   conversions.convert(unitData, txt == "" ? null : double.parse(txt));

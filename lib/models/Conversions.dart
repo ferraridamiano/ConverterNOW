@@ -289,7 +289,7 @@ class Conversions with ChangeNotifier {
     notifyListeners();
   }
 
-  /// Apply the order defined in [_conversionsOrder] to [_unitDataList]. [_unitDataList] will be redefined, so this function is used also dureing initialization
+  /// Apply the order defined in [_conversionsOrder] to [_unitDataList]. [_unitDataList] will be redefined, so this function is used also during initialization
   _refreshOrderUnits() {
     _unitDataList = [];
     for (int i = 0; i < _propertyList.length; i++) {
@@ -297,10 +297,40 @@ class Conversions with ChangeNotifier {
       Property property = _propertyList[i];
       List<Unit> tempProperty = property.getAll();
       for (int j = 0; j < tempProperty.length; j++) {
+        VALIDATOR validator = VALIDATOR.RATIONAL_NON_NEGATIVE;
+        TextInputType textInputType = TextInputType.numberWithOptions(decimal: true, signed: false);
+        if(property.name == PROPERTYX.NUMERAL_SYSTEMS){
+
+          switch(tempProperty[j].name){
+            case NUMERAL_SYSTEMS.binary:{
+              validator = VALIDATOR.BINARY;
+              textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
+              break;
+            }
+            case NUMERAL_SYSTEMS.octal: {
+              validator = VALIDATOR.OCTAL;
+              textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
+              break;
+            }
+            case NUMERAL_SYSTEMS.decimal: {
+              validator = VALIDATOR.DECIMAL;
+              textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
+              break;
+            }
+            case NUMERAL_SYSTEMS.hexadecimal: {
+              validator = VALIDATOR.HEXADECIMAL;
+              textInputType = TextInputType.text;
+              break;
+            }
+          }
+        }
+
         tempUnitData[_conversionsOrder[i][j]] = UnitData(
           tempProperty[j],
           property: property.name,
           tec: TextEditingController(),
+          validator: validator,
+          textInputType: textInputType,
         );
       }
       _unitDataList.add(tempUnitData);
