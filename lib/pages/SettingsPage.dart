@@ -20,6 +20,7 @@ class _SettingsPageState extends State<SettingsPage> {
   int significantFigures;
   TextStyle textStyle = TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE);
   ThemeMode currentTheme;
+  bool isDarkAmoled;
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _SettingsPageState extends State<SettingsPage> {
     }
     AppModel appModel = context.read<AppModel>();
     currentTheme = appModel.currentThemeMode;
+    isDarkAmoled = appModel.isDarkAmoled;
   }
 
   @override
@@ -77,6 +79,18 @@ class _SettingsPageState extends State<SettingsPage> {
           reverse: true,
           children: [
             DropdownListTile(
+              title: AppLocalizations.of(context).significantFigures,
+              textStyle: textStyle,
+              items: significantFiguresList,
+              value: significantFigures.toString(),
+              onChanged: (String string) {
+                int val = int.parse(string);
+                setState(() => significantFigures = val);
+                Conversions conversions = context.read<Conversions>();
+                conversions.significantFigures = val;
+              },
+            ),
+            DropdownListTile(
               title: AppLocalizations.of(context).theme,
               textStyle: textStyle,
               items: mapTheme.values.toList(),
@@ -87,16 +101,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 appModel.currentThemeMode = currentTheme;
               },
             ),
-            DropdownListTile(
-              title: AppLocalizations.of(context).significantFigures,
-              textStyle: textStyle,
-              items: significantFiguresList,
-              value: significantFigures.toString(),
-              onChanged: (String string) {
-                int val = int.parse(string);
-                setState(() => significantFigures = val);
-                Conversions conversions = context.read<Conversions>();
-                conversions.significantFigures = val;
+            SwitchListTile(
+              title: Text(
+                AppLocalizations.of(context).amoledDarkTheme,
+                style: textStyle,
+              ),
+              value: isDarkAmoled,
+              activeColor: Theme.of(context).accentColor,
+              onChanged: (bool val) {
+                setState(() => isDarkAmoled = val);
+                AppModel appModel = context.read<AppModel>();
+                appModel.isDarkAmoled = val;
               },
             ),
             SwitchListTile(

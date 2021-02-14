@@ -9,6 +9,7 @@ class AppModel with ChangeNotifier {
   int _currentPage = 0;
   bool _isLogoVisible = true;
   ThemeMode _currentThemeMode = ThemeMode.system;
+  bool _isDarkAmoled = false;
   Map<ThemeMode, int> _themeModeMap = {
     ThemeMode.system: 0,
     ThemeMode.dark: 1,
@@ -86,7 +87,8 @@ class AppModel with ChangeNotifier {
   ///(if there are options saved)
   _checkSettings() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _isLogoVisible = prefs.getBool("isLogoVisible") ?? true;
+    _isLogoVisible = prefs.getBool("isLogoVisible") ?? _isLogoVisible;
+    _isDarkAmoled = prefs.getBool("isDarkAmoled") ?? _isDarkAmoled;
     int valThemeMode = prefs.getInt('currentThemeMode');
     if (valThemeMode != null) {
       _currentThemeMode = _themeModeMap.keys.where((key) => _themeModeMap[key] == valThemeMode).single;
@@ -111,6 +113,14 @@ class AppModel with ChangeNotifier {
   }
 
   get currentThemeMode => _currentThemeMode;
+
+  set isDarkAmoled(bool val) {
+    _isDarkAmoled = val;
+    notifyListeners();
+    _saveSettingsBool('isDarkAmoled', _isDarkAmoled);
+  }
+
+  get isDarkAmoled => _isDarkAmoled;
 
   ///Saves the key value with SharedPreferences
   _saveSettingsBool(String key, bool value) async {

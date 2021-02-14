@@ -33,6 +33,7 @@ class _MyApp extends State<MyApp> {
         ),
       ],
       child: Builder(builder: (BuildContext context) {
+        bool isDarkAmoled = context.select<AppModel, bool>((appModel) => appModel.isDarkAmoled);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Converter NOW',
@@ -43,7 +44,14 @@ class _MyApp extends State<MyApp> {
           },
           themeMode: context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
           theme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.light),
-          darkTheme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.dark),
+          darkTheme: ThemeData(
+            primaryColor: const Color(0xFFF2542D),
+            accentColor: const Color(0xFF0E9594),
+            brightness: Brightness.dark,
+            scaffoldBackgroundColor: isDarkAmoled ? Colors.black : Colors.grey[850],
+            canvasColor: isDarkAmoled ? Colors.black : Colors.grey[850],            // for drawer background
+            cardColor: isDarkAmoled ? Colors.grey[900] : Colors.grey[800],
+          ),
           supportedLocales: AppLocalizations.supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
