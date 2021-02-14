@@ -8,6 +8,12 @@ class AppModel with ChangeNotifier {
   List<int> _conversionsOrderDrawer = List.generate(19, (index) => index);
   int _currentPage = 0;
   bool _isLogoVisible = true;
+  ThemeMode _currentThemeMode = ThemeMode.system;
+  Map<ThemeMode, int> _themeModeMap = {
+    ThemeMode.system: 0,
+    ThemeMode.dark: 1,
+    ThemeMode.light: 2,
+  };
 
   AppModel() {
     _checkOrdersDrawer();
@@ -80,11 +86,12 @@ class AppModel with ChangeNotifier {
   ///(if there are options saved)
   _checkSettings() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool val = prefs.getBool("isLogoVisible");
-    if (val != null) {
-      _isLogoVisible = val;
-      notifyListeners();
+    _isLogoVisible = prefs.getBool("isLogoVisible") ?? true;
+    int valThemeMode = prefs.getInt('currentThemeMode');
+    if (valThemeMode != null) {
+      _currentThemeMode = _themeModeMap.keys.where((key) => _themeModeMap[key] == valThemeMode).single;
     }
+    notifyListeners();
   }
 
   ///Returns true if the drawer logo is visible, false otherwise
@@ -97,9 +104,23 @@ class AppModel with ChangeNotifier {
     _saveSettingsBool('isLogoVisible', _isLogoVisible);
   }
 
+  set currentThemeMode(ThemeMode val) {
+    _currentThemeMode = val;
+    notifyListeners();
+    _saveSettingsInt('currentThemeMode', _themeModeMap[_currentThemeMode]);
+  }
+
+  get currentThemeMode => _currentThemeMode;
+
   ///Saves the key value with SharedPreferences
   _saveSettingsBool(String key, bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(key, value);
+  }
+
+  ///Saves the key value with SharedPreferences
+  _saveSettingsInt(String key, int value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(key, value);
   }
 }

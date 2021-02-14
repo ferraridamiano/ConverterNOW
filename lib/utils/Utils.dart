@@ -4,6 +4,15 @@ import 'package:units_converter/Unit.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
 
+Brightness getBrightness(ThemeMode themeMode, Brightness platformBrightness) {
+  if (themeMode == ThemeMode.light) {
+    return Brightness.light;
+  } else if (themeMode == ThemeMode.dark) {
+    return Brightness.dark;
+  }
+  return platformBrightness;
+}
+
 abstract class ListItem {}
 
 class MyCard implements ListItem {
@@ -20,10 +29,11 @@ class BigHeader implements ListItem {
 }
 
 class BigTitle extends StatelessWidget {
-  BigTitle({this.text, this.subtitle, this.isCurrenciesLoading});
+  BigTitle({this.text, this.subtitle, this.isCurrenciesLoading, this.brightness});
   final String text;
   final String subtitle;
   final bool isCurrenciesLoading;
+  final Brightness brightness;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +56,7 @@ class BigTitle extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 40.0,
                     fontWeight: FontWeight.bold,
-                    color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
+                    color: brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
                   ),
                 ),
               ),
@@ -114,9 +124,10 @@ class UnitCard extends StatelessWidget {
 }
 
 class Calculator extends StatefulWidget {
-  Calculator(this.color, this.width);
+  Calculator(this.color, this.width, this.brightness);
   final Color color;
   final double width;
+  final Brightness brightness;
   @override
   _Calculator createState() => new _Calculator();
 }
@@ -135,7 +146,7 @@ class _Calculator extends State<Calculator> {
   @override
   Widget build(BuildContext context) {
     double calcWidth = widget.width < 800 ? widget.width : 800;
-    Color textButtonColor = Color(MediaQuery.of(context).platformBrightness == Brightness.dark ? 0xFFBBBBBB : 0xFF777777);
+    Color textButtonColor = Color(widget.brightness == Brightness.dark ? 0xFFBBBBBB : 0xFF777777);
     return Container(
       height: 5 * buttonHeight,
       child: Column(
@@ -156,7 +167,7 @@ class _Calculator extends State<Calculator> {
                       style: TextStyle(
                         fontSize: 45.0,
                         fontWeight: FontWeight.bold,
-                        color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white : Colors.black,
+                        color: widget.brightness == Brightness.dark ? Colors.white : Colors.black,
                       ),
                       maxLines: 1,
                       scrollPhysics: ClampingScrollPhysics(),
@@ -170,7 +181,7 @@ class _Calculator extends State<Calculator> {
                         ? IconButton(
                             icon: Icon(
                               Icons.content_copy,
-                              color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white54 : Colors.black54,
+                              color: widget.brightness == Brightness.dark ? Colors.white54 : Colors.black54,
                             ),
                             onPressed: () {
                               Clipboard.setData(new ClipboardData(text: text));
@@ -187,16 +198,17 @@ class _Calculator extends State<Calculator> {
                                             ? "÷"
                                             : "",
                             style: TextStyle(
-                                fontSize: 45.0,
-                                fontWeight: FontWeight.bold,
-                                color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white54 : Colors.black54),
+                              fontSize: 45.0,
+                              fontWeight: FontWeight.bold,
+                              color: widget.brightness == Brightness.dark ? Colors.white54 : Colors.black54,
+                            ),
                             maxLines: 1,
                           ),
                   ),
                 ],
               ),
             ),
-            decoration: new BoxDecoration(color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFF2e2e2e) : Colors.white, boxShadow: [
+            decoration: new BoxDecoration(color: widget.brightness == Brightness.dark ? Color(0xFF2e2e2e) : Colors.white, boxShadow: [
               new BoxShadow(
                 color: Colors.black,
                 blurRadius: 5.0,
@@ -482,18 +494,14 @@ class SearchGridTile extends StatelessWidget {
   }
 }
 
-class ListTileConversion extends StatefulWidget {
+class ListTileConversion extends StatelessWidget {
   final String text;
   final String imagePath;
   final bool selected;
   final Function onTapFunction;
-  ListTileConversion(this.text, this.imagePath, this.selected, this.onTapFunction);
+  final Brightness brightness;
+  ListTileConversion({this.text, this.imagePath, this.selected, this.onTapFunction, this.brightness});
 
-  @override
-  _ListTileConversion createState() => new _ListTileConversion();
-}
-
-class _ListTileConversion extends State<ListTileConversion> {
   @override
   Widget build(BuildContext context) {
     return ListTileTheme(
@@ -501,29 +509,25 @@ class _ListTileConversion extends State<ListTileConversion> {
         title: Row(
           children: <Widget>[
             Image.asset(
-              widget.imagePath,
+              imagePath,
               width: 30.0,
               height: 30.0,
-              color: (widget.selected
-                  ? Theme.of(context).accentColor
-                  : (MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54)),
+              color: (selected ? Theme.of(context).accentColor : (brightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54)),
             ),
             SizedBox(
               width: 20.0,
             ),
             Text(
-              widget.text,
+              text,
               style: TextStyle(
-                color: widget.selected
-                    ? Theme.of(context).accentColor
-                    : (MediaQuery.of(context).platformBrightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
-                fontWeight: widget.selected ? FontWeight.bold : FontWeight.normal,
+                color: selected ? Theme.of(context).accentColor : (brightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54),
+                fontWeight: selected ? FontWeight.bold : FontWeight.normal,
               ),
             )
           ],
         ),
-        selected: widget.selected,
-        onTap: widget.onTapFunction,
+        selected: selected,
+        onTap: onTapFunction,
       ),
       selectedColor: Theme.of(context).accentColor,
     );

@@ -25,6 +25,11 @@
   "back": "Back",
   "save": "Save",
   "invalidCharacters": "Error, invalid characters",
+  "theme": "Theme",
+  "dark": "Dark",
+  "light": "Light",
+  "system": "System",
+  "amoledDarkTheme": "AMOLED dark theme"
 
   "length": "Length",
   "area": "Area",

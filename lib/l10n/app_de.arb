@@ -25,6 +25,11 @@
   "back": "Zurück",
   "save": "Speichern",
   "invalidCharacters": "Fehler, unzulässige Zeichen",
+  "theme": "Thema",
+  "dark": "Dunkles",
+  "light": "Licht",
+  "system": "System",
+  "amoledDarkTheme": "AMOLED dunkles thema"
 
   "length": "Länge",
   "area": "Fläche",
