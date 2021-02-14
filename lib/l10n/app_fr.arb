@@ -25,6 +25,11 @@
   "back": "Retour",
   "save": "Enregistrer",
   "invalidCharacters": "Erreur, caractères non valides",
+  "theme": "Thème",
+  "dark": "Sombre",
+  "light": "Clair",
+  "system": "Système",
+  "amoledDarkTheme": "Thème sombre AMOLED"
 
   "length": "Distance",
   "area": "Superficie",

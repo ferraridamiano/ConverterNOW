@@ -10,28 +10,27 @@ import 'package:converterpro/utils/PropertyUnitList.dart';
 import 'package:intl/intl.dart';
 import 'ReorderPage.dart';
 
-Map jsonSearch;
-
 class ConversionPage extends StatelessWidget {
   final Function openDrawer;
-  final String lastUpdateCurrency;
 
-  ConversionPage({this.openDrawer, this.lastUpdateCurrency});
+  ConversionPage(this.openDrawer);
 
   @override
   Widget build(BuildContext context) {
-    Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
-    Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
-
     List<Choice> choices = <Choice>[
       Choice(title: AppLocalizations.of(context).reorder, icon: Icons.reorder),
     ];
 
+    Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
+    Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
     List<UnitData> unitDataList = context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);
-
     List<ListItem> itemList = [];
     PROPERTYX currentProperty = context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);
 
+    Brightness brightness = getBrightness(
+      context.select<AppModel, ThemeMode>((AppModel appModel) => appModel.currentThemeMode),
+      MediaQuery.of(context).platformBrightness,
+    );
     String subTitle;
     if (currentProperty == PROPERTYX.CURRENCIES) {
       subTitle = getLastUpdateString(context);
@@ -53,7 +52,7 @@ class ConversionPage extends StatelessWidget {
             key: Key(unitData.unit.name.toString()),
             style: TextStyle(
               fontSize: 16.0,
-              color: MediaQuery.of(context).platformBrightness == Brightness.dark ? Colors.white : Colors.black,
+              color: brightness == Brightness.dark ? Colors.white : Colors.black,
             ),
             keyboardType: unitData.textInputType,
             controller: unitData.tec,
@@ -96,6 +95,7 @@ class ConversionPage extends StatelessWidget {
             text: item.title,
             subtitle: item.subTitle,
             isCurrenciesLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
+            brightness: brightness,
           ),
         );
       }
@@ -206,7 +206,7 @@ class ConversionPage extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 double displayWidth = MediaQuery.of(context).size.width;
-                return Calculator(Theme.of(context).accentColor, displayWidth);
+                return Calculator(Theme.of(context).accentColor, displayWidth, brightness);
               });
         },
         elevation: 5.0,
@@ -247,6 +247,11 @@ class CustomSearchDelegate extends SearchDelegate<int> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    Brightness brightness = getBrightness(
+      context.select<AppModel, ThemeMode>((AppModel appModel) => appModel.currentThemeMode),
+      MediaQuery.of(context).platformBrightness,
+    );
+
     final List<SearchUnit> _dataSearch = getSearchUnitsList((int pageNumber) {
       close(context, pageNumber);
     }, context);
@@ -255,7 +260,7 @@ class CustomSearchDelegate extends SearchDelegate<int> {
         close(context, pageNumber);
       },
       context,
-      MediaQuery.of(context).platformBrightness == Brightness.dark,
+      brightness == Brightness.dark,
       orderList,
     );
 
@@ -265,13 +270,12 @@ class CustomSearchDelegate extends SearchDelegate<int> {
     return query.isNotEmpty
         ? SuggestionList(
             suggestions: suggestions.toList(),
-            darkMode: MediaQuery.of(context).platformBrightness == Brightness.dark,
+            darkMode: brightness == Brightness.dark,
           )
-        : 
-        GridView(
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200.0),
-      children: allConversions,
-    );
+        : GridView(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200.0),
+            children: allConversions,
+          );
   }
 
   @override

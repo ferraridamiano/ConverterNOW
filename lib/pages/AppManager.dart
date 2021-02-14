@@ -1,12 +1,10 @@
 import 'package:converterpro/models/AppModel.dart';
-import 'package:converterpro/models/Conversions.dart';
 import 'package:converterpro/pages/ConversionPage.dart';
 import 'package:converterpro/utils/PropertyUnitList.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
 class AppManager extends StatelessWidget {
   static const MAX_CONVERSION_UNITS = 19;
@@ -93,13 +91,17 @@ class AppManager extends StatelessWidget {
     for (int i = 0; i < propertyUiList.length; i++) {
       PropertyUi propertyUi = propertyUiList[i];
       listaDrawer[conversionsOrderDrawer[i] + 1] = ListTileConversion(
-        propertyUi.name,
-        propertyUi.imagePath,
-        currentPage == i,
-        () {
+        text: propertyUi.name,
+        imagePath: propertyUi.imagePath,
+        selected: currentPage == i,
+        onTapFunction: () {
           context.read<AppModel>().changeToPage(i);
           Navigator.of(context).pop();
         },
+        brightness: getBrightness(
+          context.select<AppModel, ThemeMode>((AppModel appModel) => appModel.currentThemeMode),
+          MediaQuery.of(context).platformBrightness,
+        ),
       );
     }
   }
@@ -107,17 +109,6 @@ class AppManager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _initializeTiles(context);
-
-    DateTime lastUpdateCurrencies = context.select<Conversions, DateTime>(
-      (settings) => settings.lastUpdateCurrency,
-    );
-
-    String stringLastUpdateCurrencies;
-    DateTime dateNow = DateTime.now();
-    if (lastUpdateCurrencies.day == dateNow.day && lastUpdateCurrencies.month == dateNow.month && lastUpdateCurrencies.year == dateNow.year)
-      stringLastUpdateCurrencies = AppLocalizations.of(context).lastCurrenciesUpdate + AppLocalizations.of(context).today;
-    else
-      stringLastUpdateCurrencies = AppLocalizations.of(context).lastCurrenciesUpdate + DateFormat("yyyy-MM-dd").format(lastUpdateCurrencies);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -128,12 +119,9 @@ class AppManager extends StatelessWidget {
         ),
       ),
       body: Builder(
-        builder: (context) => ConversionPage(
-          openDrawer: () {
-            Scaffold.of(context).openDrawer();
-          },
-          lastUpdateCurrency: stringLastUpdateCurrencies,
-        ),
+        builder: (context) => ConversionPage(() {
+          Scaffold.of(context).openDrawer();
+        }),
       ),
     );
   }

@@ -25,6 +25,11 @@
   "back": "Назад",
   "save": "Сохранить",
   "invalidCharacters": "Ошибка, недопустимые символы",
+  "theme": "Tема",
+  "dark": "Tемная",
+  "light": "Cветлая",
+  "system": "Cистемы",
+  "amoledDarkTheme": "амолед темная тема"
 
   "length": "Длина",
   "area": "Площадь",

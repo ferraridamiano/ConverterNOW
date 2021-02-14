@@ -25,6 +25,11 @@
   "back": "Tilbake",
   "save": "Lagre",
   "invalidCharacters": "Feil, ugyldige tegn",
+  "theme": "Mørkt tema",
+  "dark": "Mørk",
+  "light": "Lett",
+  "system": "System",
+  "amoledDarkTheme": "AMOLED mørkt tema"
 
   "length": "Lengde",
   "area": "Areal",

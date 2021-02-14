@@ -31,31 +31,31 @@ class _MyApp extends State<MyApp> {
             return conversions;
           },
         ),
-        /*ChangeNotifierProvider(
-          create: (_) => Conversions(),
-        ),*/
       ],
-      child: new MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Converter NOW',
-        initialRoute: '/',
-        routes: {
-          '/': (context) => AppManager(),
-          '/settings': (context) => SettingsPage(),
-        },
-        theme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.light),
-        darkTheme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.dark),
-        supportedLocales: AppLocalizations.supportedLocales,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
-          for (Locale supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale.languageCode || supportedLocale.countryCode == locale.countryCode) {
-              return supportedLocale;
+      child: Builder(builder: (BuildContext context) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Converter NOW',
+          initialRoute: '/',
+          routes: {
+            '/': (context) => AppManager(),
+            '/settings': (context) => SettingsPage(),
+          },
+          themeMode: context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
+          theme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.light),
+          darkTheme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.dark),
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+            for (Locale supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode || supportedLocale.countryCode == locale.countryCode) {
+                return supportedLocale;
+              }
             }
-          }
-          return supportedLocales.first;
-        },
-      ),
+            return supportedLocales.first;
+          },
+        );
+      }),
     );
   }
 }

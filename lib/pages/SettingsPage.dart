@@ -14,11 +14,12 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  List<int> significantFiguresList;
+  List<String> significantFiguresList;
   bool isLogoVisible;
   bool removeTrailingZeros;
   int significantFigures;
   TextStyle textStyle = TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE);
+  ThemeMode currentTheme;
 
   @override
   void initState() {
@@ -27,11 +28,22 @@ class _SettingsPageState extends State<SettingsPage> {
     isLogoVisible = context.read<AppModel>().isLogoVisible;
     removeTrailingZeros = conversions.removeTrailingZeros;
     significantFigures = conversions.significantFigures;
-    significantFiguresList = conversions.significantFiguresList;
+    significantFiguresList = [];
+    for (int value in conversions.significantFiguresList) {
+      significantFiguresList.add(value.toString());
+    }
+    AppModel appModel = context.read<AppModel>();
+    currentTheme = appModel.currentThemeMode;
   }
 
   @override
   Widget build(BuildContext context) {
+    Map<ThemeMode, String> mapTheme = {
+      ThemeMode.system: AppLocalizations.of(context).system,
+      ThemeMode.dark: AppLocalizations.of(context).dark,
+      ThemeMode.light: AppLocalizations.of(context).light,
+    };
+
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,
@@ -64,38 +76,28 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           reverse: true,
           children: [
-            ListTile(
-              title: Text(
-                AppLocalizations.of(context).significantFigures,
-                style: textStyle,
-              ),
-              trailing: DropdownButton<String>(
-                value: significantFigures.toString(),
-                onChanged: (String string) {
-                  int val = int.parse(string);
-                  setState(() => significantFigures = val);
-                  Conversions conversions = context.read<Conversions>();
-                  conversions.significantFigures = val;
-                },
-                selectedItemBuilder: (BuildContext context) {
-                  return significantFiguresList.map<Widget>((int item) {
-                    return Center(
-                        child: Text(
-                      item.toString(),
-                      style: textStyle,
-                    ));
-                  }).toList();
-                },
-                items: significantFiguresList.map((int item) {
-                  return DropdownMenuItem<String>(
-                    child: Text(
-                      item.toString(),
-                      style: textStyle,
-                    ),
-                    value: item.toString(),
-                  );
-                }).toList(),
-              ),
+            DropdownListTile(
+              title: AppLocalizations.of(context).theme,
+              textStyle: textStyle,
+              items: mapTheme.values.toList(),
+              value: mapTheme[currentTheme],
+              onChanged: (String string) {
+                setState(() => currentTheme = mapTheme.keys.where((key) => mapTheme[key] == string).single);
+                AppModel appModel = context.read<AppModel>();
+                appModel.currentThemeMode = currentTheme;
+              },
+            ),
+            DropdownListTile(
+              title: AppLocalizations.of(context).significantFigures,
+              textStyle: textStyle,
+              items: significantFiguresList,
+              value: significantFigures.toString(),
+              onChanged: (String string) {
+                int val = int.parse(string);
+                setState(() => significantFigures = val);
+                Conversions conversions = context.read<Conversions>();
+                conversions.significantFigures = val;
+              },
             ),
             SwitchListTile(
               title: Text(
@@ -189,6 +191,48 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class DropdownListTile extends StatelessWidget {
+  final String title;
+  final List<String> items;
+  final String value;
+  final ValueChanged<String> onChanged;
+  final TextStyle textStyle;
+
+  DropdownListTile({this.title, this.items, this.value, this.onChanged, this.textStyle});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: textStyle,
+      ),
+      trailing: DropdownButton<String>(
+        value: value,
+        onChanged: onChanged,
+        selectedItemBuilder: (BuildContext context) {
+          return items.map<Widget>((String item) {
+            return Center(
+                child: Text(
+              item,
+              style: textStyle,
+            ));
+          }).toList();
+        },
+        items: items.map((String item) {
+          return DropdownMenuItem<String>(
+            child: Text(
+              item.toString(),
+              style: textStyle,
+            ),
+            value: item,
+          );
+        }).toList(),
       ),
     );
   }
