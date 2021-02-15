@@ -216,8 +216,8 @@ class Conversions with ChangeNotifier {
     String currencyRead = prefs.getString("currencyRates");
     if (currencyRead != null) {
       CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(currencyRead));
-      _currencyValues = currencyObject.rates;
-      _currencyValues.putIfAbsent(CURRENCIES.EUR, () => 1.0);
+      _currencyValues = {CURRENCIES.EUR: 1.0};
+      _currencyValues.addAll(currencyObject.rates); //updates the currency value with the new values
       String lastUpdateRead = currencyObject.date;
       if (lastUpdateRead != null) _lastUpdateCurrencies = DateTime.parse(lastUpdateRead);
     }
@@ -242,8 +242,8 @@ class Conversions with ChangeNotifier {
           //time zone that may be not the same of the time zone of the user. So I rewrite the date of
           //the response to be the same of the date of the user
           currencyObject.date = now;
-          _currencyValues = currencyObject.rates; //updates the currency value with the new values
-          _currencyValues.putIfAbsent(CURRENCIES.EUR, () => 1.0);
+          _currencyValues = {CURRENCIES.EUR: 1.0};
+          _currencyValues.addAll(currencyObject.rates); //updates the currency value with the new values
           //If the request recive an accettable response the last update is now
           _lastUpdateCurrencies = DateTime.now();
           //save to memory
@@ -299,29 +299,32 @@ class Conversions with ChangeNotifier {
       for (int j = 0; j < tempProperty.length; j++) {
         VALIDATOR validator = VALIDATOR.RATIONAL_NON_NEGATIVE;
         TextInputType textInputType = TextInputType.numberWithOptions(decimal: true, signed: false);
-        if(property.name == PROPERTYX.NUMERAL_SYSTEMS){
-
-          switch(tempProperty[j].name){
-            case NUMERAL_SYSTEMS.binary:{
-              validator = VALIDATOR.BINARY;
-              textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
-              break;
-            }
-            case NUMERAL_SYSTEMS.octal: {
-              validator = VALIDATOR.OCTAL;
-              textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
-              break;
-            }
-            case NUMERAL_SYSTEMS.decimal: {
-              validator = VALIDATOR.DECIMAL;
-              textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
-              break;
-            }
-            case NUMERAL_SYSTEMS.hexadecimal: {
-              validator = VALIDATOR.HEXADECIMAL;
-              textInputType = TextInputType.text;
-              break;
-            }
+        if (property.name == PROPERTYX.NUMERAL_SYSTEMS) {
+          switch (tempProperty[j].name) {
+            case NUMERAL_SYSTEMS.binary:
+              {
+                validator = VALIDATOR.BINARY;
+                textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
+                break;
+              }
+            case NUMERAL_SYSTEMS.octal:
+              {
+                validator = VALIDATOR.OCTAL;
+                textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
+                break;
+              }
+            case NUMERAL_SYSTEMS.decimal:
+              {
+                validator = VALIDATOR.DECIMAL;
+                textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
+                break;
+              }
+            case NUMERAL_SYSTEMS.hexadecimal:
+              {
+                validator = VALIDATOR.HEXADECIMAL;
+                textInputType = TextInputType.text;
+                break;
+              }
           }
         }
 
