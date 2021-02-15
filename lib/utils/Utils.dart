@@ -37,50 +37,46 @@ class BigTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 83.0,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          SizedBox(
-            height: 20.0,
+    return Stack(
+      children: <Widget>[
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            text,
+            maxLines: 2,
+            style: TextStyle(
+              fontSize: 35.0,
+              fontWeight: FontWeight.bold,
+              color: brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
+            ),
           ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                child: Text(
-                  text,
-                  style: TextStyle(
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.bold,
-                    color: brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
-                  ),
-                ),
-              ),
-              Container(
-                height: 30.0,
-                alignment: Alignment.bottomRight,
-                child: (isCurrenciesLoading && subtitle != "")
-                    ? Container(
-                        child: CircularProgressIndicator(),
-                        height: 25.0,
-                        width: 25.0,
-                      )
-                    : Text(
-                        subtitle,
-                        style: TextStyle(fontSize: 15.0, color: Color(0xFF999999)),
-                      ),
-              ),
-            ],
-          ),
-          Divider(
-            color: Colors.grey,
-          ),
-        ],
-      ),
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            subtitle != ''
+                ? Container(
+                    height: 17.0,
+                    alignment: Alignment.bottomRight,
+                    child: (isCurrenciesLoading && subtitle != "")
+                        ? Container(
+                            padding: EdgeInsets.only(right: 10),
+                            child: CircularProgressIndicator(),
+                            height: 15.0,
+                            width: 25.0,
+                          )
+                        : Text(
+                            subtitle,
+                            style: TextStyle(fontSize: 15.0, color: Color(0xFF999999)),
+                          ),
+                  )
+                : SizedBox(),
+            Divider(
+              color: Colors.grey,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
