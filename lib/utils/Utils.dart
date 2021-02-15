@@ -468,21 +468,24 @@ class SearchGridTile extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(5.0),
-        child: Center(
-          child: GridTile(
-            footer: Text(
-              footer,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18.0),
-            ),
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
+        child: GridTile(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
                 width: 55.0,
                 height: 55.0,
                 child: Image.asset(iconAsset, color: darkMode ? Colors.white : Colors.grey),
               ),
-            ),
+              SizedBox(height: 8),
+              Text(
+                footer,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18.0),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
         ),
       ),

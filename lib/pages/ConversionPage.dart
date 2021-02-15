@@ -273,7 +273,7 @@ class CustomSearchDelegate extends SearchDelegate<int> {
             darkMode: brightness == Brightness.dark,
           )
         : GridView(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200.0),
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 180.0),
             children: allConversions,
           );
   }
