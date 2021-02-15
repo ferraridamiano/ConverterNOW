@@ -51,23 +51,28 @@ class _SettingsPageState extends State<SettingsPage> {
         color: Theme.of(context).primaryColor,
         child: new Stack(
           children: <Widget>[
-            IconButton(
-              tooltip: AppLocalizations.of(context).back,
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
+            Container(
+              height: 48.0,
+              alignment: Alignment.centerLeft,
+              child: IconButton(
+                tooltip: AppLocalizations.of(context).back,
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
             ),
             Container(
-                child: Text(
-                  AppLocalizations.of(context).settings,
-                  style: TextStyle(fontSize: 25.0, color: Colors.white),
-                ),
-                height: 48.0,
-                alignment: Alignment.center)
+              height: 48.0,
+              alignment: Alignment.center,
+              child: Text(
+                AppLocalizations.of(context).settings,
+                style: TextStyle(fontSize: 25.0, color: Colors.white),
+              ),
+            ),
           ],
         ),
       ),
