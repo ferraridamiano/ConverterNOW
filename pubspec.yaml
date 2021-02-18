@@ -19,13 +19,12 @@ dependencies:
   #Needed to improve the state management
   provider: ^4.3.2+3
   #Needed for translation
-  intl_translation: ^0.17.10+1
+  intl: ^0.17.0
   #Needed for unit conversion
-  units_converter: ^0.2.0+2
-#    path: ../units_converter
-
-dependency_overrides:
-  intl: ^0.17.0-nullsafety.2
+  units_converter: #^0.2.0+2
+    git:
+      url: https://github.com/ferraridamiano/units_converter
+    #path: ../units_converter
 
   flutter_localizations:
       sdk: flutter

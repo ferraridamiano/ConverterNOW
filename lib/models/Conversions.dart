@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:units_converter/units_converter.dart';
 
 class Conversions with ChangeNotifier {
-  List<Property> _propertyList;
   List<List<UnitData>> _unitDataList = [];
   List<UnitData> currentUnitDataList;
   Property _currentProperty;
@@ -80,62 +79,23 @@ class Conversions with ChangeNotifier {
     CURRENCIES.KRW: '₩ 🇰🇷',
     CURRENCIES.PLN: 'zł 🇵🇱',
   };
-  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  static List<int> _orderLength = List.generate(16, (index) => index);
-  static List<int> _orderArea = List.generate(11, (index) => index);
-  static List<int> _orderVolume = List.generate(14, (index) => index);
-  static List<int> _orderTime = List.generate(15, (index) => index);
-  static List<int> _orderTemperature = List.generate(7, (index) => index);
-  static List<int> _orderSpeed = List.generate(5, (index) => index);
-  static List<int> _orderPrefixes = List.generate(21, (index) => index);
-  static List<int> _orderMass = List.generate(11, (index) => index);
-  static List<int> _orderPressure = List.generate(6, (index) => index);
-  static List<int> _orderEnergy = List.generate(4, (index) => index);
-  static List<int> _orderAngle = List.generate(4, (index) => index);
-  static List<int> _orderCurrencies = List.generate(30, (index) => index);
-  static List<int> _orderShoeSize = List.generate(10, (index) => index);
-  static List<int> _orderData = List.generate(27, (index) => index);
-  static List<int> _orderPower = List.generate(7, (index) => index);
-  static List<int> _orderForce = List.generate(5, (index) => index);
-  static List<int> _orderTorque = List.generate(5, (index) => index);
-  static List<int> _orderFuelConsumption = List.generate(4, (index) => index);
-  static List<int> _orderNumeralSystems = List.generate(4, (index) => index);
-  //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-  static List<List<int>> _conversionsOrder = [
-    _orderLength,
-    _orderArea,
-    _orderVolume,
-    _orderCurrencies,
-    _orderTime,
-    _orderTemperature,
-    _orderSpeed,
-    _orderMass,
-    _orderForce,
-    _orderFuelConsumption,
-    _orderNumeralSystems,
-    _orderPressure,
-    _orderEnergy,
-    _orderPower,
-    _orderAngle,
-    _orderShoeSize,
-    _orderData,
-    _orderPrefixes,
-    _orderTorque,
-  ];
+  List<Property> _propertyList = [];
+  List<List<int>> _conversionsOrder = [];
   bool _isCurrenciesLoading = true;
   bool _removeTrailingZeros = true;
   static final List<int> _significantFiguresList = <int>[6, 8, 10, 12, 14];
   int _significantFigures = _significantFiguresList[2];
 
   Conversions() {
+    _initializePropertyList();
     _checkCurrencies(); //update the currencies with the latest conversions rates and then
     _checkOrdersUnits();
     _checkSettings();
-    _refreshConversionsList();
+    _currentProperty = _propertyList[_currentPage];
+    _refreshOrderUnits();
   }
 
-  ///This function initialize the propertyList, this property will do the real computations
-  _refreshConversionsList() {
+  void _initializePropertyList() {
     _propertyList = [
       Length(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.LENGTH),
       Area(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.AREA),
@@ -158,11 +118,6 @@ class Conversions with ChangeNotifier {
       SIPrefixes(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.SI_PREFIXES),
       Torque(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.TORQUE),
     ];
-    _currentProperty = _propertyList[_currentPage];
-
-    //Initialize of all the UnitData: name, textEditingController, symbol with the given order
-    _refreshOrderUnits();
-    //_currentOrder = _conversionsOrder[_currentPage];
   }
 
   /// This function get the value of the unit from currentProperty and update the currentUnitDataList values. It is used when a conversion changes the values of
@@ -261,12 +216,19 @@ class Conversions with ChangeNotifier {
       _lastUpdateCurrencies = DateTime.now();
     }
     _isCurrenciesLoading = false; // stop the progress indicator to show the date of the latest update
-    _refreshConversionsList();
+    _initializePropertyList(); //we need to refresh the property list because we changed some conversions
     notifyListeners(); //change the value of the current conversions
   }
 
   ///Get the orders of each units of measurement from the memory
   _checkOrdersUnits() async {
+    //Initialize the order for each property to default: [0,1,2,...,size(property)]
+    if (_conversionsOrder.isEmpty) {
+      for (Property property in _propertyList) {
+        _conversionsOrder.add(List.generate(property.size, (index) => index));
+      }
+    }
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> stringList;
     //Update every order of every conversion
@@ -382,7 +344,7 @@ class Conversions with ChangeNotifier {
 
       if (val2 != null) _removeTrailingZeros = val2;
 
-      _refreshConversionsList();
+      _initializePropertyList();
       notifyListeners();
     }
   }
@@ -401,7 +363,7 @@ class Conversions with ChangeNotifier {
   ///e.g. 1.000000000e20 becomes 1e20
   set removeTrailingZeros(bool value) {
     _removeTrailingZeros = value;
-    _refreshConversionsList();
+    _initializePropertyList();
     notifyListeners();
     _saveSettingsBool('remove_trailing_zeros', _removeTrailingZeros);
   }
@@ -409,7 +371,7 @@ class Conversions with ChangeNotifier {
   ///Set the current significant figures selection and save to SharedPreferences
   set significantFigures(int value) {
     _significantFigures = value;
-    _refreshConversionsList();
+    _initializePropertyList();
     notifyListeners();
     _saveSettingsInt('significant_figures', _significantFigures);
   }
