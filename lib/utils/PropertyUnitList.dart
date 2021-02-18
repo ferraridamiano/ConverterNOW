@@ -165,6 +165,8 @@ List<UnitUi> getUnitUiList(BuildContext context) {
   unitUiList.add(UnitUi(MASS.uma, AppLocalizations.of(context).uma, basePath + 'mass.png', PROPERTYX.MASS));
   unitUiList.add(UnitUi(MASS.carats, AppLocalizations.of(context).carats, basePath + 'mass.png', PROPERTYX.MASS));
   unitUiList.add(UnitUi(MASS.centigrams, AppLocalizations.of(context).centigrams, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.pennyweights, AppLocalizations.of(context).pennyweights, basePath + 'mass.png', PROPERTYX.MASS));
+  unitUiList.add(UnitUi(MASS.troy_ounces, AppLocalizations.of(context).troyOunces, basePath + 'mass.png', PROPERTYX.MASS));
   unitUiList.add(UnitUi(FORCE.newton, AppLocalizations.of(context).newton, basePath + 'force.png', PROPERTYX.FORCE));
   unitUiList.add(UnitUi(FORCE.dyne, AppLocalizations.of(context).dyne, basePath + 'force.png', PROPERTYX.FORCE));
   unitUiList.add(UnitUi(FORCE.pound_force, AppLocalizations.of(context).poundForce, basePath + 'force.png', PROPERTYX.FORCE));
