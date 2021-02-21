@@ -94,6 +94,10 @@
   "cubicFeet": "Kubikfuß",
   "cubicInches": "Kubikzoll",
   "cubicMillimeters": "Kubikmillimeter",
+  "imperialFluidOunces": "Fluid Unzen (Imperial)",
+  "usFluidOunces": "Fluid Unzen US",
+  "imperialGill": "Gill (Imperial)",
+  "usGill": "Gill US",
 
   "seconds": "Sekunden",
   "deciseconds": "Dezisekunden",

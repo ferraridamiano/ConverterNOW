@@ -94,6 +94,10 @@
   "cubicFeet": "Кубические Футы",
   "cubicInches": "Кубические Дюймы",
   "cubicMillimeters": "Кубические Миллилитры",
+  "imperialFluidOunces": "Имперские жидкие унции",
+  "usFluidOunces": "Жидкие унции США",
+  "imperialGill": "Императорская жабра",
+  "usGill": "Жабры США",
 
   "seconds": "Секунды",
   "deciseconds": "Десятых Секунды",

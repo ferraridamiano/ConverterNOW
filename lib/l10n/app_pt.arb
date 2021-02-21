@@ -94,6 +94,10 @@
   "cubicFeet": "Pés Cúbicos",
   "cubicInches":"Polegadas Cúbicas",
   "cubicMillimeters": "Milímetros Cúbicos",
+  "imperialFluidOunces": "Onça líquida imperial",
+  "usFluidOunces": "Onça líquida americana",
+  "imperialGill": "Gill imperial",
+  "usGill": "Gill estadunidense",
 
   "seconds": "Segundos",
   "deciseconds": "Decisecondos",

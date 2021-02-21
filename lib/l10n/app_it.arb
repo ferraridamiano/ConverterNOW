@@ -94,6 +94,10 @@
   "cubicFeet": "Piedi Cubi",
   "cubicInches": "Pollici Cubi",
   "cubicMillimeters": "Millimetri Cubi",
+  "imperialFluidOunces": "Once liquide Imperiali",
+  "usFluidOunces": "Once liquide US",
+  "imperialGill": "Gill Imperiali",
+  "usGill": "Gill US",
 
   "seconds": "Secondi",
   "deciseconds": "Decimi di Secondo",
