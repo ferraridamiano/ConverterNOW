@@ -176,11 +176,35 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             ListTile(
               title: Text(
-                AppLocalizations.of(context).donation,
+                AppLocalizations.of(context).buyMeACoffee,
                 style: textStyle,
               ),
               onTap: () {
-                launchURL("https://www.paypal.me/DemApps");
+                showDialog<void>(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(AppLocalizations.of(context).buyMeACoffee),
+                      content: Text(
+                        AppLocalizations.of(context).donationDialog,
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text(
+                            AppLocalizations.of(context).buyMeACoffee,
+                            style: TextStyle(color: Theme.of(context).accentColor),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            launchURL('https://www.buymeacoffee.com/ferraridamiano');
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
             ),
             !kIsWeb

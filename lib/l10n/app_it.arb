@@ -12,6 +12,8 @@
   "settings": "Impostazioni",
   "menu": "Menu",
   "donation": "Fai una donazione",
+  "buyMeACoffee": "Offrimi un caffè ☕",
+  "donationDialog": "Ciao, come forse saprai questa app è gratuita e open source. Significa che puoi usarla gratuitamente e copiare / modificare il codice sorgente. Lo sviluppatore non ci guadagnerà nulla. Ma se anche tu credi in questo progetto e vorresti vedere nuove funzionalità, per favore considera di offrirmi un caffè.",
   "drawerLogo": "Logo nel drawer",
   "rateApp": "Valuta l'app",
   "repoGithub": "Apri repository su GitHub",
@@ -229,6 +231,28 @@
   "decimal": "Decimale",
   "hexadecimal": "Esadecimale",
   "octal": "Ottale",
-  "binary": "Binario"
+  "binary": "Binario",
 
+  "base": "Base",
+  "deca": "Deca-",
+  "hecto": "Etto-",
+  "kilo": "Chilo-",
+  "mega": "Mega-",
+  "giga": "Giga-",
+  "tera": "Tera-",
+  "peta": "Peta-",
+  "exa": "Exa-",
+  "zetta": "Zetta-",
+  "yotta": "Yotta-",
+  "deci": "Deci-",
+  "centi": "Centi-",
+  "milli": "Milli-",
+  "micro": "Micro-",
+  "nano": "Nano-",
+  "pico": "Pico-",
+  "femto": "Femto-",
+  "atto": "Atto-",
+  "zepto": "Zepto-",
+  "yocto": "Yocto-"
+  
 }
