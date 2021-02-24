@@ -225,6 +225,7 @@ class ListTileConversion extends StatelessWidget {
               width: 30.0,
               height: 30.0,
               color: (selected ? Theme.of(context).accentColor : (brightness == Brightness.dark ? Color(0xFFCCCCCC) : Colors.black54)),
+              filterQuality: FilterQuality.medium,
             ),
             SizedBox(
               width: 20.0,

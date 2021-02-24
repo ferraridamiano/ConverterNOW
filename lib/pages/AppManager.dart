@@ -51,7 +51,7 @@ class AppManager extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.only(bottom: 10.0),
-                    child: Image.asset("resources/images/logo.png"),
+                    child: Image.asset("resources/images/logo.png", filterQuality: FilterQuality.medium),
                     alignment: Alignment.centerRight,
                     decoration: BoxDecoration(
                       color: boxColor,
