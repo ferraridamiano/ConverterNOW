@@ -1,0 +1,28 @@
+name: converternow
+version: 2.5.0-rc0
+summary: Unit and currencies converter
+description: A Unit and Currencies Converter. Converter NOW is immediate, fast and easy to use!
+
+confinement: strict
+base: core18
+grade: stable
+
+slots:
+  dbus-converternow:
+    interface: dbus
+    bus: session
+    name: com.ferrarid.converterpro
+    
+apps:
+  converternow:
+    command: converternow
+    extensions: [flutter-dev]
+    plugs:
+    - network
+    slots:
+      - dbus-converternow
+parts:
+  converternow:
+    source: .
+    plugin: flutter
+    flutter-target: lib/main.dart
