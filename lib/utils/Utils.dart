@@ -16,20 +16,25 @@ Brightness getBrightness(ThemeMode themeMode, Brightness platformBrightness) {
 abstract class ListItem {}
 
 class MyCard implements ListItem {
-  MyCard({this.symbol, this.textField});
+  MyCard({this.symbol, required this.textField});
 
-  String symbol;
+  String? symbol;
   final Widget textField;
 }
 
 class BigHeader implements ListItem {
-  BigHeader({this.title, this.subTitle});
+  BigHeader({required this.title, required this.subTitle});
   String title;
   String subTitle;
 }
 
 class BigTitle extends StatelessWidget {
-  BigTitle({this.text, this.subtitle, this.isCurrenciesLoading, this.brightness});
+  BigTitle({
+    required this.text,
+    required this.subtitle,
+    required this.isCurrenciesLoading,
+    required this.brightness,
+  });
   final String text;
   final String subtitle;
   final bool isCurrenciesLoading;
@@ -82,9 +87,9 @@ class BigTitle extends StatelessWidget {
 }
 
 class UnitCard extends StatelessWidget {
-  UnitCard({this.symbol, this.textField});
+  UnitCard({required this.symbol, required this.textField});
 
-  final String symbol;
+  final String? symbol;
   final Widget textField;
 
   @override
@@ -107,7 +112,7 @@ class UnitCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(6.0),
                     child: Text(
-                      symbol,
+                      symbol!,
                       style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -136,8 +141,8 @@ bool getBoolWithProbability(int probability) {
 class SearchUnit {
   String iconAsset;
   String unitName;
-  Function onTap;
-  SearchUnit({this.iconAsset, this.unitName, this.onTap});
+  GestureTapCallback onTap;
+  SearchUnit({required this.iconAsset, required this.unitName, required this.onTap});
 }
 
 class SearchUnitTile extends StatelessWidget {
@@ -158,7 +163,7 @@ class SearchUnitTile extends StatelessWidget {
 class SuggestionList extends StatelessWidget {
   final List<SearchUnit> suggestions;
   final bool darkMode;
-  const SuggestionList({this.suggestions, this.darkMode});
+  SuggestionList({required this.suggestions, required this.darkMode});
 
   @override
   Widget build(BuildContext context) {
@@ -171,9 +176,14 @@ class SuggestionList extends StatelessWidget {
 class SearchGridTile extends StatelessWidget {
   final String iconAsset;
   final String footer;
-  final onTap;
+  final GestureTapCallback onTap;
   final bool darkMode;
-  SearchGridTile({this.iconAsset, this.footer, this.onTap, this.darkMode});
+  SearchGridTile({
+    required this.iconAsset,
+    required this.footer,
+    required this.onTap,
+    required this.darkMode,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -210,9 +220,15 @@ class ListTileConversion extends StatelessWidget {
   final String text;
   final String imagePath;
   final bool selected;
-  final Function onTapFunction;
+  final GestureTapCallback onTap;
   final Brightness brightness;
-  ListTileConversion({this.text, this.imagePath, this.selected, this.onTapFunction, this.brightness});
+  ListTileConversion({
+    required this.text,
+    required this.imagePath,
+    required this.selected,
+    required this.onTap,
+    required this.brightness,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -240,7 +256,7 @@ class ListTileConversion extends StatelessWidget {
           ],
         ),
         selected: selected,
-        onTap: onTapFunction,
+        onTap: onTap,
       ),
       selectedColor: Theme.of(context).accentColor,
     );
@@ -254,11 +270,11 @@ class UnitData {
   TextEditingController tec;
   TextInputType textInputType;
   VALIDATOR validator;
-  PROPERTYX property;
+  PROPERTYX? property;
 
   UnitData(
     this.unit, {
-    this.tec,
+    required this.tec,
     this.property,
     this.validator = VALIDATOR.RATIONAL_NON_NEGATIVE,
     this.textInputType = const TextInputType.numberWithOptions(decimal: true, signed: false),
@@ -282,7 +298,7 @@ class UnitData {
 }
 
 class CurrencyObject {
-  DoubleCurrencyConversion results;
+  DoubleCurrencyConversion? results;
   CurrencyObject({this.results});
 
   factory CurrencyObject.fromJson(Map<String, dynamic> json) {
@@ -294,8 +310,8 @@ class DoubleCurrencyConversion {
   CurrencyConversion conversion1;
   CurrencyConversion conversion2;
   DoubleCurrencyConversion({
-    this.conversion1,
-    this.conversion2,
+    required this.conversion1,
+    required this.conversion2,
   });
 
   factory DoubleCurrencyConversion.fromJson(Map<String, dynamic> json) {
@@ -307,7 +323,12 @@ class CurrencyConversion {
   String id, to, fr;
   double val;
 
-  CurrencyConversion({this.id, this.val, this.to, this.fr});
+  CurrencyConversion({
+    required this.id,
+    required this.val,
+    required this.to,
+    required this.fr,
+  });
 
   factory CurrencyConversion.fromJson(Map<String, dynamic> json) {
     return CurrencyConversion(id: json['id'], val: json['val'], to: json['to'], fr: json['fr']);
@@ -351,7 +372,11 @@ class CurrencyJSONObject {
     CURRENCIES.RON: 'RON',
   };
 
-  CurrencyJSONObject({this.base, this.rates, this.date});
+  CurrencyJSONObject({
+    required this.base,
+    required this.rates,
+    required this.date,
+  });
 
   factory CurrencyJSONObject.fromJson(Map<String, dynamic> parsedJson) {
     Map<String, dynamic> ratesJson = parsedJson['rates'];

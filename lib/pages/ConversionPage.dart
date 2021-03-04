@@ -19,7 +19,7 @@ class ConversionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Choice> choices = <Choice>[
-      Choice(title: AppLocalizations.of(context).reorder, icon: Icons.reorder),
+      Choice(title: AppLocalizations.of(context)!.reorder, icon: Icons.reorder),
     ];
 
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
@@ -32,17 +32,15 @@ class ConversionPage extends StatelessWidget {
       context.select<AppModel, ThemeMode>((AppModel appModel) => appModel.currentThemeMode),
       MediaQuery.of(context).platformBrightness,
     );
-    String subTitle;
+    String subTitle = '';
     if (currentProperty == PROPERTYX.CURRENCIES) {
       subTitle = getLastUpdateString(context);
-    } else {
-      subTitle = '';
     }
 
     itemList.add(
       BigHeader(
-        title: propertyTranslationMap[currentProperty],
-        subTitle: subTitle ?? '',
+        title: propertyTranslationMap[currentProperty]!,
+        subTitle: subTitle,
       ),
     );
     for (UnitData unitData in unitDataList) {
@@ -58,9 +56,9 @@ class ConversionPage extends StatelessWidget {
             keyboardType: unitData.textInputType,
             controller: unitData.tec,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (String input) {
-              if (input != "" && !unitData.getValidator().hasMatch(input)) {
-                return AppLocalizations.of(context).invalidCharacters;
+            validator: (String? input) {
+              if (input != null && input != '' && !unitData.getValidator().hasMatch(input)) {
+                return AppLocalizations.of(context)!.invalidCharacters;
               }
               return null;
             },
@@ -128,7 +126,7 @@ class ConversionPage extends StatelessWidget {
           children: <Widget>[
             new Builder(builder: (context) {
               return IconButton(
-                  tooltip: AppLocalizations.of(context).menu,
+                  tooltip: AppLocalizations.of(context)!.menu,
                   icon: Icon(
                     Icons.menu,
                     color: Colors.white,
@@ -140,7 +138,7 @@ class ConversionPage extends StatelessWidget {
             Row(
               children: <Widget>[
                 IconButton(
-                  tooltip: AppLocalizations.of(context).clearAll,
+                  tooltip: AppLocalizations.of(context)!.clearAll,
                   icon: Icon(Icons.clear, color: Colors.white),
                   onPressed: () {
                     Conversions conversions = context.read<Conversions>();
@@ -149,14 +147,14 @@ class ConversionPage extends StatelessWidget {
                 ),
                 IconButton(
                   // search
-                  tooltip: AppLocalizations.of(context).search,
+                  tooltip: AppLocalizations.of(context)!.search,
                   icon: Icon(
                     Icons.search,
                     color: Colors.white,
                   ),
                   onPressed: () async {
                     final orderList = context.read<AppModel>().conversionsOrderDrawer;
-                    final int newPage = await showSearch(
+                    final int? newPage = await showSearch(
                       context: context,
                       delegate: CustomSearchDelegate(orderList),
                     );
@@ -173,7 +171,7 @@ class ConversionPage extends StatelessWidget {
                   ),
                   onSelected: (Choice choice) async {
                     //Let's generate the list of unit name in the current order
-                    List<String> listUnitsNames = List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]);
+                    List<String> listUnitsNames = List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]!);
                     final List<int> result = await Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -197,7 +195,7 @@ class ConversionPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: AppLocalizations.of(context).calculator,
+        tooltip: AppLocalizations.of(context)!.calculator,
         child: Image.asset(
           "resources/images/calculator.png",
           width: 30.0,
@@ -218,7 +216,7 @@ class ConversionPage extends StatelessWidget {
 }
 
 class Choice {
-  const Choice({this.title, this.icon});
+  const Choice({required this.title, required this.icon});
 
   final String title;
   final IconData icon;
@@ -235,13 +233,13 @@ class CustomSearchDelegate extends SearchDelegate<int> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      tooltip: AppLocalizations.of(context).back,
+      tooltip: AppLocalizations.of(context)!.back,
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
         progress: transitionAnimation,
       ),
       onPressed: () {
-        close(context, null);
+        close(context, 0);
       },
     );
   }
@@ -289,7 +287,7 @@ class CustomSearchDelegate extends SearchDelegate<int> {
     return <Widget>[
       if (query.isNotEmpty)
         IconButton(
-          tooltip: AppLocalizations.of(context).clearAll,
+          tooltip: AppLocalizations.of(context)!.clearAll,
           icon: const Icon(Icons.clear),
           onPressed: () {
             query = '';
@@ -304,7 +302,7 @@ String getLastUpdateString(BuildContext context) {
   DateTime lastUpdateCurrencies = context.select<Conversions, DateTime>((settings) => settings.lastUpdateCurrency);
   DateTime dateNow = DateTime.now();
   if (lastUpdateCurrencies.day == dateNow.day && lastUpdateCurrencies.month == dateNow.month && lastUpdateCurrencies.year == dateNow.year) {
-    return AppLocalizations.of(context).lastCurrenciesUpdate + AppLocalizations.of(context).today;
+    return AppLocalizations.of(context)!.lastCurrenciesUpdate + AppLocalizations.of(context)!.today;
   }
-  return AppLocalizations.of(context).lastCurrenciesUpdate + DateFormat("yyyy-MM-dd").format(lastUpdateCurrencies);
+  return AppLocalizations.of(context)!.lastCurrenciesUpdate + DateFormat("yyyy-MM-dd").format(lastUpdateCurrencies);
 }

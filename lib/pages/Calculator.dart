@@ -16,10 +16,10 @@ class _Calculator extends State<Calculator> {
   static const double buttonOpSize = buttonHeight * 0.8;
   static const double textSize = 35.0;
 
-  double result = 0;
+  double? result = 0;
   bool alreadyDeleted = false;
   bool isResult = false;
-  double firstNumber, secondNumber;
+  double? firstNumber, secondNumber;
   int operation = 0;
   @override
   Widget build(BuildContext context) {
@@ -239,16 +239,16 @@ class _Calculator extends State<Calculator> {
     else {
       switch (operation) {
         case 1:
-          result = firstNumber + secondNumber;
+          result = firstNumber! + secondNumber!;
           break;
         case 2:
-          result = firstNumber - secondNumber;
+          result = firstNumber! - secondNumber!;
           break;
         case 3:
-          result = firstNumber * secondNumber;
+          result = firstNumber! * secondNumber!;
           break;
         case 4:
-          result = firstNumber / secondNumber;
+          result = firstNumber! / secondNumber!;
           break;
       }
     }

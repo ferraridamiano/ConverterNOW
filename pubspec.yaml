@@ -4,26 +4,27 @@ description: Unit and currencies converter
 version: 2.4.3+25
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
   #Needed to store the customizations and the latest currencies convertions
-  shared_preferences: ^0.5.12+4
+  shared_preferences: ^2.0.3
   #Needed to open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.2
   #Needed to download the latest currencies convertions
-  http: ^0.12.2
+  http: ^0.13.0
   #Needed to improve the state management
-  provider: ^4.3.2+3
+  provider: ^5.0.0-nullsafety.5 
   #Needed for translation
   intl: ^0.17.0
   #Needed for unit conversion
   units_converter: #^0.2.0+2
-    git:
-      url: https://github.com/ferraridamiano/units_converter
+    path: ../units_converter
+    #git:
+    #  url: https://github.com/ferraridamiano/units_converter
     #path: ../units_converter
 
   flutter_localizations:

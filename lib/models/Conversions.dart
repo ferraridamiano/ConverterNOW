@@ -9,9 +9,9 @@ import 'package:units_converter/units_converter.dart';
 
 class Conversions with ChangeNotifier {
   List<List<UnitData>> _unitDataList = [];
-  List<UnitData> currentUnitDataList;
-  Property _currentProperty;
-  UnitData _selectedUnit; //unit where the user is writing the value
+  List<UnitData> currentUnitDataList = [];
+  late Property _currentProperty;
+  UnitData? _selectedUnit; //unit where the user is writing the value
   int _currentPage = 0; //from appModel
   //List<int> _currentOrder;
   DateTime _lastUpdateCurrencies = DateTime(2021, 2, 1); //1st of february 2021
@@ -126,7 +126,7 @@ class Conversions with ChangeNotifier {
     for (UnitData currentUnitData in currentUnitDataList) {
       currentUnitData.unit = _currentProperty.getUnit(currentUnitData.unit.name);
       if (currentUnitData != _selectedUnit && currentUnitData.unit.stringValue != null) {
-        currentUnitData.tec.text = currentUnitData.unit.stringValue;
+        currentUnitData.tec.text = currentUnitData.unit.stringValue!;
       } else if (currentUnitData.unit.stringValue == null) {
         currentUnitData.tec.text = '';
       }
@@ -168,13 +168,14 @@ class Conversions with ChangeNotifier {
   ///the smartphone is offline
   _readSavedCurrencies() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String currencyRead = prefs.getString("currencyRates");
+    String? currencyRead = prefs.getString("currencyRates");
     if (currencyRead != null) {
       CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(currencyRead));
       _currencyValues = {CURRENCIES.EUR: 1.0};
       _currencyValues.addAll(currencyObject.rates); //updates the currency value with the new values
       String lastUpdateRead = currencyObject.date;
-      if (lastUpdateRead != null) _lastUpdateCurrencies = DateTime.parse(lastUpdateRead);
+      /*if (lastUpdateRead != null) */
+      _lastUpdateCurrencies = DateTime.parse(lastUpdateRead);
     }
   }
 
@@ -184,12 +185,15 @@ class Conversions with ChangeNotifier {
     String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String dataFetched = prefs.getString("currencyRates");
+    String? dataFetched = prefs.getString("currencyRates");
     if (dataFetched == null || CurrencyJSONObject.fromJson(json.decode(dataFetched)).date != now) {
       //if I have never updated the conversions or if I have updated before today I have to update
       try {
-        var response = await http.get(
-            'https://api.exchangeratesapi.io/latest?symbols=USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD,AUD,NZD,MXN,SGD,NOK,TRY,ZAR,DKK,PLN,THB,MYR,HUF,CZK,ILS,IDR,PHP,RON');
+        var response = await http.get(Uri.https(
+          'api.exchangeratesapi.io',
+          'latest',
+          {'symbols':'USD,GBP,INR,CNY,JPY,CHF,SEK,RUB,CAD,KRW,BRL,HKD,AUD,NZD,MXN,SGD,NOK,TRY,ZAR,DKK,PLN,THB,MYR,HUF,CZK,ILS,IDR,PHP,RON'},
+        ));
         if (response.statusCode == 200) {
           //if successful
           CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(response.body));
@@ -230,7 +234,7 @@ class Conversions with ChangeNotifier {
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> stringList;
+    List<String>? stringList;
     //Update every order of every conversion
     for (int i = 0; i < _propertyList.length; i++) {
       stringList = prefs.getStringList("conversion_$i");
@@ -255,7 +259,7 @@ class Conversions with ChangeNotifier {
   _refreshOrderUnits() {
     _unitDataList = [];
     for (int i = 0; i < _propertyList.length; i++) {
-      List<UnitData> tempUnitData = List.filled(_conversionsOrder[i].length, null);
+      List<UnitData> tempUnitData = List.filled(_conversionsOrder[i].length, UnitData(Unit('none'), tec: TextEditingController()));
       Property property = _propertyList[i];
       List<Unit> tempProperty = property.getAll();
       for (int j = 0; j < tempProperty.length; j++) {
@@ -304,7 +308,7 @@ class Conversions with ChangeNotifier {
 
   ///Given a list of translated units of measurement it changes the order
   ///of the units (_conversionsOrder) opening a separate page (ReorderPage)
-  changeOrderUnits(List<int> result) async {
+  changeOrderUnits(List<int>? result) async {
     //if there arent't any modifications, do nothing
     if (result != null) {
       List arrayCopy = List.filled(_conversionsOrder[_currentPage].length, null);
@@ -336,8 +340,8 @@ class Conversions with ChangeNotifier {
   ///(if there are options saved)
   _checkSettings() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int val1 = prefs.getInt("significant_figures");
-    bool val2 = prefs.getBool("remove_trailing_zeros");
+    int? val1 = prefs.getInt("significant_figures");
+    bool? val2 = prefs.getBool("remove_trailing_zeros");
 
     if (val1 != null || val2 != null) {
       if (val1 != null) _significantFigures = val1;

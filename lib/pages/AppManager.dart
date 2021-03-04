@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class AppManager extends StatelessWidget {
   static const MAX_CONVERSION_UNITS = 19;
 
-  static List<Widget> listaDrawer = List<Widget>.filled(MAX_CONVERSION_UNITS + 1, null); //+1 because of the header
+  static List<Widget> listaDrawer = List<Widget>.filled(MAX_CONVERSION_UNITS + 1, SizedBox()); //+1 because of the header
 
   void _initializeTiles(BuildContext context) {
     Color boxColor = Theme.of(context).primaryColor;
@@ -17,7 +17,7 @@ class AppManager extends StatelessWidget {
     List<Widget> drawerActions = <Widget>[
       Consumer<AppModel>(
         builder: (context, appModel, _) => IconButton(
-          tooltip: AppLocalizations.of(context).reorder,
+          tooltip: AppLocalizations.of(context)!.reorder,
           icon: Icon(
             Icons.reorder,
             color: Colors.white,
@@ -26,7 +26,7 @@ class AppManager extends StatelessWidget {
         ),
       ),
       IconButton(
-        tooltip: AppLocalizations.of(context).settings,
+        tooltip: AppLocalizations.of(context)!.settings,
         icon: Icon(
           Icons.settings,
           color: Colors.white,
@@ -94,7 +94,7 @@ class AppManager extends StatelessWidget {
         text: propertyUi.name,
         imagePath: propertyUi.imagePath,
         selected: currentPage == i,
-        onTapFunction: () {
+        onTap: () {
           context.read<AppModel>().changeToPage(i);
           Navigator.of(context).pop();
         },

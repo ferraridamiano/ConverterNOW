@@ -39,7 +39,7 @@ class AppModel with ChangeNotifier {
   ///Updates the order of the tiles in the drawer
   _checkOrdersDrawer() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> stringList = prefs.getStringList("orderDrawer");
+    List<String>? stringList = prefs.getStringList("orderDrawer");
     if (stringList != null) {
       final int len = stringList.length;
       for (int i = 0; i < len; i++) {
@@ -59,12 +59,12 @@ class AppModel with ChangeNotifier {
   changeOrderDrawer(BuildContext context, List<String> titlesList) async {
     Navigator.of(context).pop(); //Close the drawer
 
-    List<String> orderedList = List.filled(_conversionsOrderDrawer.length, null);
+    List<String> orderedList = List.filled(_conversionsOrderDrawer.length, "");
     for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
       orderedList[_conversionsOrderDrawer[i]] = titlesList[i];
     }
 
-    final List<int> result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));
+    final List<int>? result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));
 
     //if there arent't any modifications, do nothing
     if (result != null) {
@@ -89,7 +89,7 @@ class AppModel with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _isLogoVisible = prefs.getBool("isLogoVisible") ?? _isLogoVisible;
     _isDarkAmoled = prefs.getBool("isDarkAmoled") ?? _isDarkAmoled;
-    int valThemeMode = prefs.getInt('currentThemeMode');
+    int? valThemeMode = prefs.getInt('currentThemeMode');
     if (valThemeMode != null) {
       _currentThemeMode = _themeModeMap.keys.where((key) => _themeModeMap[key] == valThemeMode).single;
     }
@@ -109,10 +109,10 @@ class AppModel with ChangeNotifier {
   set currentThemeMode(ThemeMode val) {
     _currentThemeMode = val;
     notifyListeners();
-    _saveSettingsInt('currentThemeMode', _themeModeMap[_currentThemeMode]);
+    _saveSettingsInt('currentThemeMode', _themeModeMap[_currentThemeMode]!);
   }
 
-  get currentThemeMode => _currentThemeMode;
+  ThemeMode get currentThemeMode => _currentThemeMode;
 
   set isDarkAmoled(bool val) {
     _isDarkAmoled = val;
@@ -120,7 +120,7 @@ class AppModel with ChangeNotifier {
     _saveSettingsBool('isDarkAmoled', _isDarkAmoled);
   }
 
-  get isDarkAmoled => _isDarkAmoled;
+  bool get isDarkAmoled => _isDarkAmoled;
 
   ///Saves the key value with SharedPreferences
   _saveSettingsBool(String key, bool value) async {

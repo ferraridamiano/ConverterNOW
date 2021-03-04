@@ -14,13 +14,13 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  List<String> significantFiguresList;
-  bool isLogoVisible;
-  bool removeTrailingZeros;
-  int significantFigures;
+  List<String> significantFiguresList = [];
+  bool isLogoVisible = true;
+  bool removeTrailingZeros = true;
+  int significantFigures = 10;
   TextStyle textStyle = TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE);
-  ThemeMode currentTheme;
-  bool isDarkAmoled;
+  ThemeMode currentTheme = ThemeMode.system;
+  bool isDarkAmoled = false;
 
   @override
   void initState() {
@@ -29,7 +29,6 @@ class _SettingsPageState extends State<SettingsPage> {
     isLogoVisible = context.read<AppModel>().isLogoVisible;
     removeTrailingZeros = conversions.removeTrailingZeros;
     significantFigures = conversions.significantFigures;
-    significantFiguresList = [];
     for (int value in conversions.significantFiguresList) {
       significantFiguresList.add(value.toString());
     }
@@ -41,9 +40,9 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     Map<ThemeMode, String> mapTheme = {
-      ThemeMode.system: AppLocalizations.of(context).system,
-      ThemeMode.dark: AppLocalizations.of(context).dark,
-      ThemeMode.light: AppLocalizations.of(context).light,
+      ThemeMode.system: AppLocalizations.of(context)!.system,
+      ThemeMode.dark: AppLocalizations.of(context)!.dark,
+      ThemeMode.light: AppLocalizations.of(context)!.light,
     };
 
     return Scaffold(
@@ -55,7 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
               height: 48.0,
               alignment: Alignment.centerLeft,
               child: IconButton(
-                tooltip: AppLocalizations.of(context).back,
+                tooltip: AppLocalizations.of(context)!.back,
                 icon: Icon(
                   Icons.arrow_back,
                   color: Colors.white,
@@ -69,7 +68,7 @@ class _SettingsPageState extends State<SettingsPage> {
               height: 48.0,
               alignment: Alignment.center,
               child: Text(
-                AppLocalizations.of(context).settings,
+                AppLocalizations.of(context)!.settings,
                 style: TextStyle(fontSize: 25.0, color: Colors.white),
               ),
             ),
@@ -84,23 +83,25 @@ class _SettingsPageState extends State<SettingsPage> {
           reverse: true,
           children: [
             DropdownListTile(
-              title: AppLocalizations.of(context).significantFigures,
+              title: AppLocalizations.of(context)!.significantFigures,
               textStyle: textStyle,
               items: significantFiguresList,
               value: significantFigures.toString(),
-              onChanged: (String string) {
-                int val = int.parse(string);
-                setState(() => significantFigures = val);
-                Conversions conversions = context.read<Conversions>();
-                conversions.significantFigures = val;
+              onChanged: (String? string) {
+                if (string != null) {
+                  int val = int.parse(string);
+                  setState(() => significantFigures = val);
+                  Conversions conversions = context.read<Conversions>();
+                  conversions.significantFigures = val;
+                }
               },
             ),
             DropdownListTile(
-              title: AppLocalizations.of(context).theme,
+              title: AppLocalizations.of(context)!.theme,
               textStyle: textStyle,
               items: mapTheme.values.toList(),
-              value: mapTheme[currentTheme],
-              onChanged: (String string) {
+              value: mapTheme[currentTheme]!,
+              onChanged: (String? string) {
                 setState(() => currentTheme = mapTheme.keys.where((key) => mapTheme[key] == string).single);
                 AppModel appModel = context.read<AppModel>();
                 appModel.currentThemeMode = currentTheme;
@@ -108,7 +109,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             SwitchListTile(
               title: Text(
-                AppLocalizations.of(context).amoledDarkTheme,
+                AppLocalizations.of(context)!.amoledDarkTheme,
                 style: textStyle,
               ),
               value: isDarkAmoled,
@@ -121,7 +122,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             SwitchListTile(
               title: Text(
-                AppLocalizations.of(context).drawerLogo,
+                AppLocalizations.of(context)!.drawerLogo,
                 style: textStyle,
               ),
               value: isLogoVisible,
@@ -134,7 +135,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             SwitchListTile(
               title: Text(
-                AppLocalizations.of(context).removeTrailingZeros,
+                AppLocalizations.of(context)!.removeTrailingZeros,
                 style: textStyle,
               ),
               value: removeTrailingZeros,
@@ -148,7 +149,7 @@ class _SettingsPageState extends State<SettingsPage> {
             !kIsWeb
                 ? ListTile(
                     title: Text(
-                      AppLocalizations.of(context).rateApp,
+                      AppLocalizations.of(context)!.rateApp,
                       style: textStyle,
                     ),
                     onTap: () {
@@ -158,7 +159,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 : SizedBox(),
             ListTile(
               title: Text(
-                AppLocalizations.of(context).contibuteTranslating,
+                AppLocalizations.of(context)!.contibuteTranslating,
                 style: textStyle,
               ),
               onTap: () {
@@ -167,7 +168,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             ListTile(
               title: Text(
-                AppLocalizations.of(context).repoGithub,
+                AppLocalizations.of(context)!.repoGithub,
                 style: textStyle,
               ),
               onTap: () {
@@ -176,7 +177,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             ListTile(
               title: Text(
-                AppLocalizations.of(context).buyMeACoffee,
+                AppLocalizations.of(context)!.buyMeACoffee,
                 style: textStyle,
               ),
               onTap: () {
@@ -185,15 +186,15 @@ class _SettingsPageState extends State<SettingsPage> {
                   barrierDismissible: true,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text(AppLocalizations.of(context).buyMeACoffee),
+                      title: Text(AppLocalizations.of(context)!.buyMeACoffee),
                       content: Text(
-                        AppLocalizations.of(context).donationDialog,
+                        AppLocalizations.of(context)!.donationDialog,
                         style: TextStyle(fontSize: 18),
                       ),
                       actions: <Widget>[
                         TextButton(
                           child: Text(
-                            AppLocalizations.of(context).buyMeACoffee,
+                            AppLocalizations.of(context)!.buyMeACoffee,
                             style: TextStyle(color: Theme.of(context).accentColor),
                           ),
                           onPressed: () {
@@ -210,7 +211,7 @@ class _SettingsPageState extends State<SettingsPage> {
             !kIsWeb
                 ? ListTile(
                     title: Text(
-                      AppLocalizations.of(context).contactDeveloper,
+                      AppLocalizations.of(context)!.contactDeveloper,
                       style: textStyle,
                     ),
                     onTap: () {
@@ -220,13 +221,13 @@ class _SettingsPageState extends State<SettingsPage> {
                 : SizedBox(),
             ListTile(
               title: Text(
-                AppLocalizations.of(context).about,
+                AppLocalizations.of(context)!.about,
                 style: textStyle,
               ),
               onTap: () {
                 showLicensePage(
                     context: context,
-                    applicationName: AppLocalizations.of(context).appName,
+                    applicationName: AppLocalizations.of(context)!.appName,
                     applicationLegalese:
                         "Icons made by https://www.flaticon.com/authors/yannick Yannick from https://www.flaticon.com/ www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //termometro
                             "Icons made by http://www.freepik.com Freepik from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //lunghezza, velocità, pressione, area, energia, massa
@@ -244,10 +245,16 @@ class DropdownListTile extends StatelessWidget {
   final String title;
   final List<String> items;
   final String value;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String?> onChanged;
   final TextStyle textStyle;
 
-  DropdownListTile({this.title, this.items, this.value, this.onChanged, this.textStyle});
+  DropdownListTile({
+    required this.title,
+    required this.items,
+    required this.value,
+    required this.onChanged,
+    required this.textStyle,
+  });
 
   @override
   Widget build(BuildContext context) {

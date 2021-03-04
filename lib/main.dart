@@ -27,8 +27,8 @@ class _MyApp extends State<MyApp> {
         ChangeNotifierProxyProvider<AppModel, Conversions>(
           create: (context) => Conversions(),
           update: (context, appModel, conversions) {
-            conversions.currentPage = appModel.currentPage;
-            return conversions;
+            conversions?.currentPage = appModel.currentPage;
+            return conversions!;
           },
         ),
       ],
@@ -54,9 +54,9 @@ class _MyApp extends State<MyApp> {
           ),
           supportedLocales: AppLocalizations.supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
-          localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+          localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) {
             for (Locale supportedLocale in supportedLocales) {
-              if (supportedLocale.languageCode == locale.languageCode || supportedLocale.countryCode == locale.countryCode) {
+              if (supportedLocale.languageCode == locale?.languageCode || supportedLocale.countryCode == locale?.countryCode) {
                 return supportedLocale;
               }
             }
