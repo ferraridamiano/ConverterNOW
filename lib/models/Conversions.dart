@@ -368,6 +368,8 @@ class Conversions with ChangeNotifier {
   set removeTrailingZeros(bool value) {
     _removeTrailingZeros = value;
     _initializePropertyList();
+    _currentProperty = _propertyList[_currentPage];
+    _refreshOrderUnits();
     notifyListeners();
     _saveSettingsBool('remove_trailing_zeros', _removeTrailingZeros);
   }
@@ -376,6 +378,8 @@ class Conversions with ChangeNotifier {
   set significantFigures(int value) {
     _significantFigures = value;
     _initializePropertyList();
+    _currentProperty = _propertyList[_currentPage];
+    _refreshOrderUnits();
     notifyListeners();
     _saveSettingsInt('significant_figures', _significantFigures);
   }
