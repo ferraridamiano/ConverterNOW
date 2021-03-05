@@ -17,7 +17,7 @@ dependencies:
   #Needed to download the latest currencies convertions
   http: ^0.13.0
   #Needed to improve the state management
-  provider: ^5.0.0-nullsafety.5 
+  provider: ^5.0.0
   #Needed for translation
   intl: ^0.17.0
   #Needed for unit conversion
