@@ -172,7 +172,7 @@ class ConversionPage extends StatelessWidget {
                   onSelected: (Choice choice) async {
                     //Let's generate the list of unit name in the current order
                     List<String> listUnitsNames = List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]!);
-                    final List<int> result = await Navigator.push(
+                    final List<int>? result = await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => ReorderPage(listUnitsNames),
