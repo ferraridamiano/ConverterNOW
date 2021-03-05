@@ -293,10 +293,12 @@ Map<dynamic, String> getUnitTranslationMap(BuildContext context) {
 List<SearchUnit> getSearchUnitsList(Function onTap, BuildContext context) {
   List<SearchUnit> searchUnitsList = [];
   List<UnitUi> unitUiList = getUnitUiList(context);
+  List<PropertyUi> propertyUiList = getPropertyUiList(context);
 
   int propertyNumber = 0;
   PROPERTYX previousProperty = PROPERTYX.LENGTH;
 
+  //Add units in searhc
   for (UnitUi unitUi in unitUiList) {
     if (previousProperty != unitUi.property) {
       propertyNumber++;
@@ -311,6 +313,21 @@ List<SearchUnit> getSearchUnitsList(Function onTap, BuildContext context) {
       },
     ));
   }
+
+  //Add properties in search
+  propertyNumber = 0;
+  for(PropertyUi properrtyUi in propertyUiList){
+    int currentNumber = propertyNumber;
+    searchUnitsList.add(SearchUnit(
+      iconAsset: properrtyUi.imagePath,
+      unitName: properrtyUi.name,
+      onTap: () {
+        onTap(currentNumber);
+      },
+    ));
+    propertyNumber++;
+  }
+
   return searchUnitsList;
 }
 
