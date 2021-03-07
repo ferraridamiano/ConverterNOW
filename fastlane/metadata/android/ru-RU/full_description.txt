@@ -8,7 +8,7 @@
  📱 <b>Полная поддержка</b> смартфонов и планшетов <b> </b>
 💯 Является <b>Open Source</b>!
 
-Проверьте репозиторий на GitHub: https://github.com/ferraridamiano/ConverterNOW
+Посмотрите репозиторий на GitHub: https://github.com/ferraridamiano/ConverterNOW
 
 У нас также есть веб-приложение! 🖥️ Проверьте это здесь: https://ferraridamiano.github.io/ConverterNOW/
 
