@@ -24,8 +24,5 @@ jobs:
     - name: Dart version
       run: dart --version
 
-    - name: Download pub dependencies
-      run: dart pub get
-
     - name: Run tests
       run: dart test
