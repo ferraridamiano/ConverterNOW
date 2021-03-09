@@ -22,6 +22,10 @@
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/packages/com.ferrarid.converterpro)
 
+[<img src="https://snapcraft.io/static/images/badges/en/snap-store-white.svg"
+    alt="Get it from the Snap Store"
+    height="55">](https://snapcraft.io/converternow)
+
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpeg" width="140">
 </div>
 

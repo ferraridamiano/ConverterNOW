@@ -1,5 +1,5 @@
 name: converternow
-version: 2.5.0-rc0
+version: 2.5.0
 summary: Unit and currencies converter
 description: A Unit and Currencies Converter. Converter NOW is immediate, fast and easy to use!
 
@@ -11,12 +11,12 @@ slots:
   dbus-converternow:
     interface: dbus
     bus: session
-    name: com.ferrarid.converterpro
+    name: com.ferrarid.converternow
     
 apps:
   converternow:
     command: converternow
-    extensions: [flutter-dev]
+    extensions: [flutter-beta]
     plugs:
     - network
     slots:
