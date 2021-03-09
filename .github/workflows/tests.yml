@@ -16,13 +16,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
-    - name: Setup Dart
-      uses: cedx/setup-dart@v2.5.0
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v1.4.0
       with:
-        release-channel: stable
+        channel: stable
 
-    - name: Dart version
-      run: dart --version
+    - name: Flutter version
+      run: flutter --version
 
     - name: Run tests
       run: dart test
