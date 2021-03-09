@@ -1,0 +1,10 @@
+★ Default language fix
+★ You can now set dark theme on old devices
+★ Dark theme get darker with AMOLED mode ⚫
+★ Added some units such as: pennyweights, troy ounces, stones, fluid ounces, gill, etc.
+★ Added german and russian
+★ Bug fix
+
+Thanks to Gena Haltmair and Vadim Young for your contributions!
+
+What do you think about Converter NOW? Rate us! ✔️

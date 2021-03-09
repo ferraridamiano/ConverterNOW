@@ -1,0 +1,10 @@
+★ Fix lingua predefinita
+★ Aggiunta la possibilità di impostare il tema scuro anche nei dispositivi più datati
+★ Il tema scuro si fa ancora più scuro con la modalità AMOLED ⚫
+★ Aggiunte alcune unità come: pennyweight, once troy, pietre, once fluide, gill, ecc.
+★ Aggiunto il tedesco e il russo
+★ Sistemati alcuni bug grafici
+
+Grazie a Gena Haltmair e a Vadim Young per i vostri contributi!
+
+Cosa ne pensi di Converter NOW? Recensiscici! ✔️
