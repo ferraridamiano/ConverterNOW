@@ -49,10 +49,10 @@ class _MyApp extends State<MyApp> {
             accentColor: const Color(0xFF0E9594),
             brightness: Brightness.dark,
             scaffoldBackgroundColor: isDarkAmoled ? Colors.black : Colors.grey[850],
-            canvasColor: isDarkAmoled ? Colors.black : Colors.grey[850],            // for drawer background
+            canvasColor: isDarkAmoled ? Colors.black : Colors.grey[850], // for drawer background
             cardColor: isDarkAmoled ? Colors.grey[900] : Colors.grey[800],
           ),
-          supportedLocales: AppLocalizations.supportedLocales,
+          supportedLocales: [Locale('en'), Locale('de'), Locale('fr'), Locale('it'), Locale('nb'), Locale('pt'), Locale('ru')],
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) {
             for (Locale supportedLocale in supportedLocales) {
