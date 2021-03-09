@@ -24,5 +24,8 @@ jobs:
     - name: Flutter version
       run: flutter --version
 
+    - name: Download pub dependencies
+      run: flutter pub get
+
     - name: Run tests
       run: dart test
