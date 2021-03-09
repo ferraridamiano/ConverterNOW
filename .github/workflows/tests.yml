@@ -1,0 +1,31 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      calculator
+  pull_request:
+    branches:
+      main
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Setup Dart
+      uses: cedx/setup-dart@v2.5.0
+      with:
+        release-channel: stable
+
+    - name: Dart version
+      run: dart --version
+
+    - name: Download pub dependencies
+      run: dart pub get
+
+    - name: Run tests
+      run: dart test
