@@ -52,12 +52,12 @@ class Calculator {
         firstNumber = double.parse(currentNumber);
         selectedOperation = mapOperation[char];
         _endNumber = true;
-      } else if (currentNumber.isNotEmpty && firstNumber != null) {
-        //chained operation
-        selectedOperation = mapOperation[char];
+      } else if (currentNumber.isNotEmpty && firstNumber != null && selectedOperation != null) { //chained operation
+        // Compute the result with the previous operator
         secondNumber = double.parse(currentNumber);
+        _computeResult(); 
         _endNumber = true;
-        _computeResult();
+        selectedOperation = mapOperation[char];
       }
     }
     // if it is equal symbol
