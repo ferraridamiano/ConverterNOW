@@ -1,4 +1,5 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
+import 'package:converterpro/models/Calculator.dart';
 import 'package:converterpro/models/Conversions.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
@@ -8,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/utils/PropertyUnitList.dart';
 import 'package:intl/intl.dart';
-import 'Calculator.dart';
+import 'CalculatorWidget.dart';
 import 'ReorderPage.dart';
 
 class ConversionPage extends StatelessWidget {
@@ -205,7 +206,10 @@ class ConversionPage extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 double displayWidth = MediaQuery.of(context).size.width;
-                return Calculator(Theme.of(context).accentColor, displayWidth, brightness);
+                return ChangeNotifierProvider(
+                  create: (_) => Calculator(),
+                  child: CalculatorWidget(Theme.of(context).accentColor, displayWidth, brightness),
+                );
               });
         },
         elevation: 5.0,
