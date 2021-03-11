@@ -1,6 +1,7 @@
 import 'package:converterpro/models/Calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/number_symbols_data.dart';
 import 'package:provider/provider.dart';
 
 class CalculatorWidget extends StatefulWidget {
@@ -23,6 +24,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
     double calcWidth = widget.width < 800 ? widget.width : 800;
     Color textButtonColor = Color(widget.brightness == Brightness.dark ? 0xFFBBBBBB : 0xFF777777);
     String text = context.select<Calculator, String>((calc) => calc.currentNumber);
+    String decimalSeparator = numberFormatSymbols[Localizations.localeOf(context)]?.DECIMAL_SEP ?? '.';
     return Container(
       height: 5 * buttonHeight,
       child: Column(
@@ -110,8 +112,8 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                     }),
                   ),
                   Row(children: <Widget>[
-                    _button('.', () {
-                      context.read<Calculator>().submitChar('.');
+                    _button(decimalSeparator, () {
+                      context.read<Calculator>().submitChar(decimalSeparator);
                     }, buttonHeight, textButtonColor, calcWidth),
                     _button('0', () {
                       context.read<Calculator>().submitChar('0');

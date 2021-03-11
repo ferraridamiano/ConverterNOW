@@ -56,27 +56,29 @@ class Calculator with ChangeNotifier {
     //if it is an operator
     else if (mapOperation.containsKey(char)) {
       //if it is the first operation submitted
-      if (currentNumber.isNotEmpty && _firstNumber == null && selectedOperation==null) {
-        _firstNumber = double.parse(currentNumber);
+      if (currentNumber.isNotEmpty && _firstNumber == null && selectedOperation == null) {
+        _firstNumber = _getDoubleFromString(currentNumber);
         selectedOperation = mapOperation[char];
         _endNumber = true;
       } else if (currentNumber.isNotEmpty && _firstNumber != null && selectedOperation != null && !_endNumber) {
         //chained operation
         // Compute the result with the previous operator
-        _secondNumber = double.parse(currentNumber);
+        _secondNumber = _getDoubleFromString(currentNumber);
         _computeResult();
         _endNumber = true;
         selectedOperation = mapOperation[char];
-      } else if(currentNumber.isNotEmpty && _firstNumber != null && selectedOperation!=null){ //change of operation
+      } else if (currentNumber.isNotEmpty && _firstNumber != null && selectedOperation != null) {
+        //change of operation
         selectedOperation = mapOperation[char];
       }
     }
     // if it is equal symbol
     else if (char == '=') {
       if (_firstNumber != null && currentNumber.isNotEmpty && selectedOperation != null) {
-        _secondNumber = double.parse(currentNumber);
+        _secondNumber = _getDoubleFromString(currentNumber);
         _computeResult();
         isResult = true;
+        selectedOperation = _firstNumber = _secondNumber = null;
       }
     }
     notifyListeners();
@@ -119,6 +121,9 @@ class Calculator with ChangeNotifier {
     }
     _firstNumber = result;
     currentNumber = result.toString();
+    if (currentNumber.endsWith('.0')) {
+      currentNumber = currentNumber.substring(0, currentNumber.length - 2);
+    }
     _endNumber = true;
   }
 
@@ -150,4 +155,11 @@ class Calculator with ChangeNotifier {
       deleteLastChar();
     }
   }
+}
+
+_getDoubleFromString(String string) {
+  if (string.contains(',')) {
+    string = string.replaceAll(RegExp(','), '.');
+  }
+  return double.parse(string);
 }

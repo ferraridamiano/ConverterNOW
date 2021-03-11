@@ -88,6 +88,28 @@ void main() {
     double result = getResultBinaryOperation(firstNumber, secondNumber, op2);
     expect(isAcceptable(result, calc.currentNumber), true, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
   });
+
+  test('Start a second computation after the end of the first', () {
+    Random rnd = Random();
+    Calculator calc = Calculator();
+    for (int i = 0; i < 5; i++) {
+      double firstNumber = rnd.nextDouble() * MAXVALUE + 1;
+      double secondNumber = rnd.nextDouble() * MAXVALUE + 1;
+      OPERATION op = getRandomOperation();
+      double result = getResultBinaryOperation(firstNumber, secondNumber, op);
+      String stringNumber = firstNumber.toStringAsFixed(11);
+      calc.submitString(stringNumber);
+      expect(calc.currentNumber, stringNumber);
+      calc.submitString(mapOperation[op]!); //first operation
+      expect(calc.currentNumber, stringNumber);
+      expect(calc.selectedOperation, op);
+      stringNumber = secondNumber.toStringAsFixed(11);
+      calc.submitString(stringNumber);
+      expect(calc.currentNumber, stringNumber);
+      calc.submitString('=');
+      expect(isAcceptable(result, calc.currentNumber), true, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
+    }
+  });
 }
 
 bool isAcceptable(double convertedValue, String expectedValue, {double sensibility = 1e10}) {
