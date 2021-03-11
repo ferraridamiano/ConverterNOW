@@ -55,16 +55,19 @@ class Calculator with ChangeNotifier {
     }
     //if it is an operator
     else if (mapOperation.containsKey(char)) {
-      if (currentNumber.isNotEmpty && _firstNumber == null) {
+      //if it is the first operation submitted
+      if (currentNumber.isNotEmpty && _firstNumber == null && selectedOperation==null) {
         _firstNumber = double.parse(currentNumber);
         selectedOperation = mapOperation[char];
         _endNumber = true;
-      } else if (currentNumber.isNotEmpty && _firstNumber != null && selectedOperation != null) {
+      } else if (currentNumber.isNotEmpty && _firstNumber != null && selectedOperation != null && !_endNumber) {
         //chained operation
         // Compute the result with the previous operator
         _secondNumber = double.parse(currentNumber);
         _computeResult();
         _endNumber = true;
+        selectedOperation = mapOperation[char];
+      } else if(currentNumber.isNotEmpty && _firstNumber != null && selectedOperation!=null){ //change of operation
         selectedOperation = mapOperation[char];
       }
     }
@@ -73,6 +76,7 @@ class Calculator with ChangeNotifier {
       if (_firstNumber != null && currentNumber.isNotEmpty && selectedOperation != null) {
         _secondNumber = double.parse(currentNumber);
         _computeResult();
+        isResult = true;
       }
     }
     notifyListeners();
@@ -116,7 +120,6 @@ class Calculator with ChangeNotifier {
     _firstNumber = result;
     currentNumber = result.toString();
     _endNumber = true;
-    isResult = true;
   }
 
   /// this method bring the calculator to the initial state (nothing submitted, no selected operation)

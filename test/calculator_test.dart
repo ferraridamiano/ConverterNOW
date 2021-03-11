@@ -22,20 +22,23 @@ void main() {
     }
   });
 
+  /// It tests all the binary operation such as 2+3, 2*3, 2-3, etc.
   group('Binary operation', () {
     for (OPERATION operation in mapOperation.keys) {
       testBinaryOperation(operation);
     }
   });
 
+  /// It tests for example that operation such as 2*3+7=13 works
   test('Chained operations', () {
     Random rnd = Random();
     double firstNumber = rnd.nextDouble() * MAXVALUE + 1;
     double secondNumber = rnd.nextDouble() * MAXVALUE + 1;
     double thirdNumber = rnd.nextDouble() * MAXVALUE + 1;
+    Calculator calc = Calculator();
     for (OPERATION op1 in OPERATION.values) {
       for (OPERATION op2 in OPERATION.values) {
-        Calculator calc = Calculator();
+        calc.clearAll();
         expect(calc.selectedOperation, null);
         double result = getResultBinaryOperation(firstNumber, secondNumber, op1);
         String stringNumber = firstNumber.toStringAsFixed(11);
@@ -58,6 +61,32 @@ void main() {
         expect(isAcceptable(result, calc.currentNumber), true, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
       }
     }
+  });
+
+  test('Change a wrong operation in binary operation', () {
+    Random rnd = Random();
+    double firstNumber = rnd.nextDouble() * MAXVALUE + 1;
+    double secondNumber = rnd.nextDouble() * MAXVALUE + 1;
+    OPERATION op1 = getRandomOperation();
+    OPERATION op2 = getRandomOperation();
+    while (op1 != op2) op2 = getRandomOperation();
+    Calculator calc = Calculator();
+    expect(calc.selectedOperation, null);
+    String stringNumber = firstNumber.toStringAsFixed(11);
+    calc.submitString(stringNumber);
+    expect(calc.currentNumber, stringNumber);
+    calc.submitString(mapOperation[op1]!); //first operation
+    expect(calc.currentNumber, stringNumber);
+    expect(calc.selectedOperation, op1);
+    calc.submitString(mapOperation[op2]!); //change of operation
+    expect(calc.currentNumber, stringNumber);
+    expect(calc.selectedOperation, op1);
+    stringNumber = secondNumber.toStringAsFixed(11);
+    calc.submitString(stringNumber);
+    expect(calc.currentNumber, stringNumber);
+    calc.submitString('=');
+    double result = getResultBinaryOperation(firstNumber, secondNumber, op2);
+    expect(isAcceptable(result, calc.currentNumber), true, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
   });
 }
 
@@ -92,8 +121,6 @@ void testBinaryOperation(OPERATION operation) {
   });
 }
 
-void testMultiOperation(OPERATION operation) {}
-
 /// Returns the result of a binary operation op between 2 numbers a and b
 double getResultBinaryOperation(double a, double b, OPERATION op) {
   switch (op) {
@@ -106,4 +133,9 @@ double getResultBinaryOperation(double a, double b, OPERATION op) {
     case OPERATION.DIVISION:
       return a / b;
   }
+}
+
+OPERATION getRandomOperation() {
+  Random rnd = Random();
+  return OPERATION.values[rnd.nextInt(4)];
 }
