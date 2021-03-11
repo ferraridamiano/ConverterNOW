@@ -24,7 +24,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
     double calcWidth = widget.width < 800 ? widget.width : 800;
     Color textButtonColor = Color(widget.brightness == Brightness.dark ? 0xFFBBBBBB : 0xFF777777);
     String text = context.select<Calculator, String>((calc) => calc.currentNumber);
-    String decimalSeparator = numberFormatSymbols[Localizations.localeOf(context)]?.DECIMAL_SEP ?? '.';
+    String decimalSeparator = numberFormatSymbols[Localizations.localeOf(context).languageCode]?.DECIMAL_SEP ?? '.';
     return Container(
       height: 5 * buttonHeight,
       child: Column(

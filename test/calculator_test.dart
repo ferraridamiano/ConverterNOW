@@ -110,6 +110,26 @@ void main() {
       expect(isAcceptable(result, calc.currentNumber), true, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
     }
   });
+
+  test('Different decimal separator', () {
+    String decimalSeparator = ',';
+    Calculator calc = Calculator(decimalSeparator: decimalSeparator);
+    double firstNumber = 12345.6789;
+    double secondNumber = 9876543.21;
+    OPERATION op = OPERATION.ADDITION;
+    String result = '9888888,8889';
+    String stringNumber = firstNumber.toStringAsFixed(11).replaceFirst(RegExp('[.]'), decimalSeparator);
+    calc.submitString(stringNumber);
+    expect(calc.currentNumber, stringNumber);
+    calc.submitString(mapOperation[op]!);
+    expect(calc.currentNumber, stringNumber);
+    expect(calc.selectedOperation, op);
+    stringNumber = secondNumber.toStringAsFixed(11);
+    calc.submitString(stringNumber);
+    expect(calc.currentNumber, stringNumber);
+    calc.submitString('=');
+    expect(result, calc.currentNumber, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
+  });
 }
 
 bool isAcceptable(double convertedValue, String expectedValue, {double sensibility = 1e10}) {

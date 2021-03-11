@@ -26,6 +26,9 @@ class Calculator with ChangeNotifier {
   OPERATION? selectedOperation;
   bool _endNumber = false;
   bool isResult = false;
+  String decimalSeparator;
+
+  Calculator({this.decimalSeparator = '.'});
 
   /// With this function you can subit any char from 0-9, [, . + - * / = backspace canc]
   void submitChar(String char) {
@@ -123,6 +126,9 @@ class Calculator with ChangeNotifier {
     currentNumber = result.toString();
     if (currentNumber.endsWith('.0')) {
       currentNumber = currentNumber.substring(0, currentNumber.length - 2);
+    }
+    if (currentNumber.contains('.') && decimalSeparator != '.') {
+      currentNumber = currentNumber.replaceFirst(RegExp('[.]'), decimalSeparator);
     }
     _endNumber = true;
   }

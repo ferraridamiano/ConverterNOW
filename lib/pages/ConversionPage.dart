@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/number_symbols_data.dart';
 import 'package:provider/provider.dart';
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/utils/PropertyUnitList.dart';
@@ -207,7 +208,7 @@ class ConversionPage extends StatelessWidget {
               builder: (BuildContext context) {
                 double displayWidth = MediaQuery.of(context).size.width;
                 return ChangeNotifierProvider(
-                  create: (_) => Calculator(),
+                  create: (_) => Calculator(decimalSeparator: numberFormatSymbols[Localizations.localeOf(context).languageCode]?.DECIMAL_SEP ?? '.'),
                   child: CalculatorWidget(Theme.of(context).accentColor, displayWidth, brightness),
                 );
               });
