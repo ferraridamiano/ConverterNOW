@@ -179,27 +179,3 @@ _getDoubleFromString(String string) {
   }
   return double.parse(string);
 }
-
-/*double _computeResult(double a, double b, OPERATION op) {
-  switch (op) {
-    case OPERATION.ADDITION:
-      return a + b;
-    case OPERATION.SUBTRACTION:
-      return a - b;
-    case OPERATION.PRODUCT:
-      return a * b;
-    case OPERATION.DIVISION:
-      return a / b;
-  }
-}
-
-String _doubleToString(double val, String decimalSeparator) {
-  String stringValue = val.toString();
-  if (stringValue.endsWith('.0')) {
-    stringValue = stringValue.substring(0, stringValue.length - 2);
-  }
-  if (stringValue.contains('.') && decimalSeparator != '.') {
-    stringValue = stringValue.replaceFirst(RegExp('[.]'), decimalSeparator);
-  }
-  return stringValue;
-}*/

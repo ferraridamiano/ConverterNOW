@@ -1,5 +1,6 @@
 import 'package:converterpro/models/Calculator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/number_symbols_data.dart';
 import 'package:provider/provider.dart';
@@ -87,7 +88,6 @@ class _CalculatorWidget extends State<CalculatorWidget> {
           ),
           Container(
             width: calcWidth,
-            color: Colors.black.withAlpha(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -157,11 +157,19 @@ class _CalculatorWidget extends State<CalculatorWidget> {
   }
 
   Widget _button(String number, Function() onPressed, double size, Color color, width) {
-    // Creating a method of return type Widget with number and function f as a parameter
+
+    final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
+      onPrimary: Colors.transparent,
+      primary: Colors.transparent,
+      minimumSize: Size((width * 0.9) / 4, size),
+      elevation: 0,
+      animationDuration: Duration(milliseconds: 60),
+    );
+
     return ButtonTheme(
       minWidth: (width * 0.9) / 4,
       height: size,
-      child: RaisedButton(
+      child: ElevatedButton(
         child: number == "←"
             ? Icon(
                 Icons.backspace,
@@ -169,11 +177,12 @@ class _CalculatorWidget extends State<CalculatorWidget> {
               )
             : Text(
                 number,
-                style: TextStyle(fontSize: textSize),
+                style: TextStyle(
+                  fontSize: textSize,
+                  color: color,
+                ),
               ),
-        textColor: color,
-        color: Colors.transparent,
-        elevation: 0.0,
+        style: raisedButtonStyle,
         onPressed: onPressed,
       ),
     );
