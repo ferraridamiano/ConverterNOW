@@ -131,7 +131,7 @@ void main() {
     expect(result, calc.currentNumber, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
   });
 
-  /*test('Multiple press = after result returns the result applied the last operation', () {
+  test('Multiple press = after result returns the result applied the last operation', () {
     Calculator calc = Calculator();
     double result = 3;
     double secondNumber = 2;
@@ -144,10 +144,10 @@ void main() {
     expect(isAcceptable(result, calc.currentNumber), true, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
     for (int i = 0; i < 5; i++) {
       calc.submitChar('=');
-      result = getResultBinaryOperation(result, result, op);
+      result = getResultBinaryOperation(result, secondNumber, op);
       expect(isAcceptable(result, calc.currentNumber), true, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
     }
-  });*/
+  });
 }
 
 bool isAcceptable(double convertedValue, String expectedValue, {double sensibility = 1e10}) {

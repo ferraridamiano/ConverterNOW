@@ -37,10 +37,13 @@ class Calculator with ChangeNotifier {
       return;
     }
 
-    if (isResult) isResult = false;
-
     //if it is a number
     if (_regExpNumber.hasMatch(char)) {
+      if (isResult) {
+        isResult = false;
+        selectedOperation = _firstNumber = _secondNumber = null;
+      }
+
       if (endNumber) {
         currentNumber = '';
         endNumber = false;
@@ -77,11 +80,13 @@ class Calculator with ChangeNotifier {
     }
     // if it is equal symbol
     else if (char == '=') {
-      if (_firstNumber != null && currentNumber.isNotEmpty && selectedOperation != null) {
+      if (_firstNumber != null && currentNumber.isNotEmpty && selectedOperation != null && !isResult) {
         _secondNumber = _getDoubleFromString(currentNumber);
         _computeResult();
         isResult = true;
-        selectedOperation = _firstNumber = _secondNumber = null;
+      } else if (_firstNumber != null && currentNumber.isNotEmpty && selectedOperation != null && isResult && _secondNumber!= null) {
+        _firstNumber = _getDoubleFromString(currentNumber);
+        _computeResult();
       }
     }
     notifyListeners();
