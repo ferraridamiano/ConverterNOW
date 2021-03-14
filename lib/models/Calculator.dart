@@ -61,6 +61,11 @@ class Calculator with ChangeNotifier {
     }
     //if it is an operator
     else if (mapOperation.containsKey(char)) {
+
+      if (isResult) {
+        isResult = false;
+        selectedOperation = _firstNumber = _secondNumber = null;
+      }
       //if it is the first operation submitted
       if (currentNumber.isNotEmpty && _firstNumber == null && selectedOperation == null) {
         _firstNumber = _getDoubleFromString(currentNumber);

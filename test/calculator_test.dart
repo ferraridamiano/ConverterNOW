@@ -148,6 +148,15 @@ void main() {
       expect(isAcceptable(result, calc.currentNumber), true, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
     }
   });
+
+  /// e.g. 2*3=-1 --> 5
+  test('Execute an operation on the result', () {
+    Calculator calc = Calculator();
+    calc..submitString('2')..submitString('*')..submitString('3')..submitString('=');
+    expect(calc.currentNumber, '6');
+    calc..submitString('-')..submitString('1')..submitString('=');
+    expect(calc.currentNumber, '5');
+  });
 }
 
 bool isAcceptable(double convertedValue, String expectedValue, {double sensibility = 1e10}) {
