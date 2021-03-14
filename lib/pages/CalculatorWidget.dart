@@ -131,7 +131,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                 ),
                 Column(
                   children: <Widget>[
-                    _button(context.read<Calculator>().isResult ? 'CE' : '←', () {
+                    _button(context.read<Calculator>().endNumber ? 'CE' : '←', () {
                       context.read<Calculator>().adaptiveDeleteClear();
                     }, buttonOpSize, widget.color, calcWidth),
                     _button('÷', () {

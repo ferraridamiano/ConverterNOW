@@ -24,7 +24,7 @@ class Calculator with ChangeNotifier {
   double? _firstNumber;
   double? _secondNumber;
   OPERATION? selectedOperation;
-  bool _endNumber = false;
+  bool endNumber = false;
   bool isResult = false;
   String decimalSeparator;
 
@@ -41,9 +41,9 @@ class Calculator with ChangeNotifier {
 
     //if it is a number
     if (_regExpNumber.hasMatch(char)) {
-      if (_endNumber) {
+      if (endNumber) {
         currentNumber = '';
-        _endNumber = false;
+        endNumber = false;
       }
       currentNumber += char;
     }
@@ -62,13 +62,13 @@ class Calculator with ChangeNotifier {
       if (currentNumber.isNotEmpty && _firstNumber == null && selectedOperation == null) {
         _firstNumber = _getDoubleFromString(currentNumber);
         selectedOperation = mapOperation[char];
-        _endNumber = true;
-      } else if (currentNumber.isNotEmpty && _firstNumber != null && selectedOperation != null && !_endNumber) {
+        endNumber = true;
+      } else if (currentNumber.isNotEmpty && _firstNumber != null && selectedOperation != null && !endNumber) {
         //chained operation
         // Compute the result with the previous operator
         _secondNumber = _getDoubleFromString(currentNumber);
         _computeResult();
-        _endNumber = true;
+        endNumber = true;
         selectedOperation = mapOperation[char];
       } else if (currentNumber.isNotEmpty && _firstNumber != null && selectedOperation != null) {
         //change of operation
@@ -130,7 +130,7 @@ class Calculator with ChangeNotifier {
     if (currentNumber.contains('.') && decimalSeparator != '.') {
       currentNumber = currentNumber.replaceFirst(RegExp('[.]'), decimalSeparator);
     }
-    _endNumber = true;
+    endNumber = true;
   }
 
   /// this method bring the calculator to the initial state (nothing submitted, no selected operation)
@@ -139,7 +139,7 @@ class Calculator with ChangeNotifier {
     _firstNumber = null;
     _secondNumber = null;
     selectedOperation = null;
-    _endNumber = false;
+    endNumber = false;
     isResult = false;
     notifyListeners();
   }
@@ -169,3 +169,27 @@ _getDoubleFromString(String string) {
   }
   return double.parse(string);
 }
+
+/*double _computeResult(double a, double b, OPERATION op) {
+  switch (op) {
+    case OPERATION.ADDITION:
+      return a + b;
+    case OPERATION.SUBTRACTION:
+      return a - b;
+    case OPERATION.PRODUCT:
+      return a * b;
+    case OPERATION.DIVISION:
+      return a / b;
+  }
+}
+
+String _doubleToString(double val, String decimalSeparator) {
+  String stringValue = val.toString();
+  if (stringValue.endsWith('.0')) {
+    stringValue = stringValue.substring(0, stringValue.length - 2);
+  }
+  if (stringValue.contains('.') && decimalSeparator != '.') {
+    stringValue = stringValue.replaceFirst(RegExp('[.]'), decimalSeparator);
+  }
+  return stringValue;
+}*/
