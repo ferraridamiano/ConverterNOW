@@ -165,7 +165,7 @@ class Calculator with ChangeNotifier {
 
   /// This method either clearAll() or deleteLastChar() depending on the state of the calculator.
   void adaptiveDeleteClear() {
-    if (isResult) {
+    if (endNumber) {
       clearAll();
     } else {
       deleteLastChar();
