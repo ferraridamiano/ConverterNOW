@@ -157,6 +157,29 @@ void main() {
     calc..submitString('-')..submitString('1')..submitString('=');
     expect(calc.currentNumber, '5');
   });
+
+  test('π submission', () {
+    Calculator calc = Calculator();
+    calc.submitChar('π');
+    expect(calc.currentNumber, pi.toString());
+    calc..submitString('*')..submitString('2')..submitString('=');
+    expect(calc.currentNumber, (2*pi).toString());
+  });
+
+  test('e submission', () {
+    Calculator calc = Calculator();
+    calc.submitChar('e');
+    expect(calc.currentNumber, e.toString());
+    calc..submitString('*')..submitString('2')..submitString('=');
+    expect(calc.currentNumber, (2*e).toString());
+  });
+
+  test('Square root', () {
+    Calculator calc = Calculator();
+    calc..submitString('10000')..squareRoot();
+    expect(calc.currentNumber, '100');
+
+  });
 }
 
 bool isAcceptable(double convertedValue, String expectedValue, {double sensibility = 1e10}) {

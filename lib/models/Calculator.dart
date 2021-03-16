@@ -1,3 +1,4 @@
+import 'dart:math' as Math;
 import 'package:flutter/foundation.dart';
 
 enum OPERATION {
@@ -8,8 +9,8 @@ enum OPERATION {
 }
 
 class Calculator with ChangeNotifier {
-  final RegExp _regExpValidatingChar = RegExp(r'^[0-9,.+-/=*×÷−]+$'); //da capire se va bene
-  final RegExp _regExpNumber = RegExp(r'^[0-9]+$');
+  final RegExp _regExpValidatingChar = RegExp(r'^[0-9πe,.+-/=*×÷−]+$'); //da capire se va bene
+  final RegExp _regExpNumber = RegExp(r'^[0-9πe]+$');
   static const Map<String, OPERATION> mapOperation = {
     '*': OPERATION.PRODUCT,
     '/': OPERATION.DIVISION,
@@ -48,7 +49,14 @@ class Calculator with ChangeNotifier {
         currentNumber = '';
         endNumber = false;
       }
-      currentNumber += char;
+      if (char == 'π') {
+        currentNumber = Math.pi.toString();
+      } else if (char == 'e') {
+        currentNumber = Math.e.toString();
+      } else {
+        //is a number
+        currentNumber += char;
+      }
     }
     //if char is a comma or a dot
     else if (char == '.' || char == ',') {
@@ -61,7 +69,6 @@ class Calculator with ChangeNotifier {
     }
     //if it is an operator
     else if (mapOperation.containsKey(char)) {
-
       if (isResult) {
         isResult = false;
         selectedOperation = _firstNumber = _secondNumber = null;
@@ -89,7 +96,7 @@ class Calculator with ChangeNotifier {
         _secondNumber = _getDoubleFromString(currentNumber);
         _computeResult();
         isResult = true;
-      } else if (_firstNumber != null && currentNumber.isNotEmpty && selectedOperation != null && isResult && _secondNumber!= null) {
+      } else if (_firstNumber != null && currentNumber.isNotEmpty && selectedOperation != null && isResult && _secondNumber != null) {
         _firstNumber = _getDoubleFromString(currentNumber);
         _computeResult();
       }
@@ -133,13 +140,7 @@ class Calculator with ChangeNotifier {
         assert(selectedOperation != null, 'selectedOperation is null');
     }
     _firstNumber = result;
-    currentNumber = result.toString();
-    if (currentNumber.endsWith('.0')) {
-      currentNumber = currentNumber.substring(0, currentNumber.length - 2);
-    }
-    if (currentNumber.contains('.') && decimalSeparator != '.') {
-      currentNumber = currentNumber.replaceFirst(RegExp('[.]'), decimalSeparator);
-    }
+    currentNumber = _getStringFromDouble(result, decimalSeparator);
     endNumber = true;
   }
 
@@ -171,11 +172,32 @@ class Calculator with ChangeNotifier {
       deleteLastChar();
     }
   }
+
+  /// Computes the square root of currentNumber
+  void squareRoot() {
+    //if it is the first operation submitted
+    if (currentNumber.isNotEmpty) {
+      currentNumber = _getStringFromDouble(Math.sqrt(double.parse(currentNumber)), decimalSeparator);
+      endNumber = isResult = true;
+      notifyListeners();
+    }
+  }
 }
 
-_getDoubleFromString(String string) {
+double _getDoubleFromString(String string) {
   if (string.contains(',')) {
     string = string.replaceAll(RegExp(','), '.');
   }
   return double.parse(string);
+}
+
+String _getStringFromDouble(double value, [String decimalSeparator = '.']) {
+  String stringValue = value.toString();
+  if (stringValue.endsWith('.0')) {
+    stringValue = stringValue.substring(0, stringValue.length - 2);
+  }
+  if (stringValue.contains('.') && decimalSeparator != '.') {
+    stringValue = stringValue.replaceFirst(RegExp('[.]'), decimalSeparator);
+  }
+  return stringValue;
 }
