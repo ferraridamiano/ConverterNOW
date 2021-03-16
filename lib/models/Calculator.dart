@@ -182,6 +182,17 @@ class Calculator with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  /// Computes the base-10 logarithm of currentNumber
+  void log10() {
+    //if it is the first operation submitted
+    if (currentNumber.isNotEmpty) {
+      double val = double.parse(currentNumber);
+      currentNumber = _getStringFromDouble(Math.log(val)/Math.log(10), decimalSeparator);
+      endNumber = isResult = true;
+      notifyListeners();
+    }
+  }
 }
 
 double _getDoubleFromString(String string) {
