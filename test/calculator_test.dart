@@ -178,12 +178,16 @@ void main() {
     Calculator calc = Calculator();
     calc..submitString('10000')..squareRoot();
     expect(calc.currentNumber, '100');
+    calc.squareRoot();
+    expect(calc.currentNumber, '10');
   });
 
   test('Base-10 logarithm', () {
     Calculator calc = Calculator();
-    calc..submitString('100')..log10();
-    expect(calc.currentNumber, '2');
+    calc..submitString('10000000000')..log10();
+    expect(calc.currentNumber, '10');
+    calc.log10();
+    expect(calc.currentNumber, '1');
   });
 }
 

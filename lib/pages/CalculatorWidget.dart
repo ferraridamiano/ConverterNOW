@@ -6,8 +6,7 @@ import 'package:intl/number_symbols_data.dart';
 import 'package:provider/provider.dart';
 
 class CalculatorWidget extends StatefulWidget {
-  CalculatorWidget(this.color, this.width, this.brightness);
-  final Color color;
+  CalculatorWidget(this.width, this.brightness);
   final double width;
   final Brightness brightness;
   @override
@@ -28,8 +27,9 @@ class _CalculatorWidget extends State<CalculatorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.select<Calculator, String>((calc) => calc.currentNumber);
-    double calcWidth = widget.width < 800 ? widget.width : 800;
+    final double calcWidth = _getCalcWidth(widget.width);
+    final int columnsNumber = _getColumnsNumber(calcWidth);
+    final double buttonWidth = _getButtonWidth(calcWidth, columnsNumber);
     Color textButtonColor = Color(widget.brightness == Brightness.dark ? 0xFFBBBBBB : 0xFF777777);
     String text = context.select<Calculator, String>((calc) => calc.currentNumber);
     String decimalSeparator = numberFormatSymbols[Localizations.localeOf(context).languageCode]?.DECIMAL_SEP ?? '.';
@@ -54,13 +54,14 @@ class _CalculatorWidget extends State<CalculatorWidget> {
               height: buttonHeight,
               alignment: Alignment(0, 0),
               child: Container(
-                width: (calcWidth * 0.9),
+                width: calcWidth,
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
-                      width: (calcWidth * 0.9 * 3) / 4,
+                      width: calcWidth - buttonWidth,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: SelectableText(
                         text,
                         style: TextStyle(
@@ -74,7 +75,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                       ),
                     ),
                     Container(
-                      width: (calcWidth * 0.9) / 4,
+                      width: buttonWidth,
                       alignment: Alignment.center,
                       child: context.select<Calculator, bool>((calc) => calc.isResult)
                           ? IconButton(
@@ -106,11 +107,38 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                 ),
               ]),
             ),
+            //start of butttons
             Container(
               width: calcWidth,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  columnsNumber == 4
+                      ? SizedBox()
+                      : Column(
+                          children: <Widget>[
+                            _button('√', () {
+                              context.read<Calculator>().squareRoot();
+                            }, buttonWidth, buttonHeight, Theme.of(context).accentColor),
+                            _button('log₁₀', () {
+                              context.read<Calculator>().log10();
+                            }, buttonWidth, buttonHeight, Theme.of(context).accentColor),
+                            _button('e', () {
+                              context.read<Calculator>().submitChar('e');
+                            }, buttonWidth, buttonHeight, Theme.of(context).accentColor),
+                            _button('π', () {
+                              context.read<Calculator>().submitChar('π');
+                            }, buttonWidth, buttonHeight, Theme.of(context).accentColor),
+                          ],
+                        ),
+                  columnsNumber >= 4
+                      ? Container(
+                          //divider
+                          width: 1.0,
+                          height: buttonHeight * 3.9,
+                          color: Color(0xFFBBBBBB),
+                        )
+                      : SizedBox(),
                   Column(children: [
                     Column(
                       //creates numbers buttons from 1 to 9
@@ -123,9 +151,9 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                               () {
                                 context.read<Calculator>().submitChar(char);
                               },
+                              buttonWidth,
                               buttonHeight,
                               textButtonColor,
-                              calcWidth,
                             );
                           }),
                         );
@@ -134,13 +162,13 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                     Row(children: <Widget>[
                       _button(decimalSeparator, () {
                         context.read<Calculator>().submitChar(decimalSeparator);
-                      }, buttonHeight, textButtonColor, calcWidth),
+                      }, buttonWidth, buttonHeight, textButtonColor),
                       _button('0', () {
                         context.read<Calculator>().submitChar('0');
-                      }, buttonHeight, textButtonColor, calcWidth),
+                      }, buttonWidth, buttonHeight, textButtonColor),
                       _button('=', () {
                         context.read<Calculator>().submitChar('=');
-                      }, buttonHeight, textButtonColor, calcWidth),
+                      }, buttonWidth, buttonHeight, textButtonColor),
                     ]),
                   ]),
                   Container(
@@ -153,19 +181,19 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                     children: <Widget>[
                       _button(context.select<Calculator, bool>((calc) => calc.endNumber) ? 'CE' : '←', () {
                         context.read<Calculator>().adaptiveDeleteClear();
-                      }, buttonOpSize, widget.color, calcWidth),
+                      }, buttonWidth, buttonOpSize, Theme.of(context).accentColor),
                       _button('÷', () {
                         context.read<Calculator>().submitChar('/');
-                      }, buttonOpSize, widget.color, calcWidth),
+                      }, buttonWidth, buttonOpSize, Theme.of(context).accentColor),
                       _button('×', () {
                         context.read<Calculator>().submitChar('*');
-                      }, buttonOpSize, widget.color, calcWidth),
+                      }, buttonWidth, buttonOpSize, Theme.of(context).accentColor),
                       _button('−', () {
                         context.read<Calculator>().submitChar('-');
-                      }, buttonOpSize, widget.color, calcWidth),
+                      }, buttonWidth, buttonOpSize, Theme.of(context).accentColor),
                       _button('+', () {
                         context.read<Calculator>().submitChar('+');
-                      }, buttonOpSize, widget.color, calcWidth),
+                      }, buttonWidth, buttonOpSize, Theme.of(context).accentColor),
                     ],
                   ),
                 ],
@@ -177,18 +205,18 @@ class _CalculatorWidget extends State<CalculatorWidget> {
     );
   }
 
-  Widget _button(String number, Function() onPressed, double size, Color color, width) {
+  Widget _button(String number, Function() onPressed, double buttonWidth, double buttonHeight, Color color) {
     final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
       onPrimary: Colors.transparent,
       primary: Colors.transparent,
-      minimumSize: Size((width * 0.9) / 4, size),
+      minimumSize: Size(buttonWidth, buttonHeight),
       elevation: 0,
       animationDuration: Duration(milliseconds: 60),
     );
 
     return ButtonTheme(
-      minWidth: (width * 0.9) / 4,
-      height: size,
+      minWidth: buttonWidth,
+      height: buttonHeight,
       child: ElevatedButton(
         child: number == "←"
             ? Icon(
@@ -207,4 +235,22 @@ class _CalculatorWidget extends State<CalculatorWidget> {
       ),
     );
   }
+}
+
+///Returns the width of one button given all the available width
+double _getButtonWidth(double calcWidth, int columnNumber) {
+  return (calcWidth * 0.9) / columnNumber;
+}
+
+///Returns the width of the calculator
+double _getCalcWidth(double totalWidth) {
+  const double maxCalcWidth = 800;
+  return totalWidth < maxCalcWidth ? totalWidth : maxCalcWidth;
+}
+
+int _getColumnsNumber(double calcWidth) {
+  if (calcWidth < 400) {
+    return 4;
+  }
+  return 5;
 }

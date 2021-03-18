@@ -209,7 +209,7 @@ class ConversionPage extends StatelessWidget {
                 double displayWidth = MediaQuery.of(context).size.width;
                 return ChangeNotifierProvider(
                   create: (_) => Calculator(decimalSeparator: numberFormatSymbols[Localizations.localeOf(context).languageCode]?.DECIMAL_SEP ?? '.'),
-                  child: CalculatorWidget(Theme.of(context).accentColor, displayWidth, brightness),
+                  child: CalculatorWidget(displayWidth, brightness),
                 );
               });
         },
