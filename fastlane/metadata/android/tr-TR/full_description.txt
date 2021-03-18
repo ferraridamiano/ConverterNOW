@@ -1,0 +1,39 @@
+<b>Converter NOW efektif ölçü ve para birimleri dönüştürücüdür </b>
+✔️ Birkaç tıklamayla ölçü birimleri arasındaki sıkıcı dönüşüm işlemlerini <b>basitleştirir</b>.
+🚀 <b>Hızlı ve efektif</b>: Yazmaya başladığınız anda diğer tüm ölçü birimlerine gerçek zamanlı çevirim.
+🖌️ <b>Özelleştirilebilir</b>: Birimler önceliklerinize ve kullanımınıza göre yeniden düzenlenebilir.
+🔢 Her sayfada hesaplama yapmanız için kullanabileceğiniz bir <b>hesap makinesi</b> içerir.
+💰 <b>Günlük</b>, para birimi değerleri güncellemeleri
+⚫⚪ <b>Tema seçeneği</b>: Koyu ve açık tema seçeneği
+📱 Akıllı telefon ve tabletlere <b>tam uyumlu</b>
+💯 <b>Özgür yazılım</b>!
+
+Github depomuz: https://github.com/ferraridamiano/converternow
+
+Ayrıca bir web uygulamamız da var! 🖥️ Şurada: https://ferraridamiano.github.io/converternow/
+
+🌍 Converter NOW ücretsiz, reklamsız, herhangi bir izin gerektirmez ve veri toplamaz. Projeyi beğeniyor ve geliştiriciye destek olmak istiyorsan bağış yapabilirsin: https://www.paypal.me/demapps 🌍
+Sayende her zaman 🔝 kalabiliriz.
+
+<b>Converter NOW 200+ ölçü birimini ve 30+ para birimini dönüştürebilir</b> 🎉🎉
+
+Converter NOW uygulamasının şimdi dönüştürebileceği fiziksel niceliklerden bazıları:
+-<b>Para Birimleri:</b> Dolar, Euro, Pound, Rupi, Yen, vb.
+-<b>Uzunluk:</b> metre, inç, mil, yarda, ışık yılı vb.
+-<b>Alan:</b> metrekare, hektar, dönüm vb.
+-<b>Hacim:</b> metreküp, litre, galon, pint, kaşık vb.
+-<b>Zaman:</b> saniye, saat, gün, yıl, hafta, millennia, vb.
+-<b>Sıcaklık:</b> Santigrat, Fahreneit, Kelvin
+-<b>Hız:</b> saniyede metre, saatte kilometre, knot vb.
+-<b>Kütle:</b> gram, pound, ton, dalton vb.
+-<b>Kuvvet:</b> Newton, dyn, pound-kuvvet, poundal, vb
+-<b>Basınç:</b> pascal, bar, atmosfer, PSI, vb.
+-<b>Enerji:</b> Joule, kalori, kilovat saat, vb.
+-<b>Güç:</b> Watt, kilowatt, beygir gücü, vb.
+-<b>Yakıt tüketimi:</b> Galon başına mil, Litre başına kilometre vb.
+-<b>Sayısal sistemler:</b> ondalık, ikili, onaltılık vb.
+-<b>Tork:</b> Newton metre, pound-kuvvet fit, poundal metre, vb.
+-<b>Dijital veriler:</b> Nibble, bit, bayt, kibibit, kibibyte vb.
+-<b>Ayakkabı ölçüleri:</b> İngiltere, Hindistan, Avrupa, ABD, Japonya, vb.
+-<b>Açılar:</b> derece, radyan, dakika vb.
+-<b>SI öneki:</b> kilo, mega, giga, tera, milli, mikro, nano, vb.
