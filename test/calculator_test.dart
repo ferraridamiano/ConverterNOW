@@ -163,7 +163,7 @@ void main() {
     calc.submitChar('π');
     expect(calc.currentNumber, pi.toString());
     calc..submitString('*')..submitString('2')..submitString('=');
-    expect(calc.currentNumber, (2*pi).toString());
+    expect(calc.currentNumber, (2 * pi).toString());
   });
 
   test('e submission', () {
@@ -171,12 +171,14 @@ void main() {
     calc.submitChar('e');
     expect(calc.currentNumber, e.toString());
     calc..submitString('*')..submitString('2')..submitString('=');
-    expect(calc.currentNumber, (2*e).toString());
+    expect(calc.currentNumber, (2 * e).toString());
   });
 
   test('Square root', () {
     Calculator calc = Calculator();
-    calc..submitString('10000')..squareRoot();
+    calc
+      ..submitString('10000')
+      ..squareRoot();
     expect(calc.currentNumber, '100');
     calc.squareRoot();
     expect(calc.currentNumber, '10');
@@ -184,10 +186,52 @@ void main() {
 
   test('Base-10 logarithm', () {
     Calculator calc = Calculator();
-    calc..submitString('10000000000')..log10();
+    calc
+      ..submitString('10000000000')
+      ..log10();
     expect(calc.currentNumber, '10');
     calc.log10();
     expect(calc.currentNumber, '1');
+  });
+
+  test('Square', () {
+    Calculator calc = Calculator();
+    calc
+      ..submitString('10')
+      ..square();
+    expect(calc.currentNumber, '100');
+    calc..square();
+    expect(calc.currentNumber, '10000');
+  });
+
+  test('Natural logarithm', () {
+    Calculator calc = Calculator();
+    calc
+      ..submitString(pow(e, e).toString())
+      ..ln();
+    expect(calc.currentNumber, e.toString());
+    calc.ln();
+    expect(calc.currentNumber, '1');
+  });
+
+  test('Reciprocal', () {
+    Calculator calc = Calculator();
+    calc
+      ..submitString('5000')
+      ..reciprocal();
+    expect(calc.currentNumber, '0.0002');
+    calc.reciprocal();
+    expect(calc.currentNumber, '5000');
+  });
+
+  test('Factorial', () {
+    Calculator calc = Calculator();
+    calc
+      ..submitString('3')
+      ..factorial();
+    expect(calc.currentNumber, '6');
+    calc.factorial();
+    expect(calc.currentNumber, '720');
   });
 }
 

@@ -174,21 +174,28 @@ class Calculator with ChangeNotifier {
   }
 
   /// Computes the square root of currentNumber
-  void squareRoot() {
-    //if it is the first operation submitted
-    if (currentNumber.isNotEmpty) {
-      currentNumber = _getStringFromDouble(Math.sqrt(double.parse(currentNumber)), decimalSeparator);
-      endNumber = isResult = true;
-      notifyListeners();
-    }
-  }
+  void squareRoot() => _unaryOperation(Math.sqrt);
 
   /// Computes the base-10 logarithm of currentNumber
-  void log10() {
+  void log10() => _unaryOperation((double x) => Math.log(x) / Math.log(10));
+
+  /// Computes the square of currentNumber
+  void square() => _unaryOperation((double x) => x * x);
+
+  /// Computes the natural logarithm (base e) of currentNumber
+  void ln() => _unaryOperation(Math.log);
+
+  /// Computes the reciprocal (multiplicative inverse) of currentNumber
+  void reciprocal() => _unaryOperation((double x) => 1/x);
+
+  /// Computes the factorial of currentNumber
+  void factorial() => _unaryOperation((double x) => _myFactorialFunction(x.truncate()).toDouble());
+
+  /// General function that applies to all the unary operations, just pass the function
+  void _unaryOperation(double Function(double) operation) {
     //if it is the first operation submitted
     if (currentNumber.isNotEmpty) {
-      double val = double.parse(currentNumber);
-      currentNumber = _getStringFromDouble(Math.log(val)/Math.log(10), decimalSeparator);
+      currentNumber = _getStringFromDouble(operation(double.parse(currentNumber)), decimalSeparator);
       endNumber = isResult = true;
       notifyListeners();
     }
@@ -212,3 +219,5 @@ String _getStringFromDouble(double value, [String decimalSeparator = '.']) {
   }
   return stringValue;
 }
+
+int _myFactorialFunction(int x) => x == 0 ? 1 : x * _myFactorialFunction(x - 1);
