@@ -120,7 +120,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                             _button('√', () {
                               context.read<Calculator>().squareRoot();
                             }, buttonWidth, buttonHeight, Theme.of(context).accentColor),
-                            _button('log₁₀', () {
+                            _button('log', () {
                               context.read<Calculator>().log10();
                             }, buttonWidth, buttonHeight, Theme.of(context).accentColor),
                             _button('e', () {
@@ -131,7 +131,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                             }, buttonWidth, buttonHeight, Theme.of(context).accentColor),
                           ],
                         ),
-                  columnsNumber >= 4
+                  columnsNumber > 4
                       ? Container(
                           //divider
                           width: 1.0,
