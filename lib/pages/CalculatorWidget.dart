@@ -113,7 +113,25 @@ class _CalculatorWidget extends State<CalculatorWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  columnsNumber == 4
+                  columnsNumber < 6
+                      ? SizedBox()
+                      : Column(
+                          children: <Widget>[
+                            _button('x²', () {
+                              context.read<Calculator>().square();
+                            }, buttonWidth, buttonHeight, Theme.of(context).accentColor),
+                            _button('ln', () {
+                              context.read<Calculator>().ln();
+                            }, buttonWidth, buttonHeight, Theme.of(context).accentColor),
+                            _button('n!', () {
+                              context.read<Calculator>().factorial();
+                            }, buttonWidth, buttonHeight, Theme.of(context).accentColor),
+                            _button('1/x', () {
+                              context.read<Calculator>().reciprocal();
+                            }, buttonWidth, buttonHeight, Theme.of(context).accentColor),
+                          ],
+                        ),
+                  columnsNumber < 5
                       ? SizedBox()
                       : Column(
                           children: <Widget>[
@@ -251,6 +269,8 @@ double _getCalcWidth(double totalWidth) {
 int _getColumnsNumber(double calcWidth) {
   if (calcWidth < 400) {
     return 4;
+  } else if (calcWidth < 500) {
+    return 5;
   }
-  return 5;
+  return 6;
 }
