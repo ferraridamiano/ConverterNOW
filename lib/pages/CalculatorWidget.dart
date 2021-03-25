@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/number_symbols_data.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CalculatorWidget extends StatefulWidget {
   CalculatorWidget(this.width, this.brightness);
@@ -24,11 +25,12 @@ class _CalculatorWidget extends State<CalculatorWidget> {
   void initState() {
     super.initState();
     focusKeyboard.requestFocus();
-    accentColor = Theme.of(context).accentColor;
   }
 
   @override
   Widget build(BuildContext context) {
+    accentColor = Theme.of(context).accentColor;
+
     final double calcWidth = _getCalcWidth(widget.width);
     final int columnsNumber = _getColumnsNumber(calcWidth);
     final double buttonWidth = _getButtonWidth(calcWidth, columnsNumber);
@@ -81,6 +83,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                       alignment: Alignment.center,
                       child: context.select<Calculator, bool>((calc) => calc.isResult)
                           ? IconButton(
+                              tooltip: AppLocalizations.of(context)?.copy,
                               icon: Icon(
                                 Icons.content_copy,
                                 color: widget.brightness == Brightness.dark ? Colors.white54 : Colors.black54,
@@ -234,25 +237,21 @@ class _CalculatorWidget extends State<CalculatorWidget> {
       animationDuration: Duration(milliseconds: 60),
     );
 
-    return ButtonTheme(
-      minWidth: buttonWidth,
-      height: buttonHeight,
-      child: ElevatedButton(
-        child: text == "←"
-            ? Icon(
-                Icons.backspace,
+    return ElevatedButton(
+      child: text == "←"
+          ? Icon(
+              Icons.backspace,
+              color: color,
+            )
+          : Text(
+              text,
+              style: TextStyle(
+                fontSize: textSize,
                 color: color,
-              )
-            : Text(
-                text,
-                style: TextStyle(
-                  fontSize: textSize,
-                  color: color,
-                ),
               ),
-        style: raisedButtonStyle,
-        onPressed: onPressed,
-      ),
+            ),
+      style: raisedButtonStyle,
+      onPressed: onPressed,
     );
   }
 }

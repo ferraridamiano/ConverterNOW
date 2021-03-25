@@ -65,7 +65,7 @@ class Calculator with ChangeNotifier {
         return;
       }
       //otherwise
-      currentNumber += char; //append the poin/comma at the end
+      currentNumber += '.'; //append the point at the end
     }
     //if it is an operator
     else if (mapOperation.containsKey(char)) {
