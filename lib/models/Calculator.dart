@@ -214,9 +214,9 @@ String _getStringFromDouble(double value, [String decimalSeparator = '.']) {
   if (stringValue.endsWith('.0')) {
     stringValue = stringValue.substring(0, stringValue.length - 2);
   }
-  if (stringValue.contains('.') && decimalSeparator != '.') {
+  /*if (stringValue.contains('.') && decimalSeparator != '.') {
     stringValue = stringValue.replaceFirst(RegExp('[.]'), decimalSeparator);
-  }
+  }*/
   return stringValue;
 }
 
