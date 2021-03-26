@@ -7,6 +7,10 @@ confinement: strict
 base: core18
 grade: stable
 
+architectures:
+  - build-on: amd64
+    run-on: amd64
+
 slots:
   dbus-converternow:
     interface: dbus
