@@ -2,7 +2,6 @@ import 'package:converterpro/models/Calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/number_symbols_data.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -36,7 +35,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
     final double buttonWidth = _getButtonWidth(calcWidth, columnsNumber);
     Color textButtonColor = Color(widget.brightness == Brightness.dark ? 0xFFBBBBBB : 0xFF777777);
     String text = context.select<Calculator, String>((calc) => calc.currentNumber);
-    String decimalSeparator = numberFormatSymbols[Localizations.localeOf(context).languageCode]?.DECIMAL_SEP ?? '.';
+    String decimalSeparator = '.'; //numberFormatSymbols[Localizations.localeOf(context).languageCode]?.DECIMAL_SEP ?? '.';
     return Container(
       height: 5 * buttonHeight,
       child: RawKeyboardListener(
