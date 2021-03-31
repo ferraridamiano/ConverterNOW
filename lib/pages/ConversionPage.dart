@@ -11,6 +11,7 @@ import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/utils/PropertyUnitList.dart';
 import 'package:intl/intl.dart';
 import 'CalculatorWidget.dart';
+import 'ReorderPage.dart';
 
 class ConversionPage extends StatelessWidget {
   static const MAX_CONVERSION_UNITS = 19;
@@ -209,15 +210,16 @@ class ConversionPage extends StatelessWidget {
     }
 
     double displayWidth = MediaQuery.of(context).size.width;
+    bool _isDrawerFixed = isDrawerFixed(displayWidth);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      //drawer: _getDrawer(context),
+      drawer: _isDrawerFixed ? null : _getDrawer(context, _isDrawerFixed),
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _getDrawer(context, isDrawerFixed(displayWidth)),
+            _isDrawerFixed ? _getDrawer(context, _isDrawerFixed) : SizedBox(),
             Expanded(
               child: Scrollbar(
                 child: Padding(
@@ -236,84 +238,87 @@ class ConversionPage extends StatelessWidget {
           ],
         ),
       ),
-      /*floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: Theme.of(context).primaryColor,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            new Builder(builder: (context) {
-              return IconButton(
-                  tooltip: AppLocalizations.of(context)!.menu,
-                  icon: Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  });
-            }),
-            Row(
-              children: <Widget>[
-                IconButton(
-                  tooltip: AppLocalizations.of(context)!.clearAll,
-                  icon: Icon(Icons.clear, color: Colors.white),
-                  onPressed: () {
-                    Conversions conversions = context.read<Conversions>();
-                    conversions.clearAllValues();
-                  },
-                ),
-                IconButton(
-                  // search
-                  tooltip: AppLocalizations.of(context)!.search,
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                  onPressed: () async {
-                    final orderList = context.read<AppModel>().conversionsOrderDrawer;
-                    final int? newPage = await showSearch(
-                      context: context,
-                      delegate: CustomSearchDelegate(orderList),
-                    );
-                    if (newPage != null) {
-                      AppModel appModel = context.read<AppModel>();
-                      if (appModel.currentPage != newPage) appModel.changeToPage(newPage);
-                    }
-                  },
-                ),
-                PopupMenuButton<Choice>(
-                  icon: Icon(
-                    Icons.more_vert,
-                    color: Colors.white,
-                  ),
-                  onSelected: (Choice choice) async {
-                    //Let's generate the list of unit name in the current order
-                    List<String> listUnitsNames = List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]!);
-                    final List<int>? result = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ReorderPage(listUnitsNames),
+      floatingActionButtonLocation: isDrawerFixed(displayWidth) ? FloatingActionButtonLocation.endFloat : FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: _isDrawerFixed
+          ? null
+          : BottomAppBar(
+              color: Theme.of(context).primaryColor,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  new Builder(builder: (context) {
+                    return IconButton(
+                        tooltip: AppLocalizations.of(context)!.menu,
+                        icon: Icon(
+                          Icons.menu,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                        });
+                  }),
+                  Row(
+                    children: <Widget>[
+                      IconButton(
+                        tooltip: AppLocalizations.of(context)!.clearAll,
+                        icon: Icon(Icons.clear, color: Colors.white),
+                        onPressed: () {
+                          Conversions conversions = context.read<Conversions>();
+                          conversions.clearAllValues();
+                        },
                       ),
-                    );
-                    context.read<Conversions>().changeOrderUnits(result);
-                  },
-                  itemBuilder: (BuildContext context) {
-                    return choices.map((Choice choice) {
-                      return PopupMenuItem<Choice>(
-                        value: choice,
-                        child: Text(choice.title),
-                      );
-                    }).toList();
-                  },
-                ),
-              ],
+                      IconButton(
+                        // search
+                        tooltip: AppLocalizations.of(context)!.search,
+                        icon: Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        ),
+                        onPressed: () async {
+                          final orderList = context.read<AppModel>().conversionsOrderDrawer;
+                          final int? newPage = await showSearch(
+                            context: context,
+                            delegate: CustomSearchDelegate(orderList),
+                          );
+                          if (newPage != null) {
+                            AppModel appModel = context.read<AppModel>();
+                            if (appModel.currentPage != newPage) appModel.changeToPage(newPage);
+                          }
+                        },
+                      ),
+                      PopupMenuButton<Choice>(
+                        icon: Icon(
+                          Icons.more_vert,
+                          color: Colors.white,
+                        ),
+                        onSelected: (Choice choice) async {
+                          //Let's generate the list of unit name in the current order
+                          List<String> listUnitsNames = List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]!);
+                          final List<int>? result = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReorderPage(listUnitsNames),
+                            ),
+                          );
+                          context.read<Conversions>().changeOrderUnits(result);
+                        },
+                        itemBuilder: (BuildContext context) {
+                          return choices.map((Choice choice) {
+                            return PopupMenuItem<Choice>(
+                              value: choice,
+                              child: Text(choice.title),
+                            );
+                          }).toList();
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),*/
       floatingActionButton: FloatingActionButton(
+        key: Key('FAB'),
         tooltip: AppLocalizations.of(context)!.calculator,
         child: Image.asset(
           "resources/images/calculator.png",

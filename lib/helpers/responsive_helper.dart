@@ -29,4 +29,6 @@ double responsiveChildAspectRatio(double displayWidth) {
   return tileWidth / 107.0;
 }
 
-bool isDrawerFixed(double displayWidth) => displayWidth > PIXEL_FIXED_DRAWER;
+bool isDrawerFixed(double displayWidth) {
+  return displayWidth > PIXEL_FIXED_DRAWER;
+}
