@@ -11,12 +11,118 @@ import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/utils/PropertyUnitList.dart';
 import 'package:intl/intl.dart';
 import 'CalculatorWidget.dart';
-import 'ReorderPage.dart';
 
 class ConversionPage extends StatelessWidget {
-  final Function openDrawer;
+  static const MAX_CONVERSION_UNITS = 19;
 
-  ConversionPage(this.openDrawer);
+  Drawer _getDrawer(BuildContext context, bool isDrawerFixed) {
+    List<Widget> listaDrawer = List<Widget>.filled(MAX_CONVERSION_UNITS + 1, SizedBox()); //+1 because of the header
+    Color boxColor = Theme.of(context).primaryColor;
+
+    List<Widget> drawerActions = <Widget>[
+      Consumer<AppModel>(
+        builder: (context, appModel, _) => IconButton(
+          tooltip: AppLocalizations.of(context)!.reorder,
+          icon: Icon(
+            Icons.reorder,
+            color: Colors.white,
+          ),
+          onPressed: () => appModel.changeOrderDrawer(context, getPropertyNameList(context)),
+        ),
+      ),
+      IconButton(
+        tooltip: AppLocalizations.of(context)!.settings,
+        icon: Icon(
+          Icons.settings,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          if (!isDrawerFixed) {
+            Navigator.of(context).pop();
+          }
+          Navigator.pushNamed(context, '/settings');
+        },
+      ),
+    ];
+
+    bool logoVisibility = context.select<AppModel, bool>(
+      (appModel) => appModel.isLogoVisible,
+    );
+
+    listaDrawer[0] = logoVisibility
+        ? Container(
+            decoration: BoxDecoration(color: boxColor),
+            child: SafeArea(
+              child: Stack(
+                fit: StackFit.passthrough,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(bottom: 10.0),
+                    child: Image.asset("resources/images/logo.png", filterQuality: FilterQuality.medium),
+                    alignment: Alignment.centerRight,
+                    decoration: BoxDecoration(
+                      color: boxColor,
+                    ),
+                  ),
+                  Container(
+                    child: Row(mainAxisAlignment: MainAxisAlignment.end, children: drawerActions),
+                    height: 160.0,
+                    alignment: FractionalOffset.bottomRight,
+                  )
+                ],
+              ),
+            ),
+          )
+        : Container(
+            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+            child: SafeArea(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: drawerActions,
+              ),
+            ),
+          );
+
+    List<int> conversionsOrderDrawer = context.watch<AppModel>().conversionsOrderDrawer;
+
+    //*the following lines are more optimized then the prvious one but don't know
+    //*why they don't work :(
+    /*List<int> conversionsOrderDrawer = context.select<AppModel, List<int>>(
+      (appModel) => appModel.conversionsOrderDrawer
+    );*/
+    int currentPage = context.select<AppModel, int>((appModel) => appModel.currentPage);
+
+    List<PropertyUi> propertyUiList = getPropertyUiList(context);
+
+    for (int i = 0; i < propertyUiList.length; i++) {
+      PropertyUi propertyUi = propertyUiList[i];
+      listaDrawer[conversionsOrderDrawer[i] + 1] = ListTileConversion(
+        text: propertyUi.name,
+        imagePath: propertyUi.imagePath,
+        selected: currentPage == i,
+        onTap: () {
+          context.read<AppModel>().changeToPage(i);
+          if (!isDrawerFixed) {
+            Navigator.of(context).pop();
+          }
+        },
+        brightness: getBrightness(
+          context.select<AppModel, ThemeMode>((AppModel appModel) => appModel.currentThemeMode),
+          MediaQuery.of(context).platformBrightness,
+        ),
+      );
+    }
+
+    return Drawer(
+      child: Scrollbar(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: listaDrawer,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,24 +208,35 @@ class ConversionPage extends StatelessWidget {
       }
     }
 
+    double displayWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      //drawer: _getDrawer(context),
       body: SafeArea(
-        child: Scrollbar(
-          child: Padding(
-            padding: responsivePadding(MediaQuery.of(context)),
-            child: GridView.count(
-              childAspectRatio: responsiveChildAspectRatio(MediaQuery.of(context)),
-              crossAxisCount: responsiveNumGridTiles(MediaQuery.of(context)),
-              shrinkWrap: true,
-              crossAxisSpacing: 15.0,
-              children: gridTiles,
-              padding: EdgeInsets.only(bottom: 22), //So FAB doesn't overlap the card
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _getDrawer(context, isDrawerFixed(displayWidth)),
+            Expanded(
+              child: Scrollbar(
+                child: Padding(
+                  padding: responsivePadding(displayWidth),
+                  child: GridView.count(
+                    childAspectRatio: responsiveChildAspectRatio(displayWidth),
+                    crossAxisCount: responsiveNumGridTiles(displayWidth),
+                    shrinkWrap: true,
+                    crossAxisSpacing: 15.0,
+                    children: gridTiles,
+                    padding: EdgeInsets.only(bottom: 22), //So FAB doesn't overlap the card
+                  ),
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      /*floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,
         child: Row(
@@ -134,7 +251,7 @@ class ConversionPage extends StatelessWidget {
                     color: Colors.white,
                   ),
                   onPressed: () {
-                    openDrawer();
+                    Scaffold.of(context).openDrawer();
                   });
             }),
             Row(
@@ -195,7 +312,7 @@ class ConversionPage extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      ),*/
       floatingActionButton: FloatingActionButton(
         tooltip: AppLocalizations.of(context)!.calculator,
         child: Image.asset(
@@ -206,7 +323,6 @@ class ConversionPage extends StatelessWidget {
           showModalBottomSheet<void>(
               context: context,
               builder: (BuildContext context) {
-                double displayWidth = MediaQuery.of(context).size.width;
                 return ChangeNotifierProvider(
                   create: (_) => Calculator(decimalSeparator: numberFormatSymbols[Localizations.localeOf(context).languageCode]?.DECIMAL_SEP ?? '.'),
                   child: CalculatorWidget(displayWidth, brightness),
