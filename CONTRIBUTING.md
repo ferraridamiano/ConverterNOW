@@ -18,22 +18,9 @@ If you feel confident with Flutter coding, you can help me improving this app by
 
 The project uses [provider](https://github.com/rrousselGit/provider) for state management and it helps separate the UI from the model. Right now there are two models: [AppModel.dart](https://github.com/ferraridamiano/ConverterNOW/blob/master/lib/models/AppModel.dart) contains the basic logic of the app (which page is selected, in which order, etc.) and [Conversions.dart](https://github.com/ferraridamiano/ConverterNOW/blob/master/lib/models/Conversions.dart) contains the logic of the conversion section (retrieve currencies rates from the Internet, in which order are the units of measurement, etc.). You might say: "Why don't you just make one model?", the answer is: because I plan to also make a [tools section](https://github.com/ferraridamiano/ConverterNOW/issues/6) and so it is more organized.
 
-### Conversion algorithm
+### Add new units
 
-I imagined a conversion as a tree graph. Here I show part of the graph of the length conversion:
-
-<img src="images/graph02.png" width="300">
-
-As you can see, all units depend by other units by 1 (or more) constant. Most of the conversion between two units x and y can be done with one of these structures:
-
-<img src="https://render.githubusercontent.com/render/math?math=%5CLarge%0Ay%20%3D%20ax%20%2B%20b">
-<img src="https://render.githubusercontent.com/render/math?math=%5CLarge%0Ay%20%3D%20%5Cfrac%7Ba%7D%7Bx%7D%20%2B%20b">
-
-The first one is the most common linear conversion (the constant helps with Fahrenheit-Celsius conversion). The second one is used in fuel conversion like <img src="https://render.githubusercontent.com/render/math?math=%5Cfrac%7Bkm%7D%7Bl%7D">  to <img src="https://render.githubusercontent.com/render/math?math=%5Cfrac%7Bl%7D%7B100km%7D">.
-
-It can also define other types of custom conversions such between different numeral systems (binary-octal-decimal-hexadecimal).
-
-Once a *textFormField* is selected the unit node in the graph has the property *selectedNode* equals to true (and all other *selectedNode* in every other node are marked as false). When the user changes the value of the *textFormField* the conversion propagates from the node which the user has interacted with to all other nodes. Once a node is converted the *convertedNode* property of the node is set to true.
+If you want to add new units I wrote a [wiki page](https://github.com/ferraridamiano/ConverterNOW/wiki/Add-a-new-unit-of-measurement), it is a step by step guide.
 
 ## What if I am too lazy?
 

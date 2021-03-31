@@ -4,16 +4,16 @@
 
 <img src="https://img.shields.io/github/contributors/ferraridamiano/ConverterNOW?style=flat-square"
     alt="Contributors"
-    height="23">
+    height="25">
 [<img src="https://img.shields.io/badge/Open-Web%20App-blue?style=flat-square"
     alt="Open web app"
-    height="23">](https://ferraridamiano.github.io/ConverterNOW/#/)
+    height="25">](https://ferraridamiano.github.io/ConverterNOW/#/)
 [<img src="https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat-square"
     alt="Donate paypal"
-    height="23">](https://www.paypal.me/DemApps)
-[<img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png"
+    height="25">](https://www.paypal.me/DemApps)
+[<img src="https://cdn.buymeacoffee.com/buttons/default-orange.png"
     alt="Buy Me A Coffee"
-    height="23">](https://www.buymeacoffee.com/ferraridamiano)
+    height="25">](https://www.buymeacoffee.com/ferraridamiano)
 
 [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
     alt="Get it on Google Play"
@@ -22,7 +22,7 @@
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/packages/com.ferrarid.converterpro)
 
-[<img src="https://snapcraft.io/static/images/badges/en/snap-store-white.svg"
+[<img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg"
     alt="Get it from the Snap Store"
     height="55">](https://snapcraft.io/converternow)
 
