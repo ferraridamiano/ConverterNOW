@@ -3,32 +3,21 @@ import 'package:flutter/material.dart';
 
 EdgeInsetsGeometry responsivePadding(double displayWidth) => EdgeInsets.symmetric(horizontal: displayWidth * 0.03);
 
-int responsiveNumGridTiles(double deviceWidth) {
-  if (deviceWidth < PIXEL_WIDTH_1_COLUMN) {
+int responsiveNumGridTiles(double displayWidth) {
+  if (displayWidth < PIXEL_WIDTH_1_COLUMN) {
     return 1;
-  } else if (deviceWidth < PIXEL_WIDTH_2_COLUMNS) {
+  } else if (displayWidth < PIXEL_WIDTH_2_COLUMNS) {
     return 2;
-  } else if (deviceWidth < PIXEL_WIDTH_3_COLUMNS) {
+  } else if (displayWidth < PIXEL_WIDTH_3_COLUMNS) {
     return 3;
   }
   return 4;
 }
 
 double responsiveChildAspectRatio(double displayWidth) {
-  double tileWidth = displayWidth * 0.97;
-  if (displayWidth < PIXEL_WIDTH_1_COLUMN) {
-    tileWidth = (tileWidth);
-  } else if (displayWidth < PIXEL_WIDTH_2_COLUMNS) {
-    tileWidth = (displayWidth - 15.0) / 2;
-  } else if (displayWidth < PIXEL_WIDTH_3_COLUMNS) {
-    tileWidth = (displayWidth - 30.0) / 3;
-  } else {
-    tileWidth = (displayWidth - 45.0) / 4;
-  }
-
-  return tileWidth / 107.0;
+  int colNumber = responsiveNumGridTiles(displayWidth);
+  double tileWidth = 0.97 * (displayWidth - (isDrawerFixed(displayWidth) ? 300 : 0)) / colNumber;
+  return tileWidth / 110;
 }
 
-bool isDrawerFixed(double displayWidth) {
-  return displayWidth > PIXEL_FIXED_DRAWER;
-}
+bool isDrawerFixed(double displayWidth) => displayWidth > PIXEL_FIXED_DRAWER;
