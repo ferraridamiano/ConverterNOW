@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/number_symbols_data.dart';
 import 'package:provider/provider.dart';
 import 'package:converterpro/models/AppModel.dart';
@@ -141,6 +142,45 @@ class ConversionPage extends StatelessWidget {
       context.select<AppModel, ThemeMode>((AppModel appModel) => appModel.currentThemeMode),
       MediaQuery.of(context).platformBrightness,
     );
+    double displayWidth = MediaQuery.of(context).size.width;
+    bool _isDrawerFixed = isDrawerFixed(displayWidth);
+
+    final VoidCallback openCalculator = () {
+      showModalBottomSheet<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return ChangeNotifierProvider(
+              create: (_) => Calculator(decimalSeparator: '.'),
+              child: CalculatorWidget(displayWidth, brightness),
+            );
+          });
+    };
+    final VoidCallback clearAll = () {
+      Conversions conversions = context.read<Conversions>();
+      conversions.clearAllValues();
+    };
+    final VoidCallback search = () async {
+      final orderList = context.read<AppModel>().conversionsOrderDrawer;
+      final int? newPage = await showSearch(
+        context: context,
+        delegate: CustomSearchDelegate(orderList),
+      );
+      if (newPage != null) {
+        AppModel appModel = context.read<AppModel>();
+        if (appModel.currentPage != newPage) appModel.changeToPage(newPage);
+      }
+    };
+    final VoidCallback reorderUnits = () async {
+      List<String> listUnitsNames = List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]!);
+      final List<int>? result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ReorderPage(listUnitsNames),
+        ),
+      );
+      context.read<Conversions>().changeOrderUnits(result);
+    };
+
     String subTitle = '';
     if (currentProperty == PROPERTYX.CURRENCIES) {
       subTitle = getLastUpdateString(context);
@@ -209,9 +249,6 @@ class ConversionPage extends StatelessWidget {
       }
     }
 
-    double displayWidth = MediaQuery.of(context).size.width;
-    bool _isDrawerFixed = isDrawerFixed(displayWidth);
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       drawer: _isDrawerFixed ? null : _getDrawer(context, _isDrawerFixed),
@@ -263,10 +300,7 @@ class ConversionPage extends StatelessWidget {
                       IconButton(
                         tooltip: AppLocalizations.of(context)!.clearAll,
                         icon: Icon(Icons.clear, color: Colors.white),
-                        onPressed: () {
-                          Conversions conversions = context.read<Conversions>();
-                          conversions.clearAllValues();
-                        },
+                        onPressed: clearAll,
                       ),
                       IconButton(
                         // search
@@ -275,34 +309,14 @@ class ConversionPage extends StatelessWidget {
                           Icons.search,
                           color: Colors.white,
                         ),
-                        onPressed: () async {
-                          final orderList = context.read<AppModel>().conversionsOrderDrawer;
-                          final int? newPage = await showSearch(
-                            context: context,
-                            delegate: CustomSearchDelegate(orderList),
-                          );
-                          if (newPage != null) {
-                            AppModel appModel = context.read<AppModel>();
-                            if (appModel.currentPage != newPage) appModel.changeToPage(newPage);
-                          }
-                        },
+                        onPressed: search,
                       ),
                       PopupMenuButton<Choice>(
                         icon: Icon(
                           Icons.more_vert,
                           color: Colors.white,
                         ),
-                        onSelected: (Choice choice) async {
-                          //Let's generate the list of unit name in the current order
-                          List<String> listUnitsNames = List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]!);
-                          final List<int>? result = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ReorderPage(listUnitsNames),
-                            ),
-                          );
-                          context.read<Conversions>().changeOrderUnits(result);
-                        },
+                        onSelected: (Choice choice) => reorderUnits(),
                         itemBuilder: (BuildContext context) {
                           return choices.map((Choice choice) {
                             return PopupMenuItem<Choice>(
@@ -317,26 +331,57 @@ class ConversionPage extends StatelessWidget {
                 ],
               ),
             ),
-      floatingActionButton: FloatingActionButton(
-        key: Key('FAB'),
-        tooltip: AppLocalizations.of(context)!.calculator,
-        child: Image.asset(
-          "resources/images/calculator.png",
-          width: 30.0,
-        ),
-        onPressed: () {
-          showModalBottomSheet<void>(
-              context: context,
-              builder: (BuildContext context) {
-                return ChangeNotifierProvider(
-                  create: (_) => Calculator(decimalSeparator: numberFormatSymbols[Localizations.localeOf(context).languageCode]?.DECIMAL_SEP ?? '.'),
-                  child: CalculatorWidget(displayWidth, brightness),
-                );
-              });
-        },
-        elevation: 5.0,
-        backgroundColor: Theme.of(context).accentColor,
-      ),
+      floatingActionButton: _isDrawerFixed
+          ? SpeedDial(
+              icon: Icons.add,
+              backgroundColor: Theme.of(context).primaryColor,
+              foregroundColor: Colors.white,
+              activeIcon: Icons.clear,
+              tooltip: 'More',
+              elevation: 8.0,
+              children: [
+                SpeedDialChild(
+                  child: Icon(Icons.calculate),
+                  backgroundColor: Theme.of(context).accentColor,
+                  foregroundColor: Colors.white,
+                  label: AppLocalizations.of(context)?.calculator,
+                  labelStyle: TextStyle(fontSize: 18.0),
+                  onTap: openCalculator,
+                ),
+                SpeedDialChild(
+                  child: Icon(Icons.clear),
+                  backgroundColor: Theme.of(context).accentColor,
+                  foregroundColor: Colors.white,
+                  label: AppLocalizations.of(context)?.clearAll,
+                  labelStyle: TextStyle(fontSize: 18.0),
+                  onTap: clearAll,
+                ),
+                SpeedDialChild(
+                  child: Icon(Icons.search),
+                  backgroundColor: Theme.of(context).accentColor,
+                  foregroundColor: Colors.white,
+                  label: AppLocalizations.of(context)?.search,
+                  labelStyle: TextStyle(fontSize: 18.0),
+                  onTap: search,
+                ),
+                SpeedDialChild(
+                  child: Icon(Icons.reorder),
+                  backgroundColor: Theme.of(context).accentColor,
+                  foregroundColor: Colors.white,
+                  label: AppLocalizations.of(context)?.reorder,
+                  labelStyle: TextStyle(fontSize: 18.0),
+                  onTap: reorderUnits,
+                ),
+              ],
+            )
+          : FloatingActionButton(
+              key: Key('FAB'),
+              tooltip: AppLocalizations.of(context)!.calculator,
+              child: Icon(Icons.calculate, size: 35,),
+              onPressed: openCalculator,
+              elevation: 5.0,
+              backgroundColor: Theme.of(context).accentColor,
+            ),
     );
   }
 }
