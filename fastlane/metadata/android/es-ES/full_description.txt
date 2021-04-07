@@ -1,0 +1,38 @@
+<b>Converter NOW es un efectivo conversor de unidades y divisas </b>
+<b>Simplifique</b> el tedioso proceso de conversión entre unidades de medida con unos pocos clics.
+🚀 Es <b>rápido e inmediato</b>: simplemente comience a tipear e inmediatamente tendrá una conversión en tiempo real con todas las unidades de medida.
+🖌️ Es <b>personalizable</b>: puede reorganizar las unidades de acuerdo a sus prioridades y uso.
+🔢 Contiene una <b>calculadora integrada</b> que le permite realizar operaciones en todas las páginas.
+💰 El valor de las divisas es <b>actualizado diariamente</b>
+⚫⚪ <b>Escoja su tema favorito</b>: oscuro o claro.
+ 📱 <b>Compatibilidad completa</b> con teléfonos y tabletas.
+💯 Es de <b>código abierto</b>
+
+Revise el repositorio en GitHub: https://github.com/ferraridamiano/ConverterNOW
+
+¡También tenemos sitio web! 🖥️ Visite: https://ferraridamiano.github.io/ConverterNOW/
+
+🌍 Converter NOW es gratuito, sin publicidad, no requiere de ningún permiso y no recopila sus datos. Si cree en este proyecto y desea ayudar al desarrollador puede hacer una donación en: https://www.paypal.me/DemApps 🌍
+Gracias a usted podemos seguir a la cabeza. 🔝
+
+<b>Converter NOW puede convertir entre más de 200 unidades de medida y 30 divisas</b>🎉🎉
+
+Aquí hay algunas de las unidades que Converter NOW puede convertir:
+-<b>Divisas:</b> Dólar, Euro, Libra, Rupia, Yen, etc.
+-<b>Longitud:</b> Metros, pulgadas, millas, yardas, años luz, etc.
+-<b>Área:</b> Metros cuadrasdos, hectáreas, acres, etc.
+-<b>Volumen:</b> Metros cúbicos, litros, galones, pintas, cucharadas, etc.
+-<b>Tiempo:</b> Segundos, horas, días, semanas, años, milenios, etc.
+-<b>Temperatura:</b> Centígrado, Fahrenheit, Kelvin, y más.
+-<b>Velocidad:</b> Metros por segundo, kilómetros por hora, nudos, etc.
+-<b>Masa:</b> Gramos, libras, toneladas, unidades de masa atómica, etc.
+-<b>Fuerza:</b> Newton, dina, libra, poundal, etc.
+-<b>Presión:</b> Pascal, bar, atmósferas, psi, etc.
+-<b>Energía:</b> Julios, calorías, kilovatios-hora, etc.
+-<b>Potencia:</b> Vatios, kilovatios, caballos de potencia, etc.
+-<b>Consumo de combustible:</b> Millas por galón, kilómetros por litro, etc.
+-<b>Sistemas de numeración:</b> Decimal, binario, hexadecimal, etc.
+-<b>Torsión mecánica:</b> Newton-metro, pie-libra fuerza, poundal-metro, etc.
+-<b>Sistema digital:</b> Nibble, bit, byte, kibibit, kibibyte, etc.
+-<b>Ángulos:</b> grados, minutos, radianes, etc.
+-<b>Prefijos del SI:</b> kilo, mega, giga, tera, mili, micro, nano, etc.
