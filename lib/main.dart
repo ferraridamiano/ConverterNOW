@@ -52,7 +52,7 @@ class _MyApp extends State<MyApp> {
             canvasColor: isDarkAmoled ? Colors.black : Colors.grey[850], // for drawer background
             cardColor: isDarkAmoled ? Colors.grey[900] : Colors.grey[800],
           ),
-          supportedLocales: [Locale('en'), Locale('de'), Locale('fr'), Locale('it'), Locale('nb'), Locale('pt'), Locale('ru'), Locale('tr')],
+          supportedLocales: [Locale('en'), Locale('de'), Locale('fr'), Locale('it'), Locale('nb'), Locale('pt'), Locale('ru'), Locale('tr'), Locale('es')],
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) {
             for (Locale supportedLocale in supportedLocales) {
