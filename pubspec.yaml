@@ -21,7 +21,9 @@ dependencies:
   #Needed for translation
   intl: ^0.17.0
   #Needed for speed dial on large screen
-  flutter_speed_dial: ^3.0.5
+  flutter_speed_dial:
+    git:
+      url: https://github.com/ferraridamiano/flutter_speed_dial
   #Needed for unit conversion
   units_converter: ^0.3.0
     #git:

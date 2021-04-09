@@ -6,7 +6,6 @@ import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:intl/number_symbols_data.dart';
 import 'package:provider/provider.dart';
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/utils/PropertyUnitList.dart';
@@ -144,6 +143,7 @@ class ConversionPage extends StatelessWidget {
     );
     double displayWidth = MediaQuery.of(context).size.width;
     bool _isDrawerFixed = isDrawerFixed(displayWidth);
+    context.read<AppModel>().isDrawerFixed = _isDrawerFixed;
 
     final VoidCallback openCalculator = () {
       showModalBottomSheet<void>(
@@ -249,30 +249,42 @@ class ConversionPage extends StatelessWidget {
       }
     }
 
+    // Needed in order to open/close the speedDial with the back button
+    ValueNotifier<bool> isDialOpen = ValueNotifier(false);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       drawer: _isDrawerFixed ? null : _getDrawer(context, _isDrawerFixed),
-      body: SafeArea(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _isDrawerFixed ? _getDrawer(context, _isDrawerFixed) : SizedBox(),
-            Expanded(
-              child: Scrollbar(
-                child: Padding(
-                  padding: responsivePadding(displayWidth),
-                  child: GridView.count(
-                    childAspectRatio: responsiveChildAspectRatio(displayWidth),
-                    crossAxisCount: responsiveNumGridTiles(displayWidth),
-                    shrinkWrap: true,
-                    crossAxisSpacing: 15.0,
-                    children: gridTiles,
-                    padding: EdgeInsets.only(bottom: 22), //So FAB doesn't overlap the card
+      body: WillPopScope(
+        onWillPop: () async {
+          if (isDialOpen.value) {
+            isDialOpen.value = false;
+            return false;
+          }
+          return true;
+        },
+        child: SafeArea(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _isDrawerFixed ? _getDrawer(context, _isDrawerFixed) : SizedBox(),
+              Expanded(
+                child: Scrollbar(
+                  child: Padding(
+                    padding: responsivePadding(displayWidth),
+                    child: GridView.count(
+                      childAspectRatio: responsiveChildAspectRatio(displayWidth),
+                      crossAxisCount: responsiveNumGridTiles(displayWidth),
+                      shrinkWrap: true,
+                      crossAxisSpacing: 15.0,
+                      children: gridTiles,
+                      padding: EdgeInsets.only(bottom: 22), //So FAB doesn't overlap the card
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButtonLocation: isDrawerFixed(displayWidth) ? FloatingActionButtonLocation.endFloat : FloatingActionButtonLocation.centerDocked,
@@ -333,11 +345,16 @@ class ConversionPage extends StatelessWidget {
             ),
       floatingActionButton: _isDrawerFixed
           ? SpeedDial(
+              openCloseDial: isDialOpen,
               icon: Icons.add,
               backgroundColor: Theme.of(context).primaryColor,
               foregroundColor: Colors.white,
               activeIcon: Icons.clear,
-              tooltip: 'More',
+              tooltip: AppLocalizations.of(context)?.more,
+              brightness: getBrightness(
+                context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
+                MediaQuery.of(context).platformBrightness,
+              ),
               elevation: 8.0,
               children: [
                 SpeedDialChild(
@@ -375,9 +392,11 @@ class ConversionPage extends StatelessWidget {
               ],
             )
           : FloatingActionButton(
-              key: Key('FAB'),
               tooltip: AppLocalizations.of(context)!.calculator,
-              child: Icon(Icons.calculate, size: 35,),
+              child: Icon(
+                Icons.calculate,
+                size: 35,
+              ),
               onPressed: openCalculator,
               elevation: 5.0,
               backgroundColor: Theme.of(context).accentColor,

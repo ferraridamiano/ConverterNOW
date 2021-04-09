@@ -15,6 +15,7 @@ class AppModel with ChangeNotifier {
     ThemeMode.dark: 1,
     ThemeMode.light: 2,
   };
+  bool isDrawerFixed = true;
 
   AppModel() {
     _checkOrdersDrawer();
@@ -57,7 +58,9 @@ class AppModel with ChangeNotifier {
 
   ///Changes the orders of the tiles in the Drawer
   changeOrderDrawer(BuildContext context, List<String> titlesList) async {
-    Navigator.of(context).pop(); //Close the drawer
+    if (!isDrawerFixed) {
+      Navigator.of(context).pop(); //Close the drawer
+    }
 
     List<String> orderedList = List.filled(_conversionsOrderDrawer.length, "");
     for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
