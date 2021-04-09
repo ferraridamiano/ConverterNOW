@@ -44,6 +44,8 @@ class _CalculatorWidget extends State<CalculatorWidget> {
           if (event.runtimeType.toString() == 'RawKeyDownEvent') {
             if (event.isKeyPressed(LogicalKeyboardKey.backspace)) {
               context.read<Calculator>().adaptiveDeleteClear();
+            } else if(event.isKeyPressed(LogicalKeyboardKey.delete)) {
+              context.read<Calculator>().clearAll();
             } else if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
               context.read<Calculator>().submitChar('=');
             } else {
