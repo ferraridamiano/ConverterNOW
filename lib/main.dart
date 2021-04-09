@@ -1,4 +1,4 @@
-import 'package:converterpro/pages/AppManager.dart';
+import 'pages/ConversionPage.dart';
 import 'package:converterpro/pages/SettingsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -39,7 +39,7 @@ class _MyApp extends State<MyApp> {
           title: 'Converter NOW',
           initialRoute: '/',
           routes: {
-            '/': (context) => AppManager(),
+            '/': (context) => ConversionPage(),
             '/settings': (context) => SettingsPage(),
           },
           themeMode: context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
