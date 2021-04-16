@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:units_converter/Unit.dart';
@@ -297,131 +299,73 @@ class UnitData {
   }
 }
 
-class CurrencyObject {
-  DoubleCurrencyConversion? results;
-  CurrencyObject({this.results});
-
-  factory CurrencyObject.fromJson(Map<String, dynamic> json) {
-    return CurrencyObject(results: DoubleCurrencyConversion.fromJson(json['property']));
-  }
-}
-
-class DoubleCurrencyConversion {
-  CurrencyConversion conversion1;
-  CurrencyConversion conversion2;
-  DoubleCurrencyConversion({
-    required this.conversion1,
-    required this.conversion2,
-  });
-
-  factory DoubleCurrencyConversion.fromJson(Map<String, dynamic> json) {
-    return DoubleCurrencyConversion(conversion1: CurrencyConversion.fromJson(json['USD_EUR']), conversion2: CurrencyConversion.fromJson(json['USD_GBP']));
-  }
-}
-
-class CurrencyConversion {
-  String id, to, fr;
-  double val;
-
-  CurrencyConversion({
-    required this.id,
-    required this.val,
-    required this.to,
-    required this.fr,
-  });
-
-  factory CurrencyConversion.fromJson(Map<String, dynamic> json) {
-    return CurrencyConversion(id: json['id'], val: json['val'], to: json['to'], fr: json['fr']);
-  }
-}
-
-class CurrencyJSONObject {
-  String base;
-  Map<CURRENCIES, double> rates;
-  String date;
-
-  Map<CURRENCIES, String> encodeMap = {
-    CURRENCIES.USD: 'USD',
-    CURRENCIES.GBP: 'GBP',
-    CURRENCIES.INR: 'INR',
-    CURRENCIES.CNY: 'CNY',
-    CURRENCIES.JPY: 'JPY',
-    CURRENCIES.RUB: 'RUB',
-    CURRENCIES.CHF: 'CHF',
-    CURRENCIES.SEK: 'SEK',
-    CURRENCIES.KRW: 'KRW',
-    CURRENCIES.BRL: 'BRL',
-    CURRENCIES.CAD: 'CAD',
-    CURRENCIES.HKD: 'HKD',
-    CURRENCIES.AUD: 'AUD',
-    CURRENCIES.NZD: 'NZD',
-    CURRENCIES.MXN: 'MXN',
-    CURRENCIES.SGD: 'SGD',
-    CURRENCIES.NOK: 'NOK',
-    CURRENCIES.TRY: 'TRY',
-    CURRENCIES.ZAR: 'ZAR',
-    CURRENCIES.DKK: 'DKK',
-    CURRENCIES.PLN: 'PLN',
-    CURRENCIES.THB: 'THB',
-    CURRENCIES.MYR: 'MYR',
-    CURRENCIES.HUF: 'HUF',
-    CURRENCIES.CZK: 'CZK',
-    CURRENCIES.ILS: 'ILS',
-    CURRENCIES.IDR: 'IDR',
-    CURRENCIES.PHP: 'PHP',
-    CURRENCIES.RON: 'RON',
+class CurrenciesObject {
+  String lastUpdateString = '2021-02-01';
+  late DateTime lastUpdate;
+  Map<CURRENCIES, double> values = {
+    CURRENCIES.EUR: 1.0,
+    CURRENCIES.CAD: 1.5474,
+    CURRENCIES.HKD: 9.3687,
+    CURRENCIES.RUB: 91.6248,
+    CURRENCIES.PHP: 58.083,
+    CURRENCIES.DKK: 7.4373,
+    CURRENCIES.NZD: 1.6844,
+    CURRENCIES.CNY: 7.8143,
+    CURRENCIES.AUD: 1.5831,
+    CURRENCIES.RON: 4.8735,
+    CURRENCIES.SEK: 10.1627,
+    CURRENCIES.IDR: 17011.92,
+    CURRENCIES.INR: 88.345,
+    CURRENCIES.BRL: 6.5765,
+    CURRENCIES.USD: 1.2084,
+    CURRENCIES.ILS: 3.9739,
+    CURRENCIES.JPY: 126.77,
+    CURRENCIES.THB: 36.228,
+    CURRENCIES.CHF: 1.0816,
+    CURRENCIES.CZK: 25.975,
+    CURRENCIES.MYR: 4.885,
+    CURRENCIES.TRY: 8.6902,
+    CURRENCIES.MXN: 24.5157,
+    CURRENCIES.NOK: 10.389,
+    CURRENCIES.HUF: 356.35,
+    CURRENCIES.ZAR: 18.1574,
+    CURRENCIES.SGD: 1.6092,
+    CURRENCIES.GBP: 0.882,
+    CURRENCIES.KRW: 1351.21,
+    CURRENCIES.PLN: 4.508,
   };
 
-  CurrencyJSONObject({
-    required this.base,
-    required this.rates,
-    required this.date,
-  });
+  CurrenciesObject();
 
-  factory CurrencyJSONObject.fromJson(Map<String, dynamic> parsedJson) {
-    Map<String, dynamic> ratesJson = parsedJson['rates'];
-    return CurrencyJSONObject(base: parsedJson['base'], date: parsedJson['date'], rates: {
-      CURRENCIES.USD: ratesJson['USD'],
-      CURRENCIES.GBP: ratesJson['GBP'],
-      CURRENCIES.INR: ratesJson['INR'],
-      CURRENCIES.CNY: ratesJson['CNY'],
-      CURRENCIES.JPY: ratesJson['JPY'],
-      CURRENCIES.RUB: ratesJson['RUB'],
-      CURRENCIES.CHF: ratesJson['CHF'],
-      CURRENCIES.SEK: ratesJson['SEK'],
-      CURRENCIES.KRW: ratesJson['KRW'],
-      CURRENCIES.BRL: ratesJson['BRL'],
-      CURRENCIES.CAD: ratesJson['CAD'],
-      CURRENCIES.HKD: ratesJson['HKD'],
-      CURRENCIES.AUD: ratesJson['AUD'],
-      CURRENCIES.NZD: ratesJson['NZD'],
-      CURRENCIES.MXN: ratesJson['MXN'],
-      CURRENCIES.SGD: ratesJson['SGD'],
-      CURRENCIES.NOK: ratesJson['NOK'],
-      CURRENCIES.TRY: ratesJson['TRY'],
-      CURRENCIES.ZAR: ratesJson['ZAR'],
-      CURRENCIES.DKK: ratesJson['DKK'],
-      CURRENCIES.PLN: ratesJson['PLN'],
-      CURRENCIES.THB: ratesJson['THB'],
-      CURRENCIES.MYR: ratesJson['MYR'],
-      CURRENCIES.HUF: ratesJson['HUF'],
-      CURRENCIES.CZK: ratesJson['CZK'],
-      CURRENCIES.ILS: ratesJson['ILS'],
-      CURRENCIES.IDR: ratesJson['IDR'],
-      CURRENCIES.PHP: ratesJson['PHP'],
-      CURRENCIES.RON: ratesJson['RON']
-    });
+  CurrenciesObject.fromJsonResponse(Map<String, dynamic> jsonData) {
+    lastUpdateString = jsonData['structure']['dimensions']['observation'][0]['values'][0]['name'] ?? lastUpdateString;
+    lastUpdate = DateTime.parse(lastUpdateString);
+    for (int i = 0; i < CURRENCIES.values.length - 1; i++) { //-1 because in this list there is not EUR because int is the base unit
+      double value = jsonData['dataSets'][0]['series']['0:$i:0:0:0']['observations']['0'][0];
+      String name = jsonData['structure']['dimensions']['series'][1]['values'][i]['id'];
+      values[getCurrenciesFromString(name)] = value;
+    }
   }
 
-  ///Recreates the body of the http response (json format) as a String
-  String toString() {
-    String myString = '{"rates":{';
-    rates.forEach((key, value) => myString += '"${encodeMap[key]}":${value.toString()},'); //add all the currency values
-    myString = myString.replaceRange(myString.length - 1, myString.length, ''); //remove latest comma
-    myString += '},"base":"$base","date":"$date"}';
-    return myString;
+  /// This method is useful because it transform a previous stored data (with the toJson method) into this object
+  CurrenciesObject.fromJson(Map<String, dynamic> jsonData, String lastUpdate) {
+    for (String key in jsonData.keys) {
+      values[getCurrenciesFromString(key)] = jsonData[key]!;
+    }
+  }
+
+  /// This method is useful because it transform the values map into a json that can be stored
+  String toJson() {
+    Map<String, double> currenciesString = {};
+    for (CURRENCIES currency in values.keys) {
+      currenciesString[currency.toString()] = values[currency]!;
+    }
+    return jsonEncode(currenciesString);
   }
 }
+
+/// Returns a CURRENCIES froma string. e.g. getCurrenciesFromString(EUR)=CURRENCIES.EUR; getCurrenciesFromString(CURRENCIES.EUR)=CURRENCIES.EUR;
+CURRENCIES getCurrenciesFromString(String name) => CURRENCIES.values.singleWhere((element) => element.toString().endsWith(name));
 
 /// PROPERTYX stands for PROPERTY extended and want to extends the PROPERTY enum defined in units_converter package
 enum PROPERTYX {
