@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:units_converter/Unit.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
@@ -335,12 +336,15 @@ class CurrenciesObject {
     CURRENCIES.PLN: 4.508,
   };
 
-  CurrenciesObject();
+  CurrenciesObject(){
+    lastUpdate = DateTime.parse(lastUpdateString);
+  }
 
   CurrenciesObject.fromJsonResponse(Map<String, dynamic> jsonData) {
-    lastUpdateString = jsonData['structure']['dimensions']['observation'][0]['values'][0]['name'] ?? lastUpdateString;
+    lastUpdateString = DateFormat("yyyy-MM-dd").format(DateTime.now());
     lastUpdate = DateTime.parse(lastUpdateString);
-    for (int i = 0; i < CURRENCIES.values.length - 1; i++) { //-1 because in this list there is not EUR because int is the base unit
+    for (int i = 0; i < CURRENCIES.values.length - 1; i++) {
+      //-1 because in this list there is not EUR because int is the base unit
       double value = jsonData['dataSets'][0]['series']['0:$i:0:0:0']['observations']['0'][0];
       String name = jsonData['structure']['dimensions']['series'][1]['values'][i]['id'];
       values[getCurrenciesFromString(name)] = value;
@@ -349,6 +353,9 @@ class CurrenciesObject {
 
   /// This method is useful because it transform a previous stored data (with the toJson method) into this object
   CurrenciesObject.fromJson(Map<String, dynamic> jsonData, String lastUpdate) {
+    this.lastUpdateString = lastUpdate;
+    this.lastUpdate = DateTime.parse(lastUpdateString);
+
     for (String key in jsonData.keys) {
       values[getCurrenciesFromString(key)] = jsonData[key]!;
     }

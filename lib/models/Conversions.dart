@@ -133,18 +133,14 @@ class Conversions with ChangeNotifier {
 
   ///This method is used by _checkCurrencies to read the currencies conversions if
   ///the smartphone is offline
-  /*_readSavedCurrencies() async {
+  _readSavedCurrencies() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? currencyRead = prefs.getString("currencyRates");
-    if (currencyRead != null) {
-      CurrencyJSONObject currencyObject = new CurrencyJSONObject.fromJson(json.decode(currencyRead));
-      _currencyValues = {CURRENCIES.EUR: 1.0};
-      _currencyValues.addAll(currencyObject.rates); //updates the currency value with the new values
-      String lastUpdateRead = currencyObject.date;
-      /*if (lastUpdateRead != null) */
-      _lastUpdateCurrencies = DateTime.parse(lastUpdateRead);
+    String? currenciesRead = prefs.getString('currenciesRates');
+    String? lastUpdate = prefs.getString("lastUpdateCurrencies");
+    if (currenciesRead != null && lastUpdate != null) {
+      _currenciesObject = CurrenciesObject.fromJson(json.decode(currenciesRead), lastUpdate);
     }
-  }*/
+  }
 
   ///Updates the currencies conversions ratio with the latest values. The data comes from
   ///the internet if the connection is available or from memory if the smartphone is offline
@@ -152,9 +148,10 @@ class Conversions with ChangeNotifier {
     String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    //String? dataFetched = prefs.getString("currencyRates");
-    if (/*dataFetched == null || CurrencyJSONObject.fromJson(json.decode(dataFetched)).date != now*/ true) {
-      //if I have never updated the conversions or if I have updated before today I have to update
+    //Let's search before if we already have downloaded the exchange rates
+    String? lastUpdate = prefs.getString("lastUpdateCurrencies");
+    //if I have never updated the conversions or if I have updated before today I have to update
+    if (lastUpdate == null || lastUpdate != now) {
       try {
         http.Response httpResponse = await http.get(
           Uri.https(
@@ -167,30 +164,22 @@ class Conversions with ChangeNotifier {
           ),
           headers: {'Accept': 'application/vnd.sdmx.data+json;version=1.0.0-wd'},
         );
+        //if successful
         if (httpResponse.statusCode == 200) {
-          //if successful
           _currenciesObject = CurrenciesObject.fromJsonResponse(json.decode(httpResponse.body));
-          //the following line solves the problem that the http request gives a date refered to some
-          //time zone that may be not the same of the time zone of the user. So I rewrite the date of
-          //the response to be the same of the date of the user
-          //currencyObject.lastUpdateString = now;
-          //If the request recive an accettable response the last update is now
-          // _lastUpdateCurrencies = DateTime.now();
-          //save to memory
-          //prefs.setString("currencyRates", currencyObject.toString());
+          prefs.setString('currenciesRates', _currenciesObject.toJson());
         } else {
           //if there's some error in the data read (e.g. I'm not connected)
-          //await _readSavedCurrencies(); //read the saved data
+          await _readSavedCurrencies(); //read the saved data
         }
       } catch (e) {
         //catch communication error
         print(e);
-        //await _readSavedCurrencies(); //read the saved data
+        await _readSavedCurrencies(); //read the saved data
       }
     } else {
       //If I already have the data of today I just use it, no need of read them from the web
-      //await _readSavedCurrencies();
-      //_lastUpdateCurrencies = DateTime.now();
+      await _readSavedCurrencies();
     }
     _isCurrenciesLoading = false; // stop the progress indicator to show the date of the latest update
     _initializePropertyList(); //we need to refresh the property list because we changed some conversions
