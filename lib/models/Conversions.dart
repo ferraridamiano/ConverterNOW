@@ -168,6 +168,7 @@ class Conversions with ChangeNotifier {
         if (httpResponse.statusCode == 200) {
           _currenciesObject = CurrenciesObject.fromJsonResponse(json.decode(httpResponse.body));
           prefs.setString('currenciesRates', _currenciesObject.toJson());
+          prefs.setString('lastUpdateCurrencies', now);
         } else {
           //if there's some error in the data read (e.g. I'm not connected)
           await _readSavedCurrencies(); //read the saved data
