@@ -494,5 +494,5 @@ String getLastUpdateString(BuildContext context) {
   if (lastUpdateCurrencies.day == dateNow.day && lastUpdateCurrencies.month == dateNow.month && lastUpdateCurrencies.year == dateNow.year) {
     return AppLocalizations.of(context)!.lastCurrenciesUpdate + AppLocalizations.of(context)!.today;
   }
-  return AppLocalizations.of(context)!.lastCurrenciesUpdate + DateFormat("yyyy-MM-dd").format(lastUpdateCurrencies);
+  return AppLocalizations.of(context)!.lastCurrenciesUpdate + DateFormat.yMd().format(lastUpdateCurrencies);
 }
