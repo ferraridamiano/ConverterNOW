@@ -334,6 +334,9 @@ class CurrenciesObject {
     CURRENCIES.GBP: 0.882,
     CURRENCIES.KRW: 1351.21,
     CURRENCIES.PLN: 4.508,
+    CURRENCIES.BGN: 1.9558,
+    CURRENCIES.HRK: 7.5715,
+    CURRENCIES.ISK: 151.9,
   };
 
   CurrenciesObject(){
@@ -399,6 +402,7 @@ enum PROPERTYX {
 
 enum CURRENCIES {
   EUR,
+  USD,
   CAD,
   HKD,
   RUB,
@@ -412,7 +416,6 @@ enum CURRENCIES {
   IDR,
   INR,
   BRL,
-  USD,
   ILS,
   JPY,
   THB,
@@ -428,6 +431,9 @@ enum CURRENCIES {
   GBP,
   KRW,
   PLN,
+  HRK,
+  ISK,
+  BGN,
 }
 
 class PropertyUi {

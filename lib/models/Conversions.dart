@@ -45,6 +45,9 @@ class Conversions with ChangeNotifier {
     CURRENCIES.GBP: '£ 🇬🇧',
     CURRENCIES.KRW: '₩ 🇰🇷',
     CURRENCIES.PLN: 'zł 🇵🇱',
+    CURRENCIES.HRK: 'kn 🇭🇷',
+    CURRENCIES.BGN: 'лв 🇧🇬',
+    CURRENCIES.ISK: 'kr 🇮🇸'
   };
   List<Property> _propertyList = [];
   List<List<int>> _conversionsOrder = [];
@@ -152,11 +155,19 @@ class Conversions with ChangeNotifier {
     String? lastUpdate = prefs.getString("lastUpdateCurrencies");
     //if I have never updated the conversions or if I have updated before today I have to update
     if (lastUpdate == null || lastUpdate != now) {
+      //stringRequest prepares the string request for all the currencies in the enum CURRENICES
+      String stringRequest = '';
+      for(CURRENCIES currency in CURRENCIES.values){
+        if(currency != CURRENCIES.EUR){
+          stringRequest += (currency.toString().substring(11) + '+'); // removes the first part: 'CURRENCIES.'
+        }
+      }
+      stringRequest = stringRequest.substring(0, stringRequest.length-1); //removes the last '+'
       try {
         http.Response httpResponse = await http.get(
           Uri.https(
             'sdw-wsrest.ecb.europa.eu',
-            'service/data/EXR/D.USD+GBP+INR+CNY+JPY+CHF+SEK+RUB+CAD+KRW+BRL+HKD+AUD+NZD+MXN+SGD+NOK+TRY+ZAR+DKK+PLN+THB+MYR+HUF+CZK+ILS+IDR+PHP+RON.EUR.SP00.A',
+            'service/data/EXR/D.$stringRequest.EUR.SP00.A',
             {
               'lastNObservations': '1',
               'detail': 'dataonly',
