@@ -71,6 +71,7 @@
   "astronomicalUnits":"Astronomical Units",
   "lightYears": "Light-years",
   "parsec":"Parsec",
+  "mils": "Mils",
 
   "squareMeters": "Square Meters",
   "squareCentimeters": "Square Centimeters",

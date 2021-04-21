@@ -25,7 +25,7 @@ dependencies:
     git:
       url: https://github.com/ferraridamiano/flutter_speed_dial
   #Needed for unit conversion
-  units_converter: ^0.3.0
+  units_converter: ^0.3.0+1
     #git:
     #  url: https://github.com/ferraridamiano/units_converter
     #path: ../units_converter

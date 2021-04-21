@@ -61,6 +61,7 @@ List<UnitUi> getUnitUiList(BuildContext context) {
     ..add(UnitUi(LENGTH.meters, AppLocalizations.of(context)!.meters, basePath + 'length.png', PROPERTYX.LENGTH))
     ..add(UnitUi(LENGTH.centimeters, AppLocalizations.of(context)!.centimeters, basePath + 'length.png', PROPERTYX.LENGTH))
     ..add(UnitUi(LENGTH.inches, AppLocalizations.of(context)!.inches, basePath + 'length.png', PROPERTYX.LENGTH))
+    ..add(UnitUi(LENGTH.mils, AppLocalizations.of(context)!.mils, basePath + 'length.png', PROPERTYX.LENGTH))
     ..add(UnitUi(LENGTH.feet, AppLocalizations.of(context)!.feet, basePath + 'length.png', PROPERTYX.LENGTH))
     ..add(UnitUi(LENGTH.nautical_miles, AppLocalizations.of(context)!.nauticalMiles, basePath + 'length.png', PROPERTYX.LENGTH))
     ..add(UnitUi(LENGTH.yards, AppLocalizations.of(context)!.yards, basePath + 'length.png', PROPERTYX.LENGTH))
