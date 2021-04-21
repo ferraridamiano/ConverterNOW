@@ -91,8 +91,8 @@ class _ReorderPageState extends State<ReorderPage> {
                       content: Text(AppLocalizations.of(context)!.longPressAdvice),
                       behavior: SnackBarBehavior.floating,
                     );
-                    _scaffoldKey.currentState!.showSnackBar(snackBar);
-                    //ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    //_scaffoldKey.currentState!.showSnackBar(snackBar);
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                 ),
                 key: ValueKey(_itemsList[index].id),
