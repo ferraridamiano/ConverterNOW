@@ -133,9 +133,11 @@ class ConversionPage extends StatelessWidget {
 
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
-    List<UnitData> unitDataList = context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);
+    List<UnitData> unitDataList =
+        context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);
     List<ListItem> itemList = [];
-    PROPERTYX currentProperty = context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);
+    PROPERTYX currentProperty =
+        context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);
 
     Brightness brightness = getBrightness(
       context.select<AppModel, ThemeMode>((AppModel appModel) => appModel.currentThemeMode),
@@ -171,7 +173,8 @@ class ConversionPage extends StatelessWidget {
       }
     };
     final VoidCallback reorderUnits = () async {
-      List<String> listUnitsNames = List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]!);
+      List<String> listUnitsNames =
+          List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]!);
       final List<int>? result = await Navigator.push(
         context,
         MaterialPageRoute(
@@ -287,7 +290,9 @@ class ConversionPage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButtonLocation: isDrawerFixed(displayWidth) ? FloatingActionButtonLocation.endFloat : FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: isDrawerFixed(displayWidth)
+          ? FloatingActionButtonLocation.endFloat
+          : FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: _isDrawerFixed
           ? null
           : BottomAppBar(
@@ -453,8 +458,8 @@ class CustomSearchDelegate extends SearchDelegate<int> {
       orderList,
     );
 
-    final Iterable<SearchUnit> suggestions =
-        _dataSearch.where((searchUnit) => searchUnit.unitName.toLowerCase().contains(query.toLowerCase())); //.toLowercase in order to be case insesitive
+    final Iterable<SearchUnit> suggestions = _dataSearch.where((searchUnit) =>
+        searchUnit.unitName.toLowerCase().contains(query.toLowerCase())); //.toLowercase in order to be case insesitive
 
     return query.isNotEmpty
         ? SuggestionList(
@@ -494,5 +499,6 @@ String getLastUpdateString(BuildContext context) {
   if (lastUpdateCurrencies.day == dateNow.day && lastUpdateCurrencies.month == dateNow.month && lastUpdateCurrencies.year == dateNow.year) {
     return AppLocalizations.of(context)!.lastCurrenciesUpdate + AppLocalizations.of(context)!.today;
   }
-  return AppLocalizations.of(context)!.lastCurrenciesUpdate + DateFormat("yyyy-MM-dd").format(lastUpdateCurrencies);
+  return AppLocalizations.of(context)!.lastCurrenciesUpdate +
+      DateFormat.yMd(Localizations.localeOf(context).languageCode).format(lastUpdateCurrencies);
 }
