@@ -151,7 +151,7 @@ GEM
       declarative-option (< 0.2.0)
       uber (< 0.2.0)
     retriable (3.1.2)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rouge (2.0.7)
     ruby2_keywords (0.0.4)
     rubyzip (2.3.0)
@@ -175,6 +175,7 @@ GEM
     uber (0.1.0)
     unf (0.1.4)
       unf_ext
+    unf_ext (0.0.7.7)
     unf_ext (0.0.7.7-x64-mingw32)
     unicode-display_width (1.7.0)
     word_wrap (1.0.0)
@@ -191,6 +192,7 @@ GEM
 
 PLATFORMS
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   fastlane
