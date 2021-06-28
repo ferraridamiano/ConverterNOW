@@ -1,7 +1,6 @@
 import 'package:converterpro/styles/consts.dart';
-import 'package:flutter/material.dart';
 
-EdgeInsetsGeometry responsivePadding(double displayWidth) => EdgeInsets.symmetric(horizontal: displayWidth * 0.03);
+double responsivePadding(double displayWidth) => displayWidth * 0.03;
 
 int responsiveNumGridTiles(double displayWidth) {
   if (displayWidth < PIXEL_WIDTH_1_COLUMN) {

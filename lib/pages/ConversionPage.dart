@@ -116,11 +116,10 @@ class ConversionPage extends StatelessWidget {
     }
 
     return Drawer(
-      child: Scrollbar(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: listaDrawer,
-        ),
+      child: ListView(
+        controller: ScrollController(),
+        padding: EdgeInsets.zero,
+        children: listaDrawer,
       ),
     );
   }
@@ -255,6 +254,8 @@ class ConversionPage extends StatelessWidget {
     // Needed in order to open/close the speedDial with the back button
     ValueNotifier<bool> isDialOpen = ValueNotifier(false);
 
+    double xPadding = responsivePadding(displayWidth);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       drawer: _isDrawerFixed ? null : _getDrawer(context, _isDrawerFixed),
@@ -272,18 +273,14 @@ class ConversionPage extends StatelessWidget {
             children: <Widget>[
               _isDrawerFixed ? _getDrawer(context, _isDrawerFixed) : SizedBox(),
               Expanded(
-                child: Scrollbar(
-                  child: Padding(
-                    padding: responsivePadding(displayWidth),
-                    child: GridView.count(
-                      childAspectRatio: responsiveChildAspectRatio(displayWidth),
-                      crossAxisCount: responsiveNumGridTiles(displayWidth),
-                      shrinkWrap: true,
-                      crossAxisSpacing: 15.0,
-                      children: gridTiles,
-                      padding: EdgeInsets.only(bottom: 22), //So FAB doesn't overlap the card
-                    ),
-                  ),
+                child: GridView.count(
+                  controller: ScrollController(),
+                  childAspectRatio: responsiveChildAspectRatio(displayWidth),
+                  crossAxisCount: responsiveNumGridTiles(displayWidth),
+                  shrinkWrap: true,
+                  crossAxisSpacing: 15.0,
+                  children: gridTiles,
+                  padding: EdgeInsets.only(right: xPadding, left: xPadding, bottom: 22), //bottom so FAB doesn't overlap the card
                 ),
               ),
             ],
