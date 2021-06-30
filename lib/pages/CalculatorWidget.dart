@@ -44,7 +44,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
           if (event.runtimeType.toString() == 'RawKeyDownEvent') {
             if (event.isKeyPressed(LogicalKeyboardKey.backspace)) {
               context.read<Calculator>().adaptiveDeleteClear();
-            } else if(event.isKeyPressed(LogicalKeyboardKey.delete)) {
+            } else if (event.isKeyPressed(LogicalKeyboardKey.delete)) {
               context.read<Calculator>().clearAll();
             } else if (event.isKeyPressed(LogicalKeyboardKey.enter)) {
               context.read<Calculator>().submitChar('=');
@@ -123,36 +123,36 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                       ? SizedBox()
                       : Column(
                           children: <Widget>[
-                            _button('x²', () {
+                            _button('x²', buttonWidth, buttonHeight, accentColor, () {
                               context.read<Calculator>().square();
-                            }, buttonWidth, buttonHeight, accentColor),
-                            _button('ln', () {
+                            }),
+                            _button('ln', buttonWidth, buttonHeight, accentColor, () {
                               context.read<Calculator>().ln();
-                            }, buttonWidth, buttonHeight, accentColor),
-                            _button('n!', () {
+                            }),
+                            _button('n!', buttonWidth, buttonHeight, accentColor, () {
                               context.read<Calculator>().factorial();
-                            }, buttonWidth, buttonHeight, accentColor),
-                            _button('1/x', () {
+                            }),
+                            _button('1/x', buttonWidth, buttonHeight, accentColor, () {
                               context.read<Calculator>().reciprocal();
-                            }, buttonWidth, buttonHeight, accentColor),
+                            }),
                           ],
                         ),
                   columnsNumber < 5
                       ? SizedBox()
                       : Column(
                           children: <Widget>[
-                            _button('√', () {
+                            _button('√', buttonWidth, buttonHeight, accentColor, () {
                               context.read<Calculator>().squareRoot();
-                            }, buttonWidth, buttonHeight, accentColor),
-                            _button('log', () {
+                            }),
+                            _button('log', buttonWidth, buttonHeight, accentColor, () {
                               context.read<Calculator>().log10();
-                            }, buttonWidth, buttonHeight, accentColor),
-                            _button('e', () {
+                            }),
+                            _button('e', buttonWidth, buttonHeight, accentColor, () {
                               context.read<Calculator>().submitChar('e');
-                            }, buttonWidth, buttonHeight, accentColor),
-                            _button('π', () {
+                            }),
+                            _button('π', buttonWidth, buttonHeight, accentColor, () {
                               context.read<Calculator>().submitChar('π');
-                            }, buttonWidth, buttonHeight, accentColor),
+                            }),
                           ],
                         ),
                   columnsNumber > 4
@@ -170,29 +170,23 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                         return Row(
                           children: List.generate(3, (j) {
                             String char = (7 - 3 * i + j).toString(); // (2-i)*3 + j+1 = 7-3*i+j
-                            return _button(
-                              char,
-                              () {
-                                context.read<Calculator>().submitChar(char);
-                              },
-                              buttonWidth,
-                              buttonHeight,
-                              textButtonColor,
-                            );
+                            return _button(char, buttonWidth, buttonHeight, textButtonColor, () {
+                              context.read<Calculator>().submitChar(char);
+                            });
                           }),
                         );
                       }),
                     ),
                     Row(children: <Widget>[
-                      _button(decimalSeparator, () {
+                      _button(decimalSeparator, buttonWidth, buttonHeight, textButtonColor, () {
                         context.read<Calculator>().submitChar(decimalSeparator);
-                      }, buttonWidth, buttonHeight, textButtonColor),
-                      _button('0', () {
+                      }),
+                      _button('0', buttonWidth, buttonHeight, textButtonColor, () {
                         context.read<Calculator>().submitChar('0');
-                      }, buttonWidth, buttonHeight, textButtonColor),
-                      _button('=', () {
+                      }),
+                      _button('=', buttonWidth, buttonHeight, textButtonColor, () {
                         context.read<Calculator>().submitChar('=');
-                      }, buttonWidth, buttonHeight, textButtonColor),
+                      }),
                     ]),
                   ]),
                   Container(
@@ -203,21 +197,23 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                   ),
                   Column(
                     children: <Widget>[
-                      _button(context.select<Calculator, bool>((calc) => calc.endNumber) ? 'CE' : '←', () {
+                      _button(context.select<Calculator, bool>((calc) => calc.endNumber) ? 'CE' : '←', buttonWidth, buttonOpSize, accentColor, () {
                         context.read<Calculator>().adaptiveDeleteClear();
-                      }, buttonWidth, buttonOpSize, accentColor),
-                      _button('÷', () {
+                      }, onLongPress: () {
+                        context.read<Calculator>().clearAll();
+                      }),
+                      _button('÷', buttonWidth, buttonOpSize, accentColor, () {
                         context.read<Calculator>().submitChar('/');
-                      }, buttonWidth, buttonOpSize, accentColor),
-                      _button('×', () {
+                      }),
+                      _button('×', buttonWidth, buttonOpSize, accentColor, () {
                         context.read<Calculator>().submitChar('*');
-                      }, buttonWidth, buttonOpSize, accentColor),
-                      _button('−', () {
+                      }),
+                      _button('−', buttonWidth, buttonOpSize, accentColor, () {
                         context.read<Calculator>().submitChar('-');
-                      }, buttonWidth, buttonOpSize, accentColor),
-                      _button('+', () {
+                      }),
+                      _button('+', buttonWidth, buttonOpSize, accentColor, () {
                         context.read<Calculator>().submitChar('+');
-                      }, buttonWidth, buttonOpSize, accentColor),
+                      }),
                     ],
                   ),
                 ],
@@ -229,7 +225,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
     );
   }
 
-  Widget _button(String text, Function() onPressed, double buttonWidth, double buttonHeight, Color color) {
+  Widget _button(String text, double buttonWidth, double buttonHeight, Color color, Function() onPressed, {Function()? onLongPress}) {
     final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
       onPrimary: widget.brightness == Brightness.dark ? Colors.white24 : Colors.black26,
       primary: Colors.transparent,
@@ -253,6 +249,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
             ),
       style: raisedButtonStyle,
       onPressed: onPressed,
+      onLongPress: onLongPress,
     );
   }
 }
