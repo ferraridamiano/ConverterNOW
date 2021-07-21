@@ -1,10 +1,10 @@
-import 'pages/ConversionPage.dart';
 import 'package:converterpro/pages/SettingsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'models/AppModel.dart';
 import 'models/Conversions.dart';
+import 'pages/ConversionScaffold.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +39,7 @@ class _MyApp extends State<MyApp> {
           title: 'Converter NOW',
           initialRoute: '/',
           routes: {
-            '/': (context) => ConversionPage(),
+            '/': (context) => ConversionScaffold(),
             '/settings': (context) => SettingsPage(),
           },
           themeMode: context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
