@@ -353,10 +353,6 @@ class ConversionPage extends StatelessWidget {
               foregroundColor: Colors.white,
               activeIcon: Icons.clear,
               tooltip: AppLocalizations.of(context)?.more,
-              brightness: getBrightness(
-                context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
-                MediaQuery.of(context).platformBrightness,
-              ),
               elevation: 8.0,
               children: [
                 SpeedDialChild(
