@@ -10,8 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/utils/PropertyUnitList.dart';
 import 'package:intl/intl.dart';
-import 'CalculatorWidget.dart';
-import 'ReorderPage.dart';
+import 'package:converterpro/pages/CalculatorWidget.dart';
+import 'package:converterpro/pages/ReorderPage.dart';
 
 class ConversionPage extends StatelessWidget {
   static const MAX_CONVERSION_UNITS = 19;

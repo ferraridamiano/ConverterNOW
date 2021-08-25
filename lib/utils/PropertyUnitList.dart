@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:units_converter/units_converter.dart';
-import 'Utils.dart';
+import 'package:converterpro/utils/Utils.dart';
 
 /// This will return the list of [PropertyUi], an objext that contains all the data regarding the displaying of the
 /// property all over the app. From this List depends also other functions.

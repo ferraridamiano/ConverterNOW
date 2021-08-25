@@ -2,7 +2,7 @@ import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import "dart:convert";
+import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:units_converter/units_converter.dart';
@@ -157,12 +157,12 @@ class Conversions with ChangeNotifier {
     if (lastUpdate == null || lastUpdate != now) {
       //stringRequest prepares the string request for all the currencies in the enum CURRENICES
       String stringRequest = '';
-      for(CURRENCIES currency in CURRENCIES.values){
-        if(currency != CURRENCIES.EUR){
+      for (CURRENCIES currency in CURRENCIES.values) {
+        if (currency != CURRENCIES.EUR) {
           stringRequest += (currency.toString().substring(11) + '+'); // removes the first part: 'CURRENCIES.'
         }
       }
-      stringRequest = stringRequest.substring(0, stringRequest.length-1); //removes the last '+'
+      stringRequest = stringRequest.substring(0, stringRequest.length - 1); //removes the last '+'
       try {
         http.Response httpResponse = await http.get(
           Uri.https(
@@ -237,9 +237,21 @@ class Conversions with ChangeNotifier {
       Property property = _propertyList[i];
       List<Unit> tempProperty = property.getAll();
       for (int j = 0; j < tempProperty.length; j++) {
-        VALIDATOR validator = VALIDATOR.RATIONAL_NON_NEGATIVE;
-        TextInputType textInputType = TextInputType.numberWithOptions(decimal: true, signed: false);
-        if (property.name == PROPERTYX.NUMERAL_SYSTEMS) {
+        VALIDATOR validator;
+        TextInputType textInputType;
+        if (property.name == PROPERTYX.TEMPERATURE) {
+          switch (tempProperty[j].name) {
+            // Just kelvin and rankine can't be negative
+            case TEMPERATURE.kelvin:
+            case TEMPERATURE.rankine:
+              textInputType = TextInputType.numberWithOptions(decimal: true, signed: false);
+              validator = VALIDATOR.RATIONAL_NON_NEGATIVE;
+              break;
+            default:
+              textInputType = TextInputType.numberWithOptions(decimal: true, signed: true);
+              validator = VALIDATOR.RATIONAL;
+          }
+        } else if (property.name == PROPERTYX.NUMERAL_SYSTEMS) {
           switch (tempProperty[j].name) {
             case NUMERAL_SYSTEMS.binary:
               {
@@ -265,7 +277,15 @@ class Conversions with ChangeNotifier {
                 textInputType = TextInputType.text;
                 break;
               }
+            default:
+              {
+                textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
+                validator = VALIDATOR.DECIMAL;
+              }
           }
+        } else {
+          textInputType = TextInputType.numberWithOptions(decimal: true, signed: false);
+          validator = VALIDATOR.RATIONAL_NON_NEGATIVE;
         }
 
         tempUnitData[_conversionsOrder[i][j]] = UnitData(

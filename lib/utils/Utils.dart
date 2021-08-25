@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -266,7 +265,7 @@ class ListTileConversion extends StatelessWidget {
   }
 }
 
-enum VALIDATOR { BINARY, DECIMAL, OCTAL, HEXADECIMAL, RATIONAL_NON_NEGATIVE }
+enum VALIDATOR { BINARY, DECIMAL, OCTAL, HEXADECIMAL, RATIONAL, RATIONAL_NON_NEGATIVE }
 
 class UnitData {
   Unit unit;
@@ -293,9 +292,11 @@ class UnitData {
         return RegExp(r'^[0-9]+$');
       case VALIDATOR.HEXADECIMAL:
         return RegExp(r'^[0-9A-Fa-f]+$');
+      case VALIDATOR.RATIONAL:
+        return RegExp(r'^([+-]?\d+)\.?(\d*)(e[+-]?\d+)?$');
       case VALIDATOR.RATIONAL_NON_NEGATIVE:
       default:
-        return RegExp(r'^[0-9/./e/+/-]+$');
+        return RegExp(r'^(\+?\d+)\.?(\d*)(e[+-]?\d+)?$');
     }
   }
 }
