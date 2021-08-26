@@ -24,6 +24,9 @@ class _ReorderPageState extends State<ReorderPage> {
 
   @override
   Widget build(BuildContext context) {
+    
+    double xPadding = Math.max(0, (MediaQuery.of(context).size.width - SINGLE_PAGE_FIXED_HEIGHT) / 2);
+
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
@@ -67,9 +70,7 @@ class _ReorderPageState extends State<ReorderPage> {
           ),
         ),
         body: ReorderableListView(
-          padding: EdgeInsets.symmetric(
-            horizontal: Math.max(0, (MediaQuery.of(context).size.width - SINGLE_PAGE_FIXED_HEIGHT) / 2),
-          ),
+          padding: EdgeInsets.only(left: xPadding, right: xPadding, bottom: 22), //bottom so FAB doesn't overlap the text
           onReorder: (int oldIndex, int newIndex) {
             setState(() => _updateItemsOrder(oldIndex, newIndex));
           },
