@@ -137,6 +137,7 @@ List<UnitUi> getUnitUiList(BuildContext context) {
     ..add(UnitUi(CURRENCIES.BGN, AppLocalizations.of(context)!.bgn, basePath + 'currencies.png', PROPERTYX.CURRENCIES))
     ..add(UnitUi(CURRENCIES.HRK, AppLocalizations.of(context)!.hrk, basePath + 'currencies.png', PROPERTYX.CURRENCIES))
     ..add(UnitUi(CURRENCIES.ISK, AppLocalizations.of(context)!.isk, basePath + 'currencies.png', PROPERTYX.CURRENCIES))
+    ..add(UnitUi(CURRENCIES.TWD, AppLocalizations.of(context)!.twd, basePath + 'currencies.png', PROPERTYX.CURRENCIES))
     ..add(UnitUi(TIME.seconds, AppLocalizations.of(context)!.seconds, basePath + 'time.png', PROPERTYX.TIME))
     ..add(UnitUi(TIME.deciseconds, AppLocalizations.of(context)!.deciseconds, basePath + 'time.png', PROPERTYX.TIME))
     ..add(UnitUi(TIME.centiseconds, AppLocalizations.of(context)!.centiseconds, basePath + 'time.png', PROPERTYX.TIME))

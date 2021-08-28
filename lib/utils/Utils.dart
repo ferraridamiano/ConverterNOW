@@ -338,6 +338,7 @@ class CurrenciesObject {
     CURRENCIES.BGN: 1.9558,
     CURRENCIES.HRK: 7.5715,
     CURRENCIES.ISK: 151.9,
+    CURRENCIES.TWD: 32.93,
   };
 
   CurrenciesObject(){
@@ -435,6 +436,7 @@ enum CURRENCIES {
   HRK,
   ISK,
   BGN,
+  TWD,
 }
 
 class PropertyUi {
