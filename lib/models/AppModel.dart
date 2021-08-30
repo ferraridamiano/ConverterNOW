@@ -1,4 +1,5 @@
 import 'package:converterpro/pages/ReorderPage.dart';
+import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,6 +17,21 @@ class AppModel with ChangeNotifier {
     ThemeMode.light: 2,
   };
   bool isDrawerFixed = true;
+
+  final Map<Locale, String> mapLocale = {
+    const Locale('en'): 'English',
+    const Locale('de'): 'Deutsch',
+    const Locale('es'): 'Español',
+    const Locale('fr'): 'Français',
+    const Locale('it'): 'Italiano',
+    const Locale('nb'): 'Norsk',
+    const Locale('pt'): 'Português',
+    const Locale('ru'): 'Pусский',
+    const Locale('tr'): 'Türk',
+  };
+
+  Locale? _appLocale; // null means system locale
+  Locale? _deviceLocale;
 
   AppModel() {
     _checkOrdersDrawer();
@@ -67,14 +83,18 @@ class AppModel with ChangeNotifier {
       orderedList[_conversionsOrderDrawer[i]] = titlesList[i];
     }
 
-    final List<int>? result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));
+    final List<int>? result =
+        await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));
 
     //if there arent't any modifications, do nothing
     if (result != null) {
       List arrayCopia = List.filled(_conversionsOrderDrawer.length, null);
-      for (int i = 0; i < _conversionsOrderDrawer.length; i++) arrayCopia[i] = _conversionsOrderDrawer[i];
-      for (int i = 0; i < _conversionsOrderDrawer.length; i++) _conversionsOrderDrawer[i] = result.indexOf(arrayCopia[i]);
-
+      for (int i = 0; i < _conversionsOrderDrawer.length; i++){
+        arrayCopia[i] = _conversionsOrderDrawer[i];
+      }
+      for (int i = 0; i < _conversionsOrderDrawer.length; i++){
+        _conversionsOrderDrawer[i] = result.indexOf(arrayCopia[i]);
+      }
       notifyListeners();
       //save new orders to memory
       List<String> toConvertList = [];
@@ -96,6 +116,8 @@ class AppModel with ChangeNotifier {
     if (valThemeMode != null) {
       _currentThemeMode = _themeModeMap.keys.where((key) => _themeModeMap[key] == valThemeMode).single;
     }
+    String? temp = prefs.getString('locale');
+    _appLocale = temp == null || temp == 'null' ? null : Locale(temp);
     notifyListeners();
   }
 
@@ -106,13 +128,13 @@ class AppModel with ChangeNotifier {
   set isLogoVisible(bool value) {
     _isLogoVisible = value;
     notifyListeners();
-    _saveSettingsBool('isLogoVisible', _isLogoVisible);
+    saveSettings('isLogoVisible', _isLogoVisible);
   }
 
   set currentThemeMode(ThemeMode val) {
     _currentThemeMode = val;
     notifyListeners();
-    _saveSettingsInt('currentThemeMode', _themeModeMap[_currentThemeMode]!);
+    saveSettings('currentThemeMode', _themeModeMap[_currentThemeMode]!);
   }
 
   ThemeMode get currentThemeMode => _currentThemeMode;
@@ -120,20 +142,52 @@ class AppModel with ChangeNotifier {
   set isDarkAmoled(bool val) {
     _isDarkAmoled = val;
     notifyListeners();
-    _saveSettingsBool('isDarkAmoled', _isDarkAmoled);
+    saveSettings('isDarkAmoled', _isDarkAmoled);
   }
 
   bool get isDarkAmoled => _isDarkAmoled;
 
-  ///Saves the key value with SharedPreferences
-  _saveSettingsBool(String key, bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(key, value);
+  /// Returns the list of the supported locale
+  List<Locale> get supportedLocales => mapLocale.keys.toList();
+
+  /// Returns the Locale of the app. If appLocale is set in the settings, it will use it. If it is a system settings and
+  /// it is supported it returns null, otherwise returns the english language
+  Locale? get appLocale {
+    if (_appLocale != null) {
+      return _appLocale!;
+    }
+    for (Locale supportedLocale in mapLocale.keys.toList()) {
+      if (supportedLocale.languageCode == _deviceLocale?.languageCode ||
+          supportedLocale.countryCode == _deviceLocale?.countryCode) {
+        return null; // System Locale
+      }
+    }
+    return Locale('en');
   }
 
-  ///Saves the key value with SharedPreferences
-  _saveSettingsInt(String key, int value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt(key, value);
+  /// Set the Locale of the device (can be different from the locale of the app)
+  set deviceLocale(Locale? locale) {
+    Future.delayed(Duration.zero, () async {
+      _deviceLocale = locale;
+      notifyListeners();
+    });
+  }
+
+  /// Set a Locale given the language name (e.g 'English', 'Italiano', etc.). If `localeString` is null then it is
+  /// interpreted as "System settings"
+  setLocaleString(String? localeString) {
+    _appLocale =
+        localeString == null ? null : mapLocale.keys.firstWhere((element) => mapLocale[element] == localeString);
+    notifyListeners();
+    // Save 'null' if it is system settings, otherwise save the language code
+    saveSettings('locale', _appLocale == null ? 'null' : _appLocale!.languageCode);
+  }
+
+  /// Return a string locale (e.g 'English', 'Italiano', etc.) or null if it is "System settings"
+  String? getLocaleString() {
+    return mapLocale[mapLocale.keys.firstWhere(
+      (element) => _appLocale!.languageCode == element.languageCode,
+      orElse: null,
+    )];
   }
 }

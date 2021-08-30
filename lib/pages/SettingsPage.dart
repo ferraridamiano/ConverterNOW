@@ -21,6 +21,7 @@ class _SettingsPageState extends State<SettingsPage> {
   TextStyle textStyle = TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE);
   ThemeMode currentTheme = ThemeMode.system;
   bool isDarkAmoled = false;
+  String? locale;
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
     AppModel appModel = context.read<AppModel>();
     currentTheme = appModel.currentThemeMode;
     isDarkAmoled = appModel.isDarkAmoled;
+    locale = appModel.mapLocale[appModel.appLocale];
   }
 
   @override
@@ -94,6 +96,21 @@ class _SettingsPageState extends State<SettingsPage> {
                   Conversions conversions = context.read<Conversions>();
                   conversions.significantFigures = val;
                 }
+              },
+            ),
+            DropdownListTile(
+              title: AppLocalizations.of(context)!.language,
+              textStyle: textStyle,
+              items: [
+                AppLocalizations.of(context)!.system,
+                ...context.read<AppModel>().mapLocale.values.toList(),
+              ],
+              value: locale ?? AppLocalizations.of(context)!.system,
+              onChanged: (String? string) {
+                setState(() => {
+                  locale = string == AppLocalizations.of(context)!.system ? null : string
+                });
+                context.read<AppModel>().setLocaleString(string == AppLocalizations.of(context)!.system ? null : string);
               },
             ),
             DropdownListTile(

@@ -17,6 +17,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyApp extends State<MyApp> {
+
+  bool deviceLocaleSetted = false;
+  
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -52,16 +55,16 @@ class _MyApp extends State<MyApp> {
             canvasColor: isDarkAmoled ? Colors.black : Colors.grey[850], // for drawer background
             cardColor: isDarkAmoled ? Colors.grey[900] : Colors.grey[800],
           ),
-          supportedLocales: [Locale('en'), Locale('de'), Locale('fr'), Locale('it'), Locale('nb'), Locale('pt'), Locale('ru'), Locale('tr'), Locale('es')],
+          supportedLocales: context.read<AppModel>().supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
-          localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) {
-            for (Locale supportedLocale in supportedLocales) {
-              if (supportedLocale.languageCode == locale?.languageCode || supportedLocale.countryCode == locale?.countryCode) {
-                return supportedLocale;
-              }
+          localeResolutionCallback: (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
+            if(!deviceLocaleSetted){
+              context.read<AppModel>().deviceLocale = deviceLocale;
+              deviceLocaleSetted = true;
             }
-            return supportedLocales.first;
+            return deviceLocale;
           },
+          locale: context.select<AppModel, Locale?>((appModel) => appModel.appLocale),
         );
       }),
     );

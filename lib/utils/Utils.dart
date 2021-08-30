@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:units_converter/Unit.dart';
 import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
@@ -262,6 +263,22 @@ class ListTileConversion extends StatelessWidget {
       ),
       selectedColor: Theme.of(context).accentColor,
     );
+  }
+}
+
+///Saves the key value with SharedPreferences
+saveSettings(String key, dynamic value) async{
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  if(value is bool){
+    prefs.setBool(key, value);
+  } else if(value is int){
+    prefs.setInt(key, value);
+  } else if(value is String){
+    prefs.setString(key, value);
+  } else if(value is double){
+    prefs.setDouble(key, value);
+  } else if(value is List<String>){
+    prefs.setStringList(key, value);
   }
 }
 
