@@ -367,7 +367,7 @@ class CurrenciesObject {
     lastUpdate = DateTime.parse(lastUpdateString);
     for (int i = 0; i < CURRENCIES.values.length - 1; i++) {
       //-1 because in this list there is not EUR because int is the base unit
-      double value = jsonData['dataSets'][0]['series']['0:$i:0:0:0']['observations']['0'][0];
+      double value = jsonData['dataSets'][0]['series']['0:$i:0:0:0']['observations'].values.first[0];
       String name = jsonData['structure']['dimensions']['series'][1]['values'][i]['id'];
       values[getCurrenciesFromString(name)] = value;
     }
