@@ -35,41 +35,30 @@ class DrawerTile extends StatelessWidget {
   }
 }
 
-abstract class ListItem {}
-
-class MyCard implements ListItem {
-  MyCard({this.symbol, required this.textField});
-
-  String? symbol;
-  final Widget textField;
-}
-
-class BigHeader implements ListItem {
-  BigHeader({required this.title, required this.subTitle});
-  String title;
-  String subTitle;
-}
-
 class BigTitle extends StatelessWidget {
   BigTitle({
     required this.text,
     required this.subtitle,
     required this.isCurrenciesLoading,
     required this.brightness,
+    required this.sidePadding,
   });
   final String text;
   final String subtitle;
   final bool isCurrenciesLoading;
   final Brightness brightness;
+  final double sidePadding;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          alignment: Alignment.centerLeft,
-          child: Text(
+    return Padding(
+      padding: EdgeInsets.only(left: sidePadding, right: sidePadding, top: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
             text,
+            overflow: TextOverflow.ellipsis,
             maxLines: 2,
             style: TextStyle(
               fontSize: 35.0,
@@ -77,33 +66,27 @@ class BigTitle extends StatelessWidget {
               color: brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
             ),
           ),
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            subtitle != ''
+          Container(
+            height: 17.0,
+            alignment: Alignment.bottomRight,
+            child: isCurrenciesLoading
                 ? Container(
-                    height: 17.0,
-                    alignment: Alignment.bottomRight,
-                    child: (isCurrenciesLoading && subtitle != "")
-                        ? Container(
-                            padding: EdgeInsets.only(right: 10),
-                            child: CircularProgressIndicator(),
-                            height: 15.0,
-                            width: 25.0,
-                          )
-                        : Text(
-                            subtitle,
-                            style: TextStyle(fontSize: 15.0, color: Color(0xFF999999)),
-                          ),
+                    padding: EdgeInsets.only(right: 10),
+                    child: CircularProgressIndicator(),
+                    height: 15.0,
+                    width: 25.0,
                   )
-                : SizedBox(),
-            Divider(
-              color: Colors.grey,
-            ),
-          ],
-        ),
-      ],
+                : Text(
+                    subtitle,
+                    style: TextStyle(fontSize: 15.0, color: Color(0xFF999999)),
+                  ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Divider(),
+          ),
+        ],
+      ),
     );
   }
 }

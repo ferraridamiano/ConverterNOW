@@ -193,7 +193,6 @@ class ConversionPage extends StatelessWidget {
     Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
     List<UnitData> unitDataList =
         context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);
-    List<ListItem> itemList = [];
     PROPERTYX currentProperty =
         context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);
 
@@ -247,17 +246,12 @@ class ConversionPage extends StatelessWidget {
       subTitle = getLastUpdateString(context);
     }
 
-    itemList.add(
-      BigHeader(
-        title: propertyTranslationMap[currentProperty]!,
-        subTitle: subTitle,
-      ),
-    );
+    List<Widget> gridTiles = [];
+
     for (UnitData unitData in unitDataList) {
-      itemList.add(
-        MyCard(
-          symbol: unitData.unit.symbol,
-          textField: TextFormField(
+      gridTiles.add(UnitCard(
+        symbol: unitData.unit.symbol,
+        textField: TextFormField(
             key: Key(unitData.unit.name.toString()),
             style: TextStyle(
               fontSize: 16.0,
@@ -287,64 +281,51 @@ class ConversionPage extends StatelessWidget {
               }
             },
           ),
-        ),
-      );
+      ));
     }
-
-    List<Widget> gridTiles = [];
-    for (ListItem item in itemList) {
-      if (item is MyCard) {
-        gridTiles.add(UnitCard(
-          symbol: item.symbol,
-          textField: item.textField,
-        ));
-      } else if (item is BigHeader) {
-        gridTiles.add(
-          BigTitle(
-            text: item.title,
-            subtitle: item.subTitle,
-            isCurrenciesLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
-            brightness: brightness,
-          ),
-        );
-      }
-    }
-
-    // Needed in order to open/close the speedDial with the back button
-    ValueNotifier<bool> isDialOpen = ValueNotifier(false);
 
     double xPadding = responsivePadding(displayWidth);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       drawer: _isDrawerFixed ? null : _getDrawer(context, _isDrawerFixed, brightness, displayWidth),
-      body: WillPopScope(
-        onWillPop: () async {
-          if (isDialOpen.value) {
-            isDialOpen.value = false;
-            return false;
-          }
-          return true;
-        },
-        child: SafeArea(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _isDrawerFixed ? _getDrawer(context, _isDrawerFixed, brightness, displayWidth) : SizedBox(),
-              Expanded(
-                child: GridView.count(
-                  controller: ScrollController(),
-                  childAspectRatio: responsiveChildAspectRatio(displayWidth),
-                  crossAxisCount: responsiveNumGridTiles(displayWidth),
-                  shrinkWrap: true,
-                  crossAxisSpacing: 15.0,
-                  children: gridTiles,
-                  padding: EdgeInsets.only(
-                      right: xPadding, left: xPadding, bottom: 22), //bottom so FAB doesn't overlap the card
-                ),
+      body: SafeArea(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _isDrawerFixed ? _getDrawer(context, _isDrawerFixed, brightness, displayWidth) : SizedBox(),
+            Expanded(
+              child: CustomScrollView(
+                controller: ScrollController(),
+                shrinkWrap: true,
+                slivers: <Widget>[
+                  SliverToBoxAdapter(
+                    child: BigTitle(
+                      text: propertyTranslationMap[currentProperty]!,
+                      subtitle: subTitle,
+                      isCurrenciesLoading:
+                          context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
+                      brightness: brightness,
+                      sidePadding: xPadding,
+                    ),
+                  ),
+                  SliverPadding(
+                    padding: EdgeInsets.only(
+                      right: xPadding,
+                      left: xPadding,
+                      bottom: 22, //bottom so FAB doesn't overlap the card
+                    ),
+                    sliver: SliverGrid.count(
+                      childAspectRatio: responsiveChildAspectRatio(displayWidth),
+                      crossAxisCount: responsiveNumGridTiles(displayWidth),
+                      crossAxisSpacing: 15.0,
+                      children: gridTiles,
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       floatingActionButtonLocation: isDrawerFixed(displayWidth)
@@ -533,4 +514,24 @@ String getLastUpdateString(BuildContext context) {
   }
   return AppLocalizations.of(context)!.lastCurrenciesUpdate +
       DateFormat.yMd(Localizations.localeOf(context).languageCode).format(lastUpdateCurrencies);
+}
+
+class MyCollapsingImage extends SliverPersistentHeaderDelegate {
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: Colors.red,
+    );
+  }
+
+  @override
+  double get maxExtent => 200.0;
+
+  @override
+  double get minExtent => 0.0;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
+  }
 }
