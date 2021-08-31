@@ -1,11 +1,12 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/Calculator.dart';
 import 'package:converterpro/models/Conversions.dart';
+import 'package:converterpro/utils/UtilsWidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/utils/PropertyUnitList.dart';
@@ -16,11 +17,11 @@ import 'package:converterpro/pages/ReorderPage.dart';
 class ConversionPage extends StatelessWidget {
   static const MAX_CONVERSION_UNITS = 19;
 
-  Drawer _getDrawer(BuildContext context, bool isDrawerFixed) {
-    List<Widget> listaDrawer = List<Widget>.filled(MAX_CONVERSION_UNITS + 1, SizedBox()); //+1 because of the header
-    Color boxColor = Theme.of(context).primaryColor;
+  Drawer _getDrawer(BuildContext context, bool isDrawerFixed, Brightness brightness, double displayWidth) {
+    late List<Widget> headerDrawer = [];
+    List<Widget> conversionDrawer = List<Widget>.filled(MAX_CONVERSION_UNITS, SizedBox());
 
-    List<Widget> drawerActions = <Widget>[
+    /*List<Widget> drawerActions = <Widget>[
       Consumer<AppModel>(
         builder: (context, appModel, _) => IconButton(
           tooltip: AppLocalizations.of(context)!.reorder,
@@ -44,46 +45,96 @@ class ConversionPage extends StatelessWidget {
           Navigator.pushNamed(context, '/settings');
         },
       ),
-    ];
+    ];*/
 
-    bool logoVisibility = context.select<AppModel, bool>(
-      (appModel) => appModel.isLogoVisible,
-    );
-
-    listaDrawer[0] = logoVisibility
-        ? Container(
-            decoration: BoxDecoration(color: boxColor),
-            child: SafeArea(
-              child: Stack(
-                fit: StackFit.passthrough,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(bottom: 10.0),
-                    child: Image.asset("resources/images/logo.png", filterQuality: FilterQuality.medium),
-                    alignment: Alignment.centerRight,
-                    decoration: BoxDecoration(
-                      color: boxColor,
-                    ),
-                  ),
-                  Container(
-                    child: Row(mainAxisAlignment: MainAxisAlignment.end, children: drawerActions),
-                    height: 160.0,
-                    alignment: FractionalOffset.bottomRight,
-                  )
-                ],
+    headerDrawer
+      ..add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'resources/images/logo.png',
+                width: 50,
+                filterQuality: FilterQuality.medium,
               ),
-            ),
-          )
-        : Container(
-            decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-            child: SafeArea(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: drawerActions,
+              SizedBox(width: 10),
+              Text(
+                'Converter NOW',
+                style: GoogleFonts.josefinSans(
+                  textStyle: TextStyle(fontSize: 31),
+                ),
               ),
-            ),
+            ],
+          ),
+        ),
+      ))
+      ..add(DrawerTile(
+        leading: Icon(Icons.search_outlined),
+        title: Text(AppLocalizations.of(context)!.search),
+        onTap: () async {
+          final orderList = context.read<AppModel>().conversionsOrderDrawer;
+          final int? newPage = await showSearch(
+            context: context,
+            delegate: CustomSearchDelegate(orderList),
           );
+          if (newPage != null) {
+            AppModel appModel = context.read<AppModel>();
+            if (appModel.currentPage != newPage) appModel.changeToPage(newPage);
+          }
+        },
+        selectedColor: Colors.teal,
+        selected: false,
+      ))
+      ..add(DrawerTile(
+        leading: Icon(Icons.clear_outlined),
+        title: Text(AppLocalizations.of(context)!.clearAll),
+        onTap: () {
+          Conversions conversions = context.read<Conversions>();
+          conversions.clearAllValues();
+        },
+        selectedColor: Colors.teal,
+        selected: false,
+      ))
+      ..add(
+        DrawerTile(
+          leading: Icon(Icons.calculate_outlined),
+          title: Text(AppLocalizations.of(context)!.calculator),
+          onTap: () {
+            showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return ChangeNotifierProvider(
+                    create: (_) => Calculator(decimalSeparator: '.'),
+                    child: CalculatorWidget(displayWidth, brightness),
+                  );
+                });
+          },
+          selectedColor: Colors.teal,
+          selected: false,
+        ),
+      )
+      ..add(
+        DrawerTile(
+          leading: Icon(Icons.settings_outlined),
+          title: Text(AppLocalizations.of(context)!.settings),
+          onTap: () {
+            if (!isDrawerFixed) {
+              Navigator.of(context).pop();
+            }
+            Navigator.pushNamed(context, '/settings');
+          },
+          selectedColor: Colors.teal,
+          selected: false,
+        ),
+      )
+      ..add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+          child: Divider(color: brightness == Brightness.dark ? Colors.white : Colors.black),
+        ),
+      );
 
     List<int> conversionsOrderDrawer = context.watch<AppModel>().conversionsOrderDrawer;
 
@@ -98,28 +149,36 @@ class ConversionPage extends StatelessWidget {
 
     for (int i = 0; i < propertyUiList.length; i++) {
       PropertyUi propertyUi = propertyUiList[i];
-      listaDrawer[conversionsOrderDrawer[i] + 1] = ListTileConversion(
-        text: propertyUi.name,
-        imagePath: propertyUi.imagePath,
-        selected: currentPage == i,
+      conversionDrawer[conversionsOrderDrawer[i]] = DrawerTile(
+        leading: Image.asset(
+          propertyUi.imagePath,
+          width: 30,
+          height: 30,
+          color: Colors.white,
+          filterQuality: FilterQuality.medium,
+        ),
+        title: Text(propertyUi.name),
         onTap: () {
           context.read<AppModel>().changeToPage(i);
           if (!isDrawerFixed) {
             Navigator.of(context).pop();
           }
         },
-        brightness: getBrightness(
-          context.select<AppModel, ThemeMode>((AppModel appModel) => appModel.currentThemeMode),
-          MediaQuery.of(context).platformBrightness,
-        ),
+        selected: currentPage == i,
+        selectedColor: Colors.teal,
       );
     }
 
     return Drawer(
-      child: ListView(
-        controller: ScrollController(),
-        padding: EdgeInsets.zero,
-        children: listaDrawer,
+      child: SafeArea(
+        child: ListView(
+          controller: ScrollController(),
+          padding: EdgeInsets.zero,
+          children: [
+            ...headerDrawer,
+            ...conversionDrawer,
+          ],
+        ),
       ),
     );
   }
@@ -258,7 +317,7 @@ class ConversionPage extends StatelessWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      drawer: _isDrawerFixed ? null : _getDrawer(context, _isDrawerFixed),
+      drawer: _isDrawerFixed ? null : _getDrawer(context, _isDrawerFixed, brightness, displayWidth),
       body: WillPopScope(
         onWillPop: () async {
           if (isDialOpen.value) {
@@ -271,7 +330,7 @@ class ConversionPage extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              _isDrawerFixed ? _getDrawer(context, _isDrawerFixed) : SizedBox(),
+              _isDrawerFixed ? _getDrawer(context, _isDrawerFixed, brightness, displayWidth) : SizedBox(),
               Expanded(
                 child: GridView.count(
                   controller: ScrollController(),
@@ -280,7 +339,8 @@ class ConversionPage extends StatelessWidget {
                   shrinkWrap: true,
                   crossAxisSpacing: 15.0,
                   children: gridTiles,
-                  padding: EdgeInsets.only(right: xPadding, left: xPadding, bottom: 22), //bottom so FAB doesn't overlap the card
+                  padding: EdgeInsets.only(
+                      right: xPadding, left: xPadding, bottom: 22), //bottom so FAB doesn't overlap the card
                 ),
               ),
             ],
@@ -346,7 +406,7 @@ class ConversionPage extends StatelessWidget {
               ),
             ),
       floatingActionButton: _isDrawerFixed
-          ? SpeedDial(
+          ? /*SpeedDial(
               openCloseDial: isDialOpen,
               icon: Icons.add,
               backgroundColor: Theme.of(context).primaryColor,
@@ -356,30 +416,6 @@ class ConversionPage extends StatelessWidget {
               elevation: 8.0,
               children: [
                 SpeedDialChild(
-                  child: Icon(Icons.calculate),
-                  backgroundColor: Theme.of(context).accentColor,
-                  foregroundColor: Colors.white,
-                  label: AppLocalizations.of(context)?.calculator,
-                  labelStyle: TextStyle(fontSize: 18.0),
-                  onTap: openCalculator,
-                ),
-                SpeedDialChild(
-                  child: Icon(Icons.clear),
-                  backgroundColor: Theme.of(context).accentColor,
-                  foregroundColor: Colors.white,
-                  label: AppLocalizations.of(context)?.clearAll,
-                  labelStyle: TextStyle(fontSize: 18.0),
-                  onTap: clearAll,
-                ),
-                SpeedDialChild(
-                  child: Icon(Icons.search),
-                  backgroundColor: Theme.of(context).accentColor,
-                  foregroundColor: Colors.white,
-                  label: AppLocalizations.of(context)?.search,
-                  labelStyle: TextStyle(fontSize: 18.0),
-                  onTap: search,
-                ),
-                SpeedDialChild(
                   child: Icon(Icons.reorder),
                   backgroundColor: Theme.of(context).accentColor,
                   foregroundColor: Colors.white,
@@ -388,7 +424,8 @@ class ConversionPage extends StatelessWidget {
                   onTap: reorderUnits,
                 ),
               ],
-            )
+            )*/
+          null
           : FloatingActionButton(
               tooltip: AppLocalizations.of(context)!.calculator,
               child: Icon(
@@ -489,7 +526,9 @@ class CustomSearchDelegate extends SearchDelegate<int> {
 String getLastUpdateString(BuildContext context) {
   DateTime lastUpdateCurrencies = context.select<Conversions, DateTime>((settings) => settings.lastUpdateCurrency);
   DateTime dateNow = DateTime.now();
-  if (lastUpdateCurrencies.day == dateNow.day && lastUpdateCurrencies.month == dateNow.month && lastUpdateCurrencies.year == dateNow.year) {
+  if (lastUpdateCurrencies.day == dateNow.day &&
+      lastUpdateCurrencies.month == dateNow.month &&
+      lastUpdateCurrencies.year == dateNow.year) {
     return AppLocalizations.of(context)!.lastCurrenciesUpdate + AppLocalizations.of(context)!.today;
   }
   return AppLocalizations.of(context)!.lastCurrenciesUpdate +

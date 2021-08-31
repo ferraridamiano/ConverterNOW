@@ -20,8 +20,8 @@ dependencies:
   provider: ^5.0.0
   #Needed for translation
   intl: ^0.17.0
-  #Needed for speed dial on large screen
-  flutter_speed_dial: ^4.2.0
+  #Needed for fonts
+  google_fonts: ^2.1.0
   #Needed for unit conversion
   units_converter: ^0.3.0+1
     #git:

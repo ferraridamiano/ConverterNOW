@@ -8,7 +8,6 @@ class AppModel with ChangeNotifier {
   //_conversionsOrderDrawer numbers until max conversion units - 1
   List<int> _conversionsOrderDrawer = List.generate(19, (index) => index);
   int _currentPage = 0;
-  bool _isLogoVisible = true;
   ThemeMode _currentThemeMode = ThemeMode.system;
   bool _isDarkAmoled = false;
   Map<ThemeMode, int> _themeModeMap = {
@@ -110,7 +109,6 @@ class AppModel with ChangeNotifier {
   ///(if there are options saved)
   _checkSettings() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _isLogoVisible = prefs.getBool("isLogoVisible") ?? _isLogoVisible;
     _isDarkAmoled = prefs.getBool("isDarkAmoled") ?? _isDarkAmoled;
     int? valThemeMode = prefs.getInt('currentThemeMode');
     if (valThemeMode != null) {
@@ -119,16 +117,6 @@ class AppModel with ChangeNotifier {
     String? temp = prefs.getString('locale');
     _appLocale = temp == null || temp == 'null' ? null : Locale(temp);
     notifyListeners();
-  }
-
-  ///Returns true if the drawer logo is visible, false otherwise
-  bool get isLogoVisible => _isLogoVisible;
-
-  ///Set the drawer logo visibility and save to SharedPreferences
-  set isLogoVisible(bool value) {
-    _isLogoVisible = value;
-    notifyListeners();
-    saveSettings('isLogoVisible', _isLogoVisible);
   }
 
   set currentThemeMode(ThemeMode val) {

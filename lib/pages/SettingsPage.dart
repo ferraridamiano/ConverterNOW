@@ -15,7 +15,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   List<String> significantFiguresList = [];
-  bool isLogoVisible = true;
   bool removeTrailingZeros = true;
   int significantFigures = 10;
   TextStyle textStyle = TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE);
@@ -27,7 +26,6 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
     Conversions conversions = context.read<Conversions>();
-    isLogoVisible = context.read<AppModel>().isLogoVisible;
     removeTrailingZeros = conversions.removeTrailingZeros;
     significantFigures = conversions.significantFigures;
     for (int value in conversions.significantFiguresList) {
@@ -135,19 +133,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 setState(() => isDarkAmoled = val);
                 AppModel appModel = context.read<AppModel>();
                 appModel.isDarkAmoled = val;
-              },
-            ),
-            SwitchListTile(
-              title: Text(
-                AppLocalizations.of(context)!.drawerLogo,
-                style: textStyle,
-              ),
-              value: isLogoVisible,
-              activeColor: Theme.of(context).accentColor,
-              onChanged: (bool val) {
-                setState(() => isLogoVisible = val);
-                AppModel appModel = context.read<AppModel>();
-                appModel.isLogoVisible = val;
               },
             ),
             SwitchListTile(
