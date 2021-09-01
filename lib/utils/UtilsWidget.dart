@@ -82,7 +82,7 @@ class BigTitle extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Divider(
-              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black38,
             ),
           ),
         ],

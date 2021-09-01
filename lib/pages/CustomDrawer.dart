@@ -122,7 +122,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
       ..add(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Divider(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black),
+          child: Divider(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black38),
         ),
       );
 
@@ -143,7 +143,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           propertyUi.imagePath,
           width: 30,
           height: 30,
-          color: Colors.white,
+          color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black38,
           filterQuality: FilterQuality.medium,
         ),
         title: Text(propertyUi.name),

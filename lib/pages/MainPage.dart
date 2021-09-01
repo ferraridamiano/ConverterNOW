@@ -73,7 +73,6 @@ class MainPage extends StatelessWidget {
       bottomNavigationBar: _isDrawerFixed
           ? null
           : BottomAppBar(
-              color: Theme.of(context).primaryColor,
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +82,6 @@ class MainPage extends StatelessWidget {
                         tooltip: AppLocalizations.of(context)!.menu,
                         icon: Icon(
                           Icons.menu,
-                          color: Colors.white,
                         ),
                         onPressed: () {
                           Scaffold.of(context).openDrawer();
@@ -134,7 +132,7 @@ class MainPage extends StatelessWidget {
           : FloatingActionButton(
               tooltip: AppLocalizations.of(context)!.calculator,
               child: Icon(
-                Icons.calculate,
+                Icons.calculate_outlined,
                 size: 35,
               ),
               onPressed: openCalculator,
