@@ -8,7 +8,6 @@ import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:math' as Math;
 
 class SettingsPage extends StatefulWidget {
   final bool isDrawerFixed;

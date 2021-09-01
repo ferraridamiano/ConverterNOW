@@ -6,23 +6,23 @@ class DrawerTile extends StatelessWidget {
     this.title,
     this.leading,
     this.onTap,
-    this.selectedColor = Colors.transparent,
     this.selected = false,
   }) : super(key: key);
 
   final Widget? title;
   final Widget? leading;
   final void Function()? onTap;
-  final Color selectedColor;
   final bool selected;
 
   static const BorderRadiusGeometry borderRadius = const BorderRadius.horizontal(right: Radius.circular(30));
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 800),
+      curve: Curves.easeOutQuart,
       decoration: BoxDecoration(
-        color: selected ? selectedColor : Colors.transparent,
+        color: selected ? Theme.of(context).accentColor.withOpacity(0.25) : Colors.transparent,
         borderRadius: borderRadius,
       ),
       child: ListTile(

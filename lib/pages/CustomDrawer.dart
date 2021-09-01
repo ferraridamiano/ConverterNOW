@@ -88,18 +88,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
         leading: Icon(Icons.search_outlined),
         title: Text(AppLocalizations.of(context)!.search),
         onTap: () => widget.openSearch(),
-        /*() async {
-          final orderList = context.read<AppModel>().conversionsOrderDrawer;
-          final int? newPage = await showSearch(
-            context: context,
-            delegate: CustomSearchDelegate(orderList),
-          );
-          if (newPage != null) {
-            AppModel appModel = context.read<AppModel>();
-            if (appModel.currentPage != newPage) appModel.changeToPage(newPage);
-          }
-        },*/
-        selectedColor: Colors.teal,
         selected: false,
       ))
       ..add(DrawerTile(
@@ -108,7 +96,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
         onTap: () {
           context.read<Conversions>().clearAllValues();
         },
-        selectedColor: Colors.teal,
         selected: false,
       ))
       ..add(
@@ -116,16 +103,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
           leading: Icon(Icons.calculate_outlined),
           title: Text(AppLocalizations.of(context)!.calculator),
           onTap: () => widget.openCalculator(),
-          /*() {
-            showModalBottomSheet<void>(
-                context: context,
-                builder: (BuildContext context) {
-                  return ChangeNotifierProvider(
-                    create: (_) => Calculator(decimalSeparator: '.'),
-                    child: CalculatorWidget(displayWidth, brightness),
-                  );
-                });}*/
-          selectedColor: Colors.teal,
           selected: false,
         ),
       )
@@ -138,9 +115,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               Navigator.of(context).pop();
             }
             context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
-            //Navigator.pushNamed(context, '/settings');
           },
-          selectedColor: Colors.teal,
           selected: currentScreen == MAIN_SCREEN.SETTINGS,
         ),
       )
@@ -181,7 +156,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
           }
         },
         selected: currentScreen == MAIN_SCREEN.CONVERSION && currentPage == i,
-        selectedColor: Colors.teal,
       );
     }
 

@@ -44,7 +44,7 @@ class _MyApp extends State<MyApp> {
           theme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.light),
           darkTheme: ThemeData(
             primaryColor: const Color(0xFFF2542D),
-            accentColor: const Color(0xFF0E9594),
+            accentColor: Colors.teal,
             brightness: Brightness.dark,
             scaffoldBackgroundColor: isDarkAmoled ? Colors.black : Colors.grey[850],
             canvasColor: isDarkAmoled ? Colors.black : Colors.grey[850], // for drawer background
