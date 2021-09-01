@@ -69,7 +69,7 @@ class BigTitle extends StatelessWidget {
           Container(
             height: 17.0,
             alignment: Alignment.bottomRight,
-            child: isCurrenciesLoading
+            child: (isCurrenciesLoading && text != '')
                 ? Container(
                     padding: EdgeInsets.only(right: 10),
                     child: CircularProgressIndicator(),

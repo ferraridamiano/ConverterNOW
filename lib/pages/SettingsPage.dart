@@ -45,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ThemeMode.light: AppLocalizations.of(context)!.light,
     };
 
-    return Scaffold(
+    return /*Scaffold(
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,
         child: new Stack(
@@ -75,7 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         ),
       ),
-      body: Center(
+      body:*/ Expanded(
         child: ListView(
           padding: EdgeInsets.symmetric(
             horizontal: Math.max(0, (MediaQuery.of(context).size.width - SINGLE_PAGE_FIXED_HEIGHT) / 2),
@@ -238,7 +238,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ],
         ),
-      ),
+      //),
     );
   }
 }

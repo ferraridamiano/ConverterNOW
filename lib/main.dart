@@ -1,5 +1,4 @@
-import 'package:converterpro/pages/ConversionPage.dart';
-import 'package:converterpro/pages/SettingsPage.dart';
+import 'package:converterpro/pages/MainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -40,11 +39,7 @@ class _MyApp extends State<MyApp> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Converter NOW',
-          initialRoute: '/',
-          routes: {
-            '/': (context) => ConversionPage(),
-            '/settings': (context) => SettingsPage(),
-          },
+          home: MainPage(),
           themeMode: context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
           theme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.light),
           darkTheme: ThemeData(

@@ -4,9 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum MAIN_SCREEN {
+  SETTINGS,
+  CONVERSION,
+}
+
 class AppModel with ChangeNotifier {
   //_conversionsOrderDrawer numbers until max conversion units - 1
   List<int> _conversionsOrderDrawer = List.generate(19, (index) => index);
+  MAIN_SCREEN _currentScreen = MAIN_SCREEN.CONVERSION;
   int _currentPage = 0;
   ThemeMode _currentThemeMode = ThemeMode.system;
   bool _isDarkAmoled = false;
@@ -51,6 +57,13 @@ class AppModel with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  set currentScreen(MAIN_SCREEN screen){
+    _currentScreen = screen;
+    notifyListeners();
+  }
+
+  MAIN_SCREEN get currentScreen => _currentScreen;
 
   ///Updates the order of the tiles in the drawer
   _checkOrdersDrawer() async {
