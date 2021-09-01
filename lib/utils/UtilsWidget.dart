@@ -38,15 +38,13 @@ class DrawerTile extends StatelessWidget {
 class BigTitle extends StatelessWidget {
   BigTitle({
     required this.text,
-    required this.subtitle,
-    required this.isCurrenciesLoading,
-    required this.brightness,
+    this.subtitle = '',
+    this.isCurrenciesLoading = false,
     required this.sidePadding,
   });
   final String text;
   final String subtitle;
   final bool isCurrenciesLoading;
-  final Brightness brightness;
   final double sidePadding;
 
   @override
@@ -63,7 +61,7 @@ class BigTitle extends StatelessWidget {
             style: TextStyle(
               fontSize: 35.0,
               fontWeight: FontWeight.bold,
-              color: brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
+              color: Theme.of(context).brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
             ),
           ),
           Container(
@@ -83,7 +81,9 @@ class BigTitle extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Divider(),
+            child: Divider(
+              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+            ),
           ),
         ],
       ),
