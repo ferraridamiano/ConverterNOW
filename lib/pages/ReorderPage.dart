@@ -1,7 +1,8 @@
+import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/styles/consts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as Math;
+import 'package:provider/provider.dart';
 
 class ReorderPage extends StatefulWidget {
   final List<String> itemsList;
@@ -24,13 +25,9 @@ class _ReorderPageState extends State<ReorderPage> {
 
   @override
   Widget build(BuildContext context) {
-    
-    double xPadding = Math.max(0, (MediaQuery.of(context).size.width - SINGLE_PAGE_FIXED_HEIGHT) / 2);
-
-    return SafeArea(
+    return Expanded(
       child: Scaffold(
         key: _scaffoldKey,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           tooltip: AppLocalizations.of(context)!.save,
           child: Icon(
@@ -46,12 +43,14 @@ class _ReorderPageState extends State<ReorderPage> {
               if (i != currentIndex) hasSomethingchanged = true;
             }
             //if some modification has been done returns them, otherwise it will return null
-            Navigator.pop(context, hasSomethingchanged ? orderList : null);
+            context.read<AppModel>()
+              ..saveOrderDrawer(hasSomethingchanged ? orderList : null)
+              ..currentScreen = MAIN_SCREEN.SETTINGS;
           },
           elevation: 10.0,
           backgroundColor: Theme.of(context).accentColor,
         ),
-        bottomNavigationBar: BottomAppBar(
+        /*bottomNavigationBar: BottomAppBar(
           color: Theme.of(context).primaryColor,
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -68,9 +67,8 @@ class _ReorderPageState extends State<ReorderPage> {
               ),
             ],
           ),
-        ),
+        ),*/
         body: ReorderableListView(
-          padding: EdgeInsets.only(left: xPadding, right: xPadding, bottom: 22), //bottom so FAB doesn't overlap the text
           onReorder: (int oldIndex, int newIndex) {
             setState(() => _updateItemsOrder(oldIndex, newIndex));
           },

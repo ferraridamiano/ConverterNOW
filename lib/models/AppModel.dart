@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 enum MAIN_SCREEN {
   SETTINGS,
   CONVERSION,
+  REORDER_PROPERTIES,
 }
 
 class AppModel with ChangeNotifier {
@@ -44,10 +45,10 @@ class AppModel with ChangeNotifier {
   }
 
   ///Returns the order of the tile of the conversions in the drawer
-  get conversionsOrderDrawer => _conversionsOrderDrawer;
+  List<int> get conversionsOrderDrawer => _conversionsOrderDrawer;
 
   ///Returns the current page (e.g: temperature, mass, etc)
-  get currentPage => _currentPage;
+  int get currentPage => _currentPage;
 
   ///Method needed to change the selected conversion page
   ///e.g: from temperature to mass, etc
@@ -85,27 +86,24 @@ class AppModel with ChangeNotifier {
   }
 
   ///Changes the orders of the tiles in the Drawer
-  changeOrderDrawer(BuildContext context, List<String> titlesList) async {
-    if (!isDrawerFixed) {
-      Navigator.of(context).pop(); //Close the drawer
-    }
+  saveOrderDrawer(List<int>? newOrder) async {
 
-    List<String> orderedList = List.filled(_conversionsOrderDrawer.length, "");
+    /*List<String> orderedList = List.filled(_conversionsOrderDrawer.length, "");
     for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
       orderedList[_conversionsOrderDrawer[i]] = titlesList[i];
     }
 
     final List<int>? result =
-        await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));
+        await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));*/
 
     //if there arent't any modifications, do nothing
-    if (result != null) {
+    if (newOrder != null) {
       List arrayCopia = List.filled(_conversionsOrderDrawer.length, null);
       for (int i = 0; i < _conversionsOrderDrawer.length; i++){
         arrayCopia[i] = _conversionsOrderDrawer[i];
       }
       for (int i = 0; i < _conversionsOrderDrawer.length; i++){
-        _conversionsOrderDrawer[i] = result.indexOf(arrayCopia[i]);
+        _conversionsOrderDrawer[i] = newOrder.indexOf(arrayCopia[i]);
       }
       notifyListeners();
       //save new orders to memory

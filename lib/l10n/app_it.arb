@@ -35,6 +35,8 @@
   "copy": "Copia",
   "more": "Altro",
   "language": "Lingua",
+  "reorderProperties": "Riordina le grandezze",
+  "reorderUnits": "Riordina le unità di misura",
 
   "length": "Lunghezza",
   "area": "Superficie",

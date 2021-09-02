@@ -211,3 +211,51 @@ class SearchGridTile extends StatelessWidget {
     );
   }
 }
+
+class DropdownListTile extends StatelessWidget {
+  final String title;
+  final List<String> items;
+  final String value;
+  final ValueChanged<String?> onChanged;
+  final TextStyle textStyle;
+
+  DropdownListTile({
+    required this.title,
+    required this.items,
+    required this.value,
+    required this.onChanged,
+    required this.textStyle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: textStyle,
+      ),
+      trailing: DropdownButton<String>(
+        value: value,
+        onChanged: onChanged,
+        selectedItemBuilder: (BuildContext context) {
+          return items.map<Widget>((String item) {
+            return Center(
+                child: Text(
+              item,
+              style: textStyle,
+            ));
+          }).toList();
+        },
+        items: items.map((String item) {
+          return DropdownMenuItem<String>(
+            child: Text(
+              item.toString(),
+              style: textStyle,
+            ),
+            value: item,
+          );
+        }).toList(),
+      ),
+    );
+  }
+}

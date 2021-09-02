@@ -35,6 +35,8 @@
   "copy": "Copiar",
   "more": "Más",
   "language": "Idioma",
+  "reorderProperties": "Reordenar propiedades",
+  "reorderUnits": "Reordenar unidades de medida",
 
   "length": "Longitud",
   "area": "Área",

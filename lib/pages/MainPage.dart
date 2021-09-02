@@ -5,6 +5,7 @@ import 'package:converterpro/models/Conversions.dart';
 import 'package:converterpro/pages/CalculatorWidget.dart';
 import 'package:converterpro/pages/ConversionPage.dart';
 import 'package:converterpro/pages/CustomDrawer.dart';
+import 'package:converterpro/pages/ReorderPage.dart';
 import 'package:converterpro/pages/SettingsPage.dart';
 import 'package:converterpro/utils/PropertyUnitList.dart';
 import 'package:converterpro/utils/Utils.dart';
@@ -53,7 +54,28 @@ class MainPage extends StatelessWidget {
       openSearch: openSearch,
     );
 
+    // Get the current main screen
     MAIN_SCREEN currentScreen = context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
+    // And build the right widget
+    Widget mainScreen;
+    switch(currentScreen){
+      case MAIN_SCREEN.SETTINGS:
+        mainScreen = SettingsPage();
+        break;
+      case MAIN_SCREEN.REORDER_PROPERTIES:
+        List<int> conversionsOrderDrawer = context.read<AppModel>().conversionsOrderDrawer;
+        List<String> titlesList = getPropertyNameList(context);
+        List<String> orderedList = List.filled(conversionsOrderDrawer.length, "");
+        for (int i = 0; i < conversionsOrderDrawer.length; i++) {
+          orderedList[conversionsOrderDrawer[i]] = titlesList[i];
+        }
+        mainScreen = ReorderPage(orderedList);
+        break;
+      case MAIN_SCREEN.CONVERSION:
+      default:
+        mainScreen = ConversionPage();
+        break;
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -63,7 +85,7 @@ class MainPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _isDrawerFixed ? drawer : SizedBox(),
-            currentScreen == MAIN_SCREEN.CONVERSION ? ConversionPage() : SettingsPage()
+            mainScreen,
           ],
         ),
       ),
@@ -109,26 +131,7 @@ class MainPage extends StatelessWidget {
               ),
             ),
       floatingActionButton: _isDrawerFixed
-          ? /*SpeedDial(
-              openCloseDial: isDialOpen,
-              icon: Icons.add,
-              backgroundColor: Theme.of(context).primaryColor,
-              foregroundColor: Colors.white,
-              activeIcon: Icons.clear,
-              tooltip: AppLocalizations.of(context)?.more,
-              elevation: 8.0,
-              children: [
-                SpeedDialChild(
-                  child: Icon(Icons.reorder),
-                  backgroundColor: Theme.of(context).accentColor,
-                  foregroundColor: Colors.white,
-                  label: AppLocalizations.of(context)?.reorder,
-                  labelStyle: TextStyle(fontSize: 18.0),
-                  onTap: reorderUnits,
-                ),
-              ],
-            )*/
-          null
+          ? null
           : FloatingActionButton(
               tooltip: AppLocalizations.of(context)!.calculator,
               child: Icon(

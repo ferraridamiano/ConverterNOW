@@ -116,7 +116,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             }
             context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
           },
-          selected: currentScreen == MAIN_SCREEN.SETTINGS,
+          selected: currentScreen == MAIN_SCREEN.SETTINGS || currentScreen == MAIN_SCREEN.REORDER_PROPERTIES,
         ),
       )
       ..add(

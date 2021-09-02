@@ -35,6 +35,8 @@
   "copy": "Kopiere",
   "more": "Mer",
   "language": "Språk",
+  "reorderProperties": "Endre rekkefølge på eiendommer",
+  "reorderUnits": "Omorganiser måleenheter",
 
   "length": "Lengde",
   "area": "Areal",

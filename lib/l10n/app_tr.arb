@@ -35,6 +35,8 @@
   "copy": "Kopyala",
   "more": "Daha",
   "language": "Dilim",
+  "reorderProperties": "Özellikleri yeniden sırala",
+  "reorderUnits": "Ölçü birimlerini yeniden sıralama",
 
   "length": "Uzunluk",
   "area": "Alan",
