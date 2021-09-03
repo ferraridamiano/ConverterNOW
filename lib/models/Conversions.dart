@@ -122,6 +122,9 @@ class Conversions with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Returns a UnitDataList at a certain page with the current ordering (usefult with reorder units)
+  List<UnitData> getUnitDataListAtPage(int page) => _unitDataList[page];
+
   get currentPropertyName => _currentProperty.name;
 
   ///Clears the values of the current page
@@ -303,21 +306,20 @@ class Conversions with ChangeNotifier {
     }
   }
 
-  ///Given a list of translated units of measurement it changes the order
-  ///of the units (_conversionsOrder) opening a separate page (ReorderPage)
-  changeOrderUnits(List<int>? result) async {
+  ///Given a new ordering of a specific page it applys it to the app and store it.
+  saveOrderUnits(List<int>? newOrder, int pageNumber) async {
+    assert(newOrder == null ? true : newOrder.length == _conversionsOrder[pageNumber].length);
     //if there arent't any modifications, do nothing
-    if (result != null) {
-      List arrayCopy = List.filled(_conversionsOrder[_currentPage].length, null);
-      for (int i = 0; i < _conversionsOrder[_currentPage].length; i++) {
-        arrayCopy[i] = _conversionsOrder[_currentPage][i];
+    if (newOrder != null) {
+      List arrayCopy = List.filled(_conversionsOrder[pageNumber].length, null);
+      for (int i = 0; i < _conversionsOrder[pageNumber].length; i++) {
+        arrayCopy[i] = _conversionsOrder[pageNumber][i];
       }
-      for (int i = 0; i < _conversionsOrder[_currentPage].length; i++) {
-        _conversionsOrder[_currentPage][i] = result.indexOf(arrayCopy[i]);
+      for (int i = 0; i < _conversionsOrder[pageNumber].length; i++) {
+        _conversionsOrder[pageNumber][i] = newOrder.indexOf(arrayCopy[i]);
       }
       _refreshOrderUnits();
-      currentUnitDataList = _unitDataList[_currentPage];
-      //_currentOrder = _conversionsOrder[_currentPage];
+      currentUnitDataList = _unitDataList[pageNumber];
       notifyListeners();
       _saveOrders();
     }

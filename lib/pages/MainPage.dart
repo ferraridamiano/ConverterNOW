@@ -3,6 +3,7 @@ import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/models/Calculator.dart';
 import 'package:converterpro/models/Conversions.dart';
 import 'package:converterpro/pages/CalculatorWidget.dart';
+import 'package:converterpro/pages/ChoosePropertyPage.dart';
 import 'package:converterpro/pages/ConversionPage.dart';
 import 'package:converterpro/pages/CustomDrawer.dart';
 import 'package:converterpro/pages/ReorderPage.dart';
@@ -54,22 +55,34 @@ class MainPage extends StatelessWidget {
       openSearch: openSearch,
     );
 
+    // Read the order of the properties in the drawer
+    List<int> conversionsOrderDrawer = context.read<AppModel>().conversionsOrderDrawer;
+    List<String> propertyNameList = getPropertyNameList(context);
+    List<String> orderedDrawerList = List.filled(conversionsOrderDrawer.length, "");
+    for (int i = 0; i < conversionsOrderDrawer.length; i++) {
+      orderedDrawerList[conversionsOrderDrawer[i]] = propertyNameList[i];
+    }
+
     // Get the current main screen
     MAIN_SCREEN currentScreen = context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
     // And build the right widget
     Widget mainScreen;
-    switch(currentScreen){
+    switch (currentScreen) {
       case MAIN_SCREEN.SETTINGS:
         mainScreen = SettingsPage();
         break;
       case MAIN_SCREEN.REORDER_PROPERTIES:
-        List<int> conversionsOrderDrawer = context.read<AppModel>().conversionsOrderDrawer;
-        List<String> titlesList = getPropertyNameList(context);
-        List<String> orderedList = List.filled(conversionsOrderDrawer.length, "");
-        for (int i = 0; i < conversionsOrderDrawer.length; i++) {
-          orderedList[conversionsOrderDrawer[i]] = titlesList[i];
-        }
-        mainScreen = ReorderPage(orderedList);
+        mainScreen = ReorderPage(
+          itemsList: orderedDrawerList,
+          onSave: (List<int>? orderList) {
+            context.read<AppModel>()
+              ..saveOrderDrawer(orderList)
+              ..currentScreen = MAIN_SCREEN.SETTINGS;
+          },
+        );
+        break;
+      case MAIN_SCREEN.REORDER_UNITS:
+        mainScreen = ChoosePropertyPage(orderedDrawerList);
         break;
       case MAIN_SCREEN.CONVERSION:
       default:

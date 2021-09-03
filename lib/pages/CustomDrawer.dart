@@ -35,32 +35,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
     int currentPage = context.select<AppModel, int>((appModel) => appModel.currentPage);
     MAIN_SCREEN currentScreen = context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
 
-    /*List<Widget> drawerActions = <Widget>[
-      Consumer<AppModel>(
-        builder: (context, appModel, _) => IconButton(
-          tooltip: AppLocalizations.of(context)!.reorder,
-          icon: Icon(
-            Icons.reorder,
-            color: Colors.white,
-          ),
-          onPressed: () => appModel.changeOrderDrawer(context, getPropertyNameList(context)),
-        ),
-      ),
-      IconButton(
-        tooltip: AppLocalizations.of(context)!.settings,
-        icon: Icon(
-          Icons.settings,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          if (!isDrawerFixed) {
-            Navigator.of(context).pop();
-          }
-          Navigator.pushNamed(context, '/settings');
-        },
-      ),
-    ];*/
-
     headerDrawer
       ..add(Padding(
         padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
@@ -116,7 +90,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
             }
             context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
           },
-          selected: currentScreen == MAIN_SCREEN.SETTINGS || currentScreen == MAIN_SCREEN.REORDER_PROPERTIES,
+          selected: currentScreen == MAIN_SCREEN.SETTINGS ||
+              currentScreen == MAIN_SCREEN.REORDER_PROPERTIES ||
+              currentScreen == MAIN_SCREEN.REORDER_UNITS,
         ),
       )
       ..add(

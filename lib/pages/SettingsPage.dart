@@ -1,9 +1,7 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/models/Conversions.dart';
-import 'package:converterpro/pages/ReorderPage.dart';
 import 'package:converterpro/styles/consts.dart';
-import 'package:converterpro/utils/PropertyUnitList.dart';
 import 'package:converterpro/utils/UtilsWidget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:converterpro/utils/Utils.dart';
@@ -133,26 +131,13 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             onTap: () => context.read<AppModel>().currentScreen = MAIN_SCREEN.REORDER_PROPERTIES,
           ),
-          /*ListTile(
+          ListTile(
             title: Text(
               AppLocalizations.of(context)!.reorderUnits,
               style: textStyle,
             ),
-            onTap: () async {
-              // da sistemare
-              List<UnitData> unitDataList = context.read<Conversions>().currentUnitDataList;
-              Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
-              List<String> listUnitsNames =
-                  List.generate(unitDataList.length, (index) => unitTranslationMap[unitDataList[index].unit.name]!);
-              final List<int>? result = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ReorderPage(listUnitsNames),
-                ),
-              );
-              context.read<Conversions>().changeOrderUnits(result);
-            },
-          ),*/
+            onTap: () => context.read<AppModel>().currentScreen = MAIN_SCREEN.REORDER_UNITS,
+          ),
           !kIsWeb
               ? ListTile(
                   title: Text(
@@ -243,44 +228,6 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ChoosePropertyPage extends StatelessWidget {
-  const ChoosePropertyPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-
-    final double displayWidth = MediaQuery.of(context).size.width;
-
-    final Widget secondScreen = Expanded(
-          child: ListView(
-            children: [
-              BigTitle(
-                text: AppLocalizations.of(context)!.reorderUnits,
-                sidePadding: responsivePadding(displayWidth),
-              ),
-            ],
-          ),
-        );
-
-    return Row(
-      children: [
-        Expanded(
-          child: ListView(
-            children: [
-              BigTitle(
-                text: AppLocalizations.of(context)!.reorderUnits,
-                sidePadding: responsivePadding(displayWidth),
-              ),
-            ],
-          ),
-        ),
-        if(isDrawerFixed(displayWidth))
-          secondScreen
-      ],
     );
   }
 }

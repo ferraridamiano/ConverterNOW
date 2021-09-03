@@ -1,4 +1,3 @@
-import 'package:converterpro/pages/ReorderPage.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ enum MAIN_SCREEN {
   SETTINGS,
   CONVERSION,
   REORDER_PROPERTIES,
+  REORDER_UNITS,
 }
 
 class AppModel with ChangeNotifier {
@@ -87,15 +87,6 @@ class AppModel with ChangeNotifier {
 
   ///Changes the orders of the tiles in the Drawer
   saveOrderDrawer(List<int>? newOrder) async {
-
-    /*List<String> orderedList = List.filled(_conversionsOrderDrawer.length, "");
-    for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
-      orderedList[_conversionsOrderDrawer[i]] = titlesList[i];
-    }
-
-    final List<int>? result =
-        await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));*/
-
     //if there arent't any modifications, do nothing
     if (newOrder != null) {
       List arrayCopia = List.filled(_conversionsOrderDrawer.length, null);
