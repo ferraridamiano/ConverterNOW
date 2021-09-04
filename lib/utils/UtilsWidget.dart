@@ -50,47 +50,42 @@ class BigTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: sidePadding, right: sidePadding, top: 20),
-      child: SizedBox(
-        height: 115,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Text(
-                text,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: TextStyle(
-                  fontSize: 35.0,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
-                ),
-              ),
+      padding: EdgeInsets.only(left: sidePadding, right: sidePadding, top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            style: TextStyle(
+              fontSize: 35.0,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
             ),
-            Container(
-              height: 17.0,
-              alignment: Alignment.bottomRight,
-              child: (isCurrenciesLoading && text != '')
-                  ? Container(
-                      padding: EdgeInsets.only(right: 10),
-                      child: CircularProgressIndicator(),
-                      height: 15.0,
-                      width: 25.0,
-                    )
-                  : Text(
-                      subtitle,
-                      style: TextStyle(fontSize: 15.0, color: Color(0xFF999999)),
-                    ),
+          ),
+          Container(
+            height: 17.0,
+            alignment: Alignment.bottomRight,
+            child: (isCurrenciesLoading && text != '')
+                ? Container(
+                    padding: EdgeInsets.only(right: 10),
+                    child: CircularProgressIndicator(),
+                    height: 15.0,
+                    width: 25.0,
+                  )
+                : Text(
+                    subtitle,
+                    style: TextStyle(fontSize: 15.0, color: Color(0xFF999999)),
+                  ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Divider(
+              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black38,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Divider(
-                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black38,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

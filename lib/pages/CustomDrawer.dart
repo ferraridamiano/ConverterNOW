@@ -36,28 +36,37 @@ class _CustomDrawerState extends State<CustomDrawer> {
     MAIN_SCREEN currentScreen = context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
 
     headerDrawer
-      ..add(Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'resources/images/logo.png',
-                width: 50,
-                filterQuality: FilterQuality.medium,
+      ..add(
+        InkWell(
+          onTap: () {
+            context.read<AppModel>()
+              ..changeToPage(context.read<AppModel>().conversionsOrderDrawer.indexWhere((val) => val == 0))
+              ..currentScreen = MAIN_SCREEN.CONVERSION;
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'resources/images/logo.png',
+                    width: 50,
+                    filterQuality: FilterQuality.medium,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    'Converter NOW',
+                    style: GoogleFonts.josefinSans(
+                      textStyle: TextStyle(fontSize: 31),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(width: 10),
-              Text(
-                'Converter NOW',
-                style: GoogleFonts.josefinSans(
-                  textStyle: TextStyle(fontSize: 31),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      ))
+      )
       ..add(DrawerTile(
         leading: Icon(Icons.search_outlined),
         title: Text(AppLocalizations.of(context)!.search),
