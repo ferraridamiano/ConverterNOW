@@ -60,18 +60,41 @@ class _SettingsPageState extends State<SettingsPage> {
             text: AppLocalizations.of(context)!.settings,
             sidePadding: 20,
           ),
+          SwitchListTile(
+            title: Text(
+              AppLocalizations.of(context)!.removeTrailingZeros,
+              style: textStyle,
+            ),
+            value: removeTrailingZeros,
+            activeColor: Theme.of(context).accentColor,
+            onChanged: (bool val) {
+              setState(() => removeTrailingZeros = val);
+              Conversions conversions = context.read<Conversions>();
+              conversions.removeTrailingZeros = val;
+            },
+          ),
+          SwitchListTile(
+            title: Text(
+              AppLocalizations.of(context)!.amoledDarkTheme,
+              style: textStyle,
+            ),
+            value: isDarkAmoled,
+            activeColor: Theme.of(context).accentColor,
+            onChanged: (bool val) {
+              setState(() => isDarkAmoled = val);
+              AppModel appModel = context.read<AppModel>();
+              appModel.isDarkAmoled = val;
+            },
+          ),
           DropdownListTile(
-            title: AppLocalizations.of(context)!.significantFigures,
+            title: AppLocalizations.of(context)!.theme,
             textStyle: textStyle,
-            items: significantFiguresList,
-            value: significantFigures.toString(),
+            items: mapTheme.values.toList(),
+            value: mapTheme[currentTheme]!,
             onChanged: (String? string) {
-              if (string != null) {
-                int val = int.parse(string);
-                setState(() => significantFigures = val);
-                Conversions conversions = context.read<Conversions>();
-                conversions.significantFigures = val;
-              }
+              setState(() => currentTheme = mapTheme.keys.where((key) => mapTheme[key] == string).single);
+              AppModel appModel = context.read<AppModel>();
+              appModel.currentThemeMode = currentTheme;
             },
           ),
           DropdownListTile(
@@ -88,40 +111,17 @@ class _SettingsPageState extends State<SettingsPage> {
             },
           ),
           DropdownListTile(
-            title: AppLocalizations.of(context)!.theme,
+            title: AppLocalizations.of(context)!.significantFigures,
             textStyle: textStyle,
-            items: mapTheme.values.toList(),
-            value: mapTheme[currentTheme]!,
+            items: significantFiguresList,
+            value: significantFigures.toString(),
             onChanged: (String? string) {
-              setState(() => currentTheme = mapTheme.keys.where((key) => mapTheme[key] == string).single);
-              AppModel appModel = context.read<AppModel>();
-              appModel.currentThemeMode = currentTheme;
-            },
-          ),
-          SwitchListTile(
-            title: Text(
-              AppLocalizations.of(context)!.amoledDarkTheme,
-              style: textStyle,
-            ),
-            value: isDarkAmoled,
-            activeColor: Theme.of(context).accentColor,
-            onChanged: (bool val) {
-              setState(() => isDarkAmoled = val);
-              AppModel appModel = context.read<AppModel>();
-              appModel.isDarkAmoled = val;
-            },
-          ),
-          SwitchListTile(
-            title: Text(
-              AppLocalizations.of(context)!.removeTrailingZeros,
-              style: textStyle,
-            ),
-            value: removeTrailingZeros,
-            activeColor: Theme.of(context).accentColor,
-            onChanged: (bool val) {
-              setState(() => removeTrailingZeros = val);
-              Conversions conversions = context.read<Conversions>();
-              conversions.removeTrailingZeros = val;
+              if (string != null) {
+                int val = int.parse(string);
+                setState(() => significantFigures = val);
+                Conversions conversions = context.read<Conversions>();
+                conversions.significantFigures = val;
+              }
             },
           ),
           ListTile(
