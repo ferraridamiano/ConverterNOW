@@ -10,7 +10,8 @@ import 'package:provider/provider.dart';
 
 const MAX_CONVERSION_UNITS = 19;
 
-class CustomDrawer extends StatefulWidget {
+class CustomDrawer extends StatelessWidget {
+
   final bool isDrawerFixed;
   final void Function() openCalculator;
   final void Function() openSearch;
@@ -22,11 +23,6 @@ class CustomDrawer extends StatefulWidget {
     required this.isDrawerFixed,
   }) : super(key: key);
 
-  @override
-  _CustomDrawerState createState() => _CustomDrawerState();
-}
-
-class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     late List<Widget> headerDrawer = [];
@@ -70,7 +66,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
       ..add(DrawerTile(
         leading: Icon(Icons.search_outlined),
         title: Text(AppLocalizations.of(context)!.search),
-        onTap: () => widget.openSearch(),
+        onTap: () => openSearch(),
         selected: false,
       ))
       ..add(DrawerTile(
@@ -85,7 +81,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         DrawerTile(
           leading: Icon(Icons.calculate_outlined),
           title: Text(AppLocalizations.of(context)!.calculator),
-          onTap: () => widget.openCalculator(),
+          onTap: () => openCalculator(),
           selected: false,
         ),
       )
@@ -94,7 +90,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           leading: Icon(Icons.settings_outlined),
           title: Text(AppLocalizations.of(context)!.settings),
           onTap: () {
-            if (!widget.isDrawerFixed) {
+            if (!isDrawerFixed) {
               Navigator.of(context).pop();
             }
             context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
@@ -111,13 +107,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
         ),
       );
 
-    List<int> conversionsOrderDrawer = context.watch<AppModel>().conversionsOrderDrawer;
-
-    //*the following lines are more optimized then the prvious one but don't know
-    //*why they don't work :(
-    /*List<int> conversionsOrderDrawer = context.select<AppModel, List<int>>(
+    List<int> conversionsOrderDrawer = context.select<AppModel, List<int>>(
       (appModel) => appModel.conversionsOrderDrawer
-    );*/
+    );
 
     List<PropertyUi> propertyUiList = getPropertyUiList(context);
 
@@ -136,7 +128,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           context.read<AppModel>()
             ..changeToPage(i)
             ..currentScreen = MAIN_SCREEN.CONVERSION;
-          if (!widget.isDrawerFixed) {
+          if (!isDrawerFixed) {
             Navigator.of(context).pop();
           }
         },
