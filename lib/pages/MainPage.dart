@@ -21,7 +21,6 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double displayWidth = MediaQuery.of(context).size.width;
-    final bool _isDrawerFixed = isDrawerFixed(displayWidth);
 
     final VoidCallback openCalculator = () {
       showModalBottomSheet<void>(
@@ -48,12 +47,6 @@ class MainPage extends StatelessWidget {
         if (appModel.currentPage != newPage) appModel.changeToPage(newPage);
       }
     };
-
-    Widget drawer = CustomDrawer(
-      isDrawerFixed: _isDrawerFixed,
-      openCalculator: openCalculator,
-      openSearch: openSearch,
-    );
 
     // Read the order of the properties in the drawer
     List<int> conversionsOrderDrawer = context.read<AppModel>().conversionsOrderDrawer;
@@ -90,72 +83,89 @@ class MainPage extends StatelessWidget {
         break;
     }
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      drawer: _isDrawerFixed ? null : drawer,
-      body: SafeArea(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _isDrawerFixed ? drawer : SizedBox(),
+    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+
+      final bool _isDrawerFixed = isDrawerFixed(constraints.maxWidth);
+
+      Widget drawer = CustomDrawer(
+        isDrawerFixed: _isDrawerFixed,
+        openCalculator: openCalculator,
+        openSearch: openSearch,
+      );
+
+      //if the drawer is fixed
+      if (_isDrawerFixed) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: SafeArea(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                drawer,
+                mainScreen,
+              ],
+            ),
+          ),
+        );
+      }
+      // if the drawer is not fixed
+      return Scaffold(
+        resizeToAvoidBottomInset: false,
+        drawer: drawer,
+        body: SafeArea(child: Row(
+          children: [
             mainScreen,
           ],
-        ),
-      ),
-      floatingActionButtonLocation: isDrawerFixed(displayWidth)
-          ? FloatingActionButtonLocation.endFloat
-          : FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: _isDrawerFixed
-          ? null
-          : BottomAppBar(
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        )),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: BottomAppBar(
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              new Builder(builder: (context) {
+                return IconButton(
+                    tooltip: AppLocalizations.of(context)!.menu,
+                    icon: Icon(
+                      Icons.menu,
+                    ),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    });
+              }),
+              Row(
                 children: <Widget>[
-                  new Builder(builder: (context) {
-                    return IconButton(
-                        tooltip: AppLocalizations.of(context)!.menu,
-                        icon: Icon(
-                          Icons.menu,
-                        ),
-                        onPressed: () {
-                          Scaffold.of(context).openDrawer();
-                        });
-                  }),
-                  Row(
-                    children: <Widget>[
-                      IconButton(
-                        tooltip: AppLocalizations.of(context)!.clearAll,
-                        icon: Icon(Icons.clear, color: Colors.white),
-                        onPressed: clearAll,
-                      ),
-                      IconButton(
-                        // search
-                        tooltip: AppLocalizations.of(context)!.search,
-                        icon: Icon(
-                          Icons.search,
-                          color: Colors.white,
-                        ),
-                        onPressed: openSearch,
-                      ),
-                    ],
+                  IconButton(
+                    tooltip: AppLocalizations.of(context)!.clearAll,
+                    icon: Icon(Icons.clear, color: Colors.white),
+                    onPressed: clearAll,
+                  ),
+                  IconButton(
+                    // search
+                    tooltip: AppLocalizations.of(context)!.search,
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    onPressed: openSearch,
                   ),
                 ],
               ),
-            ),
-      floatingActionButton: _isDrawerFixed
-          ? null
-          : FloatingActionButton(
-              tooltip: AppLocalizations.of(context)!.calculator,
-              child: Icon(
-                Icons.calculate_outlined,
-                size: 35,
-              ),
-              onPressed: openCalculator,
-              elevation: 5.0,
-              backgroundColor: Theme.of(context).accentColor,
-            ),
-    );
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          tooltip: AppLocalizations.of(context)!.calculator,
+          child: Icon(
+            Icons.calculate_outlined,
+            size: 35,
+          ),
+          onPressed: openCalculator,
+          elevation: 5.0,
+          backgroundColor: Theme.of(context).accentColor,
+        ),
+      );
+    });
   }
 }
 
