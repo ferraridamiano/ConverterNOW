@@ -1,5 +1,4 @@
 import 'package:converterpro/models/AppModel.dart';
-import 'package:converterpro/models/Conversions.dart';
 import 'package:converterpro/utils/PropertyUnitList.dart';
 import 'package:converterpro/utils/Utils.dart';
 import 'package:converterpro/utils/UtilsWidget.dart';
@@ -47,7 +46,7 @@ class CustomDrawer extends StatelessWidget {
                 children: [
                   Image.asset(
                     'resources/images/logo.png',
-                    width: 50,
+                    width: 55,
                     filterQuality: FilterQuality.medium,
                   ),
                   SizedBox(width: 10),
@@ -67,14 +66,6 @@ class CustomDrawer extends StatelessWidget {
         leading: Icon(Icons.search_outlined),
         title: Text(AppLocalizations.of(context)!.search),
         onTap: () => openSearch(),
-        selected: false,
-      ))
-      ..add(DrawerTile(
-        leading: Icon(Icons.clear_outlined),
-        title: Text(AppLocalizations.of(context)!.clearAll),
-        onTap: () {
-          context.read<Conversions>().clearAllValues();
-        },
         selected: false,
       ))
       ..add(

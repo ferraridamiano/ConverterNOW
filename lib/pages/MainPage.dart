@@ -32,10 +32,8 @@ class MainPage extends StatelessWidget {
             );
           });
     };
-    final VoidCallback clearAll = () {
-      Conversions conversions = context.read<Conversions>();
-      conversions.clearAllValues();
-    };
+    final VoidCallback clearAll = () => context.read<Conversions>().clearAllValues();
+
     final VoidCallback openSearch = () async {
       final orderList = context.read<AppModel>().conversionsOrderDrawer;
       final int? newPage = await showSearch(
@@ -84,7 +82,6 @@ class MainPage extends StatelessWidget {
     }
 
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-
       final bool _isDrawerFixed = isDrawerFixed(constraints.maxWidth);
 
       Widget drawer = CustomDrawer(
@@ -106,13 +103,20 @@ class MainPage extends StatelessWidget {
               ],
             ),
           ),
+          floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.clear_outlined),
+            backgroundColor: Color(0xFFFF0000),
+            onPressed: clearAll,
+            tooltip: AppLocalizations.of(context)!.clearAll,
+          ),
         );
       }
       // if the drawer is not fixed
       return Scaffold(
         resizeToAvoidBottomInset: false,
         drawer: drawer,
-        body: SafeArea(child: Row(
+        body: SafeArea(
+            child: Row(
           children: [
             mainScreen,
           ],
