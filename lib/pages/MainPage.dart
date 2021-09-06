@@ -103,12 +103,14 @@ class MainPage extends StatelessWidget {
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.clear_outlined),
-            backgroundColor: Color(0xFFFF0000),
-            onPressed: clearAll,
-            tooltip: AppLocalizations.of(context)!.clearAll,
-          ),
+          floatingActionButton: currentScreen == MAIN_SCREEN.CONVERSION
+              ? FloatingActionButton(
+                  child: Icon(Icons.clear_outlined),
+                  backgroundColor: Color(0xFFFF0000),
+                  onPressed: clearAll,
+                  tooltip: AppLocalizations.of(context)!.clearAll,
+                )
+              : null,
         );
       }
       // if the drawer is not fixed
@@ -137,24 +139,12 @@ class MainPage extends StatelessWidget {
                       Scaffold.of(context).openDrawer();
                     });
               }),
-              Row(
-                children: <Widget>[
-                  IconButton(
-                    tooltip: AppLocalizations.of(context)!.clearAll,
-                    icon: Icon(Icons.clear, color: Colors.white),
-                    onPressed: clearAll,
-                  ),
-                  IconButton(
-                    // search
-                    tooltip: AppLocalizations.of(context)!.search,
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    onPressed: openSearch,
-                  ),
-                ],
-              ),
+              if (currentScreen == MAIN_SCREEN.CONVERSION)
+                IconButton(
+                  tooltip: AppLocalizations.of(context)!.clearAll,
+                  icon: Icon(Icons.clear),
+                  onPressed: clearAll,
+                ),
             ],
           ),
         ),
