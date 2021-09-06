@@ -18,17 +18,11 @@ class ChoosePropertyPage extends StatefulWidget {
 
 class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
   int selectedProperty = 0;
-  late List<UnitData> selectedUnitDataList;
-  late List<String> listUnitsNames;
 
   @override
   Widget build(BuildContext context) {
 
-    //
     List<int> conversionsOrderDrawer = context.read<AppModel>().conversionsOrderDrawer;
-    
-    //
-
     final Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     List<UnitData> selectedUnitDataList = context.read<Conversions>().getUnitDataListAtPage(conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
     List<String> listUnitsNames = List.generate(

@@ -98,9 +98,13 @@ class CustomDrawer extends StatelessWidget {
         ),
       );
 
-    List<int> conversionsOrderDrawer = context.select<AppModel, List<int>>(
+    List<int> conversionsOrderDrawer = context.watch<AppModel>().conversionsOrderDrawer;
+
+    //*the following lines are more optimized then the previous one but don't know
+    //*why it doesn't work :(
+    /*List<int> conversionsOrderDrawer = context.select<AppModel, List<int>>(
       (appModel) => appModel.conversionsOrderDrawer
-    );
+    );*/
 
     List<PropertyUi> propertyUiList = getPropertyUiList(context);
 
