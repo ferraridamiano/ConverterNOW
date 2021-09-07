@@ -23,7 +23,7 @@ class DrawerTile extends StatelessWidget {
       duration: const Duration(milliseconds: 800),
       curve: Curves.easeOutQuart,
       decoration: BoxDecoration(
-        color: selected ? Theme.of(context).accentColor.withOpacity(0.25) : Colors.transparent,
+        color: selected ? Theme.of(context).primaryColor.withOpacity(0.25) : Colors.transparent,
         borderRadius: borderRadius,
       ),
       child: ListTile(
@@ -122,7 +122,7 @@ class UnitCard extends StatelessWidget {
                       style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
       ],

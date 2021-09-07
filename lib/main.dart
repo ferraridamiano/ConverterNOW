@@ -16,9 +16,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyApp extends State<MyApp> {
-
   bool deviceLocaleSetted = false;
-  
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -41,10 +40,18 @@ class _MyApp extends State<MyApp> {
           title: 'Converter NOW',
           home: MainPage(),
           themeMode: context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
-          theme: ThemeData(primaryColor: Color(0xFFF2542D), accentColor: Color(0xFF0E9594), brightness: Brightness.light),
+          theme: ThemeData(
+              primaryColor: Colors.teal,
+              primarySwatch: Colors.red,
+              accentColor: Colors.red,
+              brightness: Brightness.light,
+              inputDecorationTheme: const InputDecorationTheme(
+                focusedBorder: const UnderlineInputBorder(borderSide: const BorderSide(color: Colors.red)),
+              )),
           darkTheme: ThemeData(
-            primaryColor: const Color(0xFFF2542D),
-            accentColor: Colors.teal,
+            primaryColor: Colors.teal,
+            primarySwatch: Colors.red,
+            accentColor: Colors.red,
             brightness: Brightness.dark,
             scaffoldBackgroundColor: isDarkAmoled ? Colors.black : Colors.grey[850],
             canvasColor: isDarkAmoled ? Colors.black : Colors.grey[850], // for drawer background
@@ -53,7 +60,7 @@ class _MyApp extends State<MyApp> {
           supportedLocales: context.read<AppModel>().supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           localeResolutionCallback: (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
-            if(!deviceLocaleSetted){
+            if (!deviceLocaleSetted) {
               context.read<AppModel>().deviceLocale = deviceLocale;
               deviceLocaleSetted = true;
             }
