@@ -37,6 +37,16 @@
   "language": "Língua",
   "reorderProperties": "Reordenar propriedades",
   "reorderUnits": "Reordenar unidades de medida",
+  "chooseProperty": "Escolha uma propriedade",
+  "reorderProperty": "Reorganizar {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
 
   "length": "Comprimento",
   "area": "Área",

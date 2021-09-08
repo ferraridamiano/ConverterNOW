@@ -37,6 +37,16 @@
   "language": "Språk",
   "reorderProperties": "Endre rekkefølge på eiendommer",
   "reorderUnits": "Omorganiser måleenheter",
+  "chooseProperty": "Velg en eiendom",
+  "reorderProperty": "Endre rekkefølge {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
 
   "length": "Lengde",
   "area": "Areal",

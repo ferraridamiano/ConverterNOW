@@ -37,6 +37,16 @@
   "language": "Язык",
   "reorderProperties": "Изменить порядок свойств",
   "reorderUnits": "Изменить порядок единиц измерения",
+  "chooseProperty": "Выберите недвижимость",
+  "reorderProperty": "Изменить порядок {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
 
   "length": "Длина",
   "area": "Площадь",

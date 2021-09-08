@@ -37,6 +37,16 @@
   "language": "Langue",
   "reorderProperties": "Réorganiser les propriétés",
   "reorderUnits": "Réorganiser les unités de mesure",
+  "chooseProperty": "Choisissez une propriété",
+  "reorderProperty": "Réorganiser {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
 
   "length": "Distance",
   "area": "Superficie",

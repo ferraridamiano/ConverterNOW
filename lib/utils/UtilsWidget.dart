@@ -42,29 +42,33 @@ class BigTitle extends StatelessWidget {
     this.subtitle = '',
     this.isCurrenciesLoading = false,
     required this.sidePadding,
+    this.center = false,
   });
   final String text;
   final String subtitle;
   final bool isCurrenciesLoading;
   final double sidePadding;
+  final bool center;
 
   @override
   Widget build(BuildContext context) {
+    final Widget title = Text(
+      text,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 2,
+      style: TextStyle(
+        fontSize: 35.0,
+        fontWeight: FontWeight.bold,
+        color: Theme.of(context).brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
+      ),
+    );
+
     return Padding(
       padding: EdgeInsets.only(left: sidePadding, right: sidePadding, top: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            text,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            style: TextStyle(
-              fontSize: 35.0,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
-            ),
-          ),
+          center ? Center(child: title) : title,
           Container(
             height: 17.0,
             alignment: Alignment.bottomRight,
@@ -268,18 +272,16 @@ class DropdownListTile extends StatelessWidget {
             context: context,
             builder: (BuildContext context) => SimpleDialog(
               title: Text(title),
-              children: 
-                items.map<Widget>((String item) {
-                  return RadioListTile(
+              children: items.map<Widget>((String item) {
+                return RadioListTile(
                     title: Text(item),
                     value: item,
                     groupValue: selected,
-                    onChanged: (String? val){
+                    onChanged: (String? val) {
                       onChanged(val);
                       Navigator.pop(context); // Close dialog
-                    }
-                  );
-                }).toList(),
+                    });
+              }).toList(),
             ),
           ),
         );

@@ -37,6 +37,16 @@
   "language": "Language",
   "reorderProperties": "Reorder properties",
   "reorderUnits": "Reorder units",
+  "chooseProperty": "Choose a property",
+  "reorderProperty": "Reorder {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
 
   "length": "Length",
   "area": "Area",

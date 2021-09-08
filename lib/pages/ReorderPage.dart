@@ -3,10 +3,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ReorderPage extends StatefulWidget {
+  final Widget? header;
   final List<String> itemsList;
   final void Function(List<int>? orderList) onSave;
 
-  const ReorderPage({required this.itemsList, required this.onSave});
+  const ReorderPage({required this.itemsList, required this.onSave, this.header});
 
   @override
   _ReorderPageState createState() => _ReorderPageState();
@@ -28,6 +29,7 @@ class _ReorderPageState extends State<ReorderPage> {
           key: _scaffoldKey,
           floatingActionButton: FloatingActionButton(
             tooltip: AppLocalizations.of(context)!.save,
+            foregroundColor: Theme.of(context).primaryColor,
             child: Icon(
               Icons.check,
               color: Colors.white,
@@ -46,7 +48,12 @@ class _ReorderPageState extends State<ReorderPage> {
             elevation: 10.0,
             backgroundColor: Theme.of(context).accentColor,
           ),
-          body: ReorderList(_itemsList)),
+          body: Column(
+            children: [
+              widget.header != null ? widget.header! : SizedBox(),
+              Expanded(child: ReorderList(_itemsList)),
+            ],
+          )),
     );
   }
 }

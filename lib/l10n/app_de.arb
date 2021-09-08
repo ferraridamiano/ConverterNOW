@@ -37,6 +37,16 @@
   "language": "Sprache",
   "reorderProperties": "Eigenschaften neu anordnen",
   "reorderUnits": "Maßeinheiten neu anordnen",
+  "chooseProperty": "Wählen Sie eine Immobilie",
+  "reorderProperty": "Anordnen {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
 
   "length": "Länge",
   "area": "Fläche",
