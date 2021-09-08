@@ -63,13 +63,15 @@ class MainPage extends StatelessWidget {
         mainScreen = SettingsPage();
         break;
       case MAIN_SCREEN.REORDER_PROPERTIES:
-        mainScreen = ReorderPage(
-          itemsList: orderedDrawerList,
-          onSave: (List<int>? orderList) {
-            context.read<AppModel>()
-              ..saveOrderDrawer(orderList)
-              ..currentScreen = MAIN_SCREEN.SETTINGS;
-          },
+        mainScreen = Expanded(
+          child: ReorderPage(
+            itemsList: orderedDrawerList,
+            onSave: (List<int>? orderList) {
+              context.read<AppModel>()
+                ..saveOrderDrawer(orderList)
+                ..currentScreen = MAIN_SCREEN.SETTINGS;
+            },
+          ),
         );
         break;
       case MAIN_SCREEN.REORDER_UNITS:

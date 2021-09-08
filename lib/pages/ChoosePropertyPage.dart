@@ -53,29 +53,52 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                       child: ListView.builder(
                         itemCount: widget.orderedDrawerList.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: selectedProperty == index ? Theme.of(context).primaryColor : Colors.transparent,
-                              borderRadius: borderRadius,
-                            ),
-                            child: ListTile(
-                              title: Center(
-                                child: Text(
-                                  widget.orderedDrawerList[index],
-                                  style: TextStyle(
-                                      fontSize: SINGLE_PAGE_TEXT_SIZE,
-                                      color: selectedProperty == index ? Colors.white : null),
+                          return Stack(
+                            children: [
+                              AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 300),
+                                transitionBuilder: (Widget child, Animation<double> animation) {
+                                  final offsetAnimation =
+                                      Tween<Offset>(begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0)).animate(animation);
+                                  return SlideTransition(
+                                    position: offsetAnimation,
+                                    child: child,
+                                  );
+                                },
+                                child: Padding(
+                                  key: Key(
+                                      widget.orderedDrawerList[index] + '-' + (selectedProperty == index).toString()),
+                                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: selectedProperty == index
+                                          ? Theme.of(context).primaryColor
+                                          : Colors.transparent,
+                                      borderRadius: borderRadius,
+                                    ),
+                                    child: ListTile(),
+                                  ),
                                 ),
                               ),
-                              shape: RoundedRectangleBorder(borderRadius: borderRadius),
-                              onTap: () {
-                                if (selectedProperty != index) {
-                                  setState(() {
-                                    selectedProperty = index;
-                                  });
-                                }
-                              },
-                            ),
+                              ListTile(
+                                title: Center(
+                                  child: Text(
+                                    widget.orderedDrawerList[index],
+                                    style: TextStyle(
+                                        fontSize: SINGLE_PAGE_TEXT_SIZE,
+                                        color: selectedProperty == index ? Colors.white : null),
+                                  ),
+                                ),
+                                shape: RoundedRectangleBorder(borderRadius: borderRadius),
+                                onTap: () {
+                                  if (selectedProperty != index) {
+                                    setState(() {
+                                      selectedProperty = index;
+                                    });
+                                  }
+                                },
+                              ),
+                            ],
                           );
                         },
                       ),
@@ -83,17 +106,53 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                   ],
                 ),
               ),
-              ReorderPage(
-                itemsList: listUnitsNames,
-                onSave: (List<int>? orderList) {
-                  context.read<Conversions>().saveOrderUnits(
-                      orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
-                  context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
-                },
-                header: BigTitle(
-                  text: AppLocalizations.of(context)!.reorderProperty(widget.orderedDrawerList[selectedProperty]),
-                  sidePadding: xPadding,
-                  center: true,
+              Column(
+                children: [
+                  SizedBox(height: 95),
+                  Expanded(
+                    flex: 1,
+                    child: SizedBox(),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: VerticalDivider(
+                      color: Colors.white,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: SizedBox(),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Container(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder: (Widget child, Animation<double> animation) {
+                      final offsetAnimation =
+                          Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0)).animate(animation);
+                      return SlideTransition(
+                        position: offsetAnimation,
+                        child: child,
+                      );
+                    },
+                    child: 
+                      ReorderPage(
+                      key: Key(listUnitsNames[0]),
+                      itemsList: listUnitsNames,
+                      onSave: (List<int>? orderList) {
+                        context.read<Conversions>().saveOrderUnits(
+                            orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
+                        context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
+                      },
+                      header: BigTitle(
+                        text: AppLocalizations.of(context)!.reorderProperty(widget.orderedDrawerList[selectedProperty]),
+                        sidePadding: xPadding,
+                        center: true,
+                      ),
+                    ),
+                  ),
                 ),
               )
             ],

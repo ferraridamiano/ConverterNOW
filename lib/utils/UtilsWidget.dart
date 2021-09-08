@@ -61,6 +61,7 @@ class BigTitle extends StatelessWidget {
         fontWeight: FontWeight.bold,
         color: Theme.of(context).brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
       ),
+      textAlign: center ? TextAlign.center : null,
     );
 
     return Padding(

@@ -7,7 +7,7 @@ class ReorderPage extends StatefulWidget {
   final List<String> itemsList;
   final void Function(List<int>? orderList) onSave;
 
-  const ReorderPage({required this.itemsList, required this.onSave, this.header});
+  const ReorderPage({required this.itemsList, required this.onSave, this.header, Key? key }): super(key: key);
 
   @override
   _ReorderPageState createState() => _ReorderPageState();
@@ -24,37 +24,35 @@ class _ReorderPageState extends State<ReorderPage> {
       _itemsList.add(Item(i, widget.itemsList[i]));
     }
 
-    return Expanded(
-      child: Scaffold(
-          key: _scaffoldKey,
-          floatingActionButton: FloatingActionButton(
-            tooltip: AppLocalizations.of(context)!.save,
-            foregroundColor: Theme.of(context).primaryColor,
-            child: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              List<int> orderList = [];
-              bool hasSomethingchanged = false;
-              for (int i = 0; i < _itemsList.length; i++) {
-                int currentIndex = _itemsList[i].id;
-                orderList.add(currentIndex);
-                if (i != currentIndex) hasSomethingchanged = true;
-              }
-              //if some modification has been done returns them, otherwise it will return null
-              widget.onSave(hasSomethingchanged ? orderList : null);
-            },
-            elevation: 10.0,
-            backgroundColor: Theme.of(context).accentColor,
+    return Scaffold(
+        key: _scaffoldKey,
+        floatingActionButton: FloatingActionButton(
+          tooltip: AppLocalizations.of(context)!.save,
+          foregroundColor: Theme.of(context).primaryColor,
+          child: Icon(
+            Icons.check,
+            color: Colors.white,
           ),
-          body: Column(
-            children: [
-              widget.header != null ? widget.header! : SizedBox(),
-              Expanded(child: ReorderList(_itemsList)),
-            ],
-          )),
-    );
+          onPressed: () {
+            List<int> orderList = [];
+            bool hasSomethingchanged = false;
+            for (int i = 0; i < _itemsList.length; i++) {
+              int currentIndex = _itemsList[i].id;
+              orderList.add(currentIndex);
+              if (i != currentIndex) hasSomethingchanged = true;
+            }
+            //if some modification has been done returns them, otherwise it will return null
+            widget.onSave(hasSomethingchanged ? orderList : null);
+          },
+          elevation: 10.0,
+          backgroundColor: Theme.of(context).accentColor,
+        ),
+        body: Column(
+          children: [
+            widget.header != null ? widget.header! : SizedBox(),
+            Expanded(child: ReorderList(_itemsList)),
+          ],
+        ));
   }
 }
 
