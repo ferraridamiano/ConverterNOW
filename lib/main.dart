@@ -20,6 +20,9 @@ class _MyApp extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData defaultLight = ThemeData();
+    final ThemeData defaultDark = ThemeData.dark();
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -40,22 +43,27 @@ class _MyApp extends State<MyApp> {
           title: 'Converter NOW',
           home: MainPage(),
           themeMode: context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
-          theme: ThemeData(
-              primaryColor: Colors.teal,
-              primarySwatch: Colors.red,
-              accentColor: Colors.red,
-              brightness: Brightness.light,
-              inputDecorationTheme: const InputDecorationTheme(
-                focusedBorder: const UnderlineInputBorder(borderSide: const BorderSide(color: Colors.red)),
-              )),
-          darkTheme: ThemeData(
-            primaryColor: Colors.teal,
-            primarySwatch: Colors.red,
-            accentColor: Colors.red,
+          theme: defaultLight.copyWith(
+            primaryColor: Colors.teal[400],
+            //primarySwatch: Colors.orange,
+            brightness: Brightness.light,
+            colorScheme: defaultLight.colorScheme.copyWith(secondary: Colors.orange),
+            inputDecorationTheme: const InputDecorationTheme(
+              focusedBorder: const UnderlineInputBorder(borderSide: const BorderSide(color: Colors.orange)),
+              labelStyle: const TextStyle(color: const Color(0xFF555555)),
+            ),
+          ),
+          darkTheme: defaultDark.copyWith(
+            primaryColor: Colors.teal[400],
+            colorScheme: defaultDark.colorScheme.copyWith(secondary: Colors.orange[600]),
             brightness: Brightness.dark,
             scaffoldBackgroundColor: isDarkAmoled ? Colors.black : Colors.grey[850],
             canvasColor: isDarkAmoled ? Colors.black : Colors.grey[850], // for drawer background
             cardColor: isDarkAmoled ? Colors.grey[900] : Colors.grey[800],
+            inputDecorationTheme: const InputDecorationTheme(
+              focusedBorder: const UnderlineInputBorder(borderSide: const BorderSide(color: Colors.orange)),
+              labelStyle: const TextStyle(color: const Color(0xFFDDDDDD)),
+            ),
           ),
           supportedLocales: context.read<AppModel>().supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,

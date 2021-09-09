@@ -108,7 +108,6 @@ class MainPage extends StatelessWidget {
           floatingActionButton: currentScreen == MAIN_SCREEN.CONVERSION
               ? FloatingActionButton(
                   child: Icon(Icons.clear_outlined),
-                  backgroundColor: Theme.of(context).accentColor,
                   onPressed: clearAll,
                   tooltip: AppLocalizations.of(context)!.clearAll,
                 )
@@ -158,7 +157,6 @@ class MainPage extends StatelessWidget {
           ),
           onPressed: openCalculator,
           elevation: 5.0,
-          backgroundColor: Theme.of(context).accentColor,
         ),
       );
     });

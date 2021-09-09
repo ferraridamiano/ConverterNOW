@@ -18,7 +18,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
   static const double buttonOpSize = buttonHeight * 0.8;
   static const double textSize = 35.0;
   FocusNode focusKeyboard = FocusNode();
-  late Color accentColor;
+  late Color secondaryColor;
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    accentColor = Theme.of(context).accentColor;
+    secondaryColor = Theme.of(context).colorScheme.secondary;
 
     final double calcWidth = _getCalcWidth(widget.width);
     final int columnsNumber = _getColumnsNumber(calcWidth);
@@ -123,16 +123,16 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                       ? SizedBox()
                       : Column(
                           children: <Widget>[
-                            _button('x²', buttonWidth, buttonHeight, accentColor, () {
+                            _button('x²', buttonWidth, buttonHeight, secondaryColor, () {
                               context.read<Calculator>().square();
                             }),
-                            _button('ln', buttonWidth, buttonHeight, accentColor, () {
+                            _button('ln', buttonWidth, buttonHeight, secondaryColor, () {
                               context.read<Calculator>().ln();
                             }),
-                            _button('n!', buttonWidth, buttonHeight, accentColor, () {
+                            _button('n!', buttonWidth, buttonHeight, secondaryColor, () {
                               context.read<Calculator>().factorial();
                             }),
-                            _button('1/x', buttonWidth, buttonHeight, accentColor, () {
+                            _button('1/x', buttonWidth, buttonHeight, secondaryColor, () {
                               context.read<Calculator>().reciprocal();
                             }),
                           ],
@@ -141,16 +141,16 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                       ? SizedBox()
                       : Column(
                           children: <Widget>[
-                            _button('√', buttonWidth, buttonHeight, accentColor, () {
+                            _button('√', buttonWidth, buttonHeight, secondaryColor, () {
                               context.read<Calculator>().squareRoot();
                             }),
-                            _button('log', buttonWidth, buttonHeight, accentColor, () {
+                            _button('log', buttonWidth, buttonHeight, secondaryColor, () {
                               context.read<Calculator>().log10();
                             }),
-                            _button('e', buttonWidth, buttonHeight, accentColor, () {
+                            _button('e', buttonWidth, buttonHeight, secondaryColor, () {
                               context.read<Calculator>().submitChar('e');
                             }),
-                            _button('π', buttonWidth, buttonHeight, accentColor, () {
+                            _button('π', buttonWidth, buttonHeight, secondaryColor, () {
                               context.read<Calculator>().submitChar('π');
                             }),
                           ],
@@ -197,21 +197,21 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                   ),
                   Column(
                     children: <Widget>[
-                      _button(context.select<Calculator, bool>((calc) => calc.endNumber) ? 'CE' : '←', buttonWidth, buttonOpSize, accentColor, () {
+                      _button(context.select<Calculator, bool>((calc) => calc.endNumber) ? 'CE' : '←', buttonWidth, buttonOpSize, secondaryColor, () {
                         context.read<Calculator>().adaptiveDeleteClear();
                       }, onLongPress: () {
                         context.read<Calculator>().clearAll();
                       }),
-                      _button('÷', buttonWidth, buttonOpSize, accentColor, () {
+                      _button('÷', buttonWidth, buttonOpSize, secondaryColor, () {
                         context.read<Calculator>().submitChar('/');
                       }),
-                      _button('×', buttonWidth, buttonOpSize, accentColor, () {
+                      _button('×', buttonWidth, buttonOpSize, secondaryColor, () {
                         context.read<Calculator>().submitChar('*');
                       }),
-                      _button('−', buttonWidth, buttonOpSize, accentColor, () {
+                      _button('−', buttonWidth, buttonOpSize, secondaryColor, () {
                         context.read<Calculator>().submitChar('-');
                       }),
-                      _button('+', buttonWidth, buttonOpSize, accentColor, () {
+                      _button('+', buttonWidth, buttonOpSize, secondaryColor, () {
                         context.read<Calculator>().submitChar('+');
                       }),
                     ],

@@ -66,7 +66,7 @@ class _SettingsPageState extends State<SettingsPage> {
               style: textStyle,
             ),
             value: removeTrailingZeros,
-            activeColor: Theme.of(context).accentColor,
+            activeColor: Theme.of(context).colorScheme.secondary,
             onChanged: (bool val) {
               setState(() => removeTrailingZeros = val);
               Conversions conversions = context.read<Conversions>();
@@ -79,7 +79,7 @@ class _SettingsPageState extends State<SettingsPage> {
               style: textStyle,
             ),
             value: isDarkAmoled,
-            activeColor: Theme.of(context).accentColor,
+            activeColor: Theme.of(context).colorScheme.secondary,
             onChanged: (bool val) {
               setState(() => isDarkAmoled = val);
               AppModel appModel = context.read<AppModel>();
@@ -187,7 +187,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       TextButton(
                         child: Text(
                           AppLocalizations.of(context)!.buyMeACoffee,
-                          style: TextStyle(color: Theme.of(context).accentColor),
+                          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();

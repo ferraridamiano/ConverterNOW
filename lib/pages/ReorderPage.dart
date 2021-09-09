@@ -7,7 +7,7 @@ class ReorderPage extends StatefulWidget {
   final List<String> itemsList;
   final void Function(List<int>? orderList) onSave;
 
-  const ReorderPage({required this.itemsList, required this.onSave, this.header, Key? key }): super(key: key);
+  const ReorderPage({required this.itemsList, required this.onSave, this.header, Key? key}) : super(key: key);
 
   @override
   _ReorderPageState createState() => _ReorderPageState();
@@ -28,11 +28,7 @@ class _ReorderPageState extends State<ReorderPage> {
         key: _scaffoldKey,
         floatingActionButton: FloatingActionButton(
           tooltip: AppLocalizations.of(context)!.save,
-          foregroundColor: Theme.of(context).primaryColor,
-          child: Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
+          child: Icon(Icons.check),
           onPressed: () {
             List<int> orderList = [];
             bool hasSomethingchanged = false;
@@ -45,7 +41,7 @@ class _ReorderPageState extends State<ReorderPage> {
             widget.onSave(hasSomethingchanged ? orderList : null);
           },
           elevation: 10.0,
-          backgroundColor: Theme.of(context).accentColor,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
         ),
         body: Column(
           children: [
