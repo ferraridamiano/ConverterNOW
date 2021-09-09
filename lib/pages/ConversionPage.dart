@@ -83,7 +83,8 @@ class ConversionPage extends StatelessWidget {
               text: propertyTranslationMap[currentProperty]!,
               subtitle: subTitle,
               isCurrenciesLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
-              sidePadding: xPadding,
+              //sidePadding: xPadding,
+              center: true,
             ),
           ),
           SliverPadding(

@@ -81,6 +81,10 @@ class MainPage extends StatelessWidget {
                 return false;
               },
               child: ReorderPage(
+                header: BigTitle(
+                  text: AppLocalizations.of(context)!.reorderProperties,
+                  center: true,
+                ),
                 itemsList: orderedDrawerList,
                 onSave: (List<int>? orderList) {
                   context.read<AppModel>()

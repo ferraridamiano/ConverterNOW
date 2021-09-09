@@ -55,7 +55,7 @@ class _SettingsPageState extends State<SettingsPage> {
         children: [
           BigTitle(
             text: AppLocalizations.of(context)!.settings,
-            sidePadding: 20,
+            center: true,
           ),
           Expanded(
             child: ListView(

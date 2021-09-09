@@ -41,7 +41,7 @@ class BigTitle extends StatelessWidget {
     required this.text,
     this.subtitle = '',
     this.isCurrenciesLoading = false,
-    required this.sidePadding,
+    this.sidePadding = 0,
     this.center = false,
   });
   final String text;
