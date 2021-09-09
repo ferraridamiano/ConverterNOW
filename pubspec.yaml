@@ -33,8 +33,19 @@ dependencies:
 
 dev_dependencies:
   test: ^1.16.5
+  flutter_native_splash: ^1.2.3
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  # Customize the parameters below, and run the following command in the terminal:
+  # flutter pub run flutter_native_splash:create
+  # To restore Flutter's default white splash screen, run the following command in the terminal:
+  # flutter pub run flutter_native_splash:remove
+
+  color: "#eeeeee"
+  color_dark: "#333333"
+  image: resources/splash/splash.png
 
 flutter:
   uses-material-design: true
