@@ -11,9 +11,14 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChoosePropertyPage extends StatefulWidget {
-  const ChoosePropertyPage(this.orderedDrawerList, {Key? key}) : super(key: key);
+  const ChoosePropertyPage({
+    required this.orderedDrawerList,
+    required this.isDrawerFixed,
+    Key? key,
+  }) : super(key: key);
 
   final List<String> orderedDrawerList;
+  final bool isDrawerFixed;
 
   @override
   _ChoosePropertyPageState createState() => _ChoosePropertyPageState();
@@ -21,6 +26,10 @@ class ChoosePropertyPage extends StatefulWidget {
 
 class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
   int selectedProperty = 0;
+
+  /// If `isDrawerFixed=false` then this variable is used to transition from the "Choose property page" to the "Reorder
+  /// units" page
+  bool isPropertySelected = false;
   static const BorderRadius borderRadius = const BorderRadius.all(Radius.circular(30));
 
   @override
@@ -33,12 +42,11 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
     List<String> listUnitsNames = List.generate(
         selectedUnitDataList.length, (index) => unitTranslationMap[selectedUnitDataList[index].unit.name]!);
 
-    final double displayWidth = MediaQuery.of(context).size.width;
-    final double xPadding = responsivePadding(displayWidth);
-
     return Expanded(
-      child: LayoutBuilder(builder: (BuildContext context, _) {
-        if (isDrawerFixed(displayWidth)) {
+      child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+        final double xPadding = responsivePadding(constraints.maxWidth);
+
+        if (widget.isDrawerFixed) {
           return Row(
             children: [
               Expanded(
@@ -108,20 +116,20 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
               ),
               Column(
                 children: [
-                  SizedBox(height: 95),
-                  Expanded(
+                  const SizedBox(height: 95),
+                  const Expanded(
                     flex: 1,
-                    child: SizedBox(),
+                    child: const SizedBox(),
                   ),
                   Expanded(
                     flex: 2,
                     child: VerticalDivider(
-                      color: Colors.white,
+                      color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black38,
                     ),
                   ),
-                  Expanded(
+                  const Expanded(
                     flex: 1,
-                    child: SizedBox(),
+                    child: const SizedBox(),
                   ),
                 ],
               ),
@@ -137,8 +145,7 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                         child: child,
                       );
                     },
-                    child: 
-                      ReorderPage(
+                    child: ReorderPage(
                       key: Key(listUnitsNames[0]),
                       itemsList: listUnitsNames,
                       onSave: (List<int>? orderList) {
@@ -158,23 +165,65 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
             ],
           );
         }
-        return ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              title: Center(
-                child: Text(widget.orderedDrawerList[index]),
+        // if the drawer is not fixed. We check if we are in the first "Choose property page"
+        if (!isPropertySelected) {
+          return Column(
+            children: [
+              BigTitle(
+                text: AppLocalizations.of(context)!.chooseProperty,
+                sidePadding: xPadding,
+                center: true,
               ),
-              shape: RoundedRectangleBorder(borderRadius: borderRadius),
-              onTap: () {
-                if (selectedProperty != index) {
-                  setState(() {
-                    selectedProperty = index;
-                  });
-                }
-              },
-            );
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      title: Center(
+                        child: Text(
+                          widget.orderedDrawerList[index],
+                          style: TextStyle(
+                            fontSize: SINGLE_PAGE_TEXT_SIZE,
+                          ),
+                        ),
+                      ),
+                      shape: RoundedRectangleBorder(borderRadius: borderRadius),
+                      onTap: () {
+                        if (selectedProperty != index) {
+                          setState(() {
+                            selectedProperty = index;
+                            isPropertySelected = true;
+                          });
+                        }
+                      },
+                    );
+                  },
+                  itemCount: widget.orderedDrawerList.length,
+                ),
+              ),
+            ],
+          );
+        }
+        return WillPopScope(
+          onWillPop: () async {
+            setState(() {
+              isPropertySelected = false;
+            });
+            return false;
           },
-          itemCount: widget.orderedDrawerList.length,
+          child: ReorderPage(
+            itemsList: listUnitsNames,
+            onSave: (List<int>? orderList) {
+              context
+                  .read<Conversions>()
+                  .saveOrderUnits(orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
+              context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
+            },
+            header: BigTitle(
+              text: AppLocalizations.of(context)!.reorderProperty(widget.orderedDrawerList[selectedProperty]),
+              sidePadding: xPadding,
+              center: true,
+            ),
+          ),
         );
       }),
     );

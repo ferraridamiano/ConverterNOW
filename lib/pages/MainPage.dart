@@ -47,44 +47,70 @@ class MainPage extends StatelessWidget {
     };
 
     // Read the order of the properties in the drawer
-    List<int> conversionsOrderDrawer = context.read<AppModel>().conversionsOrderDrawer;
+    List<int> conversionsOrderDrawer = context.watch<AppModel>().conversionsOrderDrawer;
     List<String> propertyNameList = getPropertyNameList(context);
     List<String> orderedDrawerList = List.filled(conversionsOrderDrawer.length, "");
     for (int i = 0; i < conversionsOrderDrawer.length; i++) {
       orderedDrawerList[conversionsOrderDrawer[i]] = propertyNameList[i];
     }
 
-    // Get the current main screen
-    MAIN_SCREEN currentScreen = context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
-    // And build the right widget
-    Widget mainScreen;
-    switch (currentScreen) {
-      case MAIN_SCREEN.SETTINGS:
-        mainScreen = SettingsPage();
-        break;
-      case MAIN_SCREEN.REORDER_PROPERTIES:
-        mainScreen = Expanded(
-          child: ReorderPage(
-            itemsList: orderedDrawerList,
-            onSave: (List<int>? orderList) {
-              context.read<AppModel>()
-                ..saveOrderDrawer(orderList)
-                ..currentScreen = MAIN_SCREEN.SETTINGS;
-            },
-          ),
-        );
-        break;
-      case MAIN_SCREEN.REORDER_UNITS:
-        mainScreen = ChoosePropertyPage(orderedDrawerList);
-        break;
-      case MAIN_SCREEN.CONVERSION:
-      default:
-        mainScreen = ConversionPage();
-        break;
-    }
-
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
       final bool _isDrawerFixed = isDrawerFixed(constraints.maxWidth);
+
+      // Get the current main screen
+      MAIN_SCREEN currentScreen = context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
+      // And build the right widget
+      Widget mainScreen;
+      switch (currentScreen) {
+        case MAIN_SCREEN.SETTINGS:
+          mainScreen = _isDrawerFixed
+              ? SettingsPage()
+              : WillPopScope(
+                  child: SettingsPage(),
+                  onWillPop: () async {
+                    context.read<AppModel>().currentScreen = MAIN_SCREEN.CONVERSION;
+                    return false;
+                  },
+                );
+          break;
+        case MAIN_SCREEN.REORDER_PROPERTIES:
+          mainScreen = Expanded(
+            child: WillPopScope(
+              onWillPop: () async {
+                context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
+                return false;
+              },
+              child: ReorderPage(
+                itemsList: orderedDrawerList,
+                onSave: (List<int>? orderList) {
+                  context.read<AppModel>()
+                    ..saveOrderDrawer(orderList)
+                    ..currentScreen = MAIN_SCREEN.SETTINGS;
+                },
+              ),
+            ),
+          );
+          break;
+        case MAIN_SCREEN.REORDER_UNITS:
+          var _page = ChoosePropertyPage(
+            orderedDrawerList: orderedDrawerList,
+            isDrawerFixed: _isDrawerFixed,
+          );
+          mainScreen = _isDrawerFixed
+              ? _page
+              : WillPopScope(
+                  child: _page,
+                  onWillPop: () async {
+                    context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
+                    return false;
+                  },
+                );
+          break;
+        case MAIN_SCREEN.CONVERSION:
+        default:
+          mainScreen = ConversionPage();
+          break;
+      }
 
       Widget drawer = CustomDrawer(
         isDrawerFixed: _isDrawerFixed,
@@ -125,39 +151,41 @@ class MainPage extends StatelessWidget {
           ],
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomAppBar(
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              new Builder(builder: (context) {
-                return IconButton(
-                    tooltip: AppLocalizations.of(context)!.menu,
-                    icon: Icon(
-                      Icons.menu,
-                    ),
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
-                    });
-              }),
-              if (currentScreen == MAIN_SCREEN.CONVERSION)
-                IconButton(
-                  tooltip: AppLocalizations.of(context)!.clearAll,
-                  icon: Icon(Icons.clear),
-                  onPressed: clearAll,
+        bottomNavigationBar: currentScreen == MAIN_SCREEN.CONVERSION
+            ? BottomAppBar(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    new Builder(builder: (context) {
+                      return IconButton(
+                          tooltip: AppLocalizations.of(context)!.menu,
+                          icon: const Icon(Icons.menu),
+                          onPressed: () {
+                            Scaffold.of(context).openDrawer();
+                          });
+                    }),
+                    if (currentScreen == MAIN_SCREEN.CONVERSION)
+                      IconButton(
+                        tooltip: AppLocalizations.of(context)!.clearAll,
+                        icon: Icon(Icons.clear),
+                        onPressed: clearAll,
+                      ),
+                  ],
                 ),
-            ],
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          tooltip: AppLocalizations.of(context)!.calculator,
-          child: Icon(
-            Icons.calculate_outlined,
-            size: 35,
-          ),
-          onPressed: openCalculator,
-          elevation: 5.0,
-        ),
+              )
+            : null,
+        floatingActionButton: (currentScreen == MAIN_SCREEN.CONVERSION)
+            ? FloatingActionButton(
+                tooltip: AppLocalizations.of(context)!.calculator,
+                child: const Icon(
+                  Icons.calculate_outlined,
+                  size: 30,
+                ),
+                onPressed: openCalculator,
+                elevation: 5.0,
+              )
+            : null,
       );
     });
   }

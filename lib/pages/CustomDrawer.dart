@@ -37,6 +37,9 @@ class CustomDrawer extends StatelessWidget {
             context.read<AppModel>()
               ..changeToPage(context.read<AppModel>().conversionsOrderDrawer.indexWhere((val) => val == 0))
               ..currentScreen = MAIN_SCREEN.CONVERSION;
+            if(!isDrawerFixed){
+              Navigator.of(context).pop();
+            }
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
