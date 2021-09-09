@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:converterpro/helpers/responsive_helper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class DrawerTile extends StatelessWidget {
@@ -231,62 +234,62 @@ class DropdownListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String selected = value;
-    return LayoutBuilder(
-      builder: (BuildContext context, _) {
-        if (isDrawerFixed(MediaQuery.of(context).size.width)) {
-          return ListTile(
-            title: Text(
-              title,
+
+    final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+
+    if (isMobileDevice) {
+      return ListTile(
+        title: Text(
+          title,
+          style: textStyle,
+        ),
+        subtitle: Text(value),
+        onTap: () => showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => SimpleDialog(
+            title: Text(title),
+            children: items.map<Widget>((String item) {
+              return RadioListTile(
+                  title: Text(item),
+                  value: item,
+                  groupValue: selected,
+                  onChanged: (String? val) {
+                    onChanged(val);
+                    Navigator.pop(context); // Close dialog
+                  });
+            }).toList(),
+          ),
+        ),
+      );
+    }
+
+    return ListTile(
+      title: Text(
+        title,
+        style: textStyle,
+      ),
+      trailing: DropdownButton<String>(
+        value: value,
+        onChanged: onChanged,
+        selectedItemBuilder: (BuildContext context) {
+          return items.map<Widget>((String item) {
+            return Center(
+                child: Text(
+              item,
+              style: textStyle,
+            ));
+          }).toList();
+        },
+        items: items.map((String item) {
+          return DropdownMenuItem<String>(
+            child: Text(
+              item.toString(),
               style: textStyle,
             ),
-            trailing: DropdownButton<String>(
-              value: value,
-              onChanged: onChanged,
-              selectedItemBuilder: (BuildContext context) {
-                return items.map<Widget>((String item) {
-                  return Center(
-                      child: Text(
-                    item,
-                    style: textStyle,
-                  ));
-                }).toList();
-              },
-              items: items.map((String item) {
-                return DropdownMenuItem<String>(
-                  child: Text(
-                    item.toString(),
-                    style: textStyle,
-                  ),
-                  value: item,
-                );
-              }).toList(),
-            ),
+            value: item,
           );
-        }
-        return ListTile(
-          title: Text(
-            title,
-            style: textStyle,
-          ),
-          subtitle: Text(value),
-          onTap: () => showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => SimpleDialog(
-              title: Text(title),
-              children: items.map<Widget>((String item) {
-                return RadioListTile(
-                    title: Text(item),
-                    value: item,
-                    groupValue: selected,
-                    onChanged: (String? val) {
-                      onChanged(val);
-                      Navigator.pop(context); // Close dialog
-                    });
-              }).toList(),
-            ),
-          ),
-        );
-      },
+        }).toList(),
+      ),
     );
   }
 }
