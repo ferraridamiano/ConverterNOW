@@ -47,7 +47,10 @@ class _MyApp extends State<MyApp> {
             primaryColor: Colors.teal[400],
             //primarySwatch: Colors.orange,
             brightness: Brightness.light,
-            colorScheme: defaultLight.colorScheme.copyWith(secondary: Colors.orange),
+            colorScheme: defaultLight.colorScheme.copyWith(
+              secondary: Colors.orange,
+              secondaryVariant: Colors.orange[700],
+            ),
             inputDecorationTheme: const InputDecorationTheme(
               focusedBorder: const UnderlineInputBorder(borderSide: const BorderSide(color: Colors.orange)),
               labelStyle: const TextStyle(color: const Color(0xFF555555)),
@@ -55,7 +58,10 @@ class _MyApp extends State<MyApp> {
           ),
           darkTheme: defaultDark.copyWith(
             primaryColor: Colors.teal[400],
-            colorScheme: defaultDark.colorScheme.copyWith(secondary: Colors.orange[600]),
+            colorScheme: defaultDark.colorScheme.copyWith(
+              secondary: Colors.orange[600],
+              secondaryVariant: Colors.orange[700],
+            ),
             brightness: Brightness.dark,
             scaffoldBackgroundColor: isDarkAmoled ? Colors.black : Colors.grey[850],
             canvasColor: isDarkAmoled ? Colors.black : Colors.grey[850], // for drawer background

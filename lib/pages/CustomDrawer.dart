@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 const MAX_CONVERSION_UNITS = 19;
 
 class CustomDrawer extends StatelessWidget {
-
   final bool isDrawerFixed;
   final void Function() openCalculator;
   final void Function() openSearch;
@@ -30,55 +29,64 @@ class CustomDrawer extends StatelessWidget {
     int currentPage = context.select<AppModel, int>((appModel) => appModel.currentPage);
     MAIN_SCREEN currentScreen = context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
 
-    headerDrawer
-      ..add(
+    final Widget title = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'resources/images/logo.png',
+              width: 55,
+              filterQuality: FilterQuality.medium,
+            ),
+            const SizedBox(width: 10),
+            Text(
+              'Converter NOW',
+              style: GoogleFonts.josefinSans(
+                textStyle: const TextStyle(fontSize: 31),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (isDrawerFixed) {
+      headerDrawer.add(
         InkWell(
           onTap: () {
             context.read<AppModel>()
               ..changeToPage(context.read<AppModel>().conversionsOrderDrawer.indexWhere((val) => val == 0))
               ..currentScreen = MAIN_SCREEN.CONVERSION;
-            if(!isDrawerFixed){
+            if (!isDrawerFixed) {
               Navigator.of(context).pop();
             }
           },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'resources/images/logo.png',
-                    width: 55,
-                    filterQuality: FilterQuality.medium,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    'Converter NOW',
-                    style: GoogleFonts.josefinSans(
-                      textStyle: TextStyle(fontSize: 31),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          child: title,
         ),
-      )
-      ..add(DrawerTile(
+      );
+    } else {
+      headerDrawer.add(title);
+    }
+    headerDrawer.add(
+      DrawerTile(
         leading: Icon(Icons.search_outlined),
         title: Text(AppLocalizations.of(context)!.search),
         onTap: () => openSearch(),
         selected: false,
-      ))
-      ..add(
+      ),
+    );
+    if (isDrawerFixed) {
+      headerDrawer.add(
         DrawerTile(
           leading: Icon(Icons.calculate_outlined),
           title: Text(AppLocalizations.of(context)!.calculator),
           onTap: () => openCalculator(),
           selected: false,
         ),
-      )
+      );
+    }
+    headerDrawer
       ..add(
         DrawerTile(
           leading: Icon(Icons.settings_outlined),

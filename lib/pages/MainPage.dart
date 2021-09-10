@@ -185,9 +185,10 @@ class MainPage extends StatelessWidget {
                 child: const Icon(
                   Icons.calculate_outlined,
                   size: 30,
+                  color: Colors.white,
                 ),
                 onPressed: openCalculator,
-                elevation: 5.0,
+                backgroundColor: Theme.of(context).colorScheme.secondaryVariant,
               )
             : null,
       );
