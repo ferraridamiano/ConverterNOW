@@ -12,11 +12,11 @@
   "settings": "Einstellungen",
   "menu": "Menü",
   "donation": "Unterstüze die App mit einer Spende.",
-  "buyMeACoffee": "Buy me a coffee ☕",
-  "donationDialog": "Hi, as you might know this app is free and open source. It means that you can use it for free and copy/edit the source code. The developer will not gain nothing for it. But if you also believe in this project and would like to see new features, please consider buying me a coffee.",
+  "buyMeACoffee": "Kauf mir einen Kaffee ☕",
+  "donationDialog": "Hallo, wie Du vielleicht weißt, ist diese App kostenlos und Open Source. Das bedeutet, dass die App kostenlos verwendet und der Quellcode kopiert/bearbeitet werden darf. Der Entwickler wird dafür nicht entlohnt. Wenn Du aber auch an dieses Projekt glaubst und gerne neue Features sehen möchtest, kauf mir einen Kaffee.",
   "drawerLogo": "Logo anzeigen",
   "rateApp": "App bewerten",
-  "repoGithub": "Erstelle ein Repo auf GitHub.",
+  "repoGithub": "Öffne das Repo auf GitHub.",
   "contibuteTranslating": "Unterstütze uns bei der Übersetzung der App. 🌍",
   "search": "Suche",
   "clearAll": "Leere alles",
@@ -35,6 +35,18 @@
   "copy": "Kopieren",
   "more": "Mehr",
   "language": "Sprache",
+  "reorderProperties": "Eigenschaften anordnen",
+  "reorderUnits": "Einheiten anordnen",
+  "chooseProperty": "Eigenschaft wählen",
+  "reorderProperty": "{property} anordnen",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
 
   "length": "Länge",
   "area": "Fläche",
