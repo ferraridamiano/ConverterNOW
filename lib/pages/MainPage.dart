@@ -20,7 +20,6 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double displayWidth = MediaQuery.of(context).size.width;
 
     final VoidCallback openCalculator = () {
       showModalBottomSheet<void>(
@@ -28,7 +27,7 @@ class MainPage extends StatelessWidget {
           builder: (BuildContext context) {
             return ChangeNotifierProvider(
               create: (_) => Calculator(decimalSeparator: '.'),
-              child: CalculatorWidget(displayWidth, Theme.of(context).brightness),
+              child: CalculatorWidget(),
             );
           });
     };

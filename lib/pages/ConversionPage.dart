@@ -6,11 +6,11 @@ import 'package:converterpro/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/utils/PropertyUnitList.dart';
 import 'package:intl/intl.dart';
 
 class ConversionPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
@@ -20,13 +20,7 @@ class ConversionPage extends StatelessWidget {
     PROPERTYX currentProperty =
         context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);
 
-    Brightness brightness = getBrightness(
-      context.select<AppModel, ThemeMode>((AppModel appModel) => appModel.currentThemeMode),
-      MediaQuery.of(context).platformBrightness,
-    );
-    double displayWidth = MediaQuery.of(context).size.width;
-    bool _isDrawerFixed = isDrawerFixed(displayWidth);
-    context.read<AppModel>().isDrawerFixed = _isDrawerFixed;
+    final Brightness brightness = Theme.of(context).brightness;
 
     String subTitle = '';
     if (currentProperty == PROPERTYX.CURRENCIES) {
@@ -71,36 +65,38 @@ class ConversionPage extends StatelessWidget {
       ));
     }
 
-    double xPadding = responsivePadding(displayWidth);
-
     return Expanded(
-      child: CustomScrollView(
-        controller: ScrollController(),
-        shrinkWrap: true,
-        slivers: <Widget>[
-          SliverToBoxAdapter(
-            child: BigTitle(
-              text: propertyTranslationMap[currentProperty]!,
-              subtitle: subTitle,
-              isCurrenciesLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
-              center: true,
+      child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraint) {
+        final int numCols = responsiveNumCols(constraint.maxWidth);
+        final double xPadding = responsivePadding(constraint.maxWidth);
+        return CustomScrollView(
+          controller: ScrollController(),
+          shrinkWrap: true,
+          slivers: <Widget>[
+            SliverToBoxAdapter(
+              child: BigTitle(
+                text: propertyTranslationMap[currentProperty]!,
+                subtitle: subTitle,
+                isSubtitleLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
+                center: true,
+              ),
             ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.only(
-              right: xPadding,
-              left: xPadding,
-              bottom: 22, //bottom so FAB doesn't overlap the card
+            SliverPadding(
+              padding: EdgeInsets.only(
+                left: xPadding,
+                right: xPadding,
+                bottom: 22,   //bottom so FAB doesn't overlap the card
+              ), 
+              sliver: SliverGrid.count(
+                childAspectRatio: responsiveChildAspectRatio(constraint.maxWidth, numCols),
+                crossAxisCount: numCols,
+                crossAxisSpacing: 15.0,
+                children: gridTiles,
+              ),
             ),
-            sliver: SliverGrid.count(
-              childAspectRatio: responsiveChildAspectRatio(displayWidth),
-              crossAxisCount: responsiveNumGridTiles(displayWidth),
-              crossAxisSpacing: 15.0,
-              children: gridTiles,
-            ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 }

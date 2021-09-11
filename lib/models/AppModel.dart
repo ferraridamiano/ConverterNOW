@@ -22,7 +22,6 @@ class AppModel with ChangeNotifier {
     ThemeMode.dark: 1,
     ThemeMode.light: 2,
   };
-  bool isDrawerFixed = true;
 
   final Map<Locale, String> mapLocale = {
     const Locale('en'): 'English',

@@ -41,13 +41,13 @@ class BigTitle extends StatelessWidget {
   BigTitle({
     required this.text,
     this.subtitle = '',
-    this.isCurrenciesLoading = false,
+    this.isSubtitleLoading = false,
     this.sidePadding = 0,
     this.center = false,
   });
   final String text;
   final String subtitle;
-  final bool isCurrenciesLoading;
+  final bool isSubtitleLoading;
   final double sidePadding;
   final bool center;
 
@@ -74,7 +74,7 @@ class BigTitle extends StatelessWidget {
           Container(
             height: 17.0,
             alignment: Alignment.bottomRight,
-            child: (isCurrenciesLoading && text != '')
+            child: (isSubtitleLoading && subtitle != '')
                 ? Container(
                     padding: EdgeInsets.only(right: 10),
                     child: CircularProgressIndicator(),
@@ -288,6 +288,55 @@ class DropdownListTile extends StatelessWidget {
           );
         }).toList(),
       ),
+    );
+  }
+}
+
+class CalculatorButton extends StatelessWidget {
+  final String? text;
+  final double buttonWidth;
+  final double buttonHeight;
+  final void Function()? onPressed;
+  final void Function()? onLongPress;
+  final TextStyle? style;
+  final Color? iconColor;
+
+  const CalculatorButton({
+    Key? key,
+    this.text,
+    required this.buttonHeight,
+    required this.buttonWidth,
+    this.onLongPress,
+    this.onPressed,
+    this.style,
+    this.iconColor,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final Brightness brightness = Theme.of(context).brightness;
+
+    final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
+      onPrimary: brightness == Brightness.dark ? Colors.white24 : Colors.black26,
+      primary: Colors.transparent,
+      minimumSize: Size(buttonWidth, buttonHeight),
+      elevation: 0,
+      animationDuration: Duration(milliseconds: 60),
+    );
+
+    return ElevatedButton(
+      child: text == "←"
+          ? Icon(
+              Icons.backspace,
+              color: iconColor,
+            )
+          : Text(
+              text ?? '',
+              style: style,
+            ),
+      style: raisedButtonStyle,
+      onPressed: onPressed,
+      onLongPress: onLongPress,
     );
   }
 }
