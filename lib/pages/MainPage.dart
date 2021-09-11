@@ -20,7 +20,6 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final VoidCallback openCalculator = () {
       showModalBottomSheet<void>(
           context: context,
@@ -123,7 +122,6 @@ class MainPage extends StatelessWidget {
       //if the drawer is fixed
       if (_isDrawerFixed) {
         return Scaffold(
-          resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,21 +131,21 @@ class MainPage extends StatelessWidget {
               ],
             ),
           ),
-          floatingActionButton: currentScreen == MAIN_SCREEN.CONVERSION
-              ? FloatingActionButton(
-                  child: Icon(
-                    Icons.clear_outlined,
-                    color: Colors.white,
-                  ),
-                  onPressed: clearAll,
-                  tooltip: AppLocalizations.of(context)!.clearAll,
-                )
-              : null,
+          floatingActionButton:
+              (currentScreen == MAIN_SCREEN.CONVERSION && MediaQuery.of(context).viewInsets.bottom == 0)
+                  ? FloatingActionButton(
+                      child: Icon(
+                        Icons.clear_outlined,
+                        color: Colors.white,
+                      ),
+                      onPressed: clearAll,
+                      tooltip: AppLocalizations.of(context)!.clearAll,
+                    )
+                  : null,
         );
       }
       // if the drawer is not fixed
       return Scaffold(
-        resizeToAvoidBottomInset: false,
         drawer: drawer,
         body: SafeArea(
             child: Row(
@@ -180,7 +178,7 @@ class MainPage extends StatelessWidget {
                 ),
               )
             : null,
-        floatingActionButton: (currentScreen == MAIN_SCREEN.CONVERSION)
+        floatingActionButton: (currentScreen == MAIN_SCREEN.CONVERSION && MediaQuery.of(context).viewInsets.bottom == 0)
             ? FloatingActionButton(
                 tooltip: AppLocalizations.of(context)!.calculator,
                 child: const Icon(
