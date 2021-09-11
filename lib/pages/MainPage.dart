@@ -97,7 +97,6 @@ class MainPage extends StatelessWidget {
         case MAIN_SCREEN.REORDER_UNITS:
           var _page = ChoosePropertyPage(
             orderedDrawerList: orderedDrawerList,
-            isDrawerFixed: _isDrawerFixed,
           );
           mainScreen = _isDrawerFixed
               ? _page

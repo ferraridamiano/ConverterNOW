@@ -1,4 +1,3 @@
-import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/models/Conversions.dart';
 import 'package:converterpro/pages/ReorderPage.dart';
@@ -13,12 +12,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ChoosePropertyPage extends StatefulWidget {
   const ChoosePropertyPage({
     required this.orderedDrawerList,
-    required this.isDrawerFixed,
     Key? key,
   }) : super(key: key);
 
   final List<String> orderedDrawerList;
-  final bool isDrawerFixed;
 
   @override
   _ChoosePropertyPageState createState() => _ChoosePropertyPageState();
@@ -44,9 +41,8 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
 
     return Expanded(
       child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-        final double xPadding = responsivePadding(constraints.maxWidth);
 
-        if (widget.isDrawerFixed) {
+        if (constraints.maxWidth > TWO_SIDED_REORDER_SCREEN) {
           return Row(
             children: [
               Expanded(
@@ -54,11 +50,11 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                   children: [
                     BigTitle(
                       text: AppLocalizations.of(context)!.chooseProperty,
-                      sidePadding: xPadding,
                       center: true,
                     ),
                     Expanded(
                       child: ListView.builder(
+                        controller: ScrollController(),
                         itemCount: widget.orderedDrawerList.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Stack(
@@ -88,23 +84,26 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                                   ),
                                 ),
                               ),
-                              ListTile(
-                                title: Center(
-                                  child: Text(
-                                    widget.orderedDrawerList[index],
-                                    style: TextStyle(
-                                        fontSize: SINGLE_PAGE_TEXT_SIZE,
-                                        color: selectedProperty == index ? Colors.white : null),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 50),
+                                child: ListTile(
+                                  title: Center(
+                                    child: Text(
+                                      widget.orderedDrawerList[index],
+                                      style: TextStyle(
+                                          fontSize: SINGLE_PAGE_TEXT_SIZE,
+                                          color: selectedProperty == index ? Colors.white : null),
+                                    ),
                                   ),
+                                  shape: RoundedRectangleBorder(borderRadius: borderRadius),
+                                  onTap: () {
+                                    if (selectedProperty != index) {
+                                      setState(() {
+                                        selectedProperty = index;
+                                      });
+                                    }
+                                  },
                                 ),
-                                shape: RoundedRectangleBorder(borderRadius: borderRadius),
-                                onTap: () {
-                                  if (selectedProperty != index) {
-                                    setState(() {
-                                      selectedProperty = index;
-                                    });
-                                  }
-                                },
                               ),
                             ],
                           );
@@ -155,7 +154,6 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                       },
                       header: BigTitle(
                         text: AppLocalizations.of(context)!.reorderProperty(widget.orderedDrawerList[selectedProperty]),
-                        sidePadding: xPadding,
                         center: true,
                       ),
                     ),
@@ -171,7 +169,6 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
             children: [
               BigTitle(
                 text: AppLocalizations.of(context)!.chooseProperty,
-                sidePadding: xPadding,
                 center: true,
               ),
               Expanded(
@@ -220,7 +217,6 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
             },
             header: BigTitle(
               text: AppLocalizations.of(context)!.reorderProperty(widget.orderedDrawerList[selectedProperty]),
-              sidePadding: xPadding,
               center: true,
             ),
           ),

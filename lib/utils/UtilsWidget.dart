@@ -81,10 +81,13 @@ class BigTitle extends StatelessWidget {
                     height: 15.0,
                     width: 25.0,
                   )
-                : Text(
-                    subtitle,
-                    style: TextStyle(fontSize: 15.0, color: Color(0xFF999999)),
-                  ),
+                : Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Text(
+                      subtitle,
+                      style: const TextStyle(fontSize: 15.0, color: Color(0xFF999999)),
+                    ),
+                ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
