@@ -47,6 +47,8 @@
       }
     }
   },
+  "otherPlatforms": "Converter NOW para otras plataformas",
+  "sourceCode": "Código fuente",
 
   "length": "Longitud",
   "area": "Área",

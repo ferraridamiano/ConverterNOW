@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/AppModel.dart';
 import 'package:converterpro/models/Conversions.dart';
@@ -143,17 +145,64 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   onTap: () => context.read<AppModel>().currentScreen = MAIN_SCREEN.REORDER_UNITS,
                 ),
-                !kIsWeb
-                    ? ListTile(
-                        title: Text(
-                          AppLocalizations.of(context)!.rateApp,
-                          style: textStyle,
-                        ),
-                        onTap: () {
-                          launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro");
-                        },
-                      )
-                    : SizedBox(),
+                ListTile(
+                  title: Text(
+                    AppLocalizations.of(context)!.otherPlatforms,
+                    style: textStyle,
+                  ),
+                  onTap: () => showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return SimpleDialog(
+                        title: Text('Converter NOW for other platforms'),
+                        children: [
+                          if (!kIsWeb)
+                            ListTile(
+                              title: Text('Web'),
+                              leading: Icon(Icons.public_outlined),
+                              onTap: () => launchURL("https://ferraridamiano.github.io/ConverterNOW"),
+                            ),
+                          if (kIsWeb || Platform.isWindows || Platform.isLinux)
+                            ListTile(
+                              title: Text('Android'),
+                              leading: Icon(Icons.android_outlined),
+                              onTap: () =>
+                                  launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro"),
+                            ),
+                          if (kIsWeb || Platform.isAndroid || Platform.isLinux)
+                            ListTile(
+                              title: Text('Windows'),
+                              leading: Icon(Icons.laptop),
+                              onTap: () => launchURL("https://github.com/ferraridamiano/ConverterNOW/releases"),
+                            ),
+                          if (kIsWeb || Platform.isAndroid || Platform.isWindows)
+                            ListTile(
+                              title: Text('Linux'),
+                              leading: Image.asset(
+                                'resources/images/penguin.png',
+                                color: Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white.withOpacity(0.9)
+                                    : Colors.black54,
+                                width: 25,
+                              ),
+                              onTap: () => launchURL("https://snapcraft.io/converternow"),
+                            ),
+                          ListTile(
+                            title: Text(AppLocalizations.of(context)!.sourceCode),
+                            leading: Image.asset(
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? 'resources/images/github_light.png'
+                                  : 'resources/images/github_dark.png',
+                              width: 25,
+                              color: Theme.of(context).brightness == Brightness.light ? Colors.black54 : null,
+                            ),
+                            onTap: () => launchURL("https://github.com/ferraridamiano/ConverterNOW"),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
                 ListTile(
                   title: Text(
                     AppLocalizations.of(context)!.contibuteTranslating,
@@ -161,15 +210,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   onTap: () {
                     launchURL("https://github.com/ferraridamiano/ConverterNOW/issues/2");
-                  },
-                ),
-                ListTile(
-                  title: Text(
-                    AppLocalizations.of(context)!.repoGithub,
-                    style: textStyle,
-                  ),
-                  onTap: () {
-                    launchURL("https://github.com/ferraridamiano/ConverterNOW");
                   },
                 ),
                 ListTile(
@@ -205,17 +245,16 @@ class _SettingsPageState extends State<SettingsPage> {
                     );
                   },
                 ),
-                !kIsWeb
-                    ? ListTile(
-                        title: Text(
-                          AppLocalizations.of(context)!.contactDeveloper,
-                          style: textStyle,
-                        ),
-                        onTap: () {
-                          launchURL("mailto:<damianoferrari1998@gmail.com>");
-                        },
-                      )
-                    : SizedBox(),
+                if (!kIsWeb)
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(context)!.contactDeveloper,
+                      style: textStyle,
+                    ),
+                    onTap: () {
+                      launchURL("mailto:<damianoferrari1998@gmail.com>");
+                    },
+                  ),
                 ListTile(
                   title: Text(
                     AppLocalizations.of(context)!.about,

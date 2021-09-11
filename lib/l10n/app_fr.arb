@@ -47,6 +47,8 @@
       }
     }
   },
+  "otherPlatforms": "Converter NOW pour les autres plateformes",
+  "sourceCode": "Code source",
 
   "length": "Distance",
   "area": "Superficie",

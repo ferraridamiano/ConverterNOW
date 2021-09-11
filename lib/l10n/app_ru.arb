@@ -47,6 +47,8 @@
       }
     }
   },
+  "otherPlatforms": "Converter NOW для других платформ",
+  "sourceCode": "Исходный код",
 
   "length": "Длина",
   "area": "Площадь",
