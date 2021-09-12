@@ -1,13 +1,13 @@
-import 'package:converterpro/models/AppModel.dart';
-import 'package:converterpro/utils/PropertyUnitList.dart';
-import 'package:converterpro/utils/Utils.dart';
-import 'package:converterpro/utils/UtilsWidget.dart';
+import 'package:converterpro/models/app_model.dart';
+import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/utils/utils.dart';
+import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-const MAX_CONVERSION_UNITS = 19;
+const maxConversionUnits = 19;
 
 class CustomDrawer extends StatelessWidget {
   final bool isDrawerFixed;
@@ -24,7 +24,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late List<Widget> headerDrawer = [];
-    List<Widget> conversionDrawer = List<Widget>.filled(MAX_CONVERSION_UNITS, SizedBox());
+    List<Widget> conversionDrawer = List<Widget>.filled(maxConversionUnits, const SizedBox());
 
     int currentPage = context.select<AppModel, int>((appModel) => appModel.currentPage);
     MAIN_SCREEN currentScreen = context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
@@ -57,7 +57,7 @@ class CustomDrawer extends StatelessWidget {
           onTap: () {
             context.read<AppModel>()
               ..changeToPage(context.read<AppModel>().conversionsOrderDrawer.indexWhere((val) => val == 0))
-              ..currentScreen = MAIN_SCREEN.CONVERSION;
+              ..currentScreen = MAIN_SCREEN.conversion;
             if (!isDrawerFixed) {
               Navigator.of(context).pop();
             }
@@ -70,7 +70,7 @@ class CustomDrawer extends StatelessWidget {
     }
     headerDrawer.add(
       DrawerTile(
-        leading: Icon(Icons.search_outlined),
+        leading: const Icon(Icons.search_outlined),
         title: Text(AppLocalizations.of(context)!.search),
         onTap: () => openSearch(),
         selected: false,
@@ -79,7 +79,7 @@ class CustomDrawer extends StatelessWidget {
     if (isDrawerFixed) {
       headerDrawer.add(
         DrawerTile(
-          leading: Icon(Icons.calculate_outlined),
+          leading: const Icon(Icons.calculate_outlined),
           title: Text(AppLocalizations.of(context)!.calculator),
           onTap: () => openCalculator(),
           selected: false,
@@ -89,17 +89,17 @@ class CustomDrawer extends StatelessWidget {
     headerDrawer
       ..add(
         DrawerTile(
-          leading: Icon(Icons.settings_outlined),
+          leading: const Icon(Icons.settings_outlined),
           title: Text(AppLocalizations.of(context)!.settings),
           onTap: () {
             if (!isDrawerFixed) {
               Navigator.of(context).pop();
             }
-            context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
+            context.read<AppModel>().currentScreen = MAIN_SCREEN.settings;
           },
-          selected: currentScreen == MAIN_SCREEN.SETTINGS ||
-              currentScreen == MAIN_SCREEN.REORDER_PROPERTIES ||
-              currentScreen == MAIN_SCREEN.REORDER_UNITS,
+          selected: currentScreen == MAIN_SCREEN.settings ||
+              currentScreen == MAIN_SCREEN.reorderProperties ||
+              currentScreen == MAIN_SCREEN.reorderUnits,
         ),
       )
       ..add(
@@ -133,12 +133,12 @@ class CustomDrawer extends StatelessWidget {
         onTap: () {
           context.read<AppModel>()
             ..changeToPage(i)
-            ..currentScreen = MAIN_SCREEN.CONVERSION;
+            ..currentScreen = MAIN_SCREEN.conversion;
           if (!isDrawerFixed) {
             Navigator.of(context).pop();
           }
         },
-        selected: currentScreen == MAIN_SCREEN.CONVERSION && currentPage == i,
+        selected: currentScreen == MAIN_SCREEN.conversion && currentPage == i,
       );
     }
 

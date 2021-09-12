@@ -1,38 +1,40 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
-import 'package:converterpro/models/AppModel.dart';
-import 'package:converterpro/models/Calculator.dart';
-import 'package:converterpro/models/Conversions.dart';
-import 'package:converterpro/pages/CalculatorWidget.dart';
-import 'package:converterpro/pages/ChoosePropertyPage.dart';
-import 'package:converterpro/pages/ConversionPage.dart';
-import 'package:converterpro/pages/CustomDrawer.dart';
-import 'package:converterpro/pages/ReorderPage.dart';
-import 'package:converterpro/pages/SettingsPage.dart';
-import 'package:converterpro/utils/PropertyUnitList.dart';
-import 'package:converterpro/utils/Utils.dart';
-import 'package:converterpro/utils/UtilsWidget.dart';
+import 'package:converterpro/models/app_model.dart';
+import 'package:converterpro/models/calculator.dart';
+import 'package:converterpro/models/conversions.dart';
+import 'package:converterpro/pages/calculator_widget.dart';
+import 'package:converterpro/pages/choose_property_page.dart';
+import 'package:converterpro/pages/conversion_page.dart';
+import 'package:converterpro/pages/custom_drawer.dart';
+import 'package:converterpro/pages/reorder_page.dart';
+import 'package:converterpro/pages/settings_page.dart';
+import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/utils/utils.dart';
+import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage();
+  const MainPage({Key? key}):super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final VoidCallback openCalculator = () {
+
+    void openCalculator(){
       showModalBottomSheet<void>(
           context: context,
           builder: (BuildContext context) {
             return ChangeNotifierProvider(
               create: (_) => Calculator(decimalSeparator: '.'),
-              child: CalculatorWidget(),
+              child: const CalculatorWidget(),
             );
           });
-    };
-    final VoidCallback clearAll = () => context.read<Conversions>().clearAllValues();
+    }
 
-    final VoidCallback openSearch = () async {
+    void clearAll() => context.read<Conversions>().clearAllValues();
+
+    void openSearch() async {
       final orderList = context.read<AppModel>().conversionsOrderDrawer;
       final int? newPage = await showSearch(
         context: context,
@@ -42,7 +44,7 @@ class MainPage extends StatelessWidget {
         AppModel appModel = context.read<AppModel>();
         if (appModel.currentPage != newPage) appModel.changeToPage(newPage);
       }
-    };
+    }
 
     // Read the order of the properties in the drawer
     List<int> conversionsOrderDrawer = context.watch<AppModel>().conversionsOrderDrawer;
@@ -60,22 +62,22 @@ class MainPage extends StatelessWidget {
       // And build the right widget
       Widget mainScreen;
       switch (currentScreen) {
-        case MAIN_SCREEN.SETTINGS:
+        case MAIN_SCREEN.settings:
           mainScreen = _isDrawerFixed
-              ? SettingsPage()
+              ? const SettingsPage()
               : WillPopScope(
-                  child: SettingsPage(),
+                  child: const SettingsPage(),
                   onWillPop: () async {
-                    context.read<AppModel>().currentScreen = MAIN_SCREEN.CONVERSION;
+                    context.read<AppModel>().currentScreen = MAIN_SCREEN.conversion;
                     return false;
                   },
                 );
           break;
-        case MAIN_SCREEN.REORDER_PROPERTIES:
+        case MAIN_SCREEN.reorderProperties:
           mainScreen = Expanded(
             child: WillPopScope(
               onWillPop: () async {
-                context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
+                context.read<AppModel>().currentScreen = MAIN_SCREEN.settings;
                 return false;
               },
               child: ReorderPage(
@@ -87,13 +89,13 @@ class MainPage extends StatelessWidget {
                 onSave: (List<int>? orderList) {
                   context.read<AppModel>()
                     ..saveOrderDrawer(orderList)
-                    ..currentScreen = MAIN_SCREEN.SETTINGS;
+                    ..currentScreen = MAIN_SCREEN.settings;
                 },
               ),
             ),
           );
           break;
-        case MAIN_SCREEN.REORDER_UNITS:
+        case MAIN_SCREEN.reorderUnits:
           var _page = ChoosePropertyPage(
             orderedDrawerList: orderedDrawerList,
           );
@@ -102,14 +104,14 @@ class MainPage extends StatelessWidget {
               : WillPopScope(
                   child: _page,
                   onWillPop: () async {
-                    context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
+                    context.read<AppModel>().currentScreen = MAIN_SCREEN.settings;
                     return false;
                   },
                 );
           break;
-        case MAIN_SCREEN.CONVERSION:
+        case MAIN_SCREEN.conversion:
         default:
-          mainScreen = ConversionPage();
+          mainScreen = const ConversionPage();
           break;
       }
 
@@ -132,9 +134,9 @@ class MainPage extends StatelessWidget {
             ),
           ),
           floatingActionButton:
-              (currentScreen == MAIN_SCREEN.CONVERSION && MediaQuery.of(context).viewInsets.bottom == 0)
+              (currentScreen == MAIN_SCREEN.conversion && MediaQuery.of(context).viewInsets.bottom == 0)
                   ? FloatingActionButton(
-                      child: Icon(
+                      child: const Icon(
                         Icons.clear_outlined,
                         color: Colors.white,
                       ),
@@ -154,13 +156,13 @@ class MainPage extends StatelessWidget {
           ],
         )),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: currentScreen == MAIN_SCREEN.CONVERSION
+        bottomNavigationBar: currentScreen == MAIN_SCREEN.conversion
             ? BottomAppBar(
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    new Builder(builder: (context) {
+                    Builder(builder: (context) {
                       return IconButton(
                           tooltip: AppLocalizations.of(context)!.menu,
                           icon: const Icon(Icons.menu),
@@ -168,17 +170,17 @@ class MainPage extends StatelessWidget {
                             Scaffold.of(context).openDrawer();
                           });
                     }),
-                    if (currentScreen == MAIN_SCREEN.CONVERSION)
+                    if (currentScreen == MAIN_SCREEN.conversion)
                       IconButton(
                         tooltip: AppLocalizations.of(context)!.clearAll,
-                        icon: Icon(Icons.clear),
+                        icon: const Icon(Icons.clear),
                         onPressed: clearAll,
                       ),
                   ],
                 ),
               )
             : null,
-        floatingActionButton: (currentScreen == MAIN_SCREEN.CONVERSION && MediaQuery.of(context).viewInsets.bottom == 0)
+        floatingActionButton: (currentScreen == MAIN_SCREEN.conversion && MediaQuery.of(context).viewInsets.bottom == 0)
             ? FloatingActionButton(
                 tooltip: AppLocalizations.of(context)!.calculator,
                 child: const Icon(
@@ -245,7 +247,7 @@ class CustomSearchDelegate extends SearchDelegate<int> {
             darkMode: brightness == Brightness.dark,
           )
         : GridView(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 180.0),
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 180.0),
             children: allConversions,
           );
   }

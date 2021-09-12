@@ -1,15 +1,17 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
-import 'package:converterpro/models/Conversions.dart';
-import 'package:converterpro/utils/UtilsWidget.dart';
+import 'package:converterpro/models/conversions.dart';
+import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:converterpro/utils/Utils.dart';
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:converterpro/utils/PropertyUnitList.dart';
+import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:intl/intl.dart';
 
 class ConversionPage extends StatelessWidget {
+
+  const ConversionPage({Key? key}):super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class ConversionPage extends StatelessWidget {
     final Brightness brightness = Theme.of(context).brightness;
 
     String subTitle = '';
-    if (currentProperty == PROPERTYX.CURRENCIES) {
+    if (currentProperty == PROPERTYX.currencies) {
       subTitle = _getLastUpdateString(context);
     }
 
@@ -54,7 +56,7 @@ class ConversionPage extends StatelessWidget {
             if (txt == '' || unitData.getValidator().hasMatch(txt)) {
               Conversions conversions = context.read<Conversions>();
               //just numeral system uses a string for conversion
-              if (unitData.property == PROPERTYX.NUMERAL_SYSTEMS) {
+              if (unitData.property == PROPERTYX.numeralSystems) {
                 conversions.convert(unitData, txt == "" ? null : txt);
               } else {
                 conversions.convert(unitData, txt == "" ? null : double.parse(txt));

@@ -1,5 +1,5 @@
-import 'package:converterpro/models/Calculator.dart';
-import 'package:converterpro/utils/UtilsWidget.dart';
+import 'package:converterpro/models/calculator.dart';
+import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CalculatorWidget extends StatefulWidget {
-  CalculatorWidget();
+  const CalculatorWidget({Key? key}) : super(key: key);
 
   @override
-  _CalculatorWidget createState() => new _CalculatorWidget();
+  _CalculatorWidget createState() => _CalculatorWidget();
 }
 
 class _CalculatorWidget extends State<CalculatorWidget> {
@@ -41,14 +41,13 @@ class _CalculatorWidget extends State<CalculatorWidget> {
         TextStyle(fontSize: 35, color: Color(brightness == Brightness.dark ? 0xFFBBBBBB : 0xFF777777));
 
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-
       final double calcWidth = _getCalcWidth(constraints.maxWidth);
       final int columnsNumber = _getColumnsNumber(calcWidth);
       final double buttonWidth = _getButtonWidth(calcWidth, columnsNumber);
 
       String text = context.select<Calculator, String>((calc) => calc.currentNumber);
 
-      return Container(
+      return SizedBox(
         height: 5 * buttonHeight,
         child: RawKeyboardListener(
           focusNode: focusKeyboard,
@@ -69,8 +68,8 @@ class _CalculatorWidget extends State<CalculatorWidget> {
             children: <Widget>[
               Container(
                 height: buttonHeight,
-                alignment: Alignment(0, 0),
-                child: Container(
+                alignment: const Alignment(0, 0),
+                child: SizedBox(
                   width: calcWidth,
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -78,7 +77,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                     children: <Widget>[
                       Container(
                         width: calcWidth - buttonWidth,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: SelectableText(
                           text,
                           style: TextStyle(
@@ -87,8 +86,8 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                             color: brightness == Brightness.dark ? Colors.white : Colors.black,
                           ),
                           maxLines: 1,
-                          scrollPhysics: ClampingScrollPhysics(),
-                          toolbarOptions: ToolbarOptions(copy: true, selectAll: true),
+                          scrollPhysics: const ClampingScrollPhysics(),
+                          toolbarOptions: const ToolbarOptions(copy: true, selectAll: true),
                         ),
                       ),
                       Container(
@@ -102,7 +101,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                                   color: brightness == Brightness.dark ? Colors.white54 : Colors.black54,
                                 ),
                                 onPressed: () {
-                                  Clipboard.setData(new ClipboardData(text: text));
+                                  Clipboard.setData(ClipboardData(text: text));
                                 },
                               )
                             : Text(
@@ -118,105 +117,102 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                     ],
                   ),
                 ),
-                decoration: new BoxDecoration(
-                    color: brightness == Brightness.dark ? Color(0xFF2e2e2e) : Colors.white,
-                    boxShadow: [
-                      new BoxShadow(
+                decoration: BoxDecoration(
+                    color: brightness == Brightness.dark ? const Color(0xFF2e2e2e) : Colors.white,
+                    boxShadow: const [
+                      BoxShadow(
                         color: Colors.black,
                         blurRadius: 5.0,
                       ),
                     ]),
               ),
               //start of butttons
-              Container(
+              SizedBox(
                 width: calcWidth,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    columnsNumber < 6
-                        ? SizedBox()
-                        : Column(
-                            children: <Widget>[
-                              CalculatorButton(
-                                  text: 'x²',
-                                  buttonWidth: buttonWidth,
-                                  buttonHeight: buttonHeight,
-                                  style: buttonOpStyle,
-                                  onPressed: () {
-                                    context.read<Calculator>().square();
-                                  }),
-                              CalculatorButton(
-                                  text: 'ln',
-                                  buttonWidth: buttonWidth,
-                                  buttonHeight: buttonHeight,
-                                  style: buttonOpStyle,
-                                  onPressed: () {
-                                    context.read<Calculator>().ln();
-                                  }),
-                              CalculatorButton(
-                                  text: 'n!',
-                                  buttonWidth: buttonWidth,
-                                  buttonHeight: buttonHeight,
-                                  style: buttonOpStyle,
-                                  onPressed: () {
-                                    context.read<Calculator>().factorial();
-                                  }),
-                              CalculatorButton(
-                                  text: '1/x',
-                                  buttonWidth: buttonWidth,
-                                  buttonHeight: buttonHeight,
-                                  style: buttonOpStyle,
-                                  onPressed: () {
-                                    context.read<Calculator>().reciprocal();
-                                  }),
-                            ],
-                          ),
-                    columnsNumber < 5
-                        ? SizedBox()
-                        : Column(
-                            children: <Widget>[
-                              CalculatorButton(
-                                  text: '√',
-                                  buttonWidth: buttonWidth,
-                                  buttonHeight: buttonHeight,
-                                  style: buttonOpStyle,
-                                  onPressed: () {
-                                    context.read<Calculator>().squareRoot();
-                                  }),
-                              CalculatorButton(
-                                  text: 'log',
-                                  buttonWidth: buttonWidth,
-                                  buttonHeight: buttonHeight,
-                                  style: buttonOpStyle,
-                                  onPressed: () {
-                                    context.read<Calculator>().log10();
-                                  }),
-                              CalculatorButton(
-                                  text: 'e',
-                                  buttonWidth: buttonWidth,
-                                  buttonHeight: buttonHeight,
-                                  style: buttonOpStyle,
-                                  onPressed: () {
-                                    context.read<Calculator>().submitChar('e');
-                                  }),
-                              CalculatorButton(
-                                  text: 'π',
-                                  buttonWidth: buttonWidth,
-                                  buttonHeight: buttonHeight,
-                                  style: buttonOpStyle,
-                                  onPressed: () {
-                                    context.read<Calculator>().submitChar('π');
-                                  }),
-                            ],
-                          ),
-                    columnsNumber > 4
-                        ? Container(
-                            //divider
-                            width: 1.0,
-                            height: buttonHeight * 3.9,
-                            color: Color(0xFFBBBBBB),
-                          )
-                        : SizedBox(),
+                    if (columnsNumber > 5)
+                      Column(
+                        children: <Widget>[
+                          CalculatorButton(
+                              text: 'x²',
+                              buttonWidth: buttonWidth,
+                              buttonHeight: buttonHeight,
+                              style: buttonOpStyle,
+                              onPressed: () {
+                                context.read<Calculator>().square();
+                              }),
+                          CalculatorButton(
+                              text: 'ln',
+                              buttonWidth: buttonWidth,
+                              buttonHeight: buttonHeight,
+                              style: buttonOpStyle,
+                              onPressed: () {
+                                context.read<Calculator>().ln();
+                              }),
+                          CalculatorButton(
+                              text: 'n!',
+                              buttonWidth: buttonWidth,
+                              buttonHeight: buttonHeight,
+                              style: buttonOpStyle,
+                              onPressed: () {
+                                context.read<Calculator>().factorial();
+                              }),
+                          CalculatorButton(
+                              text: '1/x',
+                              buttonWidth: buttonWidth,
+                              buttonHeight: buttonHeight,
+                              style: buttonOpStyle,
+                              onPressed: () {
+                                context.read<Calculator>().reciprocal();
+                              }),
+                        ],
+                      ),
+                    if (columnsNumber > 4)
+                      Column(
+                        children: <Widget>[
+                          CalculatorButton(
+                              text: '√',
+                              buttonWidth: buttonWidth,
+                              buttonHeight: buttonHeight,
+                              style: buttonOpStyle,
+                              onPressed: () {
+                                context.read<Calculator>().squareRoot();
+                              }),
+                          CalculatorButton(
+                              text: 'log',
+                              buttonWidth: buttonWidth,
+                              buttonHeight: buttonHeight,
+                              style: buttonOpStyle,
+                              onPressed: () {
+                                context.read<Calculator>().log10();
+                              }),
+                          CalculatorButton(
+                              text: 'e',
+                              buttonWidth: buttonWidth,
+                              buttonHeight: buttonHeight,
+                              style: buttonOpStyle,
+                              onPressed: () {
+                                context.read<Calculator>().submitChar('e');
+                              }),
+                          CalculatorButton(
+                              text: 'π',
+                              buttonWidth: buttonWidth,
+                              buttonHeight: buttonHeight,
+                              style: buttonOpStyle,
+                              onPressed: () {
+                                context.read<Calculator>().submitChar('π');
+                              }),
+                        ],
+                      ),
+                    if (columnsNumber > 4)
+                      Container(
+                        //divider
+                        width: 1.0,
+                        height: buttonHeight * 3.9,
+                        color: const Color(0xFFBBBBBB),
+                      ),
                     Column(children: [
                       Column(
                         //creates numbers buttons from 1 to 9
@@ -267,7 +263,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                       //divider
                       width: 1.0,
                       height: buttonHeight * 3.9,
-                      color: Color(0xFFBBBBBB),
+                      color: const Color(0xFFBBBBBB),
                     ),
                     Column(
                       children: <Widget>[

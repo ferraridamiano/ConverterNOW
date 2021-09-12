@@ -21,7 +21,7 @@ class ReorderPage extends StatefulWidget {
 
 class _ReorderPageState extends State<ReorderPage> {
   late List<Item> _itemsList;
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,13 +90,13 @@ class _ReorderListState extends State<ReorderList> {
         widget.itemsList.length,
         (index) {
           return SizedBox(
-            width: SINGLE_PAGE_FIXED_HEIGHT,
+            width: singlePageFixedHeight,
             height: 48,
             child: ListTile(
               title: Center(
                 child: Text(
                   widget.itemsList[index].title,
-                  style: TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE),
+                  style: const TextStyle(fontSize: singlePageTextSize),
                 ),
               ),
               onTap: () {

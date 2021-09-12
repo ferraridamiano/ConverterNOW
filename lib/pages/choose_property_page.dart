@@ -1,10 +1,10 @@
-import 'package:converterpro/models/AppModel.dart';
-import 'package:converterpro/models/Conversions.dart';
-import 'package:converterpro/pages/ReorderPage.dart';
+import 'package:converterpro/models/app_model.dart';
+import 'package:converterpro/models/conversions.dart';
+import 'package:converterpro/pages/reorder_page.dart';
 import 'package:converterpro/styles/consts.dart';
-import 'package:converterpro/utils/PropertyUnitList.dart';
-import 'package:converterpro/utils/Utils.dart';
-import 'package:converterpro/utils/UtilsWidget.dart';
+import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/utils/utils.dart';
+import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,7 +27,7 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
   /// If `isDrawerFixed=false` then this variable is used to transition from the "Choose property page" to the "Reorder
   /// units" page
   bool isPropertySelected = false;
-  static const BorderRadius borderRadius = const BorderRadius.all(Radius.circular(30));
+  static const BorderRadius borderRadius = BorderRadius.all(Radius.circular(30));
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +41,7 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
 
     return Expanded(
       child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-
-        if (constraints.maxWidth > TWO_SIDED_REORDER_SCREEN) {
+        if (constraints.maxWidth > twoSidedReorderScreen) {
           return Row(
             children: [
               Expanded(
@@ -63,7 +62,8 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                                 duration: const Duration(milliseconds: 300),
                                 transitionBuilder: (Widget child, Animation<double> animation) {
                                   final offsetAnimation =
-                                      Tween<Offset>(begin: Offset(-1.0, 0.0), end: Offset(0.0, 0.0)).animate(animation);
+                                      Tween<Offset>(begin: const Offset(-1.0, 0.0), end: const Offset(0.0, 0.0))
+                                          .animate(animation);
                                   return SlideTransition(
                                     position: offsetAnimation,
                                     child: child,
@@ -80,7 +80,7 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                                           : Colors.transparent,
                                       borderRadius: borderRadius,
                                     ),
-                                    child: ListTile(),
+                                    child: const ListTile(),
                                   ),
                                 ),
                               ),
@@ -91,11 +91,11 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                                     child: Text(
                                       widget.orderedDrawerList[index],
                                       style: TextStyle(
-                                          fontSize: SINGLE_PAGE_TEXT_SIZE,
+                                          fontSize: singlePageTextSize,
                                           color: selectedProperty == index ? Colors.white : null),
                                     ),
                                   ),
-                                  shape: RoundedRectangleBorder(borderRadius: borderRadius),
+                                  shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                                   onTap: () {
                                     if (selectedProperty != index) {
                                       setState(() {
@@ -118,7 +118,7 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                   const SizedBox(height: 95),
                   const Expanded(
                     flex: 1,
-                    child: const SizedBox(),
+                    child: SizedBox(),
                   ),
                   Expanded(
                     flex: 2,
@@ -128,34 +128,32 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                   ),
                   const Expanded(
                     flex: 1,
-                    child: const SizedBox(),
+                    child: SizedBox(),
                   ),
                 ],
               ),
               Expanded(
-                child: Container(
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    transitionBuilder: (Widget child, Animation<double> animation) {
-                      final offsetAnimation =
-                          Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset(0.0, 0.0)).animate(animation);
-                      return SlideTransition(
-                        position: offsetAnimation,
-                        child: child,
-                      );
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  transitionBuilder: (Widget child, Animation<double> animation) {
+                    final offsetAnimation =
+                        Tween<Offset>(begin: const Offset(1.0, 0.0), end: const Offset(0.0, 0.0)).animate(animation);
+                    return SlideTransition(
+                      position: offsetAnimation,
+                      child: child,
+                    );
+                  },
+                  child: ReorderPage(
+                    key: Key(listUnitsNames[0]),
+                    itemsList: listUnitsNames,
+                    onSave: (List<int>? orderList) {
+                      context.read<Conversions>().saveOrderUnits(
+                          orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
+                      context.read<AppModel>().currentScreen = MAIN_SCREEN.settings;
                     },
-                    child: ReorderPage(
-                      key: Key(listUnitsNames[0]),
-                      itemsList: listUnitsNames,
-                      onSave: (List<int>? orderList) {
-                        context.read<Conversions>().saveOrderUnits(
-                            orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
-                        context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
-                      },
-                      header: BigTitle(
-                        text: AppLocalizations.of(context)!.reorderProperty(widget.orderedDrawerList[selectedProperty]),
-                        center: true,
-                      ),
+                    header: BigTitle(
+                      text: AppLocalizations.of(context)!.reorderProperty(widget.orderedDrawerList[selectedProperty]),
+                      center: true,
                     ),
                   ),
                 ),
@@ -178,12 +176,12 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                       title: Center(
                         child: Text(
                           widget.orderedDrawerList[index],
-                          style: TextStyle(
-                            fontSize: SINGLE_PAGE_TEXT_SIZE,
+                          style: const TextStyle(
+                            fontSize: singlePageTextSize,
                           ),
                         ),
                       ),
-                      shape: RoundedRectangleBorder(borderRadius: borderRadius),
+                      shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                       onTap: () {
                         if (selectedProperty != index) {
                           setState(() {
@@ -213,7 +211,7 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
               context
                   .read<Conversions>()
                   .saveOrderUnits(orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
-              context.read<AppModel>().currentScreen = MAIN_SCREEN.SETTINGS;
+              context.read<AppModel>().currentScreen = MAIN_SCREEN.settings;
             },
             header: BigTitle(
               text: AppLocalizations.of(context)!.reorderProperty(widget.orderedDrawerList[selectedProperty]),

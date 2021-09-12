@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,28 +27,28 @@ launchURL(String url) async {
 }
 
 bool getBoolWithProbability(int probability) {
-  Random random = new Random();
+  Random random = Random();
   int num = random.nextInt(100); //numero da 0 a 99
   return num < probability;
 }
 
 ///Saves the key value with SharedPreferences
-saveSettings(String key, dynamic value) async{
+saveSettings(String key, dynamic value) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  if(value is bool){
+  if (value is bool) {
     prefs.setBool(key, value);
-  } else if(value is int){
+  } else if (value is int) {
     prefs.setInt(key, value);
-  } else if(value is String){
+  } else if (value is String) {
     prefs.setString(key, value);
-  } else if(value is double){
+  } else if (value is double) {
     prefs.setDouble(key, value);
-  } else if(value is List<String>){
+  } else if (value is List<String>) {
     prefs.setStringList(key, value);
   }
 }
 
-enum VALIDATOR { BINARY, DECIMAL, OCTAL, HEXADECIMAL, RATIONAL, RATIONAL_NON_NEGATIVE }
+enum VALIDATOR { binary, decimal, octal, hexadecimal, rational, rationalNonNegative }
 
 class UnitData {
   Unit unit;
@@ -59,23 +61,23 @@ class UnitData {
     this.unit, {
     required this.tec,
     this.property,
-    this.validator = VALIDATOR.RATIONAL_NON_NEGATIVE,
+    this.validator = VALIDATOR.rationalNonNegative,
     this.textInputType = const TextInputType.numberWithOptions(decimal: true, signed: false),
   });
 
   RegExp getValidator() {
     switch (validator) {
-      case VALIDATOR.BINARY:
+      case VALIDATOR.binary:
         return RegExp(r'^[0-1]+$');
-      case VALIDATOR.OCTAL:
+      case VALIDATOR.octal:
         return RegExp(r'^[0-7]+$');
-      case VALIDATOR.DECIMAL:
+      case VALIDATOR.decimal:
         return RegExp(r'^[0-9]+$');
-      case VALIDATOR.HEXADECIMAL:
+      case VALIDATOR.hexadecimal:
         return RegExp(r'^[0-9A-Fa-f]+$');
-      case VALIDATOR.RATIONAL:
+      case VALIDATOR.rational:
         return RegExp(r'^([+-]?\d+)\.?(\d*)(e[+-]?\d+)?$');
-      case VALIDATOR.RATIONAL_NON_NEGATIVE:
+      case VALIDATOR.rationalNonNegative:
       default:
         return RegExp(r'^(\+?\d+)\.?(\d*)(e[+-]?\d+)?$');
     }
@@ -122,7 +124,7 @@ class CurrenciesObject {
     CURRENCIES.TWD: 32.93,
   };
 
-  CurrenciesObject(){
+  CurrenciesObject() {
     lastUpdate = DateTime.parse(lastUpdateString);
   }
 
@@ -139,7 +141,7 @@ class CurrenciesObject {
 
   /// This method is useful because it transform a previous stored data (with the toJson method) into this object
   CurrenciesObject.fromJson(Map<String, dynamic> jsonData, String lastUpdate) {
-    this.lastUpdateString = lastUpdate;
+    lastUpdateString = lastUpdate;
     this.lastUpdate = DateTime.parse(lastUpdateString);
 
     for (String key in jsonData.keys) {
@@ -158,29 +160,30 @@ class CurrenciesObject {
 }
 
 /// Returns a CURRENCIES froma string. e.g. getCurrenciesFromString(EUR)=CURRENCIES.EUR; getCurrenciesFromString(CURRENCIES.EUR)=CURRENCIES.EUR;
-CURRENCIES getCurrenciesFromString(String name) => CURRENCIES.values.singleWhere((element) => element.toString().endsWith(name));
+CURRENCIES getCurrenciesFromString(String name) =>
+    CURRENCIES.values.singleWhere((element) => element.toString().endsWith(name));
 
 /// PROPERTYX stands for PROPERTY extended and want to extends the PROPERTY enum defined in units_converter package
 enum PROPERTYX {
-  ANGLE,
-  AREA,
-  CURRENCIES,
-  DIGITAL_DATA,
-  ENERGY,
-  FORCE,
-  FUEL_CONSUMPTION,
-  LENGTH,
-  MASS,
-  NUMERAL_SYSTEMS,
-  POWER,
-  PRESSURE,
-  SHOE_SIZE,
-  SI_PREFIXES,
-  SPEED,
-  TEMPERATURE,
-  TIME,
-  TORQUE,
-  VOLUME,
+  angle,
+  area,
+  currencies,
+  digitalData,
+  energy,
+  force,
+  fuelConsumption,
+  length,
+  mass,
+  numeralSystems,
+  power,
+  pressure,
+  shoeSize,
+  siPrefixes,
+  speed,
+  temperature,
+  time,
+  torque,
+  volume,
 }
 
 enum CURRENCIES {
@@ -222,15 +225,20 @@ enum CURRENCIES {
 
 class PropertyUi {
   final PROPERTYX property;
-  final String name; //uman readable name
+
+  ///uman readable name
+  final String name;
   final String imagePath;
 
   PropertyUi(this.property, this.name, this.imagePath);
 }
 
 class UnitUi {
-  final unit; //name of the unit
-  final String name; //uman readable name
+  ///name of the unit
+  final dynamic unit;
+
+  ///human readable name
+  final String name;
   final String imagePath;
   final PROPERTYX property;
 

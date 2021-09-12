@@ -16,7 +16,7 @@ class DrawerTile extends StatelessWidget {
   final void Function()? onTap;
   final bool selected;
 
-  static const BorderRadiusGeometry borderRadius = const BorderRadius.horizontal(right: Radius.circular(30));
+  static const BorderRadiusGeometry borderRadius = BorderRadius.horizontal(right: Radius.circular(30));
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +31,21 @@ class DrawerTile extends StatelessWidget {
         leading: leading,
         title: title,
         onTap: onTap,
-        shape: RoundedRectangleBorder(borderRadius: borderRadius),
+        shape: const RoundedRectangleBorder(borderRadius: borderRadius),
       ),
     );
   }
 }
 
 class BigTitle extends StatelessWidget {
-  BigTitle({
+  const BigTitle({
     required this.text,
     this.subtitle = '',
     this.isSubtitleLoading = false,
     this.sidePadding = 0,
     this.center = false,
-  });
+    Key? key,
+  }) : super(key: key);
   final String text;
   final String subtitle;
   final bool isSubtitleLoading;
@@ -60,7 +61,7 @@ class BigTitle extends StatelessWidget {
       style: TextStyle(
         fontSize: 35.0,
         fontWeight: FontWeight.bold,
-        color: Theme.of(context).brightness == Brightness.dark ? Color(0xFFDDDDDD) : Color(0xFF666666),
+        color: Theme.of(context).brightness == Brightness.dark ? const Color(0xFFDDDDDD) : const Color(0xFF666666),
       ),
       textAlign: center ? TextAlign.center : null,
     );
@@ -76,18 +77,21 @@ class BigTitle extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: (isSubtitleLoading && subtitle != '')
                 ? Container(
-                    padding: EdgeInsets.only(right: 10),
-                    child: CircularProgressIndicator(),
+                    padding: const EdgeInsets.only(right: 10),
+                    child: const CircularProgressIndicator(),
                     height: 15.0,
                     width: 25.0,
                   )
                 : Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: Text(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Text(
                       subtitle,
-                      style: const TextStyle(fontSize: 15.0, color: Color(0xFF999999)),
+                      style: const TextStyle(
+                        fontSize: 15.0,
+                        color: Color(0xFF999999),
+                      ),
                     ),
-                ),
+                  ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -102,7 +106,7 @@ class BigTitle extends StatelessWidget {
 }
 
 class UnitCard extends StatelessWidget {
-  UnitCard({required this.symbol, required this.textField});
+  const UnitCard({required this.symbol, required this.textField, Key? key}) : super(key: key);
 
   final String? symbol;
   final Widget textField;
@@ -111,29 +115,35 @@ class UnitCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        new Container(
-          padding: EdgeInsets.only(top: 14.0),
-          child: new Card(
-            child: Padding(padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0), child: this.textField),
+        Container(
+          padding: const EdgeInsets.only(top: 14.0),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+              child: textField,
+            ),
             elevation: 4.0,
           ),
         ),
-        symbol == null
-            ? SizedBox()
-            : Align(
-                alignment: Alignment(0.95, -0.9),
-                child: Card(
-                  elevation: 4.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Text(
-                      symbol!,
-                      style: TextStyle(color: Colors.white, fontSize: 13.0, fontWeight: FontWeight.bold),
-                    ),
+        if (symbol != null)
+          Align(
+            alignment: const Alignment(0.95, -0.9),
+            child: Card(
+              elevation: 4.0,
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Text(
+                  symbol!,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                  color: Theme.of(context).primaryColor,
                 ),
               ),
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
       ],
     );
   }
@@ -149,7 +159,7 @@ class SearchUnit {
 class SearchUnitTile extends StatelessWidget {
   final SearchUnit searchUnit;
   final bool darkMode;
-  SearchUnitTile(this.searchUnit, this.darkMode);
+  const SearchUnitTile(this.searchUnit, this.darkMode, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +174,7 @@ class SearchUnitTile extends StatelessWidget {
 class SuggestionList extends StatelessWidget {
   final List<SearchUnit> suggestions;
   final bool darkMode;
-  SuggestionList({required this.suggestions, required this.darkMode});
+  const SuggestionList({required this.suggestions, required this.darkMode, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -179,33 +189,37 @@ class SearchGridTile extends StatelessWidget {
   final String footer;
   final GestureTapCallback onTap;
   final bool darkMode;
-  SearchGridTile({
+  const SearchGridTile({
     required this.iconAsset,
     required this.footer,
     required this.onTap,
     required this.darkMode,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(5.0),
         child: GridTile(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: 55.0,
                 height: 55.0,
-                child: Image.asset(iconAsset, color: darkMode ? Colors.white : Colors.grey),
+                child: Image.asset(
+                  iconAsset,
+                  color: darkMode ? Colors.white : Colors.grey,
+                ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
                 footer,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18.0),
+                style: const TextStyle(fontSize: 18.0),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -224,13 +238,14 @@ class DropdownListTile extends StatelessWidget {
   final ValueChanged<String?> onChanged;
   final TextStyle textStyle;
 
-  DropdownListTile({
+  const DropdownListTile({
     required this.title,
     required this.items,
     required this.value,
     required this.onChanged,
     required this.textStyle,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -324,7 +339,7 @@ class CalculatorButton extends StatelessWidget {
       primary: Colors.transparent,
       minimumSize: Size(buttonWidth, buttonHeight),
       elevation: 0,
-      animationDuration: Duration(milliseconds: 60),
+      animationDuration: const Duration(milliseconds: 60),
     );
 
     return ElevatedButton(

@@ -1,12 +1,11 @@
 import 'dart:io';
-
 import 'package:converterpro/helpers/responsive_helper.dart';
-import 'package:converterpro/models/AppModel.dart';
-import 'package:converterpro/models/Conversions.dart';
+import 'package:converterpro/models/app_model.dart';
+import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/styles/consts.dart';
-import 'package:converterpro/utils/UtilsWidget.dart';
+import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:converterpro/utils/Utils.dart';
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +13,7 @@ import 'package:provider/provider.dart';
 class SettingsPage extends StatefulWidget {
   final bool isDrawerFixed;
 
-  SettingsPage({this.isDrawerFixed = true});
+  const SettingsPage({this.isDrawerFixed = true, Key? key}) : super(key: key);
 
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -24,7 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
   List<String> significantFiguresList = [];
   bool removeTrailingZeros = true;
   int significantFigures = 10;
-  TextStyle textStyle = TextStyle(fontSize: SINGLE_PAGE_TEXT_SIZE);
+  static const TextStyle textStyle = TextStyle(fontSize: singlePageTextSize);
   ThemeMode currentTheme = ThemeMode.system;
   bool isDarkAmoled = false;
   String? locale;
@@ -136,14 +135,14 @@ class _SettingsPageState extends State<SettingsPage> {
                     AppLocalizations.of(context)!.reorderProperties,
                     style: textStyle,
                   ),
-                  onTap: () => context.read<AppModel>().currentScreen = MAIN_SCREEN.REORDER_PROPERTIES,
+                  onTap: () => context.read<AppModel>().currentScreen = MAIN_SCREEN.reorderProperties,
                 ),
                 ListTile(
                   title: Text(
                     AppLocalizations.of(context)!.reorderUnits,
                     style: textStyle,
                   ),
-                  onTap: () => context.read<AppModel>().currentScreen = MAIN_SCREEN.REORDER_UNITS,
+                  onTap: () => context.read<AppModel>().currentScreen = MAIN_SCREEN.reorderUnits,
                 ),
                 ListTile(
                   title: Text(
@@ -154,30 +153,30 @@ class _SettingsPageState extends State<SettingsPage> {
                     context: context,
                     builder: (BuildContext context) {
                       return SimpleDialog(
-                        title: Text('Converter NOW for other platforms'),
+                        title: Text(AppLocalizations.of(context)!.otherPlatforms),
                         children: [
                           if (!kIsWeb)
                             ListTile(
-                              title: Text('Web'),
-                              leading: Icon(Icons.public_outlined),
+                              title: const Text('Web'),
+                              leading: const Icon(Icons.public_outlined),
                               onTap: () => launchURL("https://ferraridamiano.github.io/ConverterNOW"),
                             ),
                           if (kIsWeb || Platform.isWindows || Platform.isLinux)
                             ListTile(
-                              title: Text('Android'),
-                              leading: Icon(Icons.android_outlined),
+                              title: const Text('Android'),
+                              leading: const Icon(Icons.android_outlined),
                               onTap: () =>
                                   launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro"),
                             ),
                           if (kIsWeb || Platform.isAndroid || Platform.isLinux)
                             ListTile(
-                              title: Text('Windows'),
-                              leading: Icon(Icons.laptop),
+                              title: const Text('Windows'),
+                              leading: const Icon(Icons.laptop),
                               onTap: () => launchURL("https://github.com/ferraridamiano/ConverterNOW/releases"),
                             ),
                           if (kIsWeb || Platform.isAndroid || Platform.isWindows)
                             ListTile(
-                              title: Text('Linux'),
+                              title: const Text('Linux'),
                               leading: Image.asset(
                                 'resources/images/penguin.png',
                                 color: Theme.of(context).brightness == Brightness.dark
@@ -195,6 +194,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                   : 'resources/images/github_dark.png',
                               width: 25,
                               color: Theme.of(context).brightness == Brightness.light ? Colors.black54 : null,
+                              filterQuality: FilterQuality.medium,
                             ),
                             onTap: () => launchURL("https://github.com/ferraridamiano/ConverterNOW"),
                           ),
@@ -226,7 +226,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           title: Text(AppLocalizations.of(context)!.buyMeACoffee),
                           content: Text(
                             AppLocalizations.of(context)!.donationDialog,
-                            style: TextStyle(fontSize: 18),
+                            style: const TextStyle(fontSize: 18),
                           ),
                           actions: <Widget>[
                             TextButton(
@@ -265,9 +265,9 @@ class _SettingsPageState extends State<SettingsPage> {
                         context: context,
                         applicationName: AppLocalizations.of(context)!.appName,
                         applicationLegalese:
-                            "Icons made by https://www.flaticon.com/authors/yannick Yannick from https://www.flaticon.com/ www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //termometro
-                                "Icons made by http://www.freepik.com Freepik from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n" + //lunghezza, velocità, pressione, area, energia, massa
-                                "Icons made by https://www.flaticon.com/authors/bogdan-rosu Bogdan Rosu from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY"); //volume
+                            'Icons made by https://www.flaticon.com/authors/yannick Yannick from https://www.flaticon.com/ www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n' //termometro
+                            'Icons made by http://www.freepik.com Freepik from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n' //lunghezza, velocità, pressione, area, energia, massa
+                            'Icons made by https://www.flaticon.com/authors/bogdan-rosu Bogdan Rosu from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY'); //volume
                   },
                 ),
               ],

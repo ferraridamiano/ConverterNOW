@@ -1,4 +1,4 @@
-import 'package:converterpro/utils/Utils.dart';
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +14,7 @@ class Conversions with ChangeNotifier {
   UnitData? _selectedUnit; //unit where the user is writing the value
   int _currentPage = 0; //from appModel
   CurrenciesObject _currenciesObject = CurrenciesObject();
-  Map<CURRENCIES, String> _currenciesSymbols = {
+  final Map<CURRENCIES, String> _currenciesSymbols = {
     CURRENCIES.EUR: '€ 🇪🇺',
     CURRENCIES.CAD: '\$ 🇨🇦',
     CURRENCIES.HKD: 'HK\$ 🇭🇰',
@@ -51,7 +51,7 @@ class Conversions with ChangeNotifier {
     CURRENCIES.TWD: 'NT\$ 🇹🇼'
   };
   List<Property> _propertyList = [];
-  List<List<int>> _conversionsOrder = [];
+  final List<List<int>> _conversionsOrder = [];
   bool _isCurrenciesLoading = true;
   bool _removeTrailingZeros = true;
   static final List<int> _significantFiguresList = <int>[6, 8, 10, 12, 14];
@@ -68,26 +68,47 @@ class Conversions with ChangeNotifier {
 
   void _initializePropertyList() {
     _propertyList = [
-      Length(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.LENGTH),
-      Area(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.AREA),
-      Volume(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.VOLUME),
+      Length(
+          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.length),
+      Area(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.area),
+      Volume(
+          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.volume),
       SimpleCustomConversion(_currenciesObject.values,
-          mapSymbols: _currenciesSymbols, significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.CURRENCIES),
-      Time(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.TIME),
-      Temperature(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.TEMPERATURE),
-      Speed(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.SPEED),
-      Mass(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.MASS),
-      Force(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.FORCE),
-      FuelConsumption(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.FUEL_CONSUMPTION),
-      NumeralSystems(name: PROPERTYX.NUMERAL_SYSTEMS),
-      Pressure(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.PRESSURE),
-      Energy(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.ENERGY),
-      Power(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.POWER),
-      Angle(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.ANGLE),
-      ShoeSize(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.SHOE_SIZE),
-      DigitalData(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.DIGITAL_DATA),
-      SIPrefixes(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.SI_PREFIXES),
-      Torque(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.TORQUE),
+          mapSymbols: _currenciesSymbols,
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.currencies),
+      Time(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.time),
+      Temperature(
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.temperature),
+      Speed(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.speed),
+      Mass(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.mass),
+      Force(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.force),
+      FuelConsumption(
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.fuelConsumption),
+      NumeralSystems(name: PROPERTYX.numeralSystems),
+      Pressure(
+          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.pressure),
+      Energy(
+          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.energy),
+      Power(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.power),
+      Angle(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.angle),
+      ShoeSize(
+          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.shoeSize),
+      DigitalData(
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.digitalData),
+      SIPrefixes(
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.siPrefixes),
+      Torque(
+          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.torque),
     ];
   }
 
@@ -96,7 +117,7 @@ class Conversions with ChangeNotifier {
   _refreshCurrentUnitDataList() {
     for (UnitData currentUnitData in currentUnitDataList) {
       currentUnitData.unit = _currentProperty.getUnit(currentUnitData.unit.name);
-      if(currentUnitData != _selectedUnit){
+      if (currentUnitData != _selectedUnit) {
         if (currentUnitData.unit.stringValue != null) {
           currentUnitData.tec.text = currentUnitData.unit.stringValue!;
         } else if (currentUnitData.unit.stringValue == null) {
@@ -165,7 +186,8 @@ class Conversions with ChangeNotifier {
       String stringRequest = '';
       for (CURRENCIES currency in CURRENCIES.values) {
         if (currency != CURRENCIES.EUR) {
-          stringRequest += (currency.toString().substring(11) + '+'); // removes the first part: 'CURRENCIES.'
+          stringRequest +=
+              (currency.toString().substring(11).toUpperCase() + '+'); // removes the first part: 'CURRENCIES.'
         }
       }
       stringRequest = stringRequest.substring(0, stringRequest.length - 1); //removes the last '+'
@@ -192,6 +214,7 @@ class Conversions with ChangeNotifier {
         }
       } catch (e) {
         //catch communication error
+        // ignore: avoid_print
         print(e);
         await _readSavedCurrencies(); //read the saved data
       }
@@ -225,7 +248,9 @@ class Conversions with ChangeNotifier {
           intList.add(int.parse(stringList[j]));
         }
         //solves the problem of adding new units after an update
-        for (int j = len; j < _conversionsOrder[i].length; j++) intList.add(j);
+        for (int j = len; j < _conversionsOrder[i].length; j++) {
+          intList.add(j);
+        }
         _conversionsOrder[i] = intList;
       }
     }
@@ -239,59 +264,60 @@ class Conversions with ChangeNotifier {
   _refreshOrderUnits() {
     _unitDataList = [];
     for (int i = 0; i < _propertyList.length; i++) {
-      List<UnitData> tempUnitData = List.filled(_conversionsOrder[i].length, UnitData(Unit('none'), tec: TextEditingController()));
+      List<UnitData> tempUnitData =
+          List.filled(_conversionsOrder[i].length, UnitData(Unit('none'), tec: TextEditingController()));
       Property property = _propertyList[i];
       List<Unit> tempProperty = property.getAll();
       for (int j = 0; j < tempProperty.length; j++) {
         VALIDATOR validator;
         TextInputType textInputType;
-        if (property.name == PROPERTYX.TEMPERATURE) {
+        if (property.name == PROPERTYX.temperature) {
           switch (tempProperty[j].name) {
             // Just kelvin and rankine can't be negative
             case TEMPERATURE.kelvin:
             case TEMPERATURE.rankine:
-              textInputType = TextInputType.numberWithOptions(decimal: true, signed: false);
-              validator = VALIDATOR.RATIONAL_NON_NEGATIVE;
+              textInputType = const TextInputType.numberWithOptions(decimal: true, signed: false);
+              validator = VALIDATOR.rationalNonNegative;
               break;
             default:
-              textInputType = TextInputType.numberWithOptions(decimal: true, signed: true);
-              validator = VALIDATOR.RATIONAL;
+              textInputType = const TextInputType.numberWithOptions(decimal: true, signed: true);
+              validator = VALIDATOR.rational;
           }
-        } else if (property.name == PROPERTYX.NUMERAL_SYSTEMS) {
+        } else if (property.name == PROPERTYX.numeralSystems) {
           switch (tempProperty[j].name) {
             case NUMERAL_SYSTEMS.binary:
               {
-                validator = VALIDATOR.BINARY;
-                textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
+                validator = VALIDATOR.binary;
+                textInputType = const TextInputType.numberWithOptions(decimal: false, signed: false);
                 break;
               }
             case NUMERAL_SYSTEMS.octal:
               {
-                validator = VALIDATOR.OCTAL;
-                textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
+                validator = VALIDATOR.octal;
+                textInputType = const TextInputType.numberWithOptions(decimal: false, signed: false);
                 break;
               }
             case NUMERAL_SYSTEMS.decimal:
               {
-                validator = VALIDATOR.DECIMAL;
-                textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
+                validator = VALIDATOR.decimal;
+                textInputType = const TextInputType.numberWithOptions(decimal: false, signed: false);
                 break;
               }
             case NUMERAL_SYSTEMS.hexadecimal:
               {
-                validator = VALIDATOR.HEXADECIMAL;
+                validator = VALIDATOR.hexadecimal;
                 textInputType = TextInputType.text;
                 break;
               }
             default:
               {
-                textInputType = TextInputType.numberWithOptions(decimal: false, signed: false);
-                validator = VALIDATOR.DECIMAL;
+                textInputType = const TextInputType.numberWithOptions(decimal: false, signed: false);
+                validator = VALIDATOR.decimal;
               }
           }
         } else {
-          textInputType = TextInputType.numberWithOptions(decimal: true, signed: false);
-          validator = VALIDATOR.RATIONAL_NON_NEGATIVE;
+          textInputType = const TextInputType.numberWithOptions(decimal: true, signed: false);
+          validator = VALIDATOR.rationalNonNegative;
         }
 
         tempUnitData[_conversionsOrder[i][j]] = UnitData(
@@ -329,7 +355,9 @@ class Conversions with ChangeNotifier {
   _saveOrders() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> toConvertList = [];
-    for (int item in _conversionsOrder[_currentPage]) toConvertList.add(item.toString());
+    for (int item in _conversionsOrder[_currentPage]) {
+      toConvertList.add(item.toString());
+    }
     prefs.setStringList("conversion_$_currentPage", toConvertList);
   }
 
@@ -343,10 +371,12 @@ class Conversions with ChangeNotifier {
     bool? val2 = prefs.getBool("remove_trailing_zeros");
 
     if (val1 != null || val2 != null) {
-      if (val1 != null) _significantFigures = val1;
-
-      if (val2 != null) _removeTrailingZeros = val2;
-
+      if (val1 != null) {
+        _significantFigures = val1;
+      }
+      if (val2 != null) {
+        _removeTrailingZeros = val2;
+      }
       _initializePropertyList();
       notifyListeners();
     }

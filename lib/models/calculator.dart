@@ -1,24 +1,24 @@
-import 'dart:math' as Math;
+import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 
 enum OPERATION {
-  PRODUCT,
-  DIVISION,
-  ADDITION,
-  SUBTRACTION,
+  product,
+  division,
+  addition,
+  subtraction,
 }
 
 class Calculator with ChangeNotifier {
   final RegExp _regExpValidatingChar = RegExp(r'^[0-9πe,.+-/=*×÷−]+$'); //da capire se va bene
   final RegExp _regExpNumber = RegExp(r'^[0-9πe]+$');
   static const Map<String, OPERATION> mapOperation = {
-    '*': OPERATION.PRODUCT,
-    '/': OPERATION.DIVISION,
-    '+': OPERATION.ADDITION,
-    '-': OPERATION.SUBTRACTION,
-    '×': OPERATION.PRODUCT,
-    '÷': OPERATION.DIVISION,
-    '−': OPERATION.SUBTRACTION,
+    '*': OPERATION.product,
+    '/': OPERATION.division,
+    '+': OPERATION.addition,
+    '-': OPERATION.subtraction,
+    '×': OPERATION.product,
+    '÷': OPERATION.division,
+    '−': OPERATION.subtraction,
   };
 
   String currentNumber = '';
@@ -50,9 +50,9 @@ class Calculator with ChangeNotifier {
         endNumber = false;
       }
       if (char == 'π') {
-        currentNumber = Math.pi.toString();
+        currentNumber = math.pi.toString();
       } else if (char == 'e') {
-        currentNumber = Math.e.toString();
+        currentNumber = math.e.toString();
       } else {
         //is a number
         currentNumber += char;
@@ -124,16 +124,16 @@ class Calculator with ChangeNotifier {
     assert(_firstNumber != null && _secondNumber != null, 'firstNumber/secondNumber is null');
 
     switch (selectedOperation) {
-      case OPERATION.ADDITION:
+      case OPERATION.addition:
         result = _firstNumber! + _secondNumber!;
         break;
-      case OPERATION.SUBTRACTION:
+      case OPERATION.subtraction:
         result = _firstNumber! - _secondNumber!;
         break;
-      case OPERATION.PRODUCT:
+      case OPERATION.product:
         result = _firstNumber! * _secondNumber!;
         break;
-      case OPERATION.DIVISION:
+      case OPERATION.division:
         result = _firstNumber! / _secondNumber!;
         break;
       case null:
@@ -174,16 +174,16 @@ class Calculator with ChangeNotifier {
   }
 
   /// Computes the square root of currentNumber
-  void squareRoot() => _unaryOperation(Math.sqrt);
+  void squareRoot() => _unaryOperation(math.sqrt);
 
   /// Computes the base-10 logarithm of currentNumber
-  void log10() => _unaryOperation((double x) => Math.log(x) / Math.log(10));
+  void log10() => _unaryOperation((double x) => math.log(x) / math.log(10));
 
   /// Computes the square of currentNumber
   void square() => _unaryOperation((double x) => x * x);
 
   /// Computes the natural logarithm (base e) of currentNumber
-  void ln() => _unaryOperation(Math.log);
+  void ln() => _unaryOperation(math.log);
 
   /// Computes the reciprocal (multiplicative inverse) of currentNumber
   void reciprocal() => _unaryOperation((double x) => 1/x);
