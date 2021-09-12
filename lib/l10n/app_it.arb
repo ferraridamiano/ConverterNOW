@@ -35,6 +35,20 @@
   "copy": "Copia",
   "more": "Altro",
   "language": "Lingua",
+  "reorderProperties": "Riordina le grandezze",
+  "reorderUnits": "Riordina le unità di misura",
+  "chooseProperty": "Scegli una grandezza",
+  "reorderProperty": "Riordina {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
+  "otherPlatforms": "Converter NOW per le altre piattaforme",
+  "sourceCode": "Codice sorgente",
 
   "length": "Lunghezza",
   "area": "Superficie",

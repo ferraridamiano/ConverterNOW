@@ -1,20 +1,20 @@
 import 'dart:math';
-import 'package:converterpro/models/Calculator.dart';
+import 'package:converterpro/models/calculator.dart';
 import 'package:test/test.dart';
 
-const int MAXVALUE = 200000000;
+const int maxValue = 200000000;
 const Map<OPERATION, String> mapOperation = {
-  OPERATION.PRODUCT: '*',
-  OPERATION.DIVISION: '/',
-  OPERATION.ADDITION: '+',
-  OPERATION.SUBTRACTION: '-',
+  OPERATION.product: '*',
+  OPERATION.division: '/',
+  OPERATION.addition: '+',
+  OPERATION.subtraction: '-',
 };
 
 void main() {
   test('Display number test', () {
     Random rnd = Random();
     Calculator calc = Calculator();
-    String randomNumber = rnd.nextInt(MAXVALUE).toString() + '.' + rnd.nextInt(MAXVALUE).toString();
+    String randomNumber = rnd.nextInt(maxValue).toString() + '.' + rnd.nextInt(maxValue).toString();
     for (int i = 0; i < randomNumber.length; i++) {
       String char = randomNumber[i];
       calc.submitChar(char);
@@ -32,9 +32,9 @@ void main() {
   /// It tests for example that operation such as 2*3+7=13 works
   test('Chained operations', () {
     Random rnd = Random();
-    double firstNumber = rnd.nextDouble() * MAXVALUE + 1;
-    double secondNumber = rnd.nextDouble() * MAXVALUE + 1;
-    double thirdNumber = rnd.nextDouble() * MAXVALUE + 1;
+    double firstNumber = rnd.nextDouble() * maxValue + 1;
+    double secondNumber = rnd.nextDouble() * maxValue + 1;
+    double thirdNumber = rnd.nextDouble() * maxValue + 1;
     Calculator calc = Calculator();
     for (OPERATION op1 in OPERATION.values) {
       for (OPERATION op2 in OPERATION.values) {
@@ -58,18 +58,21 @@ void main() {
         expect(calc.currentNumber, stringNumber);
         calc.submitString('=');
         result = getResultBinaryOperation(result, thirdNumber, op2);
-        expect(isAcceptable(result, calc.currentNumber), true, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
+        expect(isAcceptable(result, calc.currentNumber), true,
+            reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
       }
     }
   });
 
   test('Change a wrong operation in binary operation', () {
     Random rnd = Random();
-    double firstNumber = rnd.nextDouble() * MAXVALUE + 1;
-    double secondNumber = rnd.nextDouble() * MAXVALUE + 1;
+    double firstNumber = rnd.nextDouble() * maxValue + 1;
+    double secondNumber = rnd.nextDouble() * maxValue + 1;
     OPERATION op1 = getRandomOperation();
     OPERATION op2 = getRandomOperation();
-    while (op1 != op2) op2 = getRandomOperation();
+    while (op1 != op2) {
+      op2 = getRandomOperation();
+    }
     Calculator calc = Calculator();
     expect(calc.selectedOperation, null);
     String stringNumber = firstNumber.toStringAsFixed(11);
@@ -93,8 +96,8 @@ void main() {
     Random rnd = Random();
     Calculator calc = Calculator();
     for (int i = 0; i < 5; i++) {
-      double firstNumber = rnd.nextDouble() * MAXVALUE + 1;
-      double secondNumber = rnd.nextDouble() * MAXVALUE + 1;
+      double firstNumber = rnd.nextDouble() * maxValue + 1;
+      double secondNumber = rnd.nextDouble() * maxValue + 1;
       OPERATION op = getRandomOperation();
       double result = getResultBinaryOperation(firstNumber, secondNumber, op);
       String stringNumber = firstNumber.toStringAsFixed(11);
@@ -107,7 +110,8 @@ void main() {
       calc.submitString(stringNumber);
       expect(calc.currentNumber, stringNumber);
       calc.submitString('=');
-      expect(isAcceptable(result, calc.currentNumber), true, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
+      expect(isAcceptable(result, calc.currentNumber), true,
+          reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
     }
   });
 
@@ -116,7 +120,7 @@ void main() {
     Calculator calc = Calculator(decimalSeparator: decimalSeparator);
     double firstNumber = 12345.6789;
     double secondNumber = 9876543.21;
-    OPERATION op = OPERATION.ADDITION;
+    OPERATION op = OPERATION.addition;
     String result = '9888888.8889';
     String stringNumber = firstNumber.toStringAsFixed(11).replaceFirst(RegExp('[.]'), decimalSeparator);
     calc.submitString(stringNumber);
@@ -133,7 +137,7 @@ void main() {
     Calculator calc = Calculator();
     double result = 3;
     double secondNumber = 2;
-    OPERATION op = OPERATION.PRODUCT;
+    OPERATION op = OPERATION.product;
     calc.submitString(result.toString());
     calc.submitString(mapOperation[op]!);
     calc.submitString(secondNumber.toString());
@@ -143,16 +147,24 @@ void main() {
     for (int i = 0; i < 5; i++) {
       calc.submitChar('=');
       result = getResultBinaryOperation(result, secondNumber, op);
-      expect(isAcceptable(result, calc.currentNumber), true, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
+      expect(isAcceptable(result, calc.currentNumber), true,
+          reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
     }
   });
 
   /// e.g. 2*3=-1 --> 5
   test('Execute an operation on the result', () {
     Calculator calc = Calculator();
-    calc..submitString('2')..submitString('*')..submitString('3')..submitString('=');
+    calc
+      ..submitString('2')
+      ..submitString('*')
+      ..submitString('3')
+      ..submitString('=');
     expect(calc.currentNumber, '6');
-    calc..submitString('-')..submitString('1')..submitString('=');
+    calc
+      ..submitString('-')
+      ..submitString('1')
+      ..submitString('=');
     expect(calc.currentNumber, '5');
   });
 
@@ -160,7 +172,10 @@ void main() {
     Calculator calc = Calculator();
     calc.submitChar('π');
     expect(calc.currentNumber, pi.toString());
-    calc..submitString('*')..submitString('2')..submitString('=');
+    calc
+      ..submitString('*')
+      ..submitString('2')
+      ..submitString('=');
     expect(calc.currentNumber, (2 * pi).toString());
   });
 
@@ -168,7 +183,10 @@ void main() {
     Calculator calc = Calculator();
     calc.submitChar('e');
     expect(calc.currentNumber, e.toString());
-    calc..submitString('*')..submitString('2')..submitString('=');
+    calc
+      ..submitString('*')
+      ..submitString('2')
+      ..submitString('=');
     expect(calc.currentNumber, (2 * e).toString());
   });
 
@@ -198,7 +216,7 @@ void main() {
       ..submitString('10')
       ..square();
     expect(calc.currentNumber, '100');
-    calc..square();
+    calc.square();
     expect(calc.currentNumber, '10000');
   });
 
@@ -247,8 +265,8 @@ void testBinaryOperation(OPERATION operation) {
     Random rnd = Random();
     Calculator calc = Calculator();
     expect(calc.selectedOperation, null);
-    double firstNumber = rnd.nextDouble() * MAXVALUE;
-    double secondNumber = rnd.nextDouble() * MAXVALUE;
+    double firstNumber = rnd.nextDouble() * maxValue;
+    double secondNumber = rnd.nextDouble() * maxValue;
     String stringNumber = firstNumber.toStringAsFixed(11);
     calc.submitString(stringNumber);
     expect(calc.currentNumber, stringNumber);
@@ -267,13 +285,13 @@ void testBinaryOperation(OPERATION operation) {
 /// Returns the result of a binary operation op between 2 numbers a and b
 double getResultBinaryOperation(double a, double b, OPERATION op) {
   switch (op) {
-    case OPERATION.ADDITION:
+    case OPERATION.addition:
       return a + b;
-    case OPERATION.SUBTRACTION:
+    case OPERATION.subtraction:
       return a - b;
-    case OPERATION.PRODUCT:
+    case OPERATION.product:
       return a * b;
-    case OPERATION.DIVISION:
+    case OPERATION.division:
       return a / b;
   }
 }

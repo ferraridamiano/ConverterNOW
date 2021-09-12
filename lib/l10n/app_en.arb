@@ -35,6 +35,20 @@
   "copy": "Copy",
   "more": "More",
   "language": "Language",
+  "reorderProperties": "Reorder properties",
+  "reorderUnits": "Reorder units",
+  "chooseProperty": "Choose a property",
+  "reorderProperty": "Reorder {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
+  "otherPlatforms": "Converter NOW for other platforms",
+  "sourceCode": "Source code",
 
   "length": "Length",
   "area": "Area",

@@ -35,6 +35,20 @@
   "copy": "Cópia de",
   "more": "Mais",
   "language": "Língua",
+  "reorderProperties": "Reordenar propriedades",
+  "reorderUnits": "Reordenar unidades de medida",
+  "chooseProperty": "Escolha uma propriedade",
+  "reorderProperty": "Reorganizar {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
+  "otherPlatforms": "Converter NOW para outras plataformas",
+  "sourceCode": "Código fonte",
 
   "length": "Comprimento",
   "area": "Área",

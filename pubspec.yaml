@@ -4,7 +4,7 @@ description: Unit and currencies converter
 version: 2.6.0+28
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -20,8 +20,8 @@ dependencies:
   provider: ^5.0.0
   #Needed for translation
   intl: ^0.17.0
-  #Needed for speed dial on large screen
-  flutter_speed_dial: ^4.2.0
+  #Needed for fonts
+  google_fonts: ^2.1.0
   #Needed for unit conversion
   units_converter: ^0.3.0+1
     #git:
@@ -33,8 +33,20 @@ dependencies:
 
 dev_dependencies:
   test: ^1.16.5
+  flutter_native_splash: ^1.2.3
+  flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  # Customize the parameters below, and run the following command in the terminal:
+  # flutter pub run flutter_native_splash:create
+  # To restore Flutter's default white splash screen, run the following command in the terminal:
+  # flutter pub run flutter_native_splash:remove
+
+  color: "#eeeeee"
+  color_dark: "#333333"
+  image: resources/splash/splash.png
 
 flutter:
   uses-material-design: true

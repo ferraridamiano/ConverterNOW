@@ -35,6 +35,20 @@
   "copy": "Kopiere",
   "more": "Mer",
   "language": "Språk",
+  "reorderProperties": "Endre rekkefølge på eiendommer",
+  "reorderUnits": "Omorganiser måleenheter",
+  "chooseProperty": "Velg en eiendom",
+  "reorderProperty": "Endre rekkefølge {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
+  "otherPlatforms": "Converter NOW for andre plattformer",
+  "sourceCode": "Kildekode",
 
   "length": "Lengde",
   "area": "Areal",

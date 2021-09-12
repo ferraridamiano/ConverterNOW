@@ -1,22 +1,27 @@
-import 'package:converterpro/pages/ReorderPage.dart';
-import 'package:converterpro/utils/Utils.dart';
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum MAIN_SCREEN {
+  settings,
+  conversion,
+  reorderProperties,
+  reorderUnits,
+}
+
 class AppModel with ChangeNotifier {
   //_conversionsOrderDrawer numbers until max conversion units - 1
-  List<int> _conversionsOrderDrawer = List.generate(19, (index) => index);
+  final List<int> _conversionsOrderDrawer = List.generate(19, (index) => index);
+  MAIN_SCREEN _currentScreen = MAIN_SCREEN.conversion;
   int _currentPage = 0;
-  bool _isLogoVisible = true;
   ThemeMode _currentThemeMode = ThemeMode.system;
   bool _isDarkAmoled = false;
-  Map<ThemeMode, int> _themeModeMap = {
+  final Map<ThemeMode, int> _themeModeMap = {
     ThemeMode.system: 0,
     ThemeMode.dark: 1,
     ThemeMode.light: 2,
   };
-  bool isDrawerFixed = true;
 
   final Map<Locale, String> mapLocale = {
     const Locale('en'): 'English',
@@ -40,10 +45,10 @@ class AppModel with ChangeNotifier {
   }
 
   ///Returns the order of the tile of the conversions in the drawer
-  get conversionsOrderDrawer => _conversionsOrderDrawer;
+  List<int> get conversionsOrderDrawer => _conversionsOrderDrawer;
 
   ///Returns the current page (e.g: temperature, mass, etc)
-  get currentPage => _currentPage;
+  int get currentPage => _currentPage;
 
   ///Method needed to change the selected conversion page
   ///e.g: from temperature to mass, etc
@@ -53,6 +58,13 @@ class AppModel with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  set currentScreen(MAIN_SCREEN screen) {
+    _currentScreen = screen;
+    notifyListeners();
+  }
+
+  MAIN_SCREEN get currentScreen => _currentScreen;
 
   ///Updates the order of the tiles in the drawer
   _checkOrdersDrawer() async {
@@ -74,32 +86,22 @@ class AppModel with ChangeNotifier {
   }
 
   ///Changes the orders of the tiles in the Drawer
-  changeOrderDrawer(BuildContext context, List<String> titlesList) async {
-    if (!isDrawerFixed) {
-      Navigator.of(context).pop(); //Close the drawer
-    }
-
-    List<String> orderedList = List.filled(_conversionsOrderDrawer.length, "");
-    for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
-      orderedList[_conversionsOrderDrawer[i]] = titlesList[i];
-    }
-
-    final List<int>? result =
-        await Navigator.push(context, MaterialPageRoute(builder: (context) => ReorderPage(orderedList)));
-
+  saveOrderDrawer(List<int>? newOrder) async {
     //if there arent't any modifications, do nothing
-    if (result != null) {
+    if (newOrder != null) {
       List arrayCopia = List.filled(_conversionsOrderDrawer.length, null);
-      for (int i = 0; i < _conversionsOrderDrawer.length; i++){
+      for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
         arrayCopia[i] = _conversionsOrderDrawer[i];
       }
-      for (int i = 0; i < _conversionsOrderDrawer.length; i++){
-        _conversionsOrderDrawer[i] = result.indexOf(arrayCopia[i]);
+      for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
+        _conversionsOrderDrawer[i] = newOrder.indexOf(arrayCopia[i]);
       }
       notifyListeners();
       //save new orders to memory
       List<String> toConvertList = [];
-      for (int item in _conversionsOrderDrawer) toConvertList.add(item.toString());
+      for (int item in _conversionsOrderDrawer) {
+        toConvertList.add(item.toString());
+      }
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setStringList("orderDrawer", toConvertList);
     }
@@ -111,7 +113,6 @@ class AppModel with ChangeNotifier {
   ///(if there are options saved)
   _checkSettings() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _isLogoVisible = prefs.getBool("isLogoVisible") ?? _isLogoVisible;
     _isDarkAmoled = prefs.getBool("isDarkAmoled") ?? _isDarkAmoled;
     int? valThemeMode = prefs.getInt('currentThemeMode');
     if (valThemeMode != null) {
@@ -120,16 +121,6 @@ class AppModel with ChangeNotifier {
     String? temp = prefs.getString('locale');
     _appLocale = temp == null || temp == 'null' ? null : Locale(temp);
     notifyListeners();
-  }
-
-  ///Returns true if the drawer logo is visible, false otherwise
-  bool get isLogoVisible => _isLogoVisible;
-
-  ///Set the drawer logo visibility and save to SharedPreferences
-  set isLogoVisible(bool value) {
-    _isLogoVisible = value;
-    notifyListeners();
-    saveSettings('isLogoVisible', _isLogoVisible);
   }
 
   set currentThemeMode(ThemeMode val) {
@@ -163,7 +154,7 @@ class AppModel with ChangeNotifier {
         return null; // System Locale
       }
     }
-    return Locale('en');
+    return const Locale('en');
   }
 
   /// Set the Locale of the device (can be different from the locale of the app)
@@ -186,9 +177,15 @@ class AppModel with ChangeNotifier {
 
   /// Return a string locale (e.g 'English', 'Italiano', etc.) or null if it is "System settings"
   String? getLocaleString() {
-    return mapLocale[mapLocale.keys.firstWhere(
-      (element) => _appLocale!.languageCode == element.languageCode,
-      orElse: null,
-    )];
+    try{
+      return mapLocale[mapLocale.keys.firstWhere(
+      (element) => _appLocale!.languageCode == element.languageCode)];
+    }
+    catch(error){
+      // if there isn't a locale, then a StateError is thrown
+      if(error is StateError){
+        return null;
+      }
+    }
   }
 }

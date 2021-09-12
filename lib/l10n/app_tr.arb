@@ -35,6 +35,20 @@
   "copy": "Kopyala",
   "more": "Daha",
   "language": "Dilim",
+  "reorderProperties": "Özellikleri yeniden sırala",
+  "reorderUnits": "Ölçü birimlerini yeniden sıralama",
+  "chooseProperty": "Bir mülk seçin",
+  "reorderProperty": "Sırala {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
+  "otherPlatforms": "Diğer platformlar için Converter NOW",
+  "sourceCode": "Kaynak kodu",
 
   "length": "Uzunluk",
   "area": "Alan",
