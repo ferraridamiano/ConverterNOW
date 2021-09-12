@@ -54,7 +54,7 @@ class Conversions with ChangeNotifier {
   final List<List<int>> _conversionsOrder = [];
   bool _isCurrenciesLoading = true;
   bool _removeTrailingZeros = true;
-  static final List<int> _significantFiguresList = <int>[6, 8, 10, 12, 14];
+  static const List<int> _significantFiguresList = <int>[6, 8, 10, 12, 14];
   int _significantFigures = _significantFiguresList[2];
 
   Conversions() {

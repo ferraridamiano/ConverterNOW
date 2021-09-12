@@ -1,35 +1,18 @@
 // ignore_for_file: constant_identifier_names
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:units_converter/Unit.dart';
-import 'dart:math';
 import 'package:url_launcher/url_launcher.dart';
 
-Brightness getBrightness(ThemeMode themeMode, Brightness platformBrightness) {
-  if (themeMode == ThemeMode.light) {
-    return Brightness.light;
-  } else if (themeMode == ThemeMode.dark) {
-    return Brightness.dark;
-  }
-  return platformBrightness;
-}
-
-launchURL(String url) async {
+void launchURL(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
   } else {
     throw 'Could not launch $url';
   }
-}
-
-bool getBoolWithProbability(int probability) {
-  Random random = Random();
-  int num = random.nextInt(100); //numero da 0 a 99
-  return num < probability;
 }
 
 ///Saves the key value with SharedPreferences

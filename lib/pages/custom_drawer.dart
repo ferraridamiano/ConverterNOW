@@ -30,7 +30,7 @@ class CustomDrawer extends StatelessWidget {
     MAIN_SCREEN currentScreen = context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
 
     final Widget title = Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 30),
       child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
