@@ -23,7 +23,7 @@ dependencies:
   #Needed for fonts
   google_fonts: ^2.1.0
   #Needed for unit conversion
-  units_converter: ^0.3.0+1
+  units_converter: ^0.4.0
     #git:
     #  url: https://github.com/ferraridamiano/units_converter
     #path: ../units_converter

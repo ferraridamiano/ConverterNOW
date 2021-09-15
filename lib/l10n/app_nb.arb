@@ -148,6 +148,7 @@
   "milesHour": "Engelsk mil per time",
   "knots": "Knop",
   "feetSecond": "Fot per sekund",
+  "minutesPerKilometer": "Minutter per kilometer",
 
   "grams": "Gram",
   "ettograms": "Ettogram",
@@ -175,6 +176,7 @@
   "calorie": "Kalori",
   "kilowattHour": "Kilowatt-time",
   "electronvolt": "Elektronvolt",
+  "footPound": "Fot pund",
 
   "degree": "Grad",
   "minutesDegree": "Bueminutt",

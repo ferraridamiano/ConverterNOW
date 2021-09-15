@@ -148,6 +148,7 @@
   "milesHour": "Милей в Час",
   "knots": "Узел",
   "feetSecond": "Футов в секунду",
+  "minutesPerKilometer": "Минут на километр",
 
   "grams": "Граммы",
   "ettograms": "Эттограммы",
@@ -175,6 +176,7 @@
   "calorie": "Каллории",
   "kilowattHour": "Киловатт-час",
   "electronvolt": "Электронвольт",
+  "footPound": "Фут-фунт",
 
   "degree": "Степень",
   "minutesDegree": "Минуты",

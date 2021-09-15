@@ -148,6 +148,7 @@
   "milesHour": "Milja na sat",
   "knots": "Čvor",
   "feetSecond": "Stopa u sekundi",
+  "minutesPerKilometer": "Minute po kilometru",
 
   "grams": "Gram",
   "ettograms": "Etogram",
@@ -175,6 +176,7 @@
   "calorie": "Kalorija",
   "kilowattHour": "Kilovat-sat",
   "electronvolt": "Elektronvolt",
+  "footPound": "Nožna funta",
 
   "degree": "Stupanj",
   "minutesDegree": "Minuta",

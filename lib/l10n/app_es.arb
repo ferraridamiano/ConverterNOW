@@ -148,6 +148,7 @@
   "milesHour": "Millas por hora",
   "knots": "Nudos",
   "feetSecond": "Pies por segundo",
+  "minutesPerKilometer": "Minutos por kilómetro",
 
   "grams": "Gramos",
   "ettograms": "Hectogramos",
@@ -175,6 +176,7 @@
   "calorie": "Caloría",
   "kilowattHour": "Kilovatio-hora",
   "electronvolt": "Electronvoltio",
+  "footPound": "Libra de pie",
 
   "degree": "Grados",
   "minutesDegree": "Minutos",

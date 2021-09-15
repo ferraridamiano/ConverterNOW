@@ -148,6 +148,7 @@
   "milesHour": "Saatte mil",
   "knots": "Knot",
   "feetSecond": "Saniyede fit",
+  "minutesPerKilometer": "Kilometre başına dakika",
 
   "grams": "Gram",
   "ettograms": "Ettogram",
@@ -175,6 +176,7 @@
   "calorie": "Kalori",
   "kilowattHour": "Kilovat saat",
   "electronvolt": "Elektronvolt",
+  "footPound": "Ayak pound",
 
   "degree": "Derece",
   "minutesDegree": "Dakika",
