@@ -271,6 +271,7 @@ class _CalculatorWidget extends State<CalculatorWidget> {
                             text: context.select<Calculator, bool>((calc) => calc.endNumber) ? 'CE' : '←',
                             buttonWidth: buttonWidth,
                             buttonHeight: buttonOpSize,
+                            style: buttonTextStyle,
                             iconColor: secondaryColor,
                             onPressed: () {
                               context.read<Calculator>().adaptiveDeleteClear();

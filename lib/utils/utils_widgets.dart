@@ -339,7 +339,7 @@ class CalculatorButton extends StatelessWidget {
       primary: Colors.transparent,
       minimumSize: Size(buttonWidth, buttonHeight),
       elevation: 0,
-      animationDuration: const Duration(milliseconds: 60),
+      animationDuration: const Duration(milliseconds: 30),
     );
 
     return ElevatedButton(
