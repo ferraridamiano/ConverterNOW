@@ -1,7 +1,7 @@
 name: converterpro
 description: Unit and currencies converter
 
-version: 2.6.0+28
+version: 3.0.0+29
 
 environment:
   sdk: ">=2.14.0 <3.0.0"
@@ -11,13 +11,13 @@ dependencies:
     sdk: flutter
 
   #Needed to store the customizations and the latest currencies convertions
-  shared_preferences: ^2.0.5
+  shared_preferences: ^2.0.7
   #Needed to open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^6.0.3
+  url_launcher: ^6.0.10
   #Needed to download the latest currencies convertions
-  http: ^0.13.1
+  http: ^0.13.3
   #Needed to improve the state management
-  provider: ^5.0.0
+  provider: ^6.0.0
   #Needed for translation
   intl: ^0.17.0
   #Needed for fonts
@@ -32,7 +32,7 @@ dependencies:
       sdk: flutter
 
 dev_dependencies:
-  test: ^1.16.5
+  test: ^1.17.10
   flutter_native_splash: ^1.2.3
   flutter_lints: ^1.0.4
   flutter_test:

@@ -64,7 +64,6 @@ android {
    //-----------------------------------------------------------------------------------------------
     buildTypes {
         release {
-            useProguard true
             minifyEnabled true
             //SIGNING APK---------------------------------------------------------------------------
             //signingConfig signingConfigs.debug          //not signed

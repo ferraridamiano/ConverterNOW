@@ -1,0 +1,11 @@
+★ Migliorato il supporto per i grandi schermi
+★ Supporto per l'icona adattiva
+★ Aggiunte alcune unità di misura
+★ Ora puoi cambiare la lingua dell'app dalle impostazioni
+★ Aggiunta la splash screen
+★ Aggiunto il croato
+★ Bugfix
+
+Grazie a Giovanni Spitti e @milotype per i vostri contributi!
+
+Cosa ne pensi di Converter NOW? Recensiscici! ✔️
