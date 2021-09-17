@@ -117,12 +117,10 @@ class Conversions with ChangeNotifier {
   _refreshCurrentUnitDataList() {
     for (UnitData currentUnitData in currentUnitDataList) {
       currentUnitData.unit = _currentProperty.getUnit(currentUnitData.unit.name);
-      if (currentUnitData != _selectedUnit) {
-        if (currentUnitData.unit.stringValue != null) {
-          currentUnitData.tec.text = currentUnitData.unit.stringValue!;
-        } else if (currentUnitData.unit.stringValue == null) {
-          currentUnitData.tec.text = '';
-        }
+      if (currentUnitData.unit.stringValue == null) {
+        currentUnitData.tec.text = '';
+      } else if (currentUnitData != _selectedUnit) {
+        currentUnitData.tec.text = currentUnitData.unit.stringValue!;
       }
     }
   }
