@@ -1,23 +1,23 @@
-<b>Converter NOW ist ein leistungsstarker Einheiten- und Währungsumwandler</b>
+<b>Converter NOW ist ein leistungsstarker Einheiten- und Währungsumrechner</b>
 ✔️ <b>Vereinfache</b> den aufwendigen Umrechnungsprozess zwischen den Maßeinheiten mit wenigen Klicks.
 🚀 Er ist <b>schnell und unmittelbar</b>: beginne zu tippen und du erhälst prompt die Umrechnung in die anderen Maßeinheiten in Echtzeit.
 🖌️ Er ist <b>anpassungsfähig</b>: gestalte die Reihenfolge der Maßeinheiten nach deinen Vorlieben.
-🔢 Er besitzt einen eingebauten <b>Taschenrechner</b>, der die Berechnungen jederzeit zulässt.
+🔢 Er besitzt einen eingebauten <b>Taschenrechner</b>, der einfache Berechnungen jederzeit zulässt.
 💰 <b>Tägliche Aktualisierung</b> der Währungskurse.
-⚫⚪ <b>Wähle dein bevorzugstes Schema</b>: Dunkel oder Hell.
+⚫⚪ <b>Wähle dein bevorzugstes Schema</b>: Dunkel, Hell oder Schwarz für AMOLED.
  📱 <b>Vollständige</b> Smartphone- und Tablet-<b>Unterstützung</b>.
-💯 Wir sind <b>Open-Source-Software</b>!
+💯 Wir sind eine <b>Open-Source-Software</b>!
 
 Schau dir unser Repository auf GitHub an: https://github.com/ferraridamiano/ConverterNOW
 
 Wir haben auch eine Web-App! 🖥️ Schau vorbei: https://ferraridamiano.github.io/ConverterNOW/
 
-🌍 Converter NOW ist frei, werbungsfrei, setzt keinerlei Berechtigungen voraus und wir sammeln keine persönlichen Daten von dir. Wenn dir das Projekt gefällt, dann unterstütze den Entwickler mit einer kleinen Spende: https://www.paypal.me/DemApps 🌍
-Dank dir bleiben wir aktiv 🔝
+🌍 Converter NOW ist frei, ohne Werbung, setzt keinerlei Berechtigungen voraus und wir sammeln keine persönlichen Daten über dich. Wenn dir das Projekt gefällt, dann unterstütze den Entwickler mit einer kleinen Spende: https://www.paypal.me/DemApps 🌍
+Dank dir bleiben wir aktiv 🔝.
 
 <b>Converter NOW kann mehr als 200 Maßeinheiten und 30+ Währungen umwandeln.</b> 🎉🎉
 
-Hier sind einige Beispiele für physikale Größen und Kurse welche Converter NOW umwandeln kann:
+Hier sind einige Beispiele für physikale Größen und Kurse welche Converter NOW beherrscht:
 -<b>Währungen:</b> Dollar (USA & Kanada), Euro, Pfund, Rupee, Yen, etc.
 -<b>Länge:</b> Meter, Zoll, Meilen, Yards, Lichtjahre, etc.
 -<b>Fläche:</b> Quadratmeter, Hektar, Acre, etc.
