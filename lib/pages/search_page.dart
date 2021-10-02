@@ -9,9 +9,6 @@ class CustomSearchDelegate extends SearchDelegate<int> {
   CustomSearchDelegate(this.orderList);
 
   @override
-  ThemeData appBarTheme(BuildContext context) => Theme.of(context);
-
-  @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
       tooltip: AppLocalizations.of(context)!.back,
