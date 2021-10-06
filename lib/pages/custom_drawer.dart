@@ -43,6 +43,7 @@ class CustomDrawer extends StatelessWidget {
             const SizedBox(width: 10),
             Text(
               'Converter NOW',
+              textScaleFactor: 1, // fixed indipendently of the accessibility settings. Already as large as possibile
               style: GoogleFonts.josefinSans(
                 textStyle: const TextStyle(fontSize: 31),
               ),
