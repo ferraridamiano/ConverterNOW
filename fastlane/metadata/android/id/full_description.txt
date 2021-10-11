@@ -1,0 +1,39 @@
+<b>Converter NOW merupakan alat konversi satuan dan kurs yang efektif </b>
+✔️ <b>Persingkat</b> proses konversi yang berbelit antara satuan pengukuran dalam beberapa sentuhan.
+🚀 <b>Cepat dan segera</b>: tinggal ketik dan Anda mendapatkan alat konversi waktu nyata dengan satuan pengukuran lainnya.
+🖌️ Sangat bisa <b>ditata ulang</b>: satuannya bisa ditata tergantung penggunaan Anda.
+🔢 Terdapat <b>kalkulator</b> yang terintegrasi yang bisa membuat Anda melakukan penghitungan.
+💰 Kami <b>memperbarui setiap hari</b> valuasi kursnya.
+⚫⚪ <b>Pilih tema favorit Anda</b>: tema gelap atau terang.
+ 📱 <b>Dukungan penuh untuk</b> ponsel pintar and tablet.
+💯 <b>Sumber terbuka</b>!
+
+Periksa repositorinya di GitHub: https://github.com/ferraridamiano/ConverterNOW
+
+Kami juga memiliki Aplikasi Web! 🖥️ Cek disini: https://ferraridamiano.github.io/ConverterNOW/
+
+🌍 Converter NOW gratis/bebas, tanpa iklan, dan tidak mengumpulkan data apapun. Jika Anda ingin membantu pengembang, berdonasi: https://www.paypal.me/DemApps 🌍
+Terima kasih kepada Anda kami masih bisa bertahan. 🔝
+
+<b>Converter NOW bisa mengonversi 200+ satuan pengukuran dan 30+ kurs</b> 🎉🎉
+
+Ini adalah beberapa satuan yang bisa Converter NOW konversikan:
+-<b>Kurs:</b> Dolar, Euro, Pound, Rupee, Yen, dll.
+-<b>Panjang:</b> meter, inci, mil, yard, tahun cahaya, dll.
+-<b>Luas:</b> meter persegi, hektar, ekar, dll.
+-<b>Volume:</b> meter kubik, liter, galon, pint, sendok, dll.
+-<b>Waktu:</b> detik, jam, hari, tahun, pekan, milenium, dll.
+-<b>Temperatur:</b> Centigrade, Fahreneit, Kelvin.
+-<b>Kecepatan:</b> meter per detik, kilometers per jam, knot, dll.
+-<b>Massa:</b> gram, pon, ton, satuan massa atom terpadu, dll.
+-<b>Gaya:</b> Newton, dyne, Pon-Gaya, pondal, dll.
+-<b>Tekanan:</b> Pascal, bar, atmosfer, psi, dll.
+-<b>Eneri:</b> Joule, kalori, kilowattjam, dll.
+-<b>Daya:</b> Watt, kilowatt, horse power, dll.
+-<b>Konsumsi Bahan Bakar:</b> mil per galon, kilometer per liter, dll.
+-<b>Sistem Numeral:</b> desimal, biner, heksadesimal dll.
+-<b>Torsi:</b> Newton meter, pon-gaya kaki, pondal meter, dll.
+-<b>Data Digital:</b> Nibel, bit, bita, kibibit, kibibita, dll.
+-<b>Ukuran Sepatu:</b> Britania, India, Eropa, AS, Jepang, dll.
+-<b>Sudut:</b> derajat, radian, menit, dll.
+-<b>Awalan SI:</b> kilo, mega, giga, tera, mili, mikro, nano, dll.
