@@ -29,6 +29,7 @@ class AppModel with ChangeNotifier {
     const Locale('es'): 'Español',
     const Locale('fr'): 'Français',
     const Locale('hr'): 'Hrvatski',
+    const Locale('id'): 'Bahasa Indonesia',
     const Locale('it'): 'Italiano',
     const Locale('nb'): 'Norsk',
     const Locale('pt'): 'Português',
