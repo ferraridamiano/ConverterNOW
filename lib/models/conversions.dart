@@ -10,6 +10,15 @@ import 'package:units_converter/units_converter.dart';
 class Conversions with ChangeNotifier {
   List<List<UnitData>> _unitDataList = [];
   List<UnitData> currentUnitDataList = [];
+
+  /// Contains the List of the double (or String for numeral systems conversion) saved before the clear all operation.
+  /// This need to be done in order to undo the clear all operation
+  List<dynamic>? _savedUnitDataList;
+
+  /// This contains the value of [_currentPage] when a clear all operation (and the corresponding value saving) is
+  /// performed
+  int? _savedPropertyIndex;
+
   late Property _currentProperty;
   UnitData? _selectedUnit; //unit where the user is writing the value
   int _currentPage = 0; //from appModel
@@ -148,7 +157,35 @@ class Conversions with ChangeNotifier {
 
   ///Clears the values of the current page
   clearAllValues() {
+    if (currentUnitDataList[0].property == PROPERTYX.numeralSystems) {
+      _savedUnitDataList = [...currentUnitDataList.map((unitData) => unitData.unit.stringValue)];
+    } else {
+      _savedUnitDataList = [...currentUnitDataList.map((unitData) => unitData.unit.value)];
+    }
+    _savedPropertyIndex = _currentPage;
     convert(currentUnitDataList[0], null);
+  }
+
+  ///Undo the last clear all operation performed
+  undoClearOperation() {
+    if (_savedUnitDataList != null && _savedPropertyIndex != null) {
+      List<UnitData> listToUndo = _unitDataList[_savedPropertyIndex!];
+      if (_savedUnitDataList![0] is double) {
+        for (int i = 0; i < listToUndo.length; i++) {
+          listToUndo[i]
+            ..unit.value = _savedUnitDataList![i]
+            ..tec.text = _savedUnitDataList![i].toString();
+        }
+      } else if (_savedUnitDataList![0] is String) {
+        for (int i = 0; i < listToUndo.length; i++) {
+          listToUndo[i]
+            ..unit.stringValue = _savedUnitDataList![i]
+            ..tec.text = _savedUnitDataList![i];
+        }
+      }
+      notifyListeners();
+      _savedUnitDataList = _savedPropertyIndex = null;
+    }
   }
 
   ///Returns the DateTime of the latest update of the currencies conversions

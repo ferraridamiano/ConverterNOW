@@ -49,6 +49,8 @@
   },
   "otherPlatforms": "Converter NOW for other platforms",
   "sourceCode": "Source code",
+  "undoClearAllMessage": "Cleared all. Do you want to undo it?",
+  "undo": "Undo",
 
   "length": "Length",
   "area": "Area",

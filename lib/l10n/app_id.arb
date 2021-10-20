@@ -49,6 +49,13 @@
   },
   "otherPlatforms": "Converter NOW untuk sistem operasi lain",
   "sourceCode": "Kode sumber",
+  "@undoClearAllMessage": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Panjang",
   "area": "Luas",

@@ -49,6 +49,14 @@
   },
   "otherPlatforms": "Converter NOW für andere Plattformen",
   "sourceCode": "Quellcode",
+  "undoClearAllMessage": "Cleared all. Do you want to undo it?",
+  "@undoClearAllMessage": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Länge",
   "area": "Fläche",

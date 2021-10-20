@@ -49,6 +49,13 @@
   },
   "otherPlatforms": "Converter NOW para otras plataformas",
   "sourceCode": "Código fuente",
+  "@undoClearAllMessage": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Longitud",
   "area": "Área",

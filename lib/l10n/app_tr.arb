@@ -49,6 +49,13 @@
   },
   "otherPlatforms": "Diğer platformlar için Converter NOW",
   "sourceCode": "Kaynak kodu",
+  "@undoClearAllMessage": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Uzunluk",
   "area": "Alan",

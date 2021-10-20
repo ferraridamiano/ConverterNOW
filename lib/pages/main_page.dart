@@ -9,6 +9,7 @@ import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/pages/reorder_page.dart';
 import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
+import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,11 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}):super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
-    void openCalculator(){
+    void openCalculator() {
       showModalBottomSheet<void>(
           context: context,
           builder: (BuildContext context) {
@@ -32,7 +32,23 @@ class MainPage extends StatelessWidget {
           });
     }
 
-    void clearAll() => context.read<Conversions>().clearAllValues();
+    void clearAll() {
+      context.read<Conversions>().clearAllValues();
+      final double width = MediaQuery.of(context).size.width;
+      //Snackbar undo request
+      final SnackBar snackBar = SnackBar(
+        content: Text(AppLocalizations.of(context)!.undoClearAllMessage),
+        behavior: SnackBarBehavior.floating,
+        width: width > pixelFixedDrawer ? 400 : null,
+        action: SnackBarAction(
+          label: AppLocalizations.of(context)!.undo,
+          onPressed: () {
+            context.read<Conversions>().undoClearOperation();
+          },
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
 
     void openSearch() async {
       final orderList = context.read<AppModel>().conversionsOrderDrawer;

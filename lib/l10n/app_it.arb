@@ -49,6 +49,8 @@
   },
   "otherPlatforms": "Converter NOW per le altre piattaforme",
   "sourceCode": "Codice sorgente",
+  "undoClearAllMessage": "Eliminato tutto. Annullare l'operazione eseguita?",
+  "undo": "Annulla",
 
   "length": "Lunghezza",
   "area": "Superficie",

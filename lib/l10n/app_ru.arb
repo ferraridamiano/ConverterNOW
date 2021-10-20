@@ -49,6 +49,13 @@
   },
   "otherPlatforms": "Converter NOW для других платформ",
   "sourceCode": "Исходный код",
+  "@undoClearAllMessage": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Длина",
   "area": "Площадь",
