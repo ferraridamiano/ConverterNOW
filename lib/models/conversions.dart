@@ -57,7 +57,8 @@ class Conversions with ChangeNotifier {
     CURRENCIES.HRK: 'kn 🇭🇷',
     CURRENCIES.BGN: 'лв 🇧🇬',
     CURRENCIES.ISK: 'kr 🇮🇸',
-    CURRENCIES.TWD: 'NT\$ 🇹🇼'
+    CURRENCIES.TWD: 'NT\$ 🇹🇼',
+    CURRENCIES.MAD: 'د.م. 🇲🇦',
   };
   List<Property> _propertyList = [];
   final List<List<int>> _conversionsOrder = [];
