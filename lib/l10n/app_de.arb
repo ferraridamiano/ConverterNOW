@@ -179,6 +179,14 @@
   "millibar": "Millibar",
   "psi": "Pfund pro Quadratzoll",
   "torr": "Torr (Millimeter-Quecksilbersäule)",
+  "hectoPascal": "Hectopascal",
+  "@hectoPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "inchesOfMercury": "Inches of mercury",
+  "@inchesOfMercury": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calorie": "Kalorien",

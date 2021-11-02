@@ -178,6 +178,14 @@
   "millibar":"Milibar",
   "psi": "İnçkare başına libre",
   "torr": "Milimetre cıva",
+  "hectoPascal": "Hectopascal",
+  "@hectoPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "inchesOfMercury": "Inches of mercury",
+  "@inchesOfMercury": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joul",
   "calorie": "Kalori",

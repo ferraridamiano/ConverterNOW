@@ -178,6 +178,14 @@
   "millibar":"Миллибар",
   "psi": "Фунтов на квадратный дюйм",
   "torr": "Торричелли",
+  "hectoPascal": "Hectopascal",
+  "@hectoPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "inchesOfMercury": "Inches of mercury",
+  "@inchesOfMercury": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Джоули",
   "calorie": "Каллории",

@@ -202,6 +202,8 @@ List<UnitUi> getUnitUiList(BuildContext context) {
     ..add(UnitUi(PRESSURE.millibar, AppLocalizations.of(context)!.millibar, basePath + 'pressure.png', PROPERTYX.pressure))
     ..add(UnitUi(PRESSURE.psi, AppLocalizations.of(context)!.psi, basePath + 'pressure.png', PROPERTYX.pressure))
     ..add(UnitUi(PRESSURE.torr, AppLocalizations.of(context)!.torr, basePath + 'pressure.png', PROPERTYX.pressure))
+    ..add(UnitUi(PRESSURE.inchOfMercury, AppLocalizations.of(context)!.inchesOfMercury, basePath + 'pressure.png', PROPERTYX.pressure))
+    ..add(UnitUi(PRESSURE.hectoPascal, AppLocalizations.of(context)!.hectoPascal, basePath + 'pressure.png', PROPERTYX.pressure))
     ..add(UnitUi(ENERGY.joules, AppLocalizations.of(context)!.joule, basePath + 'energy.png', PROPERTYX.energy))
     ..add(UnitUi(ENERGY.calories, AppLocalizations.of(context)!.calorie, basePath + 'energy.png', PROPERTYX.energy))
     ..add(UnitUi(ENERGY.kilowattHours, AppLocalizations.of(context)!.kilowattHour, basePath + 'energy.png', PROPERTYX.energy))

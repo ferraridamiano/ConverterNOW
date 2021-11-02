@@ -173,6 +173,8 @@
   "millibar":"Millibar",
   "psi": "Pounds per square inch",
   "torr": "Torricelli",
+  "hectoPascal": "Hectopascal",
+  "inchesOfMercury": "Inches of mercury",
 
   "joule": "Joule",
   "calorie": "Calorie",

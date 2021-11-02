@@ -173,6 +173,8 @@
   "millibar": "Millibar",
   "psi": "Libbra su Pollice Quadrato",
   "torr": "Torricelli",
+  "hectoPascal": "Ettopascal",
+  "inchesOfMercury": "Pollici di mercurio",
 
   "joule": "Joule",
   "calorie": "Calorie",
