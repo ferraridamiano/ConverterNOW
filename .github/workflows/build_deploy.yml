@@ -8,6 +8,7 @@ jobs:
   release_android:
     name: Build and release Android APK
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
     - name: Checkout
       uses: actions/checkout@v1
@@ -21,6 +22,9 @@ jobs:
       uses: subosito/flutter-action@v1.5.3
       with:
         channel: stable
+
+    - name: Enable Flutter Linux desktop
+      run: flutter config --enable-linux-desktop
 
     - name: Flutter version
       run: flutter --version
@@ -55,10 +59,13 @@ jobs:
     - name: Build Android APK files
       run: flutter build apk --release --split-per-abi
 
-    - name: Build and Release in GitHub
-      uses: ncipollo/release-action@v1.7.2
+    - name: Build Linux
+      run: flutter build linux --release
+
+    - name: Release to GitHub
+      uses: ncipollo/release-action@v1.8.10
       with:
-        artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab"
+        artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab,build/linux/x64/release/bundle"
         token: ${{ secrets.GH_TOKEN }}
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}
@@ -87,6 +94,7 @@ jobs:
   release_pwa:
     name: Build and deploy PWA
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
     - name: Checkout
       uses: actions/checkout@v1
