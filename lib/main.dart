@@ -57,6 +57,7 @@ class _MyApp extends State<MyApp> {
               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
               labelStyle: TextStyle(color: Color(0xFF555555)),
             ),
+            bottomAppBarColor: const Color(0xFFEBF7F6),
           ),
           darkTheme: defaultDark.copyWith(
             primaryColor: Colors.teal[400],
@@ -72,6 +73,7 @@ class _MyApp extends State<MyApp> {
               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
               labelStyle: TextStyle(color: Color(0xFFDDDDDD)),
             ),
+            bottomAppBarColor: const Color(0xFF3F4B4A),
           ),
           supportedLocales: context.read<AppModel>().supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
