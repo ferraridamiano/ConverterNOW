@@ -168,9 +168,10 @@ class Conversions with ChangeNotifier {
     }
     _savedPropertyIndex = _currentPage;
     convert(currentUnitDataList[0], null);
+    currentUnitDataList[0].tec.text = ''; // convert doesn't clear a selected textfield
   }
 
-  ///Undo the last clear all operation performed
+  /// Undo the last clear all operation performed
   undoClearOperation() {
     if (_savedUnitDataList != null && _savedPropertyIndex != null) {
       List<UnitData> listToUndo = _unitDataList[_savedPropertyIndex!];
@@ -191,6 +192,10 @@ class Conversions with ChangeNotifier {
       _savedUnitDataList = _savedPropertyIndex = null;
     }
   }
+
+  /// Returns true if we should show a snackbar when the user press on the clear
+  /// all button (see [undoClearOperation]), false otherwise.
+  bool shouldShowSnackbar() => currentUnitDataList[0].tec.text != '';
 
   ///Returns the DateTime of the latest update of the currencies conversions
   ///ratio (year, month, day)

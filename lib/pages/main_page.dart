@@ -33,21 +33,23 @@ class MainPage extends StatelessWidget {
     }
 
     void clearAll() {
-      context.read<Conversions>().clearAllValues();
-      final double width = MediaQuery.of(context).size.width;
-      //Snackbar undo request
-      final SnackBar snackBar = SnackBar(
-        content: Text(AppLocalizations.of(context)!.undoClearAllMessage),
-        behavior: SnackBarBehavior.floating,
-        width: width > pixelFixedDrawer ? 400 : null,
-        action: SnackBarAction(
-          label: AppLocalizations.of(context)!.undo,
-          onPressed: () {
-            context.read<Conversions>().undoClearOperation();
-          },
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (context.read<Conversions>().shouldShowSnackbar()) {
+        context.read<Conversions>().clearAllValues();
+        final double width = MediaQuery.of(context).size.width;
+        //Snackbar undo request
+        final SnackBar snackBar = SnackBar(
+          content: Text(AppLocalizations.of(context)!.undoClearAllMessage),
+          behavior: SnackBarBehavior.floating,
+          width: width > pixelFixedDrawer ? 400 : null,
+          action: SnackBarAction(
+            label: AppLocalizations.of(context)!.undo,
+            onPressed: () {
+              context.read<Conversions>().undoClearOperation();
+            },
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
     }
 
     void openSearch() async {
