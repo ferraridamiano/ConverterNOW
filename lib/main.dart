@@ -73,7 +73,7 @@ class _MyApp extends State<MyApp> {
               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
               labelStyle: TextStyle(color: Color(0xFFDDDDDD)),
             ),
-            bottomAppBarColor: const Color(0xFF3F4B4A),
+            bottomAppBarColor: isDarkAmoled ? const Color(0xFF0A2D2A) : const Color(0xFF3F4B4A),
           ),
           supportedLocales: context.read<AppModel>().supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,

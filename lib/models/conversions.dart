@@ -122,15 +122,18 @@ class Conversions with ChangeNotifier {
     ];
   }
 
-  /// This function get the value of the unit from currentProperty and update the currentUnitDataList values. It is used when a conversion changes the values of
-  /// the units
+  /// This function get the value of the unit from currentProperty and update
+  /// the currentUnitDataList values. It is used when a conversion changes the
+  /// values of the units
   _refreshCurrentUnitDataList() {
     for (UnitData currentUnitData in currentUnitDataList) {
       currentUnitData.unit = _currentProperty.getUnit(currentUnitData.unit.name);
-      if (currentUnitData.unit.stringValue == null) {
-        currentUnitData.tec.text = '';
-      } else if (currentUnitData != _selectedUnit) {
-        currentUnitData.tec.text = currentUnitData.unit.stringValue!;
+      if (currentUnitData != _selectedUnit) {
+        if (currentUnitData.unit.stringValue == null) {
+          currentUnitData.tec.text = '';
+        } else {
+          currentUnitData.tec.text = currentUnitData.unit.stringValue!;
+        }
       }
     }
   }
