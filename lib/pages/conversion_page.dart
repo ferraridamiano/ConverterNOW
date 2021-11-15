@@ -10,8 +10,7 @@ import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:intl/intl.dart';
 
 class ConversionPage extends StatelessWidget {
-
-  const ConversionPage({Key? key}):super(key: key);
+  const ConversionPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,29 +70,26 @@ class ConversionPage extends StatelessWidget {
       child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraint) {
         final int numCols = responsiveNumCols(constraint.maxWidth);
         final double xPadding = responsivePadding(constraint.maxWidth);
-        return CustomScrollView(
-          controller: ScrollController(),
-          shrinkWrap: true,
-          slivers: <Widget>[
-            SliverToBoxAdapter(
-              child: BigTitle(
-                text: propertyTranslationMap[currentProperty]!,
-                subtitle: subTitle,
-                isSubtitleLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
-                center: true,
-              ),
+        return Column(
+          children: [
+            BigTitle(
+              text: propertyTranslationMap[currentProperty]!,
+              subtitle: subTitle,
+              isSubtitleLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
+              center: true,
             ),
-            SliverPadding(
-              padding: EdgeInsets.only(
-                left: xPadding,
-                right: xPadding,
-                bottom: 22,   //bottom so FAB doesn't overlap the card
-              ), 
-              sliver: SliverGrid.count(
+            Expanded(
+              child: GridView.count(
                 childAspectRatio: responsiveChildAspectRatio(constraint.maxWidth, numCols),
                 crossAxisCount: numCols,
                 crossAxisSpacing: 15.0,
                 children: gridTiles,
+                padding: EdgeInsets.only(
+                  left: xPadding,
+                  right: xPadding,
+                  bottom: 22, //So FAB doesn't overlap the card
+                ), 
+                shrinkWrap: true,
               ),
             ),
           ],
