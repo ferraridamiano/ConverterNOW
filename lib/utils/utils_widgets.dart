@@ -73,7 +73,7 @@ class BigTitle extends StatelessWidget {
         children: [
           center ? Center(child: title) : title,
           Container(
-            height: 17.0,
+            height: 20,
             alignment: Alignment.bottomRight,
             child: (isSubtitleLoading && subtitle != '')
                 ? Container(
