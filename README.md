@@ -2,15 +2,15 @@
 
 # Converter NOW
 
-<img src="https://img.shields.io/github/contributors/ferraridamiano/ConverterNOW?style=flat-square"
+[<img src="https://img.shields.io/github/contributors/ferraridamiano/ConverterNOW?style=flat-square"
     alt="Contributors"
-    height="25">
-[<img src="https://img.shields.io/badge/Open-Web%20App-orange?style=flat-square&logo=PWA"
+    height="30">](https://github.com/ferraridamiano/ConverterNOW/graphs/contributors)
+[<img src="https://img.shields.io/static/v1?style=for-the-badge&message=PWA&color=5A0FC8&logo=PWA&logoColor=FFFFFF&label="
     alt="Open web app"
-    height="25">](https://converter-now.web.app)
-[<img src="https://img.shields.io/badge/Donate%20with-PayPal-blue?logo=paypal&logoColor=white&style=flat-square"
+    height="30">](https://converter-now.web.app)
+[<img src="https://img.shields.io/static/v1?style=for-the-badge&message=PayPal&color=00457C&logo=PayPal&logoColor=FFFFFF&label="
     alt="Donate paypal"
-    height="25">](https://www.paypal.me/DemApps)
+    height="30">](https://www.paypal.me/DemApps)
 
 [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
     alt="Get it on Google Play"

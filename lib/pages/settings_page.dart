@@ -159,7 +159,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ListTile(
                               title: const Text('Web'),
                               leading: const Icon(Icons.public_outlined),
-                              onTap: () => launchURL("https://ferraridamiano.github.io/ConverterNOW"),
+                              onTap: () => launchURL("https://converter-now.web.app"),
                             ),
                           if (kIsWeb || Platform.isWindows || Platform.isLinux)
                             ListTile(
