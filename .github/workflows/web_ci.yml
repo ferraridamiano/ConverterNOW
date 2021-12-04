@@ -2,7 +2,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - name: web_cicd
+      - web_cicd
 jobs:
   build_pwa:
     name: Build PWA
