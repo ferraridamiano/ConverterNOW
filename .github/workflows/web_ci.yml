@@ -7,21 +7,13 @@ jobs:
   build_pwa:
     name: Build PWA
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v1.5.3
+    - uses: actions/checkout@v2
+    - run: flutter build web
+    - uses: FirebaseExtended/action-hosting-deploy@v0
       with:
-        channel: stable
-    - name: Download pub dependencies
-      run: flutter pub get
-    - name: Build
-      run: flutter build web
-    - name: Deploy to Firebase
-      uses: w9jds/firebase-action@v2.0.0
-      with:
-        args: deploy --only hosting
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CONVERTER_NOW }}'
+        channelId: live
+        projectId: converter-now
