@@ -5,15 +5,12 @@
 <img src="https://img.shields.io/github/contributors/ferraridamiano/ConverterNOW?style=flat-square"
     alt="Contributors"
     height="25">
-[<img src="https://img.shields.io/badge/Open-Web%20App-blue?style=flat-square"
+[<img src="https://img.shields.io/badge/Open-Web%20App-orange?style=flat-square"
     alt="Open web app"
     height="25">](https://ferraridamiano.github.io/ConverterNOW/#/)
-[<img src="https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat-square"
+[<img src="https://img.shields.io/badge/Donate%20with-PayPal-blue?logo=paypal&logoColor=white&style=flat-square"
     alt="Donate paypal"
     height="25">](https://www.paypal.me/DemApps)
-[<img src="https://cdn.buymeacoffee.com/buttons/default-orange.png"
-    alt="Buy Me A Coffee"
-    height="25">](https://www.buymeacoffee.com/ferraridamiano)
 
 [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
     alt="Get it on Google Play"
