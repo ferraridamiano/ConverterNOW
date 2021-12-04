@@ -236,7 +236,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               onPressed: () {
                                 Navigator.of(context).pop();
-                                launchURL('https://www.buymeacoffee.com/ferraridamiano');
+                                launchURL('https://www.paypal.me/DemApps');
                               },
                             ),
                           ],
