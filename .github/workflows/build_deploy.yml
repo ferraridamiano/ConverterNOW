@@ -5,10 +5,10 @@ on:
     tags: ['v*']
 
 jobs:
-  release_android:
+  build_deploy:
     name: Build and release Android APK
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
     - name: Checkout
       uses: actions/checkout@v1
@@ -39,6 +39,17 @@ jobs:
     - name: Download pub dependencies
       run: flutter pub get
 
+    - name: Build for Web
+      run: flutter build web
+
+    - name: Upload to Firebase Hosting
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CONVERTER_NOW }}'
+        channelId: live
+        projectId: converter-now
+
     - name: Download Android keystore
       id: android_keystore
       uses: timheuer/base64-to-file@v1.0.3
@@ -59,7 +70,7 @@ jobs:
     - name: Build Android APK files
       run: flutter build apk --release --split-per-abi
 
-    - name: Build Linux
+    - name: Build for Linux
       run: flutter build linux --release
 
     - name: Release to GitHub
@@ -90,32 +101,3 @@ jobs:
         bundle exec fastlane supply \
         --aab build/app/outputs/bundle/release/app-release.aab \
         --track beta
-  
-  release_pwa:
-    name: Build and deploy PWA
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v1.5.3
-      with:
-        channel: stable
-    - name: Download pub dependencies
-      run: flutter pub get
-    - name: Build
-      run: flutter build web
-    - name: Enable PWA functionality
-      run: |
-        line_number=$(grep -n "  \"/\"," build/web/flutter_service_worker.js | cut -d : -f1)
-        sed -i -e "${line_number}d" build/web/flutter_service_worker.js
-        echo "Deleted line: $line_number"
-    - name: Deploy to Github Pages (see flutter issue 68449)
-      uses: JamesIves/github-pages-deploy-action@4.1.5
-      with:
-        token: ${{ secrets.GH_TOKEN }}
-        branch: gh-pages # The branch the action should deploy to.
-        folder: build/web # The folder the action should deploy.
-        clean: true # Automatically remove deleted files from the deploy branch
-        commit-message: CD deploy 🚀

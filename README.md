@@ -5,9 +5,9 @@
 <img src="https://img.shields.io/github/contributors/ferraridamiano/ConverterNOW?style=flat-square"
     alt="Contributors"
     height="25">
-[<img src="https://img.shields.io/badge/Open-Web%20App-blue?style=flat-square"
+[<img src="https://img.shields.io/badge/Open-Web%20App-blue?style=flat-square&logo=PWA"
     alt="Open web app"
-    height="25">](https://ferraridamiano.github.io/ConverterNOW/#/)
+    height="25">](https://converter-now.web.app)
 [<img src="https://img.shields.io/badge/Donate-PayPal-green.svg?style=flat-square"
     alt="Donate paypal"
     height="25">](https://www.paypal.me/DemApps)
