@@ -1,4 +1,4 @@
-name: Converter NOW
+name: "Android, Linux, Web: build & deploy"
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: linux_build
+name: "Windows: build & deploy"
 
 on:
   push:
@@ -35,7 +35,7 @@ jobs:
     - name: Release to GitHub
       uses: ncipollo/release-action@v1.9.0
       with:
-        artifacts: "build\windows\runner\Release\converter-now-windows-installer.msix"
+        artifacts: "build/windows/runner/Release/converter-now-windows-installer.msix"
         token: ${{ secrets.GH_TOKEN }}
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}
