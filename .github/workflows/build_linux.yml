@@ -21,6 +21,9 @@ jobs:
       with:
         channel: stable
 
+    - name: Enable linux build
+      run: flutter config --enable-linux-desktop
+
     - name: Flutter version
       run: flutter --version
 
