@@ -77,7 +77,7 @@ jobs:
       run: flutter build apk --release --split-per-abi
 
     - name: Release to GitHub
-      uses: ncipollo/release-action@v1.8.10
+      uses: ncipollo/release-action@v1.9.0
       with:
         artifacts: "build/app/outputs/apk/release/*.apk,build/app/outputs/bundle/release/app-release.aab,build/linux/x64/release/bundle"
         token: ${{ secrets.GH_TOKEN }}

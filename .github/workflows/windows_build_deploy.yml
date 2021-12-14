@@ -2,8 +2,7 @@ name: linux_build
 
 on:
   push:
-    branches:
-      - linux_ci
+    tags: ['v*']
 
 jobs:
   test:
@@ -12,9 +11,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-
-    #- name: Setup Visual Studio
-    #  uses: actions/setup-dotnet@v1
 
     - name: Setup Flutter
       uses: subosito/flutter-action@v1.5.3
@@ -35,3 +31,12 @@ jobs:
 
     - name: Create .msix installer
       run: flutter pub run msix:create
+
+    - name: Release to GitHub
+      uses: ncipollo/release-action@v1.9.0
+      with:
+        artifacts: "build\windows\runner\Release\converter-now-windows-installer.msix"
+        token: ${{ secrets.GH_TOKEN }}
+        tag: ${{ steps.version.outputs.content }}
+        commit: ${{ github.sha }}
+        allowUpdates: true     #so if you rerun a job it will overwrite the existing files
