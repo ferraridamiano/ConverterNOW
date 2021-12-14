@@ -13,8 +13,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Setup Visual Studio
-      uses: actions/setup-dotnet@v1
+    #- name: Setup Visual Studio
+    #  uses: actions/setup-dotnet@v1
 
     - name: Setup Flutter
       uses: subosito/flutter-action@v1.5.3
@@ -32,3 +32,6 @@ jobs:
 
     - name: Build for windows
       run: flutter build windows
+
+    - name: Create .msix installer
+      run: flutter pub run msix:create
