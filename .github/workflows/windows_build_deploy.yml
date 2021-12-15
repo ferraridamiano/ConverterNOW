@@ -8,6 +8,7 @@ jobs:
   test:
     name: Windows build
     runs-on: windows-latest
+    timeout-minutes: 25
     steps:
     - name: Checkout
       uses: actions/checkout@v2
