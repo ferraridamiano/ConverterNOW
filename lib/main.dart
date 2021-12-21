@@ -1,5 +1,7 @@
+import 'package:converterpro/pages/conversion_page.dart';
 import 'package:converterpro/pages/main_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
+import 'package:converterpro/utils/app_scaffold.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -12,6 +14,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
+
+const _scaffoldKey = ValueKey<String>('App scaffold');
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -28,19 +32,34 @@ class _MyApp extends State<MyApp> {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const MainPage(0),
+        redirect: (_) => '/conversions/length',
       ),
       GoRoute(
         path: '/conversions/:property',
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final String property = state.params['property']!;
           final int? pageNumber = pageNumberMap[property];
           if (pageNumber == null) {
             throw Exception('property not found: $property');
           } else {
-            return MainPage(pageNumber, key: state.pageKey);
+            return FadeTransitionPage(
+              key: _scaffoldKey,
+              child: AppScaffold(
+                selectedSection: ScaffoldSection.conversions,
+                selectedIndex: pageNumber,
+                child: ConversionPage(pageNumber),
+              ),
+            );
           }
         },
+      ),
+      GoRoute(
+        path: '/settings',
+        name: 'settings',
+        pageBuilder: (context, state) => FadeTransitionPage(
+          key: _scaffoldKey,
+          child: const AppScaffold(selectedSection: ScaffoldSection.settings, child: SettingsPage()),
+        ),
       ),
     ],
     errorBuilder: (context, state) => const Scaffold(
@@ -120,4 +139,19 @@ class _MyApp extends State<MyApp> {
       }),
     );
   }
+}
+
+class FadeTransitionPage extends CustomTransitionPage<void> {
+  FadeTransitionPage({
+    required LocalKey key,
+    required Widget child,
+  }) : super(
+            key: key,
+            transitionsBuilder: (c, animation, a2, child) => FadeTransition(
+                  opacity: animation.drive(_curveTween),
+                  child: child,
+                ),
+            child: child);
+
+  static final _curveTween = CurveTween(curve: Curves.easeIn);
 }

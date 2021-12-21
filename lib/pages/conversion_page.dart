@@ -72,36 +72,34 @@ class ConversionPage extends StatelessWidget {
       ));
     }
 
-    return Expanded(
-      child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraint) {
-        final int numCols = responsiveNumCols(constraint.maxWidth);
-        final double xPadding = responsivePadding(constraint.maxWidth);
-        return Column(
-          children: [
-            BigTitle(
-              text: propertyTranslationMap[currentProperty]!,
-              subtitle: subTitle,
-              isSubtitleLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
-              center: true,
+    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraint) {
+      final int numCols = responsiveNumCols(constraint.maxWidth);
+      final double xPadding = responsivePadding(constraint.maxWidth);
+      return Column(
+        children: [
+          BigTitle(
+            text: propertyTranslationMap[currentProperty]!,
+            subtitle: subTitle,
+            isSubtitleLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
+            center: true,
+          ),
+          Expanded(
+            child: GridView.count(
+              childAspectRatio: responsiveChildAspectRatio(constraint.maxWidth, numCols),
+              crossAxisCount: numCols,
+              crossAxisSpacing: 15.0,
+              children: gridTiles,
+              padding: EdgeInsets.only(
+                left: xPadding,
+                right: xPadding,
+                bottom: 22, //So FAB doesn't overlap the card
+              ), 
+              shrinkWrap: true,
             ),
-            Expanded(
-              child: GridView.count(
-                childAspectRatio: responsiveChildAspectRatio(constraint.maxWidth, numCols),
-                crossAxisCount: numCols,
-                crossAxisSpacing: 15.0,
-                children: gridTiles,
-                padding: EdgeInsets.only(
-                  left: xPadding,
-                  right: xPadding,
-                  bottom: 22, //So FAB doesn't overlap the card
-                ), 
-                shrinkWrap: true,
-              ),
-            ),
-          ],
-        );
-      }),
-    );
+          ),
+        ],
+      );
+    });
   }
 }
 

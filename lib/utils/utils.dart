@@ -146,6 +146,8 @@ class CurrenciesObject {
 CURRENCIES getCurrenciesFromString(String name) =>
     CURRENCIES.values.singleWhere((element) => element.toString().endsWith(name));
 
+/// Maps a string (path of the url) to a number value. This should be in the
+/// same order as in property_unit_list.dart
 const Map<String, int> pageNumberMap = {
     'length': 0,
     'area': 1,
@@ -166,7 +168,13 @@ const Map<String, int> pageNumberMap = {
     'digital-data': 16,
     'si-prefixes': 17,
     'torque': 18,
-  };
+};
+
+/// Contains the same information of [pageNumberMap] but reversed. So I can
+/// access to the strings faster.
+final List<String> reversePageNumberListMap = pageNumberMap.keys.toList();
+
+enum ScaffoldSection { conversions, settings, calculator, search }
 
 /// PROPERTYX stands for PROPERTY extended and want to extends the PROPERTY enum defined in units_converter package
 enum PROPERTYX {

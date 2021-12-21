@@ -1,11 +1,10 @@
-import 'package:converterpro/helpers/responsive_helper.dart';
+/*import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/models/calculator.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/pages/calculator_widget.dart';
 import 'package:converterpro/pages/choose_property_page.dart';
 import 'package:converterpro/pages/conversion_page.dart';
-import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/pages/reorder_page.dart';
 import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
@@ -219,3 +218,4 @@ class MainPage extends StatelessWidget {
     });
   }
 }
+*/
