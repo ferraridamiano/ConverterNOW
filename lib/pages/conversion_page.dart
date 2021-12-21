@@ -9,16 +9,23 @@ import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:intl/intl.dart';
 
 class ConversionPage extends StatelessWidget {
-  const ConversionPage({Key? key}) : super(key: key);
+
+  final int pageNumber;
+
+  const ConversionPage(this.pageNumber, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
-    List<UnitData> unitDataList =
-        context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);
+    List<UnitData> unitDataList = context.read<Conversions>().getUnitDataListAtPage(pageNumber);
     PROPERTYX currentProperty =
-        context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);
+        context.read<Conversions>().getPropertyNameAtPage(pageNumber);
+    /*List<UnitData> unitDataList =
+        context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);*/
+
+    /*PROPERTYX currentProperty =
+        context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);*/
 
     final Brightness brightness = Theme.of(context).brightness;
 

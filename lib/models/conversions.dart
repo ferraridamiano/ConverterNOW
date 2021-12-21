@@ -152,9 +152,16 @@ class Conversions with ChangeNotifier {
     currentUnitDataList = _unitDataList[_currentPage];
     notifyListeners();
   }
+  
+  /// Returns a Property at a certain page
+  /// TODO: problem with the ordering
+  Property getPropertyAtPage(int page) => _propertyList[page];
 
   /// Returns a UnitDataList at a certain page with the current ordering (usefult with reorder units)
   List<UnitData> getUnitDataListAtPage(int page) => _unitDataList[page];
+
+
+  PROPERTYX getPropertyNameAtPage(int page) => _propertyList[page].name;
 
   get currentPropertyName => _currentProperty.name;
 

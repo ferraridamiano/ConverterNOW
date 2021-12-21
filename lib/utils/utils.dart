@@ -146,6 +146,28 @@ class CurrenciesObject {
 CURRENCIES getCurrenciesFromString(String name) =>
     CURRENCIES.values.singleWhere((element) => element.toString().endsWith(name));
 
+const Map<String, int> pageNumberMap = {
+    'length': 0,
+    'area': 1,
+    'volume': 2,
+    'currencies': 3,
+    'time': 4,
+    'temperature': 5,
+    'speed': 6,
+    'mass': 7,
+    'force': 8,
+    'fuel-consumption': 9,
+    'numeral-systems': 10,
+    'pressure': 11,
+    'energy': 12,
+    'power': 13,
+    'angle': 14,
+    'shoe-size': 15,
+    'digital-data': 16,
+    'si-prefixes': 17,
+    'torque': 18,
+  };
+
 /// PROPERTYX stands for PROPERTY extended and want to extends the PROPERTY enum defined in units_converter package
 enum PROPERTYX {
   angle,

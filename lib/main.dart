@@ -1,6 +1,9 @@
 import 'package:converterpro/pages/main_page.dart';
+import 'package:converterpro/pages/settings_page.dart';
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/models/conversions.dart';
@@ -19,6 +22,33 @@ class MyApp extends StatefulWidget {
 
 class _MyApp extends State<MyApp> {
   bool deviceLocaleSetted = false;
+
+  final _router = GoRouter(
+    urlPathStrategy: UrlPathStrategy.path,
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const MainPage(0),
+      ),
+      GoRoute(
+        path: '/conversions/:property',
+        builder: (context, state) {
+          final String property = state.params['property']!;
+          final int? pageNumber = pageNumberMap[property];
+          if (pageNumber == null) {
+            throw Exception('property not found: $property');
+          } else {
+            return MainPage(pageNumber, key: state.pageKey);
+          }
+        },
+      ),
+    ],
+    errorBuilder: (context, state) => const Scaffold(
+      body: Center(
+        child: Text('Error'),
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +70,11 @@ class _MyApp extends State<MyApp> {
       ],
       child: Builder(builder: (BuildContext context) {
         bool isDarkAmoled = context.select<AppModel, bool>((appModel) => appModel.isDarkAmoled);
-        return MaterialApp(
+        return MaterialApp.router(
+          routeInformationParser: _router.routeInformationParser,
+          routerDelegate: _router.routerDelegate,
           debugShowCheckedModeBanner: false,
           title: 'Converter NOW',
-          home: const MainPage(),
           themeMode: context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
           theme: defaultLight.copyWith(
             primaryColor: Colors.teal[400],

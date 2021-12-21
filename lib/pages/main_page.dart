@@ -17,7 +17,10 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+
+  final int pageNumber;
+
+  const MainPage(this.pageNumber, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +79,7 @@ class MainPage extends StatelessWidget {
       final bool _isDrawerFixed = isDrawerFixed(constraints.maxWidth);
 
       // Get the current main screen
-      MAIN_SCREEN currentScreen = context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
+      MAIN_SCREEN currentScreen = MAIN_SCREEN.conversion;//context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
       // And build the right widget
       Widget mainScreen;
       switch (currentScreen) {
@@ -129,7 +132,7 @@ class MainPage extends StatelessWidget {
           break;
         case MAIN_SCREEN.conversion:
         default:
-          mainScreen = const ConversionPage();
+          mainScreen = ConversionPage(pageNumber);
           break;
       }
 
@@ -137,6 +140,8 @@ class MainPage extends StatelessWidget {
         isDrawerFixed: _isDrawerFixed,
         openCalculator: openCalculator,
         openSearch: openSearch,
+        initalPage: MAIN_SCREEN.conversion,
+        initialPageNumber: pageNumber,
       );
 
       //if the drawer is fixed

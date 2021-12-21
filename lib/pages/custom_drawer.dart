@@ -6,20 +6,40 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 const maxConversionUnits = 19;
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   final bool isDrawerFixed;
   final void Function() openCalculator;
   final void Function() openSearch;
+  final MAIN_SCREEN initalPage;
+  final int initialPageNumber;
 
   const CustomDrawer({
-    Key? key,
+    key,
     required this.openCalculator,
     required this.openSearch,
     required this.isDrawerFixed,
+    this.initalPage = MAIN_SCREEN.conversion,
+    this.initialPageNumber = 0,
   }) : super(key: key);
+
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  late MAIN_SCREEN selectedPage;
+  late int pageNumber;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedPage = widget.initalPage;
+    pageNumber = widget.initialPageNumber;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +72,14 @@ class CustomDrawer extends StatelessWidget {
         ),
       ),
     );
-    if (isDrawerFixed) {
+    if (widget.isDrawerFixed) {
       headerDrawer.add(
         InkWell(
           onTap: () {
             context.read<AppModel>()
               ..changeToPage(context.read<AppModel>().conversionsOrderDrawer.indexWhere((val) => val == 0))
               ..currentScreen = MAIN_SCREEN.conversion;
-            if (!isDrawerFixed) {
+            if (!widget.isDrawerFixed) {
               Navigator.of(context).pop();
             }
           },
@@ -73,16 +93,16 @@ class CustomDrawer extends StatelessWidget {
       DrawerTile(
         leading: const Icon(Icons.search_outlined),
         title: Text(AppLocalizations.of(context)!.search),
-        onTap: () => openSearch(),
+        onTap: () => widget.openSearch(),
         selected: false,
       ),
     );
-    if (isDrawerFixed) {
+    if (widget.isDrawerFixed) {
       headerDrawer.add(
         DrawerTile(
           leading: const Icon(Icons.calculate_outlined),
           title: Text(AppLocalizations.of(context)!.calculator),
-          onTap: () => openCalculator(),
+          onTap: () => widget.openCalculator(),
           selected: false,
         ),
       );
@@ -93,7 +113,7 @@ class CustomDrawer extends StatelessWidget {
           leading: const Icon(Icons.settings_outlined),
           title: Text(AppLocalizations.of(context)!.settings),
           onTap: () {
-            if (!isDrawerFixed) {
+            if (!widget.isDrawerFixed) {
               Navigator.of(context).pop();
             }
             context.read<AppModel>().currentScreen = MAIN_SCREEN.settings;
@@ -132,14 +152,17 @@ class CustomDrawer extends StatelessWidget {
         ),
         title: Text(propertyUi.name),
         onTap: () {
-          context.read<AppModel>()
+          context.go('/conversions/${pageNumberMap.keys.firstWhere((key) => pageNumberMap[key] == i)}');
+          setState(() => pageNumber = i);
+
+          /*context.read<AppModel>()
             ..changeToPage(i)
-            ..currentScreen = MAIN_SCREEN.conversion;
-          if (!isDrawerFixed) {
+            ..currentScreen = MAIN_SCREEN.conversion;*/
+          if (!widget.isDrawerFixed) {
             Navigator.of(context).pop();
           }
         },
-        selected: currentScreen == MAIN_SCREEN.conversion && currentPage == i,
+        selected: selectedPage == MAIN_SCREEN.conversion && pageNumber == i,
       );
     }
 
