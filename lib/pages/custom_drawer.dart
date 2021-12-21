@@ -28,7 +28,6 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDrawerFixed = true;
 
     List<Widget> headerDrawer = [];
     List<Widget> conversionDrawer = List<Widget>.filled(maxConversionUnits, const SizedBox());
