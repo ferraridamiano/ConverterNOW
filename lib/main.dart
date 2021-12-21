@@ -43,7 +43,7 @@ class _MyApp extends State<MyApp> {
           if (pageNumber == null) {
             throw Exception('property not found: $property');
           } else {
-            return FadeTransitionPage(
+            return NoTransitionPage(
               key: _scaffoldKey,
               child: AppScaffold(
                 selectedSection: ScaffoldSection.conversions,
@@ -57,9 +57,9 @@ class _MyApp extends State<MyApp> {
       GoRoute(
         path: '/settings',
         name: 'settings',
-        pageBuilder: (context, state) => FadeTransitionPage(
+        pageBuilder: (context, state) => const NoTransitionPage(
           key: _scaffoldKey,
-          child: const AppScaffold(
+          child: AppScaffold(
             selectedSection: ScaffoldSection.settings,
             child: SettingsPage(),
           ),
@@ -68,9 +68,9 @@ class _MyApp extends State<MyApp> {
       GoRoute(
         path: '/settings/reorder-properties',
         name: 'reorder-properties',
-        pageBuilder: (context, state) => FadeTransitionPage(
+        pageBuilder: (context, state) => const NoTransitionPage(
           key: _scaffoldKey,
-          child: const AppScaffold(
+          child: AppScaffold(
             selectedSection: ScaffoldSection.settings,
             child: ReorderPropertiesPage(),
           ),
@@ -79,9 +79,9 @@ class _MyApp extends State<MyApp> {
       GoRoute(
         path: '/settings/reorder-units',
         name: 'reorder-units',
-        pageBuilder: (context, state) => FadeTransitionPage(
+        pageBuilder: (context, state) => const NoTransitionPage(
           key: _scaffoldKey,
-          child: const AppScaffold(
+          child: AppScaffold(
             selectedSection: ScaffoldSection.settings,
             child: ReorderUnitsPage(),
           ),
@@ -165,19 +165,4 @@ class _MyApp extends State<MyApp> {
       }),
     );
   }
-}
-
-class FadeTransitionPage extends CustomTransitionPage<void> {
-  FadeTransitionPage({
-    required LocalKey key,
-    required Widget child,
-  }) : super(
-            key: key,
-            transitionsBuilder: (c, animation, a2, child) => FadeTransition(
-                  opacity: animation.drive(_curveTween),
-                  child: child,
-                ),
-            child: child);
-
-  static final _curveTween = CurveTween(curve: Curves.easeIn);
 }
