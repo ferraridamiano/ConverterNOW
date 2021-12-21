@@ -1,5 +1,4 @@
 import 'package:converterpro/pages/conversion_page.dart';
-import 'package:converterpro/pages/main_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
 import 'package:converterpro/utils/app_scaffold.dart';
 import 'package:converterpro/utils/utils.dart';

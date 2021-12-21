@@ -1,6 +1,4 @@
 import 'package:converterpro/models/app_model.dart';
-import 'package:converterpro/models/calculator.dart';
-import 'package:converterpro/pages/calculator_widget.dart';
 import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
@@ -10,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 const maxConversionUnits = 19;
 
@@ -19,12 +16,14 @@ class CustomDrawer extends StatelessWidget {
   final bool isDrawerFixed;
   final ScaffoldSection selectedSection;
   final int selectedIndex;
+  final void Function() openCalculator;
 
   const CustomDrawer({
     key,
     required this.isDrawerFixed,
     required this.selectedSection,
     required this.selectedIndex,
+    required this.openCalculator,
   }) : super(key: key);
 
   @override
@@ -96,14 +95,7 @@ class CustomDrawer extends StatelessWidget {
         DrawerTile(
           leading: const Icon(Icons.calculate_outlined),
           title: Text(AppLocalizations.of(context)!.calculator),
-          onTap: () => showModalBottomSheet<void>(
-              context: context,
-              builder: (BuildContext context) {
-                return ChangeNotifierProvider(
-                  create: (_) => Calculator(decimalSeparator: '.'),
-                  child: const CalculatorWidget(),
-                );
-              }),
+          onTap: openCalculator,
           selected: false,
         ),
       );
