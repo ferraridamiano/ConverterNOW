@@ -9,6 +9,7 @@ import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsPage extends StatefulWidget {
 
@@ -133,14 +134,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   AppLocalizations.of(context)!.reorderProperties,
                   style: textStyle,
                 ),
-                onTap: () => context.read<AppModel>().currentScreen = MAIN_SCREEN.reorderProperties,
+                onTap: () => context.goNamed('reorder-properties'),
               ),
               ListTile(
                 title: Text(
                   AppLocalizations.of(context)!.reorderUnits,
                   style: textStyle,
                 ),
-                onTap: () => context.read<AppModel>().currentScreen = MAIN_SCREEN.reorderUnits,
+                onTap: () => context.goNamed('reorder-units'),
               ),
               ListTile(
                 title: Text(

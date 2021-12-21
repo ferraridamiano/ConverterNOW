@@ -1,4 +1,6 @@
 import 'package:converterpro/pages/conversion_page.dart';
+import 'package:converterpro/pages/reorder_properties_page.dart';
+import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
 import 'package:converterpro/utils/app_scaffold.dart';
 import 'package:converterpro/utils/utils.dart';
@@ -57,7 +59,32 @@ class _MyApp extends State<MyApp> {
         name: 'settings',
         pageBuilder: (context, state) => FadeTransitionPage(
           key: _scaffoldKey,
-          child: const AppScaffold(selectedSection: ScaffoldSection.settings, child: SettingsPage()),
+          child: const AppScaffold(
+            selectedSection: ScaffoldSection.settings,
+            child: SettingsPage(),
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/settings/reorder-properties',
+        name: 'reorder-properties',
+        pageBuilder: (context, state) => FadeTransitionPage(
+          key: _scaffoldKey,
+          child: const AppScaffold(
+            selectedSection: ScaffoldSection.settings,
+            child: ReorderPropertiesPage(),
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/settings/reorder-units',
+        name: 'reorder-units',
+        pageBuilder: (context, state) => FadeTransitionPage(
+          key: _scaffoldKey,
+          child: const AppScaffold(
+            selectedSection: ScaffoldSection.settings,
+            child: ReorderUnitsPage(),
+          ),
         ),
       ),
     ],
