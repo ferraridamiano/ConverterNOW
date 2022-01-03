@@ -79,7 +79,7 @@ class CustomDrawer extends StatelessWidget {
           final orderList = context.read<AppModel>().conversionsOrderDrawer;
           final int? newPage = await showSearch(
             context: context,
-            delegate: CustomSearchDelegate(orderList),
+            delegate: CustomSearchDelegate(orderList!),
           );
           if (newPage != null) {
             AppModel appModel = context.read<AppModel>();

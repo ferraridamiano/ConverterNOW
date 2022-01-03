@@ -11,7 +11,7 @@ enum MAIN_SCREEN {
 
 class AppModel with ChangeNotifier {
   //_conversionsOrderDrawer numbers until max conversion units - 1
-  final List<int> _conversionsOrderDrawer = List.generate(19, (index) => index);
+  List<int>? _conversionsOrderDrawer;
   MAIN_SCREEN _currentScreen = MAIN_SCREEN.conversion;
   int _currentPage = 0;
   ThemeMode _currentThemeMode = ThemeMode.system;
@@ -46,7 +46,7 @@ class AppModel with ChangeNotifier {
   }
 
   ///Returns the order of the tile of the conversions in the drawer
-  List<int> get conversionsOrderDrawer => _conversionsOrderDrawer;
+  List<int>? get conversionsOrderDrawer => _conversionsOrderDrawer!;
 
   ///Returns the current page (e.g: temperature, mass, etc)
   int get currentPage => _currentPage;
@@ -69,18 +69,19 @@ class AppModel with ChangeNotifier {
 
   ///Updates the order of the tiles in the drawer
   _checkOrdersDrawer() async {
+    _conversionsOrderDrawer = List.generate(19, (index) => index);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? stringList = prefs.getStringList("orderDrawer");
     if (stringList != null) {
       final int len = stringList.length;
       for (int i = 0; i < len; i++) {
-        _conversionsOrderDrawer[i] = int.parse(stringList[i]);
-        if (_conversionsOrderDrawer[i] == 0) _currentPage = i;
+        _conversionsOrderDrawer![i] = int.parse(stringList[i]);
+        if (_conversionsOrderDrawer![i] == 0) _currentPage = i;
       }
       //If new units of mesurement will be added the following 2
       //lines of code ensure that everything will works fine
-      for (int i = len; i < _conversionsOrderDrawer.length; i++) {
-        _conversionsOrderDrawer[i] = i;
+      for (int i = len; i < _conversionsOrderDrawer!.length; i++) {
+        _conversionsOrderDrawer![i] = i;
       }
     }
     notifyListeners();
@@ -89,7 +90,8 @@ class AppModel with ChangeNotifier {
   ///Changes the orders of the tiles in the Drawer
   saveOrderDrawer(List<int>? newOrder) async {
     //if there arent't any modifications, do nothing
-    if (newOrder != null) {
+    // TODO
+    /*if (newOrder != null) {
       List arrayCopia = List.filled(_conversionsOrderDrawer.length, null);
       for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
         arrayCopia[i] = _conversionsOrderDrawer[i];
@@ -105,7 +107,7 @@ class AppModel with ChangeNotifier {
       }
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setStringList("orderDrawer", toConvertList);
-    }
+    }*/
   }
 
   //Settings section------------------------------------------------------------------

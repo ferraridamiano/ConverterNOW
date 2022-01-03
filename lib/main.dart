@@ -2,6 +2,7 @@ import 'package:converterpro/pages/conversion_page.dart';
 import 'package:converterpro/pages/reorder_properties_page.dart';
 import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
+import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/utils/app_scaffold.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +28,14 @@ class MyApp extends StatefulWidget {
 
 class _MyApp extends State<MyApp> {
   bool deviceLocaleSetted = false;
+  final AppModel appModel = AppModel();
 
-  final _router = GoRouter(
+  late final _router = GoRouter(
     urlPathStrategy: UrlPathStrategy.path,
     routes: [
       GoRoute(
         path: '/',
-        redirect: (_) => '/conversions/length',
+        builder: (context, _) => const SplashScreen(),
       ),
       GoRoute(
         path: '/conversions/:property',
@@ -93,6 +95,16 @@ class _MyApp extends State<MyApp> {
         child: Text('Error'),
       ),
     ),
+    refreshListenable: appModel,
+    redirect: (GoRouterState state) {
+      if (state.location == '/') {
+        List<int>? conversionsOrderDrawer = appModel.conversionsOrderDrawer;
+        if (conversionsOrderDrawer != null) {
+          return '/conversions/' + reversePageNumberListMap[conversionsOrderDrawer[0]];
+        }
+      }
+      return null;
+    },
   );
 
   @override
@@ -102,9 +114,7 @@ class _MyApp extends State<MyApp> {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => AppModel(),
-        ),
+        ChangeNotifierProvider.value(value: appModel),
         ChangeNotifierProxyProvider<AppModel, Conversions>(
           create: (context) => Conversions(),
           update: (context, appModel, conversions) {

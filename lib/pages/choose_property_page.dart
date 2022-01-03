@@ -1,6 +1,7 @@
 import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/pages/reorder_page.dart';
+import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
@@ -34,7 +35,13 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<int> conversionsOrderDrawer = context.read<AppModel>().conversionsOrderDrawer;
+
+    List<int>? conversionsOrderDrawer = context.read<AppModel>().conversionsOrderDrawer;
+
+    if(conversionsOrderDrawer == null){
+      return const SplashScreen();
+    }
+
     final Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     if (selectedProperty != null) {
       selectedUnitDataList = context

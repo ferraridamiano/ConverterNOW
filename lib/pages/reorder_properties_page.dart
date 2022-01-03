@@ -1,5 +1,6 @@
 import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/pages/reorder_page.dart';
+import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,11 @@ class ReorderPropertiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Read the order of the properties in the drawer
-    List<int> conversionsOrderDrawer = context.watch<AppModel>().conversionsOrderDrawer;
+    List<int>? conversionsOrderDrawer = context.read<AppModel>().conversionsOrderDrawer;
+
+    if(conversionsOrderDrawer == null){
+      return const SplashScreen();
+    }
     List<String> propertyNameList = getPropertyNameList(context);
     List<String> orderedDrawerList = List.filled(conversionsOrderDrawer.length, "");
     for (int i = 0; i < conversionsOrderDrawer.length; i++) {
