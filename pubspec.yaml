@@ -1,27 +1,29 @@
 name: converterpro
 description: Unit and currencies converter
 
-version: 2.5.1+27
+version: 3.1.0+31
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.15.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
   #Needed to store the customizations and the latest currencies convertions
-  shared_preferences: ^2.0.3
+  shared_preferences: ^2.0.9
   #Needed to open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^6.0.2
+  url_launcher: ^6.0.17
   #Needed to download the latest currencies convertions
-  http: ^0.13.0
+  http: ^0.13.4
   #Needed to improve the state management
-  provider: ^5.0.0
+  provider: ^6.0.1
   #Needed for translation
   intl: ^0.17.0
+  #Needed for fonts
+  google_fonts: ^2.1.0
   #Needed for unit conversion
-  units_converter: ^0.3.0
+  units_converter: ^1.1.1
     #git:
     #  url: https://github.com/ferraridamiano/units_converter
     #path: ../units_converter
@@ -30,9 +32,30 @@ dependencies:
       sdk: flutter
 
 dev_dependencies:
-  test: ^1.16.5
+  test: ^1.17.10
+  flutter_native_splash: ^1.2.3
+  flutter_lints: ^1.0.4
+  msix: ^2.6.6
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  # Customize the parameters below, and run the following command in the terminal:
+  # flutter pub run flutter_native_splash:create
+  # To restore Flutter's default white splash screen, run the following command in the terminal:
+  # flutter pub run flutter_native_splash:remove
+
+  color: "#eeeeee"
+  color_dark: "#333333"
+  image: resources/splash/splash.png
+
+msix_config:
+  display_name: Converter NOW
+  publisher_display_name: Damiano Ferrari
+  identity_name: com.ferrarid.converternow
+  msix_version: 3.1.0.0
+  logo_path: resources\images\logo.png
+  output_name: converter-now-windows-installer
 
 flutter:
   uses-material-design: true

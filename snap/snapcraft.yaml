@@ -1,5 +1,5 @@
 name: converternow
-version: 2.5.1-next
+version: 3.1.0
 summary: Unit and currencies converter
 description: A Unit and Currencies Converter. Converter NOW is immediate, fast and easy to use!
 
@@ -20,7 +20,7 @@ slots:
 apps:
   converternow:
     command: converternow
-    extensions: [flutter-master]
+    extensions: [flutter-stable]
     plugs:
     - network
     slots:

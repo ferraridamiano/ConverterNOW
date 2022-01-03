@@ -12,27 +12,51 @@
   "settings": "Einstellungen",
   "menu": "Menü",
   "donation": "Unterstüze die App mit einer Spende.",
-  "buyMeACoffee": "Buy me a coffee ☕",
-  "donationDialog": "Hi, as you might know this app is free and open source. It means that you can use it for free and copy/edit the source code. The developer will not gain nothing for it. But if you also believe in this project and would like to see new features, please consider buying me a coffee.",
+  "buyMeACoffee": "Kaufe dem Entwickler einen Kaffee ☕.",
+  "donationDialog": "Hallo, wie Du vielleicht weißt, ist diese App kostenlos und Open Source. Das bedeutet, dass die App kostenlos verwendet und der Quellcode kopiert/bearbeitet werden darf. Der Entwickler wird dafür nicht entlohnt. Wenn Du aber an dieses Projekt glaubst und gerne neue Features sehen möchtest, kaufe dem Entwickler einen Kaffee.",
   "drawerLogo": "Logo anzeigen",
   "rateApp": "App bewerten",
-  "repoGithub": "Erstelle ein Repo auf GitHub.",
-  "contibuteTranslating": "Unterstütze uns bei der Übersetzung der App. 🌍",
+  "repoGithub": "Öffne das Repo auf GitHub.",
+  "contibuteTranslating": "Unterstütze uns bei der Übersetzung der App 🌍.",
   "search": "Suche",
   "clearAll": "Leere alles",
   "calculator": "Rechner",
   "significantFigures": "Signifikante Stellen",
-  "removeTrailingZeros": "Entferne nachgestellte Nullen",
-  "longPressAdvice": "Langes Drücken zum Verschieben",
+  "removeTrailingZeros": "Entferne nachgestellte Nullen.",
+  "longPressAdvice": "Langes Drücken zum Verschieben.",
   "back": "Zurück",
   "save": "Speichern",
-  "invalidCharacters": "Fehler, unzulässige Zeichen",
+  "invalidCharacters": "Fehler, unzulässige Zeichen.",
   "theme": "Thema",
   "dark": "Dunkles",
   "light": "Helles",
   "system": "System",
   "amoledDarkTheme": "AMOLED (schwarzes) Thema",
   "copy": "Kopieren",
+  "more": "Mehr",
+  "language": "Sprache",
+  "reorderProperties": "Reihenfolge der Kategorien ändern",
+  "reorderUnits": "Reihenfolge innerhalb der Kategorien ändern",
+  "chooseProperty": "Eigenschaft wählen",
+  "reorderProperty": "{property} anordnen",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
+  "otherPlatforms": "Converter NOW für andere Plattformen",
+  "sourceCode": "Quellcode",
+  "undoClearAllMessage": "Cleared all. Do you want to undo it?",
+  "@undoClearAllMessage": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Länge",
   "area": "Fläche",
@@ -70,6 +94,7 @@
   "astronomicalUnits": "Astronomische Einheiten",
   "lightYears": "Lichtjahre",
   "parsec": "Parsec",
+  "mils": "Milli-Zoll (Thou)",
 
   "squareMeters": "Quadratmeter",
   "squareCentimeters": "Quadratzentimeter",
@@ -131,19 +156,20 @@
   "milesHour": "Meilen pro Stunde",
   "knots": "Knoten",
   "feetSecond": "Fuß pro Sekunde",
+  "minutesPerKilometer": "Minuten pro Kilometer",
 
   "grams": "Gramm",
   "ettograms": "Hektogramm",
   "kilograms": "Kilogramm",
   "pounds": "Pfund (imperial)",
   "ounces": "Unzen (imperial)",
-  "quintals": "Zentner",
+  "quintals": "Zentner / Quintal (100 kg)",
   "tons": "Tonen",
   "milligrams": "Milligramm",
   "uma": "Atomare Masseneinheiten",
   "carats": "Metrisches Karat",
   "centigrams": "Zentigramm",
-  "pennyweights": "Pennyweights",
+  "pennyweights": "Pennyweights / Pfenniggewicht",
   "troyOunces": "Feinunze",
   "stones": "Stone",
 
@@ -153,11 +179,20 @@
   "millibar": "Millibar",
   "psi": "Pfund pro Quadratzoll",
   "torr": "Torr (Millimeter-Quecksilbersäule)",
+  "hectoPascal": "Hectopascal",
+  "@hectoPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "inchesOfMercury": "Inches of mercury",
+  "@inchesOfMercury": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calorie": "Kalorien",
   "kilowattHour": "Kilowattstunden",
   "electronvolt": "Elektronenvolt",
+  "footPound": "foot-pound force",
 
   "degree": "Grad",
   "minutesDegree": "Minuten",
@@ -194,6 +229,11 @@
   "idr": "Indonesische Rupiah",
   "php": "Philippinischer Peso",
   "ron": "Rumänischer Leu",
+  "bgn": "Bulgarischer Lew",
+  "hrk": "Kroatischer Kuna",
+  "isk": "Isländische Krone",
+  "twd": "Neuer Taiwan-Dollar",
+  "mad": "Marokkanischer Dirham",
 
   "euChina": "EU & China",
   "ukIndiaChild": "UK & Indien - Kind",

@@ -32,6 +32,30 @@
   "light": "Açık",
   "system": "Sistem",
   "amoledDarkTheme": "AMOLED koyu teması",
+  "copy": "Kopyala",
+  "more": "Daha",
+  "language": "Dilim",
+  "reorderProperties": "Özellikleri yeniden sırala",
+  "reorderUnits": "Ölçü birimlerini yeniden sıralama",
+  "chooseProperty": "Bir mülk seçin",
+  "reorderProperty": "Sırala {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
+  "otherPlatforms": "Diğer platformlar için Converter NOW",
+  "sourceCode": "Kaynak kodu",
+  "@undoClearAllMessage": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Uzunluk",
   "area": "Alan",
@@ -69,6 +93,7 @@
   "astronomicalUnits":"Astronomik birimler",
   "lightYears": "Işık yılı",
   "parsec":"Parsek",
+  "mils": "Bir inçin binde biri",
 
   "squareMeters": "Metrekare",
   "squareCentimeters": "Santimetre kare",
@@ -130,6 +155,7 @@
   "milesHour": "Saatte mil",
   "knots": "Knot",
   "feetSecond": "Saniyede fit",
+  "minutesPerKilometer": "Kilometre başına dakika",
 
   "grams": "Gram",
   "ettograms": "Ettogram",
@@ -152,11 +178,20 @@
   "millibar":"Milibar",
   "psi": "İnçkare başına libre",
   "torr": "Milimetre cıva",
+  "hectoPascal": "Hectopascal",
+  "@hectoPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "inchesOfMercury": "Inches of mercury",
+  "@inchesOfMercury": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joul",
   "calorie": "Kalori",
   "kilowattHour": "Kilovat saat",
   "electronvolt": "Elektronvolt",
+  "footPound": "Ayak pound",
 
   "degree": "Derece",
   "minutesDegree": "Dakika",
@@ -193,6 +228,11 @@
   "idr": "Endonezya Rupisi",
   "php": "Filipin Pezosu",
   "ron": "Rumen Leyi",
+  "bgn": "Bulgar Levası",
+  "hrk": "Hırvatistan Kunası",
+  "isk": "İzlanda Kronu",
+  "twd": "Yeni Tayvan Doları",
+  "mad": "Fas Dirhemi",
 
   "euChina": "AB & Çin",
   "ukIndiaChild": "İngiltere & Hindistan - Çocuk",

@@ -33,6 +33,24 @@
   "system": "System",
   "amoledDarkTheme": "AMOLED dark theme",
   "copy": "Copy",
+  "more": "More",
+  "language": "Language",
+  "reorderProperties": "Reorder properties",
+  "reorderUnits": "Reorder units",
+  "chooseProperty": "Choose a property",
+  "reorderProperty": "Reorder {property}",
+  "@reorderProperty":{
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lenght"
+      }
+    }
+  },
+  "otherPlatforms": "Converter NOW for other platforms",
+  "sourceCode": "Source code",
+  "undoClearAllMessage": "Cleared all. Do you want to undo it?",
+  "undo": "Undo",
 
   "length": "Length",
   "area": "Area",
@@ -70,6 +88,7 @@
   "astronomicalUnits":"Astronomical Units",
   "lightYears": "Light-years",
   "parsec":"Parsec",
+  "mils": "Mils",
 
   "squareMeters": "Square Meters",
   "squareCentimeters": "Square Centimeters",
@@ -131,6 +150,7 @@
   "milesHour": "Miles per Hour",
   "knots": "Knots",
   "feetSecond": "Feet per Second",
+  "minutesPerKilometer": "Minutes per Kilometer",
 
   "grams": "Grams",
   "ettograms": "Ettograms",
@@ -153,11 +173,14 @@
   "millibar":"Millibar",
   "psi": "Pounds per square inch",
   "torr": "Torricelli",
+  "hectoPascal": "Hectopascal",
+  "inchesOfMercury": "Inches of mercury",
 
   "joule": "Joule",
   "calorie": "Calorie",
-  "kilowattHour": "Kilowatt Hour",
+  "kilowattHour": "Kilowatt hour",
   "electronvolt": "Electron volt",
+  "footPound": "Foot pound",
 
   "degree": "Degree",
   "minutesDegree": "Minutes",
@@ -194,6 +217,11 @@
   "idr": "Indonesian Rupiah",
   "php": "Philippine Peso",
   "ron": "Romanian Leu",
+  "bgn": "Bulgarian Lev",
+  "hrk": "Croatian Kuna",
+  "isk": "Icelandic Króna",
+  "twd": "New Taiwan Dollar",
+  "mad": "Moroccan Dirham",
 
   "euChina": "EU & China",
   "ukIndiaChild": "UK & India - Child",
