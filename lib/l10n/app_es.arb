@@ -49,8 +49,8 @@
   },
   "otherPlatforms": "Converter NOW para otras plataformas",
   "sourceCode": "Código fuente",
-  "undoClearAllMessage": "Todo despejado. ¿Desea deshacer?
-  "undo": "Deshacer"
+  "undoClearAllMessage": "Todo despejado. ¿Desea deshacer?",
+  "undo": "Deshacer",
 
   "length": "Longitud",
   "area": "Área",
