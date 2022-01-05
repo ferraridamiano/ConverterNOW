@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppModel with ChangeNotifier {
-  //_conversionsOrderDrawer numbers until max conversion units - 1
   List<int>? _conversionsOrderDrawer;
   ThemeMode _currentThemeMode = ThemeMode.system;
   bool _isDarkAmoled = false;
@@ -41,6 +40,7 @@ class AppModel with ChangeNotifier {
 
   ///Updates the order of the tiles in the drawer
   _checkOrdersDrawer() async {
+    //_conversionsOrderDrawer numbers until max conversion units - 1
     _conversionsOrderDrawer = List.generate(19, (index) => index);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? stringList = prefs.getStringList("orderDrawer");
@@ -65,24 +65,23 @@ class AppModel with ChangeNotifier {
   ///Changes the orders of the tiles in the Drawer
   saveOrderDrawer(List<int>? newOrder) async {
     //if there arent't any modifications, do nothing
-    // TODO
-    /*if (newOrder != null) {
-      List arrayCopia = List.filled(_conversionsOrderDrawer.length, null);
-      for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
-        arrayCopia[i] = _conversionsOrderDrawer[i];
+    if (newOrder != null) {
+      List arrayCopia = List.filled(_conversionsOrderDrawer!.length, null);
+      for (int i = 0; i < _conversionsOrderDrawer!.length; i++) {
+        arrayCopia[i] = _conversionsOrderDrawer![i];
       }
-      for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
-        _conversionsOrderDrawer[i] = newOrder.indexOf(arrayCopia[i]);
+      for (int i = 0; i < _conversionsOrderDrawer!.length; i++) {
+        _conversionsOrderDrawer![i] = newOrder.indexOf(arrayCopia[i]);
       }
       notifyListeners();
       //save new orders to memory
       List<String> toConvertList = [];
-      for (int item in _conversionsOrderDrawer) {
+      for (int item in _conversionsOrderDrawer!) {
         toConvertList.add(item.toString());
       }
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setStringList("orderDrawer", toConvertList);
-    }*/
+    }
   }
 
   //Settings section------------------------------------------------------------------

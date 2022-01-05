@@ -126,7 +126,7 @@ class CustomDrawer extends StatelessWidget {
       );
 
     List<int> conversionsOrderDrawer =
-        List.generate(maxConversionUnits, (index) => index); //context.watch<AppModel>().conversionsOrderDrawer;
+        context.select<AppModel, List<int>>((appModel) => appModel.conversionsOrderDrawer!);
 
     List<PropertyUi> propertyUiList = getPropertyUiList(context);
 
@@ -143,10 +143,6 @@ class CustomDrawer extends StatelessWidget {
         title: Text(propertyUi.name),
         onTap: () {
           context.go('/conversions/${reversePageNumberListMap[i]}');
-
-          /*context.read<AppModel>()
-            ..changeToPage(i)
-            ..currentScreen = MAIN_SCREEN.conversion;*/
           if (!isDrawerFixed) {
             Navigator.of(context).pop();
           }
