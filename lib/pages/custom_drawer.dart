@@ -12,7 +12,6 @@ import 'package:go_router/go_router.dart';
 const maxConversionUnits = 19;
 
 class CustomDrawer extends StatelessWidget {
-
   final bool isDrawerFixed;
   final ScaffoldSection selectedSection;
   final int selectedIndex;
@@ -28,7 +27,6 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     List<Widget> headerDrawer = [];
     List<Widget> conversionDrawer = List<Widget>.filled(maxConversionUnits, const SizedBox());
 
@@ -83,7 +81,10 @@ class CustomDrawer extends StatelessWidget {
           );
           if (newPage != null) {
             AppModel appModel = context.read<AppModel>();
-            if (appModel.currentPage != newPage) appModel.changeToPage(newPage);
+            // TODO
+            /*if (appModel.currentPage != newPage) {
+              appModel.changeToPage(newPage);
+            }*/
           }
         },
         selected: false,

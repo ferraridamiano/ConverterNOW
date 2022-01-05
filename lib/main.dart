@@ -115,13 +115,7 @@ class _MyApp extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: appModel),
-        ChangeNotifierProxyProvider<AppModel, Conversions>(
-          create: (context) => Conversions(),
-          update: (context, appModel, conversions) {
-            conversions?.currentPage = appModel.currentPage;
-            return conversions!;
-          },
-        ),
+        ChangeNotifierProvider(create: (context) => Conversions()),
       ],
       child: Builder(builder: (BuildContext context) {
         bool isDarkAmoled = context.select<AppModel, bool>((appModel) => appModel.isDarkAmoled);

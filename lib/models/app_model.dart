@@ -2,18 +2,9 @@ import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum MAIN_SCREEN {
-  settings,
-  conversion,
-  reorderProperties,
-  reorderUnits,
-}
-
 class AppModel with ChangeNotifier {
   //_conversionsOrderDrawer numbers until max conversion units - 1
   List<int>? _conversionsOrderDrawer;
-  MAIN_SCREEN _currentScreen = MAIN_SCREEN.conversion;
-  int _currentPage = 0;
   ThemeMode _currentThemeMode = ThemeMode.system;
   bool _isDarkAmoled = false;
   final Map<ThemeMode, int> _themeModeMap = {
@@ -48,25 +39,6 @@ class AppModel with ChangeNotifier {
   ///Returns the order of the tile of the conversions in the drawer
   List<int>? get conversionsOrderDrawer => _conversionsOrderDrawer!;
 
-  ///Returns the current page (e.g: temperature, mass, etc)
-  int get currentPage => _currentPage;
-
-  ///Method needed to change the selected conversion page
-  ///e.g: from temperature to mass, etc
-  changeToPage(int index) {
-    if (_currentPage != index) {
-      _currentPage = index;
-      notifyListeners();
-    }
-  }
-
-  set currentScreen(MAIN_SCREEN screen) {
-    _currentScreen = screen;
-    notifyListeners();
-  }
-
-  MAIN_SCREEN get currentScreen => _currentScreen;
-
   ///Updates the order of the tiles in the drawer
   _checkOrdersDrawer() async {
     _conversionsOrderDrawer = List.generate(19, (index) => index);
@@ -76,7 +48,10 @@ class AppModel with ChangeNotifier {
       final int len = stringList.length;
       for (int i = 0; i < len; i++) {
         _conversionsOrderDrawer![i] = int.parse(stringList[i]);
-        if (_conversionsOrderDrawer![i] == 0) _currentPage = i;
+        // TODO
+        /*if (_conversionsOrderDrawer![i] == 0) {
+          _currentPage = i;
+        }*/
       }
       //If new units of mesurement will be added the following 2
       //lines of code ensure that everything will works fine
@@ -180,13 +155,11 @@ class AppModel with ChangeNotifier {
 
   /// Return a string locale (e.g 'English', 'Italiano', etc.) or null if it is "System settings"
   String? getLocaleString() {
-    try{
-      return mapLocale[mapLocale.keys.firstWhere(
-      (element) => _appLocale!.languageCode == element.languageCode)];
-    }
-    catch(error){
+    try {
+      return mapLocale[mapLocale.keys.firstWhere((element) => _appLocale!.languageCode == element.languageCode)];
+    } catch (error) {
       // if there isn't a locale, then a StateError is thrown
-      if(error is StateError){
+      if (error is StateError) {
         return null;
       }
     }

@@ -9,6 +9,7 @@ import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 class ChoosePropertyPage extends StatefulWidget {
   const ChoosePropertyPage({
@@ -162,7 +163,7 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
                     onSave: (List<int>? orderList) {
                       context.read<Conversions>().saveOrderUnits(
                           orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
-                      context.read<AppModel>().currentScreen = MAIN_SCREEN.settings;
+                      context.go('settings');
                     },
                     header: BigTitle(
                       text:
@@ -225,7 +226,7 @@ class _ChoosePropertyPageState extends State<ChoosePropertyPage> {
             context
                 .read<Conversions>()
                 .saveOrderUnits(orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
-            context.read<AppModel>().currentScreen = MAIN_SCREEN.settings;
+            context.go('settings');
           },
           header: BigTitle(
             text: AppLocalizations.of(context)!.reorderProperty(widget.orderedDrawerList[selectedProperty!]),

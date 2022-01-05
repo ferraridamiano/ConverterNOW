@@ -10,22 +10,17 @@ import 'package:intl/intl.dart';
 
 class ConversionPage extends StatelessWidget {
 
-  final int pageNumber;
+  final int page;
 
-  const ConversionPage(this.pageNumber, {Key? key}) : super(key: key);
+  const ConversionPage(this.page, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
-    List<UnitData> unitDataList = context.read<Conversions>().getUnitDataListAtPage(pageNumber);
+    List<UnitData> unitDataList = context.read<Conversions>().getUnitDataListAtPage(page);
     PROPERTYX currentProperty =
-        context.read<Conversions>().getPropertyNameAtPage(pageNumber);
-    /*List<UnitData> unitDataList =
-        context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);*/
-
-    /*PROPERTYX currentProperty =
-        context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);*/
+        context.read<Conversions>().getPropertyNameAtPage(page);
 
     final Brightness brightness = Theme.of(context).brightness;
 
@@ -62,9 +57,9 @@ class ConversionPage extends StatelessWidget {
               Conversions conversions = context.read<Conversions>();
               //just numeral system uses a string for conversion
               if (unitData.property == PROPERTYX.numeralSystems) {
-                conversions.convert(unitData, txt == "" ? null : txt);
+                conversions.convert(unitData, txt == "" ? null : txt, page);
               } else {
-                conversions.convert(unitData, txt == "" ? null : double.parse(txt));
+                conversions.convert(unitData, txt == "" ? null : double.parse(txt), page);
               }
             }
           },
