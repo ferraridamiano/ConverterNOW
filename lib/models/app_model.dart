@@ -48,10 +48,6 @@ class AppModel with ChangeNotifier {
       final int len = stringList.length;
       for (int i = 0; i < len; i++) {
         _conversionsOrderDrawer![i] = int.parse(stringList[i]);
-        // TODO
-        /*if (_conversionsOrderDrawer![i] == 0) {
-          _currentPage = i;
-        }*/
       }
       //If new units of mesurement will be added the following 2
       //lines of code ensure that everything will works fine

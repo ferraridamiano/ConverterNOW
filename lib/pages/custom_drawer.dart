@@ -80,11 +80,10 @@ class CustomDrawer extends StatelessWidget {
             delegate: CustomSearchDelegate(orderList!),
           );
           if (newPage != null) {
-            AppModel appModel = context.read<AppModel>();
-            // TODO
-            /*if (appModel.currentPage != newPage) {
-              appModel.changeToPage(newPage);
-            }*/
+            final String targetPath = '/conversions/'+reversePageNumberListMap[newPage];
+            if(GoRouter.of(context).location != targetPath){
+              context.go(targetPath);
+            }
           }
         },
         selected: false,
