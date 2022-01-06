@@ -149,17 +149,16 @@ class Conversions with ChangeNotifier {
   PROPERTYX getPropertyNameAtPage(int page) => _propertyList[page].name;
 
   ///Clears the values of the current page
-  clearAllValues() {
-    // TODO
-    /*if (currentUnitDataList[0].property == PROPERTYX.numeralSystems) {
+  clearAllValues(int page) {
+    List<UnitData> currentUnitDataList = _unitDataList[page];
+    if (currentUnitDataList[0].property == PROPERTYX.numeralSystems) {
       _savedUnitDataList = [...currentUnitDataList.map((unitData) => unitData.unit.stringValue)];
     } else {
       _savedUnitDataList = [...currentUnitDataList.map((unitData) => unitData.unit.value)];
     }
-    _savedPropertyIndex = _currentPage;
-    convert(currentUnitDataList[0], null);
+    _savedPropertyIndex = page;
+    convert(currentUnitDataList[0], null, page);
     currentUnitDataList[0].tec.text = ''; // convert doesn't clear a selected textfield
-    */
   }
 
   /// Undo the last clear all operation performed
@@ -186,8 +185,7 @@ class Conversions with ChangeNotifier {
 
   /// Returns true if we should show a snackbar when the user press on the clear
   /// all button (see [undoClearOperation]), false otherwise.
-  /// TODO
-  bool shouldShowSnackbar() => true;//currentUnitDataList[0].tec.text != '';
+  bool shouldShowSnackbar(int page) => _unitDataList[page][0].tec.text != '';
 
   ///Returns the DateTime of the latest update of the currencies conversions
   ///ratio (year, month, day)

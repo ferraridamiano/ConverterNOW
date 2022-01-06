@@ -6,6 +6,7 @@ import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class AppScaffold extends StatelessWidget {
@@ -35,8 +36,9 @@ class AppScaffold extends StatelessWidget {
     }
 
     void clearAll(bool isDrawerFixed) {
-      if (context.read<Conversions>().shouldShowSnackbar()) {
-        context.read<Conversions>().clearAllValues();
+      final int page = pageNumberMap[GoRouter.of(context).location.substring('/conversions/'.length)]!;
+      if (context.read<Conversions>().shouldShowSnackbar(page)) {
+        context.read<Conversions>().clearAllValues(page);
         //Snackbar undo request
         final SnackBar snackBar = SnackBar(
           content: Text(AppLocalizations.of(context)!.undoClearAllMessage),
