@@ -289,8 +289,6 @@ class Conversions with ChangeNotifier {
       }
     }
     _refreshOrderUnits();
-    //TODO
-    //currentUnitDataList = _unitDataList[_currentPage];
     notifyListeners();
   }
 
@@ -379,22 +377,15 @@ class Conversions with ChangeNotifier {
         _conversionsOrder[pageNumber][i] = newOrder.indexOf(arrayCopy[i]);
       }
       _refreshOrderUnits();
-      // TODO
-      //currentUnitDataList = _unitDataList[pageNumber];
       notifyListeners();
-      _saveOrders();
-    }
-  }
 
-  ///Saves the order of _conversionsOrder of the _currentPage on memory
-  _saveOrders() async {
-    //TODO
-    /*SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> toConvertList = [];
-    for (int item in _conversionsOrder[_currentPage]) {
-      toConvertList.add(item.toString());
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      List<String> toConvertList = [];
+      for (int item in _conversionsOrder[pageNumber]) {
+        toConvertList.add(item.toString());
+      }
+      prefs.setStringList("conversion_$pageNumber", toConvertList);
     }
-    prefs.setStringList("conversion_$_currentPage", toConvertList);*/
   }
 
   //Settings section------------------------------------------------------------------
