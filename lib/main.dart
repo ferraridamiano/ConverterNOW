@@ -31,7 +31,6 @@ class _MyApp extends State<MyApp> {
   final AppModel appModel = AppModel();
 
   late final _router = GoRouter(
-    urlPathStrategy: UrlPathStrategy.path,
     routes: [
       GoRoute(
         path: '/',

@@ -23,7 +23,7 @@ dependencies:
   #Needed for fonts
   google_fonts: ^2.1.0
   #Needed for navigation between pages
-  go_router: ^2.5.7
+  go_router: ^3.0.0
   #Needed for unit conversion
   units_converter: ^1.1.1
     #git:
