@@ -36,25 +36,26 @@ class AppModel with ChangeNotifier {
   }
 
   ///Returns the order of the tile of the conversions in the drawer
-  List<int>? get conversionsOrderDrawer => _conversionsOrderDrawer!;
+  List<int>? get conversionsOrderDrawer => _conversionsOrderDrawer;
 
   ///Updates the order of the tiles in the drawer
   _checkOrdersDrawer() async {
     //_conversionsOrderDrawer numbers until max conversion units - 1
-    _conversionsOrderDrawer = List.generate(19, (index) => index);
+    List<int> temp = List.generate(19, (index) => index);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? stringList = prefs.getStringList("orderDrawer");
     if (stringList != null) {
       final int len = stringList.length;
       for (int i = 0; i < len; i++) {
-        _conversionsOrderDrawer![i] = int.parse(stringList[i]);
+        temp[i] = int.parse(stringList[i]);
       }
       //If new units of mesurement will be added the following 2
       //lines of code ensure that everything will works fine
-      for (int i = len; i < _conversionsOrderDrawer!.length; i++) {
-        _conversionsOrderDrawer![i] = i;
+      for (int i = len; i < temp.length; i++) {
+        temp[i] = i;
       }
     }
+    _conversionsOrderDrawer = temp;
     notifyListeners();
   }
 
