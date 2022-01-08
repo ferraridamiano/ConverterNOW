@@ -13,7 +13,7 @@ const maxConversionUnits = 19;
 
 class CustomDrawer extends StatelessWidget {
   final bool isDrawerFixed;
-  final ScaffoldSection selectedSection;
+  final AppPage selectedSection;
   final int selectedIndex;
   final void Function() openCalculator;
 
@@ -80,8 +80,8 @@ class CustomDrawer extends StatelessWidget {
             delegate: CustomSearchDelegate(orderList!),
           );
           if (newPage != null) {
-            final String targetPath = '/conversions/'+reversePageNumberListMap[newPage];
-            if(GoRouter.of(context).location != targetPath){
+            final String targetPath = '/conversions/' + reversePageNumberListMap[newPage];
+            if (GoRouter.of(context).location != targetPath) {
               context.go(targetPath);
             }
           }
@@ -100,23 +100,17 @@ class CustomDrawer extends StatelessWidget {
       );
     }
     headerDrawer
-      ..add(
-        DrawerTile(
-            leading: const Icon(Icons.settings_outlined),
-            title: Text(AppLocalizations.of(context)!.settings),
-            onTap: () {
-              if (!isDrawerFixed) {
-                Navigator.of(context).pop();
-              }
-              context.goNamed('settings');
-            },
-            selected: selectedSection ==
-                ScaffoldSection
-                    .settings /*||
-              currentScreen == MAIN_SCREEN.reorderProperties ||
-              currentScreen == MAIN_SCREEN.reorderUnits,*/
-            ),
-      )
+      ..add(DrawerTile(
+        leading: const Icon(Icons.settings_outlined),
+        title: Text(AppLocalizations.of(context)!.settings),
+        onTap: () {
+          if (!isDrawerFixed) {
+            Navigator.of(context).pop();
+          }
+          context.goNamed('settings');
+        },
+        selected: selectedSection == AppPage.settings || selectedSection == AppPage.reorder,
+      ))
       ..add(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -146,7 +140,7 @@ class CustomDrawer extends StatelessWidget {
             Navigator.of(context).pop();
           }
         },
-        selected: selectedSection == ScaffoldSection.conversions && selectedIndex == i,
+        selected: selectedSection == AppPage.conversions && selectedIndex == i,
       );
     }
 

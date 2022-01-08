@@ -47,7 +47,7 @@ class _MyApp extends State<MyApp> {
             return NoTransitionPage(
               key: _scaffoldKey,
               child: AppScaffold(
-                selectedSection: ScaffoldSection.conversions,
+                selectedSection: AppPage.conversions,
                 selectedIndex: pageNumber,
                 child: ConversionPage(pageNumber),
               ),
@@ -61,7 +61,7 @@ class _MyApp extends State<MyApp> {
         pageBuilder: (context, state) => const NoTransitionPage(
           key: _scaffoldKey,
           child: AppScaffold(
-            selectedSection: ScaffoldSection.settings,
+            selectedSection: AppPage.settings,
             child: SettingsPage(),
           ),
         ),
@@ -72,7 +72,7 @@ class _MyApp extends State<MyApp> {
         pageBuilder: (context, state) => const NoTransitionPage(
           key: _scaffoldKey,
           child: AppScaffold(
-            selectedSection: ScaffoldSection.settings,
+            selectedSection: AppPage.reorder,
             child: ReorderPropertiesPage(),
           ),
         ),
@@ -83,7 +83,7 @@ class _MyApp extends State<MyApp> {
         pageBuilder: (context, state) => const NoTransitionPage(
           key: _scaffoldKey,
           child: AppScaffold(
-            selectedSection: ScaffoldSection.settings,
+            selectedSection: AppPage.reorder,
             child: ReorderUnitsPage(),
           ),
         ),

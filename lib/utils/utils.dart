@@ -174,7 +174,7 @@ const Map<String, int> pageNumberMap = {
 /// access to the strings faster.
 final List<String> reversePageNumberListMap = pageNumberMap.keys.toList();
 
-enum ScaffoldSection { conversions, settings, calculator, search }
+enum AppPage { conversions, settings, reorder }
 
 /// PROPERTYX stands for PROPERTY extended and want to extends the PROPERTY enum defined in units_converter package
 enum PROPERTYX {

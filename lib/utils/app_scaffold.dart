@@ -17,7 +17,7 @@ class AppScaffold extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final ScaffoldSection selectedSection;
+  final AppPage selectedSection;
   final int selectedIndex;
   final Widget child;
 
@@ -77,7 +77,7 @@ class AppScaffold extends StatelessWidget {
             ),
           ),
           floatingActionButton:
-              (selectedSection == ScaffoldSection.conversions && MediaQuery.of(context).viewInsets.bottom == 0)
+              (selectedSection == AppPage.conversions && MediaQuery.of(context).viewInsets.bottom == 0)
                   ? FloatingActionButton(
                       child: const Icon(
                         Icons.clear_outlined,
@@ -90,46 +90,60 @@ class AppScaffold extends StatelessWidget {
         );
       }
       // if the drawer is not fixed
-      return Scaffold(
-        drawer: drawer,
-        body: SafeArea(child: child),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: selectedSection == ScaffoldSection.conversions
-            ? BottomAppBar(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Builder(builder: (context) {
-                      return IconButton(
-                          tooltip: AppLocalizations.of(context)!.menu,
-                          icon: const Icon(Icons.menu),
-                          onPressed: () {
-                            Scaffold.of(context).openDrawer();
-                          });
-                    }),
-                    IconButton(
-                      tooltip: AppLocalizations.of(context)!.clearAll,
-                      icon: const Icon(Icons.clear),
-                      onPressed: () => clearAll(_isDrawerFixed),
-                    ),
-                  ],
-                ),
-              )
-            : null,
-        floatingActionButton:
-            (selectedSection == ScaffoldSection.conversions && MediaQuery.of(context).viewInsets.bottom == 0)
-                ? FloatingActionButton(
-                    tooltip: AppLocalizations.of(context)!.calculator,
-                    child: const Icon(
-                      Icons.calculate_outlined,
-                      size: 30,
-                      color: Colors.white,
-                    ),
-                    onPressed: openCalculator,
-                    backgroundColor: Theme.of(context).colorScheme.secondaryVariant,
-                  )
-                : null,
+      return WillPopScope(
+        onWillPop: () async {
+          switch (selectedSection) {
+            case AppPage.settings:
+              context.go('/');
+              return false;
+            case AppPage.reorder:
+              context.goNamed('settings');
+              return false;
+            default:
+              return true;
+          }
+        },
+        child: Scaffold(
+          drawer: drawer,
+          body: SafeArea(child: child),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: selectedSection == AppPage.conversions
+              ? BottomAppBar(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Builder(builder: (context) {
+                        return IconButton(
+                            tooltip: AppLocalizations.of(context)!.menu,
+                            icon: const Icon(Icons.menu),
+                            onPressed: () {
+                              Scaffold.of(context).openDrawer();
+                            });
+                      }),
+                      IconButton(
+                        tooltip: AppLocalizations.of(context)!.clearAll,
+                        icon: const Icon(Icons.clear),
+                        onPressed: () => clearAll(_isDrawerFixed),
+                      ),
+                    ],
+                  ),
+                )
+              : null,
+          floatingActionButton:
+              (selectedSection == AppPage.conversions && MediaQuery.of(context).viewInsets.bottom == 0)
+                  ? FloatingActionButton(
+                      tooltip: AppLocalizations.of(context)!.calculator,
+                      child: const Icon(
+                        Icons.calculate_outlined,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                      onPressed: openCalculator,
+                      backgroundColor: Theme.of(context).colorScheme.secondaryVariant,
+                    )
+                  : null,
+        ),
       );
     });
   }
