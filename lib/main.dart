@@ -1,6 +1,6 @@
+import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/conversion_page.dart';
 import 'package:converterpro/pages/reorder_properties_page.dart';
-import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/utils/app_scaffold.dart';
@@ -84,9 +84,31 @@ class _MyApp extends State<MyApp> {
           key: _scaffoldKey,
           child: AppScaffold(
             selectedSection: AppPage.reorder,
-            child: ReorderUnitsPage(),
+            child: ChoosePropertyPage(),
           ),
         ),
+      ),
+      GoRoute(
+        path: '/settings/reorder-units/:property',
+        pageBuilder: (context, state) {
+          final String property = state.params['property']!;
+          final int? pageNumber = pageNumberMap[property];
+          if (pageNumber == null) {
+            throw Exception('property not found: $property');
+          } else {
+            return NoTransitionPage(
+              key: _scaffoldKey,
+              child: AppScaffold(
+                selectedSection: AppPage.reorder_details,
+                selectedIndex: pageNumber,
+                child: ChoosePropertyPage(
+                  selectedProperty: pageNumber,
+                  isPropertySelected: true,
+                ),
+              ),
+            );
+          }
+        },
       ),
     ],
     errorBuilder: (context, state) => const Scaffold(

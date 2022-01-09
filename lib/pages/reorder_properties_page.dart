@@ -25,22 +25,16 @@ class ReorderPropertiesPage extends StatelessWidget {
       orderedDrawerList[conversionsOrderDrawer[i]] = propertyNameList[i];
     }
 
-    return WillPopScope(
-      onWillPop: () async {
-        context.goNamed('settings');
-        return false;
-      },
-      child: ReorderPage(
-        header: BigTitle(
-          text: AppLocalizations.of(context)!.reorderProperties,
-          center: true,
-        ),
-        itemsList: orderedDrawerList,
-        onSave: (List<int>? orderList) {
-          context.read<AppModel>().saveOrderDrawer(orderList);
-          context.goNamed('settings');
-        },
+    return ReorderPage(
+      header: BigTitle(
+        text: AppLocalizations.of(context)!.reorderProperties,
+        center: true,
       ),
+      itemsList: orderedDrawerList,
+      onSave: (List<int>? orderList) {
+        context.read<AppModel>().saveOrderDrawer(orderList);
+        context.goNamed('settings');
+      },
     );
   }
 }

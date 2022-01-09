@@ -99,6 +99,14 @@ class AppScaffold extends StatelessWidget {
             case AppPage.reorder:
               context.goNamed('settings');
               return false;
+            case AppPage.reorder_details:
+              //2 sided page
+              if(_isDrawerFixed){
+                context.goNamed('settings');
+              } else{
+                context.goNamed('reorder-units');
+              }
+              return false;
             default:
               return true;
           }
