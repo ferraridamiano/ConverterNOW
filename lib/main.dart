@@ -116,16 +116,6 @@ class _MyApp extends State<MyApp> {
         child: Text('Error'),
       ),
     ),
-    refreshListenable: appModel,
-    redirect: (GoRouterState state) {
-      if (state.location == '/') {
-        List<int>? conversionsOrderDrawer = appModel.conversionsOrderDrawer;
-        if (conversionsOrderDrawer != null) {
-          return '/conversions/' + reversePageNumberListMap[conversionsOrderDrawer[0]];
-        }
-      }
-      return null;
-    },
   );
 
   @override

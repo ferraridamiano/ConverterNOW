@@ -57,7 +57,7 @@ class Conversions with ChangeNotifier {
     CURRENCIES.MAD: 'د.م. 🇲🇦',
   };
   List<Property> _propertyList = [];
-  final List<List<int>> _conversionsOrder = [];
+  List<List<int>>? _conversionsOrder;
   bool _isCurrenciesLoading = true;
   bool _removeTrailingZeros = true;
   static const List<int> _significantFiguresList = <int>[6, 8, 10, 12, 14];
@@ -68,7 +68,6 @@ class Conversions with ChangeNotifier {
     _initializePropertyList();
     _checkOrdersUnits();
     _checkSettings();
-    _refreshOrderUnits();
   }
 
   void _initializePropertyList() {
@@ -116,6 +115,10 @@ class Conversions with ChangeNotifier {
           significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.torque),
     ];
   }
+
+  /// Returns true if the model ha finished to load the stored
+  /// _conversionsOrder, false otherwise.
+  bool get isConversionsOrderLoaded => _conversionsOrder != null;
 
   /// This function get the value of the unit from currentProperty and update
   /// the currentUnitDataList values. It is used when a conversion changes the
@@ -264,10 +267,9 @@ class Conversions with ChangeNotifier {
   ///Get the orders of each units of measurement from the memory
   _checkOrdersUnits() async {
     //Initialize the order for each property to default: [0,1,2,...,size(property)]
-    if (_conversionsOrder.isEmpty) {
-      for (Property property in _propertyList) {
-        _conversionsOrder.add(List.generate(property.size, (index) => index));
-      }
+    List<List<int>> temp = [];
+    for (Property property in _propertyList) {
+      temp.add(List.generate(property.size, (index) => index));
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -282,22 +284,24 @@ class Conversions with ChangeNotifier {
           intList.add(int.parse(stringList[j]));
         }
         //solves the problem of adding new units after an update
-        for (int j = len; j < _conversionsOrder[i].length; j++) {
+        for (int j = len; j < temp[i].length; j++) {
           intList.add(j);
         }
-        _conversionsOrder[i] = intList;
+        temp[i] = intList;
       }
     }
+    _conversionsOrder = temp;
     _refreshOrderUnits();
     notifyListeners();
   }
 
   /// Apply the order defined in [_conversionsOrder] to [_unitDataList]. [_unitDataList] will be redefined, so this function is used also during initialization
   _refreshOrderUnits() {
+    assert(_conversionsOrder != null, true);
     _unitDataList = [];
     for (int i = 0; i < _propertyList.length; i++) {
       List<UnitData> tempUnitData =
-          List.filled(_conversionsOrder[i].length, UnitData(Unit('none'), tec: TextEditingController()));
+          List.filled(_conversionsOrder![i].length, UnitData(Unit('none'), tec: TextEditingController()));
       Property property = _propertyList[i];
       List<Unit> tempProperty = property.getAll();
       for (int j = 0; j < tempProperty.length; j++) {
@@ -352,7 +356,7 @@ class Conversions with ChangeNotifier {
           validator = VALIDATOR.rationalNonNegative;
         }
 
-        tempUnitData[_conversionsOrder[i][j]] = UnitData(
+        tempUnitData[_conversionsOrder![i][j]] = UnitData(
           tempProperty[j],
           property: property.name,
           tec: TextEditingController(),
@@ -366,22 +370,22 @@ class Conversions with ChangeNotifier {
 
   ///Given a new ordering of a specific page it applys it to the app and store it.
   saveOrderUnits(List<int>? newOrder, int pageNumber) async {
-    assert(newOrder == null ? true : newOrder.length == _conversionsOrder[pageNumber].length);
+    assert(newOrder == null ? true : newOrder.length == _conversionsOrder![pageNumber].length);
     //if there arent't any modifications, do nothing
     if (newOrder != null) {
-      List arrayCopy = List.filled(_conversionsOrder[pageNumber].length, null);
-      for (int i = 0; i < _conversionsOrder[pageNumber].length; i++) {
-        arrayCopy[i] = _conversionsOrder[pageNumber][i];
+      List arrayCopy = List.filled(_conversionsOrder![pageNumber].length, null);
+      for (int i = 0; i < _conversionsOrder![pageNumber].length; i++) {
+        arrayCopy[i] = _conversionsOrder![pageNumber][i];
       }
-      for (int i = 0; i < _conversionsOrder[pageNumber].length; i++) {
-        _conversionsOrder[pageNumber][i] = newOrder.indexOf(arrayCopy[i]);
+      for (int i = 0; i < _conversionsOrder![pageNumber].length; i++) {
+        _conversionsOrder![pageNumber][i] = newOrder.indexOf(arrayCopy[i]);
       }
       _refreshOrderUnits();
       notifyListeners();
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       List<String> toConvertList = [];
-      for (int item in _conversionsOrder[pageNumber]) {
+      for (int item in _conversionsOrder![pageNumber]) {
         toConvertList.add(item.toString());
       }
       prefs.setStringList("conversion_$pageNumber", toConvertList);
