@@ -156,7 +156,7 @@ class ChoosePropertyPage extends StatelessWidget {
                     onSave: (List<int>? orderList) {
                       context.read<Conversions>().saveOrderUnits(
                           orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
-                      context.go('settings');
+                      context.goNamed('settings');
                     },
                     header: BigTitle(
                       text: AppLocalizations.of(context)!.reorderProperty(orderedDrawerList[selectedProperty!]),
@@ -208,7 +208,7 @@ class ChoosePropertyPage extends StatelessWidget {
           context
               .read<Conversions>()
               .saveOrderUnits(orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
-          context.go('settings');
+          context.goNamed('settings');
         },
         header: BigTitle(
           text: AppLocalizations.of(context)!.reorderProperty(orderedDrawerList[selectedProperty!]),

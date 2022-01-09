@@ -6,7 +6,7 @@ class AppModel with ChangeNotifier {
   List<int>? _conversionsOrderDrawer;
   ThemeMode _currentThemeMode = ThemeMode.system;
   bool _isDarkAmoled = false;
-  final Map<ThemeMode, int> _themeModeMap = {
+  static const Map<ThemeMode, int> _themeModeMap = {
     ThemeMode.system: 0,
     ThemeMode.dark: 1,
     ThemeMode.light: 2,
