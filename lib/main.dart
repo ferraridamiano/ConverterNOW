@@ -14,21 +14,12 @@ import 'package:converterpro/models/conversions.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 const _scaffoldKey = ValueKey<String>('App scaffold');
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  _MyApp createState() => _MyApp();
-}
-
-class _MyApp extends State<MyApp> {
-  bool deviceLocaleSetted = false;
-  final AppModel appModel = AppModel();
+class MyApp extends StatelessWidget {
 
   late final _router = GoRouter(
     routes: [
@@ -118,14 +109,17 @@ class _MyApp extends State<MyApp> {
     ),
   );
 
+  MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    bool deviceLocaleSetted = false;
     final ThemeData defaultLight = ThemeData();
     final ThemeData defaultDark = ThemeData.dark();
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: appModel),
+        ChangeNotifierProvider(create: (context) => AppModel()),
         ChangeNotifierProvider(create: (context) => Conversions()),
       ],
       child: Builder(builder: (BuildContext context) {
