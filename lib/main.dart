@@ -1,3 +1,4 @@
+import 'package:converterpro/pages/error_page.dart';
 import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/conversion_page.dart';
 import 'package:converterpro/pages/reorder_properties_page.dart';
@@ -102,11 +103,7 @@ class MyApp extends StatelessWidget {
         },
       ),
     ],
-    errorBuilder: (context, state) => const Scaffold(
-      body: Center(
-        child: Text('Error'),
-      ),
-    ),
+    errorBuilder: (context, state) => const ErrorPage(),
   );
 
   MyApp({Key? key}) : super(key: key);

@@ -56,6 +56,14 @@
   "@undo": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "routeError1": "This page doesn't exist",
+  "@routeError1": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "routeError2": "Go back to the first page",
+  "@routeError2": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Comprimento",
   "area": "Área",
