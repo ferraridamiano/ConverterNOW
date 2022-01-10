@@ -20,18 +20,19 @@ class DrawerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 800),
-      curve: Curves.easeOutQuart,
-      decoration: BoxDecoration(
-        color: selected ? Theme.of(context).primaryColor.withOpacity(0.25) : Colors.transparent,
-        borderRadius: borderRadius,
-      ),
-      child: ListTile(
-        leading: leading,
-        title: title,
-        onTap: onTap,
-        shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+    return Padding(
+      padding: const EdgeInsets.only(right: 12),
+      child: Container(
+        decoration: BoxDecoration(
+          color: selected ? Theme.of(context).primaryColor.withOpacity(0.25) : Colors.transparent,
+          borderRadius: borderRadius,
+        ),
+        child: ListTile(
+          leading: leading,
+          title: title,
+          onTap: onTap,
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+        ),
       ),
     );
   }
