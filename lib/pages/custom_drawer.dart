@@ -1,4 +1,5 @@
 import 'package:converterpro/models/app_model.dart';
+import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
@@ -6,28 +7,28 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 const maxConversionUnits = 19;
 
 class CustomDrawer extends StatelessWidget {
   final bool isDrawerFixed;
+  final AppPage selectedSection;
+  final int selectedIndex;
   final void Function() openCalculator;
-  final void Function() openSearch;
 
   const CustomDrawer({
-    Key? key,
-    required this.openCalculator,
-    required this.openSearch,
+    key,
     required this.isDrawerFixed,
+    required this.selectedSection,
+    required this.selectedIndex,
+    required this.openCalculator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    late List<Widget> headerDrawer = [];
+    List<Widget> headerDrawer = [];
     List<Widget> conversionDrawer = List<Widget>.filled(maxConversionUnits, const SizedBox());
-
-    int currentPage = context.select<AppModel, int>((appModel) => appModel.currentPage);
-    MAIN_SCREEN currentScreen = context.select<AppModel, MAIN_SCREEN>((appModel) => appModel.currentScreen);
 
     final Widget title = Padding(
       padding: const EdgeInsets.symmetric(vertical: 30),
@@ -56,9 +57,7 @@ class CustomDrawer extends StatelessWidget {
       headerDrawer.add(
         InkWell(
           onTap: () {
-            context.read<AppModel>()
-              ..changeToPage(context.read<AppModel>().conversionsOrderDrawer.indexWhere((val) => val == 0))
-              ..currentScreen = MAIN_SCREEN.conversion;
+            context.go('/');
             if (!isDrawerFixed) {
               Navigator.of(context).pop();
             }
@@ -69,11 +68,24 @@ class CustomDrawer extends StatelessWidget {
     } else {
       headerDrawer.add(title);
     }
+
     headerDrawer.add(
       DrawerTile(
         leading: const Icon(Icons.search_outlined),
         title: Text(AppLocalizations.of(context)!.search),
-        onTap: () => openSearch(),
+        onTap: () async {
+          final orderList = context.read<AppModel>().conversionsOrderDrawer;
+          final int? newPage = await showSearch(
+            context: context,
+            delegate: CustomSearchDelegate(orderList!),
+          );
+          if (newPage != null) {
+            final String targetPath = '/conversions/' + reversePageNumberListMap[newPage];
+            if (GoRouter.of(context).location != targetPath) {
+              context.go(targetPath);
+            }
+          }
+        },
         selected: false,
       ),
     );
@@ -82,27 +94,23 @@ class CustomDrawer extends StatelessWidget {
         DrawerTile(
           leading: const Icon(Icons.calculate_outlined),
           title: Text(AppLocalizations.of(context)!.calculator),
-          onTap: () => openCalculator(),
+          onTap: openCalculator,
           selected: false,
         ),
       );
     }
     headerDrawer
-      ..add(
-        DrawerTile(
-          leading: const Icon(Icons.settings_outlined),
-          title: Text(AppLocalizations.of(context)!.settings),
-          onTap: () {
-            if (!isDrawerFixed) {
-              Navigator.of(context).pop();
-            }
-            context.read<AppModel>().currentScreen = MAIN_SCREEN.settings;
-          },
-          selected: currentScreen == MAIN_SCREEN.settings ||
-              currentScreen == MAIN_SCREEN.reorderProperties ||
-              currentScreen == MAIN_SCREEN.reorderUnits,
-        ),
-      )
+      ..add(DrawerTile(
+        leading: const Icon(Icons.settings_outlined),
+        title: Text(AppLocalizations.of(context)!.settings),
+        onTap: () {
+          if (!isDrawerFixed) {
+            Navigator.of(context).pop();
+          }
+          context.goNamed('settings');
+        },
+        selected: selectedSection == AppPage.settings || selectedSection == AppPage.reorder,
+      ))
       ..add(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -110,13 +118,8 @@ class CustomDrawer extends StatelessWidget {
         ),
       );
 
-    List<int> conversionsOrderDrawer = context.watch<AppModel>().conversionsOrderDrawer;
-
-    //*the following lines are more optimized then the previous one but don't know
-    //*why it doesn't work :(
-    /*List<int> conversionsOrderDrawer = context.select<AppModel, List<int>>(
-      (appModel) => appModel.conversionsOrderDrawer
-    );*/
+    List<int> conversionsOrderDrawer =
+        context.select<AppModel, List<int>>((appModel) => appModel.conversionsOrderDrawer!);
 
     List<PropertyUi> propertyUiList = getPropertyUiList(context);
 
@@ -132,14 +135,12 @@ class CustomDrawer extends StatelessWidget {
         ),
         title: Text(propertyUi.name),
         onTap: () {
-          context.read<AppModel>()
-            ..changeToPage(i)
-            ..currentScreen = MAIN_SCREEN.conversion;
+          context.go('/conversions/${reversePageNumberListMap[i]}');
           if (!isDrawerFixed) {
             Navigator.of(context).pop();
           }
         },
-        selected: currentScreen == MAIN_SCREEN.conversion && currentPage == i,
+        selected: selectedSection == AppPage.conversions && selectedIndex == i,
       );
     }
 

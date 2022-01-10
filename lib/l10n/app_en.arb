@@ -51,6 +51,8 @@
   "sourceCode": "Source code",
   "undoClearAllMessage": "Cleared all. Do you want to undo it?",
   "undo": "Undo",
+  "routeError1": "This page doesn't exist",
+  "routeError2": "Go back to the first page",
 
   "length": "Length",
   "area": "Area",
