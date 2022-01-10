@@ -17,7 +17,7 @@ class SplashScreen extends StatelessWidget {
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (isConversionsOrderLoaded && conversionsOrderDrawer != null) {
-        context.go('/conversions/' + reversePageNumberListMap[conversionsOrderDrawer[0]]);
+        context.go('/conversions/' + reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]);
       }
     });
 
