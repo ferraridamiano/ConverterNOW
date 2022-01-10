@@ -49,13 +49,8 @@
   },
   "otherPlatforms": "Converter NOW para otras plataformas",
   "sourceCode": "Código fuente",
-  "@undoClearAllMessage": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "undo": "Undo",
-  "@undo": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "undoClearAllMessage": "Todo despejado. ¿Desea deshacer?",
+  "undo": "Deshacer",
   "routeError1": "This page doesn't exist",
   "@routeError1": {
     "description": "Not yet translated. Once done, remove this comment"
@@ -187,13 +182,7 @@
   "psi": "Libras por pulgada cuadrada",
   "torr": "Torr",
   "hectoPascal": "Hectopascal",
-  "@hectoPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "inchesOfMercury": "Inches of mercury",
-  "@inchesOfMercury": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "inchesOfMercury": "Pulgadas de mercurio",
 
   "joule": "Julio",
   "calorie": "Caloría",
