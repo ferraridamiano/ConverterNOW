@@ -18,7 +18,17 @@ class ConversionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
+    final bool isConversionsLoaded = context.select<Conversions, bool>((conversions) => conversions.isConversionsLoaded);
+
+    // if we remove the following check, if you enter the site directly to
+    // '/conversions/:property' an error will occur
+    if(!isConversionsLoaded){
+      return const SplashScreenWidget();
+    }
+    
     List<UnitData> unitDataList = context.read<Conversions>().getUnitDataListAtPage(page);
+
+
     PROPERTYX currentProperty =
         context.read<Conversions>().getPropertyNameAtPage(page);
 

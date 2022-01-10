@@ -117,8 +117,8 @@ class Conversions with ChangeNotifier {
   }
 
   /// Returns true if the model ha finished to load the stored
-  /// _conversionsOrder, false otherwise.
-  bool get isConversionsOrderLoaded => _conversionsOrder != null;
+  /// _conversionsOrder and `_unitDataList` is not empty, false otherwise.
+  bool get isConversionsLoaded => _unitDataList.isNotEmpty;
 
   /// This function get the value of the unit from currentProperty and update
   /// the currentUnitDataList values. It is used when a conversion changes the
@@ -298,7 +298,7 @@ class Conversions with ChangeNotifier {
   /// Apply the order defined in [_conversionsOrder] to [_unitDataList]. [_unitDataList] will be redefined, so this function is used also during initialization
   _refreshOrderUnits() {
     assert(_conversionsOrder != null, true);
-    _unitDataList = [];
+    List<List<UnitData>> _tempUnitDataList = [];
     for (int i = 0; i < _propertyList.length; i++) {
       List<UnitData> tempUnitData =
           List.filled(_conversionsOrder![i].length, UnitData(Unit('none'), tec: TextEditingController()));
@@ -364,8 +364,9 @@ class Conversions with ChangeNotifier {
           textInputType: textInputType,
         );
       }
-      _unitDataList.add(tempUnitData);
+      _tempUnitDataList.add(tempUnitData);
     }
+    _unitDataList = _tempUnitDataList;
   }
 
   ///Given a new ordering of a specific page it applys it to the app and store it.

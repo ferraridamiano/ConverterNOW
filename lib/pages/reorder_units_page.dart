@@ -42,6 +42,14 @@ class ChoosePropertyPage extends StatelessWidget {
 
     final Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     if (selectedProperty != null) {
+      final bool isConversionsLoaded =
+          context.select<Conversions, bool>((conversions) => conversions.isConversionsLoaded);
+      // if we remove the following check, if you enter the site directly to
+      // '/conversions/:property' an error will occur
+      if (!isConversionsLoaded) {
+        return const SplashScreenWidget();
+      }
+      
       selectedUnitDataList = context
           .read<Conversions>()
           .getUnitDataListAtPage(conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
