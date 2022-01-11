@@ -71,10 +71,10 @@ jobs:
         echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
   
     - name: Build Android App Bundle
-      run: flutter build appbundle --dart-define=IS_PLAYSTORE=true
+      run: flutter build appbundle --dart-define=IS_PLAYSTORE=true --obfuscate --split-debug-info=/tmp
 
     - name: Build Android APK files
-      run: flutter build apk --release --split-per-abi
+      run: flutter build apk --release --split-per-abi --obfuscate --split-debug-info=/tmp
 
     - name: Release to GitHub
       uses: ncipollo/release-action@v1.9.0
