@@ -1,7 +1,7 @@
 name: converterpro
 description: Unit and currencies converter
 
-version: 3.1.0+31
+version: 3.1.0+32
 
 environment:
   sdk: ">=2.15.0 <3.0.0"

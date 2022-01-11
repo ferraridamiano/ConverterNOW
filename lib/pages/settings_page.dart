@@ -11,8 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
-class SettingsPage extends StatefulWidget {
+class EnvironmentConfig {
+  static const bool isPlaystore = String.fromEnvironment('IS_PLAYSTORE', defaultValue: 'false') == 'true';
+}
 
+class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
@@ -211,39 +214,40 @@ class _SettingsPageState extends State<SettingsPage> {
                   launchURL("https://github.com/ferraridamiano/ConverterNOW/issues/2");
                 },
               ),
-              ListTile(
-                title: Text(
-                  AppLocalizations.of(context)!.buyMeACoffee,
-                  style: textStyle,
-                ),
-                onTap: () {
-                  showDialog<void>(
-                    context: context,
-                    barrierDismissible: true,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text(AppLocalizations.of(context)!.buyMeACoffee),
-                        content: Text(
-                          AppLocalizations.of(context)!.donationDialog,
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text(
-                              AppLocalizations.of(context)!.buyMeACoffee,
-                              style: TextStyle(color: Theme.of(context).colorScheme.secondary),
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              launchURL('https://www.paypal.me/DemApps');
-                            },
+              if (!EnvironmentConfig.isPlaystore)
+                ListTile(
+                  title: Text(
+                    AppLocalizations.of(context)!.buyMeACoffee,
+                    style: textStyle,
+                  ),
+                  onTap: () {
+                    showDialog<void>(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(AppLocalizations.of(context)!.buyMeACoffee),
+                          content: Text(
+                            AppLocalizations.of(context)!.donationDialog,
+                            style: const TextStyle(fontSize: 18),
                           ),
-                        ],
-                      );
-                    },
-                  );
-                },
-              ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text(
+                                AppLocalizations.of(context)!.buyMeACoffee,
+                                style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                launchURL('https://www.paypal.me/DemApps');
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
               if (!kIsWeb)
                 ListTile(
                   title: Text(
