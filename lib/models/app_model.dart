@@ -60,25 +60,22 @@ class AppModel with ChangeNotifier {
   }
 
   ///Changes the orders of the tiles in the Drawer
-  saveOrderDrawer(List<int>? newOrder) async {
-    //if there arent't any modifications, do nothing
-    if (newOrder != null) {
-      List arrayCopia = List.filled(_conversionsOrderDrawer!.length, null);
-      for (int i = 0; i < _conversionsOrderDrawer!.length; i++) {
-        arrayCopia[i] = _conversionsOrderDrawer![i];
-      }
-      for (int i = 0; i < _conversionsOrderDrawer!.length; i++) {
-        _conversionsOrderDrawer![i] = newOrder.indexOf(arrayCopia[i]);
-      }
-      notifyListeners();
-      //save new orders to memory
-      List<String> toConvertList = [];
-      for (int item in _conversionsOrderDrawer!) {
-        toConvertList.add(item.toString());
-      }
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setStringList("orderDrawer", toConvertList);
+  saveOrderDrawer(List<int> newOrder) async {
+    List arrayCopia = List.filled(_conversionsOrderDrawer!.length, null);
+    for (int i = 0; i < _conversionsOrderDrawer!.length; i++) {
+      arrayCopia[i] = _conversionsOrderDrawer![i];
     }
+    for (int i = 0; i < _conversionsOrderDrawer!.length; i++) {
+      _conversionsOrderDrawer![i] = newOrder.indexOf(arrayCopia[i]);
+    }
+    notifyListeners();
+    //save new orders to memory
+    List<String> toConvertList = [];
+    for (int item in _conversionsOrderDrawer!) {
+      toConvertList.add(item.toString());
+    }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList("orderDrawer", toConvertList);
   }
 
   //Settings section------------------------------------------------------------------
