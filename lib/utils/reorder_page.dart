@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:converterpro/styles/consts.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -79,36 +81,38 @@ class ReorderList extends StatefulWidget {
 class _ReorderListState extends State<ReorderList> {
   @override
   Widget build(BuildContext context) {
-    return ReorderableListView(
-      scrollController: ScrollController(),
-      padding: EdgeInsets.only(bottom: widget.bottomPadding),
-      onReorder: (int oldIndex, int newIndex) {
-        setState(() => _updateItemsOrder(oldIndex, newIndex));
-      },
-      children: List.generate(
-        widget.itemsList.length,
-        (index) {
-          return SizedBox(
-            width: singlePageFixedHeight,
-            height: 48,
-            child: ListTile(
+    final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 800),
+      child: ReorderableListView(
+        scrollController: ScrollController(),
+        padding: EdgeInsets.only(bottom: widget.bottomPadding),
+        onReorder: (int oldIndex, int newIndex) {
+          setState(() => _updateItemsOrder(oldIndex, newIndex));
+        },
+        children: List.generate(
+          widget.itemsList.length,
+          (index) {
+            return ListTile(
+              key: ValueKey(widget.itemsList[index].id),
               title: Center(
                 child: Text(
                   widget.itemsList[index].title,
                   style: const TextStyle(fontSize: singlePageTextSize),
                 ),
               ),
-              onTap: () {
-                final snackBar = SnackBar(
-                  content: Text(AppLocalizations.of(context)!.longPressAdvice),
-                  behavior: SnackBarBehavior.floating,
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              },
-            ),
-            key: ValueKey(widget.itemsList[index].id),
-          );
-        },
+              onTap: isMobileDevice
+                  ? () {
+                      final snackBar = SnackBar(
+                        content: Text(AppLocalizations.of(context)!.longPressAdvice),
+                        behavior: SnackBarBehavior.floating,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    }
+                  : null,
+            );
+          },
+        ),
       ),
     );
   }

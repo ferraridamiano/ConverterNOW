@@ -291,10 +291,11 @@ class DropdownListTile extends StatelessWidget {
         selectedItemBuilder: (BuildContext context) {
           return items.map<Widget>((String item) {
             return Center(
-                child: Text(
-              item,
-              style: textStyle,
-            ));
+              child: Text(
+                item,
+                style: textStyle,
+              ),
+            );
           }).toList();
         },
         items: items.map((String item) {
@@ -378,6 +379,24 @@ class SplashScreenWidget extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// This widget limits the size of the [child] (e.g. a ListTile) to [maxWidth]
+/// and centers the content
+class ConstrainedContainer extends StatelessWidget {
+  final Widget child;
+  final double maxWidth;
+  const ConstrainedContainer(this.child, {this.maxWidth = 800, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        constraints: BoxConstraints(maxWidth: maxWidth),
+        child: child,
       ),
     );
   }

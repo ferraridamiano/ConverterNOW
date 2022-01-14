@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/styles/consts.dart';
@@ -62,10 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         Expanded(
           child: ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: responsivePadding(MediaQuery.of(context).size.width),
-            ),
-            children: [
+            children: <Widget>[
               SwitchListTile(
                 title: Text(
                   AppLocalizations.of(context)!.removeTrailingZeros,
@@ -273,7 +269,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           'Icons made by https://www.flaticon.com/authors/bogdan-rosu Bogdan Rosu from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY'); //volume
                 },
               ),
-            ],
+            ].map(ConstrainedContainer.new).toList(),
           ),
         ),
       ],
