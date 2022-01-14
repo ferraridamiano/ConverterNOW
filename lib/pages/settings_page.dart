@@ -26,6 +26,7 @@ class _SettingsPageState extends State<SettingsPage> {
   bool removeTrailingZeros = true;
   int significantFigures = 10;
   static const TextStyle textStyle = TextStyle(fontSize: singlePageTextSize);
+  static const BorderRadiusGeometry borderRadius = BorderRadius.all(Radius.circular(30));
   ThemeMode currentTheme = ThemeMode.system;
   bool isDarkAmoled = false;
   String? locale;
@@ -74,6 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   Conversions conversions = context.read<Conversions>();
                   conversions.removeTrailingZeros = val;
                 },
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               SwitchListTile(
                 title: Text(
@@ -87,6 +89,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   AppModel appModel = context.read<AppModel>();
                   appModel.isDarkAmoled = val;
                 },
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               DropdownListTile(
                 title: AppLocalizations.of(context)!.theme,
@@ -134,6 +137,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: textStyle,
                 ),
                 onTap: () => context.goNamed('reorder-properties'),
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               ListTile(
                 title: Text(
@@ -141,12 +145,14 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: textStyle,
                 ),
                 onTap: () => context.goNamed('reorder-units'),
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               ListTile(
                 title: Text(
                   AppLocalizations.of(context)!.otherPlatforms,
                   style: textStyle,
                 ),
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 onTap: () => showDialog<String>(
                   context: context,
                   builder: (BuildContext context) {
@@ -206,6 +212,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   AppLocalizations.of(context)!.contibuteTranslating,
                   style: textStyle,
                 ),
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 onTap: () {
                   launchURL("https://github.com/ferraridamiano/ConverterNOW/issues/2");
                 },
@@ -216,6 +223,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     AppLocalizations.of(context)!.buyMeACoffee,
                     style: textStyle,
                   ),
+                  shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                   onTap: () {
                     showDialog<void>(
                       context: context,
@@ -250,6 +258,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     AppLocalizations.of(context)!.contactDeveloper,
                     style: textStyle,
                   ),
+                  shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                   onTap: () {
                     launchURL("mailto:<damianoferrari1998@gmail.com>");
                   },
@@ -259,6 +268,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   AppLocalizations.of(context)!.about,
                   style: textStyle,
                 ),
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 onTap: () {
                   showLicensePage(
                       context: context,
