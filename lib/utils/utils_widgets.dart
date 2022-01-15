@@ -248,6 +248,8 @@ class DropdownListTile extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  static const BorderRadiusGeometry borderRadius = BorderRadius.all(Radius.circular(30));
+
   @override
   Widget build(BuildContext context) {
     String selected = value;
@@ -261,6 +263,7 @@ class DropdownListTile extends StatelessWidget {
           style: textStyle,
         ),
         subtitle: Text(value),
+        shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         onTap: () => showDialog<String>(
           context: context,
           builder: (BuildContext context) => SimpleDialog(
@@ -285,6 +288,7 @@ class DropdownListTile extends StatelessWidget {
         title,
         style: textStyle,
       ),
+      shape: const RoundedRectangleBorder(borderRadius: borderRadius),
       trailing: DropdownButton<String>(
         value: value,
         onChanged: onChanged,
