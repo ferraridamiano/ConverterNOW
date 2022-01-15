@@ -9,7 +9,7 @@ grade: stable
 
 architectures:
   - build-on: amd64
-    run-on: amd64
+    run-on: [amd64, i386, arm64]
 
 slots:
   dbus-converternow:
