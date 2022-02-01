@@ -19,6 +19,9 @@
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/packages/com.ferrarid.converterpro)
 
+[<img src="https://getbadgecdn.azureedge.net/images/English_L.png"
+    alt="Get it from the Microsoft Store"
+    height="55">](https://www.microsoft.com/store/apps/9P0Q79HWJH72) <code>&nbsp;</code>
 [<img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg"
     alt="Get it from the Snap Store"
     height="55">](https://snapcraft.io/converternow)

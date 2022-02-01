@@ -176,7 +176,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           ListTile(
                             title: const Text('Windows'),
                             leading: const Icon(Icons.laptop),
-                            onTap: () => launchURL("https://github.com/ferraridamiano/ConverterNOW/releases"),
+                            onTap: () => launchURL("https://www.microsoft.com/store/apps/9P0Q79HWJH72"),
                           ),
                         if (kIsWeb || Platform.isAndroid || Platform.isWindows)
                           ListTile(
