@@ -56,10 +56,11 @@ flutter_native_splash:
 msix_config:
   display_name: Converter NOW
   publisher_display_name: Damiano Ferrari
-  identity_name: com.ferrarid.converternow
+  identity_name: 39826DamianoFerrari.ConverterNOW
   msix_version: 3.1.1.0
   logo_path: resources\images\logo.png
-  output_name: converter-now-windows-installer
+  output_name: converternow-windows
+  publisher: CN=E8FE6044-F04C-422E-AC68-EDA83F6AAFB2
 
 flutter:
   uses-material-design: true

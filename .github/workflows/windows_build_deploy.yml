@@ -18,9 +18,6 @@ jobs:
       with:
         channel: stable
 
-    - name: Enable windows build
-      run: flutter config --enable-windows-desktop
-
     - name: Flutter doctor
       run: flutter doctor
 
@@ -36,7 +33,7 @@ jobs:
     - name: Release to GitHub
       uses: ncipollo/release-action@v1.9.0
       with:
-        artifacts: "build/windows/runner/Release/converter-now-windows-installer.msix"
+        artifacts: "build/windows/runner/Release/converternow-windows.msix"
         token: ${{ secrets.GH_TOKEN }}
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}
