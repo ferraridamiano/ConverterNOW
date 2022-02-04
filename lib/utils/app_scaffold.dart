@@ -148,7 +148,7 @@ class AppScaffold extends StatelessWidget {
                         color: Colors.white,
                       ),
                       onPressed: openCalculator,
-                      backgroundColor: Theme.of(context).colorScheme.secondaryVariant,
+                      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
                     )
                   : null,
         ),

@@ -156,5 +156,6 @@ class AppModel with ChangeNotifier {
         return null;
       }
     }
+    return null;
   }
 }

@@ -133,7 +133,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
             colorScheme: defaultLight.colorScheme.copyWith(
               secondary: Colors.orange,
-              secondaryVariant: Colors.orange[700],
+              secondaryContainer: Colors.orange[700],
             ),
             inputDecorationTheme: const InputDecorationTheme(
               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
@@ -145,7 +145,7 @@ class MyApp extends StatelessWidget {
             primaryColor: Colors.teal[400],
             colorScheme: defaultDark.colorScheme.copyWith(
               secondary: Colors.orange[600],
-              secondaryVariant: Colors.orange[700],
+              secondaryContainer: Colors.orange[700],
             ),
             brightness: Brightness.dark,
             scaffoldBackgroundColor: isDarkAmoled ? Colors.black : Colors.grey[850],
