@@ -18,12 +18,12 @@
   "rateApp": "Ocijeni program",
   "repoGithub": "Otvori repozitorij na GitHub-u",
   "contibuteTranslating": "Pomogni prevoditi program 🌍",
-  "search": "Traži",
-  "clearAll": "Izbriši sve",
+  "search": "Pretraga",
+  "clearAll": "Isprazni sva polja",
   "calculator": "Kalkulator",
-  "significantFigures": "Značajne znamenke",
+  "significantFigures": "Broj značajnih znamenki",
   "removeTrailingZeros": "Ukloni nepotrebne nule",
-  "longPressAdvice": "Za premještanje elemenata pritisni ih dugo",
+  "longPressAdvice": "Za mijenjanje redoslijeda elemenata pritisni ih dugo",
   "back": "Natrag",
   "save": "Spremi",
   "invalidCharacters": "Greška, neispravni znakovi",
@@ -49,21 +49,10 @@
   },
   "otherPlatforms": "Converter NOW za druge platforme",
   "sourceCode": "Izvorni kod",
-  "@undoClearAllMessage": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "undo": "Undo",
-  "@undo": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "routeError1": "This page doesn't exist",
-  "@routeError1": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "routeError2": "Go back to the first page",
-  "@routeError2": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "undoClearAllMessage": "Sva polja su ispražnjena. Želiš li poništiti tu radnju?",
+  "undo": "Poništi",
+  "routeError1": "Ova stranica ne postoji",
+  "routeError2": "Vrati se na prvu stranicu",
 
   "length": "Duljina",
   "area": "Površina",
@@ -92,7 +81,7 @@
   "nauticalMiles":"Nautička milja",
   "yards": "Jard",
   "miles": "Milja",
-  "millimeters":"Millimetar",
+  "millimeters":"Milimetar",
   "micrometers": "Mikrometar",
   "nanometers":"Nanometar",
   "angstroms": "Angstrem",
@@ -135,9 +124,9 @@
   "usGill": "Američki gill",
 
   "seconds": "Sekunda",
-  "deciseconds": "Decisekunda",
-  "centiseconds": "Centisekunda",
-  "milliseconds": "Milisekunda",
+  "deciseconds": "Desetinka sekunde",
+  "centiseconds": "Stotinka sekunde",
+  "milliseconds": "Tisućinka sekunde",
   "microseconds":"Mikrosekunda",
   "nanoseconds": "Nanosekunda",
   "minutes": "Minuta",
@@ -184,22 +173,16 @@
   "atmosphere":"Atmosfera",
   "bar": "Bar",
   "millibar":"Milibar",
-  "psi": "PSI",
-  "torr": "Torr",
-  "hectoPascal": "Hectopascal",
-  "@hectoPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "inchesOfMercury": "Inches of mercury",
-  "@inchesOfMercury": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "psi": "Funta po kvatdratnom inču",
+  "torr": "Tor",
+  "hectoPascal": "Hektopaskal",
+  "inchesOfMercury": "Inča živina stupca",
 
   "joule": "Džul",
   "calorie": "Kalorija",
   "kilowattHour": "Kilovat-sat",
   "electronvolt": "Elektronvolt",
-  "footPound": "Nožna funta",
+  "footPound": "Funta po stopi",
 
   "degree": "Stupanj",
   "minutesDegree": "Minuta",
