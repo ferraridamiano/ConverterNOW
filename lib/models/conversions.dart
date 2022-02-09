@@ -8,7 +8,6 @@ import 'package:units_converter/units_converter.dart';
 
 class Conversions with ChangeNotifier {
   List<List<UnitData>> _unitDataList = [];
-  List<UnitData> currentUnitDataList = [];
 
   /// Contains the List of the double (or String for numeral systems conversion) saved before the clear all operation.
   /// This need to be done in order to undo the clear all operation
@@ -18,9 +17,7 @@ class Conversions with ChangeNotifier {
   /// performed
   int? _savedPropertyIndex;
 
-  late Property _currentProperty;
   UnitData? _selectedUnit; //unit where the user is writing the value
-  int _currentPage = 0; //from appModel
   CurrenciesObject _currenciesObject = CurrenciesObject();
   final Map<CURRENCIES, String> _currenciesSymbols = {
     CURRENCIES.EUR: '€ 🇪🇺',
@@ -60,7 +57,7 @@ class Conversions with ChangeNotifier {
     CURRENCIES.MAD: 'د.م. 🇲🇦',
   };
   List<Property> _propertyList = [];
-  final List<List<int>> _conversionsOrder = [];
+  List<List<int>>? _conversionsOrder;
   bool _isCurrenciesLoading = true;
   bool _removeTrailingZeros = true;
   static const List<int> _significantFiguresList = <int>[6, 8, 10, 12, 14];
@@ -71,8 +68,6 @@ class Conversions with ChangeNotifier {
     _initializePropertyList();
     _checkOrdersUnits();
     _checkSettings();
-    _currentProperty = _propertyList[_currentPage];
-    _refreshOrderUnits();
   }
 
   void _initializePropertyList() {
@@ -121,11 +116,17 @@ class Conversions with ChangeNotifier {
     ];
   }
 
+  /// Returns true if the model ha finished to load the stored
+  /// _conversionsOrder and `_unitDataList` is not empty, false otherwise.
+  bool get isConversionsLoaded => _unitDataList.isNotEmpty;
+
   /// This function get the value of the unit from currentProperty and update
   /// the currentUnitDataList values. It is used when a conversion changes the
   /// values of the units
-  _refreshCurrentUnitDataList() {
+  _refreshCurrentUnitDataList(int page) {
+    List<UnitData> currentUnitDataList = _unitDataList[page];
     for (UnitData currentUnitData in currentUnitDataList) {
+      final _currentProperty = _propertyList[page];
       currentUnitData.unit = _currentProperty.getUnit(currentUnitData.unit.name);
       if (currentUnitData != _selectedUnit) {
         if (currentUnitData.unit.stringValue == null) {
@@ -138,35 +139,28 @@ class Conversions with ChangeNotifier {
   }
 
   /// This function is used to convert all the values from one that has been modified
-  convert(UnitData unitData, var value) {
-    _currentProperty.convert(unitData.unit.name, value);
+  convert(UnitData unitData, var value, int page) {
+    _propertyList[page].convert(unitData.unit.name, value);
     _selectedUnit = unitData;
-    _refreshCurrentUnitDataList();
-    notifyListeners();
-  }
-
-  /// this method is used by AppModel to change the page that is showed
-  set currentPage(int currentPage) {
-    _currentPage = currentPage;
-    _currentProperty = _propertyList[_currentPage];
-    currentUnitDataList = _unitDataList[_currentPage];
+    _refreshCurrentUnitDataList(page);
     notifyListeners();
   }
 
   /// Returns a UnitDataList at a certain page with the current ordering (usefult with reorder units)
   List<UnitData> getUnitDataListAtPage(int page) => _unitDataList[page];
 
-  get currentPropertyName => _currentProperty.name;
+  PROPERTYX getPropertyNameAtPage(int page) => _propertyList[page].name;
 
   ///Clears the values of the current page
-  clearAllValues() {
+  clearAllValues(int page) {
+    List<UnitData> currentUnitDataList = _unitDataList[page];
     if (currentUnitDataList[0].property == PROPERTYX.numeralSystems) {
       _savedUnitDataList = [...currentUnitDataList.map((unitData) => unitData.unit.stringValue)];
     } else {
       _savedUnitDataList = [...currentUnitDataList.map((unitData) => unitData.unit.value)];
     }
-    _savedPropertyIndex = _currentPage;
-    convert(currentUnitDataList[0], null);
+    _savedPropertyIndex = page;
+    convert(currentUnitDataList[0], null, page);
     currentUnitDataList[0].tec.text = ''; // convert doesn't clear a selected textfield
   }
 
@@ -194,7 +188,7 @@ class Conversions with ChangeNotifier {
 
   /// Returns true if we should show a snackbar when the user press on the clear
   /// all button (see [undoClearOperation]), false otherwise.
-  bool shouldShowSnackbar() => currentUnitDataList[0].tec.text != '';
+  bool shouldShowSnackbar(int page) => _unitDataList[page][0].tec.text != '';
 
   ///Returns the DateTime of the latest update of the currencies conversions
   ///ratio (year, month, day)
@@ -273,10 +267,9 @@ class Conversions with ChangeNotifier {
   ///Get the orders of each units of measurement from the memory
   _checkOrdersUnits() async {
     //Initialize the order for each property to default: [0,1,2,...,size(property)]
-    if (_conversionsOrder.isEmpty) {
-      for (Property property in _propertyList) {
-        _conversionsOrder.add(List.generate(property.size, (index) => index));
-      }
+    List<List<int>> temp = [];
+    for (Property property in _propertyList) {
+      temp.add(List.generate(property.size, (index) => index));
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -291,24 +284,24 @@ class Conversions with ChangeNotifier {
           intList.add(int.parse(stringList[j]));
         }
         //solves the problem of adding new units after an update
-        for (int j = len; j < _conversionsOrder[i].length; j++) {
+        for (int j = len; j < temp[i].length; j++) {
           intList.add(j);
         }
-        _conversionsOrder[i] = intList;
+        temp[i] = intList;
       }
     }
+    _conversionsOrder = temp;
     _refreshOrderUnits();
-    currentUnitDataList = _unitDataList[_currentPage];
-    //_currentOrder = _conversionsOrder[_currentPage];
     notifyListeners();
   }
 
   /// Apply the order defined in [_conversionsOrder] to [_unitDataList]. [_unitDataList] will be redefined, so this function is used also during initialization
   _refreshOrderUnits() {
-    _unitDataList = [];
+    assert(_conversionsOrder != null, true);
+    List<List<UnitData>> _tempUnitDataList = [];
     for (int i = 0; i < _propertyList.length; i++) {
       List<UnitData> tempUnitData =
-          List.filled(_conversionsOrder[i].length, UnitData(Unit('none'), tec: TextEditingController()));
+          List.filled(_conversionsOrder![i].length, UnitData(Unit('none'), tec: TextEditingController()));
       Property property = _propertyList[i];
       List<Unit> tempProperty = property.getAll();
       for (int j = 0; j < tempProperty.length; j++) {
@@ -363,7 +356,7 @@ class Conversions with ChangeNotifier {
           validator = VALIDATOR.rationalNonNegative;
         }
 
-        tempUnitData[_conversionsOrder[i][j]] = UnitData(
+        tempUnitData[_conversionsOrder![i][j]] = UnitData(
           tempProperty[j],
           property: property.name,
           tec: TextEditingController(),
@@ -371,37 +364,33 @@ class Conversions with ChangeNotifier {
           textInputType: textInputType,
         );
       }
-      _unitDataList.add(tempUnitData);
+      _tempUnitDataList.add(tempUnitData);
     }
+    _unitDataList = _tempUnitDataList;
   }
 
   ///Given a new ordering of a specific page it applys it to the app and store it.
   saveOrderUnits(List<int>? newOrder, int pageNumber) async {
-    assert(newOrder == null ? true : newOrder.length == _conversionsOrder[pageNumber].length);
+    assert(newOrder == null ? true : newOrder.length == _conversionsOrder![pageNumber].length);
     //if there arent't any modifications, do nothing
     if (newOrder != null) {
-      List arrayCopy = List.filled(_conversionsOrder[pageNumber].length, null);
-      for (int i = 0; i < _conversionsOrder[pageNumber].length; i++) {
-        arrayCopy[i] = _conversionsOrder[pageNumber][i];
+      List arrayCopy = List.filled(_conversionsOrder![pageNumber].length, null);
+      for (int i = 0; i < _conversionsOrder![pageNumber].length; i++) {
+        arrayCopy[i] = _conversionsOrder![pageNumber][i];
       }
-      for (int i = 0; i < _conversionsOrder[pageNumber].length; i++) {
-        _conversionsOrder[pageNumber][i] = newOrder.indexOf(arrayCopy[i]);
+      for (int i = 0; i < _conversionsOrder![pageNumber].length; i++) {
+        _conversionsOrder![pageNumber][i] = newOrder.indexOf(arrayCopy[i]);
       }
       _refreshOrderUnits();
-      currentUnitDataList = _unitDataList[pageNumber];
       notifyListeners();
-      _saveOrders();
-    }
-  }
 
-  ///Saves the order of _conversionsOrder of the _currentPage on memory
-  _saveOrders() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> toConvertList = [];
-    for (int item in _conversionsOrder[_currentPage]) {
-      toConvertList.add(item.toString());
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      List<String> toConvertList = [];
+      for (int item in _conversionsOrder![pageNumber]) {
+        toConvertList.add(item.toString());
+      }
+      prefs.setStringList("conversion_$pageNumber", toConvertList);
     }
-    prefs.setStringList("conversion_$_currentPage", toConvertList);
   }
 
   //Settings section------------------------------------------------------------------
@@ -440,7 +429,6 @@ class Conversions with ChangeNotifier {
   set removeTrailingZeros(bool value) {
     _removeTrailingZeros = value;
     _initializePropertyList();
-    _currentProperty = _propertyList[_currentPage];
     _refreshOrderUnits();
     notifyListeners();
     _saveSettingsBool('remove_trailing_zeros', _removeTrailingZeros);
@@ -450,7 +438,6 @@ class Conversions with ChangeNotifier {
   set significantFigures(int value) {
     _significantFigures = value;
     _initializePropertyList();
-    _currentProperty = _propertyList[_currentPage];
     _refreshOrderUnits();
     notifyListeners();
     _saveSettingsInt('significant_figures', _significantFigures);

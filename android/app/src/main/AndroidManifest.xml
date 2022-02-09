@@ -16,7 +16,7 @@
     </queries>
     
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name="${applicationName}"
         android:label="Converter NOW"
         android:icon="@mipmap/ic_launcher">
         <activity

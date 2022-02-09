@@ -20,18 +20,19 @@ class DrawerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 800),
-      curve: Curves.easeOutQuart,
-      decoration: BoxDecoration(
-        color: selected ? Theme.of(context).primaryColor.withOpacity(0.25) : Colors.transparent,
-        borderRadius: borderRadius,
-      ),
-      child: ListTile(
-        leading: leading,
-        title: title,
-        onTap: onTap,
-        shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+    return Padding(
+      padding: const EdgeInsets.only(right: 12),
+      child: Container(
+        decoration: BoxDecoration(
+          color: selected ? Theme.of(context).primaryColor.withOpacity(0.25) : Colors.transparent,
+          borderRadius: borderRadius,
+        ),
+        child: ListTile(
+          leading: leading,
+          title: title,
+          onTap: onTap,
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+        ),
       ),
     );
   }
@@ -247,6 +248,8 @@ class DropdownListTile extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  static const BorderRadiusGeometry borderRadius = BorderRadius.all(Radius.circular(30));
+
   @override
   Widget build(BuildContext context) {
     String selected = value;
@@ -260,6 +263,7 @@ class DropdownListTile extends StatelessWidget {
           style: textStyle,
         ),
         subtitle: Text(value),
+        shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         onTap: () => showDialog<String>(
           context: context,
           builder: (BuildContext context) => SimpleDialog(
@@ -284,16 +288,18 @@ class DropdownListTile extends StatelessWidget {
         title,
         style: textStyle,
       ),
+      shape: const RoundedRectangleBorder(borderRadius: borderRadius),
       trailing: DropdownButton<String>(
         value: value,
         onChanged: onChanged,
         selectedItemBuilder: (BuildContext context) {
           return items.map<Widget>((String item) {
             return Center(
-                child: Text(
-              item,
-              style: textStyle,
-            ));
+              child: Text(
+                item,
+                style: textStyle,
+              ),
+            );
           }).toList();
         },
         items: items.map((String item) {
@@ -355,6 +361,47 @@ class CalculatorButton extends StatelessWidget {
       style: raisedButtonStyle,
       onPressed: onPressed,
       onLongPress: onLongPress,
+    );
+  }
+}
+
+class SplashScreenWidget extends StatelessWidget {
+  const SplashScreenWidget({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          const Align(
+            alignment: Alignment(0, 0.9),
+            child: CircularProgressIndicator(),
+          ),
+          Center(
+            child: Image.asset(
+              'resources/images/logo.png',
+              width: 150,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// This widget limits the size of the [child] (e.g. a ListTile) to [maxWidth]
+/// and centers the content
+class ConstrainedContainer extends StatelessWidget {
+  final Widget child;
+  final double maxWidth;
+  const ConstrainedContainer(this.child, {this.maxWidth = 800, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        constraints: BoxConstraints(maxWidth: maxWidth),
+        child: child,
+      ),
     );
   }
 }

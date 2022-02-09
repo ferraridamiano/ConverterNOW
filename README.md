@@ -14,11 +14,13 @@
 
 [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
     alt="Get it on Google Play"
-    height="80">](https://play.google.com/store/apps/details?id=com.ferrarid.converterpro)
+    height="60">](https://play.google.com/store/apps/details?id=com.ferrarid.converterpro)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
-    height="80">](https://f-droid.org/packages/com.ferrarid.converterpro)
-
+    height="60">](https://f-droid.org/packages/com.ferrarid.converterpro)
+[<img src="https://getbadgecdn.azureedge.net/images/English_L.png"
+    alt="Get it from the Microsoft Store"
+    height="60">](https://www.microsoft.com/store/apps/9P0Q79HWJH72)
 [<img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg"
     alt="Get it from the Snap Store"
     height="55">](https://snapcraft.io/converternow)

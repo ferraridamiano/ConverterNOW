@@ -51,6 +51,8 @@
   "sourceCode": "Codice sorgente",
   "undoClearAllMessage": "Eliminato tutto. Annullare l'operazione eseguita?",
   "undo": "Annulla",
+  "routeError1": "Questa pagina non esiste",
+  "routeError2": "Ritorna alla prima pagina",
 
   "length": "Lunghezza",
   "area": "Superficie",

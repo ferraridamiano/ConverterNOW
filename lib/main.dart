@@ -1,49 +1,131 @@
-import 'package:converterpro/pages/main_page.dart';
+import 'package:converterpro/pages/error_page.dart';
+import 'package:converterpro/pages/reorder_units_page.dart';
+import 'package:converterpro/pages/conversion_page.dart';
+import 'package:converterpro/pages/reorder_properties_page.dart';
+import 'package:converterpro/pages/settings_page.dart';
+import 'package:converterpro/pages/splash_screen.dart';
+import 'package:converterpro/utils/app_scaffold.dart';
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/models/conversions.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+const _scaffoldKey = ValueKey<String>('App scaffold');
 
-  @override
-  _MyApp createState() => _MyApp();
-}
+class MyApp extends StatelessWidget {
 
-class _MyApp extends State<MyApp> {
-  bool deviceLocaleSetted = false;
+  late final _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, _) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: '/conversions/:property',
+        pageBuilder: (context, state) {
+          final String property = state.params['property']!;
+          final int? pageNumber = pageNumberMap[property];
+          if (pageNumber == null) {
+            throw Exception('property not found: $property');
+          } else {
+            return NoTransitionPage(
+              key: _scaffoldKey,
+              child: AppScaffold(
+                selectedSection: AppPage.conversions,
+                selectedIndex: pageNumber,
+                child: ConversionPage(pageNumber),
+              ),
+            );
+          }
+        },
+      ),
+      GoRoute(
+        path: '/settings',
+        name: 'settings',
+        pageBuilder: (context, state) => const NoTransitionPage(
+          key: _scaffoldKey,
+          child: AppScaffold(
+            selectedSection: AppPage.settings,
+            child: SettingsPage(),
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/settings/reorder-properties',
+        name: 'reorder-properties',
+        pageBuilder: (context, state) => const NoTransitionPage(
+          key: _scaffoldKey,
+          child: AppScaffold(
+            selectedSection: AppPage.reorder,
+            child: ReorderPropertiesPage(),
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/settings/reorder-units',
+        name: 'reorder-units',
+        pageBuilder: (context, state) => const NoTransitionPage(
+          key: _scaffoldKey,
+          child: AppScaffold(
+            selectedSection: AppPage.reorder,
+            child: ChoosePropertyPage(),
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/settings/reorder-units/:property',
+        pageBuilder: (context, state) {
+          final String property = state.params['property']!;
+          final int? pageNumber = pageNumberMap[property];
+          if (pageNumber == null) {
+            throw Exception('property not found: $property');
+          } else {
+            return NoTransitionPage(
+              key: _scaffoldKey,
+              child: AppScaffold(
+                selectedSection: AppPage.reorder_details,
+                selectedIndex: pageNumber,
+                child: ChoosePropertyPage(
+                  selectedProperty: pageNumber,
+                  isPropertySelected: true,
+                ),
+              ),
+            );
+          }
+        },
+      ),
+    ],
+    errorBuilder: (context, state) => const ErrorPage(),
+  );
+
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    bool deviceLocaleSetted = false;
     final ThemeData defaultLight = ThemeData();
     final ThemeData defaultDark = ThemeData.dark();
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => AppModel(),
-        ),
-        ChangeNotifierProxyProvider<AppModel, Conversions>(
-          create: (context) => Conversions(),
-          update: (context, appModel, conversions) {
-            conversions?.currentPage = appModel.currentPage;
-            return conversions!;
-          },
-        ),
+        ChangeNotifierProvider(create: (context) => AppModel()),
+        ChangeNotifierProvider(create: (context) => Conversions()),
       ],
       child: Builder(builder: (BuildContext context) {
         bool isDarkAmoled = context.select<AppModel, bool>((appModel) => appModel.isDarkAmoled);
-        return MaterialApp(
+        return MaterialApp.router(
+          routeInformationParser: _router.routeInformationParser,
+          routerDelegate: _router.routerDelegate,
           debugShowCheckedModeBanner: false,
           title: 'Converter NOW',
-          home: const MainPage(),
           themeMode: context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
           theme: defaultLight.copyWith(
             primaryColor: Colors.teal[400],
@@ -51,7 +133,7 @@ class _MyApp extends State<MyApp> {
             brightness: Brightness.light,
             colorScheme: defaultLight.colorScheme.copyWith(
               secondary: Colors.orange,
-              secondaryVariant: Colors.orange[700],
+              secondaryContainer: Colors.orange[700],
             ),
             inputDecorationTheme: const InputDecorationTheme(
               focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
@@ -63,7 +145,7 @@ class _MyApp extends State<MyApp> {
             primaryColor: Colors.teal[400],
             colorScheme: defaultDark.colorScheme.copyWith(
               secondary: Colors.orange[600],
-              secondaryVariant: Colors.orange[700],
+              secondaryContainer: Colors.orange[700],
             ),
             brightness: Brightness.dark,
             scaffoldBackgroundColor: isDarkAmoled ? Colors.black : Colors.grey[850],

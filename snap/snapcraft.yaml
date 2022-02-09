@@ -1,5 +1,5 @@
 name: converternow
-version: 3.1.0
+version: 3.1.1
 summary: Unit and currencies converter
 description: A Unit and Currencies Converter. Converter NOW is immediate, fast and easy to use!
 
@@ -9,7 +9,7 @@ grade: stable
 
 architectures:
   - build-on: amd64
-    run-on: amd64
+    run-on: [amd64, i386, arm64]
 
 slots:
   dbus-converternow:

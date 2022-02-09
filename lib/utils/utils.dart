@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:units_converter/models/unit.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -146,6 +147,36 @@ class CurrenciesObject {
 CURRENCIES getCurrenciesFromString(String name) =>
     CURRENCIES.values.singleWhere((element) => element.toString().endsWith(name));
 
+/// Maps a string (path of the url) to a number value. This should be in the
+/// same order as in property_unit_list.dart
+const Map<String, int> pageNumberMap = {
+  'length': 0,
+  'area': 1,
+  'volume': 2,
+  'currencies': 3,
+  'time': 4,
+  'temperature': 5,
+  'speed': 6,
+  'mass': 7,
+  'force': 8,
+  'fuel-consumption': 9,
+  'numeral-systems': 10,
+  'pressure': 11,
+  'energy': 12,
+  'power': 13,
+  'angle': 14,
+  'shoe-size': 15,
+  'digital-data': 16,
+  'si-prefixes': 17,
+  'torque': 18,
+};
+
+/// Contains the same information of [pageNumberMap] but reversed. So I can
+/// access to the strings faster.
+final List<String> reversePageNumberListMap = pageNumberMap.keys.toList();
+
+enum AppPage { conversions, settings, reorder, reorder_details }
+
 /// PROPERTYX stands for PROPERTY extended and want to extends the PROPERTY enum defined in units_converter package
 enum PROPERTYX {
   angle,
@@ -227,4 +258,32 @@ class UnitUi {
   final PROPERTYX property;
 
   UnitUi(this.unit, this.name, this.imagePath, this.property);
+}
+
+void initializeQuickAction(
+    {required void Function(String index) onActionSelection,
+    required List<int> conversionsOrderDrawer,
+    required List<PropertyUi> propertyUiList}) {
+  final int index1 = conversionsOrderDrawer.indexWhere((val) => val == 1);
+  final int index2 = conversionsOrderDrawer.indexWhere((val) => val == 2);
+  final int index3 = conversionsOrderDrawer.indexWhere((val) => val == 3);
+  const QuickActions quickActions = QuickActions();
+  quickActions.initialize(onActionSelection);
+  quickActions.setShortcutItems(<ShortcutItem>[
+    ShortcutItem(
+      type: index1.toString(),
+      localizedTitle: propertyUiList[index1].name,
+      icon: 'splash',
+    ),
+    ShortcutItem(
+      type: index2.toString(),
+      localizedTitle: propertyUiList[index2].name,
+      icon: 'splash',
+    ),
+    ShortcutItem(
+      type: index3.toString(),
+      localizedTitle: propertyUiList[index3].name,
+      icon: 'splash',
+    ),
+  ]);
 }

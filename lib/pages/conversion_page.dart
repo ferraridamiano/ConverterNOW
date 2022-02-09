@@ -9,16 +9,28 @@ import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:intl/intl.dart';
 
 class ConversionPage extends StatelessWidget {
-  const ConversionPage({Key? key}) : super(key: key);
+
+  final int page;
+
+  const ConversionPage(this.page, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
-    List<UnitData> unitDataList =
-        context.select<Conversions, List<UnitData>>((conversions) => conversions.currentUnitDataList);
+    final bool isConversionsLoaded = context.select<Conversions, bool>((conversions) => conversions.isConversionsLoaded);
+
+    // if we remove the following check, if you enter the site directly to
+    // '/conversions/:property' an error will occur
+    if(!isConversionsLoaded){
+      return const SplashScreenWidget();
+    }
+    
+    List<UnitData> unitDataList = context.read<Conversions>().getUnitDataListAtPage(page);
+
+
     PROPERTYX currentProperty =
-        context.select<Conversions, PROPERTYX>((conversions) => conversions.currentPropertyName);
+        context.read<Conversions>().getPropertyNameAtPage(page);
 
     final Brightness brightness = Theme.of(context).brightness;
 
@@ -55,9 +67,9 @@ class ConversionPage extends StatelessWidget {
               Conversions conversions = context.read<Conversions>();
               //just numeral system uses a string for conversion
               if (unitData.property == PROPERTYX.numeralSystems) {
-                conversions.convert(unitData, txt == "" ? null : txt);
+                conversions.convert(unitData, txt == "" ? null : txt, page);
               } else {
-                conversions.convert(unitData, txt == "" ? null : double.parse(txt));
+                conversions.convert(unitData, txt == "" ? null : double.parse(txt), page);
               }
             }
           },
@@ -65,36 +77,34 @@ class ConversionPage extends StatelessWidget {
       ));
     }
 
-    return Expanded(
-      child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraint) {
-        final int numCols = responsiveNumCols(constraint.maxWidth);
-        final double xPadding = responsivePadding(constraint.maxWidth);
-        return Column(
-          children: [
-            BigTitle(
-              text: propertyTranslationMap[currentProperty]!,
-              subtitle: subTitle,
-              isSubtitleLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
-              center: true,
+    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraint) {
+      final int numCols = responsiveNumCols(constraint.maxWidth);
+      final double xPadding = responsivePadding(constraint.maxWidth);
+      return Column(
+        children: [
+          BigTitle(
+            text: propertyTranslationMap[currentProperty]!,
+            subtitle: subTitle,
+            isSubtitleLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
+            center: true,
+          ),
+          Expanded(
+            child: GridView.count(
+              childAspectRatio: responsiveChildAspectRatio(constraint.maxWidth, numCols),
+              crossAxisCount: numCols,
+              crossAxisSpacing: 15.0,
+              children: gridTiles,
+              padding: EdgeInsets.only(
+                left: xPadding,
+                right: xPadding,
+                bottom: 22, //So FAB doesn't overlap the card
+              ), 
+              shrinkWrap: true,
             ),
-            Expanded(
-              child: GridView.count(
-                childAspectRatio: responsiveChildAspectRatio(constraint.maxWidth, numCols),
-                crossAxisCount: numCols,
-                crossAxisSpacing: 15.0,
-                children: gridTiles,
-                padding: EdgeInsets.only(
-                  left: xPadding,
-                  right: xPadding,
-                  bottom: 22, //So FAB doesn't overlap the card
-                ), 
-                shrinkWrap: true,
-              ),
-            ),
-          ],
-        );
-      }),
-    );
+          ),
+        ],
+      );
+    });
   }
 }
 

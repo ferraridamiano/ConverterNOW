@@ -1,7 +1,7 @@
 name: converterpro
 description: Unit and currencies converter
 
-version: 3.1.0+31
+version: 3.1.1+33
 
 environment:
   sdk: ">=2.15.0 <3.0.0"
@@ -11,17 +11,21 @@ dependencies:
     sdk: flutter
 
   #Needed to store the customizations and the latest currencies convertions
-  shared_preferences: ^2.0.9
+  shared_preferences: ^2.0.12
   #Needed to open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^6.0.17
+  url_launcher: ^6.0.18
   #Needed to download the latest currencies convertions
   http: ^0.13.4
   #Needed to improve the state management
-  provider: ^6.0.1
+  provider: ^6.0.2
   #Needed for translation
   intl: ^0.17.0
   #Needed for fonts
-  google_fonts: ^2.1.0
+  google_fonts: ^2.2.0
+  #Needed for navigation between pages
+  go_router: ^3.0.1
+  #Needed for Android App Shortcuts
+  quick_actions: ^0.6.0+9
   #Needed for unit conversion
   units_converter: ^1.1.1
     #git:
@@ -32,10 +36,10 @@ dependencies:
       sdk: flutter
 
 dev_dependencies:
-  test: ^1.17.10
+  test: ^1.17.12
   flutter_native_splash: ^1.2.3
   flutter_lints: ^1.0.4
-  msix: ^2.6.6
+  msix: ^2.8.1
   flutter_test:
     sdk: flutter
 
@@ -52,10 +56,11 @@ flutter_native_splash:
 msix_config:
   display_name: Converter NOW
   publisher_display_name: Damiano Ferrari
-  identity_name: com.ferrarid.converternow
-  msix_version: 3.1.0.0
+  identity_name: 39826DamianoFerrari.ConverterNOW
+  msix_version: 3.1.1.0
   logo_path: resources\images\logo.png
-  output_name: converter-now-windows-installer
+  output_name: converternow-windows
+  publisher: CN=E8FE6044-F04C-422E-AC68-EDA83F6AAFB2
 
 flutter:
   uses-material-design: true

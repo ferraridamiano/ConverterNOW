@@ -2,21 +2,11 @@ import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum MAIN_SCREEN {
-  settings,
-  conversion,
-  reorderProperties,
-  reorderUnits,
-}
-
 class AppModel with ChangeNotifier {
-  //_conversionsOrderDrawer numbers until max conversion units - 1
-  final List<int> _conversionsOrderDrawer = List.generate(19, (index) => index);
-  MAIN_SCREEN _currentScreen = MAIN_SCREEN.conversion;
-  int _currentPage = 0;
+  List<int>? _conversionsOrderDrawer;
   ThemeMode _currentThemeMode = ThemeMode.system;
   bool _isDarkAmoled = false;
-  final Map<ThemeMode, int> _themeModeMap = {
+  static const Map<ThemeMode, int> _themeModeMap = {
     ThemeMode.system: 0,
     ThemeMode.dark: 1,
     ThemeMode.light: 2,
@@ -46,66 +36,46 @@ class AppModel with ChangeNotifier {
   }
 
   ///Returns the order of the tile of the conversions in the drawer
-  List<int> get conversionsOrderDrawer => _conversionsOrderDrawer;
-
-  ///Returns the current page (e.g: temperature, mass, etc)
-  int get currentPage => _currentPage;
-
-  ///Method needed to change the selected conversion page
-  ///e.g: from temperature to mass, etc
-  changeToPage(int index) {
-    if (_currentPage != index) {
-      _currentPage = index;
-      notifyListeners();
-    }
-  }
-
-  set currentScreen(MAIN_SCREEN screen) {
-    _currentScreen = screen;
-    notifyListeners();
-  }
-
-  MAIN_SCREEN get currentScreen => _currentScreen;
+  List<int>? get conversionsOrderDrawer => _conversionsOrderDrawer;
 
   ///Updates the order of the tiles in the drawer
   _checkOrdersDrawer() async {
+    //_conversionsOrderDrawer numbers until max conversion units - 1
+    List<int> temp = List.generate(19, (index) => index);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? stringList = prefs.getStringList("orderDrawer");
     if (stringList != null) {
       final int len = stringList.length;
       for (int i = 0; i < len; i++) {
-        _conversionsOrderDrawer[i] = int.parse(stringList[i]);
-        if (_conversionsOrderDrawer[i] == 0) _currentPage = i;
+        temp[i] = int.parse(stringList[i]);
       }
       //If new units of mesurement will be added the following 2
       //lines of code ensure that everything will works fine
-      for (int i = len; i < _conversionsOrderDrawer.length; i++) {
-        _conversionsOrderDrawer[i] = i;
+      for (int i = len; i < temp.length; i++) {
+        temp[i] = i;
       }
     }
+    _conversionsOrderDrawer = temp;
     notifyListeners();
   }
 
   ///Changes the orders of the tiles in the Drawer
-  saveOrderDrawer(List<int>? newOrder) async {
-    //if there arent't any modifications, do nothing
-    if (newOrder != null) {
-      List arrayCopia = List.filled(_conversionsOrderDrawer.length, null);
-      for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
-        arrayCopia[i] = _conversionsOrderDrawer[i];
-      }
-      for (int i = 0; i < _conversionsOrderDrawer.length; i++) {
-        _conversionsOrderDrawer[i] = newOrder.indexOf(arrayCopia[i]);
-      }
-      notifyListeners();
-      //save new orders to memory
-      List<String> toConvertList = [];
-      for (int item in _conversionsOrderDrawer) {
-        toConvertList.add(item.toString());
-      }
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setStringList("orderDrawer", toConvertList);
+  saveOrderDrawer(List<int> newOrder) async {
+    List arrayCopia = List.filled(_conversionsOrderDrawer!.length, null);
+    for (int i = 0; i < _conversionsOrderDrawer!.length; i++) {
+      arrayCopia[i] = _conversionsOrderDrawer![i];
     }
+    for (int i = 0; i < _conversionsOrderDrawer!.length; i++) {
+      _conversionsOrderDrawer![i] = newOrder.indexOf(arrayCopia[i]);
+    }
+    notifyListeners();
+    //save new orders to memory
+    List<String> toConvertList = [];
+    for (int item in _conversionsOrderDrawer!) {
+      toConvertList.add(item.toString());
+    }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList("orderDrawer", toConvertList);
   }
 
   //Settings section------------------------------------------------------------------
@@ -178,15 +148,14 @@ class AppModel with ChangeNotifier {
 
   /// Return a string locale (e.g 'English', 'Italiano', etc.) or null if it is "System settings"
   String? getLocaleString() {
-    try{
-      return mapLocale[mapLocale.keys.firstWhere(
-      (element) => _appLocale!.languageCode == element.languageCode)];
-    }
-    catch(error){
+    try {
+      return mapLocale[mapLocale.keys.firstWhere((element) => _appLocale!.languageCode == element.languageCode)];
+    } catch (error) {
       // if there isn't a locale, then a StateError is thrown
-      if(error is StateError){
+      if (error is StateError) {
         return null;
       }
     }
+    return null;
   }
 }

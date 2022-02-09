@@ -57,6 +57,14 @@
   "@undo": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "routeError1": "This page doesn't exist",
+  "@routeError1": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "routeError2": "Go back to the first page",
+  "@routeError2": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Länge",
   "area": "Fläche",
@@ -164,7 +172,7 @@
   "pounds": "Pfund (imperial)",
   "ounces": "Unzen (imperial)",
   "quintals": "Zentner / Quintal (100 kg)",
-  "tons": "Tonen",
+  "tons": "Tonnen",
   "milligrams": "Milligramm",
   "uma": "Atomare Masseneinheiten",
   "carats": "Metrisches Karat",
