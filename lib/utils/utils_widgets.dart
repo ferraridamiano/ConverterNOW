@@ -16,7 +16,8 @@ class DrawerTile extends StatelessWidget {
   final void Function()? onTap;
   final bool selected;
 
-  static const BorderRadiusGeometry borderRadius = BorderRadius.horizontal(right: Radius.circular(30));
+  static const BorderRadiusGeometry borderRadius =
+      BorderRadius.horizontal(right: Radius.circular(30));
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,9 @@ class DrawerTile extends StatelessWidget {
       padding: const EdgeInsets.only(right: 12),
       child: Container(
         decoration: BoxDecoration(
-          color: selected ? Theme.of(context).primaryColor.withOpacity(0.25) : Colors.transparent,
+          color: selected
+              ? Theme.of(context).primaryColor.withOpacity(0.25)
+              : Colors.transparent,
           borderRadius: borderRadius,
         ),
         child: ListTile(
@@ -62,7 +65,9 @@ class BigTitle extends StatelessWidget {
       style: TextStyle(
         fontSize: 35.0,
         fontWeight: FontWeight.bold,
-        color: Theme.of(context).brightness == Brightness.dark ? const Color(0xFFDDDDDD) : const Color(0xFF666666),
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color(0xFFDDDDDD)
+            : const Color(0xFF666666),
       ),
       textAlign: center ? TextAlign.center : null,
     );
@@ -97,7 +102,9 @@ class BigTitle extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Divider(
-              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black38,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black38,
             ),
           ),
         ],
@@ -107,7 +114,8 @@ class BigTitle extends StatelessWidget {
 }
 
 class UnitCard extends StatelessWidget {
-  const UnitCard({required this.symbol, required this.textField, Key? key}) : super(key: key);
+  const UnitCard({required this.symbol, required this.textField, Key? key})
+      : super(key: key);
 
   final String? symbol;
   final Widget textField;
@@ -120,7 +128,8 @@ class UnitCard extends StatelessWidget {
           padding: const EdgeInsets.only(top: 14.0),
           child: Card(
             child: Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+              padding:
+                  const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
               child: textField,
             ),
             elevation: 4.0,
@@ -128,7 +137,7 @@ class UnitCard extends StatelessWidget {
         ),
         if (symbol != null)
           Align(
-            alignment: const Alignment(0.95, -0.9),
+            alignment: AlignmentDirectional.topEnd,
             child: Card(
               elevation: 4.0,
               child: Padding(
@@ -154,18 +163,21 @@ class SearchUnit {
   String iconAsset;
   String unitName;
   GestureTapCallback onTap;
-  SearchUnit({required this.iconAsset, required this.unitName, required this.onTap});
+  SearchUnit(
+      {required this.iconAsset, required this.unitName, required this.onTap});
 }
 
 class SearchUnitTile extends StatelessWidget {
   final SearchUnit searchUnit;
   final bool darkMode;
-  const SearchUnitTile(this.searchUnit, this.darkMode, {Key? key}) : super(key: key);
+  const SearchUnitTile(this.searchUnit, this.darkMode, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset(searchUnit.iconAsset, height: 26.0, color: darkMode ? Colors.white : Colors.grey),
+      leading: Image.asset(searchUnit.iconAsset,
+          height: 26.0, color: darkMode ? Colors.white : Colors.grey),
       title: Text(searchUnit.unitName),
       onTap: searchUnit.onTap,
     );
@@ -175,12 +187,17 @@ class SearchUnitTile extends StatelessWidget {
 class SuggestionList extends StatelessWidget {
   final List<SearchUnit> suggestions;
   final bool darkMode;
-  const SuggestionList({required this.suggestions, required this.darkMode, Key? key}) : super(key: key);
+  const SuggestionList(
+      {required this.suggestions, required this.darkMode, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: <Widget>[for (int i = 0; i < suggestions.length; i++) SearchUnitTile(suggestions[i], darkMode)],
+      children: <Widget>[
+        for (int i = 0; i < suggestions.length; i++)
+          SearchUnitTile(suggestions[i], darkMode)
+      ],
     );
   }
 }
@@ -248,13 +265,15 @@ class DropdownListTile extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  static const BorderRadiusGeometry borderRadius = BorderRadius.all(Radius.circular(30));
+  static const BorderRadiusGeometry borderRadius =
+      BorderRadius.all(Radius.circular(30));
 
   @override
   Widget build(BuildContext context) {
     String selected = value;
 
-    final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+    final bool isMobileDevice =
+        !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
     if (isMobileDevice) {
       return ListTile(
@@ -341,7 +360,8 @@ class CalculatorButton extends StatelessWidget {
     final Brightness brightness = Theme.of(context).brightness;
 
     final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-      onPrimary: brightness == Brightness.dark ? Colors.white24 : Colors.black26,
+      onPrimary:
+          brightness == Brightness.dark ? Colors.white24 : Colors.black26,
       primary: Colors.transparent,
       minimumSize: Size(buttonWidth, buttonHeight),
       elevation: 0,
@@ -393,7 +413,8 @@ class SplashScreenWidget extends StatelessWidget {
 class ConstrainedContainer extends StatelessWidget {
   final Widget child;
   final double maxWidth;
-  const ConstrainedContainer(this.child, {this.maxWidth = 800, Key? key}) : super(key: key);
+  const ConstrainedContainer(this.child, {this.maxWidth = 800, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
