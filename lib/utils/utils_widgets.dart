@@ -128,7 +128,7 @@ class UnitCard extends StatelessWidget {
         ),
         if (symbol != null)
           Align(
-            alignment: const Alignment(0.95, -0.9),
+            alignment: const AlignmentDirectional(0.95, -0.9),
             child: Card(
               elevation: 4.0,
               child: Padding(
