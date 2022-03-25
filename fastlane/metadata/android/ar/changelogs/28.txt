@@ -1,9 +1,0 @@
-★ Improved tablet support
-★ Added some new units
-★ Calculator improvements
-★ Bugfix exchange rate update
-★ Added Spanish
-
-Thanks to Gena Haltmair and n-berenice for your contributions!
-
-What do you think about Converter NOW? Rate us! ✔️
