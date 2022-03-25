@@ -1,0 +1,8 @@
+★ 3 new languages: Portoguese, French and Norwegian 🌐
+★ Bugfix of some translation and shoe size conversion 🔧
+
+Thanks to @mezysinc, @Torok42, @FTno, @dizietsma and Andreas 🔝
+
+We also have a web app, check it out here: https://ferraridamiano.github.io/ConverterNOW/#/
+
+What do you think about Converter NOW? Rate us! ✔️
