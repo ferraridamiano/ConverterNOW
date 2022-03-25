@@ -1,39 +1,39 @@
-<b>Converter NOW is an effective unit and currencies converter </b>
-✔️ <b>Simplify</b> the tedious conversion process between units of measurement in a few clicks.
-🚀 It is <b> fast and immediate</b>: just start typing and immediately you have the real-time conversion  with all the other units of measurement.
-🖌️ It is <b>customizable</b>: the units can be reorganized according to your priorities and your use.
-🔢 It integrates a <b>calculator</b> that let you do the calculations in every page.
-💰 We <b>daily update</b> the value of the currencies
-⚫⚪ <b>Choose your favourite theme</b>: dark and white theme
- 📱 <b>Full</b> Smartphone and Tablet <b>support</b>
-💯 It is <b>Open Source</b>!
+<b>Converter NOW هو محول فعال للوحدات والعُملات </b>
+✔️ <b>يقوم بتبسيط</b> عملية التحويل المُملة بين وحدات القياس إلى بِضع نقرات.
+🚀<b> سريع وفوري</b>: ما عليك سوى البدء في الكتابة وستحصل على الفور على تحويل في الوقت الفعلي مع جميع وحدات القياس الأخرى.
+🖌️<b>قابل للتخصيص</b>: يُمكنك إعادة تنظيم الوحدات وفقًا لأولوياتك واستخدامك الخاصة.
+🔢 يأتي مُتكامل مع <b>آلة حاسبة</b> تتيح لك إجراء العمليات الحسابية في كل صفحة.
+💰 نحن <b>نقوم بالتحديث بصورة يومية</b>لقيم العملات.
+⚫⚪<b>إختر مظهرك المُفضل</b>: بين الوضع فاتح أو المُظلم
+ 📱<b>دعم كامل</b> للهواتف الذكية و الأجهزة اللوحية.
+💯<b>مفتوح المصدر</b> بشكل كامل!
 
-Check the repository on GitHub: https://github.com/ferraridamiano/ConverterNOW
+تفقد المستودع على منصة ال Github: https://github.com/ferraridamiano/ConverterNOW
 
-We also have a Web App! 🖥️ Check it out here: https://ferraridamiano.github.io/ConverterNOW/
+لدينا أيضًا تطبيق ويب! 🖥️ تفقده من خلال هذا الرابط: https://ferraridamiano.github.io/ConverterNOW/
 
-🌍 Converter NOW is free, without ads, it does not require any permission and we don't collect your data. If you believe in this project and want to support the developer make a donation: https://www.paypal.me/DemApps 🌍
-Thanks to you we can always stay on 🔝
+🌍 Converter NOW,🌍 بدون إعلانات ، لا يتطلب أي إذن ونحن لا نجمع بياناتك. إذا كنت تؤمن بهذا المشروع وترغب في دعم المطور فتبرع: https://www.paypal.me/DemApps 🌍
+بفضلك، يُمكِننا دوما أن نكون في المقدمة 🔝
 
-<b>Converter NOW can convert 200+ units of mesurement and 30+ currencies</b> 🎉🎉
+<b>Converter NOW يمكن تحويل أكثر من 200 وحدة قياس وأكثر من 30 عملة</b> 🎉🎉
 
-Here are some of the physical quantity that Converter NOW is able to convert:
--<b>Currencies:</b> Dollars, Euro, Pound, Rupee, Yen, etc
--<b>Length:</b> meters, inches, miles, yards, light years, etc.
--<b>Area:</b> square meters, hectares, acres, etc.
--<b>Volume:</b> cubic meters, liters, gallons, pints, spoons, etc.
--<b>Time:</b> seconds, hours, days, years, weeks, millennia, etc.
--<b>Temperature:</b> Centigrade, Fahreneit, Kelvin
--<b>Speed:</b> meters per second, kilometers per hour, knots, etc.
--<b>Mass:</b> grams, pounds, tons, atomic mass units, etc.
--<b>Force:</b> Newton, dyne, pound-force, poundal, etc
--<b>Pressure:</b> pascal, bar, atomsfere, psi, etc.
--<b>Energy:</b> Joule, calories, kilowatt hours, etc.
--<b>Power:</b> Watt, kilowatt, horse power, etc.
--<b>Fuel consumption:</b> Miles per Gallon, Kilometres per liter, etc.
--<b>Numeral systems:</b> decimal, binary, hexadecimal etc.
--<b>Torque:</b> Newton metre, pound-force foot, poundal metre, etc.
--<b>Digital data:</b> Nibble, bit, byte, kibibit, kibibyte, etc.
--<b>Shoes size:</b> UK, India, Europe, USA, Japan, etc.
--<b>Angles:</b> degree, radians, minutes, etc.
--<b>SI prefix:</b> kilo, mega, giga, tera, milli, micro, nano, etc.
+فيما يلي بعض الكميات المادية التي يستطيع Converter Now تحويلها:
+-<b>العُمُلات:</b> دولار, يورو, جنيه, روبيه, ين, وما إلى ذلك.
+-<b>الطول:</b> الأمتار ، البوصات ، الأميال ، الساحات ، السنوات الضوئية ، وما إلى ذلك.
+-<b>المساحة:</b> متر مربع ، هكتار ، فدان ، وما إلى ذلك.
+-<b>الكمية:</b> متر مكعب ، لترات ، جالون ، مكاييل ، ملاعق ، وما إلى ذلك.
+-<b>الزمن:</b> ثواني ، ساعات ، أيام ، سنوات ، أسابيع ، آلاف السنين ، وما إلى ذلك.
+-<b>درجة الحرارة:</b> مئوية ، فهرنهايت ، كيلفن
+-<b>السرعة:</b> متر في الثانية ، كيلومترات في الساعة ، عقدة ، وما إلى ذلك.
+-<b>الكُتلة:</b> جرامات ، رطل ، طن ، وحدات الكتلة الذرية ، وما إلى ذلك.
+-<b>القوة:</b> نيوتن ، داين ، قوة الجنيه ، باوندال ، وما إلى ذلك
+-<b>الضغط:</b> باسكال ، بار ، أتومسفير ، رطل ، وما إلى ذلك.
+-<b>الطاقة:</b> الجول ، السعرات الحرارية ، كيلو واط ساعة ، وما إلى ذلك.
+-<b>القدرة:</b> واط ، كيلووات ، قوة حصان ، وما إلى ذلك.
+-<b>إستهلاك الوقود:</b> ميل لكل جالون ، كيلومتر لكل لتر ، وما إلى ذلك.
+-<b>الأنظمة العددية:</b> عشري ، ثنائي ، سداسي عشري ، وما إلى ذلك.
+-<b>عزم الدوران:</b> نيوتن متر ، قدم قوة الجنيه ، متر باوند ، وما إلى ذلك.
+-<b>البيانات الرقمية:</b> نايبل ، بت ، بايت ، كيبيت ، كيبي بايت ، وما إلى ذلك.
+-<b>مقياس الحذاء:</b> المملكة المتحدة ، الهند ، أوروبا ، الولايات المتحدة الأمريكية ، اليابان ، وما إلى ذلك.
+-<b>الزاوية:</b> الدرجة والراديان والدقائق وما إلى ذلك.
+-<b>سوابق SI:</b> كيلو ، ميجا ، جيجا ، تيرا ، ملي ، ميكرو ، نانو ، وما إلى ذلك.
