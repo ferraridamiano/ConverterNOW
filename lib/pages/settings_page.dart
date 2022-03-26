@@ -178,18 +178,28 @@ class _SettingsPageState extends State<SettingsPage> {
                             leading: const Icon(Icons.laptop),
                             onTap: () => launchURL("https://www.microsoft.com/store/apps/9P0Q79HWJH72"),
                           ),
-                        if (kIsWeb || Platform.isAndroid || Platform.isWindows)
-                          ListTile(
-                            title: const Text('Linux'),
-                            leading: Image.asset(
-                              'resources/images/penguin.png',
-                              color: Theme.of(context).brightness == Brightness.dark
-                                  ? Colors.white.withOpacity(0.9)
-                                  : Colors.black54,
-                              width: 25,
-                            ),
-                            onTap: () => launchURL("https://snapcraft.io/converternow"),
+                        ListTile(
+                          title: const Text('Linux (Flatpak)'),
+                          leading: Image.asset(
+                            'resources/images/penguin.png',
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white.withOpacity(0.9)
+                                : Colors.black54,
+                            width: 25,
                           ),
+                          onTap: () => launchURL("https://flathub.org/apps/details/io.github.ferraridamiano.ConverterNOW"),
+                        ),
+                        ListTile(
+                          title: const Text('Linux (Snap)'),
+                          leading: Image.asset(
+                            'resources/images/penguin.png',
+                            color: Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white.withOpacity(0.9)
+                                : Colors.black54,
+                            width: 25,
+                          ),
+                          onTap: () => launchURL("https://snapcraft.io/converternow"),
+                        ),
                         ListTile(
                           title: Text(AppLocalizations.of(context)!.sourceCode),
                           leading: Image.asset(
