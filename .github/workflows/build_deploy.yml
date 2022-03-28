@@ -22,22 +22,16 @@ jobs:
       run: sudo apt-get install clang cmake ninja-build pkg-config libgtk-3-dev
 
     - name: Setup Flutter
-      uses: subosito/flutter-action@v1.5.3
+      uses: subosito/flutter-action@v2.3.0
       with:
         channel: stable
+        cache: true
 
     - name: Enable linux build
       run: flutter config --enable-linux-desktop
 
     - name: Flutter version
       run: flutter --version
-
-    - name: Cache pub dependencies
-      uses: actions/cache@v2
-      with:
-        path: ${{ env.FLUTTER_HOME }}/.pub-cache
-        key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
-        restore-keys: ${{ runner.os }}-pub-
 
     - name: Download pub dependencies
       run: flutter pub get

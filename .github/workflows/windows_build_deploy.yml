@@ -14,9 +14,10 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Setup Flutter
-      uses: subosito/flutter-action@v1.5.3
+      uses: subosito/flutter-action@v2.3.0
       with:
         channel: stable
+        cache: true
 
     - name: Flutter doctor
       run: flutter doctor
@@ -24,11 +25,8 @@ jobs:
     - name: Download pub dependencies
       run: flutter pub get
 
-    - name: Build for windows
-      run: flutter build windows
-
-    - name: Create .msix installer
-      run: flutter pub run msix:create
+    - name: Build and create the .msix installer
+      run: flutter pub run msix:create --store
 
     - name: Release to GitHub
       uses: ncipollo/release-action@v1.9.0
