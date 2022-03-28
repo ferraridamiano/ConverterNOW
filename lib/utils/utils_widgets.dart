@@ -370,20 +370,7 @@ class SplashScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          const Align(
-            alignment: Alignment(0, 0.9),
-            child: CircularProgressIndicator(),
-          ),
-          Center(
-            child: Image.asset(
-              'resources/images/logo.png',
-              width: 150,
-            ),
-          ),
-        ],
-      ),
+      body: Center(child: Image.asset('resources/images/logo.png', width: 150)),
     );
   }
 }
