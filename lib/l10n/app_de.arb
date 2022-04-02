@@ -13,7 +13,7 @@
   "menu": "Menü",
   "donation": "Unterstüze die App mit einer Spende.",
   "buyMeACoffee": "Kaufe dem Entwickler einen Kaffee ☕.",
-  "donationDialog": "Hallo, wie Du vielleicht weißt, ist diese App kostenlos und Open Source. Das bedeutet, dass die App kostenlos verwendet und der Quellcode kopiert/bearbeitet werden darf. Der Entwickler wird dafür nicht entlohnt. Wenn Du aber an dieses Projekt glaubst und gerne neue Features sehen möchtest, kaufe dem Entwickler einen Kaffee.",
+  "donationDialog": "Hallo, wie Du vielleicht weißt, ist diese App frei und open-source. Das bedeutet, dass die App kostenlos verwendet und der Quellcode kopiert/bearbeitet werden darf. Der Entwickler wird dafür nicht entlohnt. Wenn Du aber an dieses Projekt glaubst und gerne neue Features sehen möchtest, kaufe dem Entwickler einen Kaffee.",
   "drawerLogo": "Logo anzeigen",
   "rateApp": "App bewerten",
   "repoGithub": "Öffne das Repo auf GitHub.",
@@ -28,10 +28,10 @@
   "save": "Speichern",
   "invalidCharacters": "Fehler, unzulässige Zeichen.",
   "theme": "Thema",
-  "dark": "Dunkles",
-  "light": "Helles",
+  "dark": "Dunkel",
+  "light": "Hell",
   "system": "System",
-  "amoledDarkTheme": "AMOLED (schwarzes) Thema",
+  "amoledDarkTheme": "schwarzes AMOLED-Thema",
   "copy": "Kopieren",
   "more": "Mehr",
   "language": "Sprache",
@@ -49,22 +49,10 @@
   },
   "otherPlatforms": "Converter NOW für andere Plattformen",
   "sourceCode": "Quellcode",
-  "undoClearAllMessage": "Cleared all. Do you want to undo it?",
-  "@undoClearAllMessage": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "undo": "Undo",
-  "@undo": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "routeError1": "This page doesn't exist",
-  "@routeError1": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "routeError2": "Go back to the first page",
-  "@routeError2": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "undoClearAllMessage": "Alles geleert. Rückgängig machen?",
+  "undo": "Rückgängig machen",
+  "routeError1": "Diese Seite existiert nicht.",
+  "routeError2": "Zurück zur ersten Seite gehen",
 
   "length": "Länge",
   "area": "Fläche",
@@ -72,7 +60,7 @@
   "time": "Zeit",
   "temperature": "Temperatur",
   "speed": "Geschwindigkeit",
-  "siPrefixes": "SI Präfix",
+  "siPrefixes": "SI-Präfix",
   "mass": "Masse",
   "pressure": "Druck",
   "energy": "Energie",
@@ -92,7 +80,7 @@
   "feet": "Fuß",
   "nauticalMiles": "Nautische Meilen (Seemeile)",
   "yards": "Yard",
-  "miles": "Meilen (Englische M., Landm., Statute Mile)",
+  "miles": "Meilen",
   "millimeters": "Millimeter",
   "micrometers": "Mikrometer",
   "nanometers": "Nanometer",
@@ -108,7 +96,7 @@
   "squareCentimeters": "Quadratzentimeter",
   "squareInches": "Quadratzoll",
   "squareFeet": "Quadratfuß",
-  "squareMiles": "Quadratmeilen (Landmeilen)",
+  "squareMiles": "Quadratmeilen",
   "squareYard": "Quadratyard",
   "squareMillimeters": "Quadratmillimeter",
   "squareKilometers": "Quadratkilometer",
@@ -130,10 +118,10 @@
   "cubicFeet": "Kubikfuß",
   "cubicInches": "Kubikzoll",
   "cubicMillimeters": "Kubikmillimeter",
-  "imperialFluidOunces": "Fluid Unzen (Imperial)",
-  "usFluidOunces": "Fluid Unzen US",
+  "imperialFluidOunces": "Flüssigunzen (Imperial)",
+  "usFluidOunces": "US-Flüssigunzen",
   "imperialGill": "Gill (Imperial)",
-  "usGill": "Gill US",
+  "usGill": "US-Gill",
 
   "seconds": "Sekunden",
   "deciseconds": "Dezisekunden",
@@ -147,7 +135,7 @@
   "weeks": "Wochen",
   "years": "Jahre (365)",
   "lustrum": "Jahrfünft",
-  "decades": "Dekaden",
+  "decades": "Jahrzehnte",
   "centuries":"Jahrhunderte",
   "millennium": "Jahrtausende",
 
@@ -177,7 +165,7 @@
   "uma": "Atomare Masseneinheiten",
   "carats": "Metrisches Karat",
   "centigrams": "Zentigramm",
-  "pennyweights": "Pennyweights / Pfenniggewicht",
+  "pennyweights": "Pennyweights",
   "troyOunces": "Feinunze",
   "stones": "Stone",
 
@@ -187,20 +175,14 @@
   "millibar": "Millibar",
   "psi": "Pfund pro Quadratzoll",
   "torr": "Torr (Millimeter-Quecksilbersäule)",
-  "hectoPascal": "Hectopascal",
-  "@hectoPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "inchesOfMercury": "Inches of mercury",
-  "@inchesOfMercury": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "hectoPascal": "Hektopascal",
+  "inchesOfMercury": "Zoll Quecksilber",
 
   "joule": "Joule",
   "calorie": "Kalorien",
   "kilowattHour": "Kilowattstunden",
   "electronvolt": "Elektronenvolt",
-  "footPound": "foot-pound force",
+  "footPound": "Foot-Pound",
 
   "degree": "Grad",
   "minutesDegree": "Minuten",
@@ -244,12 +226,12 @@
   "mad": "Marokkanischer Dirham",
 
   "euChina": "EU & China",
-  "ukIndiaChild": "UK & Indien - Kind",
-  "ukIndiaMan": "UK & Indien - Mann",
-  "ukIndiaWoman": "UK & Indien - Frau",
-  "usaCanadaChild": "USA & Kanada - Kind",
-  "usaCanadaMan": "USA & Kanada - Mann",
-  "usaCanadaWoman": "USA & Kanada - Frau",
+  "ukIndiaChild": "UK & Indien – Kind",
+  "ukIndiaMan": "UK & Indien – Mann",
+  "ukIndiaWoman": "UK & Indien – Frau",
+  "usaCanadaChild": "USA & Kanada – Kind",
+  "usaCanadaMan": "USA & Kanada – Mann",
+  "usaCanadaWoman": "USA & Kanada – Frau",
   "japan": "Japan",
 
   "watt": "Watt",
@@ -262,19 +244,19 @@
 
   "newton": "Newton",
   "dyne": "Dyn",
-  "poundForce": "Pound-force (Kraftpfund)",
+  "poundForce": "Kraftpfund",
   "kilogramForce": "Kilopond",
   "poundal": "Poundal",
 
   "newtonMeter": "Newtonmeter",
   "dyneMeter": "Dynmeter",
-  "poundForceFeet": "foot-pound force",
+  "poundForceFeet": "Pound-Force-Feet",
   "kilogramForceMeter": "Kilopondmeter",
   "poundalMeter": "Poundalmeter",
 
   "kilometersLiter": "Kilometer pro Liter",
   "liters100km": "Liter pro 100 km",
-  "milesUsGallon": "Meilen pro Gallone US",
+  "milesUsGallon": "Meilen pro US-Gallone",
   "milesImperialGallon": "Meilen pro Gallone (Imperial)",
 
   "decimal": "Dezimal",
