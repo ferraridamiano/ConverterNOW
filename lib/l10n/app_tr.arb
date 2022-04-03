@@ -30,7 +30,7 @@
   "theme": "Tema",
   "dark": "Koyu",
   "light": "Açık",
-  "system": "Sistem teması",
+  "system": "Sistem varsayılanı",
   "amoledDarkTheme": "AMOLED koyu teması",
   "copy": "Kopyala",
   "more": "Daha fazlası",
