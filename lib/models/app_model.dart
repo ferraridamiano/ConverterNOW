@@ -24,7 +24,7 @@ class AppModel with ChangeNotifier {
     const Locale('nb'): 'Norsk',
     const Locale('pt'): 'Português',
     const Locale('ru'): 'Pусский',
-    const Locale('tr'): 'Türk',
+    const Locale('tr'): 'Türkçe',
     const Locale('ar'): 'العربية'
   };
 
