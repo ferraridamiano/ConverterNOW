@@ -30,7 +30,7 @@
   "theme": "Theme",
   "dark": "Dark",
   "light": "Light",
-  "system": "System",
+  "system": "System default",
   "amoledDarkTheme": "AMOLED dark theme",
   "copy": "Copy",
   "more": "More",
@@ -43,7 +43,7 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Lenght"
+        "example": "Length"
       }
     }
   },
