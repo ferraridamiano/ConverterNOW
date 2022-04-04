@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class DrawerTile extends StatelessWidget {
@@ -239,6 +237,8 @@ class DropdownListTile extends StatelessWidget {
   final ValueChanged<String?> onChanged;
   final TextStyle textStyle;
 
+  /// This widget will return a [ListTile] with a dialog on mobile device and a
+  /// [ListTile] with a [DropdownButton] for desktop device.
   const DropdownListTile({
     required this.title,
     required this.items,
@@ -252,67 +252,71 @@ class DropdownListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String selected = value;
-
-    final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
-
-    if (isMobileDevice) {
-      return ListTile(
-        title: Text(
-          title,
-          style: textStyle,
-        ),
-        subtitle: Text(value),
-        shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-        onTap: () => showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => SimpleDialog(
-            title: Text(title),
-            children: items.map<Widget>((String item) {
-              return RadioListTile(
-                  title: Text(item),
-                  value: item,
-                  groupValue: selected,
-                  onChanged: (String? val) {
-                    onChanged(val);
-                    Navigator.pop(context); // Close dialog
-                  });
+    switch (Theme.of(context).platform) {
+      case TargetPlatform.android:
+      case TargetPlatform.iOS:
+        String selected = value;
+        return ListTile(
+          title: Text(
+            title,
+            style: textStyle,
+          ),
+          subtitle: Text(value),
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          onTap: () => showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => SimpleDialog(
+              title: Text(title),
+              children: items.map<Widget>((String item) {
+                return RadioListTile(
+                    title: Text(item),
+                    value: item,
+                    groupValue: selected,
+                    onChanged: (String? val) {
+                      onChanged(val);
+                      Navigator.pop(context); // Close dialog
+                    });
+              }).toList(),
+            ),
+          ),
+        );
+      default:
+        return ListTile(
+          title: Text(
+            title,
+            style: textStyle,
+          ),
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          trailing: DropdownButton<String>(
+            value: value,
+            onChanged: onChanged,
+            selectedItemBuilder: (BuildContext context) {
+              return items.map<Widget>((String item) {
+                return SizedBox(
+                  width: 150,
+                  child: Align(
+                    alignment:
+                        Directionality.of(context) == TextDirection.ltr ? Alignment.centerLeft : Alignment.centerRight,
+                    child: Text(
+                      value,
+                      style: textStyle,
+                    ),
+                  ),
+                );
+              }).toList();
+            },
+            items: items.map((String item) {
+              return DropdownMenuItem<String>(
+                child: Text(
+                  item.toString(),
+                  style: textStyle,
+                ),
+                value: item,
+              );
             }).toList(),
           ),
-        ),
-      );
+        );
     }
-
-    return ListTile(
-      title: Text(
-        title,
-        style: textStyle,
-      ),
-      shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-      trailing: DropdownButton<String>(
-        value: value,
-        onChanged: onChanged,
-        selectedItemBuilder: (BuildContext context) {
-          return items.map<Widget>((String item) {
-            return Center(
-              child: Text(
-                item,
-                style: textStyle,
-              ),
-            );
-          }).toList();
-        },
-        items: items.map((String item) {
-          return DropdownMenuItem<String>(
-            child: Text(
-              item.toString(),
-              style: textStyle,
-            ),
-            value: item,
-          );
-        }).toList(),
-      ),
-    );
   }
 }
 
