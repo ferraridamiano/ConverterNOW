@@ -12,8 +12,7 @@ Vérifiez le référentiel sur GitHub: https://github.com/ferraridamiano/Convert
 
 Nous avons également une application Web! 🖥️ Découvrez-le ici: https://ferraridamiano.github.io/ConverterNOW/
 
-🌍 Converter NOW est gratuit, sans publicité, il ne nécessite aucune autorisation et nous ne collectons pas vos données. Si vous croyez en ce projet et souhaitez soutenir le développeur, faites un don: https://www.paypal.me/DemApps 🌍
-Grâce à vous, nous pouvons toujours rester 🔝
+🌍 Converter NOW est gratuit, sans publicité, il ne nécessite aucune autorisation et nous ne collectons pas vos données 🌍
 
 <b> Converter NOW peut convertir plus de 200 unités de mesure et plus de 30 devises </b> 🎉🎉
 

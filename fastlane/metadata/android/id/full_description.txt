@@ -12,8 +12,7 @@ Periksa repositorinya di GitHub: https://github.com/ferraridamiano/ConverterNOW
 
 Kami juga memiliki Aplikasi Web! 🖥️ Cek disini: https://ferraridamiano.github.io/ConverterNOW/
 
-🌍 Converter NOW gratis/bebas, tanpa iklan, dan tidak mengumpulkan data apapun. Jika Anda ingin membantu pengembang, berdonasi: https://www.paypal.me/DemApps 🌍
-Terima kasih kepada Anda kami masih bisa bertahan. 🔝
+🌍 Converter NOW gratis/bebas, tanpa iklan, dan tidak mengumpulkan data apapun 🌍
 
 <b>Converter NOW bisa mengonversi 200+ satuan pengukuran dan 30+ kurs</b> 🎉🎉
 

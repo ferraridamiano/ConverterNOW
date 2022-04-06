@@ -12,8 +12,7 @@ Github depomuz: https://github.com/ferraridamiano/converternow
 
 Ayrıca bir web uygulamamız da var! 🖥️ Şurada: https://ferraridamiano.github.io/converternow/
 
-🌍 Converter NOW ücretsiz, reklamsız, herhangi bir izin gerektirmez ve veri toplamaz. Projeyi beğeniyor ve geliştiriciye destek olmak istiyorsan bağış yapabilirsin: https://www.paypal.me/demapps 🌍
-Sayende her zaman 🔝 kalabiliriz.
+🌍 Converter NOW ücretsiz, reklamsız, herhangi bir izin gerektirmez ve veri toplamaz 🌍
 
 <b>Converter NOW 200+ ölçü birimini ve 30+ para birimini dönüştürebilir</b> 🎉🎉
 

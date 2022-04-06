@@ -13,8 +13,7 @@ https://github.com/ferraridamiano/ConverterNOW
 
 Abbiamo anche un'app Web! 🖥️ Dai un'occhiata qui: https://ferraridamiano.github.io/ConverterNOW/
 
-🌍 Converter NOW è completamente gratuita, senza pubblicità, non richiede alcun permesso e non raccogliamo i tuoi dati. Se credi anche tu in questo progetto e vuoi sostenere lo sviluppatore fai una donazione: https://www.paypal.me/DemApps 🌍
-Grazie a te possiamo rimanere sempre al 🔝
+🌍 Converter NOW è completamente gratuita, senza pubblicità, non richiede alcun permesso e non raccogliamo i tuoi dati 🌍
 
 <b>Converter NOW può convertire 200+ unità di misura e 30+ valute</b> 🎉🎉
 

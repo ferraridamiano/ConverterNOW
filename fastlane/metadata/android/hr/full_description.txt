@@ -12,7 +12,7 @@ Pogledaj repozitorij na GitHub-u: https://github.com/ferraridamiano/ConverterNOW
 
 Imamo i web aplikaciju! 🖥️ Pogledaj ovdje: https://ferraridamiano.github.io/ConverterNOW/
 
-Converter NOW je besplatan, bez oglasa, ne zahtijeva nikakve dozvole i ne prikuplja tvoje podatke. Ako vjeruješ u ovaj projekt i ako želiš podržati programera, doniraj na: https://www.paypal.me/DemApps 🌍
+Converter NOW je besplatan, bez oglasa, ne zahtijeva nikakve dozvole i ne prikuplja tvoje podatke 🌍
 
 <b>Converter NOW pretvara više od 200 mjernih jedinica i više od 30 valuta</b> 🎉🎉
 
