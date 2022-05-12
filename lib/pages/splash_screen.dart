@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
     final bool isConversionsLoaded =
         context.select<Conversions, bool>((conversions) => conversions.isConversionsLoaded);
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (isConversionsLoaded && conversionsOrderDrawer != null) {
         List<PropertyUi> propertyUiList = getPropertyUiList(context);
         final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
