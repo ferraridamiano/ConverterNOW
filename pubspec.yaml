@@ -13,7 +13,7 @@ dependencies:
   #Needed to store the customizations and the latest currencies convertions
   shared_preferences: ^2.0.13
   #Needed to open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^6.0.20
+  url_launcher: ^6.1.2
   #Needed to download the latest currencies convertions
   http: ^0.13.4
   #Needed to improve the state management

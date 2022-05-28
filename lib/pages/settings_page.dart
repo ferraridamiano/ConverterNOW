@@ -11,7 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
 class EnvironmentConfig {
-  static const bool isPlaystore = String.fromEnvironment('IS_PLAYSTORE', defaultValue: 'false') == 'true';
+  static const bool isPlaystore =
+      String.fromEnvironment('IS_PLAYSTORE', defaultValue: 'false') == 'true';
 }
 
 class SettingsPage extends StatefulWidget {
@@ -26,7 +27,8 @@ class _SettingsPageState extends State<SettingsPage> {
   bool removeTrailingZeros = true;
   int significantFigures = 10;
   static const TextStyle textStyle = TextStyle(fontSize: singlePageTextSize);
-  static const BorderRadiusGeometry borderRadius = BorderRadius.all(Radius.circular(30));
+  static const BorderRadiusGeometry borderRadius =
+      BorderRadius.all(Radius.circular(30));
   ThemeMode currentTheme = ThemeMode.system;
   bool isDarkAmoled = false;
   String? locale;
@@ -97,7 +99,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 items: mapTheme.values.toList(),
                 value: mapTheme[currentTheme]!,
                 onChanged: (String? string) {
-                  setState(() => currentTheme = mapTheme.keys.where((key) => mapTheme[key] == string).single);
+                  setState(() => currentTheme = mapTheme.keys
+                      .where((key) => mapTheme[key] == string)
+                      .single);
                   AppModel appModel = context.read<AppModel>();
                   appModel.currentThemeMode = currentTheme;
                 },
@@ -111,10 +115,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 ],
                 value: locale ?? AppLocalizations.of(context)!.system,
                 onChanged: (String? string) {
-                  setState(() => {locale = string == AppLocalizations.of(context)!.system ? null : string});
-                  context
-                      .read<AppModel>()
-                      .setLocaleString(string == AppLocalizations.of(context)!.system ? null : string);
+                  setState(() => {
+                        locale = string == AppLocalizations.of(context)!.system
+                            ? null
+                            : string
+                      });
+                  context.read<AppModel>().setLocaleString(
+                      string == AppLocalizations.of(context)!.system
+                          ? null
+                          : string);
                 },
               ),
               DropdownListTile(
@@ -163,43 +172,61 @@ class _SettingsPageState extends State<SettingsPage> {
                           ListTile(
                             title: const Text('Web'),
                             leading: const Icon(Icons.public_outlined),
-                            onTap: () => launchURL("https://converter-now.web.app"),
+                            onTap: () => launchURL(Uri(
+                                scheme: 'https',
+                                host: 'converter-now.web.app')),
                           ),
                         if (kIsWeb || Platform.isWindows || Platform.isLinux)
                           ListTile(
                             title: const Text('Android'),
                             leading: const Icon(Icons.android_outlined),
-                            onTap: () =>
-                                launchURL("https://play.google.com/store/apps/details?id=com.ferrarid.converterpro"),
+                            onTap: () => launchURL(Uri(
+                              scheme: 'https',
+                              host: 'play.google.com',
+                              path: '/store/apps/details',
+                              queryParameters: {
+                                'id': 'com.ferrarid.converterpro'
+                              },
+                            )),
                           ),
                         if (kIsWeb || Platform.isAndroid || Platform.isLinux)
                           ListTile(
                             title: const Text('Windows'),
                             leading: const Icon(Icons.laptop),
-                            onTap: () => launchURL("https://www.microsoft.com/store/apps/9P0Q79HWJH72"),
+                            onTap: () => launchURL(Uri(
+                                scheme: 'https',
+                                host: 'microsoft.com',
+                                path: '/store/apps/9P0Q79HWJH72')),
                           ),
                         ListTile(
-                          title: const Text('Linux (Flatpak)'),
-                          leading: Image.asset(
-                            'resources/images/penguin.png',
-                            color: Theme.of(context).brightness == Brightness.dark
-                                ? Colors.white.withOpacity(0.9)
-                                : Colors.black54,
-                            width: 25,
-                          ),
-                          onTap: () => launchURL("https://flathub.org/apps/details/io.github.ferraridamiano.ConverterNOW"),
-                        ),
+                            title: const Text('Linux (Flatpak)'),
+                            leading: Image.asset(
+                              'resources/images/penguin.png',
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white.withOpacity(0.9)
+                                  : Colors.black54,
+                              width: 25,
+                            ),
+                            onTap: () => launchURL(Uri(
+                                scheme: 'https',
+                                host: 'flathub.org',
+                                path:
+                                    '/apps/details/io.github.ferraridamiano.ConverterNOW'))),
                         ListTile(
-                          title: const Text('Linux (Snap)'),
-                          leading: Image.asset(
-                            'resources/images/penguin.png',
-                            color: Theme.of(context).brightness == Brightness.dark
-                                ? Colors.white.withOpacity(0.9)
-                                : Colors.black54,
-                            width: 25,
-                          ),
-                          onTap: () => launchURL("https://snapcraft.io/converternow"),
-                        ),
+                            title: const Text('Linux (Snap)'),
+                            leading: Image.asset(
+                              'resources/images/penguin.png',
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white.withOpacity(0.9)
+                                  : Colors.black54,
+                              width: 25,
+                            ),
+                            onTap: () => launchURL(Uri(
+                                scheme: 'https',
+                                host: 'snapcraft.io',
+                                path: '/converternow'))),
                         ListTile(
                           title: Text(AppLocalizations.of(context)!.sourceCode),
                           leading: Image.asset(
@@ -207,10 +234,16 @@ class _SettingsPageState extends State<SettingsPage> {
                                 ? 'resources/images/github_light.png'
                                 : 'resources/images/github_dark.png',
                             width: 25,
-                            color: Theme.of(context).brightness == Brightness.light ? Colors.black54 : null,
+                            color:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? Colors.black54
+                                    : null,
                             filterQuality: FilterQuality.medium,
                           ),
-                          onTap: () => launchURL("https://github.com/ferraridamiano/ConverterNOW"),
+                          onTap: () => launchURL(Uri(
+                              scheme: 'https',
+                              host: 'github.com',
+                              path: '/ferraridamiano/ConverterNOW')),
                         ),
                       ],
                     );
@@ -224,7 +257,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 onTap: () {
-                  launchURL("https://github.com/ferraridamiano/ConverterNOW/issues/2");
+                  launchURL(Uri(
+                      scheme: 'https',
+                      host: 'github.com',
+                      path: '/ferraridamiano/ConverterNOW/issues/2'));
                 },
               ),
               if (!EnvironmentConfig.isPlaystore)
@@ -233,14 +269,16 @@ class _SettingsPageState extends State<SettingsPage> {
                     AppLocalizations.of(context)!.buyMeACoffee,
                     style: textStyle,
                   ),
-                  shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                  shape:
+                      const RoundedRectangleBorder(borderRadius: borderRadius),
                   onTap: () {
                     showDialog<void>(
                       context: context,
                       barrierDismissible: true,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text(AppLocalizations.of(context)!.buyMeACoffee),
+                          title:
+                              Text(AppLocalizations.of(context)!.buyMeACoffee),
                           content: Text(
                             AppLocalizations.of(context)!.donationDialog,
                             style: const TextStyle(fontSize: 18),
@@ -249,11 +287,17 @@ class _SettingsPageState extends State<SettingsPage> {
                             TextButton(
                               child: Text(
                                 AppLocalizations.of(context)!.buyMeACoffee,
-                                style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary),
                               ),
                               onPressed: () {
                                 Navigator.of(context).pop();
-                                launchURL('https://www.paypal.me/DemApps');
+                                launchURL(Uri(
+                                    scheme: 'https',
+                                    host: 'paypal.me',
+                                    path: '/DemApps'));
                               },
                             ),
                           ],
@@ -268,9 +312,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     AppLocalizations.of(context)!.contactDeveloper,
                     style: textStyle,
                   ),
-                  shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                  shape:
+                      const RoundedRectangleBorder(borderRadius: borderRadius),
                   onTap: () {
-                    launchURL("mailto:<damianoferrari1998@gmail.com>");
+                    launchURL(Uri(
+                        scheme: 'mailto',
+                        path: 'damianoferrari1998@gmail.com'));
                   },
                 ),
               ListTile(
