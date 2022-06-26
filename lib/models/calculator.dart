@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:decimal/decimal.dart';
 import 'package:flutter/foundation.dart';
 
 enum OPERATION {
@@ -22,14 +23,13 @@ class Calculator with ChangeNotifier {
   };
 
   String currentNumber = '';
-  double? _firstNumber;
-  double? _secondNumber;
+  Decimal? _firstNumber;
+  Decimal? _secondNumber;
   OPERATION? selectedOperation;
   bool endNumber = false;
   bool isResult = false;
-  String decimalSeparator;
 
-  Calculator({this.decimalSeparator = '.'});
+  Calculator();
 
   /// With this function you can subit any char from 0-9, [, . + - * / = backspace canc]
   void submitChar(String char) {
@@ -75,13 +75,13 @@ class Calculator with ChangeNotifier {
       }
       //if it is the first operation submitted
       if (currentNumber.isNotEmpty && _firstNumber == null && selectedOperation == null) {
-        _firstNumber = _getDoubleFromString(currentNumber);
+        _firstNumber = Decimal.parse(currentNumber);
         selectedOperation = mapOperation[char];
         endNumber = true;
       } else if (currentNumber.isNotEmpty && _firstNumber != null && selectedOperation != null && !endNumber) {
         //chained operation
         // Compute the result with the previous operator
-        _secondNumber = _getDoubleFromString(currentNumber);
+        _secondNumber = Decimal.parse(currentNumber);
         _computeResult();
         endNumber = true;
         selectedOperation = mapOperation[char];
@@ -93,11 +93,11 @@ class Calculator with ChangeNotifier {
     // if it is equal symbol
     else if (char == '=') {
       if (_firstNumber != null && currentNumber.isNotEmpty && selectedOperation != null && !isResult) {
-        _secondNumber = _getDoubleFromString(currentNumber);
+        _secondNumber = Decimal.parse(currentNumber);
         _computeResult();
         isResult = true;
       } else if (_firstNumber != null && currentNumber.isNotEmpty && selectedOperation != null && isResult && _secondNumber != null) {
-        _firstNumber = _getDoubleFromString(currentNumber);
+        _firstNumber = Decimal.parse(currentNumber);
         _computeResult();
       }
     }
@@ -120,7 +120,7 @@ class Calculator with ChangeNotifier {
 
   ///Given firstNumber, secondNumber and selectedOperation in computes the result and put it in currentNumber string
   _computeResult() {
-    late double result;
+    late Decimal result;
     assert(_firstNumber != null && _secondNumber != null, 'firstNumber/secondNumber is null');
 
     switch (selectedOperation) {
@@ -134,13 +134,13 @@ class Calculator with ChangeNotifier {
         result = _firstNumber! * _secondNumber!;
         break;
       case OPERATION.division:
-        result = _firstNumber! / _secondNumber!;
+        result = (_firstNumber! / _secondNumber!).toDecimal(scaleOnInfinitePrecision: 15);
         break;
       case null:
         assert(selectedOperation != null, 'selectedOperation is null');
     }
     _firstNumber = result;
-    currentNumber = _getStringFromDouble(result, decimalSeparator);
+    currentNumber = _getStringFromDecimal(result);
     endNumber = true;
   }
 
@@ -165,58 +165,50 @@ class Calculator with ChangeNotifier {
   }
 
   /// This method either clearAll() or deleteLastChar() depending on the state of the calculator.
-  void adaptiveDeleteClear() {
-    if (endNumber) {
-      clearAll();
-    } else {
-      deleteLastChar();
-    }
-  }
+  void adaptiveDeleteClear() => endNumber ? clearAll() : deleteLastChar();
 
   /// Computes the square root of currentNumber
-  void squareRoot() => _unaryOperation(math.sqrt);
+  void squareRoot() => _unaryOperation((Decimal x) => _getStringFromNum(math.sqrt(x.toDouble())));
 
   /// Computes the base-10 logarithm of currentNumber
-  void log10() => _unaryOperation((double x) => math.log(x) / math.log(10));
+  void log10() => _unaryOperation((Decimal x) => _getStringFromNum((math.log(x.toDouble()) / math.log(10))));
 
   /// Computes the square of currentNumber
-  void square() => _unaryOperation((double x) => x * x);
+  void square() => _unaryOperation((Decimal x) => _getStringFromDecimal((x * x)));
 
   /// Computes the natural logarithm (base e) of currentNumber
-  void ln() => _unaryOperation(math.log);
+  void ln() => _unaryOperation((Decimal x) => _getStringFromNum(math.log(x.toDouble())));
 
   /// Computes the reciprocal (multiplicative inverse) of currentNumber
-  void reciprocal() => _unaryOperation((double x) => 1/x);
+  void reciprocal() => _unaryOperation((Decimal x) => x.inverse.toDecimal(scaleOnInfinitePrecision: 15).toString());
 
   /// Computes the factorial of currentNumber
-  void factorial() => _unaryOperation((double x) => _myFactorialFunction(x.truncate()).toDouble());
+  void factorial() => _unaryOperation((Decimal x) => _getStringFromNum(_myFactorialFunction(x.toBigInt().toInt())));
 
   /// General function that applies to all the unary operations, just pass the function
-  void _unaryOperation(double Function(double) operation) {
+  void _unaryOperation(String Function(Decimal) operation) {
     //if it is the first operation submitted
     if (currentNumber.isNotEmpty) {
-      currentNumber = _getStringFromDouble(operation(double.parse(currentNumber)), decimalSeparator);
+      currentNumber = operation(Decimal.parse(currentNumber));
       endNumber = isResult = true;
       notifyListeners();
     }
   }
 }
 
-double _getDoubleFromString(String string) {
-  if (string.contains(',')) {
-    string = string.replaceAll(RegExp(','), '.');
-  }
-  return double.parse(string);
-}
-
-String _getStringFromDouble(double value, [String decimalSeparator = '.']) {
+String _getStringFromDecimal(Decimal value) {
   String stringValue = value.toString();
   if (stringValue.endsWith('.0')) {
     stringValue = stringValue.substring(0, stringValue.length - 2);
   }
-  /*if (stringValue.contains('.') && decimalSeparator != '.') {
-    stringValue = stringValue.replaceFirst(RegExp('[.]'), decimalSeparator);
-  }*/
+  return stringValue;
+}
+
+String _getStringFromNum(num value) {
+  String stringValue = value.toString();
+  if (stringValue.endsWith('.0')) {
+    stringValue = stringValue.substring(0, stringValue.length - 2);
+  }
   return stringValue;
 }
 

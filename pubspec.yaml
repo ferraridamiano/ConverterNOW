@@ -26,6 +26,8 @@ dependencies:
   go_router: ^3.0.6
   #Needed for Android App Shortcuts
   quick_actions: ^0.6.0+10
+  #Needed for calculator computation
+  decimal: ^2.2.0
   #Needed for unit conversion
   units_converter: ^1.1.1
     #git:

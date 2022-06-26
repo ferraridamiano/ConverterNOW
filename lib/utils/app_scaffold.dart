@@ -28,7 +28,7 @@ class AppScaffold extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return ChangeNotifierProvider(
-            create: (_) => Calculator(decimalSeparator: '.'),
+            create: (_) => Calculator(),
             child: const CalculatorWidget(),
           );
         },

@@ -28,6 +28,14 @@ void main() {
       testBinaryOperation(operation);
     }
   });
+  test('Finite representation', () {
+    Calculator calc = Calculator();
+    calc.submitString('0.6');
+    calc.submitChar('+');
+    calc.submitString('0.3');
+    calc.submitChar('=');
+    expect(calc.currentNumber == '0.9', true, reason: 'Expected 0.9. Actual: ${calc.currentNumber}');
+  });
 
   /// It tests for example that operation such as 2*3+7=13 works
   test('Chained operations', () {
@@ -58,7 +66,7 @@ void main() {
         expect(calc.currentNumber, stringNumber);
         calc.submitString('=');
         result = getResultBinaryOperation(result, thirdNumber, op2);
-        expect(isAcceptable(result, calc.currentNumber), true,
+        expect(isAcceptable(result, calc.currentNumber, sensibility: 1e6), true,
             reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
       }
     }
@@ -113,24 +121,6 @@ void main() {
       expect(isAcceptable(result, calc.currentNumber), true,
           reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
     }
-  });
-
-  test('Different decimal separator', () {
-    String decimalSeparator = ',';
-    Calculator calc = Calculator(decimalSeparator: decimalSeparator);
-    double firstNumber = 12345.6789;
-    double secondNumber = 9876543.21;
-    OPERATION op = OPERATION.addition;
-    String result = '9888888.8889';
-    String stringNumber = firstNumber.toStringAsFixed(11).replaceFirst(RegExp('[.]'), decimalSeparator);
-    calc.submitString(stringNumber);
-    //expect(calc.currentNumber, stringNumber);
-    calc.submitString(mapOperation[op]!);
-    stringNumber = secondNumber.toStringAsFixed(11);
-    calc.submitString(stringNumber);
-    //expect(calc.currentNumber, stringNumber);
-    calc.submitString('=');
-    expect(result, calc.currentNumber, reason: 'Expected:$result\nActual:  ${calc.currentNumber}');
   });
 
   test('Multiple press = after result returns the result applied the last operation', () {
@@ -267,13 +257,13 @@ void testBinaryOperation(OPERATION operation) {
     expect(calc.selectedOperation, null);
     double firstNumber = rnd.nextDouble() * maxValue;
     double secondNumber = rnd.nextDouble() * maxValue;
-    String stringNumber = firstNumber.toStringAsFixed(11);
+    String stringNumber = firstNumber.toStringAsFixed(3);
     calc.submitString(stringNumber);
     expect(calc.currentNumber, stringNumber);
     calc.submitString(mapOperation[operation]!);
     expect(calc.currentNumber, stringNumber);
     expect(calc.selectedOperation, operation);
-    stringNumber = secondNumber.toStringAsFixed(11);
+    stringNumber = secondNumber.toStringAsFixed(3);
     calc.submitString(stringNumber);
     expect(calc.currentNumber, stringNumber);
     calc.submitString('=');
