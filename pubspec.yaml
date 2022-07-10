@@ -1,7 +1,7 @@
 name: converterpro
 description: Unit and currencies converter
 
-version: 3.1.2+34
+version: 3.1.3+35
 
 environment:
   sdk: ">=2.15.0 <3.0.0"
@@ -29,7 +29,7 @@ dependencies:
   #Needed for calculator computation
   decimal: ^2.2.0
   #Needed for unit conversion
-  units_converter: ^1.1.1
+  units_converter: 1.1.1
     #git:
     #  url: https://github.com/ferraridamiano/units_converter
     #path: ../units_converter
