@@ -91,6 +91,10 @@
   "lightYears": "سنة ضوئية",
   "parsec":"فرسخ فلكي",
   "mils": "جزء من ألف من البوصة",
+  "feetUsSurvey": "Feet (US survey)",
+  "@feetUsSurvey": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "squareMeters": "متر مربع",
   "squareCentimeters": "سنتيمتر مربع",
@@ -103,6 +107,10 @@
   "hectares": "هكتار",
   "acres": "فدان",
   "are": "آر",
+  "squareFeetUsSurvey": "Piedi Quadrati (US survey)",
+  "@squareFeetUsSurvey": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "cubicMeters": "متر مكع ب",
   "liters": "لتر",
@@ -179,10 +187,14 @@
   "inchesOfMercury": "بوصة زئبق",
 
   "joule": "جول",
-  "calorie": "سعرة الحرارية)كالوري)",
+  "calories": "سعرة الحرارية)كالوري)",
   "kilowattHour": "كيلوواط ساعة",
   "electronvolt": "إلكترون فولت",
   "footPound": "قدم - رطل",
+  "kilocalories": "Kilocalories",
+  "@kilocalories": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "درجة",
   "minutesDegree": "دقيقة",

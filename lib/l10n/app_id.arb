@@ -102,6 +102,10 @@
   "lightYears": "Tahun Cahaya",
   "parsec":"Parsek",
   "mils": "Seperseribu Inci (Mil/Thou)",
+  "feetUsSurvey": "Feet (US survey)",
+  "@feetUsSurvey": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "squareMeters": "Meter Persegi",
   "squareCentimeters": "Sentimeter Persegi",
@@ -114,6 +118,10 @@
   "hectares": "Hektare",
   "acres": "Ekar",
   "are": "Are",
+  "squareFeetUsSurvey": "Piedi Quadrati (US survey)",
+  "@squareFeetUsSurvey": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "cubicMeters": "Meter Kubik",
   "liters": "Liter",
@@ -196,10 +204,14 @@
   },
 
   "joule": "Joule",
-  "calorie": "Kalori",
+  "calories": "Kalori",
   "kilowattHour": "Kilowattjam",
   "electronvolt": "Elektron Volt",
   "footPound": "Pon Kaki",
+  "kilocalories": "Kilocalories",
+  "@kilocalories": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Derajat",
   "minutesDegree": "Menit",

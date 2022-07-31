@@ -91,6 +91,7 @@
   "lightYears": "Light-years",
   "parsec":"Parsec",
   "mils": "Mils",
+  "feetUsSurvey": "Feet (US survey)",
 
   "squareMeters": "Square Meters",
   "squareCentimeters": "Square Centimeters",
@@ -103,6 +104,7 @@
   "hectares": "Hectares",
   "acres": "Acres",
   "are": "Are",
+  "squareFeetUsSurvey": "Square Feet (US survey)",
 
   "cubicMeters": "Cubic Meters",
   "liters": "Liters",
@@ -179,10 +181,11 @@
   "inchesOfMercury": "Inches of mercury",
 
   "joule": "Joule",
-  "calorie": "Calorie",
+  "calories": "Calories",
   "kilowattHour": "Kilowatt hour",
   "electronvolt": "Electron volt",
   "footPound": "Foot pound",
+  "kilocalories": "Kilocalories",
 
   "degree": "Degree",
   "minutesDegree": "Minutes",

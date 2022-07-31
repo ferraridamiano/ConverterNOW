@@ -102,6 +102,10 @@
   "lightYears": "Années-lumières",
   "parsec": "Parsec",
   "mils": "Mils",
+  "feetUsSurvey": "Feet (US survey)",
+  "@feetUsSurvey": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "squareMeters": "Mètres carrés",
   "squareCentimeters": "Centimètres carrés",
@@ -114,6 +118,10 @@
   "hectares": "Hectares",
   "acres": "Acres",
   "are": "Are",
+  "squareFeetUsSurvey": "Piedi Quadrati (US survey)",
+  "@squareFeetUsSurvey": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "cubicMeters": "Mètres cubes",
   "liters": "Litres",
@@ -196,10 +204,14 @@
   },
 
   "joule": "Joule",
-  "calorie": "Calorie",
+  "calories": "Calorie",
   "kilowattHour": "Kilowatt heure",
   "electronvolt": "Électronvolt",
   "footPound": "Pied-livre",
+  "kilocalories": "Kilocalories",
+  "@kilocalories": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Degré",
   "minutesDegree": "Minutes",

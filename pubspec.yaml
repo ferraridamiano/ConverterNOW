@@ -31,7 +31,7 @@ dependencies:
   exchange_rates:
     path: packages/exchange_rates
   #Needed for unit conversion
-  units_converter: 1.1.1
+  units_converter: ^2.0.1
     #git:
     #  url: https://github.com/ferraridamiano/units_converter
     #path: ../units_converter

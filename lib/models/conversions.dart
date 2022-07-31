@@ -83,7 +83,7 @@ class Conversions with ChangeNotifier {
           significantFigures: _significantFigures,
           removeTrailingZeros: _removeTrailingZeros,
           name: PROPERTYX.volume),
-      SimpleCustomConversion(_currenciesObject.exchangeRates,
+      SimpleCustomProperty(_currenciesObject.exchangeRates,
           mapSymbols: _currenciesSymbols,
           significantFigures: _significantFigures,
           removeTrailingZeros: _removeTrailingZeros,

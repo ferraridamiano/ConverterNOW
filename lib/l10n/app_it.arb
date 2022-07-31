@@ -91,6 +91,7 @@
   "lightYears": "Anni luce",
   "parsec": "Parsec",
   "mils": "Mils",
+  "feetUsSurvey": "Piedi (US survey)",
 
   "squareMeters": "Metri Quadrati",
   "squareCentimeters": "Centimetri Quadrati",
@@ -103,6 +104,7 @@
   "hectares": "Ettaro",
   "acres": "Acri",
   "are": "Are",
+  "squareFeetUsSurvey": "Piedi Quadrati (US survey)",
 
   "cubicMeters": "Metri Cubi",
   "liters": "Litri",
@@ -179,10 +181,11 @@
   "inchesOfMercury": "Pollici di mercurio",
 
   "joule": "Joule",
-  "calorie": "Calorie",
+  "calories": "Calorie",
   "kilowattHour": "Kilowattora",
   "electronvolt": "Elettronvolt",
   "footPound": "Piede per libbra forza",
+  "kilocalories": "Kilocalorie",
 
   "degree": "Gradi",
   "minutesDegree": "Primi",

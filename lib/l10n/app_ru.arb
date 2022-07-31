@@ -102,6 +102,10 @@
   "lightYears": "Световых лет",
   "parsec": "Парсек",
   "mils": "Tысячная дюйма",
+  "feetUsSurvey": "Feet (US survey)",
+  "@feetUsSurvey": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "squareMeters": "Квадратные Метры",
   "squareCentimeters": "Квадратные Сантиметры",
@@ -114,6 +118,10 @@
   "hectares": "Гектары",
   "acres": "Акры",
   "are": "АР",
+  "squareFeetUsSurvey": "Piedi Quadrati (US survey)",
+  "@squareFeetUsSurvey": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "cubicMeters": "Кубические Метры",
   "liters": "Литры",
@@ -196,10 +204,14 @@
   },
 
   "joule": "Джоули",
-  "calorie": "Каллории",
+  "calories": "Каллории",
   "kilowattHour": "Киловатт-час",
   "electronvolt": "Электронвольт",
   "footPound": "Фут-фунт",
+  "kilocalories": "Kilocalories",
+  "@kilocalories": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Степень",
   "minutesDegree": "Минуты",

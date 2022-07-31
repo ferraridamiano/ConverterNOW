@@ -97,6 +97,10 @@
   "lightYears": "光年",
   "parsec":"パーセク",
   "mils": "ミル",
+  "feetUsSurvey": "Feet (US survey)",
+  "@feetUsSurvey": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "squareMeters": "平方メートル",
   "squareCentimeters": "平方センチメートル",
@@ -109,6 +113,10 @@
   "hectares": "ヘクタール",
   "acres": "エーカー",
   "are": "アール",
+  "squareFeetUsSurvey": "Piedi Quadrati (US survey)",
+  "@squareFeetUsSurvey": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "cubicMeters": "立方メートル",
   "liters": "リットル",
@@ -185,10 +193,14 @@
   "inchesOfMercury": "水銀柱インチ",
 
   "joule": "ジュール",
-  "calorie": "カロリー",
+  "calories": "カロリー",
   "kilowattHour": "キロワット時",
   "electronvolt": "電子ボルト",
   "footPound": "フィート重量ポンド",
+  "kilocalories": "Kilocalories",
+  "@kilocalories": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "角度",
   "minutesDegree": "分",
