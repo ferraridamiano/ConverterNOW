@@ -244,8 +244,7 @@ class Conversions with ChangeNotifier {
     String? currenciesRead = prefs.getString('currenciesRates');
     String? lastUpdate = prefs.getString("lastUpdateCurrencies");
     if (currenciesRead != null && lastUpdate != null) {
-      _currenciesObject =
-          CurrenciesObject.fromJson(json.decode(currenciesRead), lastUpdate);
+      _currenciesObject = CurrenciesObject.fromJson(currenciesRead, lastUpdate);
     }
   }
 

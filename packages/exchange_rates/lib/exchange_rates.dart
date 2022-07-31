@@ -63,7 +63,8 @@ class CurrenciesObject {
 
   /// It transforms a previous stored data (with the toJson method) into this
   /// object
-  CurrenciesObject.fromJson(Map<String, double> jsonData, String lastUpdate) {
+  CurrenciesObject.fromJson(String jsonString, String lastUpdate) {
+    Map jsonData = json.decode(jsonString);
     lastUpdateString = lastUpdate;
     this.lastUpdate = DateTime.parse(lastUpdateString);
     exchangeRates = Map.from(jsonData);
