@@ -8,31 +8,28 @@ import 'utils_widgets.dart';
 /// property all over the app. From this List depends also other functions.
 List<PropertyUi> getPropertyUiList(BuildContext context) {
   const String basePath = 'resources/images/';
-
-  List<PropertyUi> propertyUiList = [];
+  var l10n = AppLocalizations.of(context)!;
   //The order is important!
-  propertyUiList
-    ..add(PropertyUi(PROPERTYX.length, AppLocalizations.of(context)!.length, basePath + 'length.png'))
-    ..add(PropertyUi(PROPERTYX.area, AppLocalizations.of(context)!.area, basePath + 'area.png'))
-    ..add(PropertyUi(PROPERTYX.volume, AppLocalizations.of(context)!.volume, basePath + 'volume.png'))
-    ..add(PropertyUi(PROPERTYX.currencies, AppLocalizations.of(context)!.currencies, basePath + 'currencies.png'))
-    ..add(PropertyUi(PROPERTYX.time, AppLocalizations.of(context)!.time, basePath + 'time.png'))
-    ..add(PropertyUi(PROPERTYX.temperature, AppLocalizations.of(context)!.temperature, basePath + 'temperature.png'))
-    ..add(PropertyUi(PROPERTYX.speed, AppLocalizations.of(context)!.speed, basePath + 'speed.png'))
-    ..add(PropertyUi(PROPERTYX.mass, AppLocalizations.of(context)!.mass, basePath + 'mass.png'))
-    ..add(PropertyUi(PROPERTYX.force, AppLocalizations.of(context)!.force, basePath + 'force.png'))
-    ..add(PropertyUi(PROPERTYX.fuelConsumption, AppLocalizations.of(context)!.fuelConsumption, basePath + 'fuel.png'))
-    ..add(PropertyUi(PROPERTYX.numeralSystems, AppLocalizations.of(context)!.numeralSystems, basePath + 'num_systems.png'))
-    ..add(PropertyUi(PROPERTYX.pressure, AppLocalizations.of(context)!.pressure, basePath + 'pressure.png'))
-    ..add(PropertyUi(PROPERTYX.energy, AppLocalizations.of(context)!.energy, basePath + 'energy.png'))
-    ..add(PropertyUi(PROPERTYX.power, AppLocalizations.of(context)!.power, basePath + 'power.png'))
-    ..add(PropertyUi(PROPERTYX.angle, AppLocalizations.of(context)!.angles, basePath + 'angles.png'))
-    ..add(PropertyUi(PROPERTYX.shoeSize, AppLocalizations.of(context)!.shoeSize, basePath + 'shoe_size.png'))
-    ..add(PropertyUi(PROPERTYX.digitalData, AppLocalizations.of(context)!.digitalData, basePath + 'data.png'))
-    ..add(PropertyUi(PROPERTYX.siPrefixes, AppLocalizations.of(context)!.siPrefixes, basePath + 'prefixes.png'))
-    ..add(PropertyUi(PROPERTYX.torque, AppLocalizations.of(context)!.torque, basePath + 'torque.png'));
-
-  return propertyUiList;
+  return [
+    PropertyUi(PROPERTYX.length, l10n.length, basePath + 'length.png'),
+    PropertyUi(PROPERTYX.area, l10n.area, basePath + 'area.png'),
+    PropertyUi(PROPERTYX.volume, l10n.volume, basePath + 'volume.png'),
+    PropertyUi(PROPERTYX.currencies, l10n.currencies, basePath + 'currencies.png'),
+    PropertyUi(PROPERTYX.time, l10n.time, basePath + 'time.png'),
+    PropertyUi(PROPERTYX.temperature, l10n.temperature, basePath + 'temperature.png'),
+    PropertyUi(PROPERTYX.speed, l10n.speed, basePath + 'speed.png'),
+    PropertyUi(PROPERTYX.mass, l10n.mass, basePath + 'mass.png'),
+    PropertyUi(PROPERTYX.force, l10n.force, basePath + 'force.png'),
+    PropertyUi(PROPERTYX.fuelConsumption, l10n.fuelConsumption, basePath + 'fuel.png'),
+    PropertyUi(PROPERTYX.numeralSystems, l10n.numeralSystems, basePath + 'num_systems.png'),
+    PropertyUi(PROPERTYX.pressure, l10n.pressure, basePath + 'pressure.png'),
+    PropertyUi(PROPERTYX.energy, l10n.energy, basePath + 'energy.png'),
+    PropertyUi(PROPERTYX.power, l10n.power, basePath + 'power.png'),
+    PropertyUi(PROPERTYX.angle, l10n.angles, basePath + 'angles.png'),
+    PropertyUi(PROPERTYX.shoeSize, l10n.shoeSize, basePath + 'shoe_size.png'),
+    PropertyUi(PROPERTYX.digitalData, l10n.digitalData, basePath + 'data.png'),
+    PropertyUi(PROPERTYX.siPrefixes, l10n.siPrefixes, basePath + 'prefixes.png'),
+    PropertyUi(PROPERTYX.torque, l10n.torque, basePath + 'torque.png')];
 }
 
 /// This method will return a map of Property name translated: {PROPERTYX.LENGTH: 'Length', ...}
@@ -56,238 +53,234 @@ List<String> getPropertyNameList(BuildContext context) {
 /// units all over the app. From this List depends also other functions.
 List<UnitUi> getUnitUiList(BuildContext context) {
   const String basePath = 'resources/images/';
-  List<UnitUi> unitUiList = [];
-
-  unitUiList
-    ..add(UnitUi(LENGTH.meters, AppLocalizations.of(context)!.meters, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.centimeters, AppLocalizations.of(context)!.centimeters, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.inches, AppLocalizations.of(context)!.inches, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.mils, AppLocalizations.of(context)!.mils, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.feet, AppLocalizations.of(context)!.feet, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.nauticalMiles, AppLocalizations.of(context)!.nauticalMiles, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.yards, AppLocalizations.of(context)!.yards, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.miles, AppLocalizations.of(context)!.miles, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.millimeters, AppLocalizations.of(context)!.millimeters, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.micrometers, AppLocalizations.of(context)!.micrometers, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.nanometers, AppLocalizations.of(context)!.nanometers, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.angstroms, AppLocalizations.of(context)!.angstroms, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.picometers, AppLocalizations.of(context)!.picometers, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.kilometers, AppLocalizations.of(context)!.kilometers, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.astronomicalUnits, AppLocalizations.of(context)!.astronomicalUnits, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.lightYears, AppLocalizations.of(context)!.lightYears, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.parsec, AppLocalizations.of(context)!.parsec, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(LENGTH.feetUs, AppLocalizations.of(context)!.feetUsSurvey, basePath + 'length.png', PROPERTYX.length))
-    ..add(UnitUi(AREA.squareMeters, AppLocalizations.of(context)!.squareMeters, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(AREA.squareCentimeters, AppLocalizations.of(context)!.squareCentimeters, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(AREA.squareInches, AppLocalizations.of(context)!.squareInches, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(AREA.squareFeet, AppLocalizations.of(context)!.squareFeet, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(AREA.squareMiles, AppLocalizations.of(context)!.squareMiles, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(AREA.squareYard, AppLocalizations.of(context)!.squareYard, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(AREA.squareMillimeters, AppLocalizations.of(context)!.squareMillimeters, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(AREA.squareKilometers, AppLocalizations.of(context)!.squareKilometers, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(AREA.hectares, AppLocalizations.of(context)!.hectares, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(AREA.acres, AppLocalizations.of(context)!.acres, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(AREA.are, AppLocalizations.of(context)!.are, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(AREA.squareFeetUs, AppLocalizations.of(context)!.squareFeetUsSurvey, basePath + 'area.png', PROPERTYX.area))
-    ..add(UnitUi(VOLUME.cubicMeters, AppLocalizations.of(context)!.cubicMeters, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.liters, AppLocalizations.of(context)!.liters, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.imperialGallons, AppLocalizations.of(context)!.imperialGallons, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.usGallons, AppLocalizations.of(context)!.usGallons, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.imperialPints, AppLocalizations.of(context)!.imperialPints, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.usPints, AppLocalizations.of(context)!.usPints, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.milliliters, AppLocalizations.of(context)!.milliliters, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.tablespoonsUs, AppLocalizations.of(context)!.tablespoonUs, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.australianTablespoons, AppLocalizations.of(context)!.tablespoonAustralian, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.cups, AppLocalizations.of(context)!.cups, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.cubicCentimeters, AppLocalizations.of(context)!.cubicCentimeters, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.cubicFeet, AppLocalizations.of(context)!.cubicFeet, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.cubicInches, AppLocalizations.of(context)!.cubicInches, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.cubicMillimeters, AppLocalizations.of(context)!.cubicMillimeters, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.usFluidOunces, AppLocalizations.of(context)!.usFluidOunces, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.imperialFluidOunces, AppLocalizations.of(context)!.imperialFluidOunces, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.usGill, AppLocalizations.of(context)!.usGill, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi(VOLUME.imperialGill, AppLocalizations.of(context)!.imperialGill, basePath + 'volume.png', PROPERTYX.volume))
-    ..add(UnitUi('EUR', AppLocalizations.of(context)!.eur, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('CAD', AppLocalizations.of(context)!.cad, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('HKD', AppLocalizations.of(context)!.hkd, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('RUB', AppLocalizations.of(context)!.rub, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('PHP', AppLocalizations.of(context)!.php, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('DKK', AppLocalizations.of(context)!.dkk, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('NZD', AppLocalizations.of(context)!.nzd, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('CNY', AppLocalizations.of(context)!.cny, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('AUD', AppLocalizations.of(context)!.aud, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('RON', AppLocalizations.of(context)!.ron, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('SEK', AppLocalizations.of(context)!.sek, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('IDR', AppLocalizations.of(context)!.idr, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('INR', AppLocalizations.of(context)!.inr, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('BRL', AppLocalizations.of(context)!.brl, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('USD', AppLocalizations.of(context)!.usd, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('ILS', AppLocalizations.of(context)!.ils, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('JPY', AppLocalizations.of(context)!.jpy, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('THB', AppLocalizations.of(context)!.thb, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('CHF', AppLocalizations.of(context)!.chf, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('CZK', AppLocalizations.of(context)!.czk, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('MYR', AppLocalizations.of(context)!.myr, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('TRY', AppLocalizations.of(context)!.trY, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('MXN', AppLocalizations.of(context)!.mxn, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('NOK', AppLocalizations.of(context)!.nok, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('HUF', AppLocalizations.of(context)!.huf, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('ZAR', AppLocalizations.of(context)!.zar, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('SGD', AppLocalizations.of(context)!.sgd, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('GBP', AppLocalizations.of(context)!.gbp, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('KRW', AppLocalizations.of(context)!.krw, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('PLN', AppLocalizations.of(context)!.pln, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('BGN', AppLocalizations.of(context)!.bgn, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('HRK', AppLocalizations.of(context)!.hrk, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('ISK', AppLocalizations.of(context)!.isk, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('TWD', AppLocalizations.of(context)!.twd, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi('MAD', AppLocalizations.of(context)!.mad, basePath + 'currencies.png', PROPERTYX.currencies))
-    ..add(UnitUi(TIME.seconds, AppLocalizations.of(context)!.seconds, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.deciseconds, AppLocalizations.of(context)!.deciseconds, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.centiseconds, AppLocalizations.of(context)!.centiseconds, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.milliseconds, AppLocalizations.of(context)!.milliseconds, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.microseconds, AppLocalizations.of(context)!.microseconds, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.nanoseconds, AppLocalizations.of(context)!.nanoseconds, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.minutes, AppLocalizations.of(context)!.minutes, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.hours, AppLocalizations.of(context)!.hours, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.days, AppLocalizations.of(context)!.days, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.weeks, AppLocalizations.of(context)!.weeks, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.years365, AppLocalizations.of(context)!.years, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.lustrum, AppLocalizations.of(context)!.lustrum, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.decades, AppLocalizations.of(context)!.decades, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.centuries, AppLocalizations.of(context)!.centuries, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TIME.millennium, AppLocalizations.of(context)!.millennium, basePath + 'time.png', PROPERTYX.time))
-    ..add(UnitUi(TEMPERATURE.fahrenheit, AppLocalizations.of(context)!.fahrenheit, basePath + 'temperature.png', PROPERTYX.temperature))
-    ..add(UnitUi(TEMPERATURE.celsius, AppLocalizations.of(context)!.celsius, basePath + 'temperature.png', PROPERTYX.temperature))
-    ..add(UnitUi(TEMPERATURE.kelvin, AppLocalizations.of(context)!.kelvin, basePath + 'temperature.png', PROPERTYX.temperature))
-    ..add(UnitUi(TEMPERATURE.reamur, AppLocalizations.of(context)!.reamur, basePath + 'temperature.png', PROPERTYX.temperature))
-    ..add(UnitUi(TEMPERATURE.romer, AppLocalizations.of(context)!.romer, basePath + 'temperature.png', PROPERTYX.temperature))
-    ..add(UnitUi(TEMPERATURE.delisle, AppLocalizations.of(context)!.delisle, basePath + 'temperature.png', PROPERTYX.temperature))
-    ..add(UnitUi(TEMPERATURE.rankine, AppLocalizations.of(context)!.rankine, basePath + 'temperature.png', PROPERTYX.temperature))
-    ..add(UnitUi(SPEED.metersPerSecond, AppLocalizations.of(context)!.metersSecond, basePath + 'speed.png', PROPERTYX.speed))
-    ..add(UnitUi(SPEED.kilometersPerHour, AppLocalizations.of(context)!.kilometersHour, basePath + 'speed.png', PROPERTYX.speed))
-    ..add(UnitUi(SPEED.milesPerHour, AppLocalizations.of(context)!.milesHour, basePath + 'speed.png', PROPERTYX.speed))
-    ..add(UnitUi(SPEED.knots, AppLocalizations.of(context)!.knots, basePath + 'speed.png', PROPERTYX.speed))
-    ..add(UnitUi(SPEED.feetsPerSecond, AppLocalizations.of(context)!.feetSecond, basePath + 'speed.png', PROPERTYX.speed))
-    ..add(UnitUi(SPEED.minutesPerKilometer, AppLocalizations.of(context)!.minutesPerKilometer, basePath + 'speed.png', PROPERTYX.speed))
-    ..add(UnitUi(MASS.grams, AppLocalizations.of(context)!.grams, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.ettograms, AppLocalizations.of(context)!.ettograms, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.kilograms, AppLocalizations.of(context)!.kilograms, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.pounds, AppLocalizations.of(context)!.pounds, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.ounces, AppLocalizations.of(context)!.ounces, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.quintals, AppLocalizations.of(context)!.quintals, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.tons, AppLocalizations.of(context)!.tons, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.milligrams, AppLocalizations.of(context)!.milligrams, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.uma, AppLocalizations.of(context)!.uma, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.carats, AppLocalizations.of(context)!.carats, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.centigrams, AppLocalizations.of(context)!.centigrams, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.pennyweights, AppLocalizations.of(context)!.pennyweights, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.troyOunces, AppLocalizations.of(context)!.troyOunces, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(MASS.stones, AppLocalizations.of(context)!.stones, basePath + 'mass.png', PROPERTYX.mass))
-    ..add(UnitUi(FORCE.newton, AppLocalizations.of(context)!.newton, basePath + 'force.png', PROPERTYX.force))
-    ..add(UnitUi(FORCE.dyne, AppLocalizations.of(context)!.dyne, basePath + 'force.png', PROPERTYX.force))
-    ..add(UnitUi(FORCE.poundForce, AppLocalizations.of(context)!.poundForce, basePath + 'force.png', PROPERTYX.force))
-    ..add(UnitUi(FORCE.kilogramForce, AppLocalizations.of(context)!.kilogramForce, basePath + 'force.png', PROPERTYX.force))
-    ..add(UnitUi(FORCE.poundal, AppLocalizations.of(context)!.poundal, basePath + 'force.png', PROPERTYX.force))
-    ..add(UnitUi(FUEL_CONSUMPTION.kilometersPerLiter, AppLocalizations.of(context)!.kilometersLiter, basePath + 'fuel.png', PROPERTYX.fuelConsumption))
-    ..add(UnitUi(FUEL_CONSUMPTION.litersPer100km, AppLocalizations.of(context)!.liters100km, basePath + 'fuel.png', PROPERTYX.fuelConsumption))
-    ..add(UnitUi(FUEL_CONSUMPTION.milesPerUsGallon, AppLocalizations.of(context)!.milesUsGallon, basePath + 'fuel.png', PROPERTYX.fuelConsumption))
-    ..add(UnitUi(
-        FUEL_CONSUMPTION.milesPerImperialGallon, AppLocalizations.of(context)!.milesImperialGallon, basePath + 'fuel.png', PROPERTYX.fuelConsumption))
-    ..add(UnitUi(NUMERAL_SYSTEMS.decimal, AppLocalizations.of(context)!.decimal, basePath + 'num_systems.png', PROPERTYX.numeralSystems))
-    ..add(UnitUi(NUMERAL_SYSTEMS.hexadecimal, AppLocalizations.of(context)!.hexadecimal, basePath + 'num_systems.png', PROPERTYX.numeralSystems))
-    ..add(UnitUi(NUMERAL_SYSTEMS.octal, AppLocalizations.of(context)!.octal, basePath + 'num_systems.png', PROPERTYX.numeralSystems))
-    ..add(UnitUi(NUMERAL_SYSTEMS.binary, AppLocalizations.of(context)!.binary, basePath + 'num_systems.png', PROPERTYX.numeralSystems))
-    ..add(UnitUi(PRESSURE.pascal, AppLocalizations.of(context)!.pascal, basePath + 'pressure.png', PROPERTYX.pressure))
-    ..add(UnitUi(PRESSURE.atmosphere, AppLocalizations.of(context)!.atmosphere, basePath + 'pressure.png', PROPERTYX.pressure))
-    ..add(UnitUi(PRESSURE.bar, AppLocalizations.of(context)!.bar, basePath + 'pressure.png', PROPERTYX.pressure))
-    ..add(UnitUi(PRESSURE.millibar, AppLocalizations.of(context)!.millibar, basePath + 'pressure.png', PROPERTYX.pressure))
-    ..add(UnitUi(PRESSURE.psi, AppLocalizations.of(context)!.psi, basePath + 'pressure.png', PROPERTYX.pressure))
-    ..add(UnitUi(PRESSURE.torr, AppLocalizations.of(context)!.torr, basePath + 'pressure.png', PROPERTYX.pressure))
-    ..add(UnitUi(PRESSURE.inchOfMercury, AppLocalizations.of(context)!.inchesOfMercury, basePath + 'pressure.png', PROPERTYX.pressure))
-    ..add(UnitUi(PRESSURE.hectoPascal, AppLocalizations.of(context)!.hectoPascal, basePath + 'pressure.png', PROPERTYX.pressure))
-    ..add(UnitUi(ENERGY.joules, AppLocalizations.of(context)!.joule, basePath + 'energy.png', PROPERTYX.energy))
-    ..add(UnitUi(ENERGY.calories, AppLocalizations.of(context)!.calories, basePath + 'energy.png', PROPERTYX.energy))
-    ..add(UnitUi(ENERGY.kilowattHours, AppLocalizations.of(context)!.kilowattHour, basePath + 'energy.png', PROPERTYX.energy))
-    ..add(UnitUi(ENERGY.electronvolts, AppLocalizations.of(context)!.electronvolt, basePath + 'energy.png', PROPERTYX.energy))
-    ..add(UnitUi(ENERGY.energyFootPound, AppLocalizations.of(context)!.footPound, basePath + 'energy.png', PROPERTYX.energy))
-    ..add(UnitUi(ENERGY.kilocalories, AppLocalizations.of(context)!.kilocalories, basePath + 'energy.png', PROPERTYX.energy))
-    ..add(UnitUi(POWER.watt, AppLocalizations.of(context)!.watt, basePath + 'power.png', PROPERTYX.power))
-    ..add(UnitUi(POWER.milliwatt, AppLocalizations.of(context)!.milliwatt, basePath + 'power.png', PROPERTYX.power))
-    ..add(UnitUi(POWER.kilowatt, AppLocalizations.of(context)!.kilowatt, basePath + 'power.png', PROPERTYX.power))
-    ..add(UnitUi(POWER.megawatt, AppLocalizations.of(context)!.megawatt, basePath + 'power.png', PROPERTYX.power))
-    ..add(UnitUi(POWER.gigawatt, AppLocalizations.of(context)!.gigawatt, basePath + 'power.png', PROPERTYX.power))
-    ..add(UnitUi(POWER.europeanHorsePower, AppLocalizations.of(context)!.europeanHorsePower, basePath + 'power.png', PROPERTYX.power))
-    ..add(UnitUi(POWER.imperialHorsePower, AppLocalizations.of(context)!.imperialHorsePower, basePath + 'power.png', PROPERTYX.power))
-    ..add(UnitUi(ANGLE.degree, AppLocalizations.of(context)!.degree, basePath + 'angles.png', PROPERTYX.angle))
-    ..add(UnitUi(ANGLE.minutes, AppLocalizations.of(context)!.minutesDegree, basePath + 'angles.png', PROPERTYX.angle))
-    ..add(UnitUi(ANGLE.seconds, AppLocalizations.of(context)!.secondsDegree, basePath + 'angles.png', PROPERTYX.angle))
-    ..add(UnitUi(ANGLE.radians, AppLocalizations.of(context)!.radiansDegree, basePath + 'angles.png', PROPERTYX.angle))
-    ..add(UnitUi(SHOE_SIZE.centimeters, AppLocalizations.of(context)!.centimeters, basePath + 'shoe_size.png', PROPERTYX.shoeSize))
-    ..add(UnitUi(SHOE_SIZE.inches, AppLocalizations.of(context)!.inches, basePath + 'shoe_size.png', PROPERTYX.shoeSize))
-    ..add(UnitUi(SHOE_SIZE.euChina, AppLocalizations.of(context)!.euChina, basePath + 'shoe_size.png', PROPERTYX.shoeSize))
-    ..add(UnitUi(SHOE_SIZE.ukIndiaChild, AppLocalizations.of(context)!.ukIndiaChild, basePath + 'shoe_size.png', PROPERTYX.shoeSize))
-    ..add(UnitUi(SHOE_SIZE.ukIndiaMan, AppLocalizations.of(context)!.ukIndiaMan, basePath + 'shoe_size.png', PROPERTYX.shoeSize))
-    ..add(UnitUi(SHOE_SIZE.ukIndiaWoman, AppLocalizations.of(context)!.ukIndiaWoman, basePath + 'shoe_size.png', PROPERTYX.shoeSize))
-    ..add(UnitUi(SHOE_SIZE.usaCanadaChild, AppLocalizations.of(context)!.usaCanadaChild, basePath + 'shoe_size.png', PROPERTYX.shoeSize))
-    ..add(UnitUi(SHOE_SIZE.usaCanadaMan, AppLocalizations.of(context)!.usaCanadaMan, basePath + 'shoe_size.png', PROPERTYX.shoeSize))
-    ..add(UnitUi(SHOE_SIZE.usaCanadaWoman, AppLocalizations.of(context)!.usaCanadaWoman, basePath + 'shoe_size.png', PROPERTYX.shoeSize))
-    ..add(UnitUi(SHOE_SIZE.japan, AppLocalizations.of(context)!.japan, basePath + 'shoe_size.png', PROPERTYX.shoeSize))
-    ..add(UnitUi(DIGITAL_DATA.bit, AppLocalizations.of(context)!.bit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.nibble, AppLocalizations.of(context)!.nibble, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.kilobit, AppLocalizations.of(context)!.kilobit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.megabit, AppLocalizations.of(context)!.megabit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.gigabit, AppLocalizations.of(context)!.gigabit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.terabit, AppLocalizations.of(context)!.terabit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.petabit, AppLocalizations.of(context)!.petabit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.exabit, AppLocalizations.of(context)!.exabit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.kibibit, AppLocalizations.of(context)!.kibibit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.mebibit, AppLocalizations.of(context)!.mebibit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.gibibit, AppLocalizations.of(context)!.gibibit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.tebibit, AppLocalizations.of(context)!.tebibit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.pebibit, AppLocalizations.of(context)!.pebibit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.exbibit, AppLocalizations.of(context)!.exbibit, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.byte, AppLocalizations.of(context)!.byte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.kilobyte, AppLocalizations.of(context)!.kilobyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.megabyte, AppLocalizations.of(context)!.megabyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.gigabyte, AppLocalizations.of(context)!.gigabyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.terabyte, AppLocalizations.of(context)!.terabyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.petabyte, AppLocalizations.of(context)!.petabyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.exabyte, AppLocalizations.of(context)!.exabyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.kibibyte, AppLocalizations.of(context)!.kibibyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.mebibyte, AppLocalizations.of(context)!.mebibyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.gibibyte, AppLocalizations.of(context)!.gibibyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.tebibyte, AppLocalizations.of(context)!.tebibyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.pebibyte, AppLocalizations.of(context)!.pebibyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(DIGITAL_DATA.exbibyte, AppLocalizations.of(context)!.exbibyte, basePath + 'data.png', PROPERTYX.digitalData))
-    ..add(UnitUi(SI_PREFIXES.base, AppLocalizations.of(context)!.base, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.deca, AppLocalizations.of(context)!.deca, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.hecto, AppLocalizations.of(context)!.hecto, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.kilo, AppLocalizations.of(context)!.kilo, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.mega, AppLocalizations.of(context)!.mega, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.giga, AppLocalizations.of(context)!.giga, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.tera, AppLocalizations.of(context)!.tera, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.peta, AppLocalizations.of(context)!.peta, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.exa, AppLocalizations.of(context)!.exa, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.zetta, AppLocalizations.of(context)!.zetta, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.yotta, AppLocalizations.of(context)!.yotta, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.deci, AppLocalizations.of(context)!.deci, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.centi, AppLocalizations.of(context)!.centi, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.milli, AppLocalizations.of(context)!.milli, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.micro, AppLocalizations.of(context)!.micro, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.nano, AppLocalizations.of(context)!.nano, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.pico, AppLocalizations.of(context)!.pico, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.femto, AppLocalizations.of(context)!.femto, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.atto, AppLocalizations.of(context)!.atto, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.zepto, AppLocalizations.of(context)!.zepto, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(SI_PREFIXES.yocto, AppLocalizations.of(context)!.yocto, basePath + 'prefixes.png', PROPERTYX.siPrefixes))
-    ..add(UnitUi(TORQUE.newtonMeter, AppLocalizations.of(context)!.newtonMeter, basePath + 'torque.png', PROPERTYX.torque))
-    ..add(UnitUi(TORQUE.dyneMeter, AppLocalizations.of(context)!.dyneMeter, basePath + 'torque.png', PROPERTYX.torque))
-    ..add(UnitUi(TORQUE.poundForceFeet, AppLocalizations.of(context)!.poundForceFeet, basePath + 'torque.png', PROPERTYX.torque))
-    ..add(UnitUi(TORQUE.kilogramForceMeter, AppLocalizations.of(context)!.kilogramForceMeter, basePath + 'torque.png', PROPERTYX.torque))
-    ..add(UnitUi(TORQUE.poundalMeter, AppLocalizations.of(context)!.poundalMeter, basePath + 'torque.png', PROPERTYX.torque));
-
-  return unitUiList;
+  var l10n = AppLocalizations.of(context)!;
+  return [
+    UnitUi(LENGTH.meters, l10n.meters, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.centimeters, l10n.centimeters, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.inches, l10n.inches, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.mils, l10n.mils, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.feet, l10n.feet, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.nauticalMiles, l10n.nauticalMiles, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.yards, l10n.yards, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.miles, l10n.miles, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.millimeters, l10n.millimeters, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.micrometers, l10n.micrometers, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.nanometers, l10n.nanometers, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.angstroms, l10n.angstroms, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.picometers, l10n.picometers, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.kilometers, l10n.kilometers, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.astronomicalUnits, l10n.astronomicalUnits, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.lightYears, l10n.lightYears, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.parsec, l10n.parsec, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(LENGTH.feetUs, l10n.feetUsSurvey, basePath + 'length.png', PROPERTYX.length),
+    UnitUi(AREA.squareMeters, l10n.squareMeters, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(AREA.squareCentimeters, l10n.squareCentimeters, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(AREA.squareInches, l10n.squareInches, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(AREA.squareFeet, l10n.squareFeet, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(AREA.squareMiles, l10n.squareMiles, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(AREA.squareYard, l10n.squareYard, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(AREA.squareMillimeters, l10n.squareMillimeters, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(AREA.squareKilometers, l10n.squareKilometers, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(AREA.hectares, l10n.hectares, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(AREA.acres, l10n.acres, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(AREA.are, l10n.are, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(AREA.squareFeetUs, l10n.squareFeetUsSurvey, basePath + 'area.png', PROPERTYX.area),
+    UnitUi(VOLUME.cubicMeters, l10n.cubicMeters, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.liters, l10n.liters, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.imperialGallons, l10n.imperialGallons, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.usGallons, l10n.usGallons, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.imperialPints, l10n.imperialPints, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.usPints, l10n.usPints, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.milliliters, l10n.milliliters, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.tablespoonsUs, l10n.tablespoonUs, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.australianTablespoons, l10n.tablespoonAustralian, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.cups, l10n.cups, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.cubicCentimeters, l10n.cubicCentimeters, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.cubicFeet, l10n.cubicFeet, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.cubicInches, l10n.cubicInches, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.cubicMillimeters, l10n.cubicMillimeters, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.usFluidOunces, l10n.usFluidOunces, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.imperialFluidOunces, l10n.imperialFluidOunces, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.usGill, l10n.usGill, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi(VOLUME.imperialGill, l10n.imperialGill, basePath + 'volume.png', PROPERTYX.volume),
+    UnitUi('EUR', l10n.eur, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('CAD', l10n.cad, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('HKD', l10n.hkd, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('RUB', l10n.rub, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('PHP', l10n.php, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('DKK', l10n.dkk, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('NZD', l10n.nzd, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('CNY', l10n.cny, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('AUD', l10n.aud, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('RON', l10n.ron, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('SEK', l10n.sek, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('IDR', l10n.idr, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('INR', l10n.inr, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('BRL', l10n.brl, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('USD', l10n.usd, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('ILS', l10n.ils, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('JPY', l10n.jpy, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('THB', l10n.thb, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('CHF', l10n.chf, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('CZK', l10n.czk, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('MYR', l10n.myr, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('TRY', l10n.trY, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('MXN', l10n.mxn, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('NOK', l10n.nok, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('HUF', l10n.huf, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('ZAR', l10n.zar, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('SGD', l10n.sgd, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('GBP', l10n.gbp, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('KRW', l10n.krw, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('PLN', l10n.pln, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('BGN', l10n.bgn, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('HRK', l10n.hrk, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('ISK', l10n.isk, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('TWD', l10n.twd, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi('MAD', l10n.mad, basePath + 'currencies.png', PROPERTYX.currencies),
+    UnitUi(TIME.seconds, l10n.seconds, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.deciseconds, l10n.deciseconds, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.centiseconds, l10n.centiseconds, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.milliseconds, l10n.milliseconds, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.microseconds, l10n.microseconds, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.nanoseconds, l10n.nanoseconds, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.minutes, l10n.minutes, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.hours, l10n.hours, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.days, l10n.days, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.weeks, l10n.weeks, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.years365, l10n.years, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.lustrum, l10n.lustrum, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.decades, l10n.decades, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.centuries, l10n.centuries, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TIME.millennium, l10n.millennium, basePath + 'time.png', PROPERTYX.time),
+    UnitUi(TEMPERATURE.fahrenheit, l10n.fahrenheit, basePath + 'temperature.png', PROPERTYX.temperature),
+    UnitUi(TEMPERATURE.celsius, l10n.celsius, basePath + 'temperature.png', PROPERTYX.temperature),
+    UnitUi(TEMPERATURE.kelvin, l10n.kelvin, basePath + 'temperature.png', PROPERTYX.temperature),
+    UnitUi(TEMPERATURE.reamur, l10n.reamur, basePath + 'temperature.png', PROPERTYX.temperature),
+    UnitUi(TEMPERATURE.romer, l10n.romer, basePath + 'temperature.png', PROPERTYX.temperature),
+    UnitUi(TEMPERATURE.delisle, l10n.delisle, basePath + 'temperature.png', PROPERTYX.temperature),
+    UnitUi(TEMPERATURE.rankine, l10n.rankine, basePath + 'temperature.png', PROPERTYX.temperature),
+    UnitUi(SPEED.metersPerSecond, l10n.metersSecond, basePath + 'speed.png', PROPERTYX.speed),
+    UnitUi(SPEED.kilometersPerHour, l10n.kilometersHour, basePath + 'speed.png', PROPERTYX.speed),
+    UnitUi(SPEED.milesPerHour, l10n.milesHour, basePath + 'speed.png', PROPERTYX.speed),
+    UnitUi(SPEED.knots, l10n.knots, basePath + 'speed.png', PROPERTYX.speed),
+    UnitUi(SPEED.feetsPerSecond, l10n.feetSecond, basePath + 'speed.png', PROPERTYX.speed),
+    UnitUi(SPEED.minutesPerKilometer, l10n.minutesPerKilometer, basePath + 'speed.png', PROPERTYX.speed),
+    UnitUi(MASS.grams, l10n.grams, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.ettograms, l10n.ettograms, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.kilograms, l10n.kilograms, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.pounds, l10n.pounds, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.ounces, l10n.ounces, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.quintals, l10n.quintals, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.tons, l10n.tons, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.milligrams, l10n.milligrams, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.uma, l10n.uma, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.carats, l10n.carats, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.centigrams, l10n.centigrams, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.pennyweights, l10n.pennyweights, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.troyOunces, l10n.troyOunces, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(MASS.stones, l10n.stones, basePath + 'mass.png', PROPERTYX.mass),
+    UnitUi(FORCE.newton, l10n.newton, basePath + 'force.png', PROPERTYX.force),
+    UnitUi(FORCE.dyne, l10n.dyne, basePath + 'force.png', PROPERTYX.force),
+    UnitUi(FORCE.poundForce, l10n.poundForce, basePath + 'force.png', PROPERTYX.force),
+    UnitUi(FORCE.kilogramForce, l10n.kilogramForce, basePath + 'force.png', PROPERTYX.force),
+    UnitUi(FORCE.poundal, l10n.poundal, basePath + 'force.png', PROPERTYX.force),
+    UnitUi(FUEL_CONSUMPTION.kilometersPerLiter, l10n.kilometersLiter, basePath + 'fuel.png', PROPERTYX.fuelConsumption),
+    UnitUi(FUEL_CONSUMPTION.litersPer100km, l10n.liters100km, basePath + 'fuel.png', PROPERTYX.fuelConsumption),
+    UnitUi(FUEL_CONSUMPTION.milesPerUsGallon, l10n.milesUsGallon, basePath + 'fuel.png', PROPERTYX.fuelConsumption),
+    UnitUi(FUEL_CONSUMPTION.milesPerImperialGallon, l10n.milesImperialGallon, basePath + 'fuel.png', PROPERTYX.fuelConsumption),
+    UnitUi(NUMERAL_SYSTEMS.decimal, l10n.decimal, basePath + 'num_systems.png', PROPERTYX.numeralSystems),
+    UnitUi(NUMERAL_SYSTEMS.hexadecimal, l10n.hexadecimal, basePath + 'num_systems.png', PROPERTYX.numeralSystems),
+    UnitUi(NUMERAL_SYSTEMS.octal, l10n.octal, basePath + 'num_systems.png', PROPERTYX.numeralSystems),
+    UnitUi(NUMERAL_SYSTEMS.binary, l10n.binary, basePath + 'num_systems.png', PROPERTYX.numeralSystems),
+    UnitUi(PRESSURE.pascal, l10n.pascal, basePath + 'pressure.png', PROPERTYX.pressure),
+    UnitUi(PRESSURE.atmosphere, l10n.atmosphere, basePath + 'pressure.png', PROPERTYX.pressure),
+    UnitUi(PRESSURE.bar, l10n.bar, basePath + 'pressure.png', PROPERTYX.pressure),
+    UnitUi(PRESSURE.millibar, l10n.millibar, basePath + 'pressure.png', PROPERTYX.pressure),
+    UnitUi(PRESSURE.psi, l10n.psi, basePath + 'pressure.png', PROPERTYX.pressure),
+    UnitUi(PRESSURE.torr, l10n.torr, basePath + 'pressure.png', PROPERTYX.pressure),
+    UnitUi(PRESSURE.inchOfMercury, l10n.inchesOfMercury, basePath + 'pressure.png', PROPERTYX.pressure),
+    UnitUi(PRESSURE.hectoPascal, l10n.hectoPascal, basePath + 'pressure.png', PROPERTYX.pressure),
+    UnitUi(ENERGY.joules, l10n.joule, basePath + 'energy.png', PROPERTYX.energy),
+    UnitUi(ENERGY.calories, l10n.calories, basePath + 'energy.png', PROPERTYX.energy),
+    UnitUi(ENERGY.kilowattHours, l10n.kilowattHour, basePath + 'energy.png', PROPERTYX.energy),
+    UnitUi(ENERGY.electronvolts, l10n.electronvolt, basePath + 'energy.png', PROPERTYX.energy),
+    UnitUi(ENERGY.energyFootPound, l10n.footPound, basePath + 'energy.png', PROPERTYX.energy),
+    UnitUi(ENERGY.kilocalories, l10n.kilocalories, basePath + 'energy.png', PROPERTYX.energy),
+    UnitUi(POWER.watt, l10n.watt, basePath + 'power.png', PROPERTYX.power),
+    UnitUi(POWER.milliwatt, l10n.milliwatt, basePath + 'power.png', PROPERTYX.power),
+    UnitUi(POWER.kilowatt, l10n.kilowatt, basePath + 'power.png', PROPERTYX.power),
+    UnitUi(POWER.megawatt, l10n.megawatt, basePath + 'power.png', PROPERTYX.power),
+    UnitUi(POWER.gigawatt, l10n.gigawatt, basePath + 'power.png', PROPERTYX.power),
+    UnitUi(POWER.europeanHorsePower, l10n.europeanHorsePower, basePath + 'power.png', PROPERTYX.power),
+    UnitUi(POWER.imperialHorsePower, l10n.imperialHorsePower, basePath + 'power.png', PROPERTYX.power),
+    UnitUi(ANGLE.degree, l10n.degree, basePath + 'angles.png', PROPERTYX.angle),
+    UnitUi(ANGLE.minutes, l10n.minutesDegree, basePath + 'angles.png', PROPERTYX.angle),
+    UnitUi(ANGLE.seconds, l10n.secondsDegree, basePath + 'angles.png', PROPERTYX.angle),
+    UnitUi(ANGLE.radians, l10n.radiansDegree, basePath + 'angles.png', PROPERTYX.angle),
+    UnitUi(SHOE_SIZE.centimeters, l10n.centimeters, basePath + 'shoe_size.png', PROPERTYX.shoeSize),
+    UnitUi(SHOE_SIZE.inches, l10n.inches, basePath + 'shoe_size.png', PROPERTYX.shoeSize),
+    UnitUi(SHOE_SIZE.euChina, l10n.euChina, basePath + 'shoe_size.png', PROPERTYX.shoeSize),
+    UnitUi(SHOE_SIZE.ukIndiaChild, l10n.ukIndiaChild, basePath + 'shoe_size.png', PROPERTYX.shoeSize),
+    UnitUi(SHOE_SIZE.ukIndiaMan, l10n.ukIndiaMan, basePath + 'shoe_size.png', PROPERTYX.shoeSize),
+    UnitUi(SHOE_SIZE.ukIndiaWoman, l10n.ukIndiaWoman, basePath + 'shoe_size.png', PROPERTYX.shoeSize),
+    UnitUi(SHOE_SIZE.usaCanadaChild, l10n.usaCanadaChild, basePath + 'shoe_size.png', PROPERTYX.shoeSize),
+    UnitUi(SHOE_SIZE.usaCanadaMan, l10n.usaCanadaMan, basePath + 'shoe_size.png', PROPERTYX.shoeSize),
+    UnitUi(SHOE_SIZE.usaCanadaWoman, l10n.usaCanadaWoman, basePath + 'shoe_size.png', PROPERTYX.shoeSize),
+    UnitUi(SHOE_SIZE.japan, l10n.japan, basePath + 'shoe_size.png', PROPERTYX.shoeSize),
+    UnitUi(DIGITAL_DATA.bit, l10n.bit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.nibble, l10n.nibble, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.kilobit, l10n.kilobit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.megabit, l10n.megabit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.gigabit, l10n.gigabit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.terabit, l10n.terabit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.petabit, l10n.petabit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.exabit, l10n.exabit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.kibibit, l10n.kibibit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.mebibit, l10n.mebibit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.gibibit, l10n.gibibit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.tebibit, l10n.tebibit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.pebibit, l10n.pebibit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.exbibit, l10n.exbibit, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.byte, l10n.byte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.kilobyte, l10n.kilobyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.megabyte, l10n.megabyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.gigabyte, l10n.gigabyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.terabyte, l10n.terabyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.petabyte, l10n.petabyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.exabyte, l10n.exabyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.kibibyte, l10n.kibibyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.mebibyte, l10n.mebibyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.gibibyte, l10n.gibibyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.tebibyte, l10n.tebibyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.pebibyte, l10n.pebibyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(DIGITAL_DATA.exbibyte, l10n.exbibyte, basePath + 'data.png', PROPERTYX.digitalData),
+    UnitUi(SI_PREFIXES.base, l10n.base, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.deca, l10n.deca, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.hecto, l10n.hecto, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.kilo, l10n.kilo, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.mega, l10n.mega, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.giga, l10n.giga, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.tera, l10n.tera, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.peta, l10n.peta, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.exa, l10n.exa, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.zetta, l10n.zetta, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.yotta, l10n.yotta, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.deci, l10n.deci, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.centi, l10n.centi, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.milli, l10n.milli, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.micro, l10n.micro, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.nano, l10n.nano, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.pico, l10n.pico, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.femto, l10n.femto, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.atto, l10n.atto, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.zepto, l10n.zepto, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(SI_PREFIXES.yocto, l10n.yocto, basePath + 'prefixes.png', PROPERTYX.siPrefixes),
+    UnitUi(TORQUE.newtonMeter, l10n.newtonMeter, basePath + 'torque.png', PROPERTYX.torque),
+    UnitUi(TORQUE.dyneMeter, l10n.dyneMeter, basePath + 'torque.png', PROPERTYX.torque),
+    UnitUi(TORQUE.poundForceFeet, l10n.poundForceFeet, basePath + 'torque.png', PROPERTYX.torque),
+    UnitUi(TORQUE.kilogramForceMeter, l10n.kilogramForceMeter, basePath + 'torque.png', PROPERTYX.torque),
+    UnitUi(TORQUE.poundalMeter, l10n.poundalMeter, basePath + 'torque.png', PROPERTYX.torque)];
 }
 
 /// This method will return a map of Unit name translated: {LENGTH.meters: 'Meters', ...}
