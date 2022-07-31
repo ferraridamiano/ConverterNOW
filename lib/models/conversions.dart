@@ -1,9 +1,8 @@
 import 'package:converterpro/utils/utils.dart';
+import 'package:exchange_rates/exchange_rates.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 import 'package:intl/intl.dart';
-import 'package:http/http.dart' as http;
 import 'package:units_converter/units_converter.dart';
 
 class Conversions with ChangeNotifier {
@@ -19,42 +18,42 @@ class Conversions with ChangeNotifier {
 
   UnitData? _selectedUnit; //unit where the user is writing the value
   CurrenciesObject _currenciesObject = CurrenciesObject();
-  final Map<CURRENCIES, String> _currenciesSymbols = {
-    CURRENCIES.EUR: '€ 🇪🇺',
-    CURRENCIES.CAD: '\$ 🇨🇦',
-    CURRENCIES.HKD: 'HK\$ 🇭🇰',
-    CURRENCIES.RUB: '₽ 🇷🇺',
-    CURRENCIES.PHP: '₱ 🇵🇭',
-    CURRENCIES.DKK: 'kr 🇩🇰',
-    CURRENCIES.NZD: 'NZ\$ 🇳🇿',
-    CURRENCIES.CNY: '¥ 🇨🇳',
-    CURRENCIES.AUD: 'A\$ 🇦🇺',
-    CURRENCIES.RON: 'L 🇷🇴',
-    CURRENCIES.SEK: 'kr 🇸🇪',
-    CURRENCIES.IDR: 'Rp 🇮🇩',
-    CURRENCIES.INR: '₹ 🇮🇳',
-    CURRENCIES.BRL: 'R\$ 🇧🇷',
-    CURRENCIES.USD: '\$ 🇺🇸',
-    CURRENCIES.ILS: '₪ 🇮🇱',
-    CURRENCIES.JPY: '¥ 🇯🇵',
-    CURRENCIES.THB: '฿ 🇹🇭',
-    CURRENCIES.CHF: 'Fr. 🇨🇭',
-    CURRENCIES.CZK: 'Kč 🇨🇿',
-    CURRENCIES.MYR: 'RM 🇲🇾',
-    CURRENCIES.TRY: '₺ 🇹🇷',
-    CURRENCIES.MXN: '\$ 🇲🇽',
-    CURRENCIES.NOK: 'kr 🇳🇴',
-    CURRENCIES.HUF: 'Ft 🇭🇺',
-    CURRENCIES.ZAR: 'R 🇿🇦',
-    CURRENCIES.SGD: 'S\$ 🇸🇬',
-    CURRENCIES.GBP: '£ 🇬🇧',
-    CURRENCIES.KRW: '₩ 🇰🇷',
-    CURRENCIES.PLN: 'zł 🇵🇱',
-    CURRENCIES.HRK: 'kn 🇭🇷',
-    CURRENCIES.BGN: 'лв 🇧🇬',
-    CURRENCIES.ISK: 'kr 🇮🇸',
-    CURRENCIES.TWD: 'NT\$ 🇹🇼',
-    CURRENCIES.MAD: 'د.م. 🇲🇦',
+  final Map<String, String> _currenciesSymbols = {
+    'EUR': '€ 🇪🇺',
+    'CAD': '\$ 🇨🇦',
+    'HKD': 'HK\$ 🇭🇰',
+    'RUB': '₽ 🇷🇺',
+    'PHP': '₱ 🇵🇭',
+    'DKK': 'kr 🇩🇰',
+    'NZD': 'NZ\$ 🇳🇿',
+    'CNY': '¥ 🇨🇳',
+    'AUD': 'A\$ 🇦🇺',
+    'RON': 'L 🇷🇴',
+    'SEK': 'kr 🇸🇪',
+    'IDR': 'Rp 🇮🇩',
+    'INR': '₹ 🇮🇳',
+    'BRL': 'R\$ 🇧🇷',
+    'USD': '\$ 🇺🇸',
+    'ILS': '₪ 🇮🇱',
+    'JPY': '¥ 🇯🇵',
+    'THB': '฿ 🇹🇭',
+    'CHF': 'Fr. 🇨🇭',
+    'CZK': 'Kč 🇨🇿',
+    'MYR': 'RM 🇲🇾',
+    'TRY': '₺ 🇹🇷',
+    'MXN': '\$ 🇲🇽',
+    'NOK': 'kr 🇳🇴',
+    'HUF': 'Ft 🇭🇺',
+    'ZAR': 'R 🇿🇦',
+    'SGD': 'S\$ 🇸🇬',
+    'GBP': '£ 🇬🇧',
+    'KRW': '₩ 🇰🇷',
+    'PLN': 'zł 🇵🇱',
+    'HRK': 'kn 🇭🇷',
+    'BGN': 'лв 🇧🇬',
+    'ISK': 'kr 🇮🇸',
+    'TWD': 'NT\$ 🇹🇼',
+    'MAD': 'د.م. 🇲🇦',
   };
   List<Property> _propertyList = [];
   List<List<int>>? _conversionsOrder;
@@ -73,36 +72,67 @@ class Conversions with ChangeNotifier {
   void _initializePropertyList() {
     _propertyList = [
       Length(
-          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.length),
-      Area(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.area),
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.length),
+      Area(
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.area),
       Volume(
-          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.volume),
-      SimpleCustomConversion(_currenciesObject.values,
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.volume),
+      SimpleCustomConversion(_currenciesObject.exchangeRates,
           mapSymbols: _currenciesSymbols,
           significantFigures: _significantFigures,
           removeTrailingZeros: _removeTrailingZeros,
           name: PROPERTYX.currencies),
-      Time(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.time),
+      Time(
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.time),
       Temperature(
           significantFigures: _significantFigures,
           removeTrailingZeros: _removeTrailingZeros,
           name: PROPERTYX.temperature),
-      Speed(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.speed),
-      Mass(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.mass),
-      Force(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.force),
+      Speed(
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.speed),
+      Mass(
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.mass),
+      Force(
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.force),
       FuelConsumption(
           significantFigures: _significantFigures,
           removeTrailingZeros: _removeTrailingZeros,
           name: PROPERTYX.fuelConsumption),
       NumeralSystems(name: PROPERTYX.numeralSystems),
       Pressure(
-          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.pressure),
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.pressure),
       Energy(
-          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.energy),
-      Power(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.power),
-      Angle(significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.angle),
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.energy),
+      Power(
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.power),
+      Angle(
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.angle),
       ShoeSize(
-          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.shoeSize),
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.shoeSize),
       DigitalData(
           significantFigures: _significantFigures,
           removeTrailingZeros: _removeTrailingZeros,
@@ -112,7 +142,9 @@ class Conversions with ChangeNotifier {
           removeTrailingZeros: _removeTrailingZeros,
           name: PROPERTYX.siPrefixes),
       Torque(
-          significantFigures: _significantFigures, removeTrailingZeros: _removeTrailingZeros, name: PROPERTYX.torque),
+          significantFigures: _significantFigures,
+          removeTrailingZeros: _removeTrailingZeros,
+          name: PROPERTYX.torque),
     ];
   }
 
@@ -127,7 +159,8 @@ class Conversions with ChangeNotifier {
     List<UnitData> currentUnitDataList = _unitDataList[page];
     for (UnitData currentUnitData in currentUnitDataList) {
       final _currentProperty = _propertyList[page];
-      currentUnitData.unit = _currentProperty.getUnit(currentUnitData.unit.name);
+      currentUnitData.unit =
+          _currentProperty.getUnit(currentUnitData.unit.name);
       if (currentUnitData != _selectedUnit) {
         if (currentUnitData.unit.stringValue == null) {
           currentUnitData.tec.text = '';
@@ -155,13 +188,18 @@ class Conversions with ChangeNotifier {
   clearAllValues(int page) {
     List<UnitData> currentUnitDataList = _unitDataList[page];
     if (currentUnitDataList[0].property == PROPERTYX.numeralSystems) {
-      _savedUnitDataList = [...currentUnitDataList.map((unitData) => unitData.unit.stringValue)];
+      _savedUnitDataList = [
+        ...currentUnitDataList.map((unitData) => unitData.unit.stringValue)
+      ];
     } else {
-      _savedUnitDataList = [...currentUnitDataList.map((unitData) => unitData.unit.value)];
+      _savedUnitDataList = [
+        ...currentUnitDataList.map((unitData) => unitData.unit.value)
+      ];
     }
     _savedPropertyIndex = page;
     convert(currentUnitDataList[0], null, page);
-    currentUnitDataList[0].tec.text = ''; // convert doesn't clear a selected textfield
+    currentUnitDataList[0].tec.text =
+        ''; // convert doesn't clear a selected textfield
   }
 
   /// Undo the last clear all operation performed
@@ -205,12 +243,13 @@ class Conversions with ChangeNotifier {
     String? currenciesRead = prefs.getString('currenciesRates');
     String? lastUpdate = prefs.getString("lastUpdateCurrencies");
     if (currenciesRead != null && lastUpdate != null) {
-      _currenciesObject = CurrenciesObject.fromJson(json.decode(currenciesRead), lastUpdate);
+      _currenciesObject = CurrenciesObject.fromJson(currenciesRead, lastUpdate);
     }
   }
 
-  ///Updates the currencies conversions ratio with the latest values. The data comes from
-  ///the internet if the connection is available or from memory if the smartphone is offline
+  /// Updates the currencies conversions ratio with the latest values. The data
+  /// comes from the internet if the connection is available or from memory if
+  /// the smartphone is offline
   _checkCurrencies() async {
     String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -219,49 +258,26 @@ class Conversions with ChangeNotifier {
     String? lastUpdate = prefs.getString("lastUpdateCurrencies");
     //if I have never updated the conversions or if I have updated before today I have to update
     if (lastUpdate == null || lastUpdate != now) {
-      //stringRequest prepares the string request for all the currencies in the enum CURRENICES
-      String stringRequest = '';
-      for (CURRENCIES currency in CURRENCIES.values) {
-        if (currency != CURRENCIES.EUR) {
-          stringRequest +=
-              (currency.toString().substring(11).toUpperCase() + '+'); // removes the first part: 'CURRENCIES.'
-        }
-      }
-      stringRequest = stringRequest.substring(0, stringRequest.length - 1); //removes the last '+'
-      try {
-        http.Response httpResponse = await http.get(
-          Uri.https(
-            'sdw-wsrest.ecb.europa.eu',
-            'service/data/EXR/D.$stringRequest.EUR.SP00.A',
-            {
-              'lastNObservations': '1',
-              'detail': 'dataonly',
-            },
-          ),
-          headers: {'Accept': 'application/vnd.sdmx.data+json;version=1.0.0-wd'},
-        );
-        //if successful
-        if (httpResponse.statusCode == 200) {
-          _currenciesObject = CurrenciesObject.fromJsonResponse(json.decode(httpResponse.body));
+      await _currenciesObject.updateCurrencies();
+      switch (_currenciesObject.status) {
+        case CurrencyStatus.updated:
           prefs.setString('currenciesRates', _currenciesObject.toJson());
           prefs.setString('lastUpdateCurrencies', now);
-        } else {
-          //if there's some error in the data read (e.g. I'm not connected)
-          await _readSavedCurrencies(); //read the saved data
-        }
-      } catch (e) {
-        //catch communication error
-        // ignore: avoid_print
-        print(e);
-        await _readSavedCurrencies(); //read the saved data
+          break;
+        default:
+          await _readSavedCurrencies();
+          break;
       }
     } else {
       //If I already have the data of today I just use it, no need of read them from the web
       await _readSavedCurrencies();
     }
-    _isCurrenciesLoading = false; // stop the progress indicator to show the date of the latest update
-    _initializePropertyList(); //we need to refresh the property list because we changed some conversions
-    notifyListeners(); //change the value of the current conversions
+    // stop the progress indicator to show the date of the latest update
+    _isCurrenciesLoading = false;
+    // we need to refresh the property list because we changed some conversions
+    _initializePropertyList();
+    // change the value of the current conversions
+    notifyListeners();
   }
 
   ///Get the orders of each units of measurement from the memory
@@ -300,8 +316,8 @@ class Conversions with ChangeNotifier {
     assert(_conversionsOrder != null, true);
     List<List<UnitData>> _tempUnitDataList = [];
     for (int i = 0; i < _propertyList.length; i++) {
-      List<UnitData> tempUnitData =
-          List.filled(_conversionsOrder![i].length, UnitData(Unit('none'), tec: TextEditingController()));
+      List<UnitData> tempUnitData = List.filled(_conversionsOrder![i].length,
+          UnitData(Unit('none'), tec: TextEditingController()));
       Property property = _propertyList[i];
       List<Unit> tempProperty = property.getAll();
       for (int j = 0; j < tempProperty.length; j++) {
@@ -312,11 +328,13 @@ class Conversions with ChangeNotifier {
             // Just kelvin and rankine can't be negative
             case TEMPERATURE.kelvin:
             case TEMPERATURE.rankine:
-              textInputType = const TextInputType.numberWithOptions(decimal: true, signed: false);
+              textInputType = const TextInputType.numberWithOptions(
+                  decimal: true, signed: false);
               validator = VALIDATOR.rationalNonNegative;
               break;
             default:
-              textInputType = const TextInputType.numberWithOptions(decimal: true, signed: true);
+              textInputType = const TextInputType.numberWithOptions(
+                  decimal: true, signed: true);
               validator = VALIDATOR.rational;
           }
         } else if (property.name == PROPERTYX.numeralSystems) {
@@ -324,19 +342,22 @@ class Conversions with ChangeNotifier {
             case NUMERAL_SYSTEMS.binary:
               {
                 validator = VALIDATOR.binary;
-                textInputType = const TextInputType.numberWithOptions(decimal: false, signed: false);
+                textInputType = const TextInputType.numberWithOptions(
+                    decimal: false, signed: false);
                 break;
               }
             case NUMERAL_SYSTEMS.octal:
               {
                 validator = VALIDATOR.octal;
-                textInputType = const TextInputType.numberWithOptions(decimal: false, signed: false);
+                textInputType = const TextInputType.numberWithOptions(
+                    decimal: false, signed: false);
                 break;
               }
             case NUMERAL_SYSTEMS.decimal:
               {
                 validator = VALIDATOR.decimal;
-                textInputType = const TextInputType.numberWithOptions(decimal: false, signed: false);
+                textInputType = const TextInputType.numberWithOptions(
+                    decimal: false, signed: false);
                 break;
               }
             case NUMERAL_SYSTEMS.hexadecimal:
@@ -347,12 +368,14 @@ class Conversions with ChangeNotifier {
               }
             default:
               {
-                textInputType = const TextInputType.numberWithOptions(decimal: false, signed: false);
+                textInputType = const TextInputType.numberWithOptions(
+                    decimal: false, signed: false);
                 validator = VALIDATOR.decimal;
               }
           }
         } else {
-          textInputType = const TextInputType.numberWithOptions(decimal: true, signed: false);
+          textInputType = const TextInputType.numberWithOptions(
+              decimal: true, signed: false);
           validator = VALIDATOR.rationalNonNegative;
         }
 
@@ -371,7 +394,9 @@ class Conversions with ChangeNotifier {
 
   ///Given a new ordering of a specific page it applys it to the app and store it.
   saveOrderUnits(List<int>? newOrder, int pageNumber) async {
-    assert(newOrder == null ? true : newOrder.length == _conversionsOrder![pageNumber].length);
+    assert(newOrder == null
+        ? true
+        : newOrder.length == _conversionsOrder![pageNumber].length);
     //if there arent't any modifications, do nothing
     if (newOrder != null) {
       List arrayCopy = List.filled(_conversionsOrder![pageNumber].length, null);

@@ -1,5 +1,6 @@
 name: converterpro
 description: Unit and currencies converter
+publish_to: none
 
 version: 3.1.3+35
 
@@ -14,8 +15,6 @@ dependencies:
   shared_preferences: ^2.0.13
   #Needed to open external pages such as GitHub repo, Play Store, etc
   url_launcher: ^6.1.2
-  #Needed to download the latest currencies convertions
-  http: ^0.13.4
   #Needed to improve the state management
   provider: ^6.0.2
   #Needed for translation
@@ -28,6 +27,9 @@ dependencies:
   quick_actions: ^0.6.0+10
   #Needed for calculator computation
   decimal: ^2.2.0
+  #Needed for updating exchange rates
+  exchange_rates:
+    path: packages/exchange_rates
   #Needed for unit conversion
   units_converter: 1.1.1
     #git:
