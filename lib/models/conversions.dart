@@ -2,7 +2,6 @@ import 'package:converterpro/utils/utils.dart';
 import 'package:exchange_rates/exchange_rates.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:units_converter/units_converter.dart';
 
