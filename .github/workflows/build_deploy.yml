@@ -16,7 +16,8 @@ jobs:
     - name: Setup Java
       uses: actions/setup-java@v3
       with:
-        java-version: '12.x'
+        distribution: 'temurin'
+        java-version: '11'
 
     - name: Install missing packages
       run: |
