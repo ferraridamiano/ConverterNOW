@@ -1,0 +1,38 @@
+<b>Converter NOW to skuteczny przelicznik jednostek miar i walut </b>
+✔️ <b>Uprość</b> żmudny proces konwersji jednostek miar za pomocą kilku kliknięć..
+🚀 Jest <b>szybki i natychmiastowy</b>: po prostu zacznij pisać i natychmiast masz konwersję w czasie rzeczywistym na wszystkie inne jednostki miary.
+🖌️ Jest <b>konfigurowalny</b>: jednostki mogą być reorganizowane zgodnie z twoimi upodobaniami i sposobem użytkowania.
+🔢 Zawiera w sobie <b>kalkulator</b>, który pozwala wykonywać obliczenia na każdej stronie.
+💰 <b>Codziennie aktualizowane</b> kursy walut
+⚫⚪ b>Wybierz swój ulubiony motyw</b>: ciemny lub jasny
+📱 <b>Pełne</b> <b>wsparcie</b> dla tabletów i telefonów komórkowych
+💯 Z <b>otwartym kodem źródłowym</b>!
+
+Sprawdź repozytorium na GitHubie: https://github.com/ferraridamiano/ConverterNOW
+
+Mamy również aplikację internetową! 🖥️ Sprawdź tutaj: https://ferraridamiano.github.io/ConverterNOW/
+
+🌍 Converter NOW jest darmowy, bez reklam, nie wymaga żadnej zgody i nie zbiera twoich danych 🌍
+
+<b>Converter NOW może przeliczać ponad 200 jednostek miary i ponad 30 walut.</b> 🎉🎉
+
+Oto przykładowe miary, które Converter NOW jest w stanie przeliczyć:
+-<b>Waluty:</b> dolary, euro, funty, rupie, jeny, itd.
+-<b>Długość:</b> metry, cale, mile, jardy, lata świetlne, itd.
+-<b>Powierzchnia:</b> metry kwadratowe, hektary, akry, itd.
+-<b>Pojemność:</b> metry sześcienne, litry, galony, pinty, łyżki, itd.
+-<b>Czas:</b> sekundy, godziny, dni, lata, tygodnie, tysiąclecia, itd.
+-<b>Temperatura:</b> stopnie Celsjusza, stopnie Fahrenheita, stopnie Kelwina, itd.
+-<b>Prędkość:</b> metry na sekundę, kilometry na godzinę, węzły, itd.
+-<b>Masa:</b> gramy, funty, tony, jednostki masy atomowej, itd.
+-<b>Siła:</b> niutony, dyny, funt-siła, itd.
+-<b>Ciśnienie:</b> paskal, bar, atmosfery, psi, itd.
+-<b>Energia:</b> dżule, kalorie, kilowatogodziny, itd.
+-<b>Moc:</b> wat, kilowat, konie mechaniczne, itd.
+-<b>Zużycie paliwa:</b> Mile z galona, kilometry z litra, itd.
+-<b>Systemy liczbowe:</b> dziesiętny, dwójkowy, szesnastkowy, itd.
+-<b>Moment obrotowy:</b> Niutonometr, funt na stopę, poundalometr, itd.
+-<b>Dane cyfrowe:</b> półjbajt, bit, bajt, kibibit, kibibajt, itd.
+-<b>Rozmiar buta:</b> angielski, indyjski, europejski, amerykański, japoński, itd.
+-<b>Kąty:</b> stopień, radian, minuta, itd.
+-<b>Przedrostek SI:</b> kilo, mega, giga, tera, mili, mikro, nano, itd.
