@@ -23,8 +23,9 @@ jobs:
     - name: Install Melos and bootstrap
       run: |
         dart pub global activate melos
-#        echo "$GITHUB_WORKSPACE/_flutter/.pub-cache/bin" >> $GITHUB_PATH
         melos bootstrap
+#        echo "$GITHUB_WORKSPACE/_flutter/.pub-cache/bin" >> $GITHUB_PATH
+        
 
     - name: Run tests
       run: melos run test
