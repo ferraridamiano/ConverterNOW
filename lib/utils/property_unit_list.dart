@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:translations/app_localizations.dart';
 import 'package:units_converter/units_converter.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'utils_widgets.dart';

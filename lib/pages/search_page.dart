@@ -1,7 +1,7 @@
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:translations/app_localizations.dart';
 
 class CustomSearchDelegate extends SearchDelegate<int> {
   final List<int> orderList;

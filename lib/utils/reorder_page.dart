@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:converterpro/styles/consts.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ReorderPage extends StatefulWidget {

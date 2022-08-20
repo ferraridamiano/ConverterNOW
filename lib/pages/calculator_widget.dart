@@ -3,7 +3,7 @@ import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:translations/app_localizations.dart';
 
 class CalculatorWidget extends StatefulWidget {
   const CalculatorWidget({Key? key}) : super(key: key);

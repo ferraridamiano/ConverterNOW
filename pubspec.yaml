@@ -30,6 +30,9 @@ dependencies:
   #Needed for updating exchange rates
   exchange_rates:
     path: packages/exchange_rates
+  #Needed for app translation
+  translations:
+    path: packages/translations
   #Needed for unit conversion
   units_converter: ^2.0.1
     #git:
