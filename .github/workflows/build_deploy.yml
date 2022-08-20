@@ -33,8 +33,10 @@ jobs:
     - name: Flutter version
       run: flutter --version
 
-    - name: Download pub dependencies
-      run: flutter pub get
+    - name: Install Melos and bootstrap (get the dependencies)
+      run: |
+        dart pub global activate melos
+        melos bootstrap
 
     - name: Build for Web
       run: flutter build web
