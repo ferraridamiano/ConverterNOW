@@ -4,7 +4,7 @@ We invite you to join our team! Everyone is welcome to contribute code via pull 
 
 ## Translating the app
 
-Right now the app is translated in English, Italian, Portuguese, French, Norwegian and German. If you know other languages and wants to help internationalizing take a look at the most updated instruction [here](https://github.com/ferraridamiano/ConverterNOW/issues/2). Than, if you want you can also translate the PlayStore/F-droid app page. You can find the page to translate [here](https://github.com/ferraridamiano/ConverterNOW/tree/master/fastlane/metadata/android/en-US). If you have some question please contact me via e-mail or submit a new issue. That's all, I will take care of the rest. Thank you!
+Right now the app is translated in several languages. If you know other languages and wants to help internationalizing take a look at the most updated instruction [here](https://github.com/ferraridamiano/ConverterNOW/wiki/Translations). Than, if you want you can also translate the PlayStore/F-droid app page. You can find the page to translate [here](https://github.com/ferraridamiano/ConverterNOW/tree/master/fastlane/metadata/android/en-US). If you have some question please contact me via e-mail or submit a new issue. That's all, I will take care of the rest. Thank you!
 
 ## Design a new logo
 
@@ -16,7 +16,7 @@ If you feel confident with Flutter coding, you can help me improving this app by
 
 ### Project structure
 
-The project uses [provider](https://github.com/rrousselGit/provider) for state management and it helps separate the UI from the model. Right now there are two models: [AppModel.dart](https://github.com/ferraridamiano/ConverterNOW/blob/master/lib/models/AppModel.dart) contains the basic logic of the app (which page is selected, in which order, etc.) and [Conversions.dart](https://github.com/ferraridamiano/ConverterNOW/blob/master/lib/models/Conversions.dart) contains the logic of the conversion section (retrieve currencies rates from the Internet, in which order are the units of measurement, etc.). You might say: "Why don't you just make one model?", the answer is: because I plan to also make a [tools section](https://github.com/ferraridamiano/ConverterNOW/issues/6) and so it is more organized.
+The project uses [provider](https://github.com/rrousselGit/provider) for state management and it helps separate the UI from the model. Right now there are two models: [AppModel.dart](https://github.com/ferraridamiano/ConverterNOW/blob/master/lib/models/AppModel.dart) contains the basic logic of the app (which page is selected, in which order, etc.) and [Conversions.dart](https://github.com/ferraridamiano/ConverterNOW/blob/master/lib/models/Conversions.dart) contains the logic of the conversion section (retrieve currencies rates from the Internet, in which order are the units of measurement, etc.). The app is structured as a monorepo and it is managed with melos.
 
 ### Add new units
 
