@@ -1,7 +1,6 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
-import 'package:converterpro/models/calculator.dart';
 import 'package:converterpro/models/conversions.dart';
-import 'package:converterpro/pages/calculator_widget.dart';
+import 'package:calculator_widget/calculator_widget.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +26,7 @@ class AppScaffold extends StatelessWidget {
       showModalBottomSheet<void>(
         context: context,
         builder: (BuildContext context) {
-          return ChangeNotifierProvider(
-            create: (_) => Calculator(),
-            child: const CalculatorWidget(),
-          );
+          return CalculatorWidget();
         },
       );
     }
