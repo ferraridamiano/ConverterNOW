@@ -11,6 +11,9 @@
 [<img src="https://img.shields.io/static/v1?style=for-the-badge&message=PayPal&color=00457C&logo=PayPal&logoColor=FFFFFF&label="
     alt="Donate paypal"
     height="30">](https://www.paypal.me/DemApps)
+[<img src="https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square"
+    alt="Maintained with Melos"
+    height="30">](https://github.com/invertase/melos)
 
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpeg" width="140">
 </div>
@@ -35,10 +38,9 @@ A few years ago I noticed that most of the unit converters on the digital stores
 
 ## Installation
 
+You can find the compiled app in [GitHub releases](https://github.com/ferraridamiano/ConverterNOW/releases) or in all of the following app stores:
 
 ### Android
-
-Install the app from the app stores:
 
 [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
     alt="Get it on Google Play"
@@ -47,11 +49,7 @@ Install the app from the app stores:
     alt="Get it on F-Droid"
     height="72">](https://f-droid.org/packages/com.ferrarid.converterpro)
 
-Otherwise, if you want to compile the code you first need to [install flutter](https://docs.flutter.dev/get-started/install), then you have to disable the signing option in [`android/app/build.gradle`](https://github.com/ferraridamiano/ConverterNOW/blob/master/android/app/build.gradle#L70) (just comment that line). Then you can type `flutter build apk --split-per-abi` to compile the code. You can find the output in `build/app/outputs/apk/release` folder.
-
 ### Linux
-
-Install the app from the app stores:
 
 [<img src="https://flathub.org/assets/badges/flathub-badge-en.png"
     alt="Download on Flathub"
@@ -60,22 +58,44 @@ Install the app from the app stores:
     alt="Get it from the Snap Store"
     height="55">](https://snapcraft.io/converternow)
 
-Otherwise, if you want to compile the code, you first need to [install flutter](https://docs.flutter.dev/get-started/install), then type `flutter build linux`. You can find the output in `build/linux/x64/release/bundle`.
-
 ### Windows
-
-Install the app from the app store:
 
 [<img src="https://getbadgecdn.azureedge.net/images/English_L.png"
     alt="Get it from the Microsoft Store"
     height="60">](https://www.microsoft.com/store/apps/9P0Q79HWJH72)
 
-Otherwise, if you want to compile the code, you first need to [install flutter](https://docs.flutter.dev/get-started/install), then type `flutter build windows`. You can find the output in `build/windows/runner/Release`.
-
 ### Web
 You can reach the PWA [here](https://converter-now.web.app).
 
-Otherwise, if you want to compile the code, you first need to [install flutter](https://docs.flutter.dev/get-started/install), then type `flutter build web`. You can find the output in `build/web`.
+## Build from source code
+First you need to
+[install flutter](https://docs.flutter.dev/get-started/install) and all the
+tooling for your target platform (e.g. Android Studio for Android, etc.). Then
+you have to activate a tool that is used to manage this repo, so you have to
+type `dart pub global activate melos` to install it and `melos bootstrap` in the
+root of the project in order to get all the dependencies and generate the
+translations code. Then follow the instructions for the platform you target.
+
+### Android
+On Android you should first disable the signing option in
+[`android/app/build.gradle`](https://github.com/ferraridamiano/ConverterNOW/blob/master/android/app/build.gradle#L70)
+(just comment that line). Then you can type `flutter build apk --split-per-abi`
+to compile the code. You can find the output in `build/app/outputs/apk/release`
+folder.
+
+### Linux
+Type `flutter build linux` to build the Linux app. You can find the output in
+`build/linux/x64/release/bundle`.
+
+### Windows
+Type `flutter build windows` to build the Windows app. You can find the output
+in `build/windows/runner/Release`.
+
+### Web
+Type `flutter build web` to build the Web app. You can find the output in
+`build/web`.
 
 ### iOS and MacOS
-The app is not tested against iOS and MacOS, but you should be able to compile it even for these platforms. You first need to [install flutter](https://docs.flutter.dev/get-started/install), then generate the platform specific code and then compile them.
+The app is not tested against iOS and MacOS, but you should be able to compile
+it even for these platforms. You first need to generate the platform specific
+code and then compile them.
