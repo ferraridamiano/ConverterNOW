@@ -3,10 +3,31 @@ name: Tests
 on: [push, pull_request]
 
 jobs:
-  test:
-    name: Test
+  # JOB to run change detection
+  changes:
+    name: Detect changed files
+    runs-on: ubuntu-latest
+    # Set job outputs to values from filter step
+    outputs:
+      calculator_widget: ${{ steps.filter.outputs.calculator_widget }}
+#     exchange_rates: ${{ steps.filter.outputs.exchange_rates }}
+    steps:
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          calculator_widget:
+            - 'packages/calculator_widget/**'
+#         exchange_rates:
+#           - 'packages/exchange_rates/**'
+
+  # JOB to build and test backend code
+  test_calculator_widget:
+    needs: changes
+    if: ${{ needs.changes.outputs.calculator_widget == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    name: calculator_widget test
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -20,10 +41,15 @@ jobs:
     - name: Flutter version
       run: flutter --version
 
-    - name: Install Melos and bootstrap (get the dependencies)
-      run: |
-        dart pub global activate melos
-        melos bootstrap
-
     - name: Run tests
-      run: melos run test
+      run: cd packages/calculator_widget && flutter test
+
+
+  # JOB to build and test exchange_rates code
+#  exchange_rates:
+#    needs: changes
+#    if: ${{ needs.changes.outputs.exchange_rates == 'true' }}
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - ...
