@@ -11,9 +11,9 @@
 [<img src="https://img.shields.io/static/v1?style=for-the-badge&message=PayPal&color=00457C&logo=PayPal&logoColor=FFFFFF&label="
     alt="Donate paypal"
     height="30">](https://www.paypal.me/DemApps)
+
 [<img src="https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square"
-    alt="Maintained with Melos"
-    height="30">](https://github.com/invertase/melos)
+    alt="Maintained with Melos">](https://github.com/invertase/melos)
 
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpeg" width="140">
 </div>
@@ -22,7 +22,7 @@
 
 A few years ago I noticed that most of the unit converters on the digital stores were ugly, not immediately usable, with ads and tracking software. I thought it would be a  good idea to develop Converter NOW in order to solve all these problems!
 
-🚀 It is made to be **easy**, **fast** and **immediately** useable: just start typing and immediately you have the real-time conversion  with all the other units of measurement
+🚀 It is made to be **easy**, **fast** and **usable**: just start typing and immediately you have the real-time conversion with all the other units of measurement!
 
 🖌️ It is **customizable**: the units can be reorganized according to your priorities and your use case
 
