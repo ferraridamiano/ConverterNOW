@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:converterpro/models/calculator.dart';
+import 'package:calculator_widget/calculator_model.dart';
 import 'package:test/test.dart';
 
 const int maxValue = 200000000;
@@ -14,7 +14,7 @@ void main() {
   test('Display number test', () {
     Random rnd = Random();
     Calculator calc = Calculator();
-    String randomNumber = rnd.nextInt(maxValue).toString() + '.' + rnd.nextInt(maxValue).toString();
+    String randomNumber = '${rnd.nextInt(maxValue).toString()}.${rnd.nextInt(maxValue).toString()}';
     for (int i = 0; i < randomNumber.length; i++) {
       String char = randomNumber[i];
       calc.submitChar(char);

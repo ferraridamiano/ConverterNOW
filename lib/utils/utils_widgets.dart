@@ -320,55 +320,6 @@ class DropdownListTile extends StatelessWidget {
   }
 }
 
-class CalculatorButton extends StatelessWidget {
-  final String? text;
-  final double buttonWidth;
-  final double buttonHeight;
-  final void Function()? onPressed;
-  final void Function()? onLongPress;
-  final TextStyle? style;
-  final Color? iconColor;
-
-  const CalculatorButton({
-    Key? key,
-    this.text,
-    required this.buttonHeight,
-    required this.buttonWidth,
-    this.onLongPress,
-    this.onPressed,
-    this.style,
-    this.iconColor,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final Brightness brightness = Theme.of(context).brightness;
-
-    final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-      onPrimary: brightness == Brightness.dark ? Colors.white24 : Colors.black26,
-      primary: Colors.transparent,
-      minimumSize: Size(buttonWidth, buttonHeight),
-      elevation: 0,
-      animationDuration: const Duration(milliseconds: 30),
-    );
-
-    return ElevatedButton(
-      child: text == "←"
-          ? Icon(
-              Icons.backspace,
-              color: iconColor,
-            )
-          : Text(
-              text ?? '',
-              style: style,
-            ),
-      style: raisedButtonStyle,
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-    );
-  }
-}
-
 class SplashScreenWidget extends StatelessWidget {
   const SplashScreenWidget({Key? key}) : super(key: key);
   @override

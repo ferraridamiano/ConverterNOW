@@ -7,7 +7,7 @@ import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/utils/app_scaffold.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:converterpro/models/app_model.dart';

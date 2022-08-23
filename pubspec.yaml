@@ -15,7 +15,7 @@ dependencies:
   shared_preferences: ^2.0.13
   #Needed to open external pages such as GitHub repo, Play Store, etc
   url_launcher: ^6.1.2
-  #Needed to improve the state management
+  #Needed for the state management
   provider: ^6.0.2
   #Needed for translation
   intl: ^0.17.0
@@ -25,11 +25,15 @@ dependencies:
   go_router: ^3.0.6
   #Needed for Android App Shortcuts
   quick_actions: ^0.6.0+10
-  #Needed for calculator computation
-  decimal: ^2.2.0
+  #Calculator widget
+  calculator_widget:
+    path: packages/calculator_widget
   #Needed for updating exchange rates
   exchange_rates:
     path: packages/exchange_rates
+  #Needed for app translation
+  translations:
+    path: packages/translations
   #Needed for unit conversion
   units_converter: ^2.0.1
     #git:
