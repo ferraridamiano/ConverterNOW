@@ -12,6 +12,7 @@ jobs:
       calculator_widget: ${{ steps.filter.outputs.calculator_widget }}
 #     exchange_rates: ${{ steps.filter.outputs.exchange_rates }}
     steps:
+    - uses: actions/checkout@v3
     - uses: dorny/paths-filter@v2
       id: filter
       with:
