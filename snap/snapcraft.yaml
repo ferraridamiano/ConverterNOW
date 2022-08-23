@@ -27,6 +27,11 @@ apps:
       - dbus-converternow
 parts:
   converternow:
+    override-build: |
+      dart pub global activate melos
+      export PATH="$PATH":"$HOME/.pub-cache/bin"
+      melos bootstrap
+      snapcraftctl build
     source: .
     plugin: flutter
     flutter-target: lib/main.dart
