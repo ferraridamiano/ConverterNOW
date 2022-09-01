@@ -383,9 +383,9 @@ class CalculatorButton extends StatelessWidget {
     final Brightness brightness = Theme.of(context).brightness;
 
     final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-      onPrimary:
+      foregroundColor:
           brightness == Brightness.dark ? Colors.white24 : Colors.black26,
-      primary: Colors.transparent,
+      backgroundColor: Colors.transparent,
       minimumSize: Size(buttonWidth, buttonHeight),
       elevation: 0,
       animationDuration: const Duration(milliseconds: 30),
