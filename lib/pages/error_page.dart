@@ -16,7 +16,9 @@ class ErrorPage extends StatelessWidget {
               AppLocalizations.of(context)!.routeError1,
               style: const TextStyle(fontSize: 30),
             ),
-            const SizedBox(height: 40,),
+            const SizedBox(
+              height: 40,
+            ),
             ElevatedButton.icon(
               icon: const Icon(Icons.home_outlined),
               label: Padding(
@@ -27,7 +29,10 @@ class ErrorPage extends StatelessWidget {
                 ),
               ),
               onPressed: () => context.go('/'),
-              style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor)),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Theme.of(context).primaryColor),
+              ),
             )
           ],
         ),

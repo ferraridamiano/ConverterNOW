@@ -15,13 +15,15 @@ class ReorderPropertiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Read the order of the properties in the drawer
-    List<int>? conversionsOrderDrawer = context.read<AppModel>().conversionsOrderDrawer;
+    List<int>? conversionsOrderDrawer =
+        context.read<AppModel>().conversionsOrderDrawer;
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();
     }
     List<String> propertyNameList = getPropertyNameList(context);
-    List<String> orderedDrawerList = List.filled(conversionsOrderDrawer.length, "");
+    List<String> orderedDrawerList =
+        List.filled(conversionsOrderDrawer.length, '');
     for (int i = 0; i < conversionsOrderDrawer.length; i++) {
       orderedDrawerList[conversionsOrderDrawer[i]] = propertyNameList[i];
     }
@@ -43,7 +45,7 @@ class ReorderPropertiesPage extends StatelessWidget {
             propertyUiList: propertyUiList,
             onActionSelection: (String shortcutType) {
               final int index = int.parse(shortcutType);
-              context.go('/conversions/' + reversePageNumberListMap[index]);
+              context.go('/conversions/${reversePageNumberListMap[index]}');
             },
           );
         }

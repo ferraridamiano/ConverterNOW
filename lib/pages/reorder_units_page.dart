@@ -15,49 +15,59 @@ class ChoosePropertyPage extends StatelessWidget {
   /// The index of the property the user tap. null means not yet selected.
   final int? selectedProperty;
 
-  /// If `isDrawerFixed=false` then this variable is used to transition from the "Choose property page" to the "Reorder
-  /// units" page
+  /// If `isDrawerFixed=false` then this variable is used to transition from the
+  /// "Choose property page" to the "Reorder units" page
   final bool isPropertySelected;
 
-  const ChoosePropertyPage({this.selectedProperty, this.isPropertySelected = false, Key? key}) : super(key: key);
+  const ChoosePropertyPage(
+      {this.selectedProperty, this.isPropertySelected = false, Key? key})
+      : super(key: key);
 
-  static const BorderRadius borderRadius = BorderRadius.all(Radius.circular(30));
+  static const BorderRadius borderRadius =
+      BorderRadius.all(Radius.circular(30));
 
   @override
   Widget build(BuildContext context) {
     List<String> listUnitsNames = [];
     List<UnitData> selectedUnitDataList = [];
     // Read the order of the properties in the drawer
-    List<int>? conversionsOrderDrawer = context.read<AppModel>().conversionsOrderDrawer;
+    List<int>? conversionsOrderDrawer =
+        context.read<AppModel>().conversionsOrderDrawer;
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();
     }
 
     List<String> propertyNameList = getPropertyNameList(context);
-    List<String> orderedDrawerList = List.filled(conversionsOrderDrawer.length, "");
+    List<String> orderedDrawerList =
+        List.filled(conversionsOrderDrawer.length, "");
     for (int i = 0; i < conversionsOrderDrawer.length; i++) {
       orderedDrawerList[conversionsOrderDrawer[i]] = propertyNameList[i];
     }
 
-    final Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
+    final Map<dynamic, String> unitTranslationMap =
+        getUnitTranslationMap(context);
     if (selectedProperty != null) {
-      final bool isConversionsLoaded =
-          context.select<Conversions, bool>((conversions) => conversions.isConversionsLoaded);
+      final bool isConversionsLoaded = context.select<Conversions, bool>(
+        (conversions) => conversions.isConversionsLoaded,
+      );
       // if we remove the following check, if you enter the site directly to
       // '/conversions/:property' an error will occur
       if (!isConversionsLoaded) {
         return const SplashScreenWidget();
       }
-      
-      selectedUnitDataList = context
-          .read<Conversions>()
-          .getUnitDataListAtPage(conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
+
+      selectedUnitDataList = context.read<Conversions>().getUnitDataListAtPage(
+          conversionsOrderDrawer
+              .indexWhere((index) => index == selectedProperty));
       listUnitsNames = List.generate(
-          selectedUnitDataList.length, (index) => unitTranslationMap[selectedUnitDataList[index].unit.name]!);
+        selectedUnitDataList.length,
+        (index) => unitTranslationMap[selectedUnitDataList[index].unit.name]!,
+      );
     }
 
-    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
       if (constraints.maxWidth > twoSidedReorderScreen) {
         return Row(
           children: [
@@ -77,22 +87,27 @@ class ChoosePropertyPage extends StatelessWidget {
                           children: [
                             AnimatedSwitcher(
                               duration: const Duration(milliseconds: 300),
-                              transitionBuilder: (Widget child, Animation<double> animation) {
-                                final offsetAnimation =
-                                    Tween<Offset>(begin: const Offset(-1.0, 0.0), end: const Offset(0.0, 0.0))
-                                        .animate(animation);
+                              transitionBuilder:
+                                  (Widget child, Animation<double> animation) {
+                                final offsetAnimation = Tween<Offset>(
+                                  begin: const Offset(-1.0, 0.0),
+                                  end: const Offset(0.0, 0.0),
+                                ).animate(animation);
                                 return SlideTransition(
                                   position: offsetAnimation,
                                   child: child,
                                 );
                               },
                               child: Padding(
-                                key: Key(orderedDrawerList[index] + '-' + (selectedProperty == index).toString()),
-                                padding: const EdgeInsets.symmetric(horizontal: 50),
+                                key: Key(
+                                    '${orderedDrawerList[index]}-${(selectedProperty == index).toString()}'),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 50),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color:
-                                        selectedProperty == index ? Theme.of(context).primaryColor : Colors.transparent,
+                                    color: selectedProperty == index
+                                        ? Theme.of(context).primaryColor
+                                        : Colors.transparent,
                                     borderRadius: borderRadius,
                                   ),
                                   child: const ListTile(),
@@ -100,20 +115,26 @@ class ChoosePropertyPage extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 50),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 50),
                               child: ListTile(
                                 title: Center(
                                   child: Text(
                                     orderedDrawerList[index],
                                     style: TextStyle(
                                         fontSize: singlePageTextSize,
-                                        color: selectedProperty == index ? Colors.white : null),
+                                        color: selectedProperty == index
+                                            ? Colors.white
+                                            : null),
                                   ),
                                 ),
-                                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: borderRadius),
                                 onTap: () {
                                   if (selectedProperty != index) {
-                                    context.go('/settings/reorder-units/${reversePageNumberListMap[index]}');
+                                    context.go(
+                                      '/settings/reorder-units/${reversePageNumberListMap[index]}',
+                                    );
                                   }
                                 },
                               ),
@@ -137,7 +158,9 @@ class ChoosePropertyPage extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: VerticalDivider(
-                      color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black38,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black38,
                     ),
                   ),
                   const Expanded(
@@ -150,9 +173,12 @@ class ChoosePropertyPage extends StatelessWidget {
               Expanded(
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 300),
-                  transitionBuilder: (Widget child, Animation<double> animation) {
-                    final offsetAnimation =
-                        Tween<Offset>(begin: const Offset(1.0, 0.0), end: const Offset(0.0, 0.0)).animate(animation);
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    final offsetAnimation = Tween<Offset>(
+                            begin: const Offset(1.0, 0.0),
+                            end: const Offset(0.0, 0.0))
+                        .animate(animation);
                     return SlideTransition(
                       position: offsetAnimation,
                       child: child,
@@ -163,11 +189,16 @@ class ChoosePropertyPage extends StatelessWidget {
                     itemsList: listUnitsNames,
                     onSave: (List<int>? orderList) {
                       context.read<Conversions>().saveOrderUnits(
-                          orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
+                            orderList,
+                            conversionsOrderDrawer.indexWhere(
+                                (index) => index == selectedProperty),
+                          );
                       context.goNamed('settings');
                     },
                     header: BigTitle(
-                      text: AppLocalizations.of(context)!.reorderProperty(orderedDrawerList[selectedProperty!]),
+                      text: AppLocalizations.of(context)!.reorderProperty(
+                        orderedDrawerList[selectedProperty!],
+                      ),
                       center: true,
                     ),
                   ),
@@ -196,10 +227,12 @@ class ChoosePropertyPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: borderRadius),
                     onTap: () {
                       if (selectedProperty != index) {
-                        context.go('/settings/reorder-units/${reversePageNumberListMap[index]}');
+                        context.go(
+                            '/settings/reorder-units/${reversePageNumberListMap[index]}');
                       }
                     },
                   );
@@ -213,13 +246,16 @@ class ChoosePropertyPage extends StatelessWidget {
       return ReorderPage(
         itemsList: listUnitsNames,
         onSave: (List<int>? orderList) {
-          context
-              .read<Conversions>()
-              .saveOrderUnits(orderList, conversionsOrderDrawer.indexWhere((index) => index == selectedProperty));
+          context.read<Conversions>().saveOrderUnits(
+                orderList,
+                conversionsOrderDrawer
+                    .indexWhere((index) => index == selectedProperty),
+              );
           context.goNamed('settings');
         },
         header: BigTitle(
-          text: AppLocalizations.of(context)!.reorderProperty(orderedDrawerList[selectedProperty!]),
+          text: AppLocalizations.of(context)!
+              .reorderProperty(orderedDrawerList[selectedProperty!]),
           center: true,
         ),
       );

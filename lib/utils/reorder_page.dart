@@ -17,7 +17,7 @@ class ReorderPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ReorderPageState createState() => _ReorderPageState();
+  State<ReorderPage> createState() => _ReorderPageState();
 }
 
 class _ReorderPageState extends State<ReorderPage> {
@@ -30,16 +30,13 @@ class _ReorderPageState extends State<ReorderPage> {
     for (int i = 0; i < widget.itemsList.length; i++) {
       _itemsList.add(Item(i, widget.itemsList[i]));
     }
-    final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+    final bool isMobileDevice =
+        !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
     return Scaffold(
       key: _scaffoldKey,
       floatingActionButton: FloatingActionButton(
         tooltip: AppLocalizations.of(context)!.save,
-        child: const Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
         onPressed: () {
           List<int> orderList = [];
           bool hasSomethingchanged = false;
@@ -48,11 +45,16 @@ class _ReorderPageState extends State<ReorderPage> {
             orderList.add(currentIndex);
             if (i != currentIndex) hasSomethingchanged = true;
           }
-          //if some modification has been done returns them, otherwise it will return null
+          // if some modification has been done returns them, otherwise it will
+          // return null
           widget.onSave(hasSomethingchanged ? orderList : null);
         },
         elevation: 10.0,
         backgroundColor: Theme.of(context).colorScheme.secondary,
+        child: const Icon(
+          Icons.check,
+          color: Colors.white,
+        ),
       ),
       body: Column(
         children: [
@@ -75,16 +77,19 @@ class _ReorderPageState extends State<ReorderPage> {
                         title: Center(
                           child: Text(
                             _itemsList[index].title,
-                            style: const TextStyle(fontSize: singlePageTextSize),
+                            style:
+                                const TextStyle(fontSize: singlePageTextSize),
                           ),
                         ),
                         onTap: isMobileDevice
                             ? () {
                                 final snackBar = SnackBar(
-                                  content: Text(AppLocalizations.of(context)!.longPressAdvice),
+                                  content: Text(AppLocalizations.of(context)!
+                                      .longPressAdvice),
                                   behavior: SnackBarBehavior.floating,
                                 );
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               }
                             : null,
                       );

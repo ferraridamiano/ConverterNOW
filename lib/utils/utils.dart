@@ -25,7 +25,14 @@ saveSettings(String key, dynamic value) async {
   }
 }
 
-enum VALIDATOR { binary, decimal, octal, hexadecimal, rational, rationalNonNegative }
+enum VALIDATOR {
+  binary,
+  decimal,
+  octal,
+  hexadecimal,
+  rational,
+  rationalNonNegative
+}
 
 class UnitData {
   Unit unit;
@@ -39,7 +46,8 @@ class UnitData {
     required this.tec,
     this.property,
     this.validator = VALIDATOR.rationalNonNegative,
-    this.textInputType = const TextInputType.numberWithOptions(decimal: true, signed: false),
+    this.textInputType =
+        const TextInputType.numberWithOptions(decimal: true, signed: false),
   });
 
   RegExp getValidator() {
@@ -91,7 +99,8 @@ final List<String> reversePageNumberListMap = pageNumberMap.keys.toList();
 
 enum AppPage { conversions, settings, reorder, reorder_details }
 
-/// PROPERTYX stands for PROPERTY extended and want to extends the PROPERTY enum defined in units_converter package
+/// PROPERTYX stands for PROPERTY extended and want to extends the PROPERTY enum
+/// defined in units_converter package
 enum PROPERTYX {
   angle,
   area,
@@ -117,7 +126,7 @@ enum PROPERTYX {
 class PropertyUi {
   final PROPERTYX property;
 
-  ///uman readable name
+  /// human readable name
   final String name;
   final String imagePath;
 
@@ -125,10 +134,10 @@ class PropertyUi {
 }
 
 class UnitUi {
-  ///name of the unit
+  /// name of the unit
   final dynamic unit;
 
-  ///human readable name
+  /// human readable name
   final String name;
   final String imagePath;
   final PROPERTYX property;

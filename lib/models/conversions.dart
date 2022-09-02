@@ -8,12 +8,13 @@ import 'package:units_converter/units_converter.dart';
 class Conversions with ChangeNotifier {
   List<List<UnitData>> _unitDataList = [];
 
-  /// Contains the List of the double (or String for numeral systems conversion) saved before the clear all operation.
-  /// This need to be done in order to undo the clear all operation
+  /// Contains the List of the double (or String for numeral systems conversion)
+  /// saved before the clear all operation. This need to be done in order to
+  /// undo the clear all operation
   List<dynamic>? _savedUnitDataList;
 
-  /// This contains the value of [_currentPage] when a clear all operation (and the corresponding value saving) is
-  /// performed
+  /// This contains the value of [_currentPage] when a clear all operation (and
+  /// the corresponding value saving) is performed
   int? _savedPropertyIndex;
 
   UnitData? _selectedUnit; //unit where the user is writing the value
@@ -63,7 +64,8 @@ class Conversions with ChangeNotifier {
   int _significantFigures = _significantFiguresList[2];
 
   Conversions() {
-    _checkCurrencies(); //update the currencies with the latest conversions rates and then
+    // update the currencies with the latest conversions rates and then
+    _checkCurrencies();
     _initializePropertyList();
     _checkOrdersUnits();
     _checkSettings();
@@ -158,9 +160,8 @@ class Conversions with ChangeNotifier {
   _refreshCurrentUnitDataList(int page) {
     List<UnitData> currentUnitDataList = _unitDataList[page];
     for (UnitData currentUnitData in currentUnitDataList) {
-      final _currentProperty = _propertyList[page];
-      currentUnitData.unit =
-          _currentProperty.getUnit(currentUnitData.unit.name);
+      final currentProperty = _propertyList[page];
+      currentUnitData.unit = currentProperty.getUnit(currentUnitData.unit.name);
       if (currentUnitData != _selectedUnit) {
         if (currentUnitData.unit.stringValue == null) {
           currentUnitData.tec.text = '';
@@ -171,7 +172,8 @@ class Conversions with ChangeNotifier {
     }
   }
 
-  /// This function is used to convert all the values from one that has been modified
+  /// This function is used to convert all the values from one that has been
+  /// modified
   convert(UnitData unitData, var value, int page) {
     _propertyList[page].convert(unitData.unit.name, value);
     _selectedUnit = unitData;
@@ -179,7 +181,8 @@ class Conversions with ChangeNotifier {
     notifyListeners();
   }
 
-  /// Returns a UnitDataList at a certain page with the current ordering (usefult with reorder units)
+  /// Returns a UnitDataList at a certain page with the current ordering
+  /// (usefult with reorder units)
   List<UnitData> getUnitDataListAtPage(int page) => _unitDataList[page];
 
   PROPERTYX getPropertyNameAtPage(int page) => _propertyList[page].name;
@@ -228,16 +231,16 @@ class Conversions with ChangeNotifier {
   /// all button (see [undoClearOperation]), false otherwise.
   bool shouldShowSnackbar(int page) => _unitDataList[page][0].tec.text != '';
 
-  ///Returns the DateTime of the latest update of the currencies conversions
-  ///ratio (year, month, day)
+  /// Returns the DateTime of the latest update of the currencies conversions
+  /// ratio (year, month, day)
   get lastUpdateCurrency => _currenciesObject.lastUpdate;
 
-  ///returns true if the currencies conversions ratio are not ready yet,
-  ///returns false otherwise
+  /// Returns true if the currencies conversions ratio are not ready yet,
+  /// returns false otherwise
   get isCurrenciesLoading => _isCurrenciesLoading;
 
-  ///This method is used by _checkCurrencies to read the currencies conversions if
-  ///the smartphone is offline
+  /// This method is used by _checkCurrencies to read the currencies conversions
+  /// if the smartphone is offline
   _readSavedCurrencies() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? currenciesRead = prefs.getString('currenciesRates');
@@ -254,9 +257,10 @@ class Conversions with ChangeNotifier {
     String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    //Let's search before if we already have downloaded the exchange rates
+    // Let's search before if we already have downloaded the exchange rates
     String? lastUpdate = prefs.getString("lastUpdateCurrencies");
-    //if I have never updated the conversions or if I have updated before today I have to update
+    // if I have never updated the conversions or if I have updated before today
+    // I have to update
     if (lastUpdate == null || lastUpdate != now) {
       await _currenciesObject.updateCurrencies();
       switch (_currenciesObject.status) {
@@ -269,7 +273,8 @@ class Conversions with ChangeNotifier {
           break;
       }
     } else {
-      //If I already have the data of today I just use it, no need of read them from the web
+      // If I already have the data of today I just use it, no need of read them
+      // from the web
       await _readSavedCurrencies();
     }
     // stop the progress indicator to show the date of the latest update
@@ -280,9 +285,10 @@ class Conversions with ChangeNotifier {
     notifyListeners();
   }
 
-  ///Get the orders of each units of measurement from the memory
+  /// Get the orders of each units of measurement from the memory
   _checkOrdersUnits() async {
-    //Initialize the order for each property to default: [0,1,2,...,size(property)]
+    // Initialize the order for each property to default:
+    // [0,1,2,...,size(property)]
     List<List<int>> temp = [];
     for (Property property in _propertyList) {
       temp.add(List.generate(property.size, (index) => index));
@@ -290,7 +296,7 @@ class Conversions with ChangeNotifier {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? stringList;
-    //Update every order of every conversion
+    // Update every order of every conversion
     for (int i = 0; i < _propertyList.length; i++) {
       stringList = prefs.getStringList("conversion_$i");
       if (stringList != null) {
@@ -299,7 +305,7 @@ class Conversions with ChangeNotifier {
         for (int j = 0; j < len; j++) {
           intList.add(int.parse(stringList[j]));
         }
-        //solves the problem of adding new units after an update
+        // solves the problem of adding new units after an update
         for (int j = len; j < temp[i].length; j++) {
           intList.add(j);
         }
@@ -311,10 +317,12 @@ class Conversions with ChangeNotifier {
     notifyListeners();
   }
 
-  /// Apply the order defined in [_conversionsOrder] to [_unitDataList]. [_unitDataList] will be redefined, so this function is used also during initialization
+  /// Apply the order defined in [_conversionsOrder] to [_unitDataList].
+  /// [_unitDataList] will be redefined, so this function is used also during
+  /// initialization
   _refreshOrderUnits() {
     assert(_conversionsOrder != null, true);
-    List<List<UnitData>> _tempUnitDataList = [];
+    List<List<UnitData>> tempUnitDataList = [];
     for (int i = 0; i < _propertyList.length; i++) {
       List<UnitData> tempUnitData = List.filled(_conversionsOrder![i].length,
           UnitData(Unit('none'), tec: TextEditingController()));
@@ -387,12 +395,13 @@ class Conversions with ChangeNotifier {
           textInputType: textInputType,
         );
       }
-      _tempUnitDataList.add(tempUnitData);
+      tempUnitDataList.add(tempUnitData);
     }
-    _unitDataList = _tempUnitDataList;
+    _unitDataList = tempUnitDataList;
   }
 
-  ///Given a new ordering of a specific page it applys it to the app and store it.
+  /// Given a new ordering of a specific page it applys it to the app and store
+  /// it.
   saveOrderUnits(List<int>? newOrder, int pageNumber) async {
     assert(newOrder == null
         ? true
@@ -418,10 +427,10 @@ class Conversions with ChangeNotifier {
     }
   }
 
-  //Settings section------------------------------------------------------------------
+  // Settings section ----------------------------------------------------------
 
-  ///It reads the settings related to the conversions model from the memory of the device
-  ///(if there are options saved)
+  /// It reads the settings related to the conversions model from the memory of
+  /// the device (if there are options saved)
   _checkSettings() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? val1 = prefs.getInt("significant_figures");
@@ -439,18 +448,18 @@ class Conversions with ChangeNotifier {
     }
   }
 
-  ///Returns true if you want to remove the trailing zeros of the conversions
-  ///e.g. 1.000000000e20 becomes 1e20
+  /// Returns true if you want to remove the trailing zeros of the conversions
+  /// e.g. 1.000000000e20 becomes 1e20
   bool get removeTrailingZeros => _removeTrailingZeros;
 
-  ///Returns the list of possibile significant figures
+  /// Returns the list of possibile significant figures
   List<int> get significantFiguresList => _significantFiguresList;
 
-  ///Returns the current significant figures selection
+  /// Returns the current significant figures selection
   int get significantFigures => _significantFigures;
 
-  ///Set the ability of remove unecessary trailing zeros and save to SharedPreferences
-  ///e.g. 1.000000000e20 becomes 1e20
+  /// Set the ability of remove unecessary trailing zeros and save to
+  /// SharedPreferences e.g. 1.000000000e20 becomes 1e20
   set removeTrailingZeros(bool value) {
     _removeTrailingZeros = value;
     _initializePropertyList();
@@ -459,7 +468,8 @@ class Conversions with ChangeNotifier {
     _saveSettingsBool('remove_trailing_zeros', _removeTrailingZeros);
   }
 
-  ///Set the current significant figures selection and save to SharedPreferences
+  /// Set the current significant figures selection and save to
+  /// SharedPreferences
   set significantFigures(int value) {
     _significantFigures = value;
     _initializePropertyList();
@@ -468,13 +478,13 @@ class Conversions with ChangeNotifier {
     _saveSettingsInt('significant_figures', _significantFigures);
   }
 
-  ///Saves the key value with SharedPreferences
+  /// Saves the key value with SharedPreferences
   _saveSettingsInt(String key, int value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt(key, value);
   }
 
-  ///Saves the key value with SharedPreferences
+  /// Saves the key value with SharedPreferences
   _saveSettingsBool(String key, bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(key, value);

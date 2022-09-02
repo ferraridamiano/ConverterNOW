@@ -28,7 +28,10 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> headerDrawer = [];
-    List<Widget> conversionDrawer = List<Widget>.filled(maxConversionUnits, const SizedBox());
+    List<Widget> conversionDrawer = List<Widget>.filled(
+      maxConversionUnits,
+      const SizedBox(),
+    );
 
     final Widget title = Padding(
       padding: const EdgeInsets.symmetric(vertical: 30),
@@ -44,7 +47,9 @@ class CustomDrawer extends StatelessWidget {
             const SizedBox(width: 10),
             Text(
               'Converter NOW',
-              textScaleFactor: 1, // fixed indipendently of the accessibility settings. Already as large as possibile
+              // Fixed indipendently of the accessibility settings. Already as
+              // large as possibile
+              textScaleFactor: 1,
               style: GoogleFonts.josefinSans(
                 textStyle: const TextStyle(fontSize: 31),
               ),
@@ -80,8 +85,11 @@ class CustomDrawer extends StatelessWidget {
             delegate: CustomSearchDelegate(orderList!),
           );
           if (newPage != null) {
-            final String targetPath = '/conversions/' + reversePageNumberListMap[newPage];
+            final String targetPath =
+                '/conversions/${reversePageNumberListMap[newPage]}';
+            // ignore: use_build_context_synchronously
             if (GoRouter.of(context).location != targetPath) {
+              // ignore: use_build_context_synchronously
               context.go(targetPath);
             }
           }
@@ -109,17 +117,22 @@ class CustomDrawer extends StatelessWidget {
           }
           context.goNamed('settings');
         },
-        selected: selectedSection == AppPage.settings || selectedSection == AppPage.reorder,
+        selected: selectedSection == AppPage.settings ||
+            selectedSection == AppPage.reorder,
       ))
       ..add(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Divider(color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black38),
+          child: Divider(
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black38),
         ),
       );
 
-    List<int> conversionsOrderDrawer =
-        context.select<AppModel, List<int>>((appModel) => appModel.conversionsOrderDrawer!);
+    List<int> conversionsOrderDrawer = context.select<AppModel, List<int>>(
+      (appModel) => appModel.conversionsOrderDrawer!,
+    );
 
     List<PropertyUi> propertyUiList = getPropertyUiList(context);
 
@@ -130,7 +143,9 @@ class CustomDrawer extends StatelessWidget {
           propertyUi.imagePath,
           width: 30,
           height: 30,
-          color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black38,
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.white
+              : Colors.black38,
           filterQuality: FilterQuality.medium,
         ),
         title: Text(propertyUi.name),

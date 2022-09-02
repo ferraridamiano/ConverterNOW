@@ -26,7 +26,7 @@ class CustomSearchDelegate extends SearchDelegate<int> {
   Widget buildSuggestions(BuildContext context) {
     final Brightness brightness = Theme.of(context).brightness;
 
-    final List<SearchUnit> _dataSearch = getSearchUnitsList((int pageNumber) {
+    final List<SearchUnit> dataSearch = getSearchUnitsList((int pageNumber) {
       close(context, pageNumber);
     }, context);
     final List<SearchGridTile> allConversions = initializeGridSearch(
@@ -38,8 +38,9 @@ class CustomSearchDelegate extends SearchDelegate<int> {
       orderList,
     );
 
-    final Iterable<SearchUnit> suggestions = _dataSearch.where((searchUnit) =>
-        searchUnit.unitName.toLowerCase().contains(query.toLowerCase())); //.toLowercase in order to be case insesitive
+    final Iterable<SearchUnit> suggestions = dataSearch.where((searchUnit) =>
+        searchUnit.unitName.toLowerCase().contains(query.toLowerCase()));
+    //.toLowercase in order to be case insesitive
 
     return query.isNotEmpty
         ? SuggestionList(
@@ -47,7 +48,9 @@ class CustomSearchDelegate extends SearchDelegate<int> {
             darkMode: brightness == Brightness.dark,
           )
         : GridView(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 180.0),
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 180.0,
+            ),
             children: allConversions,
           );
   }

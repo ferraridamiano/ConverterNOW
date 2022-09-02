@@ -32,7 +32,8 @@ class AppScaffold extends StatelessWidget {
     }
 
     void clearAll(bool isDrawerFixed) {
-      final int page = pageNumberMap[GoRouter.of(context).location.substring('/conversions/'.length)]!;
+      final int page = pageNumberMap[
+          GoRouter.of(context).location.substring('/conversions/'.length)]!;
       if (context.read<Conversions>().shouldShowSnackbar(page)) {
         context.read<Conversions>().clearAllValues(page);
         //Snackbar undo request
@@ -52,6 +53,7 @@ class AppScaffold extends StatelessWidget {
     }
 
     return LayoutBuilder(builder: (context, constraints) {
+      // ignore: no_leading_underscores_for_local_identifiers
       final bool _isDrawerFixed = isDrawerFixed(constraints.maxWidth);
 
       Widget drawer = CustomDrawer(
@@ -72,17 +74,17 @@ class AppScaffold extends StatelessWidget {
               ],
             ),
           ),
-          floatingActionButton:
-              (selectedSection == AppPage.conversions && MediaQuery.of(context).viewInsets.bottom == 0)
-                  ? FloatingActionButton(
-                      child: const Icon(
-                        Icons.clear_outlined,
-                        color: Colors.white,
-                      ),
-                      onPressed: () => clearAll(_isDrawerFixed),
-                      tooltip: AppLocalizations.of(context)!.clearAll,
-                    )
-                  : null,
+          floatingActionButton: (selectedSection == AppPage.conversions &&
+                  MediaQuery.of(context).viewInsets.bottom == 0)
+              ? FloatingActionButton(
+                  onPressed: () => clearAll(_isDrawerFixed),
+                  tooltip: AppLocalizations.of(context)!.clearAll,
+                  child: const Icon(
+                    Icons.clear_outlined,
+                    color: Colors.white,
+                  ),
+                )
+              : null,
         );
       }
       // if the drawer is not fixed
@@ -97,9 +99,9 @@ class AppScaffold extends StatelessWidget {
               return false;
             case AppPage.reorder_details:
               //2 sided page
-              if(_isDrawerFixed){
+              if (_isDrawerFixed) {
                 context.goNamed('settings');
-              } else{
+              } else {
                 context.goNamed('reorder-units');
               }
               return false;
@@ -110,7 +112,8 @@ class AppScaffold extends StatelessWidget {
         child: Scaffold(
           drawer: drawer,
           body: SafeArea(child: child),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: selectedSection == AppPage.conversions
               ? BottomAppBar(
                   child: Row(
@@ -134,19 +137,20 @@ class AppScaffold extends StatelessWidget {
                   ),
                 )
               : null,
-          floatingActionButton:
-              (selectedSection == AppPage.conversions && MediaQuery.of(context).viewInsets.bottom == 0)
-                  ? FloatingActionButton(
-                      tooltip: AppLocalizations.of(context)!.calculator,
-                      child: const Icon(
-                        Icons.calculate_outlined,
-                        size: 30,
-                        color: Colors.white,
-                      ),
-                      onPressed: openCalculator,
-                      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                    )
-                  : null,
+          floatingActionButton: (selectedSection == AppPage.conversions &&
+                  MediaQuery.of(context).viewInsets.bottom == 0)
+              ? FloatingActionButton(
+                  tooltip: AppLocalizations.of(context)!.calculator,
+                  onPressed: openCalculator,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.secondaryContainer,
+                  child: const Icon(
+                    Icons.calculate_outlined,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                )
+              : null,
         ),
       );
     });

@@ -89,7 +89,9 @@ class AppModel with ChangeNotifier {
     _isDarkAmoled = prefs.getBool("isDarkAmoled") ?? _isDarkAmoled;
     int? valThemeMode = prefs.getInt('currentThemeMode');
     if (valThemeMode != null) {
-      _currentThemeMode = _themeModeMap.keys.where((key) => _themeModeMap[key] == valThemeMode).single;
+      _currentThemeMode = _themeModeMap.keys
+          .where((key) => _themeModeMap[key] == valThemeMode)
+          .single;
     }
     String? temp = prefs.getString('locale');
     _appLocale = temp == null || temp == 'null' ? null : Locale(temp);
@@ -141,17 +143,25 @@ class AppModel with ChangeNotifier {
   /// Set a Locale given the language name (e.g 'English', 'Italiano', etc.). If `localeString` is null then it is
   /// interpreted as "System settings"
   setLocaleString(String? localeString) {
-    _appLocale =
-        localeString == null ? null : mapLocale.keys.firstWhere((element) => mapLocale[element] == localeString);
+    _appLocale = localeString == null
+        ? null
+        : mapLocale.keys.firstWhere(
+            (element) => mapLocale[element] == localeString,
+          );
     notifyListeners();
     // Save 'null' if it is system settings, otherwise save the language code
-    saveSettings('locale', _appLocale == null ? 'null' : _appLocale!.languageCode);
+    saveSettings(
+      'locale',
+      _appLocale == null ? 'null' : _appLocale!.languageCode,
+    );
   }
 
   /// Return a string locale (e.g 'English', 'Italiano', etc.) or null if it is "System settings"
   String? getLocaleString() {
     try {
-      return mapLocale[mapLocale.keys.firstWhere((element) => _appLocale!.languageCode == element.languageCode)];
+      return mapLocale[mapLocale.keys.firstWhere(
+        (element) => _appLocale!.languageCode == element.languageCode,
+      )];
     } catch (error) {
       // if there isn't a locale, then a StateError is thrown
       if (error is StateError) {

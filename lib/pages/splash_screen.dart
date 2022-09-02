@@ -15,26 +15,29 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<int>? conversionsOrderDrawer =
-        context.select<AppModel, List<int>?>((appModel) => appModel.conversionsOrderDrawer);
-    final bool isConversionsLoaded =
-        context.select<Conversions, bool>((conversions) => conversions.isConversionsLoaded);
+        context.select<AppModel, List<int>?>(
+            (appModel) => appModel.conversionsOrderDrawer);
+    final bool isConversionsLoaded = context.select<Conversions, bool>(
+        (conversions) => conversions.isConversionsLoaded);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (isConversionsLoaded && conversionsOrderDrawer != null) {
         List<PropertyUi> propertyUiList = getPropertyUiList(context);
-        final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+        final bool isMobileDevice =
+            !kIsWeb && (Platform.isIOS || Platform.isAndroid);
         if (isMobileDevice) {
           initializeQuickAction(
             conversionsOrderDrawer: conversionsOrderDrawer,
             propertyUiList: propertyUiList,
             onActionSelection: (String shortcutType) {
               final int index = int.parse(shortcutType);
-              context.go('/conversions/' + reversePageNumberListMap[index]);
+              context.go('/conversions/${reversePageNumberListMap[index]}');
             },
           );
         }
 
-        context.go('/conversions/' + reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]);
+        context.go(
+            '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}');
       }
     });
 

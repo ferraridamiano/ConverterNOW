@@ -46,7 +46,7 @@ dependencies:
 dev_dependencies:
   test: ^1.17.12
   flutter_native_splash: ^1.2.3
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.1
   msix: ^3.4.1
   flutter_test:
     sdk: flutter

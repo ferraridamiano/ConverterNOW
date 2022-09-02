@@ -21,7 +21,6 @@ void main() async {
 const _scaffoldKey = ValueKey<String>('App scaffold');
 
 class MyApp extends StatelessWidget {
-
   late final _router = GoRouter(
     routes: [
       GoRoute(
@@ -120,13 +119,17 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => Conversions()),
       ],
       child: Builder(builder: (BuildContext context) {
-        bool isDarkAmoled = context.select<AppModel, bool>((appModel) => appModel.isDarkAmoled);
+        bool isDarkAmoled = context.select<AppModel, bool>(
+          (appModel) => appModel.isDarkAmoled,
+        );
         return MaterialApp.router(
           routeInformationParser: _router.routeInformationParser,
           routerDelegate: _router.routerDelegate,
           debugShowCheckedModeBanner: false,
           title: 'Converter NOW',
-          themeMode: context.select<AppModel, ThemeMode>((appModel) => appModel.currentThemeMode),
+          themeMode: context.select<AppModel, ThemeMode>(
+            (appModel) => appModel.currentThemeMode,
+          ),
           theme: defaultLight.copyWith(
             primaryColor: Colors.teal[400],
             //primarySwatch: Colors.orange,
@@ -136,7 +139,9 @@ class MyApp extends StatelessWidget {
               secondaryContainer: Colors.orange[700],
             ),
             inputDecorationTheme: const InputDecorationTheme(
-              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.orange),
+              ),
               labelStyle: TextStyle(color: Color(0xFF555555)),
             ),
             bottomAppBarColor: const Color(0xFFEBF7F6),
@@ -148,25 +153,35 @@ class MyApp extends StatelessWidget {
               secondaryContainer: Colors.orange[700],
             ),
             brightness: Brightness.dark,
-            scaffoldBackgroundColor: isDarkAmoled ? Colors.black : Colors.grey[850],
-            canvasColor: isDarkAmoled ? Colors.black : Colors.grey[850], // for drawer background
+            scaffoldBackgroundColor:
+                isDarkAmoled ? Colors.black : Colors.grey[850],
+            canvasColor: isDarkAmoled
+                ? Colors.black
+                : Colors.grey[850], // for drawer background
             cardColor: isDarkAmoled ? Colors.grey[900] : Colors.grey[800],
             inputDecorationTheme: const InputDecorationTheme(
-              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.orange)),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.orange),
+              ),
               labelStyle: TextStyle(color: Color(0xFFDDDDDD)),
             ),
-            bottomAppBarColor: isDarkAmoled ? const Color(0xFF0A2D2A) : const Color(0xFF3F4B4A),
+            bottomAppBarColor: isDarkAmoled
+                ? const Color(0xFF0A2D2A)
+                : const Color(0xFF3F4B4A),
           ),
           supportedLocales: context.read<AppModel>().supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
-          localeResolutionCallback: (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
+          localeResolutionCallback:
+              (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
             if (!deviceLocaleSetted) {
               context.read<AppModel>().deviceLocale = deviceLocale;
               deviceLocaleSetted = true;
             }
             return deviceLocale;
           },
-          locale: context.select<AppModel, Locale?>((appModel) => appModel.appLocale),
+          locale: context.select<AppModel, Locale?>(
+            (appModel) => appModel.appLocale,
+          ),
         );
       }),
     );

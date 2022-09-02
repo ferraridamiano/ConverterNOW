@@ -9,7 +9,6 @@ import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:intl/intl.dart';
 
 class ConversionPage extends StatelessWidget {
-
   final int page;
 
   const ConversionPage(this.page, {Key? key}) : super(key: key);
@@ -17,17 +16,20 @@ class ConversionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
-    Map<PROPERTYX, String> propertyTranslationMap = getPropertyTranslationMap(context);
-    final bool isConversionsLoaded = context.select<Conversions, bool>((conversions) => conversions.isConversionsLoaded);
+    Map<PROPERTYX, String> propertyTranslationMap =
+        getPropertyTranslationMap(context);
+    final bool isConversionsLoaded = context.select<Conversions, bool>(
+      (conversions) => conversions.isConversionsLoaded,
+    );
 
     // if we remove the following check, if you enter the site directly to
     // '/conversions/:property' an error will occur
-    if(!isConversionsLoaded){
+    if (!isConversionsLoaded) {
       return const SplashScreenWidget();
     }
-    
-    List<UnitData> unitDataList = context.read<Conversions>().getUnitDataListAtPage(page);
 
+    List<UnitData> unitDataList =
+        context.read<Conversions>().getUnitDataListAtPage(page);
 
     PROPERTYX currentProperty =
         context.read<Conversions>().getPropertyNameAtPage(page);
@@ -54,7 +56,9 @@ class ConversionPage extends StatelessWidget {
           controller: unitData.tec,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: (String? input) {
-            if (input != null && input != '' && !unitData.getValidator().hasMatch(input)) {
+            if (input != null &&
+                input != '' &&
+                !unitData.getValidator().hasMatch(input)) {
               return AppLocalizations.of(context)!.invalidCharacters;
             }
             return null;
@@ -69,7 +73,11 @@ class ConversionPage extends StatelessWidget {
               if (unitData.property == PROPERTYX.numeralSystems) {
                 conversions.convert(unitData, txt == "" ? null : txt, page);
               } else {
-                conversions.convert(unitData, txt == "" ? null : double.parse(txt), page);
+                conversions.convert(
+                  unitData,
+                  txt == "" ? null : double.parse(txt),
+                  page,
+                );
               }
             }
           },
@@ -77,7 +85,8 @@ class ConversionPage extends StatelessWidget {
       ));
     }
 
-    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraint) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraint) {
       final int numCols = responsiveNumCols(constraint.maxWidth);
       final double xPadding = responsivePadding(constraint.maxWidth);
       return Column(
@@ -85,21 +94,25 @@ class ConversionPage extends StatelessWidget {
           BigTitle(
             text: propertyTranslationMap[currentProperty]!,
             subtitle: subTitle,
-            isSubtitleLoading: context.select<Conversions, bool>((conversions) => conversions.isCurrenciesLoading),
+            isSubtitleLoading: context.select<Conversions, bool>(
+                (conversions) => conversions.isCurrenciesLoading),
             center: true,
           ),
           Expanded(
             child: GridView.count(
-              childAspectRatio: responsiveChildAspectRatio(constraint.maxWidth, numCols),
+              childAspectRatio: responsiveChildAspectRatio(
+                constraint.maxWidth,
+                numCols,
+              ),
               crossAxisCount: numCols,
               crossAxisSpacing: 15.0,
-              children: gridTiles,
               padding: EdgeInsets.only(
                 left: xPadding,
                 right: xPadding,
-                bottom: 22, //So FAB doesn't overlap the card
-              ), 
+                bottom: 22, // So FAB doesn't overlap the card
+              ),
               shrinkWrap: true,
+              children: gridTiles,
             ),
           ),
         ],
@@ -109,13 +122,16 @@ class ConversionPage extends StatelessWidget {
 }
 
 String _getLastUpdateString(BuildContext context) {
-  DateTime lastUpdateCurrencies = context.select<Conversions, DateTime>((settings) => settings.lastUpdateCurrency);
+  DateTime lastUpdateCurrencies = context
+      .select<Conversions, DateTime>((settings) => settings.lastUpdateCurrency);
   DateTime dateNow = DateTime.now();
   if (lastUpdateCurrencies.day == dateNow.day &&
       lastUpdateCurrencies.month == dateNow.month &&
       lastUpdateCurrencies.year == dateNow.year) {
-    return AppLocalizations.of(context)!.lastCurrenciesUpdate + AppLocalizations.of(context)!.today;
+    return AppLocalizations.of(context)!.lastCurrenciesUpdate +
+        AppLocalizations.of(context)!.today;
   }
   return AppLocalizations.of(context)!.lastCurrenciesUpdate +
-      DateFormat.yMd(Localizations.localeOf(context).languageCode).format(lastUpdateCurrencies);
+      DateFormat.yMd(Localizations.localeOf(context).languageCode)
+          .format(lastUpdateCurrencies);
 }

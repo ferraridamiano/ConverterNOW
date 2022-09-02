@@ -19,7 +19,7 @@ class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  State<SettingsPage> createState() => _SettingsPageState();
 }
 
 class _SettingsPageState extends State<SettingsPage> {
@@ -199,34 +199,42 @@ class _SettingsPageState extends State<SettingsPage> {
                                 path: '/store/apps/9P0Q79HWJH72')),
                           ),
                         ListTile(
-                            title: const Text('Linux (Flatpak)'),
-                            leading: Image.asset(
-                              'resources/images/penguin.png',
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white.withOpacity(0.9)
-                                  : Colors.black54,
-                              width: 25,
+                          title: const Text('Linux (Flatpak)'),
+                          leading: Image.asset(
+                            'resources/images/penguin.png',
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white.withOpacity(0.9)
+                                    : Colors.black54,
+                            width: 25,
+                          ),
+                          onTap: () => launchURL(
+                            Uri(
+                              scheme: 'https',
+                              host: 'flathub.org',
+                              path:
+                                  '/apps/details/io.github.ferraridamiano.ConverterNOW',
                             ),
-                            onTap: () => launchURL(Uri(
-                                scheme: 'https',
-                                host: 'flathub.org',
-                                path:
-                                    '/apps/details/io.github.ferraridamiano.ConverterNOW'))),
+                          ),
+                        ),
                         ListTile(
-                            title: const Text('Linux (Snap)'),
-                            leading: Image.asset(
-                              'resources/images/penguin.png',
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white.withOpacity(0.9)
-                                  : Colors.black54,
-                              width: 25,
+                          title: const Text('Linux (Snap)'),
+                          leading: Image.asset(
+                            'resources/images/penguin.png',
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white.withOpacity(0.9)
+                                    : Colors.black54,
+                            width: 25,
+                          ),
+                          onTap: () => launchURL(
+                            Uri(
+                              scheme: 'https',
+                              host: 'snapcraft.io',
+                              path: '/converternow',
                             ),
-                            onTap: () => launchURL(Uri(
-                                scheme: 'https',
-                                host: 'snapcraft.io',
-                                path: '/converternow'))),
+                          ),
+                        ),
                         ListTile(
                           title: Text(AppLocalizations.of(context)!.sourceCode),
                           leading: Image.asset(
@@ -240,10 +248,13 @@ class _SettingsPageState extends State<SettingsPage> {
                                     : null,
                             filterQuality: FilterQuality.medium,
                           ),
-                          onTap: () => launchURL(Uri(
+                          onTap: () => launchURL(
+                            Uri(
                               scheme: 'https',
                               host: 'github.com',
-                              path: '/ferraridamiano/ConverterNOW')),
+                              path: '/ferraridamiano/ConverterNOW',
+                            ),
+                          ),
                         ),
                       ],
                     );
@@ -257,10 +268,13 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
                 onTap: () {
-                  launchURL(Uri(
+                  launchURL(
+                    Uri(
                       scheme: 'https',
                       host: 'github.com',
-                      path: '/ferraridamiano/ConverterNOW/issues/2'));
+                      path: '/ferraridamiano/ConverterNOW/issues/2',
+                    ),
+                  );
                 },
               ),
               if (!EnvironmentConfig.isPlaystore)
@@ -294,10 +308,13 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               onPressed: () {
                                 Navigator.of(context).pop();
-                                launchURL(Uri(
+                                launchURL(
+                                  Uri(
                                     scheme: 'https',
                                     host: 'paypal.me',
-                                    path: '/DemApps'));
+                                    path: '/DemApps',
+                                  ),
+                                );
                               },
                             ),
                           ],

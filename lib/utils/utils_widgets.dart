@@ -14,7 +14,8 @@ class DrawerTile extends StatelessWidget {
   final void Function()? onTap;
   final bool selected;
 
-  static const BorderRadiusGeometry borderRadius = BorderRadius.horizontal(right: Radius.circular(30));
+  static const BorderRadiusGeometry borderRadius =
+      BorderRadius.horizontal(right: Radius.circular(30));
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,9 @@ class DrawerTile extends StatelessWidget {
       padding: const EdgeInsets.only(right: 12),
       child: Container(
         decoration: BoxDecoration(
-          color: selected ? Theme.of(context).primaryColor.withOpacity(0.25) : Colors.transparent,
+          color: selected
+              ? Theme.of(context).primaryColor.withOpacity(0.25)
+              : Colors.transparent,
           borderRadius: borderRadius,
         ),
         child: ListTile(
@@ -60,7 +63,9 @@ class BigTitle extends StatelessWidget {
       style: TextStyle(
         fontSize: 35.0,
         fontWeight: FontWeight.bold,
-        color: Theme.of(context).brightness == Brightness.dark ? const Color(0xFFDDDDDD) : const Color(0xFF666666),
+        color: Theme.of(context).brightness == Brightness.dark
+            ? const Color(0xFFDDDDDD)
+            : const Color(0xFF666666),
       ),
       textAlign: center ? TextAlign.center : null,
     );
@@ -77,9 +82,9 @@ class BigTitle extends StatelessWidget {
             child: (isSubtitleLoading && subtitle != '')
                 ? Container(
                     padding: const EdgeInsets.only(right: 10),
-                    child: const CircularProgressIndicator(),
                     height: 15.0,
                     width: 25.0,
+                    child: const CircularProgressIndicator(),
                   )
                 : Padding(
                     padding: const EdgeInsets.only(right: 10),
@@ -95,7 +100,9 @@ class BigTitle extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Divider(
-              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black38,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.white
+                  : Colors.black38,
             ),
           ),
         ],
@@ -105,7 +112,8 @@ class BigTitle extends StatelessWidget {
 }
 
 class UnitCard extends StatelessWidget {
-  const UnitCard({required this.symbol, required this.textField, Key? key}) : super(key: key);
+  const UnitCard({required this.symbol, required this.textField, Key? key})
+      : super(key: key);
 
   final String? symbol;
   final Widget textField;
@@ -117,11 +125,12 @@ class UnitCard extends StatelessWidget {
         Container(
           padding: const EdgeInsets.only(top: 14.0),
           child: Card(
+            elevation: 4.0,
             child: Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+              padding:
+                  const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
               child: textField,
             ),
-            elevation: 4.0,
           ),
         ),
         if (symbol != null)
@@ -129,6 +138,7 @@ class UnitCard extends StatelessWidget {
             alignment: const AlignmentDirectional(0.95, -0.9),
             child: Card(
               elevation: 4.0,
+              color: Theme.of(context).primaryColor,
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: Text(
@@ -140,7 +150,6 @@ class UnitCard extends StatelessWidget {
                   ),
                 ),
               ),
-              color: Theme.of(context).primaryColor,
             ),
           ),
       ],
@@ -152,18 +161,21 @@ class SearchUnit {
   String iconAsset;
   String unitName;
   GestureTapCallback onTap;
-  SearchUnit({required this.iconAsset, required this.unitName, required this.onTap});
+  SearchUnit(
+      {required this.iconAsset, required this.unitName, required this.onTap});
 }
 
 class SearchUnitTile extends StatelessWidget {
   final SearchUnit searchUnit;
   final bool darkMode;
-  const SearchUnitTile(this.searchUnit, this.darkMode, {Key? key}) : super(key: key);
+  const SearchUnitTile(this.searchUnit, this.darkMode, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset(searchUnit.iconAsset, height: 26.0, color: darkMode ? Colors.white : Colors.grey),
+      leading: Image.asset(searchUnit.iconAsset,
+          height: 26.0, color: darkMode ? Colors.white : Colors.grey),
       title: Text(searchUnit.unitName),
       onTap: searchUnit.onTap,
     );
@@ -173,12 +185,17 @@ class SearchUnitTile extends StatelessWidget {
 class SuggestionList extends StatelessWidget {
   final List<SearchUnit> suggestions;
   final bool darkMode;
-  const SuggestionList({required this.suggestions, required this.darkMode, Key? key}) : super(key: key);
+  const SuggestionList(
+      {required this.suggestions, required this.darkMode, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: <Widget>[for (int i = 0; i < suggestions.length; i++) SearchUnitTile(suggestions[i], darkMode)],
+      children: <Widget>[
+        for (int i = 0; i < suggestions.length; i++)
+          SearchUnitTile(suggestions[i], darkMode)
+      ],
     );
   }
 }
@@ -248,7 +265,8 @@ class DropdownListTile extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  static const BorderRadiusGeometry borderRadius = BorderRadius.all(Radius.circular(30));
+  static const BorderRadiusGeometry borderRadius =
+      BorderRadius.all(Radius.circular(30));
 
   @override
   Widget build(BuildContext context) {
@@ -295,8 +313,9 @@ class DropdownListTile extends StatelessWidget {
                 return SizedBox(
                   width: 150,
                   child: Align(
-                    alignment:
-                        Directionality.of(context) == TextDirection.ltr ? Alignment.centerLeft : Alignment.centerRight,
+                    alignment: Directionality.of(context) == TextDirection.ltr
+                        ? Alignment.centerLeft
+                        : Alignment.centerRight,
                     child: Text(
                       value,
                       style: textStyle,
@@ -307,11 +326,11 @@ class DropdownListTile extends StatelessWidget {
             },
             items: items.map((String item) {
               return DropdownMenuItem<String>(
+                value: item,
                 child: Text(
                   item.toString(),
                   style: textStyle,
                 ),
-                value: item,
               );
             }).toList(),
           ),
@@ -335,7 +354,8 @@ class SplashScreenWidget extends StatelessWidget {
 class ConstrainedContainer extends StatelessWidget {
   final Widget child;
   final double maxWidth;
-  const ConstrainedContainer(this.child, {this.maxWidth = 800, Key? key}) : super(key: key);
+  const ConstrainedContainer(this.child, {this.maxWidth = 800, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
