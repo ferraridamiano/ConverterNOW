@@ -111,52 +111,6 @@ class BigTitle extends StatelessWidget {
   }
 }
 
-class UnitCard extends StatelessWidget {
-  const UnitCard({required this.symbol, required this.textField, Key? key})
-      : super(key: key);
-
-  final String? symbol;
-  final Widget textField;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.only(top: 14.0),
-          child: Card(
-            elevation: 4.0,
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-              child: textField,
-            ),
-          ),
-        ),
-        if (symbol != null)
-          Align(
-            alignment: const AlignmentDirectional(0.95, -0.9),
-            child: Card(
-              elevation: 4.0,
-              color: Theme.of(context).primaryColor,
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Text(
-                  symbol!,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-}
-
 class SearchUnit {
   String iconAsset;
   String unitName;

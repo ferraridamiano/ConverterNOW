@@ -131,7 +131,8 @@ class MyApp extends StatelessWidget {
             (appModel) => appModel.currentThemeMode,
           ),
           theme: defaultLight.copyWith(
-            primaryColor: Colors.teal[400],
+            useMaterial3: true,
+            /*primaryColor: Colors.teal[400],
             //primarySwatch: Colors.orange,
             brightness: Brightness.light,
             colorScheme: defaultLight.colorScheme.copyWith(
@@ -144,10 +145,11 @@ class MyApp extends StatelessWidget {
               ),
               labelStyle: TextStyle(color: Color(0xFF555555)),
             ),
-            bottomAppBarColor: const Color(0xFFEBF7F6),
+            bottomAppBarColor: const Color(0xFFEBF7F6),*/
           ),
           darkTheme: defaultDark.copyWith(
-            primaryColor: Colors.teal[400],
+            useMaterial3: true,
+            /*primaryColor: Colors.teal[400],
             colorScheme: defaultDark.colorScheme.copyWith(
               secondary: Colors.orange[600],
               secondaryContainer: Colors.orange[700],
@@ -167,7 +169,7 @@ class MyApp extends StatelessWidget {
             ),
             bottomAppBarColor: isDarkAmoled
                 ? const Color(0xFF0A2D2A)
-                : const Color(0xFF3F4B4A),
+                : const Color(0xFF3F4B4A),*/
           ),
           supportedLocales: context.read<AppModel>().supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,

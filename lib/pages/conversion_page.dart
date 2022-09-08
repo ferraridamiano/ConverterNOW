@@ -44,14 +44,11 @@ class ConversionPage extends StatelessWidget {
     List<Widget> gridTiles = [];
 
     for (UnitData unitData in unitDataList) {
-      gridTiles.add(UnitCard(
-        symbol: unitData.unit.symbol,
-        textField: TextFormField(
+      gridTiles.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+        child: TextFormField(
           key: Key(unitData.unit.name.toString()),
-          style: TextStyle(
-            fontSize: 16.0,
-            color: brightness == Brightness.dark ? Colors.white : Colors.black,
-          ),
+          style: const TextStyle(fontSize: 16.0),
           keyboardType: unitData.textInputType,
           controller: unitData.tec,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -65,6 +62,9 @@ class ConversionPage extends StatelessWidget {
           },
           decoration: InputDecoration(
             labelText: unitTranslationMap[unitData.unit.name],
+            border: const OutlineInputBorder(),
+            suffixText: unitData.unit.symbol,
+            floatingLabelStyle: const TextStyle(fontSize: 20),
           ),
           onChanged: (String txt) {
             if (txt == '' || unitData.getValidator().hasMatch(txt)) {
@@ -105,11 +105,12 @@ class ConversionPage extends StatelessWidget {
                 numCols,
               ),
               crossAxisCount: numCols,
-              crossAxisSpacing: 15.0,
+              //crossAxisSpacing: 15.0,
               padding: EdgeInsets.only(
                 left: xPadding,
                 right: xPadding,
-                bottom: 22, // So FAB doesn't overlap the card
+                bottom: 55, // So FAB doesn't overlap the card
+                top: 10,
               ),
               shrinkWrap: true,
               children: gridTiles,
