@@ -44,44 +44,34 @@ class ConversionPage extends StatelessWidget {
     List<Widget> gridTiles = [];
 
     for (UnitData unitData in unitDataList) {
-      gridTiles.add(Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-        child: TextFormField(
-          key: Key(unitData.unit.name.toString()),
-          style: const TextStyle(fontSize: 16.0),
-          keyboardType: unitData.textInputType,
-          controller: unitData.tec,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (String? input) {
-            if (input != null &&
-                input != '' &&
-                !unitData.getValidator().hasMatch(input)) {
-              return AppLocalizations.of(context)!.invalidCharacters;
+      gridTiles.add(UnitWidget(
+        unitName: unitTranslationMap[unitData.unit.name]!,
+        unitSymbol: unitData.unit.symbol,
+        keyboardType: unitData.textInputType,
+        controller: unitData.tec,
+        validator: (String? input) {
+          if (input != null &&
+              input != '' &&
+              !unitData.getValidator().hasMatch(input)) {
+            return AppLocalizations.of(context)!.invalidCharacters;
+          }
+          return null;
+        },
+        onChanged: (String txt) {
+          if (txt == '' || unitData.getValidator().hasMatch(txt)) {
+            Conversions conversions = context.read<Conversions>();
+            //just numeral system uses a string for conversion
+            if (unitData.property == PROPERTYX.numeralSystems) {
+              conversions.convert(unitData, txt == "" ? null : txt, page);
+            } else {
+              conversions.convert(
+                unitData,
+                txt == "" ? null : double.parse(txt),
+                page,
+              );
             }
-            return null;
-          },
-          decoration: InputDecoration(
-            labelText: unitTranslationMap[unitData.unit.name],
-            border: const OutlineInputBorder(),
-            suffixText: unitData.unit.symbol,
-            floatingLabelStyle: const TextStyle(fontSize: 20),
-          ),
-          onChanged: (String txt) {
-            if (txt == '' || unitData.getValidator().hasMatch(txt)) {
-              Conversions conversions = context.read<Conversions>();
-              //just numeral system uses a string for conversion
-              if (unitData.property == PROPERTYX.numeralSystems) {
-                conversions.convert(unitData, txt == "" ? null : txt, page);
-              } else {
-                conversions.convert(
-                  unitData,
-                  txt == "" ? null : double.parse(txt),
-                  page,
-                );
-              }
-            }
-          },
-        ),
+          }
+        },
       ));
     }
 

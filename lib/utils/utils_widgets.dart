@@ -111,6 +111,70 @@ class BigTitle extends StatelessWidget {
   }
 }
 
+class UnitWidget extends StatefulWidget {
+  final TextInputType? keyboardType;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final String unitName;
+  final String? unitSymbol;
+  final void Function(String)? onChanged;
+
+  const UnitWidget({
+    Key? key,
+    this.keyboardType,
+    required this.controller,
+    this.validator,
+    required this.unitName,
+    this.unitSymbol,
+    this.onChanged,
+  }) : super(key: key);
+
+  @override
+  State<UnitWidget> createState() => _UnitWidgetState();
+}
+
+class _UnitWidgetState extends State<UnitWidget> {
+  FocusNode focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    super.dispose();
+    focusNode.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    focusNode.addListener(() => setState(() {}));
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+      child: TextFormField(
+        key: Key(widget.unitName),
+        focusNode: focusNode,
+        style: const TextStyle(fontSize: 16.0),
+        keyboardType: widget.keyboardType,
+        controller: widget.controller,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: widget.validator,
+        decoration: InputDecoration(
+          labelText: widget.unitName,
+          suffixText: widget.unitSymbol,
+          border: const OutlineInputBorder(),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.orange, width: 2),
+          ),
+          floatingLabelStyle: TextStyle(
+            fontSize: 20,
+            color: focusNode.hasFocus
+                ? Theme.of(context).colorScheme.secondary
+                : null,
+          ),
+        ),
+        onChanged: widget.onChanged,
+      ),
+    );
+  }
+}
+
 class SearchUnit {
   String iconAsset;
   String unitName;

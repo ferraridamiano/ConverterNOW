@@ -132,6 +132,12 @@ class MyApp extends StatelessWidget {
           ),
           theme: defaultLight.copyWith(
             useMaterial3: true,
+            primaryColor: Colors.teal[400],
+            colorScheme:
+                defaultLight.colorScheme.copyWith(secondary: Colors.orange),
+            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: Colors.orange,
+            ),
             /*primaryColor: Colors.teal[400],
             //primarySwatch: Colors.orange,
             brightness: Brightness.light,
