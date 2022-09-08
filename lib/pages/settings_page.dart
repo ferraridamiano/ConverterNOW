@@ -66,6 +66,12 @@ class _SettingsPageState extends State<SettingsPage> {
           child: ListView(
             children: <Widget>[
               SwitchListTile(
+                secondary: Image.asset(
+                  'resources/images/remove_trailing_zeros.png',
+                  width: 30,
+                  filterQuality: FilterQuality.medium,
+                  color: Colors.black.withOpacity(0.54),
+                ),
                 title: Text(
                   AppLocalizations.of(context)!.removeTrailingZeros,
                   style: textStyle,
@@ -80,6 +86,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               SwitchListTile(
+                secondary: const Icon(Icons.dark_mode_outlined),
                 title: Text(
                   AppLocalizations.of(context)!.amoledDarkTheme,
                   style: textStyle,
@@ -94,6 +101,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               DropdownListTile(
+                leading: const Icon(Icons.palette_outlined),
                 title: AppLocalizations.of(context)!.theme,
                 textStyle: textStyle,
                 items: mapTheme.values.toList(),
@@ -107,6 +115,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               DropdownListTile(
+                leading: const Icon(Icons.language),
                 title: AppLocalizations.of(context)!.language,
                 textStyle: textStyle,
                 items: [
@@ -127,6 +136,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               DropdownListTile(
+                leading: Image.asset(
+                  'resources/images/significant_figures.png',
+                  width: 30,
+                  filterQuality: FilterQuality.medium,
+                  color: Colors.black.withOpacity(0.54),
+                ),
                 title: AppLocalizations.of(context)!.significantFigures,
                 textStyle: textStyle,
                 items: significantFiguresList,
@@ -141,6 +156,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               ListTile(
+                leading: Image.asset(
+                  'resources/images/reorder_properties.png',
+                  width: 30,
+                  filterQuality: FilterQuality.medium,
+                  color: Colors.black.withOpacity(0.54),
+                ),
                 title: Text(
                   AppLocalizations.of(context)!.reorderProperties,
                   style: textStyle,
@@ -149,6 +170,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               ListTile(
+                leading: Image.asset(
+                  'resources/images/reorder_units.png',
+                  width: 30,
+                  filterQuality: FilterQuality.medium,
+                  color: Colors.black.withOpacity(0.54),
+                ),
                 title: Text(
                   AppLocalizations.of(context)!.reorderUnits,
                   style: textStyle,
@@ -157,6 +184,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               ListTile(
+                leading: const Icon(Icons.computer),
                 title: Text(
                   AppLocalizations.of(context)!.otherPlatforms,
                   style: textStyle,
@@ -262,6 +290,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               ListTile(
+                leading: const Icon(Icons.translate),
                 title: Text(
                   AppLocalizations.of(context)!.contibuteTranslating,
                   style: textStyle,
@@ -279,6 +308,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               if (!EnvironmentConfig.isPlaystore)
                 ListTile(
+                  leading: const Icon(Icons.coffee_outlined),
                   title: Text(
                     AppLocalizations.of(context)!.buyMeACoffee,
                     style: textStyle,
@@ -325,6 +355,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               if (!kIsWeb)
                 ListTile(
+                  leading: const Icon(Icons.email_outlined),
                   title: Text(
                     AppLocalizations.of(context)!.contactDeveloper,
                     style: textStyle,
@@ -338,6 +369,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                 ),
               ListTile(
+                leading: const Icon(Icons.info_outline),
                 title: Text(
                   AppLocalizations.of(context)!.about,
                   style: textStyle,

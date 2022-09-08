@@ -207,6 +207,7 @@ class DropdownListTile extends StatelessWidget {
   final String value;
   final ValueChanged<String?> onChanged;
   final TextStyle textStyle;
+  final Widget? leading;
 
   /// This widget will return a [ListTile] with a dialog on mobile device and a
   /// [ListTile] with a [DropdownButton] for desktop device.
@@ -216,6 +217,7 @@ class DropdownListTile extends StatelessWidget {
     required this.value,
     required this.onChanged,
     required this.textStyle,
+    this.leading,
     Key? key,
   }) : super(key: key);
 
@@ -229,6 +231,7 @@ class DropdownListTile extends StatelessWidget {
       case TargetPlatform.iOS:
         String selected = value;
         return ListTile(
+          leading: leading,
           title: Text(
             title,
             style: textStyle,
@@ -254,6 +257,7 @@ class DropdownListTile extends StatelessWidget {
         );
       default:
         return ListTile(
+          leading: leading,
           title: Text(
             title,
             style: textStyle,
