@@ -172,3 +172,9 @@ void initializeQuickAction(
     ),
   ]);
 }
+
+Color getIconColor(Brightness brightness) {
+  return brightness == Brightness.light
+      ? const Color(0xFF898989)
+      : const Color(0xFFFFFFFF);
+}

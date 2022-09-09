@@ -56,6 +56,8 @@ class _SettingsPageState extends State<SettingsPage> {
       ThemeMode.light: AppLocalizations.of(context)!.light,
     };
 
+    Color iconColor = getIconColor(Theme.of(context).brightness);
+
     return Column(
       children: [
         BigTitle(
@@ -70,7 +72,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   'resources/images/remove_trailing_zeros.png',
                   width: 30,
                   filterQuality: FilterQuality.medium,
-                  color: Colors.black.withOpacity(0.54),
+                  color: iconColor,
                 ),
                 title: Text(
                   AppLocalizations.of(context)!.removeTrailingZeros,
@@ -140,7 +142,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   'resources/images/significant_figures.png',
                   width: 30,
                   filterQuality: FilterQuality.medium,
-                  color: Colors.black.withOpacity(0.54),
+                  color: iconColor,
                 ),
                 title: AppLocalizations.of(context)!.significantFigures,
                 textStyle: textStyle,
@@ -160,7 +162,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   'resources/images/reorder_properties.png',
                   width: 30,
                   filterQuality: FilterQuality.medium,
-                  color: Colors.black.withOpacity(0.54),
+                  color: iconColor,
                 ),
                 title: Text(
                   AppLocalizations.of(context)!.reorderProperties,
@@ -174,7 +176,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   'resources/images/reorder_units.png',
                   width: 30,
                   filterQuality: FilterQuality.medium,
-                  color: Colors.black.withOpacity(0.54),
+                  color: iconColor,
                 ),
                 title: Text(
                   AppLocalizations.of(context)!.reorderUnits,
