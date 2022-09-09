@@ -70,7 +70,7 @@ class _SettingsPageState extends State<SettingsPage> {
               SwitchListTile(
                 secondary: Image.asset(
                   'resources/images/remove_trailing_zeros.png',
-                  width: 30,
+                  width: 25,
                   filterQuality: FilterQuality.medium,
                   color: iconColor,
                 ),
@@ -140,7 +140,7 @@ class _SettingsPageState extends State<SettingsPage> {
               DropdownListTile(
                 leading: Image.asset(
                   'resources/images/significant_figures.png',
-                  width: 30,
+                  width: 25,
                   filterQuality: FilterQuality.medium,
                   color: iconColor,
                 ),
@@ -160,7 +160,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ListTile(
                 leading: Image.asset(
                   'resources/images/reorder_properties.png',
-                  width: 30,
+                  width: 25,
                   filterQuality: FilterQuality.medium,
                   color: iconColor,
                 ),
@@ -174,7 +174,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ListTile(
                 leading: Image.asset(
                   'resources/images/reorder_units.png',
-                  width: 30,
+                  width: 25,
                   filterQuality: FilterQuality.medium,
                   color: iconColor,
                 ),

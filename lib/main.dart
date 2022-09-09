@@ -138,10 +138,7 @@ class MyApp extends StatelessWidget {
             floatingActionButtonTheme: const FloatingActionButtonThemeData(
               backgroundColor: Colors.orange,
             ),
-            /*primaryColor: Colors.teal[400],
-            //primarySwatch: Colors.orange,
-            brightness: Brightness.light,
-            colorScheme: defaultLight.colorScheme.copyWith(
+            /*colorScheme: defaultLight.colorScheme.copyWith(
               secondary: Colors.orange,
               secondaryContainer: Colors.orange[700],
             ),
@@ -155,17 +152,21 @@ class MyApp extends StatelessWidget {
           ),
           darkTheme: defaultDark.copyWith(
             useMaterial3: true,
-            /*primaryColor: Colors.teal[400],
-            colorScheme: defaultDark.colorScheme.copyWith(
-              secondary: Colors.orange[600],
-              secondaryContainer: Colors.orange[700],
+            primaryColor: Colors.teal[400],
+            colorScheme:
+                defaultDark.colorScheme.copyWith(secondary: Colors.orange),
+            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: Colors.orange,
             ),
-            brightness: Brightness.dark,
             scaffoldBackgroundColor:
                 isDarkAmoled ? Colors.black : Colors.grey[850],
             canvasColor: isDarkAmoled
                 ? Colors.black
                 : Colors.grey[850], // for drawer background
+            /*colorScheme: defaultDark.colorScheme.copyWith(
+              secondary: Colors.orange[600],
+              secondaryContainer: Colors.orange[700],
+            ),
             cardColor: isDarkAmoled ? Colors.grey[900] : Colors.grey[800],
             inputDecorationTheme: const InputDecorationTheme(
               focusedBorder: UnderlineInputBorder(
