@@ -133,48 +133,34 @@ class MyApp extends StatelessWidget {
           theme: defaultLight.copyWith(
             useMaterial3: true,
             primaryColor: Colors.teal[400],
-            colorScheme:
-                defaultLight.colorScheme.copyWith(secondary: Colors.orange),
+            colorScheme: defaultLight.colorScheme.copyWith(
+              secondary: Colors.orange,
+            ),
             floatingActionButtonTheme: const FloatingActionButtonThemeData(
               backgroundColor: Colors.orange,
             ),
-            /*colorScheme: defaultLight.colorScheme.copyWith(
-              secondary: Colors.orange,
-              secondaryContainer: Colors.orange[700],
-            ),
-            inputDecorationTheme: const InputDecorationTheme(
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.orange),
-              ),
-              labelStyle: TextStyle(color: Color(0xFF555555)),
-            ),
-            bottomAppBarColor: const Color(0xFFEBF7F6),*/
+            textSelectionTheme:
+                TextSelectionThemeData(cursorColor: Colors.teal[400]),
+            /*bottomAppBarColor: const Color(0xFFEBF7F6),*/
           ),
           darkTheme: defaultDark.copyWith(
             useMaterial3: true,
             primaryColor: Colors.teal[400],
-            colorScheme:
-                defaultDark.colorScheme.copyWith(secondary: Colors.orange),
+            colorScheme: defaultDark.colorScheme.copyWith(
+              secondary: Colors.orange,
+            ),
             floatingActionButtonTheme: const FloatingActionButtonThemeData(
               backgroundColor: Colors.orange,
+            ),
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: Colors.teal[400],
             ),
             scaffoldBackgroundColor:
                 isDarkAmoled ? Colors.black : Colors.grey[850],
             canvasColor: isDarkAmoled
                 ? Colors.black
                 : Colors.grey[850], // for drawer background
-            /*colorScheme: defaultDark.colorScheme.copyWith(
-              secondary: Colors.orange[600],
-              secondaryContainer: Colors.orange[700],
-            ),
-            cardColor: isDarkAmoled ? Colors.grey[900] : Colors.grey[800],
-            inputDecorationTheme: const InputDecorationTheme(
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.orange),
-              ),
-              labelStyle: TextStyle(color: Color(0xFFDDDDDD)),
-            ),
-            bottomAppBarColor: isDarkAmoled
+            /*bottomAppBarColor: isDarkAmoled
                 ? const Color(0xFF0A2D2A)
                 : const Color(0xFF3F4B4A),*/
           ),

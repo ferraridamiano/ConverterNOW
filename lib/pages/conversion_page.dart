@@ -34,8 +34,6 @@ class ConversionPage extends StatelessWidget {
     PROPERTYX currentProperty =
         context.read<Conversions>().getPropertyNameAtPage(page);
 
-    final Brightness brightness = Theme.of(context).brightness;
-
     String subTitle = '';
     if (currentProperty == PROPERTYX.currencies) {
       subTitle = _getLastUpdateString(context);
