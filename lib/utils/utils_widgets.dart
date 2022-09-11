@@ -157,7 +157,11 @@ class _UnitWidgetState extends State<UnitWidget> {
         decoration: InputDecoration(
           labelText: widget.unitName,
           suffixText: widget.unitSymbol,
-          suffixStyle: const TextStyle(color: Colors.black),
+          suffixStyle: TextStyle(
+            color: Theme.of(context).brightness == Brightness.light
+                ? Colors.black
+                : Colors.white,
+          ),
           border: const OutlineInputBorder(),
           focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.orange, width: 2),
