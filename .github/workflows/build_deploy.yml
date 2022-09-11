@@ -78,7 +78,7 @@ jobs:
     - name: Release to GitHub
       uses: ncipollo/release-action@v1.10.0
       with:
-        artifacts: "build/app/outputs/apk/release/*.apk,converternow-linux.tar.gz"
+        artifacts: "build/app/outputs/flutter-apk/app-*-release.apk,converternow-linux.tar.gz"
         token: ${{ secrets.GH_TOKEN }}
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}

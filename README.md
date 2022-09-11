@@ -80,7 +80,7 @@ translations code. Then follow the instructions for the platform you target.
 On Android you should first disable the signing option in
 [`android/app/build.gradle`](https://github.com/ferraridamiano/ConverterNOW/blob/master/android/app/build.gradle#L70)
 (just comment that line). Then you can type `flutter build apk --split-per-abi`
-to compile the code. You can find the output in `build/app/outputs/apk/release`
+to compile the code. You can find the output in `build/app/outputs/flutter-apk`
 folder.
 
 ### Linux
