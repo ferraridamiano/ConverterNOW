@@ -142,8 +142,6 @@ class AppScaffold extends StatelessWidget {
               ? FloatingActionButton(
                   tooltip: AppLocalizations.of(context)!.calculator,
                   onPressed: openCalculator,
-                  backgroundColor:
-                      Theme.of(context).colorScheme.secondaryContainer,
                   child: const Icon(
                     Icons.calculate_outlined,
                     size: 30,
