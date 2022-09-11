@@ -34,8 +34,6 @@ class ConversionPage extends StatelessWidget {
     PROPERTYX currentProperty =
         context.read<Conversions>().getPropertyNameAtPage(page);
 
-    final Brightness brightness = Theme.of(context).brightness;
-
     String subTitle = '';
     if (currentProperty == PROPERTYX.currencies) {
       subTitle = _getLastUpdateString(context);
@@ -44,44 +42,35 @@ class ConversionPage extends StatelessWidget {
     List<Widget> gridTiles = [];
 
     for (UnitData unitData in unitDataList) {
-      gridTiles.add(UnitCard(
-        symbol: unitData.unit.symbol,
-        textField: TextFormField(
-          key: Key(unitData.unit.name.toString()),
-          style: TextStyle(
-            fontSize: 16.0,
-            color: brightness == Brightness.dark ? Colors.white : Colors.black,
-          ),
-          keyboardType: unitData.textInputType,
-          controller: unitData.tec,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          validator: (String? input) {
-            if (input != null &&
-                input != '' &&
-                !unitData.getValidator().hasMatch(input)) {
-              return AppLocalizations.of(context)!.invalidCharacters;
+      gridTiles.add(UnitWidget(
+        key: Key(unitData.unit.name.toString()),
+        unitName: unitTranslationMap[unitData.unit.name]!,
+        unitSymbol: unitData.unit.symbol,
+        keyboardType: unitData.textInputType,
+        controller: unitData.tec,
+        validator: (String? input) {
+          if (input != null &&
+              input != '' &&
+              !unitData.getValidator().hasMatch(input)) {
+            return AppLocalizations.of(context)!.invalidCharacters;
+          }
+          return null;
+        },
+        onChanged: (String txt) {
+          if (txt == '' || unitData.getValidator().hasMatch(txt)) {
+            Conversions conversions = context.read<Conversions>();
+            //just numeral system uses a string for conversion
+            if (unitData.property == PROPERTYX.numeralSystems) {
+              conversions.convert(unitData, txt == "" ? null : txt, page);
+            } else {
+              conversions.convert(
+                unitData,
+                txt == "" ? null : double.parse(txt),
+                page,
+              );
             }
-            return null;
-          },
-          decoration: InputDecoration(
-            labelText: unitTranslationMap[unitData.unit.name],
-          ),
-          onChanged: (String txt) {
-            if (txt == '' || unitData.getValidator().hasMatch(txt)) {
-              Conversions conversions = context.read<Conversions>();
-              //just numeral system uses a string for conversion
-              if (unitData.property == PROPERTYX.numeralSystems) {
-                conversions.convert(unitData, txt == "" ? null : txt, page);
-              } else {
-                conversions.convert(
-                  unitData,
-                  txt == "" ? null : double.parse(txt),
-                  page,
-                );
-              }
-            }
-          },
-        ),
+          }
+        },
       ));
     }
 
@@ -105,11 +94,12 @@ class ConversionPage extends StatelessWidget {
                 numCols,
               ),
               crossAxisCount: numCols,
-              crossAxisSpacing: 15.0,
+              //crossAxisSpacing: 15.0,
               padding: EdgeInsets.only(
                 left: xPadding,
                 right: xPadding,
-                bottom: 22, // So FAB doesn't overlap the card
+                bottom: 55, // So FAB doesn't overlap the card
+                top: 10,
               ),
               shrinkWrap: true,
               children: gridTiles,

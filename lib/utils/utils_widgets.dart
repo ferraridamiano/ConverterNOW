@@ -111,48 +111,66 @@ class BigTitle extends StatelessWidget {
   }
 }
 
-class UnitCard extends StatelessWidget {
-  const UnitCard({required this.symbol, required this.textField, Key? key})
-      : super(key: key);
+class UnitWidget extends StatefulWidget {
+  final TextInputType? keyboardType;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
+  final String unitName;
+  final String? unitSymbol;
+  final void Function(String)? onChanged;
 
-  final String? symbol;
-  final Widget textField;
+  const UnitWidget({
+    Key? key,
+    this.keyboardType,
+    required this.controller,
+    this.validator,
+    required this.unitName,
+    this.unitSymbol,
+    this.onChanged,
+  }) : super(key: key);
+
+  @override
+  State<UnitWidget> createState() => _UnitWidgetState();
+}
+
+class _UnitWidgetState extends State<UnitWidget> {
+  FocusNode focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    super.dispose();
+    focusNode.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.only(top: 14.0),
-          child: Card(
-            elevation: 4.0,
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-              child: textField,
-            ),
+    focusNode.addListener(() => setState(() {}));
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+      child: TextFormField(
+        focusNode: focusNode,
+        style: const TextStyle(fontSize: 16.0),
+        keyboardType: widget.keyboardType,
+        controller: widget.controller,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: widget.validator,
+        decoration: InputDecoration(
+          labelText: widget.unitName,
+          suffixText: widget.unitSymbol,
+          suffixStyle: const TextStyle(color: Colors.black),
+          border: const OutlineInputBorder(),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.orange, width: 2),
+          ),
+          floatingLabelStyle: TextStyle(
+            fontSize: 20,
+            color: focusNode.hasFocus
+                ? Theme.of(context).colorScheme.secondary
+                : null,
           ),
         ),
-        if (symbol != null)
-          Align(
-            alignment: const AlignmentDirectional(0.95, -0.9),
-            child: Card(
-              elevation: 4.0,
-              color: Theme.of(context).primaryColor,
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Text(
-                  symbol!,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-          ),
-      ],
+        onChanged: widget.onChanged,
+      ),
     );
   }
 }
@@ -253,6 +271,7 @@ class DropdownListTile extends StatelessWidget {
   final String value;
   final ValueChanged<String?> onChanged;
   final TextStyle textStyle;
+  final Widget? leading;
 
   /// This widget will return a [ListTile] with a dialog on mobile device and a
   /// [ListTile] with a [DropdownButton] for desktop device.
@@ -262,6 +281,7 @@ class DropdownListTile extends StatelessWidget {
     required this.value,
     required this.onChanged,
     required this.textStyle,
+    this.leading,
     Key? key,
   }) : super(key: key);
 
@@ -275,6 +295,7 @@ class DropdownListTile extends StatelessWidget {
       case TargetPlatform.iOS:
         String selected = value;
         return ListTile(
+          leading: leading,
           title: Text(
             title,
             style: textStyle,
@@ -300,6 +321,7 @@ class DropdownListTile extends StatelessWidget {
         );
       default:
         return ListTile(
+          leading: leading,
           title: Text(
             title,
             style: textStyle,

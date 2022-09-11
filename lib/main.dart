@@ -131,40 +131,35 @@ class MyApp extends StatelessWidget {
             (appModel) => appModel.currentThemeMode,
           ),
           theme: defaultLight.copyWith(
+            useMaterial3: true,
             primaryColor: Colors.teal[400],
-            //primarySwatch: Colors.orange,
-            brightness: Brightness.light,
             colorScheme: defaultLight.colorScheme.copyWith(
               secondary: Colors.orange,
-              secondaryContainer: Colors.orange[700],
             ),
-            inputDecorationTheme: const InputDecorationTheme(
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.orange),
-              ),
-              labelStyle: TextStyle(color: Color(0xFF555555)),
+            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: Colors.orange,
             ),
+            textSelectionTheme:
+                TextSelectionThemeData(cursorColor: Colors.teal[400]),
             bottomAppBarColor: const Color(0xFFEBF7F6),
           ),
           darkTheme: defaultDark.copyWith(
+            useMaterial3: true,
             primaryColor: Colors.teal[400],
             colorScheme: defaultDark.colorScheme.copyWith(
-              secondary: Colors.orange[600],
-              secondaryContainer: Colors.orange[700],
+              secondary: Colors.orange,
             ),
-            brightness: Brightness.dark,
+            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+              backgroundColor: Colors.orange,
+            ),
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: Colors.teal[400],
+            ),
             scaffoldBackgroundColor:
                 isDarkAmoled ? Colors.black : Colors.grey[850],
             canvasColor: isDarkAmoled
                 ? Colors.black
                 : Colors.grey[850], // for drawer background
-            cardColor: isDarkAmoled ? Colors.grey[900] : Colors.grey[800],
-            inputDecorationTheme: const InputDecorationTheme(
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.orange),
-              ),
-              labelStyle: TextStyle(color: Color(0xFFDDDDDD)),
-            ),
             bottomAppBarColor: isDarkAmoled
                 ? const Color(0xFF0A2D2A)
                 : const Color(0xFF3F4B4A),
