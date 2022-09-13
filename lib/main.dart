@@ -141,7 +141,6 @@ class MyApp extends StatelessWidget {
             ),
             textSelectionTheme:
                 TextSelectionThemeData(cursorColor: Colors.teal[400]),
-            bottomAppBarColor: const Color(0xFFEBF7F6),
           ),
           darkTheme: defaultDark.copyWith(
             useMaterial3: true,
@@ -160,9 +159,6 @@ class MyApp extends StatelessWidget {
             canvasColor: isDarkAmoled
                 ? Colors.black
                 : Colors.grey[850], // for drawer background
-            bottomAppBarColor: isDarkAmoled
-                ? const Color(0xFF0A2D2A)
-                : const Color(0xFF3F4B4A),
           ),
           supportedLocales: context.read<AppModel>().supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
