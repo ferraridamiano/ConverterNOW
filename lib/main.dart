@@ -141,6 +141,7 @@ class MyApp extends StatelessWidget {
             ),
             textSelectionTheme:
                 TextSelectionThemeData(cursorColor: Colors.teal[400]),
+            toggleableActiveColor: Colors.orange,
           ),
           darkTheme: defaultDark.copyWith(
             useMaterial3: true,
@@ -154,6 +155,7 @@ class MyApp extends StatelessWidget {
             textSelectionTheme: TextSelectionThemeData(
               cursorColor: Colors.teal[400],
             ),
+            toggleableActiveColor: Colors.orange,
             scaffoldBackgroundColor:
                 isDarkAmoled ? Colors.black : Colors.grey[850],
             canvasColor: isDarkAmoled

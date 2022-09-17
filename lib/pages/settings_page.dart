@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EnvironmentConfig {
   static const bool isPlaystore =
@@ -202,9 +203,13 @@ class _SettingsPageState extends State<SettingsPage> {
                           ListTile(
                             title: const Text('Web'),
                             leading: const Icon(Icons.public_outlined),
-                            onTap: () => launchURL(Uri(
+                            onTap: () => launchURL(
+                              Uri(
                                 scheme: 'https',
-                                host: 'converter-now.web.app')),
+                                host: 'converter-now.web.app',
+                              ),
+                              mode: LaunchMode.externalApplication,
+                            ),
                           ),
                         if (kIsWeb || Platform.isWindows || Platform.isLinux)
                           ListTile(
@@ -223,10 +228,14 @@ class _SettingsPageState extends State<SettingsPage> {
                           ListTile(
                             title: const Text('Windows'),
                             leading: const Icon(Icons.laptop),
-                            onTap: () => launchURL(Uri(
+                            onTap: () => launchURL(
+                              Uri(
                                 scheme: 'https',
                                 host: 'microsoft.com',
-                                path: '/store/apps/9P0Q79HWJH72')),
+                                path: '/store/apps/9P0Q79HWJH72',
+                              ),
+                              mode: LaunchMode.externalApplication,
+                            ),
                           ),
                         ListTile(
                           title: const Text('Linux (Flatpak)'),
@@ -239,13 +248,13 @@ class _SettingsPageState extends State<SettingsPage> {
                             width: 25,
                           ),
                           onTap: () => launchURL(
-                            Uri(
-                              scheme: 'https',
-                              host: 'flathub.org',
-                              path:
-                                  '/apps/details/io.github.ferraridamiano.ConverterNOW',
-                            ),
-                          ),
+                              Uri(
+                                scheme: 'https',
+                                host: 'flathub.org',
+                                path:
+                                    '/apps/details/io.github.ferraridamiano.ConverterNOW',
+                              ),
+                              mode: LaunchMode.externalApplication),
                         ),
                         ListTile(
                           title: const Text('Linux (Snap)'),
@@ -263,6 +272,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               host: 'snapcraft.io',
                               path: '/converternow',
                             ),
+                            mode: LaunchMode.externalApplication,
                           ),
                         ),
                         ListTile(
@@ -284,6 +294,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               host: 'github.com',
                               path: '/ferraridamiano/ConverterNOW',
                             ),
+                            mode: LaunchMode.externalApplication,
                           ),
                         ),
                       ],
@@ -305,6 +316,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       host: 'github.com',
                       path: '/ferraridamiano/ConverterNOW/issues/2',
                     ),
+                    mode: LaunchMode.externalApplication,
                   );
                 },
               ),
@@ -355,21 +367,20 @@ class _SettingsPageState extends State<SettingsPage> {
                     );
                   },
                 ),
-              if (!kIsWeb)
-                ListTile(
-                  leading: const Icon(Icons.email_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.contactDeveloper,
-                    style: textStyle,
-                  ),
-                  shape:
-                      const RoundedRectangleBorder(borderRadius: borderRadius),
-                  onTap: () {
-                    launchURL(Uri(
-                        scheme: 'mailto',
-                        path: 'damianoferrari1998@gmail.com'));
-                  },
+              //if (!kIsWeb)
+              ListTile(
+                leading: const Icon(Icons.email_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.contactDeveloper,
+                  style: textStyle,
                 ),
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                onTap: () {
+                  launchURL(
+                    Uri(scheme: 'mailto', path: 'damianoferrari1998@gmail.com'),
+                  );
+                },
+              ),
               ListTile(
                 leading: const Icon(Icons.info_outline),
                 title: Text(
