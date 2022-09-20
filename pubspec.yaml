@@ -12,19 +12,19 @@ dependencies:
     sdk: flutter
 
   #Needed to store the customizations and the latest currencies convertions
-  shared_preferences: ^2.0.13
+  shared_preferences: ^2.0.15
   #Needed to open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^6.1.2
+  url_launcher: ^6.1.5
   #Needed for the state management
-  provider: ^6.0.2
+  provider: ^6.0.3
   #Needed for translation
   intl: ^0.17.0
   #Needed for fonts
-  google_fonts: ^2.3.1
+  google_fonts: ^3.0.1
   #Needed for navigation between pages
-  go_router: ^3.0.6
+  go_router: ^5.0.0
   #Needed for Android App Shortcuts
-  quick_actions: ^0.6.0+10
+  quick_actions: ^1.0.0
   #Calculator widget
   calculator_widget:
     path: packages/calculator_widget

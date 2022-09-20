@@ -123,6 +123,7 @@ class MyApp extends StatelessWidget {
           (appModel) => appModel.isDarkAmoled,
         );
         return MaterialApp.router(
+          routeInformationProvider: _router.routeInformationProvider,
           routeInformationParser: _router.routeInformationParser,
           routerDelegate: _router.routerDelegate,
           debugShowCheckedModeBanner: false,

@@ -51,6 +51,7 @@ class CustomDrawer extends StatelessWidget {
               // large as possibile
               textScaleFactor: 1,
               style: GoogleFonts.josefinSans(
+                fontWeight: FontWeight.w300,
                 textStyle: const TextStyle(fontSize: 31),
               ),
             ),
