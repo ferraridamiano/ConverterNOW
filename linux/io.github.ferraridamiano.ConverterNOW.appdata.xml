@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.ferraridamiano.ConverterNOW</id>
+
+  <name>Converter NOW</name>
+  <summary>A simple, immediate and fast unit converter!</summary>
+  <url type="homepage">https://github.com/ferraridamiano/ConverterNOW</url>
+  <url type="bugtracker">https://github.com/ferraridamiano/ConverterNOW/issues</url>
+  <url type="donation">https://www.paypal.me/DemApps</url>
+  <url type="translate">https://github.com/ferraridamiano/ConverterNOW/wiki/Translations</url>
+
+  <metadata_license>MIT</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer_name>Damiano Ferrari</developer_name>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+
+  <description>
+    <p>
+      Converter NOW is an effective unit and currencies converter
+    </p>
+    <ul>
+      <li>✔️ Simplify the tedious conversion process between units of measurement in a few clicks</li>
+      <li>🚀 It is  fast and immediate: just start typing and immediately you have the real-time conversion with all the other units of measurement</li>
+      <li>🖌️ It is customizable: the units can be reorganized according to your priorities and your use</li>
+      <li>🔢 It integrates a calculator that let you do the calculations in every page</li>
+      <li>💰 We daily update the value of the currencies</li>
+      <li>⚫⚪ Choose your favourite theme: dark and white theme</li>
+      <li>📱 It adapts to screens of all sizes</li>
+      <li>💯 It is Open Source!</li>
+    </ul>
+    <p>
+      Check the repository on GitHub: https://github.com/ferraridamiano/ConverterNOW
+    </p>
+    <p>
+      We also have a Web App! 🖥️ Check it out here: https://ferraridamiano.github.io/ConverterNOW
+    </p>
+    <p>
+      🌍 Converter NOW is free, without ads, it does not require any permission and we don&apos;t collect your data. If you believe in this project and want to support the developer make a donation: https://www.paypal.me/DemApps 🌍 Thanks to you we can always stay on 🔝
+    </p>
+    <p>
+      Converter NOW can convert 200+ units of mesurement and 30+ currencies 🎉🎉
+    </p>
+    <p>
+      Here are some of the physical quantity that Converter NOW is able to convert:
+    </p>
+    <ul>
+      <li>Currencies: Dollars, Euro, Pound, Rupee, Yen, etc.</li>
+      <li>Length: meters, inches, miles, yards, light years, etc.</li>
+      <li>Area: square meters, hectares, acres, etc.</li>
+      <li>Volume: cubic meters, liters, gallons, pints, spoons, etc.</li>
+      <li>Time: seconds, hours, days, years, weeks, millennia, etc.</li>
+      <li>Temperature: Centigrade, Fahreneit, Kelvin, etc.</li>
+      <li>Speed: meters per second, kilometers per hour, knots, etc.</li>
+      <li>Mass: grams, pounds, tons, atomic mass units, etc.</li>
+      <li>Force: Newton, dyne, pound-force, poundal, etc</li>
+      <li>Pressure: pascal, bar, atomsfere, psi, etc.</li>
+      <li>Energy: Joule, calories, kilowatt hours, etc.</li>
+      <li>Power: Watt, kilowatt, horse power, etc.</li>
+      <li>Fuel consumption: Miles per Gallon, Kilometres per liter, etc.</li>
+      <li>Numeral systems: decimal, binary, hexadecimal etc.</li>
+      <li>Torque: Newton metre, pound-force foot, poundal metre, etc.</li>
+      <li>Digital data: Nibble, bit, byte, kibibit, kibibyte, etc.</li>
+      <li>Shoes size: UK, India, Europe, USA, Japan, etc.</li>
+      <li>Angles: degree, radians, minutes, etc.</li>
+      <li>SI prefix: kilo, mega, giga, tera, milli, micro, nano, etc.</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">io.github.ferraridamiano.ConverterNOW.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Easily convert units. It's reliable, customizable, open source.</caption>
+      <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/screenshots/desktop_1.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>With an integrated calculator</caption>
+      <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/screenshots/desktop_2.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>And a dynamic search box</caption>
+      <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/screenshots/desktop_3.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.0"/>
+  <releases>
+    <release version="3.2.0" date="2022-09-21">
+      <description>
+        <ul>
+          <li>Migration to Material You</li>
+          <li>Added window icon</li>
+          <li>Added Polish translation</li>
+          <li>Bugfixes</li>
+        </ul>
+        <p>Thanks to @rehork for your contributions!</p>
+      </description>
+    </release>
+    <release version="3.1.2" date="2022-03-28"/>
+    <release version="3.1.1" date="2022-01-18"/>
+  </releases>
+</component>
