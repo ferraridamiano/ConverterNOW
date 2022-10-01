@@ -88,6 +88,14 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="3.2.1" date="2022-10-01">
+      <description>
+        <ul>
+          <li>Unit symbols are now always visible</li>
+        </ul>
+        <p>Thanks to @rehork for your suggestion!</p>
+      </description>
+    </release>
     <release version="3.2.0" date="2022-09-21">
       <description>
         <ul>
