@@ -156,7 +156,18 @@ class _UnitWidgetState extends State<UnitWidget> {
         validator: widget.validator,
         decoration: InputDecoration(
           labelText: widget.unitName,
-          suffixText: widget.unitSymbol,
+          suffixIcon: widget.unitSymbol == null
+              ? null
+              : Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Text(widget.unitSymbol!),
+                ),
+          // Workaround to make suffixIcon always visible
+          // See: https://stackoverflow.com/questions/58819979
+          suffixIconConstraints: const BoxConstraints(
+            minWidth: 0,
+            minHeight: 0,
+          ),
           suffixStyle: TextStyle(
             color: Theme.of(context).brightness == Brightness.light
                 ? Colors.black
