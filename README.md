@@ -95,7 +95,7 @@ in `build/windows/runner/Release`.
 Type `flutter build web` to build the Web app. You can find the output in
 `build/web`.
 
-Note: if you deploy it not on the base path, add '--base-href=/path/' to the command above, change /path/ with your path.
+Note: if you deploy it not on the base path, add `--base-href=/path/` to the command above, change `/path/` with your path.
 
 ### iOS and MacOS
 The app is not tested against iOS and MacOS, but you should be able to compile
