@@ -94,9 +94,6 @@
   "parsec":"Parsek",
   "mils": "Seperseribu Inci (Mil/Thou)",
   "feetUsSurvey": "Kaki (Survei AS)",
-  "@feetUsSurvey": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
 
   "squareMeters": "Meter Persegi",
   "squareCentimeters": "Sentimeter Persegi",
