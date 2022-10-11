@@ -49,9 +49,7 @@
   },
   "otherPlatforms": "Converter NOW untuk sistem operasi lain",
   "sourceCode": "Kode sumber",
-  "@undoClearAllMessage": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "undoClearAllMessage": "Dihapus semua. Apakah Anda ingin mengurungkannya?",
   "undo": "Urung",
   "routeError1": "Halaman ini tidak ada",
   "routeError2": "Kembali ke beranda",
