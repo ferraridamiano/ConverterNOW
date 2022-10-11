@@ -54,9 +54,6 @@
   },
   "undo": "Urung",
   "routeError1": "Halaman ini tidak ada",
-  "@routeError1": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
   "routeError2": "Kembali ke beranda",
   "@routeError2": {
     "description": "Not yet translated. Once done, remove this comment"
