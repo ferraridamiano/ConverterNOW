@@ -53,9 +53,6 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
   "undo": "Urung",
-  "@undo": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
   "routeError1": "Halaman ini tidak ada",
   "@routeError1": {
     "description": "Not yet translated. Once done, remove this comment"
