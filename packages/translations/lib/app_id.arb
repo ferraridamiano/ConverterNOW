@@ -188,9 +188,6 @@
   "electronvolt": "Elektron Volt",
   "footPound": "Pon Kaki",
   "kilocalories": "Kilokalori",
-  "@kilocalories": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
 
   "degree": "Derajat",
   "minutesDegree": "Menit",
