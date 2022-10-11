@@ -107,9 +107,6 @@
   "acres": "Ekar",
   "are": "Are",
   "squareFeetUsSurvey": "Piedi Quadrati (Survei AS)",
-  "@squareFeetUsSurvey": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
 
   "cubicMeters": "Meter Kubik",
   "liters": "Liter",
