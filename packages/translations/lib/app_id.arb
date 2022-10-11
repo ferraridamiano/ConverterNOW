@@ -180,9 +180,6 @@
   "psi": "Pon per Inci Persegi",
   "torr": "Torr",
   "hectoPascal": "Hektopascal",
-  "@hectoPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
   "inchesOfMercury": "Inci Merkurium",
   "@inchesOfMercury": {
     "description": "Not yet translated. Once done, remove this comment"
