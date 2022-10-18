@@ -90,11 +90,8 @@
   "astronomicalUnits":"Astronomska jedinica",
   "lightYears": "Svjetlosna godina",
   "parsec":"Parsek",
-  "mils": "Mil",
-  "feetUsSurvey": "Feet (US survey)",
-  "@feetUsSurvey": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "mils": "Tisućinka inča",
+  "feetUsSurvey": "Stopa (US survey)",
 
   "squareMeters": "Kvadratni metar",
   "squareCentimeters": "Kvadratni centimetar",
@@ -107,10 +104,7 @@
   "hectares": "Hektar",
   "acres": "Aker",
   "are": "Are",
-  "squareFeetUsSurvey": "Piedi Quadrati (US survey)",
-  "@squareFeetUsSurvey": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "squareFeetUsSurvey": "Kvadratna stopa (US survey)",
 
   "cubicMeters": "Kubični metar",
   "liters": "Litra",
@@ -174,7 +168,7 @@
   "carats": "Karat",
   "centigrams": "Centigram",
   "pennyweights": "Pennyweights",
-  "troyOunces": "Troy ounces",
+  "troyOunces": "Troy unca",
   "stones": "Stones",
 
   "pascal": "Paskal",
@@ -191,10 +185,7 @@
   "kilowattHour": "Kilovat-sat",
   "electronvolt": "Elektronvolt",
   "footPound": "Funta po stopi",
-  "kilocalories": "Kilocalories",
-  "@kilocalories": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "kilocalories": "Kilokalorija",
 
   "degree": "Stupanj",
   "minutesDegree": "Minuta",
