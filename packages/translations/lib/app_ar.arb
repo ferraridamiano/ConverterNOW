@@ -48,7 +48,7 @@
     }
   },
   "otherPlatforms": "Converter NOW على منصات أخرى",
-  "sourceCode": "مصدر الكود",
+  "sourceCode": "الكود المصدر",
   "undoClearAllMessage": "تم مسح الكل. هل تريد التراجُع",
   "undo": "تراجُع",
   "routeError1": "هذه الصفحة غير موجودة",
@@ -58,7 +58,7 @@
   "area": "المساحة",
   "volume":"الحجم",
   "time": "الزمن",
-  "temperature":"درحة الحرارة",
+  "temperature":"درجة الحرارة",
   "speed": "السرعة",
   "siPrefixes": "SI سوابق",
   "mass": "الكتلة",
@@ -66,9 +66,9 @@
   "energy":"الطاقة",
   "angles":"الزاوية",
   "currencies":"العُمُلات",
-  "shoeSize": "مقياس الحذاء",
+  "shoeSize": "مِقياس الحذاء",
   "digitalData": "البيانات الرقمية",
-  "power": "القدرة",
+  "power": "القُدرة",
   "torque": "عزم الدوران",
   "force": "القوة",
   "fuelConsumption": "إستهلاك الوقود",
@@ -91,7 +91,7 @@
   "lightYears": "سنة ضوئية",
   "parsec":"فرسخ فلكي",
   "mils": "جزء من ألف من البوصة",
-  "feetUsSurvey": "Feet (US survey)",
+  "feetUsSurvey": "قدم (المقياس أمريكي)",
   "@feetUsSurvey": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -112,7 +112,7 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "cubicMeters": "متر مكع ب",
+  "cubicMeters": "متر مكعب",
   "liters": "لتر",
   "imperialGallons": "غالون إمبراطوري",
   "usGallons":"غالون أمريكي",
@@ -142,7 +142,7 @@
   "days": "يوم",
   "weeks":"أسبوع",
   "years": "سنة (365)",
-  "lustrum": "Lustrum",
+  "lustrum": "لوسترم",
   "decades": "عقد",
   "centuries":"قرن",
   "millennium": "ألفية",
@@ -178,7 +178,7 @@
   "stones": "حجر",
 
   "pascal": "باسكال",
-  "atmosphere":"جو",
+  "atmosphere":"مقياس الغلاف الجوي",
   "bar": "بار",
   "millibar":"ملي بار",
   "psi": "رطل لكل بوصة مربعة",

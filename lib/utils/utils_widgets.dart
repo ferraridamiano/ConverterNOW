@@ -159,7 +159,7 @@ class _UnitWidgetState extends State<UnitWidget> {
           suffixIcon: widget.unitSymbol == null
               ? null
               : Padding(
-                  padding: const EdgeInsets.only(right: 10),
+                  padding: const EdgeInsetsDirectional.only(end: 10),
                   child: Text(widget.unitSymbol!),
                 ),
           // Workaround to make suffixIcon always visible
