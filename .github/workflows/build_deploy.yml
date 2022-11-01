@@ -76,7 +76,7 @@ jobs:
       run: flutter build apk --release --split-per-abi --obfuscate --split-debug-info=/tmp
 
     - name: Release to GitHub
-      uses: ncipollo/release-action@v1.10.0
+      uses: ncipollo/release-action@v1.11.1
       with:
         artifacts: "build/app/outputs/flutter-apk/app-*-release.apk,converternow-linux.tar.gz"
         token: ${{ secrets.GH_TOKEN }}

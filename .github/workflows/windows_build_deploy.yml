@@ -31,7 +31,7 @@ jobs:
       run: flutter pub run msix:create --store
 
     - name: Release to GitHub
-      uses: ncipollo/release-action@v1.10.0
+      uses: ncipollo/release-action@v1.11.1
       with:
         artifacts: "build/windows/runner/Release/converternow-windows.msix"
         token: ${{ secrets.GH_TOKEN }}
