@@ -57,7 +57,7 @@ jobs:
 
     - name: Download Android keystore
       id: android_keystore
-      uses: timheuer/base64-to-file@v1.0.3
+      uses: timheuer/base64-to-file@v1
       with:
         fileName: key.jks
         encodedString: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
@@ -76,7 +76,7 @@ jobs:
       run: flutter build apk --release --split-per-abi --obfuscate --split-debug-info=/tmp
 
     - name: Release to GitHub
-      uses: ncipollo/release-action@v1.10.0
+      uses: ncipollo/release-action@v1
       with:
         artifacts: "build/app/outputs/flutter-apk/app-*-release.apk,converternow-linux.tar.gz"
         token: ${{ secrets.GH_TOKEN }}
