@@ -18,88 +18,71 @@ void main() async {
   runApp(MyApp());
 }
 
-const _scaffoldKey = ValueKey<String>('App scaffold');
+final GlobalKey<NavigatorState> _rootNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shell');
 
 class MyApp extends StatelessWidget {
   late final _router = GoRouter(
+    navigatorKey: _rootNavigatorKey,
     routes: [
+      // TODO fix error with this route
       GoRoute(
         path: '/',
         builder: (context, _) => const SplashScreen(),
       ),
-      GoRoute(
-        path: '/conversions/:property',
-        pageBuilder: (context, state) {
-          final String property = state.params['property']!;
-          final int? pageNumber = pageNumberMap[property];
-          if (pageNumber == null) {
-            throw Exception('property not found: $property');
-          } else {
-            return NoTransitionPage(
-              key: _scaffoldKey,
-              child: AppScaffold(
-                selectedSection: AppPage.conversions,
-                selectedIndex: pageNumber,
-                child: ConversionPage(pageNumber),
-              ),
-            );
-          }
+      ShellRoute(
+        navigatorKey: _shellNavigatorKey,
+        builder: (context, state, child) {
+          return AppScaffold(
+            child: child,
+          );
         },
-      ),
-      GoRoute(
-        path: '/settings',
-        name: 'settings',
-        pageBuilder: (context, state) => const NoTransitionPage(
-          key: _scaffoldKey,
-          child: AppScaffold(
-            selectedSection: AppPage.settings,
-            child: SettingsPage(),
+        routes: [
+          GoRoute(
+            path: '/conversions/:property',
+            builder: (context, state) {
+              final String property = state.params['property']!;
+              final int? pageNumber = pageNumberMap[property];
+              if (pageNumber == null) {
+                throw Exception('property not found: $property');
+              } else {
+                return ConversionPage(pageNumber);
+              }
+            },
           ),
-        ),
-      ),
-      GoRoute(
-        path: '/settings/reorder-properties',
-        name: 'reorder-properties',
-        pageBuilder: (context, state) => const NoTransitionPage(
-          key: _scaffoldKey,
-          child: AppScaffold(
-            selectedSection: AppPage.reorder,
-            child: ReorderPropertiesPage(),
+          GoRoute(
+            path: '/settings',
+            name: 'settings',
+            builder: (context, state) => const SettingsPage(),
           ),
-        ),
-      ),
-      GoRoute(
-        path: '/settings/reorder-units',
-        name: 'reorder-units',
-        pageBuilder: (context, state) => const NoTransitionPage(
-          key: _scaffoldKey,
-          child: AppScaffold(
-            selectedSection: AppPage.reorder,
-            child: ChoosePropertyPage(),
+          GoRoute(
+            path: '/settings/reorder-properties',
+            name: 'reorder-properties',
+            builder: (context, state) => const ReorderPropertiesPage(),
           ),
-        ),
-      ),
-      GoRoute(
-        path: '/settings/reorder-units/:property',
-        pageBuilder: (context, state) {
-          final String property = state.params['property']!;
-          final int? pageNumber = pageNumberMap[property];
-          if (pageNumber == null) {
-            throw Exception('property not found: $property');
-          } else {
-            return NoTransitionPage(
-              key: _scaffoldKey,
-              child: AppScaffold(
-                selectedSection: AppPage.reorder_details,
-                selectedIndex: pageNumber,
-                child: ChoosePropertyPage(
+          GoRoute(
+            path: '/settings/reorder-units',
+            name: 'reorder-units',
+            builder: (context, state) => const ChoosePropertyPage(),
+          ),
+          GoRoute(
+            path: '/settings/reorder-units/:property',
+            builder: (context, state) {
+              final String property = state.params['property']!;
+              final int? pageNumber = pageNumberMap[property];
+              if (pageNumber == null) {
+                throw Exception('property not found: $property');
+              } else {
+                return ChoosePropertyPage(
                   selectedProperty: pageNumber,
                   isPropertySelected: true,
-                ),
-              ),
-            );
-          }
-        },
+                );
+              }
+            },
+          ),
+        ],
       ),
     ],
     errorBuilder: (context, state) => const ErrorPage(),

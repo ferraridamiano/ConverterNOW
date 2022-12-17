@@ -36,6 +36,9 @@ class SplashScreen extends StatelessWidget {
           );
         }
 
+        debugPrint(
+            "ECCOCIIIII: ${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}");
+
         context.go(
             '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}');
       }
