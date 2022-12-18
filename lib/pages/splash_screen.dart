@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:converterpro/main.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,26 +21,27 @@ class SplashScreen extends StatelessWidget {
     final bool isConversionsLoaded = context.select<Conversions, bool>(
         (conversions) => conversions.isConversionsLoaded);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (isConversionsLoaded && conversionsOrderDrawer != null) {
-        List<PropertyUi> propertyUiList = getPropertyUiList(context);
-        final bool isMobileDevice =
-            !kIsWeb && (Platform.isIOS || Platform.isAndroid);
-        if (isMobileDevice) {
-          initializeQuickAction(
-            conversionsOrderDrawer: conversionsOrderDrawer,
-            propertyUiList: propertyUiList,
-            onActionSelection: (String shortcutType) {
-              final int index = int.parse(shortcutType);
-              context.go('/conversions/${reversePageNumberListMap[index]}');
-            },
-          );
-        }
-
-        context.go(
-            '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}');
+    if (isConversionsLoaded && conversionsOrderDrawer != null) {
+      List<PropertyUi> propertyUiList = getPropertyUiList(context);
+      final bool isMobileDevice =
+          !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+      if (isMobileDevice) {
+        initializeQuickAction(
+          conversionsOrderDrawer: conversionsOrderDrawer,
+          propertyUiList: propertyUiList,
+          onActionSelection: (String shortcutType) {
+            final int index = int.parse(shortcutType);
+            context.go('/conversions/${reversePageNumberListMap[index]}');
+          },
+        );
       }
-    });
+
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => GoRouter.of(rootNavigatorKey.currentContext!).go(
+          '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}',
+        ),
+      );
+    }
 
     return const SplashScreenWidget();
   }

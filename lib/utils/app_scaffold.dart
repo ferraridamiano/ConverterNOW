@@ -2,6 +2,7 @@ import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:calculator_widget/calculator_widget.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
+import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:translations/app_localizations.dart';
@@ -10,14 +11,10 @@ import 'package:provider/provider.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({
-    required this.selectedSection,
-    this.selectedIndex = 0,
     required this.child,
     Key? key,
   }) : super(key: key);
 
-  final AppPage selectedSection;
-  final int selectedIndex;
   final Widget child;
 
   @override
@@ -56,10 +53,10 @@ class AppScaffold extends StatelessWidget {
       // ignore: no_leading_underscores_for_local_identifiers
       final bool _isDrawerFixed = isDrawerFixed(constraints.maxWidth);
 
+      AppPage selectedSection = computeSelectedSection(context);
+
       Widget drawer = CustomDrawer(
         isDrawerFixed: _isDrawerFixed,
-        selectedSection: selectedSection,
-        selectedIndex: selectedIndex,
         openCalculator: openCalculator,
       );
 
@@ -97,7 +94,7 @@ class AppScaffold extends StatelessWidget {
             case AppPage.reorder:
               context.goNamed('settings');
               return false;
-            case AppPage.reorder_details:
+            case AppPage.reorderDetails:
               //2 sided page
               if (_isDrawerFixed) {
                 context.goNamed('settings');

@@ -1,5 +1,6 @@
 import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/pages/search_page.dart';
+import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
@@ -13,20 +14,19 @@ const maxConversionUnits = 19;
 
 class CustomDrawer extends StatelessWidget {
   final bool isDrawerFixed;
-  final AppPage selectedSection;
-  final int selectedIndex;
   final void Function() openCalculator;
 
   const CustomDrawer({
     key,
     required this.isDrawerFixed,
-    required this.selectedSection,
-    required this.selectedIndex,
     required this.openCalculator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AppPage selectedSection = computeSelectedSection(context);
+    int? selectedIndex = computeSelectedConversionPage(context);
+
     List<Widget> headerDrawer = [];
     List<Widget> conversionDrawer = List<Widget>.filled(
       maxConversionUnits,

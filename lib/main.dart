@@ -18,90 +18,95 @@ void main() async {
   runApp(MyApp());
 }
 
-const _scaffoldKey = ValueKey<String>('App scaffold');
+final GlobalKey<NavigatorState> rootNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shell');
 
 class MyApp extends StatelessWidget {
   late final _router = GoRouter(
+    navigatorKey: rootNavigatorKey,
     routes: [
       GoRoute(
         path: '/',
         builder: (context, _) => const SplashScreen(),
       ),
-      GoRoute(
-        path: '/conversions/:property',
-        pageBuilder: (context, state) {
-          final String property = state.params['property']!;
-          final int? pageNumber = pageNumberMap[property];
-          if (pageNumber == null) {
-            throw Exception('property not found: $property');
-          } else {
-            return NoTransitionPage(
-              key: _scaffoldKey,
-              child: AppScaffold(
-                selectedSection: AppPage.conversions,
-                selectedIndex: pageNumber,
-                child: ConversionPage(pageNumber),
-              ),
-            );
-          }
+      ShellRoute(
+        navigatorKey: _shellNavigatorKey,
+        builder: (context, state, child) {
+          return AppScaffold(
+            child: child,
+          );
         },
-      ),
-      GoRoute(
-        path: '/settings',
-        name: 'settings',
-        pageBuilder: (context, state) => const NoTransitionPage(
-          key: _scaffoldKey,
-          child: AppScaffold(
-            selectedSection: AppPage.settings,
-            child: SettingsPage(),
+        routes: [
+          GoRoute(
+            path: '/conversions/:property',
+            pageBuilder: (context, state) {
+              final String property = state.params['property']!;
+              final int? pageNumber = pageNumberMap[property];
+              if (pageNumber == null) {
+                throw Exception('property not found: $property');
+              } else {
+                return NoTransitionPage(child: ConversionPage(pageNumber));
+              }
+            },
           ),
-        ),
-      ),
-      GoRoute(
-        path: '/settings/reorder-properties',
-        name: 'reorder-properties',
-        pageBuilder: (context, state) => const NoTransitionPage(
-          key: _scaffoldKey,
-          child: AppScaffold(
-            selectedSection: AppPage.reorder,
-            child: ReorderPropertiesPage(),
-          ),
-        ),
-      ),
-      GoRoute(
-        path: '/settings/reorder-units',
-        name: 'reorder-units',
-        pageBuilder: (context, state) => const NoTransitionPage(
-          key: _scaffoldKey,
-          child: AppScaffold(
-            selectedSection: AppPage.reorder,
-            child: ChoosePropertyPage(),
-          ),
-        ),
-      ),
-      GoRoute(
-        path: '/settings/reorder-units/:property',
-        pageBuilder: (context, state) {
-          final String property = state.params['property']!;
-          final int? pageNumber = pageNumberMap[property];
-          if (pageNumber == null) {
-            throw Exception('property not found: $property');
-          } else {
-            return NoTransitionPage(
-              key: _scaffoldKey,
-              child: AppScaffold(
-                selectedSection: AppPage.reorder_details,
-                selectedIndex: pageNumber,
-                child: ChoosePropertyPage(
-                  selectedProperty: pageNumber,
-                  isPropertySelected: true,
-                ),
+          GoRoute(
+            path: '/settings',
+            name: 'settings',
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: SettingsPage()),
+            routes: [
+              GoRoute(
+                path: 'reorder-properties',
+                name: 'reorder-properties',
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: ReorderPropertiesPage()),
               ),
-            );
-          }
-        },
+              GoRoute(
+                path: 'reorder-units',
+                name: 'reorder-units',
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: ChoosePropertyPage()),
+                routes: [
+                  GoRoute(
+                    path: ':property',
+                    pageBuilder: (context, state) {
+                      final String property = state.params['property']!;
+                      final int? pageNumber = pageNumberMap[property];
+                      if (pageNumber == null) {
+                        throw Exception('property not found: $property');
+                      } else {
+                        return NoTransitionPage(
+                          child: ChoosePropertyPage(
+                            selectedProperty: pageNumber,
+                            isPropertySelected: true,
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     ],
+    redirect: (context, state) {
+      // Bypass splashscreen if variables are already loaded
+      if (state.location == '/') {
+        final List<int>? conversionsOrderDrawer =
+            context.read<AppModel>().conversionsOrderDrawer;
+        final bool isConversionsLoaded =
+            context.read<Conversions>().isConversionsLoaded;
+
+        if (isConversionsLoaded && conversionsOrderDrawer != null) {
+          return '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}';
+        }
+      }
+      return null;
+    },
     errorBuilder: (context, state) => const ErrorPage(),
   );
 
