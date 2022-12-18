@@ -41,42 +41,47 @@ class MyApp extends StatelessWidget {
         routes: [
           GoRoute(
             path: '/conversions/:property',
-            builder: (context, state) {
+            pageBuilder: (context, state) {
               final String property = state.params['property']!;
               final int? pageNumber = pageNumberMap[property];
               if (pageNumber == null) {
                 throw Exception('property not found: $property');
               } else {
-                return ConversionPage(pageNumber);
+                return NoTransitionPage(child: ConversionPage(pageNumber));
               }
             },
           ),
           GoRoute(
             path: '/settings',
             name: 'settings',
-            builder: (context, state) => const SettingsPage(),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: SettingsPage()),
             routes: [
               GoRoute(
                 path: 'reorder-properties',
                 name: 'reorder-properties',
-                builder: (context, state) => const ReorderPropertiesPage(),
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: ReorderPropertiesPage()),
               ),
               GoRoute(
                 path: 'reorder-units',
                 name: 'reorder-units',
-                builder: (context, state) => const ChoosePropertyPage(),
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: ChoosePropertyPage()),
                 routes: [
                   GoRoute(
                     path: ':property',
-                    builder: (context, state) {
+                    pageBuilder: (context, state) {
                       final String property = state.params['property']!;
                       final int? pageNumber = pageNumberMap[property];
                       if (pageNumber == null) {
                         throw Exception('property not found: $property');
                       } else {
-                        return ChoosePropertyPage(
-                          selectedProperty: pageNumber,
-                          isPropertySelected: true,
+                        return NoTransitionPage(
+                          child: ChoosePropertyPage(
+                            selectedProperty: pageNumber,
+                            isPropertySelected: true,
+                          ),
                         );
                       }
                     },
