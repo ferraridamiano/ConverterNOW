@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:converterpro/main.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,29 +21,27 @@ class SplashScreen extends StatelessWidget {
     final bool isConversionsLoaded = context.select<Conversions, bool>(
         (conversions) => conversions.isConversionsLoaded);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (isConversionsLoaded && conversionsOrderDrawer != null) {
-        List<PropertyUi> propertyUiList = getPropertyUiList(context);
-        final bool isMobileDevice =
-            !kIsWeb && (Platform.isIOS || Platform.isAndroid);
-        if (isMobileDevice) {
-          initializeQuickAction(
-            conversionsOrderDrawer: conversionsOrderDrawer,
-            propertyUiList: propertyUiList,
-            onActionSelection: (String shortcutType) {
-              final int index = int.parse(shortcutType);
-              context.go('/conversions/${reversePageNumberListMap[index]}');
-            },
-          );
-        }
-
-        debugPrint(
-            "ECCOCIIIII: ${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}");
-
-        context.go(
-            '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}');
+    if (isConversionsLoaded && conversionsOrderDrawer != null) {
+      List<PropertyUi> propertyUiList = getPropertyUiList(context);
+      final bool isMobileDevice =
+          !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+      if (isMobileDevice) {
+        initializeQuickAction(
+          conversionsOrderDrawer: conversionsOrderDrawer,
+          propertyUiList: propertyUiList,
+          onActionSelection: (String shortcutType) {
+            final int index = int.parse(shortcutType);
+            context.go('/conversions/${reversePageNumberListMap[index]}');
+          },
+        );
       }
-    });
+
+      // Workaround. Should be fixed when we go() will be async
+      Future.delayed(const Duration(milliseconds: 400)).then(
+        (_) => GoRouter.of(rootNavigatorKey.currentContext!).go(
+            '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}'),
+      );
+    }
 
     return const SplashScreenWidget();
   }

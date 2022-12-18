@@ -18,16 +18,15 @@ void main() async {
   runApp(MyApp());
 }
 
-final GlobalKey<NavigatorState> _rootNavigatorKey =
+final GlobalKey<NavigatorState> rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
 
 class MyApp extends StatelessWidget {
   late final _router = GoRouter(
-    navigatorKey: _rootNavigatorKey,
+    navigatorKey: rootNavigatorKey,
     routes: [
-      // TODO fix error with this route
       GoRoute(
         path: '/',
         builder: (context, _) => const SplashScreen(),
@@ -56,31 +55,35 @@ class MyApp extends StatelessWidget {
             path: '/settings',
             name: 'settings',
             builder: (context, state) => const SettingsPage(),
-          ),
-          GoRoute(
-            path: '/settings/reorder-properties',
-            name: 'reorder-properties',
-            builder: (context, state) => const ReorderPropertiesPage(),
-          ),
-          GoRoute(
-            path: '/settings/reorder-units',
-            name: 'reorder-units',
-            builder: (context, state) => const ChoosePropertyPage(),
-          ),
-          GoRoute(
-            path: '/settings/reorder-units/:property',
-            builder: (context, state) {
-              final String property = state.params['property']!;
-              final int? pageNumber = pageNumberMap[property];
-              if (pageNumber == null) {
-                throw Exception('property not found: $property');
-              } else {
-                return ChoosePropertyPage(
-                  selectedProperty: pageNumber,
-                  isPropertySelected: true,
-                );
-              }
-            },
+            routes: [
+              GoRoute(
+                path: 'reorder-properties',
+                name: 'reorder-properties',
+                builder: (context, state) => const ReorderPropertiesPage(),
+              ),
+              GoRoute(
+                path: 'reorder-units',
+                name: 'reorder-units',
+                builder: (context, state) => const ChoosePropertyPage(),
+                routes: [
+                  GoRoute(
+                    path: ':property',
+                    builder: (context, state) {
+                      final String property = state.params['property']!;
+                      final int? pageNumber = pageNumberMap[property];
+                      if (pageNumber == null) {
+                        throw Exception('property not found: $property');
+                      } else {
+                        return ChoosePropertyPage(
+                          selectedProperty: pageNumber,
+                          isPropertySelected: true,
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),

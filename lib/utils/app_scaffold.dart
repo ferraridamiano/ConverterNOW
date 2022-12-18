@@ -67,7 +67,7 @@ class AppScaffold extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 drawer,
-                Expanded(child: Material(child: child)),
+                Expanded(child: child),
               ],
             ),
           ),
@@ -94,7 +94,7 @@ class AppScaffold extends StatelessWidget {
             case AppPage.reorder:
               context.goNamed('settings');
               return false;
-            case AppPage.reorder_details:
+            case AppPage.reorderDetails:
               //2 sided page
               if (_isDrawerFixed) {
                 context.goNamed('settings');
