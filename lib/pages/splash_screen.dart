@@ -36,10 +36,10 @@ class SplashScreen extends StatelessWidget {
         );
       }
 
-      // Workaround. Should be fixed when we go() will be async
-      Future.delayed(const Duration(milliseconds: 400)).then(
+      WidgetsBinding.instance.addPostFrameCallback(
         (_) => GoRouter.of(rootNavigatorKey.currentContext!).go(
-            '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}'),
+          '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}',
+        ),
       );
     }
 

@@ -88,6 +88,20 @@ class MyApp extends StatelessWidget {
         ],
       ),
     ],
+    redirect: (context, state) {
+      // Bypass splashscreen if variables are already loaded
+      if (state.location == '/') {
+        final List<int>? conversionsOrderDrawer =
+            context.read<AppModel>().conversionsOrderDrawer;
+        final bool isConversionsLoaded =
+            context.read<Conversions>().isConversionsLoaded;
+
+        if (isConversionsLoaded && conversionsOrderDrawer != null) {
+          return '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}';
+        }
+      }
+      return null;
+    },
     errorBuilder: (context, state) => const ErrorPage(),
   );
 
