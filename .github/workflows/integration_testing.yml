@@ -1,9 +1,8 @@
-name: Tests
+name: "Integration testing"
 
 on: [push, pull_request]
 
 jobs:
-  
   desktop_integration_testing:
     name: Desktop integration testing
     runs-on: ubuntu-latest
