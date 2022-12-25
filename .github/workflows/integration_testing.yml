@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   desktop_integration_testing:
     name: Desktop integration testing
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     timeout-minutes: 30
     steps:
     - name: Checkout
@@ -29,4 +29,4 @@ jobs:
       run: |
         dart pub global activate melos
         melos bootstrap
-        flutter test integration_test/large_display_test.dart -d linux
+        flutter test integration_test/large_display_test.dart -d windows
