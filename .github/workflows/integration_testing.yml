@@ -27,5 +27,6 @@ jobs:
 
     - name: Run integration testing
       run: |
-        flutter pub get
+        dart pub global activate melos
+        melos bootstrap
         flutter test integration_test/large_display_test.dart -d linux
