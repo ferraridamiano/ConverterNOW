@@ -148,6 +148,7 @@ class _UnitWidgetState extends State<UnitWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
       child: TextFormField(
+        key: ValueKey(widget.unitName),
         focusNode: focusNode,
         style: const TextStyle(fontSize: 16.0),
         keyboardType: widget.keyboardType,
