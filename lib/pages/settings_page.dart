@@ -173,6 +173,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               ListTile(
+                key: const ValueKey('reorder-units'),
                 leading: Image.asset(
                   'resources/images/reorder_units.png',
                   width: 25,
