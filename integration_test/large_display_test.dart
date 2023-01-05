@@ -1,3 +1,4 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_size/window_size.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -101,9 +102,11 @@ void main() {
     });
 
     testWidgets('Reorder units', (WidgetTester tester) async {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      await pref.clear();
+
       app.main();
       await tester.pumpAndSettle();
-
       // At the beginning the ordering is Meters, Centimeters, Inches, ...
       expect(
         tester.getCenter(find.text('Meters')).dy <
