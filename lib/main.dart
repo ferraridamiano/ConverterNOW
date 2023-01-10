@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
           GoRoute(
             path: '/conversions/:property',
             pageBuilder: (context, state) {
+              print('state.params[\'property\']: ${state.params['property']}');
               final String property = state.params['property']!;
               final int? pageNumber = pageNumberMap[property];
               if (pageNumber == null) {
