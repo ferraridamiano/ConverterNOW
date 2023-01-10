@@ -21,10 +21,7 @@ class SplashScreen extends StatelessWidget {
     final bool isConversionsLoaded = context.select<Conversions, bool>(
         (conversions) => conversions.isConversionsLoaded);
 
-    print('ok1');
-
     if (isConversionsLoaded && conversionsOrderDrawer != null) {
-      print('ok2');
       List<PropertyUi> propertyUiList = getPropertyUiList(context);
       final bool isMobileDevice =
           !kIsWeb && (Platform.isIOS || Platform.isAndroid);
@@ -39,17 +36,12 @@ class SplashScreen extends StatelessWidget {
         );
       }
 
-      print('ok3');
-
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        print('ok4');
-        GoRouter.of(rootNavigatorKey.currentContext!).go(
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => GoRouter.of(rootNavigatorKey.currentContext!).go(
           '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}',
-        );
-      });
+        ),
+      );
     }
-
-    print('ok5');
 
     return const SplashScreenWidget();
   }
