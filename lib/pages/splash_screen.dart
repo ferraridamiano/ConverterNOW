@@ -36,11 +36,12 @@ class SplashScreen extends StatelessWidget {
         );
       }
 
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) => GoRouter.of(rootNavigatorKey.currentContext!).go(
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        print('Is context null: {rootNavigatorKey.currentContext == null}');
+        GoRouter.of(rootNavigatorKey.currentContext!).go(
           '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}',
-        ),
-      );
+        );
+      });
     }
 
     return const SplashScreenWidget();
