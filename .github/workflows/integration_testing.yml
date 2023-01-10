@@ -29,8 +29,12 @@ jobs:
       run: |
         dart pub global activate melos
         melos bootstrap
+    
+    - name: Build the app
+      run: flutter build linux
 
     - name: Run integration testing
-      uses: GabrielBB/xvfb-action@v1
-      with:
-        run: flutter test integration_test/large_display_test.dart -d linux
+      run: |
+        export DISPLAY=:99
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+        flutter test integration_test/large_display_test.dart -d linux
