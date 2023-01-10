@@ -8,6 +8,7 @@ import 'utils_widgets.dart';
 /// property all over the app. From this List depends also other functions.
 List<PropertyUi> getPropertyUiList(BuildContext context) {
   const String basePath = 'resources/images';
+  print('AppLocalizations.of(context): ${AppLocalizations.of(context)}');
   var l10n = AppLocalizations.of(context)!;
   //The order is important!
   return [
