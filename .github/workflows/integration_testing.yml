@@ -29,9 +29,6 @@ jobs:
       run: |
         dart pub global activate melos
         melos bootstrap
-    
-    - name: Build the app
-      run: flutter build linux
 
     - name: Run integration testing
       run: |
