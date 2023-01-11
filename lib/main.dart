@@ -171,17 +171,22 @@ class MyApp extends StatelessWidget {
           ),
           supportedLocales: context.read<AppModel>().supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
-          /*localeResolutionCallback:
+          localeResolutionCallback:
               (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
             if (!deviceLocaleSetted) {
               context.read<AppModel>().deviceLocale = deviceLocale;
               deviceLocaleSetted = true;
             }
+            print('in localeResolutionCallback');
             return deviceLocale;
           },
-          locale: context.select<AppModel, Locale?>(
-            (appModel) => appModel.appLocale,
-          ),*/
+          locale: () {
+            var appLocale = context.select<AppModel, Locale?>((appModel) {
+              return appModel.appLocale;
+            });
+            print('setted locale');
+            return appLocale;
+          }(),
         );
       }),
     );
