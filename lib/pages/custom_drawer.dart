@@ -37,19 +37,19 @@ class CustomDrawer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: Center(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(
               'resources/images/logo.png',
               width: 55,
               filterQuality: FilterQuality.medium,
             ),
-            const SizedBox(width: 10),
             Text(
               'Converter NOW',
               // Fixed indipendently of the accessibility settings. Already as
               // large as possibile
               textScaleFactor: 1,
+              maxLines: 1,
               style: GoogleFonts.josefinSans(
                 fontWeight: FontWeight.w300,
                 textStyle: const TextStyle(fontSize: 31),

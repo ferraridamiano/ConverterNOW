@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
           GoRoute(
             path: '/conversions/:property',
             pageBuilder: (context, state) {
-              print('state.params[\'property\']: ${state.params['property']}');
               final String property = state.params['property']!;
               final int? pageNumber = pageNumberMap[property];
               if (pageNumber == null) {
@@ -180,16 +179,11 @@ class MyApp extends StatelessWidget {
             if (supportedLocales.contains(deviceLocale)) {
               return deviceLocale;
             }
-            print('Not supported locale, setting english');
             return const Locale('en');
           },
-          locale: () {
-            var appLocale = context.select<AppModel, Locale?>((appModel) {
-              return appModel.appLocale;
-            });
-            print('setted locale: $appLocale');
-            return appLocale;
-          }(),
+          locale: context.select<AppModel, Locale?>((appModel) {
+            return appModel.appLocale;
+          }),
         );
       }),
     );
