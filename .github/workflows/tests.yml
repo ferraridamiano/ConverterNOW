@@ -76,13 +76,14 @@ jobs:
         dart pub global activate melos
         melos bootstrap
 
-    - name: Set `Xvfb`
+    - name: Run large display integration testing
       run: |
         export DISPLAY=:99
         sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-
-    - name: Run large display integration testing
-      run: flutter test integration_test/large_display_test.dart -d linux
+        flutter test integration_test/large_display_test.dart -d linux
 
     - name: Run small display integration testing
-      run: flutter test integration_test/small_display_test.dart -d linux
+      run: |
+        export DISPLAY=:99
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+        flutter test integration_test/small_display_test.dart -d linux
