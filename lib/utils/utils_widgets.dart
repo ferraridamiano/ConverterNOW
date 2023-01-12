@@ -112,6 +112,7 @@ class BigTitle extends StatelessWidget {
 }
 
 class UnitWidget extends StatefulWidget {
+  final String tffKey;
   final TextInputType? keyboardType;
   final TextEditingController controller;
   final String? Function(String?)? validator;
@@ -121,6 +122,7 @@ class UnitWidget extends StatefulWidget {
 
   const UnitWidget({
     Key? key,
+    required this.tffKey,
     this.keyboardType,
     required this.controller,
     this.validator,
@@ -148,6 +150,7 @@ class _UnitWidgetState extends State<UnitWidget> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
       child: TextFormField(
+        key: ValueKey(widget.tffKey),
         focusNode: focusNode,
         style: const TextStyle(fontSize: 16.0),
         keyboardType: widget.keyboardType,
@@ -297,7 +300,7 @@ class DropdownListTile extends StatelessWidget {
     required this.onChanged,
     required this.textStyle,
     this.leading,
-    Key? key,
+    ValueKey? key,
   }) : super(key: key);
 
   static const BorderRadiusGeometry borderRadius =
@@ -343,6 +346,9 @@ class DropdownListTile extends StatelessWidget {
           ),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           trailing: DropdownButton<String>(
+            key: key != null
+                ? ValueKey('${(key as ValueKey).value}-dropdown')
+                : null,
             value: value,
             onChanged: onChanged,
             selectedItemBuilder: (BuildContext context) {

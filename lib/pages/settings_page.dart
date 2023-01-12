@@ -118,6 +118,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               DropdownListTile(
+                key: const ValueKey('language'),
                 leading: const Icon(Icons.language),
                 title: AppLocalizations.of(context)!.language,
                 textStyle: textStyle,
@@ -159,6 +160,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               ListTile(
+                key: const ValueKey('reorder-properties'),
                 leading: Image.asset(
                   'resources/images/reorder_properties.png',
                   width: 25,
@@ -173,6 +175,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               ListTile(
+                key: const ValueKey('reorder-units'),
                 leading: Image.asset(
                   'resources/images/reorder_units.png',
                   width: 25,

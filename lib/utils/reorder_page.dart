@@ -36,6 +36,7 @@ class _ReorderPageState extends State<ReorderPage> {
     return Scaffold(
       key: _scaffoldKey,
       floatingActionButton: FloatingActionButton(
+        key: const ValueKey('confirm'),
         tooltip: AppLocalizations.of(context)!.save,
         onPressed: () {
           List<int> orderList = [];

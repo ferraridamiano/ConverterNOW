@@ -35,10 +35,12 @@ dependencies:
   translations:
     path: packages/translations
   #Needed for unit conversion
-  units_converter: ^2.0.1
-    #git:
-    #  url: https://github.com/ferraridamiano/units_converter
-    #path: ../units_converter
+  units_converter: 2.0.1
+  #Resize window during testing
+  window_size:
+    git:
+      url: https://github.com/google/flutter-desktop-embedding
+      path: plugins/window_size
 
   flutter_localizations:
       sdk: flutter
@@ -49,6 +51,8 @@ dev_dependencies:
   flutter_lints: ^2.0.1
   msix: ^3.6.3
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
 flutter_native_splash:

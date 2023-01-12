@@ -39,6 +39,7 @@ class AppScaffold extends StatelessWidget {
           behavior: SnackBarBehavior.floating,
           width: isDrawerFixed ? 400 : null,
           action: SnackBarAction(
+            key: const ValueKey('undoClearAll'),
             label: AppLocalizations.of(context)!.undo,
             onPressed: () {
               context.read<Conversions>().undoClearOperation();
@@ -74,6 +75,7 @@ class AppScaffold extends StatelessWidget {
           floatingActionButton: (selectedSection == AppPage.conversions &&
                   MediaQuery.of(context).viewInsets.bottom == 0)
               ? FloatingActionButton(
+                  key: const ValueKey('clearAll'),
                   onPressed: () => clearAll(_isDrawerFixed),
                   tooltip: AppLocalizations.of(context)!.clearAll,
                   child: const Icon(
@@ -111,7 +113,8 @@ class AppScaffold extends StatelessWidget {
           body: SafeArea(child: child),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: selectedSection == AppPage.conversions
+          bottomNavigationBar: selectedSection == AppPage.conversions ||
+                  selectedSection == AppPage.settings
               ? BottomAppBar(
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -125,11 +128,12 @@ class AppScaffold extends StatelessWidget {
                               Scaffold.of(context).openDrawer();
                             });
                       }),
-                      IconButton(
-                        tooltip: AppLocalizations.of(context)!.clearAll,
-                        icon: const Icon(Icons.clear),
-                        onPressed: () => clearAll(_isDrawerFixed),
-                      ),
+                      if (selectedSection == AppPage.conversions)
+                        IconButton(
+                          tooltip: AppLocalizations.of(context)!.clearAll,
+                          icon: const Icon(Icons.clear),
+                          onPressed: () => clearAll(_isDrawerFixed),
+                        ),
                     ],
                   ),
                 )

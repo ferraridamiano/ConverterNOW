@@ -176,11 +176,14 @@ class MyApp extends StatelessWidget {
               context.read<AppModel>().deviceLocale = deviceLocale;
               deviceLocaleSetted = true;
             }
-            return deviceLocale;
+            if (supportedLocales.contains(deviceLocale)) {
+              return deviceLocale;
+            }
+            return const Locale('en');
           },
-          locale: context.select<AppModel, Locale?>(
-            (appModel) => appModel.appLocale,
-          ),
+          locale: context.select<AppModel, Locale?>((appModel) {
+            return appModel.appLocale;
+          }),
         );
       }),
     );

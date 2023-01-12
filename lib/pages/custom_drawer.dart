@@ -37,19 +37,19 @@ class CustomDrawer extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: Center(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(
               'resources/images/logo.png',
               width: 55,
               filterQuality: FilterQuality.medium,
             ),
-            const SizedBox(width: 10),
             Text(
               'Converter NOW',
               // Fixed indipendently of the accessibility settings. Already as
               // large as possibile
               textScaleFactor: 1,
+              maxLines: 1,
               style: GoogleFonts.josefinSans(
                 fontWeight: FontWeight.w300,
                 textStyle: const TextStyle(fontSize: 31),
@@ -77,6 +77,7 @@ class CustomDrawer extends StatelessWidget {
 
     headerDrawer.add(
       DrawerTile(
+        key: const ValueKey('drawerItem_search'),
         leading: const Icon(Icons.search_outlined),
         title: Text(AppLocalizations.of(context)!.search),
         onTap: () async {
@@ -101,6 +102,7 @@ class CustomDrawer extends StatelessWidget {
     if (isDrawerFixed) {
       headerDrawer.add(
         DrawerTile(
+          key: const ValueKey('drawerItem_calculator'),
           leading: const Icon(Icons.calculate_outlined),
           title: Text(AppLocalizations.of(context)!.calculator),
           onTap: openCalculator,
@@ -110,6 +112,7 @@ class CustomDrawer extends StatelessWidget {
     }
     headerDrawer
       ..add(DrawerTile(
+        key: const ValueKey('drawerItem_settings'),
         leading: const Icon(Icons.settings_outlined),
         title: Text(AppLocalizations.of(context)!.settings),
         onTap: () {
@@ -140,6 +143,7 @@ class CustomDrawer extends StatelessWidget {
     for (int i = 0; i < propertyUiList.length; i++) {
       PropertyUi propertyUi = propertyUiList[i];
       conversionDrawer[conversionsOrderDrawer[i]] = DrawerTile(
+        key: ValueKey('drawerItem_${reversePageNumberListMap[i]}'),
         leading: Image.asset(
           propertyUi.imagePath,
           width: 30,

@@ -43,7 +43,7 @@ class ConversionPage extends StatelessWidget {
 
     for (UnitData unitData in unitDataList) {
       gridTiles.add(UnitWidget(
-        key: Key(unitData.unit.name.toString()),
+        tffKey: unitData.unit.name.toString(),
         unitName: unitTranslationMap[unitData.unit.name]!,
         unitSymbol: unitData.unit.symbol,
         keyboardType: unitData.textInputType,
@@ -94,7 +94,6 @@ class ConversionPage extends StatelessWidget {
                 numCols,
               ),
               crossAxisCount: numCols,
-              //crossAxisSpacing: 15.0,
               padding: EdgeInsets.only(
                 left: xPadding,
                 right: xPadding,
