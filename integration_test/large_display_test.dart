@@ -14,9 +14,15 @@ void main() {
     setWindowMaxSize(size);
   }
 
+  clearPreferences() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.clear();
+  }
+
   group('Common conversions tasks', () {
     testWidgets('Perform conversion, clear and undo',
         (WidgetTester tester) async {
+      await clearPreferences();
       app.main();
       await tester.pumpAndSettle();
       setWindowSize();
@@ -106,10 +112,37 @@ void main() {
     });
   });
 
+  group('Language tasks', () {
+    testWidgets('Change language', (WidgetTester tester) async {
+      await clearPreferences();
+      app.main();
+      await tester.pumpAndSettle();
+      setWindowSize();
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('language-dropdown')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Italiano'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Lunghezza'));
+      await tester.pumpAndSettle();
+      expect(find.text('Lunghezza'), findsNWidgets(2),
+          reason: 'Expected translated string');
+    });
+    testWidgets('Check if language has been saved',
+        (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+      expect(find.text('Lunghezza'), findsNWidgets(2),
+          reason: 'Expected translated string');
+      await clearPreferences();
+    });
+  });
+
   group('Reordering tasks', () {
     testWidgets('Reorder units', (WidgetTester tester) async {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      await pref.clear();
+      await clearPreferences();
 
       app.main();
       await tester.pumpAndSettle();

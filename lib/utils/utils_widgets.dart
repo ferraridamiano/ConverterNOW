@@ -300,7 +300,7 @@ class DropdownListTile extends StatelessWidget {
     required this.onChanged,
     required this.textStyle,
     this.leading,
-    Key? key,
+    ValueKey? key,
   }) : super(key: key);
 
   static const BorderRadiusGeometry borderRadius =
@@ -346,6 +346,9 @@ class DropdownListTile extends StatelessWidget {
           ),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           trailing: DropdownButton<String>(
+            key: key != null
+                ? ValueKey('${(key as ValueKey).value}-dropdown')
+                : null,
             value: value,
             onChanged: onChanged,
             selectedItemBuilder: (BuildContext context) {
