@@ -110,4 +110,36 @@ void main() {
       expect(tffMeters.controller!.text, '', reason: 'Text not cleared');
     });
   });
+
+  group('Language tasks', () {
+    testWidgets('Change language', (WidgetTester tester) async {
+      await clearPreferences();
+      app.main();
+      await tester.pumpAndSettle();
+      setWindowSize();
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('language-dropdown')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Italiano'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Lunghezza'));
+      await tester.pumpAndSettle();
+      expect(find.text('Lunghezza'), findsNWidgets(1),
+          reason: 'Expected translated string');
+    });
+    testWidgets('Check if language has been saved',
+        (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+      expect(find.text('Lunghezza'), findsNWidgets(1),
+          reason: 'Expected translated string');
+      await clearPreferences();
+    });
+  });
 }

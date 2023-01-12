@@ -113,7 +113,8 @@ class AppScaffold extends StatelessWidget {
           body: SafeArea(child: child),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: selectedSection == AppPage.conversions
+          bottomNavigationBar: selectedSection == AppPage.conversions ||
+                  selectedSection == AppPage.settings
               ? BottomAppBar(
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
@@ -127,11 +128,12 @@ class AppScaffold extends StatelessWidget {
                               Scaffold.of(context).openDrawer();
                             });
                       }),
-                      IconButton(
-                        tooltip: AppLocalizations.of(context)!.clearAll,
-                        icon: const Icon(Icons.clear),
-                        onPressed: () => clearAll(_isDrawerFixed),
-                      ),
+                      if (selectedSection == AppPage.conversions)
+                        IconButton(
+                          tooltip: AppLocalizations.of(context)!.clearAll,
+                          icon: const Icon(Icons.clear),
+                          onPressed: () => clearAll(_isDrawerFixed),
+                        ),
                     ],
                   ),
                 )

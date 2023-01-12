@@ -94,7 +94,6 @@ class ConversionPage extends StatelessWidget {
                 numCols,
               ),
               crossAxisCount: numCols,
-              //crossAxisSpacing: 15.0,
               padding: EdgeInsets.only(
                 left: xPadding,
                 right: xPadding,
