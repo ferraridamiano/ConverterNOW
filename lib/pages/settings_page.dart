@@ -159,6 +159,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               ListTile(
+                key: const ValueKey('reorder-properties'),
                 leading: Image.asset(
                   'resources/images/reorder_properties.png',
                   width: 25,

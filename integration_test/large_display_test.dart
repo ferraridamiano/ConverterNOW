@@ -9,13 +9,17 @@ import 'package:converterpro/main.dart' as app;
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Large display test', () {
+  void setWindowSize({Size size = const Size(800, 700)}) {
+    setWindowMinSize(size);
+    setWindowMaxSize(size);
+  }
+
+  group('Common conversions tasks', () {
     testWidgets('Perform conversion, clear and undo',
         (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
-      setWindowMinSize(const Size(800, 700));
-      setWindowMaxSize(const Size(800, 700));
+      setWindowSize();
       await tester.pumpAndSettle();
 
       var tffFeet = find
@@ -100,13 +104,18 @@ void main() {
       expect(tffCentimeters.controller!.text, '', reason: 'Text not cleared');
       expect(tffMeters.controller!.text, '', reason: 'Text not cleared');
     });
+  });
 
+  group('Reordering tasks', () {
     testWidgets('Reorder units', (WidgetTester tester) async {
       SharedPreferences pref = await SharedPreferences.getInstance();
       await pref.clear();
 
       app.main();
       await tester.pumpAndSettle();
+      setWindowSize();
+      await tester.pumpAndSettle();
+
       // At the beginning the ordering is Meters, Centimeters, Inches, ...
       expect(
         tester.getCenter(find.text('Meters')).dy <
@@ -157,6 +166,98 @@ void main() {
                 tester.getCenter(find.text('Inches')).dy,
         true,
         reason: 'Final ordering of length units is not what expected',
+      );
+    });
+
+    testWidgets('Check if units ordering has been saved',
+        (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+
+      expect(
+        tester.getCenter(find.text('Meters')).dy >
+                tester.getCenter(find.text('Centimeters')).dy &&
+            tester.getCenter(find.text('Centimeters')).dy >
+                tester.getCenter(find.text('Inches')).dy,
+        true,
+        reason: 'Ordering of length units is not what expected',
+      );
+    });
+
+    testWidgets('Reorder properties', (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+
+      // At the beginning the ordering is Length, Area, Volume, ...
+      expect(
+        tester.getCenter(find.byKey(const ValueKey('drawerItem_length'))).dy <
+                tester
+                    .getCenter(find.byKey(const ValueKey('drawerItem_area')))
+                    .dy &&
+            tester.getCenter(find.byKey(const ValueKey('drawerItem_area'))).dy <
+                tester
+                    .getCenter(find.byKey(const ValueKey('drawerItem_volume')))
+                    .dy,
+        true,
+        reason: 'Initial ordering of properties is not what expected',
+      );
+
+      await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey('reorder-properties')));
+      await tester.pumpAndSettle();
+
+      final xDragHadle =
+          tester.getCenter(find.byIcon(Icons.drag_handle).first).dx;
+
+      await longPressDrag(
+        tester,
+        Offset(xDragHadle, tester.getCenter(find.text('Length').last).dy),
+        Offset(xDragHadle, tester.getCenter(find.text('Currencies').last).dy),
+      );
+      await tester.pumpAndSettle();
+
+      await longPressDrag(
+        tester,
+        Offset(xDragHadle, tester.getCenter(find.text('Volume').last).dy),
+        Offset(xDragHadle, tester.getCenter(find.text('Area').last).dy),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey('confirm')));
+      await tester.pumpAndSettle();
+
+      // Now the ordering should be Volume, Area, Length, ...
+      expect(
+        tester.getCenter(find.byKey(const ValueKey('drawerItem_length'))).dy >
+                tester
+                    .getCenter(find.byKey(const ValueKey('drawerItem_area')))
+                    .dy &&
+            tester.getCenter(find.byKey(const ValueKey('drawerItem_area'))).dy >
+                tester
+                    .getCenter(find.byKey(const ValueKey('drawerItem_volume')))
+                    .dy,
+        true,
+        reason: 'Final ordering the of properties is not what expected',
+      );
+    });
+
+    testWidgets('Check if properties ordering has been saved',
+        (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+      expect(
+        tester.getCenter(find.byKey(const ValueKey('drawerItem_length'))).dy >
+                tester
+                    .getCenter(find.byKey(const ValueKey('drawerItem_area')))
+                    .dy &&
+            tester.getCenter(find.byKey(const ValueKey('drawerItem_area'))).dy >
+                tester
+                    .getCenter(find.byKey(const ValueKey('drawerItem_volume')))
+                    .dy,
+        true,
+        reason: 'Ordering of the properties is not what expected',
       );
     });
   });

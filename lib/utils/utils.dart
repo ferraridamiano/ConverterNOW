@@ -1,4 +1,6 @@
 // ignore_for_file: constant_identifier_names
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -150,6 +152,10 @@ void initializeQuickAction(
     {required void Function(String index) onActionSelection,
     required List<int> conversionsOrderDrawer,
     required List<PropertyUi> propertyUiList}) {
+  // If it is not on a mobile device, return, otherwise set the quick actions
+  final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+  if (!isMobileDevice) return;
+
   final int index1 = conversionsOrderDrawer.indexWhere((val) => val == 1);
   final int index2 = conversionsOrderDrawer.indexWhere((val) => val == 2);
   final int index3 = conversionsOrderDrawer.indexWhere((val) => val == 3);

@@ -21,7 +21,7 @@ jobs:
 
     - name: Install missing packages
       run: |
-        sudo apt update -y
+        sudo apt update
         sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev
 
     - name: Setup Flutter
