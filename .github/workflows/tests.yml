@@ -47,10 +47,10 @@ jobs:
     - name: Run tests
       run: cd packages/calculator_widget && flutter test
 
-  desktop_integration_testing:
+  integration_testing:
     needs: changes
     if: ${{ needs.changes.outputs.integration_testing == 'true' }}
-    name: Desktop integration testing
+    name: Integration testing
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -76,8 +76,13 @@ jobs:
         dart pub global activate melos
         melos bootstrap
 
-    - name: Run integration testing
+    - name: Set `Xvfb`
       run: |
         export DISPLAY=:99
         sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-        flutter test integration_test/large_display_test.dart -d linux
+
+    - name: Run large display integration testing
+      run: flutter test integration_test/large_display_test.dart -d linux
+
+    - name: Run small display integration testing
+      run: flutter test integration_test/small_display_test.dart -d linux

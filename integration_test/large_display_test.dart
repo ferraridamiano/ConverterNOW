@@ -1,22 +1,17 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_size/window_size.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter/material.dart';
 import 'package:converterpro/main.dart' as app;
+import 'utils.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  /// Sets the window size
   void setWindowSize({Size size = const Size(800, 700)}) {
     setWindowMinSize(size);
     setWindowMaxSize(size);
-  }
-
-  clearPreferences() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    await pref.clear();
   }
 
   group('Common conversions tasks', () {
@@ -294,14 +289,4 @@ void main() {
       );
     });
   });
-}
-
-/// Perform a long press drag from [start] to [end]. Useful for reorderable list
-Future<void> longPressDrag(
-    WidgetTester tester, Offset start, Offset end) async {
-  final TestGesture drag = await tester.startGesture(start);
-  await tester.pump(kLongPressTimeout + kPressTimeout);
-  await drag.moveTo(end);
-  await tester.pump(kPressTimeout);
-  await drag.up();
 }
