@@ -23,7 +23,6 @@ class Conversions with ChangeNotifier {
     'EUR': '€ 🇪🇺',
     'CAD': '\$ 🇨🇦',
     'HKD': 'HK\$ 🇭🇰',
-    'RUB': '₽ 🇷🇺',
     'PHP': '₱ 🇵🇭',
     'DKK': 'kr 🇩🇰',
     'NZD': 'NZ\$ 🇳🇿',
@@ -50,11 +49,8 @@ class Conversions with ChangeNotifier {
     'GBP': '£ 🇬🇧',
     'KRW': '₩ 🇰🇷',
     'PLN': 'zł 🇵🇱',
-    'HRK': 'kn 🇭🇷',
     'BGN': 'лв 🇧🇬',
     'ISK': 'kr 🇮🇸',
-    'TWD': 'NT\$ 🇹🇼',
-    'MAD': 'د.م. 🇲🇦',
   };
   List<Property> _propertyList = [];
   List<List<int>>? _conversionsOrder;

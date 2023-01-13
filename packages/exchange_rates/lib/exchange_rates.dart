@@ -6,7 +6,7 @@ enum CurrencyStatus { outdated, error, updated }
 
 class CurrenciesObject {
   /// String representation of the last update in a yyyy-mm-dd format
-  String lastUpdateString = '2021-12-08';
+  String lastUpdateString = '2023-01-13';
 
   /// DateTime representation of the last update
   late DateTime lastUpdate;
@@ -21,40 +21,36 @@ class CurrenciesObject {
   /// resepct to Euro
   Map<String, double> exchangeRates = {
     'EUR': 1.0,
-    'AUD': 1.5841,
+    'AUD': 1.5586,
     'BGN': 1.9558,
-    'BRL': 6.335,
-    'CAD': 1.4281,
-    'CHF': 1.0432,
-    'CNY': 7.1726,
-    'CZK': 25.475,
-    'DKK': 7.4362,
-    'GBP': 0.85603,
-    'HKD': 8.8088,
-    'HRK': 7.525,
-    'HUF': 368.13,
-    'IDR': 16205.54,
-    'ILS': 3.5176,
-    'INR': 85.2345,
-    'ISK': 147.4,
-    'JPY': 128.57,
-    'KRW': 1328.25,
-    'MAD': 10.7485,
-    'MXN': 23.6365,
-    'MYR': 4.7733,
-    'NOK': 10.096,
-    'NZD': 1.6659,
-    'PHP': 56.784,
-    'PLN': 4.5962,
-    'RON': 4.9488,
-    'RUB': 83.3019,
-    'SEK': 10.2513,
-    'SGD': 1.5415,
-    'THB': 37.829,
-    'TRY': 15.4796,
-    'TWD': 33.4243,
-    'USD': 1.1299,
-    'ZAR': 17.8168,
+    'BRL': 5.5512,
+    'CAD': 1.4494,
+    'CHF': 1.0051,
+    'CNY': 7.2729,
+    'CZK': 24.011,
+    'DKK': 7.4387,
+    'GBP': 0.888,
+    'HKD': 8.4471,
+    'HUF': 396.96,
+    'IDR': 16412.0,
+    'ILS': 3.7032,
+    'INR': 88.096,
+    'ISK': 154.3,
+    'JPY': 139.02,
+    'KRW': 1343.41,
+    'MXN': 20.4391,
+    'MYR': 4.689,
+    'NOK': 10.6945,
+    'NZD': 1.7014,
+    'PHP': 59.44,
+    'PLN': 4.6888,
+    'RON': 4.9423,
+    'SEK': 11.2528,
+    'SGD': 1.4311,
+    'THB': 35.751,
+    'TRY': 20.3196,
+    'USD': 1.0814,
+    'ZAR': 18.2482,
   };
 
   CurrenciesObject() {
@@ -124,14 +120,16 @@ class CurrenciesObject {
   }
 }
 
-/*Future<void> main(List<String> args) async {
+/*
+/// Code for retrieving updated exchange rates.
+Future<void> main(List<String> args) async {
   CurrenciesObject object = CurrenciesObject();
-  print(object.exchangeRates);
-  print(object.lastUpdate);
-  print(object.status);
-  print('-----------------------------------------');
   await object.updateCurrencies();
-  print(object.exchangeRates);
+  Map<String, double> exchangeRates = object.exchangeRates;
+  for (String key in exchangeRates.keys) {
+    print('\'$key\': ${exchangeRates[key]},');
+  }
   print(object.lastUpdate);
   print(object.status);
-}*/
+}
+*/
