@@ -10,44 +10,46 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  #Needed to store the customizations and the latest currencies convertions
-  shared_preferences: ^2.0.15
-  #Needed to open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^6.1.5
-  #Needed for the state management
-  provider: ^6.0.3
-  #Needed for translation
-  intl: ^0.17.0
-  #Needed for fonts
+  flutter_localizations:
+    sdk: flutter
+  
+  # Native splash screen for native splashscreen on Android
+  flutter_native_splash: ^2.2.16
+  # App logo in drawer
   google_fonts: ^3.0.1
-  #Needed for navigation between pages
+  # Navigation
   go_router: ^5.2.4
-  #Needed for Android App Shortcuts
+  # Translations
+  intl: ^0.17.0
+  # State management
+  provider: ^6.0.3
+  # Android app shortcuts
   quick_actions: ^1.0.0
-  #Calculator widget
-  calculator_widget:
-    path: packages/calculator_widget
-  #Needed for updating exchange rates
-  exchange_rates:
-    path: packages/exchange_rates
-  #Needed for app translation
-  translations:
-    path: packages/translations
-  #Needed for unit conversion
+  # Store the customizations and the latest currencies convertions
+  shared_preferences: ^2.0.15
+  # Unit conversion
   units_converter: 2.0.1
-  #Resize window during testing
+  # Open external pages such as GitHub repo, Play Store, etc
+  url_launcher: ^6.1.5
+  # Resize window during testing
   window_size:
     git:
       url: https://github.com/google/flutter-desktop-embedding
       path: plugins/window_size
 
-  flutter_localizations:
-      sdk: flutter
+  # Sub packages ---------------------------------------------------------------
+  # Calculator widget and logic
+  calculator_widget:
+    path: packages/calculator_widget
+  # Update the exchange rates
+  exchange_rates:
+    path: packages/exchange_rates
+  # App translations
+  translations:
+    path: packages/translations
 
 dev_dependencies:
   test: ^1.21.4
-  flutter_native_splash: ^1.2.3
   flutter_lints: ^2.0.1
   msix: ^3.6.3
   flutter_test:
@@ -56,11 +58,8 @@ dev_dependencies:
     sdk: flutter
 
 flutter_native_splash:
-  # Customize the parameters below, and run the following command in the terminal:
-  # flutter pub run flutter_native_splash:create
-  # To restore Flutter's default white splash screen, run the following command in the terminal:
-  # flutter pub run flutter_native_splash:remove
-
+  # Run code generation: `flutter pub run flutter_native_splash:create`
+  web: false
   color: "#eeeeee"
   color_dark: "#333333"
   image: resources/splash/splash.png
@@ -77,6 +76,5 @@ msix_config:
 flutter:
   uses-material-design: true
   generate: true
-
   assets:
         - resources/images/
