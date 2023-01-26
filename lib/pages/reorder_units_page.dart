@@ -200,6 +200,7 @@ class ChoosePropertyPage extends StatelessWidget {
                     header: BigTitle(
                       text: AppLocalizations.of(context)!.reorderProperty(
                         orderedDrawerList[selectedProperty!],
+                        '',
                       ),
                       center: true,
                     ),
@@ -259,7 +260,7 @@ class ChoosePropertyPage extends StatelessWidget {
         },
         header: BigTitle(
           text: AppLocalizations.of(context)!
-              .reorderProperty(orderedDrawerList[selectedProperty!]),
+              .reorderProperty(orderedDrawerList[selectedProperty!], ''),
           center: true,
         ),
       );

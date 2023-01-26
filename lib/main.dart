@@ -115,8 +115,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool deviceLocaleSetted = false;
-    final ThemeData defaultLight = ThemeData();
-    final ThemeData defaultDark = ThemeData.dark();
 
     return MultiProvider(
       providers: [
@@ -136,37 +134,18 @@ class MyApp extends StatelessWidget {
           themeMode: context.select<AppModel, ThemeMode>(
             (appModel) => appModel.currentThemeMode,
           ),
-          theme: defaultLight.copyWith(
+          theme: ThemeData(
             useMaterial3: true,
-            primaryColor: Colors.teal[400],
-            colorScheme: defaultLight.colorScheme.copyWith(
-              secondary: Colors.orange,
-            ),
-            floatingActionButtonTheme: const FloatingActionButtonThemeData(
-              backgroundColor: Colors.orange,
-            ),
-            textSelectionTheme:
-                TextSelectionThemeData(cursorColor: Colors.teal[400]),
-            toggleableActiveColor: Colors.orange,
+            colorSchemeSeed: Colors.orange,
           ),
-          darkTheme: defaultDark.copyWith(
+          darkTheme: ThemeData(
             useMaterial3: true,
-            primaryColor: Colors.teal[400],
-            colorScheme: defaultDark.colorScheme.copyWith(
-              secondary: Colors.orange,
-            ),
-            floatingActionButtonTheme: const FloatingActionButtonThemeData(
-              backgroundColor: Colors.orange,
-            ),
-            textSelectionTheme: TextSelectionThemeData(
-              cursorColor: Colors.teal[400],
-            ),
-            toggleableActiveColor: Colors.orange,
-            scaffoldBackgroundColor:
-                isDarkAmoled ? Colors.black : Colors.grey[850],
-            canvasColor: isDarkAmoled
-                ? Colors.black
-                : Colors.grey[850], // for drawer background
+            colorSchemeSeed: Colors.orange,
+            brightness: Brightness.dark,
+            scaffoldBackgroundColor: isDarkAmoled ? Colors.black : null,
+            drawerTheme: isDarkAmoled
+                ? const DrawerThemeData(backgroundColor: Colors.black)
+                : null,
           ),
           supportedLocales: context.read<AppModel>().supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,

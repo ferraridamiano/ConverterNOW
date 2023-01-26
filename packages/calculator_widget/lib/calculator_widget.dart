@@ -90,8 +90,6 @@ class CalculatorWidget extends StatelessWidget {
                             ),
                             maxLines: 1,
                             scrollPhysics: const ClampingScrollPhysics(),
-                            toolbarOptions: const ToolbarOptions(
-                                copy: true, selectAll: true),
                           ),
                         ),
                         Container(
