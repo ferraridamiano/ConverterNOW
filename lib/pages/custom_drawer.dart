@@ -33,6 +33,8 @@ class CustomDrawer extends StatelessWidget {
       const SizedBox(),
     );
 
+    Color iconColor = getIconColor(Theme.of(context));
+
     final Widget title = Padding(
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: Center(
@@ -78,7 +80,7 @@ class CustomDrawer extends StatelessWidget {
     headerDrawer.add(
       DrawerTile(
         key: const ValueKey('drawerItem_search'),
-        leading: const Icon(Icons.search_outlined),
+        leading: Icon(Icons.search_outlined, color: iconColor),
         title: Text(AppLocalizations.of(context)!.search),
         onTap: () async {
           final orderList = context.read<AppModel>().conversionsOrderDrawer;
@@ -103,7 +105,7 @@ class CustomDrawer extends StatelessWidget {
       headerDrawer.add(
         DrawerTile(
           key: const ValueKey('drawerItem_calculator'),
-          leading: const Icon(Icons.calculate_outlined),
+          leading: Icon(Icons.calculate_outlined, color: iconColor),
           title: Text(AppLocalizations.of(context)!.calculator),
           onTap: openCalculator,
           selected: false,
@@ -113,7 +115,7 @@ class CustomDrawer extends StatelessWidget {
     headerDrawer
       ..add(DrawerTile(
         key: const ValueKey('drawerItem_settings'),
-        leading: const Icon(Icons.settings_outlined),
+        leading: Icon(Icons.settings_outlined, color: iconColor),
         title: Text(AppLocalizations.of(context)!.settings),
         onTap: () {
           if (!isDrawerFixed) {
@@ -125,12 +127,9 @@ class CustomDrawer extends StatelessWidget {
             selectedSection == AppPage.reorder,
       ))
       ..add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Divider(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black38),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 25.0),
+          child: Divider(),
         ),
       );
 
@@ -148,9 +147,7 @@ class CustomDrawer extends StatelessWidget {
           propertyUi.imagePath,
           width: 30,
           height: 30,
-          color: Theme.of(context).brightness == Brightness.dark
-              ? Colors.white
-              : Colors.black38,
+          color: iconColor,
           filterQuality: FilterQuality.medium,
         ),
         title: Text(propertyUi.name),

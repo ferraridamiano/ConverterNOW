@@ -12,8 +12,9 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  
-  # Native splash screen for native splashscreen on Android
+  # App dynamic color theme
+  dynamic_color: ^1.5.4
+  # Native splash screen on Android
   flutter_native_splash: ^2.2.16
   # App logo in drawer
   google_fonts: ^3.0.1

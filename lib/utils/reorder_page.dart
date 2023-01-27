@@ -50,12 +50,7 @@ class _ReorderPageState extends State<ReorderPage> {
           // return null
           widget.onSave(hasSomethingchanged ? orderList : null);
         },
-        elevation: 10.0,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        child: const Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
+        child: const Icon(Icons.check),
       ),
       body: Column(
         children: [

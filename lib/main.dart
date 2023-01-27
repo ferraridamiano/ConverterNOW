@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/models/conversions.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -116,55 +117,79 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     bool deviceLocaleSetted = false;
 
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => AppModel()),
-        ChangeNotifierProvider(create: (context) => Conversions()),
-      ],
-      child: Builder(builder: (BuildContext context) {
-        bool isDarkAmoled = context.select<AppModel, bool>(
-          (appModel) => appModel.isDarkAmoled,
+    Color fallbackColorSchemeSeed = Colors.orange;
+
+    return DynamicColorBuilder(
+        builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+      ColorScheme lightColorScheme;
+      ColorScheme darkColorScheme;
+      if (lightDynamic != null && darkDynamic != null) {
+        lightColorScheme = lightDynamic.harmonized();
+        darkColorScheme = darkDynamic.harmonized();
+      } else {
+        // Otherwise, use fallback schemes.
+        lightColorScheme = ColorScheme.fromSeed(
+          seedColor: fallbackColorSchemeSeed,
         );
-        return MaterialApp.router(
-          routeInformationProvider: _router.routeInformationProvider,
-          routeInformationParser: _router.routeInformationParser,
-          routerDelegate: _router.routerDelegate,
-          debugShowCheckedModeBanner: false,
-          title: 'Converter NOW',
-          themeMode: context.select<AppModel, ThemeMode>(
-            (appModel) => appModel.currentThemeMode,
-          ),
-          theme: ThemeData(
-            useMaterial3: true,
-            colorSchemeSeed: Colors.orange,
-          ),
-          darkTheme: ThemeData(
-            useMaterial3: true,
-            colorSchemeSeed: Colors.orange,
-            brightness: Brightness.dark,
-            scaffoldBackgroundColor: isDarkAmoled ? Colors.black : null,
-            drawerTheme: isDarkAmoled
-                ? const DrawerThemeData(backgroundColor: Colors.black)
-                : null,
-          ),
-          supportedLocales: context.read<AppModel>().supportedLocales,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          localeResolutionCallback:
-              (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
-            if (!deviceLocaleSetted) {
-              context.read<AppModel>().deviceLocale = deviceLocale;
-              deviceLocaleSetted = true;
-            }
-            if (supportedLocales.contains(deviceLocale)) {
-              return deviceLocale;
-            }
-            return const Locale('en');
-          },
-          locale: context.select<AppModel, Locale?>((appModel) {
-            return appModel.appLocale;
-          }),
+        darkColorScheme = ColorScheme.fromSeed(
+          seedColor: fallbackColorSchemeSeed,
+          brightness: Brightness.dark,
         );
-      }),
-    );
+      }
+
+      ThemeData lightTheme = ThemeData(
+        useMaterial3: true,
+        colorScheme: lightColorScheme,
+      );
+      ThemeData darkTheme = ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        colorScheme: darkColorScheme,
+      );
+      ThemeData amoledTheme = darkTheme.copyWith(
+        scaffoldBackgroundColor: Colors.black,
+        drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
+      );
+
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => AppModel()),
+          ChangeNotifierProvider(create: (context) => Conversions()),
+        ],
+        child: Builder(builder: (BuildContext context) {
+          bool isDarkAmoled = context.select<AppModel, bool>(
+            (appModel) => appModel.isDarkAmoled,
+          );
+          return MaterialApp.router(
+            routeInformationProvider: _router.routeInformationProvider,
+            routeInformationParser: _router.routeInformationParser,
+            routerDelegate: _router.routerDelegate,
+            debugShowCheckedModeBanner: false,
+            title: 'Converter NOW',
+            themeMode: context.select<AppModel, ThemeMode>(
+              (appModel) => appModel.currentThemeMode,
+            ),
+            theme: lightTheme,
+            darkTheme: isDarkAmoled ? amoledTheme : darkTheme,
+            supportedLocales: context.read<AppModel>().supportedLocales,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            localeResolutionCallback:
+                (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
+              if (!deviceLocaleSetted) {
+                context.read<AppModel>().deviceLocale = deviceLocale;
+                deviceLocaleSetted = true;
+              }
+              if (supportedLocales.contains(deviceLocale)) {
+                return deviceLocale;
+              }
+              return const Locale('en');
+            },
+            locale: context.select<AppModel, Locale?>((appModel) {
+              return appModel.appLocale;
+            }),
+          );
+        }),
+      );
+    });
   }
 }

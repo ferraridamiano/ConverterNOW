@@ -57,7 +57,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ThemeMode.light: AppLocalizations.of(context)!.light,
     };
 
-    Color iconColor = getIconColor(Theme.of(context).brightness);
+    Color iconColor = getIconColor(Theme.of(context));
 
     return Column(
       children: [
@@ -89,7 +89,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               SwitchListTile(
-                secondary: const Icon(Icons.dark_mode_outlined),
+                secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
                 title: Text(
                   AppLocalizations.of(context)!.amoledDarkTheme,
                   style: textStyle,
@@ -104,7 +104,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               DropdownListTile(
-                leading: const Icon(Icons.palette_outlined),
+                leading: Icon(Icons.palette_outlined, color: iconColor),
                 title: AppLocalizations.of(context)!.theme,
                 textStyle: textStyle,
                 items: mapTheme.values.toList(),
@@ -119,7 +119,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               DropdownListTile(
                 key: const ValueKey('language'),
-                leading: const Icon(Icons.language),
+                leading: Icon(Icons.language, color: iconColor),
                 title: AppLocalizations.of(context)!.language,
                 textStyle: textStyle,
                 items: [
@@ -190,7 +190,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               ),
               ListTile(
-                leading: const Icon(Icons.computer),
+                leading: Icon(Icons.computer, color: iconColor),
                 title: Text(
                   AppLocalizations.of(context)!.otherPlatforms,
                   style: textStyle,
@@ -205,7 +205,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         if (!kIsWeb)
                           ListTile(
                             title: const Text('Web'),
-                            leading: const Icon(Icons.public_outlined),
+                            leading:
+                                Icon(Icons.public_outlined, color: iconColor),
                             onTap: () => launchURL(
                               Uri(
                                 scheme: 'https',
@@ -217,7 +218,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         if (kIsWeb || Platform.isWindows || Platform.isLinux)
                           ListTile(
                             title: const Text('Android'),
-                            leading: const Icon(Icons.android_outlined),
+                            leading:
+                                Icon(Icons.android_outlined, color: iconColor),
                             onTap: () => launchURL(Uri(
                               scheme: 'https',
                               host: 'play.google.com',
@@ -230,7 +232,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         if (kIsWeb || Platform.isAndroid || Platform.isLinux)
                           ListTile(
                             title: const Text('Windows'),
-                            leading: const Icon(Icons.laptop),
+                            leading: Icon(Icons.laptop, color: iconColor),
                             onTap: () => launchURL(
                               Uri(
                                 scheme: 'https',
@@ -244,10 +246,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           title: const Text('Linux (Flatpak)'),
                           leading: Image.asset(
                             'resources/images/penguin.png',
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white.withOpacity(0.9)
-                                    : Colors.black54,
+                            color: iconColor,
                             width: 25,
                           ),
                           onTap: () => launchURL(
@@ -263,10 +262,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           title: const Text('Linux (Snap)'),
                           leading: Image.asset(
                             'resources/images/penguin.png',
-                            color:
-                                Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white.withOpacity(0.9)
-                                    : Colors.black54,
+                            color: iconColor,
                             width: 25,
                           ),
                           onTap: () => launchURL(
@@ -287,7 +283,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             width: 25,
                             color:
                                 Theme.of(context).brightness == Brightness.light
-                                    ? Colors.black54
+                                    ? iconColor
                                     : null,
                             filterQuality: FilterQuality.medium,
                           ),
@@ -306,7 +302,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
               ListTile(
-                leading: const Icon(Icons.translate),
+                leading: Icon(Icons.translate, color: iconColor),
                 title: Text(
                   AppLocalizations.of(context)!.contibuteTranslating,
                   style: textStyle,
@@ -325,7 +321,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               if (!EnvironmentConfig.isPlaystore)
                 ListTile(
-                  leading: const Icon(Icons.coffee_outlined),
+                  leading: Icon(Icons.coffee_outlined, color: iconColor),
                   title: Text(
                     AppLocalizations.of(context)!.buyMeACoffee,
                     style: textStyle,
@@ -370,9 +366,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     );
                   },
                 ),
-              //if (!kIsWeb)
               ListTile(
-                leading: const Icon(Icons.email_outlined),
+                leading: Icon(Icons.email_outlined, color: iconColor),
                 title: Text(
                   AppLocalizations.of(context)!.contactDeveloper,
                   style: textStyle,
@@ -385,7 +380,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.info_outline),
+                leading: Icon(Icons.info_outline, color: iconColor),
                 title: Text(
                   AppLocalizations.of(context)!.about,
                   style: textStyle,

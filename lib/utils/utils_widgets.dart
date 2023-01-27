@@ -177,8 +177,11 @@ class _UnitWidgetState extends State<UnitWidget> {
                 : Colors.white,
           ),
           border: const OutlineInputBorder(),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.orange, width: 2),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+              width: 2,
+            ),
           ),
           floatingLabelStyle: TextStyle(
             fontSize: 20,

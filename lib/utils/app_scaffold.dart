@@ -80,7 +80,6 @@ class AppScaffold extends StatelessWidget {
                   tooltip: AppLocalizations.of(context)!.clearAll,
                   child: const Icon(
                     Icons.clear_outlined,
-                    color: Colors.white,
                   ),
                 )
               : null,
@@ -146,7 +145,6 @@ class AppScaffold extends StatelessWidget {
                   child: const Icon(
                     Icons.calculate_outlined,
                     size: 30,
-                    color: Colors.white,
                   ),
                 )
               : null,
