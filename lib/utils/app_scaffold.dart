@@ -98,9 +98,7 @@ class AppScaffold extends StatelessWidget {
                   key: const ValueKey('clearAll'),
                   onPressed: () => clearAll(_isDrawerFixed),
                   tooltip: AppLocalizations.of(context)!.clearAll,
-                  child: const Icon(
-                    Icons.clear_outlined,
-                  ),
+                  child: const Icon(Icons.clear_outlined),
                 )
               : null,
         );
@@ -138,14 +136,14 @@ class AppScaffold extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       IconButton(
-                        tooltip: AppLocalizations.of(context)!.clearAll,
-                        icon: const Icon(Icons.clear),
-                        onPressed: () => clearAll(_isDrawerFixed),
-                      ),
-                      IconButton(
-                        tooltip: AppLocalizations.of(context)!.clearAll,
+                        tooltip: AppLocalizations.of(context)!.search,
                         icon: const Icon(Icons.search),
                         onPressed: openSearch,
+                      ),
+                      IconButton(
+                        tooltip: AppLocalizations.of(context)!.calculator,
+                        icon: const Icon(Icons.calculate_outlined),
+                        onPressed: openCalculator,
                       ),
                     ],
                   ),
@@ -154,12 +152,10 @@ class AppScaffold extends StatelessWidget {
           floatingActionButton: (selectedSection == AppPage.conversions &&
                   MediaQuery.of(context).viewInsets.bottom == 0)
               ? FloatingActionButton(
-                  tooltip: AppLocalizations.of(context)!.calculator,
-                  onPressed: openCalculator,
-                  child: const Icon(
-                    Icons.calculate_outlined,
-                    size: 30,
-                  ),
+                  key: const ValueKey('clearAll'),
+                  onPressed: () => clearAll(_isDrawerFixed),
+                  tooltip: AppLocalizations.of(context)!.clearAll,
+                  child: const Icon(Icons.clear_outlined),
                 )
               : null,
         ),

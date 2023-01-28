@@ -79,10 +79,6 @@ class ConversionPage extends StatelessWidget {
       final int numCols = responsiveNumCols(constraint.maxWidth);
       return CustomScrollView(slivers: <Widget>[
         SliverAppBar.large(
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: Scaffold.of(context).openDrawer,
-          ),
           title: Text(propertyTranslationMap[currentProperty]!),
         ),
         if (subTitle != '')

@@ -60,13 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
     Color iconColor = getIconColor(Theme.of(context));
 
     return CustomScrollView(slivers: <Widget>[
-      SliverAppBar.large(
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: Scaffold.of(context).openDrawer,
-        ),
-        title: Text(AppLocalizations.of(context)!.settings),
-      ),
+      SliverAppBar.large(title: Text(AppLocalizations.of(context)!.settings)),
       SliverList(
           delegate: SliverChildListDelegate([
         SwitchListTile(
