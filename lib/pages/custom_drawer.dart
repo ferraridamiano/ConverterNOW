@@ -1,5 +1,4 @@
 import 'package:converterpro/models/app_model.dart';
-import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
@@ -15,11 +14,13 @@ const maxConversionUnits = 19;
 class CustomDrawer extends StatelessWidget {
   final bool isDrawerFixed;
   final void Function() openCalculator;
+  final void Function() openSearch;
 
   const CustomDrawer({
     key,
     required this.isDrawerFixed,
     required this.openCalculator,
+    required this.openSearch,
   }) : super(key: key);
 
   @override
@@ -77,38 +78,21 @@ class CustomDrawer extends StatelessWidget {
       headerDrawer.add(title);
     }
 
-    headerDrawer.add(
-      DrawerTile(
-        key: const ValueKey('drawerItem_search'),
-        leading: Icon(Icons.search_outlined, color: iconColor),
-        title: Text(AppLocalizations.of(context)!.search),
-        onTap: () async {
-          final orderList = context.read<AppModel>().conversionsOrderDrawer;
-          final int? newPage = await showSearch(
-            context: context,
-            delegate: CustomSearchDelegate(orderList!),
-          );
-          if (newPage != null) {
-            final String targetPath =
-                '/conversions/${reversePageNumberListMap[newPage]}';
-            // ignore: use_build_context_synchronously
-            if (GoRouter.of(context).location != targetPath) {
-              // ignore: use_build_context_synchronously
-              context.go(targetPath);
-            }
-          }
-        },
-        selected: false,
-      ),
-    );
     if (isDrawerFixed) {
+      headerDrawer.add(
+        DrawerTile(
+          key: const ValueKey('drawerItem_search'),
+          leading: Icon(Icons.search_outlined, color: iconColor),
+          title: Text(AppLocalizations.of(context)!.search),
+          onTap: openSearch,
+        ),
+      );
       headerDrawer.add(
         DrawerTile(
           key: const ValueKey('drawerItem_calculator'),
           leading: Icon(Icons.calculate_outlined, color: iconColor),
           title: Text(AppLocalizations.of(context)!.calculator),
           onTap: openCalculator,
-          selected: false,
         ),
       );
     }
@@ -145,8 +129,8 @@ class CustomDrawer extends StatelessWidget {
         key: ValueKey('drawerItem_${reversePageNumberListMap[i]}'),
         leading: Image.asset(
           propertyUi.imagePath,
-          width: 30,
-          height: 30,
+          width: 25,
+          height: 25,
           color: iconColor,
           filterQuality: FilterQuality.medium,
         ),
