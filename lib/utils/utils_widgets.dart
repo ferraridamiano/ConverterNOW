@@ -15,12 +15,12 @@ class DrawerTile extends StatelessWidget {
   final bool selected;
 
   static const BorderRadiusGeometry borderRadius =
-      BorderRadius.horizontal(right: Radius.circular(30));
+      BorderRadius.all(Radius.circular(30));
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Container(
         decoration: selected
             ? BoxDecoration(
