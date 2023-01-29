@@ -66,86 +66,86 @@ class ChoosePropertyPage extends StatelessWidget {
       );
     }
 
+    Color selectedListTileColor =
+        Theme.of(context).brightness == Brightness.light
+            ? Theme.of(context).primaryColor.withOpacity(0.25)
+            : Color.lerp(Theme.of(context).primaryColor, Colors.white, 0.18)!;
+
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       if (constraints.maxWidth > twoSidedReorderScreen) {
         return Row(
           children: [
             Expanded(
-              child: Column(
-                children: [
-                  BigTitle(
-                    text: AppLocalizations.of(context)!.chooseProperty,
-                    center: true,
+              child: CustomScrollView(
+                slivers: <Widget>[
+                  SliverAppBar.large(
+                    title: Text(AppLocalizations.of(context)!.chooseProperty),
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      controller: ScrollController(),
-                      itemCount: orderedDrawerList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Stack(
-                          children: [
-                            AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 300),
-                              transitionBuilder:
-                                  (Widget child, Animation<double> animation) {
-                                final offsetAnimation = Tween<Offset>(
-                                  begin: const Offset(-1.0, 0.0),
-                                  end: const Offset(0.0, 0.0),
-                                ).animate(animation);
-                                return SlideTransition(
-                                  position: offsetAnimation,
-                                  child: child,
-                                );
-                              },
-                              child: Padding(
-                                key: Key(
-                                    '${orderedDrawerList[index]}-${(selectedProperty == index).toString()}'),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 50),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: selectedProperty == index
-                                        ? Theme.of(context).primaryColor
-                                        : Colors.transparent,
-                                    borderRadius: borderRadius,
-                                  ),
-                                  child: const ListTile(),
-                                ),
-                              ),
-                            ),
-                            Padding(
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => Stack(
+                        children: [
+                          AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 300),
+                            transitionBuilder:
+                                (Widget child, Animation<double> animation) {
+                              final offsetAnimation = Tween<Offset>(
+                                begin: const Offset(-1.0, 0.0),
+                                end: const Offset(0.0, 0.0),
+                              ).animate(animation);
+                              return SlideTransition(
+                                position: offsetAnimation,
+                                child: child,
+                              );
+                            },
+                            child: Padding(
+                              key: Key(
+                                  '${orderedDrawerList[index]}-${(selectedProperty == index).toString()}'),
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 50),
-                              child: ListTile(
-                                key: ValueKey(
-                                    'chooseProperty-${reversePageNumberListMap[index]}'),
-                                title: Center(
-                                  child: Text(
-                                    orderedDrawerList[index],
-                                    style: TextStyle(
-                                        fontSize: singlePageTextSize,
-                                        color: selectedProperty == index
-                                            ? Colors.white
-                                            : null),
-                                  ),
-                                ),
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: borderRadius),
-                                onTap: () {
-                                  if (selectedProperty != index) {
-                                    context.go(
-                                      '/settings/reorder-units/${reversePageNumberListMap[index]}',
-                                    );
-                                  }
-                                },
+                              child: Container(
+                                decoration: selectedProperty == index
+                                    ? BoxDecoration(
+                                        color: selectedListTileColor,
+                                        borderRadius: borderRadius,
+                                      )
+                                    : null,
+                                child: const ListTile(),
                               ),
                             ),
-                          ],
-                        );
-                      },
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 50),
+                            child: ListTile(
+                              key: ValueKey(
+                                  'chooseProperty-${reversePageNumberListMap[index]}'),
+                              title: Center(
+                                child: Text(
+                                  orderedDrawerList[index],
+                                  style: TextStyle(
+                                      fontSize: singlePageTextSize,
+                                      color: selectedProperty == index
+                                          ? Colors.white
+                                          : null),
+                                ),
+                              ),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: borderRadius),
+                              onTap: () {
+                                if (selectedProperty != index) {
+                                  context.go(
+                                    '/settings/reorder-units/${reversePageNumberListMap[index]}',
+                                  );
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      childCount: orderedDrawerList.length,
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -197,12 +197,9 @@ class ChoosePropertyPage extends StatelessWidget {
                           );
                       context.goNamed('settings');
                     },
-                    header: BigTitle(
-                      text: AppLocalizations.of(context)!.reorderProperty(
-                        orderedDrawerList[selectedProperty!],
-                        '',
-                      ),
-                      center: true,
+                    title: AppLocalizations.of(context)!.reorderProperty(
+                      orderedDrawerList[selectedProperty!],
+                      '',
                     ),
                   ),
                 ),
@@ -212,41 +209,35 @@ class ChoosePropertyPage extends StatelessWidget {
       }
       // if the drawer is not fixed. We check if we are in the first "Choose property page"
       if (!isPropertySelected) {
-        return Column(
-          children: [
-            BigTitle(
-              text: AppLocalizations.of(context)!.chooseProperty,
-              center: true,
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    key: ValueKey(
-                        'chooseProperty-${reversePageNumberListMap[index]}'),
-                    title: Center(
-                      child: Text(
-                        orderedDrawerList[index],
-                        style: const TextStyle(
-                          fontSize: singlePageTextSize,
-                        ),
-                      ),
+        return CustomScrollView(slivers: <Widget>[
+          SliverAppBar.large(
+            title: Text(AppLocalizations.of(context)!.chooseProperty),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => ListTile(
+                key: ValueKey(
+                    'chooseProperty-${reversePageNumberListMap[index]}'),
+                title: Center(
+                  child: Text(
+                    orderedDrawerList[index],
+                    style: const TextStyle(
+                      fontSize: singlePageTextSize,
                     ),
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: borderRadius),
-                    onTap: () {
-                      if (selectedProperty != index) {
-                        context.go(
-                            '/settings/reorder-units/${reversePageNumberListMap[index]}');
-                      }
-                    },
-                  );
+                  ),
+                ),
+                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+                onTap: () {
+                  if (selectedProperty != index) {
+                    context.go(
+                        '/settings/reorder-units/${reversePageNumberListMap[index]}');
+                  }
                 },
-                itemCount: orderedDrawerList.length,
               ),
+              childCount: orderedDrawerList.length,
             ),
-          ],
-        );
+          ),
+        ]);
       }
       return ReorderPage(
         itemsList: listUnitsNames,
@@ -258,11 +249,8 @@ class ChoosePropertyPage extends StatelessWidget {
               );
           context.goNamed('settings');
         },
-        header: BigTitle(
-          text: AppLocalizations.of(context)!
-              .reorderProperty(orderedDrawerList[selectedProperty!], ''),
-          center: true,
-        ),
+        title: AppLocalizations.of(context)!
+            .reorderProperty(orderedDrawerList[selectedProperty!], ''),
       );
     });
   }

@@ -5,14 +5,14 @@ import 'package:translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ReorderPage extends StatefulWidget {
-  final Widget? header;
+  final String title;
   final List<String> itemsList;
   final void Function(List<int>? orderList) onSave;
 
   const ReorderPage({
     required this.itemsList,
     required this.onSave,
-    this.header,
+    required this.title,
     Key? key,
   }) : super(key: key);
 
@@ -52,7 +52,78 @@ class _ReorderPageState extends State<ReorderPage> {
         },
         child: const Icon(Icons.check),
       ),
-      body: Column(
+      body: StatefulBuilder(
+        builder: (context, setState) => CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar.large(title: Text(widget.title)),
+            SliverPadding(
+              padding: const EdgeInsets.only(bottom: 60),
+              sliver: SliverReorderableList(
+                  onReorder: (int oldIndex, int newIndex) =>
+                      setState(() => _updateItemsOrder(oldIndex, newIndex)),
+                  itemCount: widget.itemsList.length,
+                  itemBuilder: (context, index) {
+                    Widget item = ListTile(
+                      key: ValueKey(_itemsList[index].id),
+                      title: Center(
+                        child: Text(
+                          _itemsList[index].title,
+                          style: const TextStyle(fontSize: singlePageTextSize),
+                        ),
+                      ),
+                      onTap: isMobileDevice
+                          ? () {
+                              final snackBar = SnackBar(
+                                content: Text(AppLocalizations.of(context)!
+                                    .longPressAdvice),
+                                behavior: SnackBarBehavior.floating,
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
+                          : null,
+                    );
+                    final Key itemGlobalKey =
+                        Key('reaorderableListItem_$index');
+
+                    switch (Theme.of(context).platform) {
+                      case TargetPlatform.linux:
+                      case TargetPlatform.windows:
+                      case TargetPlatform.macOS:
+                        return Stack(
+                          key: itemGlobalKey,
+                          children: <Widget>[
+                            item,
+                            Positioned.directional(
+                              textDirection: Directionality.of(context),
+                              top: 0,
+                              bottom: 0,
+                              end: 8,
+                              child: Align(
+                                alignment: AlignmentDirectional.centerEnd,
+                                child: ReorderableDragStartListener(
+                                  index: index,
+                                  child: const Icon(Icons.drag_handle),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      case TargetPlatform.iOS:
+                      case TargetPlatform.android:
+                      case TargetPlatform.fuchsia:
+                        return ReorderableDelayedDragStartListener(
+                          key: itemGlobalKey,
+                          index: index,
+                          child: item,
+                        );
+                    }
+                  }),
+            ),
+          ],
+        ),
+      ),
+      /*body: Column(
         children: [
           widget.header != null ? widget.header! : const SizedBox(),
           Expanded(
@@ -96,7 +167,7 @@ class _ReorderPageState extends State<ReorderPage> {
             ),
           ),
         ],
-      ),
+      ),*/
     );
   }
 

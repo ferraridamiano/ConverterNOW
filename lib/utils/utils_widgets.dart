@@ -22,90 +22,21 @@ class DrawerTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 12),
       child: Container(
-        decoration: BoxDecoration(
-          color: selected
-              ? Theme.of(context).primaryColor.withOpacity(0.25)
-              : Colors.transparent,
-          borderRadius: borderRadius,
-        ),
+        decoration: selected
+            ? BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Theme.of(context).primaryColor.withOpacity(0.25)
+                    : Color.lerp(
+                        Theme.of(context).primaryColor, Colors.white, 0.18),
+                borderRadius: borderRadius,
+              )
+            : null,
         child: ListTile(
           leading: leading,
           title: title,
           onTap: onTap,
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
-      ),
-    );
-  }
-}
-
-class BigTitle extends StatelessWidget {
-  const BigTitle({
-    required this.text,
-    this.subtitle = '',
-    this.isSubtitleLoading = false,
-    this.sidePadding = 0,
-    this.center = false,
-    Key? key,
-  }) : super(key: key);
-  final String text;
-  final String subtitle;
-  final bool isSubtitleLoading;
-  final double sidePadding;
-  final bool center;
-
-  @override
-  Widget build(BuildContext context) {
-    final Widget title = Text(
-      text,
-      overflow: TextOverflow.ellipsis,
-      maxLines: 2,
-      style: TextStyle(
-        fontSize: 35.0,
-        fontWeight: FontWeight.bold,
-        color: Theme.of(context).brightness == Brightness.dark
-            ? const Color(0xFFDDDDDD)
-            : const Color(0xFF666666),
-      ),
-      textAlign: center ? TextAlign.center : null,
-    );
-
-    return Padding(
-      padding: EdgeInsets.only(left: sidePadding, right: sidePadding, top: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          center ? Center(child: title) : title,
-          Container(
-            height: 20,
-            alignment: Alignment.bottomRight,
-            child: (isSubtitleLoading && subtitle != '')
-                ? Container(
-                    padding: const EdgeInsets.only(right: 10),
-                    height: 15.0,
-                    width: 25.0,
-                    child: const CircularProgressIndicator(),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Text(
-                      subtitle,
-                      style: const TextStyle(
-                        fontSize: 15.0,
-                        color: Color(0xFF999999),
-                      ),
-                    ),
-                  ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Divider(
-              color: Theme.of(context).colorScheme.secondary,
-              thickness:
-                  Theme.of(context).brightness == Brightness.dark ? 1 : 2,
-            ),
-          ),
-        ],
       ),
     );
   }
