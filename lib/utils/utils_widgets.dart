@@ -145,8 +145,11 @@ class SearchUnitTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset(searchUnit.iconAsset,
-          height: 26.0, color: darkMode ? Colors.white : Colors.grey),
+      leading: SvgPicture.asset(
+        searchUnit.iconAsset,
+        height: 26.0,
+        color: darkMode ? Colors.white : Colors.grey,
+      ),
       title: Text(searchUnit.unitName),
       onTap: searchUnit.onTap,
     );
