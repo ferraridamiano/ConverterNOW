@@ -7,33 +7,34 @@ import 'utils_widgets.dart';
 /// This will return the list of [PropertyUi], an objext that contains all the data regarding the displaying of the
 /// property all over the app. From this List depends also other functions.
 List<PropertyUi> getPropertyUiList(BuildContext context) {
-  const String basePath = 'resources/images';
+  const String basePath = 'resources/property_icons';
   var l10n = AppLocalizations.of(context)!;
   //The order is important!
   return [
-    PropertyUi(PROPERTYX.length, l10n.length, '$basePath/length.png'),
-    PropertyUi(PROPERTYX.area, l10n.area, '$basePath/area.png'),
-    PropertyUi(PROPERTYX.volume, l10n.volume, '$basePath/volume.png'),
+    PropertyUi(PROPERTYX.length, l10n.length, '$basePath/length.svg'),
+    PropertyUi(PROPERTYX.area, l10n.area, '$basePath/area.svg'),
+    PropertyUi(PROPERTYX.volume, l10n.volume, '$basePath/volume.svg'),
     PropertyUi(
-        PROPERTYX.currencies, l10n.currencies, '$basePath/currencies.png'),
-    PropertyUi(PROPERTYX.time, l10n.time, '$basePath/time.png'),
+        PROPERTYX.currencies, l10n.currencies, '$basePath/currencies.svg'),
+    PropertyUi(PROPERTYX.time, l10n.time, '$basePath/time.svg'),
     PropertyUi(
-        PROPERTYX.temperature, l10n.temperature, '$basePath/temperature.png'),
-    PropertyUi(PROPERTYX.speed, l10n.speed, '$basePath/speed.png'),
-    PropertyUi(PROPERTYX.mass, l10n.mass, '$basePath/mass.png'),
-    PropertyUi(PROPERTYX.force, l10n.force, '$basePath/force.png'),
+        PROPERTYX.temperature, l10n.temperature, '$basePath/temperature.svg'),
+    PropertyUi(PROPERTYX.speed, l10n.speed, '$basePath/speed.svg'),
+    PropertyUi(PROPERTYX.mass, l10n.mass, '$basePath/mass.svg'),
+    PropertyUi(PROPERTYX.force, l10n.force, '$basePath/force.svg'),
     PropertyUi(
-        PROPERTYX.fuelConsumption, l10n.fuelConsumption, '$basePath/fuel.png'),
+        PROPERTYX.fuelConsumption, l10n.fuelConsumption, '$basePath/fuel.svg'),
     PropertyUi(PROPERTYX.numeralSystems, l10n.numeralSystems,
-        '$basePath/num_systems.png'),
-    PropertyUi(PROPERTYX.pressure, l10n.pressure, '$basePath/pressure.png'),
-    PropertyUi(PROPERTYX.energy, l10n.energy, '$basePath/energy.png'),
-    PropertyUi(PROPERTYX.power, l10n.power, '$basePath/power.png'),
-    PropertyUi(PROPERTYX.angle, l10n.angles, '$basePath/angles.png'),
-    PropertyUi(PROPERTYX.shoeSize, l10n.shoeSize, '$basePath/shoe_size.png'),
-    PropertyUi(PROPERTYX.digitalData, l10n.digitalData, '$basePath/data.png'),
-    PropertyUi(PROPERTYX.siPrefixes, l10n.siPrefixes, '$basePath/prefixes.png'),
-    PropertyUi(PROPERTYX.torque, l10n.torque, '$basePath/torque.png')
+        '$basePath/numeral_systems.svg'),
+    PropertyUi(PROPERTYX.pressure, l10n.pressure, '$basePath/pressure.svg'),
+    PropertyUi(PROPERTYX.energy, l10n.energy, '$basePath/energy.svg'),
+    PropertyUi(PROPERTYX.power, l10n.power, '$basePath/power.svg'),
+    PropertyUi(PROPERTYX.angle, l10n.angles, '$basePath/angle.svg'),
+    PropertyUi(PROPERTYX.shoeSize, l10n.shoeSize, '$basePath/shoe_size.svg'),
+    PropertyUi(PROPERTYX.digitalData, l10n.digitalData, '$basePath/data.svg'),
+    PropertyUi(
+        PROPERTYX.siPrefixes, l10n.siPrefixes, '$basePath/si_prefixes.svg'),
+    PropertyUi(PROPERTYX.torque, l10n.torque, '$basePath/torque.svg')
   ];
 }
 

@@ -4,6 +4,7 @@ import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -127,12 +128,11 @@ class CustomDrawer extends StatelessWidget {
       PropertyUi propertyUi = propertyUiList[i];
       conversionDrawer[conversionsOrderDrawer[i]] = DrawerTile(
         key: ValueKey('drawerItem_${reversePageNumberListMap[i]}'),
-        leading: Image.asset(
+        leading: SvgPicture.asset(
           propertyUi.imagePath,
           width: 25,
           height: 25,
           color: iconColor,
-          filterQuality: FilterQuality.medium,
         ),
         title: Text(propertyUi.name),
         onTap: () {

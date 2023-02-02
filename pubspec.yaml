@@ -16,6 +16,8 @@ dependencies:
   dynamic_color: ^1.5.4
   # Native splash screen on Android
   flutter_native_splash: ^2.2.16
+  # For svg icons
+  flutter_svg: ^1.1.6
   # App logo in drawer
   google_fonts: ^3.0.1
   # Navigation
@@ -79,3 +81,4 @@ flutter:
   generate: true
   assets:
         - resources/images/
+        - resources/property_icons/

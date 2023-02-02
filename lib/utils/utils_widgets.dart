@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DrawerTile extends StatelessWidget {
   const DrawerTile({
@@ -196,7 +197,7 @@ class SearchGridTile extends StatelessWidget {
               SizedBox(
                 width: 55.0,
                 height: 55.0,
-                child: Image.asset(
+                child: SvgPicture.asset(
                   iconAsset,
                   color: darkMode ? Colors.white : Colors.grey,
                 ),
