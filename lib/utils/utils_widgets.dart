@@ -335,12 +335,13 @@ class SplashScreenWidget extends StatelessWidget {
 class ConstrainedContainer extends StatelessWidget {
   final Widget child;
   final double maxWidth;
-  const ConstrainedContainer(this.child, {this.maxWidth = 800, Key? key})
+  const ConstrainedContainer(this.child, {this.maxWidth = 500, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Align(
+      alignment: AlignmentDirectional.centerStart,
       child: Container(
         constraints: BoxConstraints(maxWidth: maxWidth),
         child: child,
