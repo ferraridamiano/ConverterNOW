@@ -44,7 +44,7 @@ class CustomDrawer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(
-              'resources/images/logo.png',
+              'resources/other/logo.png',
               width: 55,
               filterQuality: FilterQuality.medium,
             ),

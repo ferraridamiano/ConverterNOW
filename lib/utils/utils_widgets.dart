@@ -322,7 +322,7 @@ class SplashScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Image.asset('resources/images/logo.png', width: 150)),
+      body: Center(child: Image.asset('resources/other/logo.png', width: 150)),
     );
   }
 }

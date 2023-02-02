@@ -515,7 +515,7 @@ List<SearchGridTile> initializeGridSearch(
   List<SearchGridTile> searchGridTileList = List.filled(
     propertyCount,
     SearchGridTile(
-      iconAsset: 'resources/images/logo.png',
+      iconAsset: 'resources/other/logo.png',
       darkMode: darkMode,
       footer: 'None',
       onTap: () {},

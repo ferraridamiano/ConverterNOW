@@ -3,6 +3,7 @@ import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/foundation.dart';
@@ -64,10 +65,9 @@ class _SettingsPageState extends State<SettingsPage> {
       SliverList(
           delegate: SliverChildListDelegate([
         SwitchListTile(
-          secondary: Image.asset(
-            'resources/images/remove_trailing_zeros.png',
+          secondary: SvgPicture.asset(
+            'resources/app_icons/remove_trailing_zeros.svg',
             width: 25,
-            filterQuality: FilterQuality.medium,
             color: iconColor,
           ),
           title: Text(
@@ -132,10 +132,9 @@ class _SettingsPageState extends State<SettingsPage> {
           },
         ),
         DropdownListTile(
-          leading: Image.asset(
-            'resources/images/significant_figures.png',
+          leading: SvgPicture.asset(
+            'resources/app_icons/significant_figures.svg',
             width: 25,
-            filterQuality: FilterQuality.medium,
             color: iconColor,
           ),
           title: AppLocalizations.of(context)!.significantFigures,
@@ -153,10 +152,9 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         ListTile(
           key: const ValueKey('reorder-properties'),
-          leading: Image.asset(
-            'resources/images/reorder_properties.png',
+          leading: SvgPicture.asset(
+            'resources/app_icons/reorder_properties.svg',
             width: 25,
-            filterQuality: FilterQuality.medium,
             color: iconColor,
           ),
           title: Text(
@@ -168,10 +166,9 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         ListTile(
           key: const ValueKey('reorder-units'),
-          leading: Image.asset(
-            'resources/images/reorder_units.png',
+          leading: SvgPicture.asset(
+            'resources/app_icons/reorder_units.svg',
             width: 25,
-            filterQuality: FilterQuality.medium,
             color: iconColor,
           ),
           title: Text(
@@ -233,7 +230,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ListTile(
                     title: const Text('Linux (Flatpak)'),
                     leading: Image.asset(
-                      'resources/images/penguin.png',
+                      'resources/other/penguin.png',
                       color: iconColor,
                       width: 25,
                     ),
@@ -249,7 +246,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ListTile(
                     title: const Text('Linux (Snap)'),
                     leading: Image.asset(
-                      'resources/images/penguin.png',
+                      'resources/other/penguin.png',
                       color: iconColor,
                       width: 25,
                     ),
@@ -266,8 +263,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     title: Text(AppLocalizations.of(context)!.sourceCode),
                     leading: Image.asset(
                       Theme.of(context).brightness == Brightness.dark
-                          ? 'resources/images/github_light.png'
-                          : 'resources/images/github_dark.png',
+                          ? 'resources/other/github_light.png'
+                          : 'resources/other/github_dark.png',
                       width: 25,
                       color: Theme.of(context).brightness == Brightness.light
                           ? iconColor
