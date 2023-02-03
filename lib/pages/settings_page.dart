@@ -185,7 +185,7 @@ class _SettingsPageState extends State<SettingsPage> {
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
         ListTile(
-          leading: Icon(Icons.computer, color: iconColor),
+          leading: const Icon(Icons.computer),
           title: Text(
             AppLocalizations.of(context)!.otherPlatforms,
             style: textStyle,
@@ -200,7 +200,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   if (!kIsWeb)
                     ListTile(
                       title: const Text('Web'),
-                      leading: Icon(Icons.public_outlined, color: iconColor),
+                      leading: const Icon(Icons.public_outlined),
                       onTap: () => launchURL(
                         Uri(
                           scheme: 'https',
@@ -212,7 +212,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   if (kIsWeb || Platform.isWindows || Platform.isLinux)
                     ListTile(
                       title: const Text('Android'),
-                      leading: Icon(Icons.android_outlined, color: iconColor),
+                      leading: const Icon(Icons.android_outlined),
                       onTap: () => launchURL(Uri(
                         scheme: 'https',
                         host: 'play.google.com',
@@ -223,7 +223,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   if (kIsWeb || Platform.isAndroid || Platform.isLinux)
                     ListTile(
                       title: const Text('Windows'),
-                      leading: Icon(Icons.laptop, color: iconColor),
+                      leading: const Icon(Icons.laptop),
                       onTap: () => launchURL(
                         Uri(
                           scheme: 'https',
@@ -235,11 +235,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ListTile(
                     title: const Text('Linux (Flatpak)'),
-                    leading: Image.asset(
-                      'resources/other/penguin.png',
-                      color: iconColor,
-                      width: 25,
-                    ),
+                    leading: const Icon(Icons.desktop_windows_outlined),
                     onTap: () => launchURL(
                         Uri(
                           scheme: 'https',
@@ -251,11 +247,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   ListTile(
                     title: const Text('Linux (Snap)'),
-                    leading: Image.asset(
-                      'resources/other/penguin.png',
-                      color: iconColor,
-                      width: 25,
-                    ),
+                    leading: const Icon(Icons.desktop_windows_outlined),
                     onTap: () => launchURL(
                       Uri(
                         scheme: 'https',
@@ -267,16 +259,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   ListTile(
                     title: Text(AppLocalizations.of(context)!.sourceCode),
-                    leading: Image.asset(
-                      Theme.of(context).brightness == Brightness.dark
-                          ? 'resources/other/github_light.png'
-                          : 'resources/other/github_dark.png',
-                      width: 25,
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? iconColor
-                          : null,
-                      filterQuality: FilterQuality.medium,
-                    ),
+                    leading: const Icon(Icons.code),
                     onTap: () => launchURL(
                       Uri(
                         scheme: 'https',
