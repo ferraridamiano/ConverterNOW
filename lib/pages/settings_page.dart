@@ -185,7 +185,7 @@ class _SettingsPageState extends State<SettingsPage> {
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
         ListTile(
-          leading: const Icon(Icons.computer),
+          leading: Icon(Icons.computer, color: iconColor),
           title: Text(
             AppLocalizations.of(context)!.otherPlatforms,
             style: textStyle,
@@ -357,12 +357,9 @@ class _SettingsPageState extends State<SettingsPage> {
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           onTap: () {
             showLicensePage(
-                context: context,
-                applicationName: AppLocalizations.of(context)!.appName,
-                applicationLegalese:
-                    'Icons made by https://www.flaticon.com/authors/yannick Yannick from https://www.flaticon.com/ www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n' //termometro
-                    'Icons made by http://www.freepik.com Freepik from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY\n' //lunghezza, velocità, pressione, area, energia, massa
-                    'Icons made by https://www.flaticon.com/authors/bogdan-rosu Bogdan Rosu from https://www.flaticon.com/ Flaticon www.flaticon.com is licensed by http://creativecommons.org/licenses/by/3.0/ Creative Commons BY 3.0 CC 3.0 BY'); //volume
+              context: context,
+              applicationName: AppLocalizations.of(context)!.appName,
+            );
           },
         ),
       ].map(ConstrainedContainer.new).toList()))
