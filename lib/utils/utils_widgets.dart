@@ -25,10 +25,13 @@ class DrawerTile extends StatelessWidget {
       child: Container(
         decoration: selected
             ? BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.light
-                    ? Theme.of(context).primaryColor.withOpacity(0.25)
-                    : Color.lerp(
-                        Theme.of(context).primaryColor, Colors.white, 0.18),
+                color: Theme.of(context)
+                    .colorScheme
+                    .primaryContainer
+                    .withOpacity(
+                        Theme.of(context).brightness == Brightness.light
+                            ? 0.5
+                            : 0.8),
                 borderRadius: borderRadius,
               )
             : null,
