@@ -230,7 +230,7 @@ class DropdownListTile extends StatelessWidget {
   final Widget? leading;
 
   /// This widget will return a [ListTile] with a dialog on mobile device and a
-  /// [ListTile] with a [DropdownButton] for desktop device.
+  /// [ListTile] with a [DropdownMenu] for desktop device.
   const DropdownListTile({
     required this.title,
     required this.items,
@@ -249,6 +249,7 @@ class DropdownListTile extends StatelessWidget {
     switch (Theme.of(context).platform) {
       case TargetPlatform.android:
       case TargetPlatform.iOS:
+      case TargetPlatform.fuchsia:
         String selected = value;
         return ListTile(
           leading: leading,
@@ -283,35 +284,20 @@ class DropdownListTile extends StatelessWidget {
             style: textStyle,
           ),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-          trailing: DropdownButton<String>(
+          trailing: DropdownMenu<String>(
             key: key != null
                 ? ValueKey('${(key as ValueKey).value}-dropdown')
                 : null,
-            value: value,
-            onChanged: onChanged,
-            selectedItemBuilder: (BuildContext context) {
-              return items.map<Widget>((String item) {
-                return SizedBox(
-                  width: 150,
-                  child: Align(
-                    alignment: Directionality.of(context) == TextDirection.ltr
-                        ? Alignment.centerLeft
-                        : Alignment.centerRight,
-                    child: Text(
-                      value,
-                      style: textStyle,
-                    ),
-                  ),
-                );
-              }).toList();
-            },
-            items: items.map((String item) {
-              return DropdownMenuItem<String>(
+            initialSelection: value,
+            onSelected: onChanged,
+            width: 150,
+            inputDecorationTheme: const InputDecorationTheme(
+              outlineBorder: BorderSide.none,
+            ),
+            dropdownMenuEntries: items.map((String item) {
+              return DropdownMenuEntry<String>(
                 value: item,
-                child: Text(
-                  item.toString(),
-                  style: textStyle,
-                ),
+                label: item.toString(),
               );
             }).toList(),
           ),

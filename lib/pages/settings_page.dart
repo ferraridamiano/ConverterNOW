@@ -105,10 +105,12 @@ class _SettingsPageState extends State<SettingsPage> {
           items: mapTheme.values.toList(),
           value: mapTheme[currentTheme]!,
           onChanged: (String? string) {
-            setState(() => currentTheme =
-                mapTheme.keys.where((key) => mapTheme[key] == string).single);
-            AppModel appModel = context.read<AppModel>();
-            appModel.currentThemeMode = currentTheme;
+            if (string != null) {
+              setState(() => currentTheme =
+                  mapTheme.keys.where((key) => mapTheme[key] == string).single);
+              AppModel appModel = context.read<AppModel>();
+              appModel.currentThemeMode = currentTheme;
+            }
           },
         ),
         DropdownListTile(
@@ -122,13 +124,17 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
           value: locale ?? AppLocalizations.of(context)!.system,
           onChanged: (String? string) {
-            setState(() => {
-                  locale = string == AppLocalizations.of(context)!.system
+            if (string != null) {
+              setState(() => {
+                    locale = string == AppLocalizations.of(context)!.system
+                        ? null
+                        : string
+                  });
+              context.read<AppModel>().setLocaleString(
+                  string == AppLocalizations.of(context)!.system
                       ? null
-                      : string
-                });
-            context.read<AppModel>().setLocaleString(
-                string == AppLocalizations.of(context)!.system ? null : string);
+                      : string);
+            }
           },
         ),
         DropdownListTile(
