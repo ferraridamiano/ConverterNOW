@@ -45,7 +45,7 @@ class CustomDrawer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const SvgPicture(
-              AssetBytesLoader('resources/app_icons/logo.svg.vec'),
+              AssetBytesLoader('assets/app_icons/logo.svg.vec'),
               width: 55,
             ),
             Text(

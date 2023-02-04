@@ -7,7 +7,7 @@ import 'utils_widgets.dart';
 /// This will return the list of [PropertyUi], an objext that contains all the data regarding the displaying of the
 /// property all over the app. From this List depends also other functions.
 List<PropertyUi> getPropertyUiList(BuildContext context) {
-  const String basePath = 'resources/property_icons';
+  const String basePath = 'assets/property_icons';
   var l10n = AppLocalizations.of(context)!;
   //The order is important!
   return [
@@ -66,7 +66,7 @@ List<String> getPropertyNameList(BuildContext context) {
 /// regarding the displaying of the units all over the app. From this List
 /// depends also other functions.
 List<UnitUi> getUnitUiList(BuildContext context) {
-  const String basePath = 'resources/property_icons/';
+  const String basePath = 'assets/property_icons/';
   var l10n = AppLocalizations.of(context)!;
   return [
     UnitUi(LENGTH.meters, l10n.meters, '$basePath/length.svg.vec',
@@ -563,7 +563,7 @@ List<SearchGridTile> initializeGridSearch(
   List<SearchGridTile> searchGridTileList = List.filled(
     propertyCount,
     SearchGridTile(
-      iconAsset: 'resources/other/logo.svg.vec',
+      iconAsset: 'assets/app_icons/logo.svg.vec',
       darkMode: darkMode,
       footer: 'None',
       onTap: () {},

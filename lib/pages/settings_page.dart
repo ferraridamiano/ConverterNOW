@@ -68,7 +68,7 @@ class _SettingsPageState extends State<SettingsPage> {
         SwitchListTile(
           secondary: SvgPicture(
             const AssetBytesLoader(
-                'resources/app_icons/remove_trailing_zeros.svg.vec'),
+                'assets/app_icons/remove_trailing_zeros.svg.vec'),
             width: 25,
             colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
@@ -142,7 +142,7 @@ class _SettingsPageState extends State<SettingsPage> {
         DropdownListTile(
           leading: SvgPicture(
             const AssetBytesLoader(
-                'resources/app_icons/significant_figures.svg.vec'),
+                'assets/app_icons/significant_figures.svg.vec'),
             width: 25,
             colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
@@ -163,7 +163,7 @@ class _SettingsPageState extends State<SettingsPage> {
           key: const ValueKey('reorder-properties'),
           leading: SvgPicture(
             const AssetBytesLoader(
-                'resources/app_icons/reorder_properties.svg.vec'),
+                'assets/app_icons/reorder_properties.svg.vec'),
             width: 25,
             colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
@@ -177,7 +177,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ListTile(
           key: const ValueKey('reorder-units'),
           leading: SvgPicture(
-            const AssetBytesLoader('resources/app_icons/reorder_units.svg.vec'),
+            const AssetBytesLoader('assets/app_icons/reorder_units.svg.vec'),
             width: 25,
             colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),

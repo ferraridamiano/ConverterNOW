@@ -19,8 +19,8 @@ scripts:
 
   compile_icons:
     run: |
-      dart run vector_graphics_compiler --input-dir resources/app_icons
-      dart run vector_graphics_compiler --input-dir resources/property_icons
+      dart run vector_graphics_compiler --input-dir assets/app_icons
+      dart run vector_graphics_compiler --input-dir assets/property_icons
     description: Optimizes the svg icons.
   
   format:

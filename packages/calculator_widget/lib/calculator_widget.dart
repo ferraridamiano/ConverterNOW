@@ -395,7 +395,7 @@ class CalculatorButton extends StatelessWidget {
       onLongPress: onLongPress,
       child: text == "←"
           ? Icon(
-              Icons.backspace,
+              Icons.backspace_outlined,
               color: iconColor,
             )
           : Text(
