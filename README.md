@@ -70,11 +70,13 @@ You can reach the PWA [here](https://converter-now.web.app).
 ## Build from source code
 First you need to
 [install flutter](https://docs.flutter.dev/get-started/install) and all the
-tooling for your target platform (e.g. Android Studio for Android, etc.). Then
-you have to activate a tool that is used to manage this repo, so you have to
-type `dart pub global activate melos` to install it and `melos bootstrap` in the
-root of the project in order to get all the dependencies and generate the
-translations code. Then follow the instructions for the platform you target.
+tooling for your target platform (e.g. Android Studio for Android, etc.). Then you have to install two tools:
+
+- `dart pub global activate melos` (useful to easily manage the repository)
+- `dart pub global activate vector_graphics_compiler` (useful to compile the `svg` icons)
+
+Then, run `melos bootstrap` in the root of the project in order to get all the dependencies, generate the
+translation files and optimize the `svg` icons. Then follow the instructions for the platform you want to target.
 
 ### Android
 On Android you should first disable the signing option in

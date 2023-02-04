@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 const maxConversionUnits = 19;
 
@@ -128,11 +129,11 @@ class CustomDrawer extends StatelessWidget {
       PropertyUi propertyUi = propertyUiList[i];
       conversionDrawer[conversionsOrderDrawer[i]] = DrawerTile(
         key: ValueKey('drawerItem_${reversePageNumberListMap[i]}'),
-        leading: SvgPicture.asset(
-          propertyUi.imagePath,
+        leading: SvgPicture(
+          AssetBytesLoader(propertyUi.imagePath),
           width: 25,
           height: 25,
-          color: iconColor,
+          colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
         ),
         title: Text(propertyUi.name),
         onTap: () {

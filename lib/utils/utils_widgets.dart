@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 class DrawerTile extends StatelessWidget {
   const DrawerTile({
@@ -148,10 +149,13 @@ class SearchUnitTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: SvgPicture.asset(
-        searchUnit.iconAsset,
+      leading: SvgPicture(
+        AssetBytesLoader(searchUnit.iconAsset),
         height: 26.0,
-        color: darkMode ? Colors.white : Colors.grey,
+        colorFilter: ColorFilter.mode(
+          darkMode ? Colors.white : Colors.grey,
+          BlendMode.srcIn,
+        ),
       ),
       title: Text(searchUnit.unitName),
       onTap: searchUnit.onTap,
@@ -203,9 +207,12 @@ class SearchGridTile extends StatelessWidget {
               SizedBox(
                 width: 55.0,
                 height: 55.0,
-                child: SvgPicture.asset(
-                  iconAsset,
-                  color: darkMode ? Colors.white : Colors.grey,
+                child: SvgPicture(
+                  AssetBytesLoader(iconAsset),
+                  colorFilter: ColorFilter.mode(
+                    darkMode ? Colors.white : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
               const SizedBox(height: 8),

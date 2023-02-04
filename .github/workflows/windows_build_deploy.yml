@@ -22,10 +22,13 @@ jobs:
     - name: Flutter doctor
       run: flutter doctor
 
-    - name: Install Melos and bootstrap (get the dependencies)
+    - name: Install required dart tools
       run: |
         dart pub global activate melos
-        melos bootstrap
+        dart pub global activate vector_graphics_compiler
+
+    - name: Bootstrap
+      run: melos bootstrap
 
     - name: Build and create the .msix installer
       run: flutter pub run msix:create --store

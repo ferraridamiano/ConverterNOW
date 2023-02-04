@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 class EnvironmentConfig {
   static const bool isPlaystore =
@@ -65,10 +66,11 @@ class _SettingsPageState extends State<SettingsPage> {
       SliverList(
           delegate: SliverChildListDelegate([
         SwitchListTile(
-          secondary: SvgPicture.asset(
-            'resources/app_icons/remove_trailing_zeros.svg',
+          secondary: SvgPicture(
+            const AssetBytesLoader(
+                'resources/app_icons/remove_trailing_zeros.svg.vec'),
             width: 25,
-            color: iconColor,
+            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
           title: Text(
             AppLocalizations.of(context)!.removeTrailingZeros,
@@ -138,10 +140,11 @@ class _SettingsPageState extends State<SettingsPage> {
           },
         ),
         DropdownListTile(
-          leading: SvgPicture.asset(
-            'resources/app_icons/significant_figures.svg',
+          leading: SvgPicture(
+            const AssetBytesLoader(
+                'resources/app_icons/significant_figures.svg.vec'),
             width: 25,
-            color: iconColor,
+            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
           title: AppLocalizations.of(context)!.significantFigures,
           textStyle: textStyle,
@@ -158,10 +161,11 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         ListTile(
           key: const ValueKey('reorder-properties'),
-          leading: SvgPicture.asset(
-            'resources/app_icons/reorder_properties.svg',
+          leading: SvgPicture(
+            const AssetBytesLoader(
+                'resources/app_icons/reorder_properties.svg.vec'),
             width: 25,
-            color: iconColor,
+            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
           title: Text(
             AppLocalizations.of(context)!.reorderProperties,
@@ -172,10 +176,10 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         ListTile(
           key: const ValueKey('reorder-units'),
-          leading: SvgPicture.asset(
-            'resources/app_icons/reorder_units.svg',
+          leading: SvgPicture(
+            const AssetBytesLoader('resources/app_icons/reorder_units.svg.vec'),
             width: 25,
-            color: iconColor,
+            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
           title: Text(
             AppLocalizations.of(context)!.reorderUnits,

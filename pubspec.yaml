@@ -17,7 +17,7 @@ dependencies:
   # Native splash screen on Android
   flutter_native_splash: ^2.2.16
   # For svg icons
-  flutter_svg: ^1.1.6
+  flutter_svg: ^2.0.0+1
   # App logo in drawer
   google_fonts: ^3.0.1
   # Navigation
@@ -34,6 +34,8 @@ dependencies:
   units_converter: 2.0.1
   # Open external pages such as GitHub repo, Play Store, etc
   url_launcher: ^6.1.5
+  # Load optimized svg icons
+  vector_graphics: ^1.0.1
   # Resize window during testing
   window_size:
     git:
@@ -80,6 +82,27 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
-        - resources/app_icons/
-        - resources/property_icons/
-        - resources/other/
+  - resources/app_icons/remove_trailing_zeros.svg.vec
+  - resources/app_icons/reorder_properties.svg.vec
+  - resources/app_icons/reorder_units.svg.vec
+  - resources/app_icons/significant_figures.svg.vec
+  - resources/property_icons/angle.svg.vec
+  - resources/property_icons/area.svg.vec
+  - resources/property_icons/currencies.svg.vec
+  - resources/property_icons/data.svg.vec
+  - resources/property_icons/energy.svg.vec
+  - resources/property_icons/force.svg.vec
+  - resources/property_icons/fuel.svg.vec
+  - resources/property_icons/length.svg.vec
+  - resources/property_icons/mass.svg.vec
+  - resources/property_icons/numeral_systems.svg.vec
+  - resources/property_icons/power.svg.vec
+  - resources/property_icons/pressure.svg.vec
+  - resources/property_icons/shoe_size.svg.vec
+  - resources/property_icons/si_prefixes.svg.vec
+  - resources/property_icons/speed.svg.vec
+  - resources/property_icons/temperature.svg.vec
+  - resources/property_icons/time.svg.vec
+  - resources/property_icons/torque.svg.vec
+  - resources/property_icons/volume.svg.vec
+  - resources/other/logo.png

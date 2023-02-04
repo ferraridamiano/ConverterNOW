@@ -13,17 +13,27 @@ command:
     usePubspecOverrides: true
 
 scripts:
-  postbootstrap: cd packages/translations && flutter gen-l10n
-
   analyze:
     run: melos exec -- "flutter analyze"
     description: Run `flutter analyze` in all packages
+
+  compile_icons:
+    run: |
+      dart run vector_graphics_compiler --input-dir resources/app_icons
+      dart run vector_graphics_compiler --input-dir resources/property_icons
+    description: Optimizes the svg icons.
   
   format:
     run: melos exec -- "flutter format . --set-exit-if-changed"
     description: Run `flutter format .` in all packages
 
+  generate_translations:
+    run: cd packages/translations && flutter gen-l10n
+    description: Generates translation files.
+
   test:
     # Only run the test command when the package has a test directory
     run: melos exec --dir-exists=test -- "flutter test"
     description: Run `flutter test` in all packages
+  
+  postbootstrap: melos run compile_icons && melos run generate_translations
