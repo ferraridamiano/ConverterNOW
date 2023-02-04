@@ -117,7 +117,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     bool deviceLocaleSetted = false;
 
-    Color fallbackColorSchemeSeed = Colors.orange;
+    const Color fallbackColorSchemeSeed = Colors.orange;
 
     return DynamicColorBuilder(
         builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
