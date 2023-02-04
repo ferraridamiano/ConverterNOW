@@ -179,7 +179,9 @@ class MyApp extends StatelessWidget {
                 context.read<AppModel>().deviceLocale = deviceLocale;
                 deviceLocaleSetted = true;
               }
-              if (supportedLocales.contains(deviceLocale)) {
+              if (supportedLocales
+                  .map((Locale locale) => locale.languageCode)
+                  .contains(deviceLocale?.languageCode)) {
                 return deviceLocale;
               }
               return const Locale('en');
