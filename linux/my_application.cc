@@ -53,7 +53,7 @@ static void my_application_activate(GApplication* application) {
   g_autoptr(FlDartProject) project = fl_dart_project_new();
 
   g_autoptr(GError) error = nullptr;
-  gtk_window_set_icon_from_file(window, g_strconcat(fl_dart_project_get_assets_path(project), "/resources/other/logo.png", NULL), &error);
+  gtk_window_set_icon_from_file(window, g_strconcat(fl_dart_project_get_assets_path(project), "/resources/app_icons/logo.png", NULL), &error);
   if (error != nullptr) {
      g_warning("Failed to set icon: %s", error->message);
   }

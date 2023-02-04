@@ -67,13 +67,13 @@ flutter_native_splash:
   web: false
   color: "#eeeeee"
   color_dark: "#333333"
-  image: resources/splash/splash.png
+  image: resources/app_icons/logo.png
 
 msix_config:
   display_name: Converter NOW
   publisher_display_name: Damiano Ferrari
   identity_name: 39826DamianoFerrari.ConverterNOW
-  logo_path: resources\images\logo.png
+  logo_path: resources\app_icons\logo.png
   output_name: converternow-windows
   publisher: CN=E8FE6044-F04C-422E-AC68-EDA83F6AAFB2
   capabilities: internetClient
@@ -82,6 +82,8 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
+  - resources/app_icons/logo.png
+  - resources/app_icons/logo.svg.vec
   - resources/app_icons/remove_trailing_zeros.svg.vec
   - resources/app_icons/reorder_properties.svg.vec
   - resources/app_icons/reorder_units.svg.vec
@@ -105,4 +107,3 @@ flutter:
   - resources/property_icons/time.svg.vec
   - resources/property_icons/torque.svg.vec
   - resources/property_icons/volume.svg.vec
-  - resources/other/logo.png

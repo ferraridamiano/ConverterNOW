@@ -320,8 +320,13 @@ class SplashScreenWidget extends StatelessWidget {
   const SplashScreenWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Image.asset('resources/other/logo.png', width: 150)),
+    return const Scaffold(
+      body: Center(
+        child: SvgPicture(
+          AssetBytesLoader('resources/app_icons/logo.svg.vec'),
+          width: 150,
+        ),
+      ),
     );
   }
 }

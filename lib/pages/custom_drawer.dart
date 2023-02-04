@@ -44,10 +44,9 @@ class CustomDrawer extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image.asset(
-              'resources/other/logo.png',
+            const SvgPicture(
+              AssetBytesLoader('resources/app_icons/logo.svg.vec'),
               width: 55,
-              filterQuality: FilterQuality.medium,
             ),
             Text(
               'Converter NOW',
