@@ -109,7 +109,8 @@ class CustomDrawer extends StatelessWidget {
           context.goNamed('settings');
         },
         selected: selectedSection == AppPage.settings ||
-            selectedSection == AppPage.reorder,
+            selectedSection == AppPage.reorder ||
+            selectedSection == AppPage.reorderDetails,
       ))
       ..add(
         const Padding(

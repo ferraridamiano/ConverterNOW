@@ -47,6 +47,7 @@ class ChoosePropertyPage extends StatelessWidget {
 
     final Map<dynamic, String> unitTranslationMap =
         getUnitTranslationMap(context);
+    Widget? reorderPage;
     if (selectedProperty != null) {
       final bool isConversionsLoaded = context.select<Conversions, bool>(
         (conversions) => conversions.isConversionsLoaded,
@@ -64,113 +65,111 @@ class ChoosePropertyPage extends StatelessWidget {
         selectedUnitDataList.length,
         (index) => unitTranslationMap[selectedUnitDataList[index].unit.name]!,
       );
+      reorderPage = ReorderPage(
+        key: Key(listUnitsNames[0]),
+        itemsList: listUnitsNames,
+        onSave: (List<int>? orderList) {
+          context.read<Conversions>().saveOrderUnits(
+                orderList,
+                conversionsOrderDrawer
+                    .indexWhere((index) => index == selectedProperty),
+              );
+          context.goNamed('settings');
+        },
+        title: AppLocalizations.of(context)!
+            .reorderProperty(orderedDrawerList[selectedProperty!], ''),
+      );
     }
 
-    Color selectedListTileColor =
-        Theme.of(context).brightness == Brightness.light
-            ? Theme.of(context).primaryColor.withOpacity(0.25)
-            : Color.lerp(Theme.of(context).primaryColor, Colors.white, 0.18)!;
+    Color selectedListTileColor = Theme.of(context)
+        .colorScheme
+        .primaryContainer
+        .withOpacity(
+            Theme.of(context).brightness == Brightness.light ? 0.5 : 0.8);
+
+    final Widget choosePropertyPage = CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar.large(
+          title: Text(AppLocalizations.of(context)!.chooseProperty),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) => Stack(
+              children: [
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    final offsetAnimation = Tween<Offset>(
+                      begin: const Offset(-1.0, 0.0),
+                      end: const Offset(0.0, 0.0),
+                    ).animate(animation);
+                    return SlideTransition(
+                      position: offsetAnimation,
+                      child: child,
+                    );
+                  },
+                  child: Padding(
+                    key: Key(
+                        '${orderedDrawerList[index]}-${(selectedProperty == index).toString()}'),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 280),
+                      decoration: selectedProperty == index
+                          ? BoxDecoration(
+                              color: selectedListTileColor,
+                              borderRadius: borderRadius,
+                            )
+                          : null,
+                      child: const ListTile(),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 280),
+                    child: ListTile(
+                      key: ValueKey(
+                          'chooseProperty-${reversePageNumberListMap[index]}'),
+                      title: Text(
+                        orderedDrawerList[index],
+                        style: TextStyle(
+                            fontSize: singlePageTextSize,
+                            color: selectedProperty == index
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer
+                                : null),
+                      ),
+                      shape: const RoundedRectangleBorder(
+                          borderRadius: borderRadius),
+                      onTap: () {
+                        if (selectedProperty == null ||
+                            selectedProperty != index) {
+                          context.go(
+                            '/settings/reorder-units/${reversePageNumberListMap[index]}',
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            childCount: orderedDrawerList.length,
+          ),
+        )
+      ],
+    );
 
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
+      // Enough space for two sided pages
       if (constraints.maxWidth > twoSidedReorderScreen) {
         return Row(
           children: [
-            Expanded(
-              child: CustomScrollView(
-                slivers: <Widget>[
-                  SliverAppBar.large(
-                    title: Text(AppLocalizations.of(context)!.chooseProperty),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => Stack(
-                        children: [
-                          AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 300),
-                            transitionBuilder:
-                                (Widget child, Animation<double> animation) {
-                              final offsetAnimation = Tween<Offset>(
-                                begin: const Offset(-1.0, 0.0),
-                                end: const Offset(0.0, 0.0),
-                              ).animate(animation);
-                              return SlideTransition(
-                                position: offsetAnimation,
-                                child: child,
-                              );
-                            },
-                            child: Padding(
-                              key: Key(
-                                  '${orderedDrawerList[index]}-${(selectedProperty == index).toString()}'),
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 50),
-                              child: Container(
-                                decoration: selectedProperty == index
-                                    ? BoxDecoration(
-                                        color: selectedListTileColor,
-                                        borderRadius: borderRadius,
-                                      )
-                                    : null,
-                                child: const ListTile(),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 50),
-                            child: ListTile(
-                              key: ValueKey(
-                                  'chooseProperty-${reversePageNumberListMap[index]}'),
-                              title: Center(
-                                child: Text(
-                                  orderedDrawerList[index],
-                                  style: TextStyle(
-                                      fontSize: singlePageTextSize,
-                                      color: selectedProperty == index
-                                          ? Colors.white
-                                          : null),
-                                ),
-                              ),
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: borderRadius),
-                              onTap: () {
-                                if (selectedProperty != index) {
-                                  context.go(
-                                    '/settings/reorder-units/${reversePageNumberListMap[index]}',
-                                  );
-                                }
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      childCount: orderedDrawerList.length,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            if (selectedProperty != null)
-              Column(
-                children: [
-                  const SizedBox(height: 95),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: VerticalDivider(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.black38,
-                    ),
-                  ),
-                  const Expanded(
-                    flex: 1,
-                    child: SizedBox(),
-                  ),
-                ],
-              ),
+            Expanded(child: choosePropertyPage),
             if (selectedProperty != null)
               Expanded(
                 child: AnimatedSwitcher(
@@ -186,72 +185,17 @@ class ChoosePropertyPage extends StatelessWidget {
                       child: child,
                     );
                   },
-                  child: ReorderPage(
-                    key: Key(listUnitsNames[0]),
-                    itemsList: listUnitsNames,
-                    onSave: (List<int>? orderList) {
-                      context.read<Conversions>().saveOrderUnits(
-                            orderList,
-                            conversionsOrderDrawer.indexWhere(
-                                (index) => index == selectedProperty),
-                          );
-                      context.goNamed('settings');
-                    },
-                    title: AppLocalizations.of(context)!.reorderProperty(
-                      orderedDrawerList[selectedProperty!],
-                      '',
-                    ),
-                  ),
+                  child: reorderPage,
                 ),
-              )
+              ),
           ],
         );
       }
-      // if the drawer is not fixed. We check if we are in the first "Choose property page"
+      // One page at a time
       if (!isPropertySelected) {
-        return CustomScrollView(slivers: <Widget>[
-          SliverAppBar.large(
-            title: Text(AppLocalizations.of(context)!.chooseProperty),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => ListTile(
-                key: ValueKey(
-                    'chooseProperty-${reversePageNumberListMap[index]}'),
-                title: Center(
-                  child: Text(
-                    orderedDrawerList[index],
-                    style: const TextStyle(
-                      fontSize: singlePageTextSize,
-                    ),
-                  ),
-                ),
-                shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-                onTap: () {
-                  if (selectedProperty != index) {
-                    context.go(
-                        '/settings/reorder-units/${reversePageNumberListMap[index]}');
-                  }
-                },
-              ),
-              childCount: orderedDrawerList.length,
-            ),
-          ),
-        ]);
+        return choosePropertyPage;
       }
-      return ReorderPage(
-        itemsList: listUnitsNames,
-        onSave: (List<int>? orderList) {
-          context.read<Conversions>().saveOrderUnits(
-                orderList,
-                conversionsOrderDrawer
-                    .indexWhere((index) => index == selectedProperty),
-              );
-          context.goNamed('settings');
-        },
-        title: AppLocalizations.of(context)!
-            .reorderProperty(orderedDrawerList[selectedProperty!], ''),
-      );
+      return reorderPage!;
     });
   }
 }
