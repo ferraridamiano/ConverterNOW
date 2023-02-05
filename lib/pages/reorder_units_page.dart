@@ -114,7 +114,7 @@ class ChoosePropertyPage extends StatelessWidget {
                         '${orderedDrawerList[index]}-${(selectedProperty == index).toString()}'),
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
-                      constraints: const BoxConstraints(maxWidth: 280),
+                      constraints: const BoxConstraints(maxWidth: 400),
                       decoration: selectedProperty == index
                           ? BoxDecoration(
                               color: selectedListTileColor,
@@ -128,7 +128,7 @@ class ChoosePropertyPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Container(
-                    constraints: const BoxConstraints(maxWidth: 280),
+                    constraints: const BoxConstraints(maxWidth: 400),
                     child: ListTile(
                       key: ValueKey(
                           'chooseProperty-${reversePageNumberListMap[index]}'),
