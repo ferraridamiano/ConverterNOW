@@ -109,9 +109,11 @@ class ConversionPage extends StatelessWidget {
             ),
           ),
         SliverPadding(
-          padding: const EdgeInsets.only(
+          padding: EdgeInsets.only(
             top: 10,
-            bottom: 55, // So FAB doesn't overlap the card
+            bottom: isDrawerFixed(MediaQuery.of(context).size.width)
+                ? 55 // So FAB doesn't overlap the card
+                : 0,
           ),
           sliver: SliverGrid.count(
             crossAxisCount: numCols,
