@@ -65,56 +65,6 @@ class _SettingsPageState extends State<SettingsPage> {
       SliverAppBar.large(title: Text(AppLocalizations.of(context)!.settings)),
       SliverList(
           delegate: SliverChildListDelegate([
-        SwitchListTile(
-          secondary: SvgPicture(
-            const AssetBytesLoader(
-                'assets/app_icons/remove_trailing_zeros.svg.vec'),
-            width: 25,
-            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-          ),
-          title: Text(
-            AppLocalizations.of(context)!.removeTrailingZeros,
-            style: textStyle,
-          ),
-          value: removeTrailingZeros,
-          activeColor: Theme.of(context).colorScheme.secondary,
-          onChanged: (bool val) {
-            setState(() => removeTrailingZeros = val);
-            Conversions conversions = context.read<Conversions>();
-            conversions.removeTrailingZeros = val;
-          },
-          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-        ),
-        SwitchListTile(
-          secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
-          title: Text(
-            AppLocalizations.of(context)!.amoledDarkTheme,
-            style: textStyle,
-          ),
-          value: isDarkAmoled,
-          activeColor: Theme.of(context).colorScheme.secondary,
-          onChanged: (bool val) {
-            setState(() => isDarkAmoled = val);
-            AppModel appModel = context.read<AppModel>();
-            appModel.isDarkAmoled = val;
-          },
-          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-        ),
-        DropdownListTile(
-          leading: Icon(Icons.palette_outlined, color: iconColor),
-          title: AppLocalizations.of(context)!.theme,
-          textStyle: textStyle,
-          items: mapTheme.values.toList(),
-          value: mapTheme[currentTheme]!,
-          onChanged: (String? string) {
-            if (string != null) {
-              setState(() => currentTheme =
-                  mapTheme.keys.where((key) => mapTheme[key] == string).single);
-              AppModel appModel = context.read<AppModel>();
-              appModel.currentThemeMode = currentTheme;
-            }
-          },
-        ),
         DropdownListTile(
           key: const ValueKey('language'),
           leading: Icon(Icons.language, color: iconColor),
@@ -138,6 +88,56 @@ class _SettingsPageState extends State<SettingsPage> {
                       : string);
             }
           },
+        ),
+        DropdownListTile(
+          leading: Icon(Icons.palette_outlined, color: iconColor),
+          title: AppLocalizations.of(context)!.theme,
+          textStyle: textStyle,
+          items: mapTheme.values.toList(),
+          value: mapTheme[currentTheme]!,
+          onChanged: (String? string) {
+            if (string != null) {
+              setState(() => currentTheme =
+                  mapTheme.keys.where((key) => mapTheme[key] == string).single);
+              AppModel appModel = context.read<AppModel>();
+              appModel.currentThemeMode = currentTheme;
+            }
+          },
+        ),
+        SwitchListTile(
+          secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
+          title: Text(
+            AppLocalizations.of(context)!.amoledDarkTheme,
+            style: textStyle,
+          ),
+          value: isDarkAmoled,
+          activeColor: Theme.of(context).colorScheme.secondary,
+          onChanged: (bool val) {
+            setState(() => isDarkAmoled = val);
+            AppModel appModel = context.read<AppModel>();
+            appModel.isDarkAmoled = val;
+          },
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+        ),
+        SwitchListTile(
+          secondary: SvgPicture(
+            const AssetBytesLoader(
+                'assets/app_icons/remove_trailing_zeros.svg.vec'),
+            width: 25,
+            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+          ),
+          title: Text(
+            AppLocalizations.of(context)!.removeTrailingZeros,
+            style: textStyle,
+          ),
+          value: removeTrailingZeros,
+          activeColor: Theme.of(context).colorScheme.secondary,
+          onChanged: (bool val) {
+            setState(() => removeTrailingZeros = val);
+            Conversions conversions = context.read<Conversions>();
+            conversions.removeTrailingZeros = val;
+          },
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
         DropdownListTile(
           leading: SvgPicture(
