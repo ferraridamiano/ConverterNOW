@@ -15,7 +15,7 @@
 [<img src="https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square"
     alt="Maintained with Melos">](https://github.com/invertase/melos)
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpeg" width="140">
+<img src="fastlane/metadata/android/en-US/images/sevenInchScreenshots/1.jpg" width="650">
 </div>
 
 ## Why Converter NOW
@@ -26,15 +26,15 @@ A few years ago I noticed that most of the unit converters on the digital stores
 
 🖌️ It is **customizable**: the units can be reorganized according to your priorities and your use case
 
-🔢 It integrates a **Calculator** that let you do the calculations in every page
+🔢 It integrates a **calculator** that let you do the calculations in every page
 
-💰 Currency conversions are **updated daily**
+💰 Currency exchange rates **updated daily**
 
 ⚫⚪ **Choose your favourite theme**: dark or white theme
 
 📱🖥️ **Full Smartphone, Tablet and Web app support**
 
-💯 It is **free**, **no ads**, **no analytics**, **no permissions** (just Internet to update currency conversions). And first of all it is **open source**!
+💯 It is **free**, **no ads**, **no data collection**, **no permissions** (just Internet to update currency conversions). And first of all it is **open source**!
 
 ## Installation
 
