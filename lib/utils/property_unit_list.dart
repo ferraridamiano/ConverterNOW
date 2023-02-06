@@ -66,7 +66,7 @@ List<String> getPropertyNameList(BuildContext context) {
 /// regarding the displaying of the units all over the app. From this List
 /// depends also other functions.
 List<UnitUi> getUnitUiList(BuildContext context) {
-  const String basePath = 'assets/property_icons/';
+  const String basePath = 'assets/property_icons';
   var l10n = AppLocalizations.of(context)!;
   return [
     UnitUi(LENGTH.meters, l10n.meters, '$basePath/length.svg.vec',

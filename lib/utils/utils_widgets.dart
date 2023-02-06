@@ -1,3 +1,4 @@
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
@@ -142,9 +143,7 @@ class SearchUnit {
 
 class SearchUnitTile extends StatelessWidget {
   final SearchUnit searchUnit;
-  final bool darkMode;
-  const SearchUnitTile(this.searchUnit, this.darkMode, {Key? key})
-      : super(key: key);
+  const SearchUnitTile(this.searchUnit, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +152,7 @@ class SearchUnitTile extends StatelessWidget {
         AssetBytesLoader(searchUnit.iconAsset),
         height: 26.0,
         colorFilter: ColorFilter.mode(
-          darkMode ? Colors.white : Colors.grey,
+          getIconColor(Theme.of(context)),
           BlendMode.srcIn,
         ),
       ),
@@ -165,17 +164,14 @@ class SearchUnitTile extends StatelessWidget {
 
 class SuggestionList extends StatelessWidget {
   final List<SearchUnit> suggestions;
-  final bool darkMode;
-  const SuggestionList(
-      {required this.suggestions, required this.darkMode, Key? key})
-      : super(key: key);
+  const SuggestionList({required this.suggestions, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
         for (int i = 0; i < suggestions.length; i++)
-          SearchUnitTile(suggestions[i], darkMode)
+          SearchUnitTile(suggestions[i])
       ],
     );
   }

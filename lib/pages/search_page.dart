@@ -43,10 +43,7 @@ class CustomSearchDelegate extends SearchDelegate<int> {
     //.toLowercase in order to be case insesitive
 
     return query.isNotEmpty
-        ? SuggestionList(
-            suggestions: suggestions.toList(),
-            darkMode: brightness == Brightness.dark,
-          )
+        ? SuggestionList(suggestions: suggestions.toList())
         : GridView(
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 180.0,
