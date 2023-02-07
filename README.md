@@ -55,16 +55,16 @@ You can find the compiled app in [GitHub releases](https://github.com/ferraridam
 
 [<img src="https://flathub.org/assets/badges/flathub-badge-en.png"
     alt="Download on Flathub"
-    height="55">](https://flathub.org/apps/details/io.github.ferraridamiano.ConverterNOW)
+    height="50">](https://flathub.org/apps/details/io.github.ferraridamiano.ConverterNOW)
 [<img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg"
     alt="Get it from the Snap Store"
-    height="55">](https://snapcraft.io/converternow)
+    height="50">](https://snapcraft.io/converternow)
 
 ### Windows
 
-[<img src="https://getbadgecdn.azureedge.net/images/English_L.png"
+[<img src="https://get.microsoft.com/images/en-us dark.svg"
     alt="Get it from the Microsoft Store"
-    height="60">](https://www.microsoft.com/store/apps/9P0Q79HWJH72)
+    height="53">](https://www.microsoft.com/store/apps/9P0Q79HWJH72)
 
 ### Web
 You can reach the PWA [here](https://converter-now.web.app).
