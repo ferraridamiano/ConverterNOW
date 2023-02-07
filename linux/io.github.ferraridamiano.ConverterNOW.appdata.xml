@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>io.github.ferraridamiano.ConverterNOW</id>
 
-  <name>Converter NOW</name>
+  <name>Converter NOW: Unit Converter</name>
   <summary>A simple, immediate and fast unit converter!</summary>
   <url type="homepage">https://github.com/ferraridamiano/ConverterNOW</url>
   <url type="bugtracker">https://github.com/ferraridamiano/ConverterNOW/issues</url>
@@ -28,20 +28,12 @@
       <li>🚀 It is  fast and immediate: just start typing and immediately you have the real-time conversion with all the other units of measurement</li>
       <li>🖌️ It is customizable: the units can be reorganized according to your priorities and your use</li>
       <li>🔢 It integrates a calculator that let you do the calculations in every page</li>
-      <li>💰 We daily update the value of the currencies</li>
+      <li>💰 Currency exchange rates updated daily</li>
+      <li>🎨 Dynamic theming based on your device settings</li>
       <li>⚫⚪ Choose your favourite theme: dark and white theme</li>
-      <li>📱 It adapts to screens of all sizes</li>
-      <li>💯 It is Open Source!</li>
+      <li>📱🖥️ Multiplatform: available for Android, Web, Linux and Windows</li>
+      <li>💯 It is free, no ads, no data collection, no permissions (just Internet to update currency conversions) and first of all it is open source!</li>
     </ul>
-    <p>
-      Check the repository on GitHub: https://github.com/ferraridamiano/ConverterNOW
-    </p>
-    <p>
-      We also have a Web App! 🖥️ Check it out here: https://ferraridamiano.github.io/ConverterNOW
-    </p>
-    <p>
-      🌍 Converter NOW is free, without ads, it does not require any permission and we don&apos;t collect your data. If you believe in this project and want to support the developer make a donation: https://www.paypal.me/DemApps 🌍 Thanks to you we can always stay on 🔝
-    </p>
     <p>
       Converter NOW can convert 200+ units of mesurement and 30+ currencies 🎉🎉
     </p>
@@ -75,19 +67,29 @@
   <screenshots>
     <screenshot type="default">
       <caption>Easily convert units. It's reliable, customizable, open source.</caption>
-      <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/screenshots/desktop_1.png</image>
+      <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/screenshots/1.jpg</image>
     </screenshot>
     <screenshot>
       <caption>With an integrated calculator</caption>
-      <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/screenshots/desktop_2.png</image>
+      <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/screenshots/2.jpg</image>
     </screenshot>
     <screenshot>
       <caption>And a dynamic search box</caption>
-      <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/screenshots/desktop_3.png</image>
+      <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/screenshots/3.jpg</image>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.0.0" date="2023-07-02">
+      <description>
+        <p>Introducing Converter NOW 4.0!</p>
+        <ul>Finished the migration to Material You</ul>
+        <ul>Dynamic theming support on supported desktop environments</ul>
+        <ul>New icons</ul>
+        <ul>Translations updates</ul>
+        <ul>Bug fixes and general improvements</ul>
+      </description>
+    </release>
     <release version="3.2.1" date="2022-10-01">
       <description>
         <ul>

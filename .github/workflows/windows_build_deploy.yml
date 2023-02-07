@@ -27,6 +27,11 @@ jobs:
         dart pub global activate melos
         dart pub global activate vector_graphics_compiler
 
+    - name: Generate optimized icons (workaround for a bug of melos on Windows)
+      run: |
+        dart run vector_graphics_compiler --input-dir assets/app_icons
+        dart run vector_graphics_compiler --input-dir assets/property_icons
+
     - name: Bootstrap
       run: melos bootstrap
 

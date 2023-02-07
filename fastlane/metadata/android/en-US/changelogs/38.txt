@@ -1,0 +1,8 @@
+Introducing Converter NOW 4.0!
+- Finished the migration to Material You
+- Dynamic theming support on Android 12+
+- New icons
+- Translations updates
+- Bug fixes and general improvements
+
+What do you think about Converter NOW? Rate us! ✔️

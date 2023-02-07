@@ -8,10 +8,10 @@ environment:
 
 dependencies:
   # Needed for downloading exchange rates from internet
-  http: ^0.13.4
+  http: ^0.13.5
   # Needed for DateFormat
   intl: ^0.17.0
 
 dev_dependencies:
-  lints: ^2.0.0
+  lints: ^2.0.1
   test: ^1.16.0
