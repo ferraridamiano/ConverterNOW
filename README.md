@@ -30,9 +30,11 @@ A few years ago I noticed that most of the unit converters on the digital stores
 
 💰 Currency exchange rates **updated daily**
 
+🎨 **Dynamic theming** based on your device settings
+
 ⚫⚪ **Choose your favourite theme**: dark or white theme
 
-📱🖥️ **Full Smartphone, Tablet and Web app support**
+📱🖥️ **Multiplatform**: available for Android, Web, Linux and Windows
 
 💯 It is **free**, **no ads**, **no data collection**, **no permissions** (just Internet to update currency conversions). And first of all it is **open source**!
 
