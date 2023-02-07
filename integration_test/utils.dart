@@ -8,11 +8,10 @@ clearPreferences() async {
   await pref.clear();
 }
 
-/// Perform a long press drag from [start] to [end]. Useful for reorderable list
-Future<void> longPressDrag(
-    WidgetTester tester, Offset start, Offset end) async {
+/// Perform a drag from [start] to [end]. Useful for reorderable list
+Future<void> dragGesture(WidgetTester tester, Offset start, Offset end) async {
   final TestGesture drag = await tester.startGesture(start);
-  await tester.pump(kLongPressTimeout + kPressTimeout);
+  await tester.pump(kPressTimeout);
   await drag.moveTo(end);
   await tester.pump(kPressTimeout);
   await drag.up();

@@ -1,25 +1,28 @@
 import 'package:converterpro/models/app_model.dart';
-import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 const maxConversionUnits = 19;
 
 class CustomDrawer extends StatelessWidget {
   final bool isDrawerFixed;
   final void Function() openCalculator;
+  final void Function() openSearch;
 
   const CustomDrawer({
     key,
     required this.isDrawerFixed,
     required this.openCalculator,
+    required this.openSearch,
   }) : super(key: key);
 
   @override
@@ -33,16 +36,17 @@ class CustomDrawer extends StatelessWidget {
       const SizedBox(),
     );
 
+    Color iconColor = getIconColor(Theme.of(context));
+
     final Widget title = Padding(
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image.asset(
-              'resources/images/logo.png',
+            const SvgPicture(
+              AssetBytesLoader('assets/app_icons/logo.svg.vec'),
               width: 55,
-              filterQuality: FilterQuality.medium,
             ),
             Text(
               'Converter NOW',
@@ -75,45 +79,28 @@ class CustomDrawer extends StatelessWidget {
       headerDrawer.add(title);
     }
 
-    headerDrawer.add(
-      DrawerTile(
-        key: const ValueKey('drawerItem_search'),
-        leading: const Icon(Icons.search_outlined),
-        title: Text(AppLocalizations.of(context)!.search),
-        onTap: () async {
-          final orderList = context.read<AppModel>().conversionsOrderDrawer;
-          final int? newPage = await showSearch(
-            context: context,
-            delegate: CustomSearchDelegate(orderList!),
-          );
-          if (newPage != null) {
-            final String targetPath =
-                '/conversions/${reversePageNumberListMap[newPage]}';
-            // ignore: use_build_context_synchronously
-            if (GoRouter.of(context).location != targetPath) {
-              // ignore: use_build_context_synchronously
-              context.go(targetPath);
-            }
-          }
-        },
-        selected: false,
-      ),
-    );
     if (isDrawerFixed) {
       headerDrawer.add(
         DrawerTile(
+          key: const ValueKey('drawerItem_search'),
+          leading: Icon(Icons.search_outlined, color: iconColor),
+          title: Text(AppLocalizations.of(context)!.search),
+          onTap: openSearch,
+        ),
+      );
+      headerDrawer.add(
+        DrawerTile(
           key: const ValueKey('drawerItem_calculator'),
-          leading: const Icon(Icons.calculate_outlined),
+          leading: Icon(Icons.calculate_outlined, color: iconColor),
           title: Text(AppLocalizations.of(context)!.calculator),
           onTap: openCalculator,
-          selected: false,
         ),
       );
     }
     headerDrawer
       ..add(DrawerTile(
         key: const ValueKey('drawerItem_settings'),
-        leading: const Icon(Icons.settings_outlined),
+        leading: Icon(Icons.settings_outlined, color: iconColor),
         title: Text(AppLocalizations.of(context)!.settings),
         onTap: () {
           if (!isDrawerFixed) {
@@ -122,15 +109,13 @@ class CustomDrawer extends StatelessWidget {
           context.goNamed('settings');
         },
         selected: selectedSection == AppPage.settings ||
-            selectedSection == AppPage.reorder,
+            selectedSection == AppPage.reorder ||
+            selectedSection == AppPage.reorderDetails,
       ))
       ..add(
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Divider(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black38),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 25.0),
+          child: Divider(),
         ),
       );
 
@@ -144,14 +129,11 @@ class CustomDrawer extends StatelessWidget {
       PropertyUi propertyUi = propertyUiList[i];
       conversionDrawer[conversionsOrderDrawer[i]] = DrawerTile(
         key: ValueKey('drawerItem_${reversePageNumberListMap[i]}'),
-        leading: Image.asset(
-          propertyUi.imagePath,
-          width: 30,
-          height: 30,
-          color: Theme.of(context).brightness == Brightness.dark
-              ? Colors.white
-              : Colors.black38,
-          filterQuality: FilterQuality.medium,
+        leading: SvgPicture(
+          AssetBytesLoader(propertyUi.imagePath),
+          width: 25,
+          height: 25,
+          colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
         ),
         title: Text(propertyUi.name),
         onTap: () {

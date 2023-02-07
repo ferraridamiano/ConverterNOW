@@ -15,7 +15,7 @@
 [<img src="https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square"
     alt="Maintained with Melos">](https://github.com/invertase/melos)
 
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpeg" width="140"> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpeg" width="140">
+<img src="fastlane/metadata/android/en-US/images/sevenInchScreenshots/1.jpg" width="650">
 </div>
 
 ## Why Converter NOW
@@ -26,15 +26,17 @@ A few years ago I noticed that most of the unit converters on the digital stores
 
 🖌️ It is **customizable**: the units can be reorganized according to your priorities and your use case
 
-🔢 It integrates a **Calculator** that let you do the calculations in every page
+🔢 It integrates a **calculator** that let you do the calculations in every page
 
-💰 Currency conversions are **updated daily**
+💰 Currency exchange rates **updated daily**
+
+🎨 **Dynamic theming** based on your device settings
 
 ⚫⚪ **Choose your favourite theme**: dark or white theme
 
-📱🖥️ **Full Smartphone, Tablet and Web app support**
+📱🖥️ **Multiplatform**: available for Android, Web, Linux and Windows
 
-💯 It is **free**, **no ads**, **no analytics**, **no permissions** (just Internet to update currency conversions). And first of all it is **open source**!
+💯 It is **free**, **no ads**, **no data collection**, **no permissions** (just Internet to update currency conversions). And first of all it is **open source**!
 
 ## Installation
 
@@ -70,11 +72,13 @@ You can reach the PWA [here](https://converter-now.web.app).
 ## Build from source code
 First you need to
 [install flutter](https://docs.flutter.dev/get-started/install) and all the
-tooling for your target platform (e.g. Android Studio for Android, etc.). Then
-you have to activate a tool that is used to manage this repo, so you have to
-type `dart pub global activate melos` to install it and `melos bootstrap` in the
-root of the project in order to get all the dependencies and generate the
-translations code. Then follow the instructions for the platform you target.
+tooling for your target platform (e.g. Android Studio for Android, etc.). Then you have to install two tools:
+
+- `dart pub global activate melos` (useful to easily manage the repository)
+- `dart pub global activate vector_graphics_compiler` (useful to compile the `svg` icons)
+
+Then, run `melos bootstrap` in the root of the project in order to get all the dependencies, generate the
+translation files and optimize the `svg` icons. Then follow the instructions for the platform you want to target.
 
 ### Android
 On Android you should first disable the signing option in

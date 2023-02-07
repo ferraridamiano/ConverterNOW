@@ -1,4 +1,7 @@
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 class DrawerTile extends StatelessWidget {
   const DrawerTile({
@@ -15,97 +18,31 @@ class DrawerTile extends StatelessWidget {
   final bool selected;
 
   static const BorderRadiusGeometry borderRadius =
-      BorderRadius.horizontal(right: Radius.circular(30));
+      BorderRadius.all(Radius.circular(30));
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Container(
-        decoration: BoxDecoration(
-          color: selected
-              ? Theme.of(context).primaryColor.withOpacity(0.25)
-              : Colors.transparent,
-          borderRadius: borderRadius,
-        ),
+        decoration: selected
+            ? BoxDecoration(
+                color: Theme.of(context)
+                    .colorScheme
+                    .primaryContainer
+                    .withOpacity(
+                        Theme.of(context).brightness == Brightness.light
+                            ? 0.5
+                            : 0.8),
+                borderRadius: borderRadius,
+              )
+            : null,
         child: ListTile(
           leading: leading,
           title: title,
           onTap: onTap,
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
-      ),
-    );
-  }
-}
-
-class BigTitle extends StatelessWidget {
-  const BigTitle({
-    required this.text,
-    this.subtitle = '',
-    this.isSubtitleLoading = false,
-    this.sidePadding = 0,
-    this.center = false,
-    Key? key,
-  }) : super(key: key);
-  final String text;
-  final String subtitle;
-  final bool isSubtitleLoading;
-  final double sidePadding;
-  final bool center;
-
-  @override
-  Widget build(BuildContext context) {
-    final Widget title = Text(
-      text,
-      overflow: TextOverflow.ellipsis,
-      maxLines: 2,
-      style: TextStyle(
-        fontSize: 35.0,
-        fontWeight: FontWeight.bold,
-        color: Theme.of(context).brightness == Brightness.dark
-            ? const Color(0xFFDDDDDD)
-            : const Color(0xFF666666),
-      ),
-      textAlign: center ? TextAlign.center : null,
-    );
-
-    return Padding(
-      padding: EdgeInsets.only(left: sidePadding, right: sidePadding, top: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          center ? Center(child: title) : title,
-          Container(
-            height: 20,
-            alignment: Alignment.bottomRight,
-            child: (isSubtitleLoading && subtitle != '')
-                ? Container(
-                    padding: const EdgeInsets.only(right: 10),
-                    height: 15.0,
-                    width: 25.0,
-                    child: const CircularProgressIndicator(),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Text(
-                      subtitle,
-                      style: const TextStyle(
-                        fontSize: 15.0,
-                        color: Color(0xFF999999),
-                      ),
-                    ),
-                  ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Divider(
-              color: Theme.of(context).colorScheme.secondary,
-              thickness:
-                  Theme.of(context).brightness == Brightness.dark ? 1 : 2,
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -177,8 +114,11 @@ class _UnitWidgetState extends State<UnitWidget> {
                 : Colors.white,
           ),
           border: const OutlineInputBorder(),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.orange, width: 2),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+              width: 2,
+            ),
           ),
           floatingLabelStyle: TextStyle(
             fontSize: 20,
@@ -203,15 +143,19 @@ class SearchUnit {
 
 class SearchUnitTile extends StatelessWidget {
   final SearchUnit searchUnit;
-  final bool darkMode;
-  const SearchUnitTile(this.searchUnit, this.darkMode, {Key? key})
-      : super(key: key);
+  const SearchUnitTile(this.searchUnit, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset(searchUnit.iconAsset,
-          height: 26.0, color: darkMode ? Colors.white : Colors.grey),
+      leading: SvgPicture(
+        AssetBytesLoader(searchUnit.iconAsset),
+        height: 26.0,
+        colorFilter: ColorFilter.mode(
+          getIconColor(Theme.of(context)),
+          BlendMode.srcIn,
+        ),
+      ),
       title: Text(searchUnit.unitName),
       onTap: searchUnit.onTap,
     );
@@ -220,17 +164,14 @@ class SearchUnitTile extends StatelessWidget {
 
 class SuggestionList extends StatelessWidget {
   final List<SearchUnit> suggestions;
-  final bool darkMode;
-  const SuggestionList(
-      {required this.suggestions, required this.darkMode, Key? key})
-      : super(key: key);
+  const SuggestionList({required this.suggestions, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
         for (int i = 0; i < suggestions.length; i++)
-          SearchUnitTile(suggestions[i], darkMode)
+          SearchUnitTile(suggestions[i])
       ],
     );
   }
@@ -262,9 +203,12 @@ class SearchGridTile extends StatelessWidget {
               SizedBox(
                 width: 55.0,
                 height: 55.0,
-                child: Image.asset(
-                  iconAsset,
-                  color: darkMode ? Colors.white : Colors.grey,
+                child: SvgPicture(
+                  AssetBytesLoader(iconAsset),
+                  colorFilter: ColorFilter.mode(
+                    darkMode ? Colors.white : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
               const SizedBox(height: 8),
@@ -292,7 +236,7 @@ class DropdownListTile extends StatelessWidget {
   final Widget? leading;
 
   /// This widget will return a [ListTile] with a dialog on mobile device and a
-  /// [ListTile] with a [DropdownButton] for desktop device.
+  /// [ListTile] with a [DropdownMenu] for desktop device.
   const DropdownListTile({
     required this.title,
     required this.items,
@@ -311,6 +255,7 @@ class DropdownListTile extends StatelessWidget {
     switch (Theme.of(context).platform) {
       case TargetPlatform.android:
       case TargetPlatform.iOS:
+      case TargetPlatform.fuchsia:
         String selected = value;
         return ListTile(
           leading: leading,
@@ -345,35 +290,20 @@ class DropdownListTile extends StatelessWidget {
             style: textStyle,
           ),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-          trailing: DropdownButton<String>(
+          trailing: DropdownMenu<String>(
             key: key != null
                 ? ValueKey('${(key as ValueKey).value}-dropdown')
                 : null,
-            value: value,
-            onChanged: onChanged,
-            selectedItemBuilder: (BuildContext context) {
-              return items.map<Widget>((String item) {
-                return SizedBox(
-                  width: 150,
-                  child: Align(
-                    alignment: Directionality.of(context) == TextDirection.ltr
-                        ? Alignment.centerLeft
-                        : Alignment.centerRight,
-                    child: Text(
-                      value,
-                      style: textStyle,
-                    ),
-                  ),
-                );
-              }).toList();
-            },
-            items: items.map((String item) {
-              return DropdownMenuItem<String>(
+            initialSelection: value,
+            onSelected: onChanged,
+            width: 150,
+            inputDecorationTheme: const InputDecorationTheme(
+              outlineBorder: BorderSide.none,
+            ),
+            dropdownMenuEntries: items.map((String item) {
+              return DropdownMenuEntry<String>(
                 value: item,
-                child: Text(
-                  item.toString(),
-                  style: textStyle,
-                ),
+                label: item.toString(),
               );
             }).toList(),
           ),
@@ -386,8 +316,13 @@ class SplashScreenWidget extends StatelessWidget {
   const SplashScreenWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Image.asset('resources/images/logo.png', width: 150)),
+    return const Scaffold(
+      body: Center(
+        child: SvgPicture(
+          AssetBytesLoader('assets/app_icons/logo.svg.vec'),
+          width: 150,
+        ),
+      ),
     );
   }
 }
@@ -397,12 +332,13 @@ class SplashScreenWidget extends StatelessWidget {
 class ConstrainedContainer extends StatelessWidget {
   final Widget child;
   final double maxWidth;
-  const ConstrainedContainer(this.child, {this.maxWidth = 800, Key? key})
+  const ConstrainedContainer(this.child, {this.maxWidth = 500, Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Align(
+      alignment: AlignmentDirectional.centerStart,
       child: Container(
         constraints: BoxConstraints(maxWidth: maxWidth),
         child: child,

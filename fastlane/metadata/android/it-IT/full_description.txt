@@ -1,19 +1,13 @@
-<b>Converter NOW è un efficace convertitore di unità di misura e di valute made in Italy.</b>
-✔️ <b>Semplifica</b> il noioso processo di conversione tra unità di misura in qualche click.
-🚀 È <b>veloce e immediato</b>: basta cominciare a digitare e subito si ha la conversione in real-time con tutte le altre unità di misura.
-🖌️ È <b>personalizzabile</b>: le unità di misura posso essere riorganizzate secondo le proprie priorità e il proprio utilizzo.
-🔢 Ha una <b>calcolatrice</b> integrata che permette di eseguire velocemente i calcoli in ogni schermata.
-💰 <b>Aggiornamenti quotidiani</b> delle conversioni di valute
+<b>Converter NOW è un efficace convertitore di unità di misura e di valute made in Italy</b>
+✔️ <b>Semplifica</b> il noioso processo di conversione tra unità di misura in qualche click
+🚀 È <b>veloce e immediato</b>: basta cominciare a digitare e subito si ha la conversione in real-time con tutte le altre unità di misura
+🖌️ È <b>personalizzabile</b>: le unità di misura posso essere riorganizzate secondo le proprie priorità e il proprio utilizzo
+🔢 Ha una <b>calcolatrice</b> integrata che permette di eseguire velocemente i calcoli in ogni schermata
+💰 Tassi di cambio <b>aggiornati quotidianamente</b>
+🎨 <b>Tema dinamico</b> in base alle impostazioni del tuo dispositivo
 ⚫⚪ <b>Scegli il tuo tema preferito</b>: tema chiaro e scuro
- 📱 <b>Pieno supporto</b> a Smartphone e Tablet
-💯 È <b>Open Source</b>!
-
-Guarda la repository su GitHub:
-https://github.com/ferraridamiano/ConverterNOW
-
-Abbiamo anche un'app Web! 🖥️ Dai un'occhiata qui: https://ferraridamiano.github.io/ConverterNOW/
-
-🌍 Converter NOW è completamente gratuita, senza pubblicità, non richiede alcun permesso e non raccogliamo i tuoi dati 🌍
+📱🖥️ <b>Multipiattaforma</b>: disponibile per Android, Web, Linux e Windows
+💯 È <b>gratuito, senza annuni, non raccogliamo dati, non richiede permessi</b> (solo internet per aggiornare i tassi di cambio) e soprattutto è <b>open source</b>!
 
 <b>Converter NOW può convertire 200+ unità di misura e 30+ valute</b> 🎉🎉
 

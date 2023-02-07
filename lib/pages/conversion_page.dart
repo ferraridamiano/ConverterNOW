@@ -77,35 +77,54 @@ class ConversionPage extends StatelessWidget {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraint) {
       final int numCols = responsiveNumCols(constraint.maxWidth);
-      final double xPadding = responsivePadding(constraint.maxWidth);
-      return Column(
-        children: [
-          BigTitle(
-            text: propertyTranslationMap[currentProperty]!,
-            subtitle: subTitle,
-            isSubtitleLoading: context.select<Conversions, bool>(
-                (conversions) => conversions.isCurrenciesLoading),
-            center: true,
-          ),
-          Expanded(
-            child: GridView.count(
-              childAspectRatio: responsiveChildAspectRatio(
-                constraint.maxWidth,
-                numCols,
+      return CustomScrollView(slivers: <Widget>[
+        SliverAppBar.large(
+          title: Text(propertyTranslationMap[currentProperty]!),
+        ),
+        if (subTitle != '')
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  context.select<Conversions, bool>(
+                          (conversions) => conversions.isCurrenciesLoading)
+                      ? const SizedBox(
+                          height: 30,
+                          child: Center(
+                            child: SizedBox(
+                              width: 25,
+                              height: 25,
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                        )
+                      : Text(
+                          subTitle,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        )
+                ],
               ),
-              crossAxisCount: numCols,
-              padding: EdgeInsets.only(
-                left: xPadding,
-                right: xPadding,
-                bottom: 55, // So FAB doesn't overlap the card
-                top: 10,
-              ),
-              shrinkWrap: true,
-              children: gridTiles,
             ),
           ),
-        ],
-      );
+        SliverPadding(
+          padding: EdgeInsets.only(
+            top: 10,
+            bottom: isDrawerFixed(MediaQuery.of(context).size.width)
+                ? 55 // So FAB doesn't overlap the card
+                : 0,
+          ),
+          sliver: SliverGrid.count(
+            crossAxisCount: numCols,
+            childAspectRatio: responsiveChildAspectRatio(
+              constraint.maxWidth,
+              numCols,
+            ),
+            children: gridTiles,
+          ),
+        ),
+      ]);
     });
   }
 }

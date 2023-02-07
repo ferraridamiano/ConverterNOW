@@ -180,8 +180,5 @@ void initializeQuickAction(
   ]);
 }
 
-Color getIconColor(Brightness brightness) {
-  return brightness == Brightness.light
-      ? const Color(0xFF898989)
-      : const Color(0xFFFFFFFF);
-}
+Color getIconColor(ThemeData theme) =>
+    theme.brightness == Brightness.light ? Colors.black45 : Colors.white70;

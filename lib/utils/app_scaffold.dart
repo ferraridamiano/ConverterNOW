@@ -1,7 +1,9 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
+import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:calculator_widget/calculator_widget.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
+import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +52,23 @@ class AppScaffold extends StatelessWidget {
       }
     }
 
+    void openSearch() async {
+      final orderList = context.read<AppModel>().conversionsOrderDrawer;
+      final int? newPage = await showSearch(
+        context: context,
+        delegate: CustomSearchDelegate(orderList!),
+      );
+      if (newPage != null) {
+        final String targetPath =
+            '/conversions/${reversePageNumberListMap[newPage]}';
+        // ignore: use_build_context_synchronously
+        if (GoRouter.of(context).location != targetPath) {
+          // ignore: use_build_context_synchronously
+          context.go(targetPath);
+        }
+      }
+    }
+
     return LayoutBuilder(builder: (context, constraints) {
       // ignore: no_leading_underscores_for_local_identifiers
       final bool _isDrawerFixed = isDrawerFixed(constraints.maxWidth);
@@ -59,6 +78,7 @@ class AppScaffold extends StatelessWidget {
       Widget drawer = CustomDrawer(
         isDrawerFixed: _isDrawerFixed,
         openCalculator: openCalculator,
+        openSearch: openSearch,
       );
 
       //if the drawer is fixed
@@ -78,10 +98,7 @@ class AppScaffold extends StatelessWidget {
                   key: const ValueKey('clearAll'),
                   onPressed: () => clearAll(_isDrawerFixed),
                   tooltip: AppLocalizations.of(context)!.clearAll,
-                  child: const Icon(
-                    Icons.clear_outlined,
-                    color: Colors.white,
-                  ),
+                  child: const Icon(Icons.clear_outlined),
                 )
               : null,
         );
@@ -112,28 +129,22 @@ class AppScaffold extends StatelessWidget {
           drawer: drawer,
           body: SafeArea(child: child),
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: selectedSection == AppPage.conversions ||
-                  selectedSection == AppPage.settings
+              FloatingActionButtonLocation.endContained,
+          bottomNavigationBar: selectedSection == AppPage.conversions
               ? BottomAppBar(
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Builder(builder: (context) {
-                        return IconButton(
-                            tooltip: AppLocalizations.of(context)!.menu,
-                            icon: const Icon(Icons.menu),
-                            onPressed: () {
-                              Scaffold.of(context).openDrawer();
-                            });
-                      }),
-                      if (selectedSection == AppPage.conversions)
-                        IconButton(
-                          tooltip: AppLocalizations.of(context)!.clearAll,
-                          icon: const Icon(Icons.clear),
-                          onPressed: () => clearAll(_isDrawerFixed),
-                        ),
+                    children: [
+                      IconButton(
+                        tooltip: AppLocalizations.of(context)!.search,
+                        icon: const Icon(Icons.search),
+                        onPressed: openSearch,
+                      ),
+                      IconButton(
+                        tooltip: AppLocalizations.of(context)!.calculator,
+                        icon: const Icon(Icons.calculate_outlined),
+                        onPressed: openCalculator,
+                      ),
                     ],
                   ),
                 )
@@ -141,13 +152,10 @@ class AppScaffold extends StatelessWidget {
           floatingActionButton: (selectedSection == AppPage.conversions &&
                   MediaQuery.of(context).viewInsets.bottom == 0)
               ? FloatingActionButton(
-                  tooltip: AppLocalizations.of(context)!.calculator,
-                  onPressed: openCalculator,
-                  child: const Icon(
-                    Icons.calculate_outlined,
-                    size: 30,
-                    color: Colors.white,
-                  ),
+                  key: const ValueKey('clearAll'),
+                  onPressed: () => clearAll(_isDrawerFixed),
+                  tooltip: AppLocalizations.of(context)!.clearAll,
+                  child: const Icon(Icons.clear_outlined),
                 )
               : null,
         ),

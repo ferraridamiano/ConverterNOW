@@ -39,7 +39,7 @@ void main() {
           .single
           .widget as TextFormField;
 
-      expect(find.text('Length'), findsNWidgets(2),
+      expect(find.text('Length'), findsAtLeastNWidgets(2),
           reason: 'Expected the length page');
 
       await tester.enterText(find.byKey(const ValueKey('LENGTH.feet')), '1');
@@ -67,11 +67,11 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('drawerItem_currencies')));
       await tester.pumpAndSettle();
-      expect(find.text('Currencies'), findsNWidgets(2),
+      expect(find.text('Currencies'), findsAtLeastNWidgets(2),
           reason: 'Expected the currencies page');
       await tester.tap(find.byKey(const ValueKey('drawerItem_area')));
       await tester.pumpAndSettle();
-      expect(find.text('Area'), findsNWidgets(2),
+      expect(find.text('Area'), findsAtLeastNWidgets(2),
           reason: 'Expected the area page');
 
       var tffInches = find
@@ -118,18 +118,18 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('language-dropdown')));
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Italiano'));
+      await tester.tap(find.text('Italiano').last);
       await tester.pumpAndSettle();
       await tester.tap(find.text('Lunghezza'));
       await tester.pumpAndSettle();
-      expect(find.text('Lunghezza'), findsNWidgets(2),
+      expect(find.text('Lunghezza'), findsAtLeastNWidgets(2),
           reason: 'Expected translated string');
     });
     testWidgets('Check if language has been saved',
         (WidgetTester tester) async {
       app.main();
       await tester.pumpAndSettle();
-      expect(find.text('Lunghezza'), findsNWidgets(2),
+      expect(find.text('Lunghezza'), findsAtLeastNWidgets(2),
           reason: 'Expected translated string');
       await clearPreferences();
     });
@@ -166,14 +166,14 @@ void main() {
       final xDragHadle =
           tester.getCenter(find.byIcon(Icons.drag_handle).first).dx;
 
-      await longPressDrag(
+      await dragGesture(
         tester,
         Offset(xDragHadle, tester.getCenter(find.text('Meters')).dy),
         Offset(xDragHadle, tester.getCenter(find.text('Feet')).dy),
       );
       await tester.pumpAndSettle();
 
-      await longPressDrag(
+      await dragGesture(
         tester,
         Offset(xDragHadle, tester.getCenter(find.text('Inches')).dy),
         Offset(xDragHadle, tester.getCenter(find.text('Centimeters')).dy),
@@ -239,14 +239,14 @@ void main() {
       final xDragHadle =
           tester.getCenter(find.byIcon(Icons.drag_handle).first).dx;
 
-      await longPressDrag(
+      await dragGesture(
         tester,
         Offset(xDragHadle, tester.getCenter(find.text('Length').last).dy),
         Offset(xDragHadle, tester.getCenter(find.text('Currencies').last).dy),
       );
       await tester.pumpAndSettle();
 
-      await longPressDrag(
+      await dragGesture(
         tester,
         Offset(xDragHadle, tester.getCenter(find.text('Volume').last).dy),
         Offset(xDragHadle, tester.getCenter(find.text('Area').last).dy),

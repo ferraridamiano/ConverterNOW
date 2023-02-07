@@ -3,7 +3,6 @@ import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
-import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:translations/app_localizations.dart';
@@ -29,10 +28,7 @@ class ReorderPropertiesPage extends StatelessWidget {
     }
 
     return ReorderPage(
-      header: BigTitle(
-        text: AppLocalizations.of(context)!.reorderProperties,
-        center: true,
-      ),
+      title: AppLocalizations.of(context)!.reorderProperties,
       itemsList: orderedDrawerList,
       onSave: (List<int>? orderList) {
         if (orderList != null) {

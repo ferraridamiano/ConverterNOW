@@ -16,9 +16,9 @@ pubspec.lock
 .metadata
 .idea/
 ios/Flutter/flutter_export_environment.sh
-lib/generated_plugin_registrant.dart
 .vscode/
 debug.log
 .snap
 packages/translations/lib/app_localizations*.dart
 pubspec_overrides.yaml
+assets/*/*.svg.vec

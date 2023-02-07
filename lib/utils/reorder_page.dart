@@ -1,18 +1,16 @@
-import 'dart:io';
 import 'package:converterpro/styles/consts.dart';
-import 'package:flutter/foundation.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ReorderPage extends StatefulWidget {
-  final Widget? header;
+  final String title;
   final List<String> itemsList;
   final void Function(List<int>? orderList) onSave;
 
   const ReorderPage({
     required this.itemsList,
     required this.onSave,
-    this.header,
+    required this.title,
     Key? key,
   }) : super(key: key);
 
@@ -30,8 +28,6 @@ class _ReorderPageState extends State<ReorderPage> {
     for (int i = 0; i < widget.itemsList.length; i++) {
       _itemsList.add(Item(i, widget.itemsList[i]));
     }
-    final bool isMobileDevice =
-        !kIsWeb && (Platform.isIOS || Platform.isAndroid);
 
     return Scaffold(
       key: _scaffoldKey,
@@ -50,57 +46,50 @@ class _ReorderPageState extends State<ReorderPage> {
           // return null
           widget.onSave(hasSomethingchanged ? orderList : null);
         },
-        elevation: 10.0,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        child: const Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
+        child: const Icon(Icons.check),
       ),
-      body: Column(
-        children: [
-          widget.header != null ? widget.header! : const SizedBox(),
-          Expanded(
-            child: StatefulBuilder(
-              builder: (context, setState) => Container(
-                constraints: const BoxConstraints(maxWidth: 800),
-                child: ReorderableListView(
-                  scrollController: ScrollController(),
-                  padding: const EdgeInsets.only(bottom: 60),
-                  onReorder: (int oldIndex, int newIndex) {
-                    setState(() => _updateItemsOrder(oldIndex, newIndex));
-                  },
-                  children: List.generate(
-                    widget.itemsList.length,
-                    (index) {
-                      return ListTile(
+      body: StatefulBuilder(
+        builder: (context, setState) => CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar.large(title: Text(widget.title)),
+            SliverPadding(
+              padding: const EdgeInsets.only(bottom: 60),
+              sliver: SliverReorderableList(
+                onReorder: (int oldIndex, int newIndex) =>
+                    setState(() => _updateItemsOrder(oldIndex, newIndex)),
+                itemCount: widget.itemsList.length,
+                itemBuilder: (context, index) => Stack(
+                  key: Key('reaorderableListItem_$index'),
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsetsDirectional.only(start: 34),
+                      child: ListTile(
                         key: ValueKey(_itemsList[index].id),
-                        title: Center(
-                          child: Text(
-                            _itemsList[index].title,
-                            style:
-                                const TextStyle(fontSize: singlePageTextSize),
-                          ),
+                        title: Text(
+                          _itemsList[index].title,
+                          style: const TextStyle(fontSize: singlePageTextSize),
                         ),
-                        onTap: isMobileDevice
-                            ? () {
-                                final snackBar = SnackBar(
-                                  content: Text(AppLocalizations.of(context)!
-                                      .longPressAdvice),
-                                  behavior: SnackBarBehavior.floating,
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              }
-                            : null,
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                    Positioned.directional(
+                      textDirection: Directionality.of(context),
+                      top: 0,
+                      bottom: 0,
+                      start: 16,
+                      child: Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: ReorderableDragStartListener(
+                          index: index,
+                          child: const Icon(Icons.drag_handle),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
