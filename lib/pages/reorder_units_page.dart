@@ -77,7 +77,7 @@ class ChoosePropertyPage extends StatelessWidget {
           context.goNamed('settings');
         },
         title: AppLocalizations.of(context)!
-            .reorderProperty(orderedDrawerList[selectedProperty!], ''),
+            .reorderProperty(orderedDrawerList[selectedProperty!]),
       );
     }
 

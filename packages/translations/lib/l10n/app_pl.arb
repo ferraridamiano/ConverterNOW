@@ -38,7 +38,7 @@
   "reorderProperties": "Zmień kolejność miar",
   "reorderUnits": "Zmień kolejność jednostek",
   "chooseProperty": "Wybierz miarę",
-  "reorderProperty": "Zmień kolejność {miary}",
+  "reorderProperty": "Zmień kolejność {property}",
   "@reorderProperty":{
     "placeholders": {
       "property": {
