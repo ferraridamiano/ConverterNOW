@@ -41,8 +41,10 @@ jobs:
     - name: Bootstrap
       run: melos bootstrap
 
+    # Force canvaskit because of the bug with svg on html
+    # See: https://github.com/dnfield/flutter_svg/issues/845
     - name: Build for Web
-      run: flutter build web
+      run: flutter build web --web-renderer canvaskit
 
     - name: Upload to Firebase Hosting
       uses: FirebaseExtended/action-hosting-deploy@v0
@@ -56,7 +58,7 @@ jobs:
       run: flutter build linux
 
     - name: Tar linux package
-      run: tar -C build/linux/x64/release/bundle -czf converternow-linux.tar.gz .
+      run: tar -C build/linux/x64/release/bundle -czf converternow-linux-x64.tar.gz .
 
     - name: Download Android keystore
       id: android_keystore
@@ -81,7 +83,7 @@ jobs:
     - name: Release to GitHub
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "build/app/outputs/flutter-apk/app-*-release.apk,converternow-linux.tar.gz"
+        artifacts: "build/app/outputs/flutter-apk/app-*-release.apk,converternow-linux-x64.tar.gz"
         token: ${{ secrets.GH_TOKEN }}
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}
