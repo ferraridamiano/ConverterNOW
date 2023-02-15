@@ -294,8 +294,16 @@ class Conversions with ChangeNotifier {
     List<String>? stringList;
     // Update every order of every conversion
     for (int i = 0; i < _propertyList.length; i++) {
-      stringList = prefs.getStringList("conversion_$i");
+      stringList = prefs.getStringList('conversion_$i');
       if (stringList != null) {
+        // If some units has been removed, adapt the reordering and save it.
+        // It is triggered just the first time after an update
+        if (_propertyList[i].size < stringList.length) {
+          stringList.removeWhere(
+              (element) => int.tryParse(element)! >= _propertyList[i].size);
+          prefs.setStringList('conversion_$i', stringList);
+        }
+
         final int len = stringList.length;
         List<int> intList = [];
         for (int j = 0; j < len; j++) {
