@@ -63,7 +63,11 @@ class CurrenciesObject {
     Map jsonData = json.decode(jsonString);
     lastUpdateString = lastUpdate;
     this.lastUpdate = DateTime.parse(lastUpdateString);
-    exchangeRates = Map.from(jsonData);
+    // Do this in order to prevent issue with added or removed currencies
+    // between updates
+    for (String key in exchangeRates.keys) {
+      exchangeRates[key] = jsonData[key];
+    }
   }
 
   /// Transform the exchangeRates map into a json that can be stored
