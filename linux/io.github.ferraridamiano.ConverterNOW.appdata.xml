@@ -80,14 +80,24 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.0.1" date="2023-02-15">
+      <description>
+        <ul>
+          <li>Fixed bug with currencies page after v4 update</li>
+          <li>Improved polish translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="4.0.0" date="2023-02-07">
       <description>
         <p>Introducing Converter NOW 4.0!</p>
-        <ul>Finished the migration to Material You</ul>
-        <ul>Dynamic theming support on supported desktop environments</ul>
-        <ul>New icons</ul>
-        <ul>Translations updates</ul>
-        <ul>Bug fixes and general improvements</ul>
+        <ul>
+          <li>Finished the migration to Material You</li>
+          <li>Dynamic theming support on supported desktop environments</li>
+          <li>New icons</li>
+          <li>Translations updates</li>
+          <li>Bug fixes and general improvements</li>
+        </ul>
       </description>
     </release>
     <release version="3.2.1" date="2022-10-01">

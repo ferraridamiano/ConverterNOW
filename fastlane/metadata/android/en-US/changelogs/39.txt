@@ -1,0 +1,4 @@
+- Fixed bug with currencies page after v4 update
+- Improved polish translations
+
+What do you think about Converter NOW? Rate us! ✔️

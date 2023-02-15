@@ -2,7 +2,7 @@ name: converterpro
 description: Unit and currencies converter
 publish_to: none
 
-version: 4.0.0+38
+version: 4.0.1+39
 
 environment:
   sdk: ">=2.15.0 <3.0.0"
@@ -15,13 +15,13 @@ dependencies:
   # App dynamic color theme
   dynamic_color: ^1.6.2
   # Native splash screen on Android
-  flutter_native_splash: ^2.2.16
+  flutter_native_splash: ^2.2.17
   # For svg icons
-  flutter_svg: ^2.0.0+1
+  flutter_svg: ^2.0.1
   # App logo in drawer
   google_fonts: ^4.0.3
   # Navigation
-  go_router: ^6.0.4
+  go_router: ^6.0.7
   # Translations
   intl: ^0.17.0
   # State management
@@ -56,7 +56,7 @@ dependencies:
 dev_dependencies:
   test: ^1.21.4
   flutter_lints: ^2.0.1
-  msix: ^3.7.0
+  msix: ^3.8.0
   flutter_test:
     sdk: flutter
   integration_test:
