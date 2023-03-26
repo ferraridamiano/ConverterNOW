@@ -1,0 +1,33 @@
+<b>Converter NOW is een effectieve eenheden en valuta omrekentool </b>
+✔️ <b>Versimpel</b> het omslachtige omrekenen van meeteenheden met een simpele klik op de knop!
+🚀 It is <b>Snel en onmiddelijk</b>: begin gewoon met typen en je ziet direct de omgerekende eenheden verschijnen. 
+🖌️ It is <b>Aanpasbaar</b>: Eenheden kunnen anders worden geordend aan de hand van wat je vaak gebruikt.
+🔢 Integreert een <b>rekenmachine</b> die je bij iedere meeteenheid helpt rekenen.
+💰 Valuta wisselkoersen worden <b>dagelijks geüpdate</b>
+🎨 <b>Dynamische thema's</b> gebaseerd op jouw apparaatinstellingen
+⚫⚪ <b>Kies je favoriete thema</b>: donker en licht thema
+📱🖥️ <b>Multiplatform</b>: beschikbaar op Android, Web, Linux and Windows
+💯 Het is <b>gratis, geen advertenties, geen dataverzameling, geen toestemmingen nodig</b> (alleen internet om de wisselkoersen te updaten) en bovendien <b>open source</b>!
+
+<b>Converter NOW kan 200+ meeteenheden en 30+ valuta omrekenen</b> 🎉🎉
+
+Dit zijn een aantal van de meeteenheden die Converter NOW kan omrekenen:
+-<b>Valuta:</b> Dollars, Euro, Pound, Rupee, Yen, etc.
+-<b>Lengte:</b> meters, inches, mijlen, yards, lichtjaren, etc.
+-<b>Oppervlakte:</b> vierkante meters, hectares, acres, etc.
+-<b>Inhoud:</b> kubieke meters, liters, gallons, pints, eetlepels, etc.
+-<b>Tijd:</b> seconden, uren, dagen, jaren, weken, millennia, etc.
+-<b>Temperatuur:</b> Celsius, Fahreneit, Kelvin
+-<b>Snelheid:</b> meters per seconde, kilometers per uur, knopen, etc.
+-<b>Massa:</b> grammen, pond, tonnen, atomic mass units, etc.
+-<b>Kracht:</b> Newton, dyne, pound-kracht, poundal, etc
+-<b>Druk:</b> pascal, bar, atomsfere, psi, etc.
+-<b>Energie:</b> Joule, calorieën, kilowattuur, etc.
+-<b>Vermogen:</b> Watt, kilowatt, paardenkracht, etc.
+-<b>Brandstofverbruik:</b> Mijl per Gallon, Kilometer per liter, etc.
+-<b>Numerieke systemen:</b> decimaal, binair, hexadecimaal, etc.
+-<b>Koppel:</b> Newtonmeter, pound-kracht voet, poundal meter, etc.
+-<b>Digitale data:</b> Nibble, bit, byte, kibibit, kibibyte, etc.
+-<b>Schoenmaten:</b> UK, India, Europe, USA, Japan, etc.
+-<b>Hoeken:</b> graden, straal, minuten, etc.
+-<b>Decimale voorvoegsels:</b> kilo, mega, giga, tera, milli, micro, nano, etc.
