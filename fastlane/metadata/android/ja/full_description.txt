@@ -1,33 +1,33 @@
-<b>Converter NOW is an effective unit and currencies converter </b>
-✔️ <b>Simplify</b> the tedious conversion process between units of measurement in a few clicks.
-🚀 It is <b>fast and immediate</b>: just start typing and immediately you have the real-time conversion  with all the other units of measurement.
-🖌️ It is <b>customizable</b>: the units can be reorganized according to your priorities and your use.
-🔢 It integrates a <b>calculator</b> that let you do the calculations in every page.
-💰 Currency exchange rates <b>updated daily</b>
-🎨 <b>Dynamic theming</b> based on your device settings
-⚫⚪ <b>Choose your favourite theme</b>: dark and white theme
-📱🖥️ <b>Multiplatform</b>: available for Android, Web, Linux and Windows
-💯 It is <b>free, no ads, no data collection, no permissions</b> (just Internet to update currency conversions) and first of all it is <b>open source</b>!
+<b>Converter NOW は効果的な単位と通貨の変換器です</b>
+✔️ <b>簡単</b> 数回クリックするだけで、測定単位間の面倒な変換プロセスが完了します。
+🚀 <b>迅速かつ即時</b>: 入力を開始するだけで、すぐに他のすべての測定単位をリアルタイムで変換できます。
+🖌️ <b>カスタマイズ可能</b>: ユニットは、優先順位と用途に応じて再編成できます。
+🔢 <b>電卓</b>が統合されており、すべてのページで計算を行うことができます。
+💰 <b>毎日更新</b>する為替レート
+🎨 デバイス設定に基づく<b>動的テーマ</b>
+⚫⚪ <b>好きなテーマをお選ぶ</b>: ダークとホワイトのテーマ
+📱🖥️ <b>マルチプラットフォーム</b>: Android、Web、Linux、および Windows で利用可能
+💯 <b>無料、広告なし、データ収集なし、権限なし</b> (為替レートを更新するためのインターネット権限のみ) そして<b>オープンソース</b>!
 
-<b>Converter NOW can convert 200+ units of mesurement and 30+ currencies</b> 🎉🎉
+<b>Converter NOW は、200 以上の測定単位と 30 以上の通貨を変換できます</b> 🎉🎉
 
-Here are some of the physical quantity that Converter NOW is able to convert:
--<b>Currencies:</b> Dollars, Euro, Pound, Rupee, Yen, etc
--<b>Length:</b> meters, inches, miles, yards, light years, etc.
--<b>Area:</b> square meters, hectares, acres, etc.
--<b>Volume:</b> cubic meters, liters, gallons, pints, spoons, etc.
--<b>Time:</b> seconds, hours, days, years, weeks, millennia, etc.
--<b>Temperature:</b> Centigrade, Fahreneit, Kelvin
--<b>Speed:</b> meters per second, kilometers per hour, knots, etc.
--<b>Mass:</b> grams, pounds, tons, atomic mass units, etc.
--<b>Force:</b> Newton, dyne, pound-force, poundal, etc
--<b>Pressure:</b> pascal, bar, atomsfere, psi, etc.
--<b>Energy:</b> Joule, calories, kilowatt hours, etc.
--<b>Power:</b> Watt, kilowatt, horse power, etc.
--<b>Fuel consumption:</b> Miles per Gallon, Kilometres per liter, etc.
--<b>Numeral systems:</b> decimal, binary, hexadecimal etc.
--<b>Torque:</b> Newton metre, pound-force foot, poundal metre, etc.
--<b>Digital data:</b> Nibble, bit, byte, kibibit, kibibyte, etc.
--<b>Shoes size:</b> UK, India, Europe, USA, Japan, etc.
--<b>Angles:</b> degree, radians, minutes, etc.
--<b>SI prefix:</b> kilo, mega, giga, tera, milli, micro, nano, etc.
+Converter NOW が変換できる単位の一部:
+-<b>通貨:</b> ドル、ユーロ、ポンド、ルピー、円 など
+-<b>長さ:</b> メートル、インチ、マイル、ヤード、光年 など
+-<b>面積:</b> 平方メートル、ヘクタール、エーカー など
+-<b>体積:</b> 立方メートル、リットル、ガロン、パイント、スプーン など
+-<b>時間:</b> 秒、時間、日、年、週、ミレニアム など
+-<b>温度:</b> 摂氏、華氏、ケルビン
+-<b>速度:</b> メートル毎秒、キロメートル毎時、ノット など
+-<b>質量:</b> グラム、ポンド、トン、原子質量単位 など
+-<b>力:</b> ニュートン、ダイン、重量ポンド、パウンダル など
+-<b>圧力:</b> パスカル、バール、気圧、重量ポンド毎平方インチ など
+-<b>エネルギー:</b> ジュール、カロリー、キロワット時 など
+-<b>仕事率:</b> ワット、キロワット、馬力 など
+-<b>燃費:</b> マイル毎ガロン、キロメートル毎リットル など
+-<b>記数法:</b> 10進数、2進数、16進数 など
+-<b>トルク:</b> ニュートンメートル、フィート重量ポンド、パウンダルメートル など
+-<b>デジタルデータ:</b> ニブル、ビット、バイト、キビビット、キビバイト など
+-<b>靴のサイズ:</b> イギリス、中国、インド、ヨーロッパ、アメリカ、日本 など
+-<b>角度:</b> 度、ラジアン、分 など
+-<b>国際単位変換:</b> キロ、メガ、ギガ、テラ、ミリ、マイクロ、ナノ など

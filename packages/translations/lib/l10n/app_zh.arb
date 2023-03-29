@@ -47,7 +47,7 @@
       }
     }
   },
-  "otherPlatforms": "在其他系统上使用此程序",
+  "otherPlatforms": "在其他平台上使用此程序",
   "sourceCode": "源代码",
   "undoClearAllMessage": "已全部清除。 你想撤消它吗？",
   "undo": "撤消",
@@ -143,7 +143,7 @@
 
   "fahrenheit": "华氏度",
   "celsius": "摄氏度",
-  "kelvin": "开氏度",
+  "kelvin": "开尔文",
   "reamur": "列氏度",
   "romer": "罗氏温标",
   "delisle": "德利尔温标",

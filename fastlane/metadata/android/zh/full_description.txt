@@ -1,33 +1,33 @@
-<b>Converter NOW is an effective unit and currencies converter </b>
-✔️ <b>Simplify</b> the tedious conversion process between units of measurement in a few clicks.
-🚀 It is <b>fast and immediate</b>: just start typing and immediately you have the real-time conversion  with all the other units of measurement.
-🖌️ It is <b>customizable</b>: the units can be reorganized according to your priorities and your use.
-🔢 It integrates a <b>calculator</b> that let you do the calculations in every page.
-💰 Currency exchange rates <b>updated daily</b>
-🎨 <b>Dynamic theming</b> based on your device settings
-⚫⚪ <b>Choose your favourite theme</b>: dark and white theme
-📱🖥️ <b>Multiplatform</b>: available for Android, Web, Linux and Windows
-💯 It is <b>free, no ads, no data collection, no permissions</b> (just Internet to update currency conversions) and first of all it is <b>open source</b>!
+<b>Converter NOW 是一个有力的单位和货币转换器</b>
+✔️ <b>简单</b> 只需点击几下、即可完成计量单位之间繁琐的转换过程。
+🚀 它<b>快速且易于使用</b>：只需开始输入、即可立即与所有其他测量单位进行实时转换。
+🖌️ 它是<b>可定制</b>的：可以根据您的优先级和用途进行重新组织单元。
+🔢 它集成了一个<b>计算器</b>、可让您在每个页面中进行计算。
+💰 <b>每日更新</b>货币汇率
+🎨 <b>动态主题</b> 基于您的设备配置
+⚫⚪ <b>选择你最喜欢的主题</b>：黑暗或明亮主题
+📱🖥️ <b>多平台</b>：适用于 Android、Web、Linux 和 Windows
+💯 它<b>免费、无广告、无数据收集、无权限</b>（只需互联网用来更新货币汇率）。首先它是<b>开源</b>的！
 
-<b>Converter NOW can convert 200+ units of mesurement and 30+ currencies</b> 🎉🎉
+<b>Converter NOW 可以转换 200 以上的计量单位和 30 种以上的货币</b> 🎉🎉
 
-Here are some of the physical quantity that Converter NOW is able to convert:
--<b>Currencies:</b> Dollars, Euro, Pound, Rupee, Yen, etc
--<b>Length:</b> meters, inches, miles, yards, light years, etc.
--<b>Area:</b> square meters, hectares, acres, etc.
--<b>Volume:</b> cubic meters, liters, gallons, pints, spoons, etc.
--<b>Time:</b> seconds, hours, days, years, weeks, millennia, etc.
--<b>Temperature:</b> Centigrade, Fahreneit, Kelvin
--<b>Speed:</b> meters per second, kilometers per hour, knots, etc.
--<b>Mass:</b> grams, pounds, tons, atomic mass units, etc.
--<b>Force:</b> Newton, dyne, pound-force, poundal, etc
--<b>Pressure:</b> pascal, bar, atomsfere, psi, etc.
--<b>Energy:</b> Joule, calories, kilowatt hours, etc.
--<b>Power:</b> Watt, kilowatt, horse power, etc.
--<b>Fuel consumption:</b> Miles per Gallon, Kilometres per liter, etc.
--<b>Numeral systems:</b> decimal, binary, hexadecimal etc.
--<b>Torque:</b> Newton metre, pound-force foot, poundal metre, etc.
--<b>Digital data:</b> Nibble, bit, byte, kibibit, kibibyte, etc.
--<b>Shoes size:</b> UK, India, Europe, USA, Japan, etc.
--<b>Angles:</b> degree, radians, minutes, etc.
--<b>SI prefix:</b> kilo, mega, giga, tera, milli, micro, nano, etc.
+以下是 Converter NOW 能够转换的一些单位：
+-<b>货币</b>：美元、欧元、英镑、卢比、日元 等。
+-<b>长度</b>：米、英寸、英里、码、光年 等。
+-<b>面积：</b>平方米、公顷、英亩 等。
+-<b>体积</b>：立方米、升、加仑、品脱、汤匙 等。
+-<b>时间：</b>秒、小时、天、年、周、千年 等。
+-<b>温度</b>：摄氏、华氏、开氏
+-<b>速度：</b> 米/秒、公里/小时、节 等。
+-<b>质量</b>：克、磅、吨、原子质量单位 等。
+-<b>力</b>：牛顿、达因、磅力、磅力 等。
+-<b>压力</b>：帕斯卡、巴、原子力、psi 等。
+-<b>能量：</b>焦耳、卡路里、千瓦时 等。
+-<b>功率</b>：瓦特、千瓦、马力 等。
+-<b>油耗：</b>每加仑英里数、每升公里数 等。
+-<b>数制：</b>十进制、二进制、十六进制 等。
+-<b>力矩</b>：牛顿米、磅力英尺、磅米 等。
+-<b>数据：</b>比特、字节、kibibit、kibibyte、半字节 等。
+-<b>鞋码：</b>英国、印度、欧洲、美国、日本 等。
+-<b>角度</b>：度、弧度、分 等。
+-<b>SI 前缀</b>：千、兆、千兆、万亿、毫、微米、纳米 等。
