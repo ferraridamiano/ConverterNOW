@@ -27,7 +27,8 @@ class AppModel with ChangeNotifier {
     const Locale('pt'): 'Português',
     const Locale('ru'): 'Pусский',
     const Locale('tr'): 'Türkçe',
-    const Locale('ar'): 'العربية'
+    const Locale('ar'): 'العربية',
+    const Locale('zh'): '中文',
   };
 
   Locale? _appLocale; // null means system locale

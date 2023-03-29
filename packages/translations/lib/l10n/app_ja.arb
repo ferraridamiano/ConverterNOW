@@ -68,9 +68,9 @@
   "currencies":"通貨",
   "shoeSize": "靴のサイズ",
   "digitalData": "デジタルデータ",
-  "power": "力",
+  "power": "仕事率",
   "torque": "トルク",
-  "force": "フォース",
+  "force": "力",
   "fuelConsumption": "燃費",
   "numeralSystems": "記数法",
 
@@ -142,7 +142,7 @@
   "millennium": "ミレニアム",
 
   "fahrenheit": "華氏",
-  "celsius": "セルシウス (センティグレイド)",
+  "celsius": "摂氏 (センティグレイド)",
   "kelvin": "ケルビン",
   "reamur": "レオミュール",
   "romer": "レーマー",
