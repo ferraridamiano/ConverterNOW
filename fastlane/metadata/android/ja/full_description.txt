@@ -1,0 +1,33 @@
+<b>Converter NOW is an effective unit and currencies converter </b>
+✔️ <b>Simplify</b> the tedious conversion process between units of measurement in a few clicks.
+🚀 It is <b>fast and immediate</b>: just start typing and immediately you have the real-time conversion  with all the other units of measurement.
+🖌️ It is <b>customizable</b>: the units can be reorganized according to your priorities and your use.
+🔢 It integrates a <b>calculator</b> that let you do the calculations in every page.
+💰 Currency exchange rates <b>updated daily</b>
+🎨 <b>Dynamic theming</b> based on your device settings
+⚫⚪ <b>Choose your favourite theme</b>: dark and white theme
+📱🖥️ <b>Multiplatform</b>: available for Android, Web, Linux and Windows
+💯 It is <b>free, no ads, no data collection, no permissions</b> (just Internet to update currency conversions) and first of all it is <b>open source</b>!
+
+<b>Converter NOW can convert 200+ units of mesurement and 30+ currencies</b> 🎉🎉
+
+Here are some of the physical quantity that Converter NOW is able to convert:
+-<b>Currencies:</b> Dollars, Euro, Pound, Rupee, Yen, etc
+-<b>Length:</b> meters, inches, miles, yards, light years, etc.
+-<b>Area:</b> square meters, hectares, acres, etc.
+-<b>Volume:</b> cubic meters, liters, gallons, pints, spoons, etc.
+-<b>Time:</b> seconds, hours, days, years, weeks, millennia, etc.
+-<b>Temperature:</b> Centigrade, Fahreneit, Kelvin
+-<b>Speed:</b> meters per second, kilometers per hour, knots, etc.
+-<b>Mass:</b> grams, pounds, tons, atomic mass units, etc.
+-<b>Force:</b> Newton, dyne, pound-force, poundal, etc
+-<b>Pressure:</b> pascal, bar, atomsfere, psi, etc.
+-<b>Energy:</b> Joule, calories, kilowatt hours, etc.
+-<b>Power:</b> Watt, kilowatt, horse power, etc.
+-<b>Fuel consumption:</b> Miles per Gallon, Kilometres per liter, etc.
+-<b>Numeral systems:</b> decimal, binary, hexadecimal etc.
+-<b>Torque:</b> Newton metre, pound-force foot, poundal metre, etc.
+-<b>Digital data:</b> Nibble, bit, byte, kibibit, kibibyte, etc.
+-<b>Shoes size:</b> UK, India, Europe, USA, Japan, etc.
+-<b>Angles:</b> degree, radians, minutes, etc.
+-<b>SI prefix:</b> kilo, mega, giga, tera, milli, micro, nano, etc.
