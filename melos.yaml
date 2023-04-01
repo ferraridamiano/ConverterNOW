@@ -10,7 +10,9 @@ command:
     # https://github.com/dart-lang/pub/issues/3404). Disabling this feature
     # makes the CI much more stable.
     runPubGetInParallel: false
-    usePubspecOverrides: true
+
+    hooks:
+      post: melos run compile_icons && melos run generate_translations
 
 scripts:
   analyze:
@@ -35,5 +37,3 @@ scripts:
     # Only run the test command when the package has a test directory
     run: melos exec --dir-exists=test -- "flutter test"
     description: Run `flutter test` in all packages
-  
-  postbootstrap: melos run compile_icons && melos run generate_translations

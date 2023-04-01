@@ -54,13 +54,14 @@ dependencies:
     path: packages/translations
 
 dev_dependencies:
-  test: ^1.21.4
   flutter_lints: ^2.0.1
-  msix: ^3.8.0
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
+  melos: ^3.0.1
+  msix: ^3.8.0
+  test: ^1.21.4
 
 flutter_native_splash:
   # Run code generation: `flutter pub run flutter_native_splash:create`

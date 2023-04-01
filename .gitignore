@@ -12,7 +12,6 @@ build/
 ios/Flutter/flutter_export_environment.sh
 android/key.properties
 *.iml
-pubspec.lock
 .metadata
 .idea/
 ios/Flutter/flutter_export_environment.sh
