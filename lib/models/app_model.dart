@@ -29,7 +29,7 @@ class AppModel with ChangeNotifier {
     const Locale('tr'): 'Türkçe',
     const Locale('ar'): 'العربية',
     const Locale('zh'): '中文',
-    const Locale('zh-tw'): '中文 (台灣)',
+    const Locale('zh', 'TW'): '中文 (台灣)',
   };
 
   Locale? _appLocale; // null means system locale
