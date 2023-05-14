@@ -77,11 +77,10 @@ class _SettingsPageState extends State<SettingsPage> {
           value: locale ?? AppLocalizations.of(context)!.system,
           onChanged: (String? string) {
             if (string != null) {
-              setState(() => {
-                    locale = string == AppLocalizations.of(context)!.system
-                        ? null
-                        : string
-                  });
+              setState(() => locale =
+                  string == AppLocalizations.of(context)!.system
+                      ? null
+                      : string);
               context.read<AppModel>().setLocaleString(
                   string == AppLocalizations.of(context)!.system
                       ? null
