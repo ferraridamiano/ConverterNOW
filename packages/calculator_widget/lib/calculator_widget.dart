@@ -116,7 +116,7 @@ class CalculatorWidget extends StatelessWidget {
                 //start of buttons
                 Container(
                   width: calcWidth,
-                  color: Colors.white, // TODO
+                  color: Theme.of(context).colorScheme.background,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -267,7 +267,7 @@ class CalculatorWidget extends StatelessWidget {
                                   : '←',
                               buttonWidth: buttonWidth,
                               buttonHeight: buttonOpSize,
-                              style: buttonTextStyle,
+                              style: buttonTextStyle.copyWith(fontSize: 30),
                               iconColor: secondaryColor,
                               onPressed: () {
                                 context
