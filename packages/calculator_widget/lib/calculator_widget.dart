@@ -57,79 +57,66 @@ class CalculatorWidget extends StatelessWidget {
             },
             child: Column(
               children: <Widget>[
-                Container(
+                SizedBox(
                   height: buttonHeight,
-                  alignment: const Alignment(0, 0),
-                  decoration: BoxDecoration(
-                      color: brightness == Brightness.dark
-                          ? const Color(0xFF2e2e2e)
-                          : Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black,
-                          blurRadius: 5.0,
-                        ),
-                      ]),
-                  child: SizedBox(
-                    width: calcWidth,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          width: calcWidth - buttonWidth,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: SelectableText(
-                            text,
-                            style: TextStyle(
-                              fontSize: 45.0,
-                              fontWeight: FontWeight.bold,
-                              color: brightness == Brightness.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                            ),
-                            maxLines: 1,
-                            scrollPhysics: const ClampingScrollPhysics(),
+                  width: calcWidth,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: calcWidth - buttonWidth,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: SelectableText(
+                          text,
+                          style: TextStyle(
+                            fontSize: 45.0,
+                            fontWeight: FontWeight.bold,
+                            color: brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.black,
                           ),
+                          maxLines: 1,
+                          scrollPhysics: const ClampingScrollPhysics(),
                         ),
-                        Container(
-                          width: buttonWidth,
-                          alignment: Alignment.center,
-                          child: context.select<Calculator, bool>(
-                                  (calc) => calc.isResult)
-                              ? IconButton(
-                                  tooltip: AppLocalizations.of(context)?.copy,
-                                  icon: Icon(
-                                    Icons.content_copy,
-                                    color: brightness == Brightness.dark
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                  ),
-                                  onPressed: () {
-                                    Clipboard.setData(
-                                        ClipboardData(text: text));
-                                  },
-                                )
-                              : Text(
-                                  context.select<Calculator, String>(
-                                      (calc) => calc.stringOperation),
-                                  style: TextStyle(
-                                    fontSize: 45.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: brightness == Brightness.dark
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                  ),
-                                  maxLines: 1,
+                      ),
+                      Container(
+                        width: buttonWidth,
+                        alignment: Alignment.center,
+                        child: context.select<Calculator, bool>(
+                                (calc) => calc.isResult)
+                            ? IconButton(
+                                tooltip: AppLocalizations.of(context)?.copy,
+                                icon: Icon(
+                                  Icons.content_copy,
+                                  color: brightness == Brightness.dark
+                                      ? Colors.white54
+                                      : Colors.black54,
                                 ),
-                        ),
-                      ],
-                    ),
+                                onPressed: () {
+                                  Clipboard.setData(ClipboardData(text: text));
+                                },
+                              )
+                            : Text(
+                                context.select<Calculator, String>(
+                                    (calc) => calc.stringOperation),
+                                style: TextStyle(
+                                  fontSize: 45.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: brightness == Brightness.dark
+                                      ? Colors.white54
+                                      : Colors.black54,
+                                ),
+                                maxLines: 1,
+                              ),
+                      ),
+                    ],
                   ),
                 ),
-                //start of butttons
-                SizedBox(
+                //start of buttons
+                Container(
                   width: calcWidth,
+                  color: Colors.white, // TODO
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -267,7 +254,7 @@ class CalculatorWidget extends StatelessWidget {
                       ]),
                       Container(
                         //divider
-                        width: 1.0,
+                        width: 1,
                         height: buttonHeight * 3.9,
                         color: const Color(0xFFBBBBBB),
                       ),
