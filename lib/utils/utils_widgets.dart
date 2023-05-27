@@ -3,51 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-class DrawerTile extends StatelessWidget {
-  const DrawerTile({
-    Key? key,
-    this.title,
-    this.leading,
-    this.onTap,
-    this.selected = false,
-  }) : super(key: key);
-
-  final Widget? title;
-  final Widget? leading;
-  final void Function()? onTap;
-  final bool selected;
-
-  static const BorderRadiusGeometry borderRadius =
-      BorderRadius.all(Radius.circular(30));
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Container(
-        decoration: selected
-            ? BoxDecoration(
-                color: Theme.of(context)
-                    .colorScheme
-                    .primaryContainer
-                    .withOpacity(
-                        Theme.of(context).brightness == Brightness.light
-                            ? 0.5
-                            : 0.8),
-                borderRadius: borderRadius,
-              )
-            : null,
-        child: ListTile(
-          leading: leading,
-          title: title,
-          onTap: onTap,
-          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-        ),
-      ),
-    );
-  }
-}
-
 class UnitWidget extends StatefulWidget {
   final String tffKey;
   final TextInputType? keyboardType;
