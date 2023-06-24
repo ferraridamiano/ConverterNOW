@@ -7,7 +7,6 @@ import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -70,14 +69,6 @@ class AppScaffold extends StatelessWidget {
         }
       }
     }
-
-    var mySystemTheme = SystemUiOverlayStyle.light.copyWith(
-        systemNavigationBarColor: ElevationOverlay.applySurfaceTint(
-      Theme.of(context).colorScheme.surface,
-      Theme.of(context).colorScheme.surfaceTint,
-      3,
-    ));
-    SystemChrome.setSystemUIOverlayStyle(mySystemTheme);
 
     return LayoutBuilder(builder: (context, constraints) {
       // ignore: no_leading_underscores_for_local_identifiers

@@ -37,6 +37,8 @@ class SplashScreen extends StatelessWidget {
       );
     }
 
+    updateNavBarColor(Theme.of(context).colorScheme);
+
     return const SplashScreenWidget();
   }
 }

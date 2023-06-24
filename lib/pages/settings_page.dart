@@ -59,6 +59,8 @@ class _SettingsPageState extends State<SettingsPage> {
       ThemeMode.light: AppLocalizations.of(context)!.light,
     };
 
+    updateNavBarColor(Theme.of(context).colorScheme);
+
     Color iconColor = getIconColor(Theme.of(context));
 
     return CustomScrollView(slivers: <Widget>[
