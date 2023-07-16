@@ -39,7 +39,7 @@ class CalculatorWidget extends StatelessWidget {
             context.select<Calculator, String>((calc) => calc.currentNumber);
 
         return SizedBox(
-          height: 5 * buttonHeight,
+          height: 5.5 * buttonHeight,
           child: KeyboardListener(
             focusNode: focusKeyboard,
             onKeyEvent: (KeyEvent event) {
@@ -57,66 +57,90 @@ class CalculatorWidget extends StatelessWidget {
             },
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: buttonHeight,
+                Container(
+                  height: 1.5 * buttonHeight,
                   width: calcWidth,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        width: calcWidth - buttonWidth,
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: SelectableText(
-                          text,
-                          style: TextStyle(
-                            fontSize: 45.0,
-                            fontWeight: FontWeight.bold,
-                            color: brightness == Brightness.dark
-                                ? Colors.white
-                                : Colors.black,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.background,
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: buttonHeight / 2,
+                        child: Center(
+                          child: Container(
+                            width: 32,
+                            height: 4,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant
+                                  .withOpacity(0.4),
+                              borderRadius: BorderRadius.circular(2),
+                            ),
                           ),
-                          maxLines: 1,
-                          scrollPhysics: const ClampingScrollPhysics(),
                         ),
                       ),
-                      Container(
-                        width: buttonWidth,
-                        alignment: Alignment.center,
-                        child: context.select<Calculator, bool>(
-                                (calc) => calc.isResult)
-                            ? IconButton(
-                                tooltip: AppLocalizations.of(context)?.copy,
-                                icon: Icon(
-                                  Icons.content_copy,
-                                  color: brightness == Brightness.dark
-                                      ? Colors.white54
-                                      : Colors.black54,
-                                ),
-                                onPressed: () {
-                                  Clipboard.setData(ClipboardData(text: text));
-                                },
-                              )
-                            : Text(
-                                context.select<Calculator, String>(
-                                    (calc) => calc.stringOperation),
-                                style: TextStyle(
-                                  fontSize: 45.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: brightness == Brightness.dark
-                                      ? Colors.white54
-                                      : Colors.black54,
-                                ),
-                                maxLines: 1,
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: calcWidth - buttonWidth,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: SelectableText(
+                              text,
+                              style: TextStyle(
+                                fontSize: 45.0,
+                                fontWeight: FontWeight.bold,
+                                color: brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
+                              maxLines: 1,
+                              scrollPhysics: const ClampingScrollPhysics(),
+                            ),
+                          ),
+                          Container(
+                            width: buttonWidth,
+                            alignment: Alignment.center,
+                            child: context.select<Calculator, bool>(
+                                    (calc) => calc.isResult)
+                                ? IconButton(
+                                    tooltip: AppLocalizations.of(context)?.copy,
+                                    icon: Icon(
+                                      Icons.content_copy,
+                                      color: brightness == Brightness.dark
+                                          ? Colors.white54
+                                          : Colors.black54,
+                                    ),
+                                    onPressed: () {
+                                      Clipboard.setData(
+                                          ClipboardData(text: text));
+                                    },
+                                  )
+                                : Text(
+                                    context.select<Calculator, String>(
+                                        (calc) => calc.stringOperation),
+                                    style: TextStyle(
+                                      fontSize: 45.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: brightness == Brightness.dark
+                                          ? Colors.white54
+                                          : Colors.black54,
+                                    ),
+                                    maxLines: 1,
+                                  ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
                 //start of buttons
-                Container(
+                SizedBox(
                   width: calcWidth,
-                  color: Theme.of(context).colorScheme.background,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
