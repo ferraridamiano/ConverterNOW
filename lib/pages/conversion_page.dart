@@ -49,14 +49,21 @@ class ConversionPage extends StatelessWidget {
         keyboardType: unitData.textInputType,
         controller: unitData.tec,
         validator: (String? input) {
-          if (input != null &&
-              input != '' &&
-              !unitData.getValidator().hasMatch(input)) {
-            return AppLocalizations.of(context)!.invalidCharacters;
+          if (input != null) {
+            if (input.startsWith('.')) {
+              input = '0$input';
+            }
+
+            if (input != '' && !unitData.getValidator().hasMatch(input)) {
+              return AppLocalizations.of(context)!.invalidCharacters;
+            }
           }
           return null;
         },
         onChanged: (String txt) {
+          if (txt.startsWith('.')) {
+            txt = '0$txt';
+          }
           if (txt == '' || unitData.getValidator().hasMatch(txt)) {
             Conversions conversions = context.read<Conversions>();
             //just numeral system uses a string for conversion
