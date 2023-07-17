@@ -83,6 +83,29 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
-   - assets/app_icons/
-   - assets/property_icons/
+  - assets/app_icons/logo.png	   - assets/app_icons/
+  - assets/app_icons/logo.svg.vec	   - assets/property_icons/
+  - assets/app_icons/remove_trailing_zeros.svg.vec	
+  - assets/app_icons/reorder_properties.svg.vec	
+  - assets/app_icons/reorder_units.svg.vec	
+  - assets/app_icons/significant_figures.svg.vec	
+  - assets/property_icons/angle.svg.vec	
+  - assets/property_icons/area.svg.vec	
+  - assets/property_icons/currencies.svg.vec	
+  - assets/property_icons/data.svg.vec	
+  - assets/property_icons/energy.svg.vec	
+  - assets/property_icons/force.svg.vec	
+  - assets/property_icons/fuel.svg.vec	
+  - assets/property_icons/length.svg.vec	
+  - assets/property_icons/mass.svg.vec	
+  - assets/property_icons/numeral_systems.svg.vec	
+  - assets/property_icons/power.svg.vec	
+  - assets/property_icons/pressure.svg.vec	
+  - assets/property_icons/shoe_size.svg.vec	
+  - assets/property_icons/si_prefixes.svg.vec	
+  - assets/property_icons/speed.svg.vec	
+  - assets/property_icons/temperature.svg.vec	
+  - assets/property_icons/time.svg.vec	
+  - assets/property_icons/torque.svg.vec	
+  - assets/property_icons/volume.svg.vec
  
