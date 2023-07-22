@@ -59,7 +59,7 @@ class CalculatorWidget extends StatelessWidget {
                       children: [
                         Center(
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 8),
+                            padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Container(
                               width: 32,
                               height: 4,
@@ -92,12 +92,12 @@ class CalculatorWidget extends StatelessWidget {
                                 scrollPhysics: const ClampingScrollPhysics(),
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: context.select<Calculator, bool>(
-                                      (calc) => calc.isResult)
-                                  ? IconButton(
+                            context.select<Calculator, bool>(
+                                    (calc) => calc.isResult)
+                                ? Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: IconButton(
                                       tooltip:
                                           AppLocalizations.of(context)?.copy,
                                       icon: Icon(
@@ -110,8 +110,13 @@ class CalculatorWidget extends StatelessWidget {
                                         Clipboard.setData(
                                             ClipboardData(text: text));
                                       },
-                                    )
-                                  : Text(
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                    ),
+                                    child: Text(
                                       context.select<Calculator, String>(
                                           (calc) => calc.stringOperation),
                                       style: TextStyle(
@@ -123,7 +128,7 @@ class CalculatorWidget extends StatelessWidget {
                                       ),
                                       maxLines: 1,
                                     ),
-                            ),
+                                  ),
                           ],
                         ),
                       ],
@@ -328,6 +333,7 @@ class CalculatorButton extends StatelessWidget {
       child: FilledButton.tonal(
         style: filledButtonStyle,
         onPressed: onPressed,
+        onLongPress: onLongPress,
         child: SizedBox.expand(
           child: Center(
             child: text == "←"
