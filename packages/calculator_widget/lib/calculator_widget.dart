@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:translations/app_localizations.dart';
 
-enum ButtonType { number, operation }
+enum ButtonType { number, operation, clear }
 
 const double _buttonsSpacing = 5;
 
@@ -85,7 +85,6 @@ class CalculatorHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Brightness brightness = Theme.of(context).brightness;
     String text =
         context.select<Calculator, String>((calc) => calc.currentNumber);
 
@@ -100,8 +99,7 @@ class CalculatorHeader extends StatelessWidget {
               style: TextStyle(
                 fontSize: 45.0,
                 fontWeight: FontWeight.bold,
-                color:
-                    brightness == Brightness.dark ? Colors.white : Colors.black,
+                color: Theme.of(context).colorScheme.onBackground,
               ),
               maxLines: 1,
               scrollPhysics: const ClampingScrollPhysics(),
@@ -116,9 +114,7 @@ class CalculatorHeader extends StatelessWidget {
                     tooltip: AppLocalizations.of(context)?.copy,
                     icon: Icon(
                       Icons.content_copy,
-                      color: brightness == Brightness.dark
-                          ? Colors.white54
-                          : Colors.black54,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                     onPressed: () {
                       Clipboard.setData(ClipboardData(text: text));
@@ -130,9 +126,7 @@ class CalculatorHeader extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 45.0,
                       fontWeight: FontWeight.bold,
-                      color: brightness == Brightness.dark
-                          ? Colors.white54
-                          : Colors.black54,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
                     maxLines: 1,
                   ),
@@ -267,7 +261,7 @@ class CalculatorNumpad extends StatelessWidget {
                       context.select<Calculator, bool>((calc) => calc.endNumber)
                           ? 'AC'
                           : '←',
-                  buttonType: ButtonType.operation,
+                  buttonType: ButtonType.clear,
                   onPressed: () {
                     context.read<Calculator>().adaptiveDeleteClear();
                   },
@@ -325,12 +319,15 @@ class CalculatorButton extends StatelessWidget {
     final ButtonStyle filledButtonStyle = switch (buttonType) {
       ButtonType.number => FilledButton.styleFrom(
           foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-          backgroundColor:
-              Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         ),
       ButtonType.operation => FilledButton.styleFrom(
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+          backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        ),
+      ButtonType.clear => FilledButton.styleFrom(
+          foregroundColor: Theme.of(context).colorScheme.onTertiaryContainer,
+          backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
         ),
     };
     return Padding(
