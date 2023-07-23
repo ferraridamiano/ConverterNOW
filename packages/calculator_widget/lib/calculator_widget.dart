@@ -265,7 +265,7 @@ class CalculatorNumpad extends StatelessWidget {
               CalculatorButton(
                   text:
                       context.select<Calculator, bool>((calc) => calc.endNumber)
-                          ? 'CE'
+                          ? 'AC'
                           : '←',
                   buttonType: ButtonType.operation,
                   onPressed: () {
