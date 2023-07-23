@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedButton extends StatefulWidget {
@@ -40,7 +41,8 @@ class _AnimatedButtonState extends State<AnimatedButton>
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid || Platform.isIOS || Platform.isFuchsia) {
+    if (!kIsWeb &&
+        (Platform.isAndroid || Platform.isIOS || Platform.isFuchsia)) {
       _materialStatesController.addListener(() {
         if (_materialStatesController.value.contains(MaterialState.pressed)) {
           _animationController.forward();
