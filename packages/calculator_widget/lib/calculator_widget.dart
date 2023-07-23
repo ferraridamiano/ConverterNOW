@@ -4,6 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:translations/app_localizations.dart';
 
+enum ButtonType { number, operation }
+
+const double _buttonsSpacing = 5;
+
 class CalculatorWidget extends StatelessWidget {
   final FocusNode focusKeyboard = FocusNode();
 
@@ -150,155 +154,157 @@ class CalculatorNumpad extends StatelessWidget {
   Widget build(BuildContext context) {
     final calcWidth = MediaQuery.of(context).size.width;
 
-    return Row(
-      children: <Widget>[
-        if (calcWidth > breakPoint2)
-          Column(
-            children: <Widget>[
-              CalculatorButton(
-                  text: 'x²',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    context.read<Calculator>().square();
-                  }),
-              CalculatorButton(
-                  text: 'ln',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    context.read<Calculator>().ln();
-                  }),
-              CalculatorButton(
-                  text: 'n!',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    context.read<Calculator>().factorial();
-                  }),
-              CalculatorButton(
-                  text: '1/x',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    context.read<Calculator>().reciprocal();
-                  }),
-            ].map((e) => Expanded(child: e)).toList(),
-          ),
-        if (calcWidth > breakPoint1)
-          Column(
-            children: <Widget>[
-              CalculatorButton(
-                  text: '√',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    context.read<Calculator>().squareRoot();
-                  }),
-              CalculatorButton(
-                  text: 'log',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    context.read<Calculator>().log10();
-                  }),
-              CalculatorButton(
-                  text: 'e',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    context.read<Calculator>().submitChar('e');
-                  }),
-              CalculatorButton(
-                  text: 'π',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    context.read<Calculator>().submitChar('π');
-                  }),
-            ].map((e) => Expanded(child: e)).toList(),
-          ),
-        ...List.generate(
-          3,
-          (columnIndex) => Column(
-            children: [
-              ...List.generate(
-                3,
-                (rowIndex) {
-                  final char = (7 - 3 * rowIndex + columnIndex).toString();
-                  return CalculatorButton(
-                    text: char,
+    return Padding(
+      padding: const EdgeInsets.all(_buttonsSpacing),
+      child: Row(
+        children: <Widget>[
+          if (calcWidth > breakPoint2)
+            Column(
+              children: <Widget>[
+                CalculatorButton(
+                    text: 'x²',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().square();
+                    }),
+                CalculatorButton(
+                    text: 'ln',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().ln();
+                    }),
+                CalculatorButton(
+                    text: 'n!',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().factorial();
+                    }),
+                CalculatorButton(
+                    text: '1/x',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().reciprocal();
+                    }),
+              ].map((e) => Expanded(child: e)).toList(),
+            ),
+          if (calcWidth > breakPoint1)
+            Column(
+              children: <Widget>[
+                CalculatorButton(
+                    text: '√',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().squareRoot();
+                    }),
+                CalculatorButton(
+                    text: 'log',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().log10();
+                    }),
+                CalculatorButton(
+                    text: 'e',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().submitChar('e');
+                    }),
+                CalculatorButton(
+                    text: 'π',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().submitChar('π');
+                    }),
+              ].map((e) => Expanded(child: e)).toList(),
+            ),
+          ...List.generate(
+            3,
+            (columnIndex) => Column(
+              children: [
+                ...List.generate(
+                  3,
+                  (rowIndex) {
+                    final char = (7 - 3 * rowIndex + columnIndex).toString();
+                    return CalculatorButton(
+                      text: char,
+                      buttonType: ButtonType.number,
+                      onPressed: () {
+                        context.read<Calculator>().submitChar(char);
+                      },
+                    );
+                  },
+                ),
+                if (columnIndex == 0)
+                  CalculatorButton(
+                    text: decimalSeparator,
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().submitChar(decimalSeparator);
+                    },
+                  )
+                else if (columnIndex == 1)
+                  CalculatorButton(
+                    text: '0',
                     buttonType: ButtonType.number,
                     onPressed: () {
-                      context.read<Calculator>().submitChar(char);
+                      context.read<Calculator>().submitChar('0');
                     },
-                  );
-                },
-              ),
-              if (columnIndex == 0)
-                CalculatorButton(
-                  text: decimalSeparator,
+                  )
+                else if (columnIndex == 2)
+                  CalculatorButton(
+                    text: '=',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().submitChar('=');
+                    },
+                  )
+              ].map((e) => Expanded(child: e)).toList(),
+            ),
+          ),
+          Column(
+            children: <Widget>[
+              CalculatorButton(
+                  text:
+                      context.select<Calculator, bool>((calc) => calc.endNumber)
+                          ? 'CE'
+                          : '←',
                   buttonType: ButtonType.operation,
                   onPressed: () {
-                    context.read<Calculator>().submitChar(decimalSeparator);
+                    context.read<Calculator>().adaptiveDeleteClear();
                   },
-                )
-              else if (columnIndex == 1)
-                CalculatorButton(
-                  text: '0',
-                  buttonType: ButtonType.number,
-                  onPressed: () {
-                    context.read<Calculator>().submitChar('0');
-                  },
-                )
-              else if (columnIndex == 2)
-                CalculatorButton(
-                  text: '=',
+                  onLongPress: () {
+                    context.read<Calculator>().clearAll();
+                  }),
+              CalculatorButton(
+                  text: '÷',
                   buttonType: ButtonType.operation,
                   onPressed: () {
-                    context.read<Calculator>().submitChar('=');
-                  },
-                )
+                    context.read<Calculator>().submitChar('/');
+                  }),
+              CalculatorButton(
+                  text: '×',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    context.read<Calculator>().submitChar('*');
+                  }),
+              CalculatorButton(
+                  text: '−',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    context.read<Calculator>().submitChar('-');
+                  }),
+              CalculatorButton(
+                  text: '+',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    context.read<Calculator>().submitChar('+');
+                  }),
             ].map((e) => Expanded(child: e)).toList(),
           ),
-        ),
-        Column(
-          children: <Widget>[
-            CalculatorButton(
-                text: context.select<Calculator, bool>((calc) => calc.endNumber)
-                    ? 'CE'
-                    : '←',
-                buttonType: ButtonType.operation,
-                onPressed: () {
-                  context.read<Calculator>().adaptiveDeleteClear();
-                },
-                onLongPress: () {
-                  context.read<Calculator>().clearAll();
-                }),
-            CalculatorButton(
-                text: '÷',
-                buttonType: ButtonType.operation,
-                onPressed: () {
-                  context.read<Calculator>().submitChar('/');
-                }),
-            CalculatorButton(
-                text: '×',
-                buttonType: ButtonType.operation,
-                onPressed: () {
-                  context.read<Calculator>().submitChar('*');
-                }),
-            CalculatorButton(
-                text: '−',
-                buttonType: ButtonType.operation,
-                onPressed: () {
-                  context.read<Calculator>().submitChar('-');
-                }),
-            CalculatorButton(
-                text: '+',
-                buttonType: ButtonType.operation,
-                onPressed: () {
-                  context.read<Calculator>().submitChar('+');
-                }),
-          ].map((e) => Expanded(child: e)).toList(),
-        ),
-      ].map((e) => Expanded(child: e)).toList(),
+        ].map((e) => Expanded(child: e)).toList(),
+      ),
     );
   }
 }
-
-enum ButtonType { number, operation }
 
 class CalculatorButton extends StatelessWidget {
   final String? text;
@@ -328,7 +334,7 @@ class CalculatorButton extends StatelessWidget {
         ),
     };
     return Padding(
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(_buttonsSpacing),
       child: FilledButton.tonal(
         style: filledButtonStyle,
         onPressed: onPressed,
