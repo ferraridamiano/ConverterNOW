@@ -344,7 +344,7 @@ class CalculatorButton extends StatelessWidget {
                   )
                 : Text(
                     text ?? '',
-                    style: const TextStyle(fontSize: 30),
+                    style: const TextStyle(fontSize: 27),
                     maxLines: 1,
                     textScaleFactor: 1,
                   ),
