@@ -1,3 +1,4 @@
+import 'package:calculator_widget/animated_button.dart';
 import 'package:calculator_widget/calculator_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -317,24 +318,26 @@ class CalculatorButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle filledButtonStyle = switch (buttonType) {
-      ButtonType.number => FilledButton.styleFrom(
-          foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        ),
-      ButtonType.operation => FilledButton.styleFrom(
-          foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-          backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-        ),
-      ButtonType.clear => FilledButton.styleFrom(
-          foregroundColor: Theme.of(context).colorScheme.onTertiaryContainer,
-          backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
-        ),
+    final foregroundColor = switch (buttonType) {
+      ButtonType.number => Theme.of(context).colorScheme.onPrimaryContainer,
+      ButtonType.operation =>
+        Theme.of(context).colorScheme.onSecondaryContainer,
+      ButtonType.clear => Theme.of(context).colorScheme.onTertiaryContainer,
     };
+
+    final backgroundColor = switch (buttonType) {
+      ButtonType.number => Theme.of(context).colorScheme.primaryContainer,
+      ButtonType.operation => Theme.of(context).colorScheme.secondaryContainer,
+      ButtonType.clear => Theme.of(context).colorScheme.tertiaryContainer,
+    };
+
     return Padding(
       padding: const EdgeInsets.all(_buttonsSpacing),
-      child: FilledButton.tonal(
-        style: filledButtonStyle,
+      child: AnimatedButton(
+        initialRadius: 60,
+        finalRadius: 20,
+        foregroundColor: foregroundColor,
+        backgroundColor: backgroundColor,
         onPressed: onPressed,
         onLongPress: onLongPress,
         child: SizedBox.expand(
