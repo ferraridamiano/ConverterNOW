@@ -57,6 +57,7 @@ class CalculatorWidget extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
+                        // handle
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
@@ -73,69 +74,67 @@ class CalculatorWidget extends StatelessWidget {
                             ),
                           ),
                         ),
+                        // header
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: SelectableText(
-                                text,
-                                style: TextStyle(
-                                  fontSize: 45.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: brightness == Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black,
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: SelectableText(
+                                  text,
+                                  style: TextStyle(
+                                    fontSize: 45.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: brightness == Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
+                                  maxLines: 1,
+                                  scrollPhysics: const ClampingScrollPhysics(),
                                 ),
-                                maxLines: 1,
-                                scrollPhysics: const ClampingScrollPhysics(),
                               ),
                             ),
-                            context.select<Calculator, bool>(
-                                    (calc) => calc.isResult)
-                                ? Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: IconButton(
-                                      tooltip:
-                                          AppLocalizations.of(context)?.copy,
-                                      icon: Icon(
-                                        Icons.content_copy,
-                                        color: brightness == Brightness.dark
-                                            ? Colors.white54
-                                            : Colors.black54,
+                            SizedBox(
+                              width: 50,
+                              child: Center(
+                                child: context.select<Calculator, bool>(
+                                        (calc) => calc.isResult)
+                                    ? IconButton(
+                                        tooltip:
+                                            AppLocalizations.of(context)?.copy,
+                                        icon: Icon(
+                                          Icons.content_copy,
+                                          color: brightness == Brightness.dark
+                                              ? Colors.white54
+                                              : Colors.black54,
+                                        ),
+                                        onPressed: () {
+                                          Clipboard.setData(
+                                              ClipboardData(text: text));
+                                        },
+                                      )
+                                    : Text(
+                                        context.select<Calculator, String>(
+                                            (calc) => calc.stringOperation),
+                                        style: TextStyle(
+                                          fontSize: 45.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: brightness == Brightness.dark
+                                              ? Colors.white54
+                                              : Colors.black54,
+                                        ),
+                                        maxLines: 1,
                                       ),
-                                      onPressed: () {
-                                        Clipboard.setData(
-                                            ClipboardData(text: text));
-                                      },
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                    ),
-                                    child: Text(
-                                      context.select<Calculator, String>(
-                                          (calc) => calc.stringOperation),
-                                      style: TextStyle(
-                                        fontSize: 45.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: brightness == Brightness.dark
-                                            ? Colors.white54
-                                            : Colors.black54,
-                                      ),
-                                      maxLines: 1,
-                                    ),
-                                  ),
+                              ),
+                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                //start of buttons
+                // Numpad
                 Expanded(
                   flex: 7,
                   child: Row(
