@@ -24,6 +24,7 @@ class AppScaffold extends StatelessWidget {
     void openCalculator() {
       showModalBottomSheet<void>(
         context: context,
+        isScrollControlled: true,
         builder: (BuildContext context) {
           return CalculatorWidget();
         },

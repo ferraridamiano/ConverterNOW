@@ -15,7 +15,8 @@ class CalculatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SizedBox(
+      height: 450,
       child: ChangeNotifierProvider(
         create: (_) => Calculator(),
         builder: (context, child) {
