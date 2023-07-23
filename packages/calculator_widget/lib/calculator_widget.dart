@@ -1,46 +1,30 @@
+import 'package:calculator_widget/animated_button.dart';
 import 'package:calculator_widget/calculator_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:translations/app_localizations.dart';
 
+enum ButtonType { number, operation, clear }
+
+const double _buttonsSpacing = 5;
+
 class CalculatorWidget extends StatelessWidget {
-  static const double buttonHeight = 70.0;
-  static const double buttonOpSize = buttonHeight * 0.8;
   final FocusNode focusKeyboard = FocusNode();
-  static const String decimalSeparator = '.';
 
   CalculatorWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Color secondaryColor = Theme.of(context).colorScheme.secondary;
-    final Brightness brightness = Theme.of(context).brightness;
-    final TextStyle buttonOpStyle =
-        TextStyle(fontSize: 35, color: secondaryColor);
-    final TextStyle buttonTextStyle = TextStyle(
-      fontSize: 35,
-      color: Color(brightness == Brightness.dark ? 0xFFBBBBBB : 0xFF777777),
-    );
-
-    return ChangeNotifierProvider(
-      create: (_) => Calculator(),
-      child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-        final double calcWidth = _getCalcWidth(constraints.maxWidth);
-        final int columnsNumber = _getColumnsNumber(calcWidth);
-        final double buttonWidth = _getButtonWidth(calcWidth, columnsNumber);
-
-        // Request focus on this widget, otherwise we are not able to use the
-        // HW keyboard immediately when the calculator pops up.
-        focusKeyboard.requestFocus();
-
-        String text =
-            context.select<Calculator, String>((calc) => calc.currentNumber);
-
-        return SizedBox(
-          height: 5.5 * buttonHeight,
-          child: KeyboardListener(
+    return SizedBox(
+      height: 450,
+      child: ChangeNotifierProvider(
+        create: (_) => Calculator(),
+        builder: (context, child) {
+          // Request focus on this widget, otherwise we are not able to use the
+          // HW keyboard immediately when the calculator pops up.
+          focusKeyboard.requestFocus();
+          return KeyboardListener(
             focusNode: focusKeyboard,
             onKeyEvent: (KeyEvent event) {
               if (event.runtimeType.toString() == 'KeyDownEvent') {
@@ -57,362 +41,322 @@ class CalculatorWidget extends StatelessWidget {
             },
             child: Column(
               children: <Widget>[
-                Container(
-                  height: 1.5 * buttonHeight,
-                  width: calcWidth,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: buttonHeight / 2,
-                        child: Center(
-                          child: Container(
-                            width: 32,
-                            height: 4,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurfaceVariant
-                                  .withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(2),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            width: calcWidth - buttonWidth,
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: SelectableText(
-                              text,
-                              style: TextStyle(
-                                fontSize: 45.0,
-                                fontWeight: FontWeight.bold,
-                                color: brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black,
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.background,
+                      borderRadius: const BorderRadius.all(Radius.circular(30)),
+                    ),
+                    child: Column(
+                      children: [
+                        // handle
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Container(
+                              width: 32,
+                              height: 4,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant
+                                    .withOpacity(0.4),
+                                borderRadius: BorderRadius.circular(2),
                               ),
-                              maxLines: 1,
-                              scrollPhysics: const ClampingScrollPhysics(),
                             ),
                           ),
-                          Container(
-                            width: buttonWidth,
-                            alignment: Alignment.center,
-                            child: context.select<Calculator, bool>(
-                                    (calc) => calc.isResult)
-                                ? IconButton(
-                                    tooltip: AppLocalizations.of(context)?.copy,
-                                    icon: Icon(
-                                      Icons.content_copy,
-                                      color: brightness == Brightness.dark
-                                          ? Colors.white54
-                                          : Colors.black54,
-                                    ),
-                                    onPressed: () {
-                                      Clipboard.setData(
-                                          ClipboardData(text: text));
-                                    },
-                                  )
-                                : Text(
-                                    context.select<Calculator, String>(
-                                        (calc) => calc.stringOperation),
-                                    style: TextStyle(
-                                      fontSize: 45.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: brightness == Brightness.dark
-                                          ? Colors.white54
-                                          : Colors.black54,
-                                    ),
-                                    maxLines: 1,
-                                  ),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                        const CalculatorHeader(),
+                      ],
+                    ),
                   ),
                 ),
-                //start of buttons
-                SizedBox(
-                  width: calcWidth,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      if (columnsNumber > 5)
-                        Column(
-                          children: <Widget>[
-                            CalculatorButton(
-                                text: 'x²',
-                                buttonWidth: buttonWidth,
-                                buttonHeight: buttonHeight,
-                                style: buttonOpStyle,
-                                onPressed: () {
-                                  context.read<Calculator>().square();
-                                }),
-                            CalculatorButton(
-                                text: 'ln',
-                                buttonWidth: buttonWidth,
-                                buttonHeight: buttonHeight,
-                                style: buttonOpStyle,
-                                onPressed: () {
-                                  context.read<Calculator>().ln();
-                                }),
-                            CalculatorButton(
-                                text: 'n!',
-                                buttonWidth: buttonWidth,
-                                buttonHeight: buttonHeight,
-                                style: buttonOpStyle,
-                                onPressed: () {
-                                  context.read<Calculator>().factorial();
-                                }),
-                            CalculatorButton(
-                                text: '1/x',
-                                buttonWidth: buttonWidth,
-                                buttonHeight: buttonHeight,
-                                style: buttonOpStyle,
-                                onPressed: () {
-                                  context.read<Calculator>().reciprocal();
-                                }),
-                          ],
-                        ),
-                      if (columnsNumber > 4)
-                        Column(
-                          children: <Widget>[
-                            CalculatorButton(
-                                text: '√',
-                                buttonWidth: buttonWidth,
-                                buttonHeight: buttonHeight,
-                                style: buttonOpStyle,
-                                onPressed: () {
-                                  context.read<Calculator>().squareRoot();
-                                }),
-                            CalculatorButton(
-                                text: 'log',
-                                buttonWidth: buttonWidth,
-                                buttonHeight: buttonHeight,
-                                style: buttonOpStyle,
-                                onPressed: () {
-                                  context.read<Calculator>().log10();
-                                }),
-                            CalculatorButton(
-                                text: 'e',
-                                buttonWidth: buttonWidth,
-                                buttonHeight: buttonHeight,
-                                style: buttonOpStyle,
-                                onPressed: () {
-                                  context.read<Calculator>().submitChar('e');
-                                }),
-                            CalculatorButton(
-                                text: 'π',
-                                buttonWidth: buttonWidth,
-                                buttonHeight: buttonHeight,
-                                style: buttonOpStyle,
-                                onPressed: () {
-                                  context.read<Calculator>().submitChar('π');
-                                }),
-                          ],
-                        ),
-                      if (columnsNumber > 4)
-                        Container(
-                          //divider
-                          width: 1.0,
-                          height: buttonHeight * 3.9,
-                          color: const Color(0xFFBBBBBB),
-                        ),
-                      Column(children: [
-                        Column(
-                          //creates numbers buttons from 1 to 9
-                          children: List<Widget>.generate(3, (i) {
-                            return Row(
-                              children: List.generate(3, (j) {
-                                // (2-i)*3 + j+1 = 7-3*i+j
-                                String char = (7 - 3 * i + j).toString();
-                                return CalculatorButton(
-                                    text: char,
-                                    buttonWidth: buttonWidth,
-                                    buttonHeight: buttonHeight,
-                                    style: buttonTextStyle,
-                                    onPressed: () {
-                                      context
-                                          .read<Calculator>()
-                                          .submitChar(char);
-                                    });
-                              }),
-                            );
-                          }),
-                        ),
-                        Row(children: <Widget>[
-                          CalculatorButton(
-                              text: decimalSeparator,
-                              buttonWidth: buttonWidth,
-                              buttonHeight: buttonHeight,
-                              style: buttonTextStyle,
-                              onPressed: () {
-                                context
-                                    .read<Calculator>()
-                                    .submitChar(decimalSeparator);
-                              }),
-                          CalculatorButton(
-                              text: '0',
-                              buttonWidth: buttonWidth,
-                              buttonHeight: buttonHeight,
-                              style: buttonTextStyle,
-                              onPressed: () {
-                                context.read<Calculator>().submitChar('0');
-                              }),
-                          CalculatorButton(
-                              text: '=',
-                              buttonWidth: buttonWidth,
-                              buttonHeight: buttonHeight,
-                              style: buttonTextStyle,
-                              onPressed: () {
-                                context.read<Calculator>().submitChar('=');
-                              }),
-                        ]),
-                      ]),
-                      Container(
-                        //divider
-                        width: 1,
-                        height: buttonHeight * 3.9,
-                        color: const Color(0xFFBBBBBB),
-                      ),
-                      Column(
-                        children: <Widget>[
-                          CalculatorButton(
-                              text: context.select<Calculator, bool>(
-                                      (calc) => calc.endNumber)
-                                  ? 'CE'
-                                  : '←',
-                              buttonWidth: buttonWidth,
-                              buttonHeight: buttonOpSize,
-                              style: buttonTextStyle.copyWith(fontSize: 30),
-                              iconColor: secondaryColor,
-                              onPressed: () {
-                                context
-                                    .read<Calculator>()
-                                    .adaptiveDeleteClear();
-                              },
-                              onLongPress: () {
-                                context.read<Calculator>().clearAll();
-                              }),
-                          CalculatorButton(
-                              text: '÷',
-                              buttonWidth: buttonWidth,
-                              buttonHeight: buttonOpSize,
-                              style: buttonOpStyle,
-                              onPressed: () {
-                                context.read<Calculator>().submitChar('/');
-                              }),
-                          CalculatorButton(
-                              text: '×',
-                              buttonWidth: buttonWidth,
-                              buttonHeight: buttonOpSize,
-                              style: buttonOpStyle,
-                              onPressed: () {
-                                context.read<Calculator>().submitChar('*');
-                              }),
-                          CalculatorButton(
-                              text: '−',
-                              buttonWidth: buttonWidth,
-                              buttonHeight: buttonOpSize,
-                              style: buttonOpStyle,
-                              onPressed: () {
-                                context.read<Calculator>().submitChar('-');
-                              }),
-                          CalculatorButton(
-                              text: '+',
-                              buttonWidth: buttonWidth,
-                              buttonHeight: buttonOpSize,
-                              style: buttonOpStyle,
-                              onPressed: () {
-                                context.read<Calculator>().submitChar('+');
-                              }),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                const Expanded(flex: 7, child: CalculatorNumpad()),
               ],
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 }
 
-///Returns the width of one button given all the available width
-double _getButtonWidth(double calcWidth, int columnNumber) {
-  return (calcWidth * 0.9) / columnNumber;
-}
+class CalculatorHeader extends StatelessWidget {
+  const CalculatorHeader({super.key});
 
-///Returns the width of the calculator
-double _getCalcWidth(double totalWidth) {
-  const double maxCalcWidth = 800;
-  return totalWidth < maxCalcWidth ? totalWidth : maxCalcWidth;
-}
+  @override
+  Widget build(BuildContext context) {
+    String text =
+        context.select<Calculator, String>((calc) => calc.currentNumber);
 
-int _getColumnsNumber(double calcWidth) {
-  if (calcWidth < 400) {
-    return 4;
-  } else if (calcWidth < 500) {
-    return 5;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: SelectableText(
+              text,
+              style: TextStyle(
+                fontSize: 45.0,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+              maxLines: 1,
+              textScaleFactor: 1,
+              scrollPhysics: const ClampingScrollPhysics(),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 50,
+          child: Center(
+            child: context.select<Calculator, bool>((calc) => calc.isResult)
+                ? IconButton(
+                    tooltip: AppLocalizations.of(context)?.copy,
+                    icon: Icon(
+                      Icons.content_copy,
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
+                    onPressed: () {
+                      Clipboard.setData(ClipboardData(text: text));
+                    },
+                  )
+                : Text(
+                    context.select<Calculator, String>(
+                        (calc) => calc.stringOperation),
+                    style: TextStyle(
+                      fontSize: 45.0,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
+                    textScaleFactor: 1,
+                    maxLines: 1,
+                  ),
+          ),
+        ),
+      ],
+    );
   }
-  return 6;
+}
+
+class CalculatorNumpad extends StatelessWidget {
+  const CalculatorNumpad({super.key});
+
+  static const double breakPoint1 = 500;
+  static const double breakPoint2 = 610;
+  static const decimalSeparator = '.';
+
+  @override
+  Widget build(BuildContext context) {
+    final calcWidth = MediaQuery.of(context).size.width;
+
+    return Padding(
+      padding: const EdgeInsets.all(_buttonsSpacing),
+      child: Row(
+        children: <Widget>[
+          if (calcWidth > breakPoint2)
+            Column(
+              children: <Widget>[
+                CalculatorButton(
+                    text: 'x²',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().square();
+                    }),
+                CalculatorButton(
+                    text: 'ln',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().ln();
+                    }),
+                CalculatorButton(
+                    text: 'n!',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().factorial();
+                    }),
+                CalculatorButton(
+                    text: '1/x',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().reciprocal();
+                    }),
+              ].map((e) => Expanded(child: e)).toList(),
+            ),
+          if (calcWidth > breakPoint1)
+            Column(
+              children: <Widget>[
+                CalculatorButton(
+                    text: '√',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().squareRoot();
+                    }),
+                CalculatorButton(
+                    text: 'log',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().log10();
+                    }),
+                CalculatorButton(
+                    text: 'e',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().submitChar('e');
+                    }),
+                CalculatorButton(
+                    text: 'π',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().submitChar('π');
+                    }),
+              ].map((e) => Expanded(child: e)).toList(),
+            ),
+          ...List.generate(
+            3,
+            (columnIndex) => Column(
+              children: [
+                ...List.generate(
+                  3,
+                  (rowIndex) {
+                    final char = (7 - 3 * rowIndex + columnIndex).toString();
+                    return CalculatorButton(
+                      text: char,
+                      buttonType: ButtonType.number,
+                      onPressed: () {
+                        context.read<Calculator>().submitChar(char);
+                      },
+                    );
+                  },
+                ),
+                if (columnIndex == 0)
+                  CalculatorButton(
+                    text: decimalSeparator,
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().submitChar(decimalSeparator);
+                    },
+                  )
+                else if (columnIndex == 1)
+                  CalculatorButton(
+                    text: '0',
+                    buttonType: ButtonType.number,
+                    onPressed: () {
+                      context.read<Calculator>().submitChar('0');
+                    },
+                  )
+                else if (columnIndex == 2)
+                  CalculatorButton(
+                    text: '=',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      context.read<Calculator>().submitChar('=');
+                    },
+                  )
+              ].map((e) => Expanded(child: e)).toList(),
+            ),
+          ),
+          Column(
+            children: <Widget>[
+              CalculatorButton(
+                  text:
+                      context.select<Calculator, bool>((calc) => calc.endNumber)
+                          ? 'AC'
+                          : '←',
+                  buttonType: ButtonType.clear,
+                  onPressed: () {
+                    context.read<Calculator>().adaptiveDeleteClear();
+                  },
+                  onLongPress: () {
+                    context.read<Calculator>().clearAll();
+                  }),
+              CalculatorButton(
+                  text: '÷',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    context.read<Calculator>().submitChar('/');
+                  }),
+              CalculatorButton(
+                  text: '×',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    context.read<Calculator>().submitChar('*');
+                  }),
+              CalculatorButton(
+                  text: '−',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    context.read<Calculator>().submitChar('-');
+                  }),
+              CalculatorButton(
+                  text: '+',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    context.read<Calculator>().submitChar('+');
+                  }),
+            ].map((e) => Expanded(child: e)).toList(),
+          ),
+        ].map((e) => Expanded(child: e)).toList(),
+      ),
+    );
+  }
 }
 
 class CalculatorButton extends StatelessWidget {
   final String? text;
-  final double buttonWidth;
-  final double buttonHeight;
   final void Function()? onPressed;
   final void Function()? onLongPress;
-  final TextStyle? style;
-  final Color? iconColor;
+  final ButtonType buttonType;
 
   const CalculatorButton({
     Key? key,
     this.text,
-    required this.buttonHeight,
-    required this.buttonWidth,
     this.onLongPress,
     this.onPressed,
-    this.style,
-    this.iconColor,
+    required this.buttonType,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final Brightness brightness = Theme.of(context).brightness;
+    final foregroundColor = switch (buttonType) {
+      ButtonType.number => Theme.of(context).colorScheme.onPrimaryContainer,
+      ButtonType.operation =>
+        Theme.of(context).colorScheme.onSecondaryContainer,
+      ButtonType.clear => Theme.of(context).colorScheme.onTertiaryContainer,
+    };
 
-    final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-      foregroundColor:
-          brightness == Brightness.dark ? Colors.white24 : Colors.black26,
-      backgroundColor: Colors.transparent,
-      minimumSize: Size(buttonWidth, buttonHeight),
-      elevation: 0,
-      animationDuration: const Duration(milliseconds: 30),
-    );
+    final backgroundColor = switch (buttonType) {
+      ButtonType.number => Theme.of(context).colorScheme.primaryContainer,
+      ButtonType.operation => Theme.of(context).colorScheme.secondaryContainer,
+      ButtonType.clear => Theme.of(context).colorScheme.tertiaryContainer,
+    };
 
-    return ElevatedButton(
-      style: raisedButtonStyle,
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      child: text == "←"
-          ? Icon(
-              Icons.backspace_outlined,
-              color: iconColor,
-            )
-          : Text(
-              text ?? '',
-              style: style,
-            ),
+    return Padding(
+      padding: const EdgeInsets.all(_buttonsSpacing),
+      child: AnimatedButton(
+        initialRadius: 60,
+        finalRadius: 20,
+        foregroundColor: foregroundColor,
+        backgroundColor: backgroundColor,
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        child: SizedBox.expand(
+          child: Center(
+            child: text == "←"
+                ? const Icon(
+                    Icons.backspace_outlined,
+                  )
+                : Text(
+                    text ?? '',
+                    style: const TextStyle(fontSize: 27),
+                    maxLines: 1,
+                    textScaleFactor: 1,
+                  ),
+          ),
+        ),
+      ),
     );
   }
 }
