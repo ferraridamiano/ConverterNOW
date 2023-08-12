@@ -251,6 +251,7 @@ class DropdownListTile extends StatelessWidget {
                 : null,
             initialSelection: value,
             onSelected: onChanged,
+            requestFocusOnTap: false,
             width: 150,
             inputDecorationTheme: const InputDecorationTheme(
               outlineBorder: BorderSide.none,
