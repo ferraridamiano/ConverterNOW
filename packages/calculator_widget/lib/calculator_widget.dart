@@ -2,7 +2,7 @@ import 'package:calculator_widget/animated_button.dart';
 import 'package:calculator_widget/calculator_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 
 enum ButtonType { number, operation, clear }
@@ -10,32 +10,39 @@ enum ButtonType { number, operation, clear }
 const double _buttonsSpacing = 5;
 
 class CalculatorWidget extends StatelessWidget {
-  final FocusNode focusKeyboard = FocusNode();
-
-  CalculatorWidget({Key? key}) : super(key: key);
+  const CalculatorWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) =>
+      ProviderScope(child: _CalculatorWidget());
+}
+
+class _CalculatorWidget extends ConsumerWidget {
+  final FocusNode focusKeyboard = FocusNode();
+
+  _CalculatorWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       height: 450,
-      child: ChangeNotifierProvider(
-        create: (_) => Calculator(),
-        builder: (context, child) {
-          // Request focus on this widget, otherwise we are not able to use the
-          // HW keyboard immediately when the calculator pops up.
+      child: Builder(
+        builder: (context) {
           focusKeyboard.requestFocus();
           return KeyboardListener(
             focusNode: focusKeyboard,
             onKeyEvent: (KeyEvent event) {
               if (event.runtimeType.toString() == 'KeyDownEvent') {
                 if (event.logicalKey == LogicalKeyboardKey.backspace) {
-                  context.read<Calculator>().adaptiveDeleteClear();
+                  ref.read(calculatorProvider.notifier).adaptiveDeleteClear();
                 } else if (event.logicalKey == LogicalKeyboardKey.delete) {
-                  context.read<Calculator>().clearAll();
+                  ref.read(calculatorProvider.notifier).clearAll();
                 } else if (event.logicalKey == LogicalKeyboardKey.enter) {
-                  context.read<Calculator>().submitChar('=');
+                  ref.read(calculatorProvider.notifier).submitChar('=');
                 } else {
-                  context.read<Calculator>().submitChar(event.character ?? '');
+                  ref
+                      .read(calculatorProvider.notifier)
+                      .submitChar(event.character ?? '');
                 }
               }
             },
@@ -82,13 +89,14 @@ class CalculatorWidget extends StatelessWidget {
   }
 }
 
-class CalculatorHeader extends StatelessWidget {
+class CalculatorHeader extends ConsumerWidget {
   const CalculatorHeader({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    String text =
-        context.select<Calculator, String>((calc) => calc.currentNumber);
+  Widget build(BuildContext context, WidgetRef ref) {
+    String text = ref.watch(calculatorProvider);
+
+    var operation = ref.watch(selectedOperationProvider);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,7 +120,7 @@ class CalculatorHeader extends StatelessWidget {
         SizedBox(
           width: 50,
           child: Center(
-            child: context.select<Calculator, bool>((calc) => calc.isResult)
+            child: ref.watch(isResultProvider)
                 ? IconButton(
                     tooltip: AppLocalizations.of(context)?.copy,
                     icon: Icon(
@@ -124,8 +132,7 @@ class CalculatorHeader extends StatelessWidget {
                     },
                   )
                 : Text(
-                    context.select<Calculator, String>(
-                        (calc) => calc.stringOperation),
+                    operation != null ? operation.toString() : '',
                     style: TextStyle(
                       fontSize: 45.0,
                       fontWeight: FontWeight.bold,
@@ -141,7 +148,7 @@ class CalculatorHeader extends StatelessWidget {
   }
 }
 
-class CalculatorNumpad extends StatelessWidget {
+class CalculatorNumpad extends ConsumerWidget {
   const CalculatorNumpad({super.key});
 
   static const double breakPoint1 = 500;
@@ -149,7 +156,7 @@ class CalculatorNumpad extends StatelessWidget {
   static const decimalSeparator = '.';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final calcWidth = MediaQuery.of(context).size.width;
 
     return Padding(
@@ -163,25 +170,25 @@ class CalculatorNumpad extends StatelessWidget {
                     text: 'x²',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      context.read<Calculator>().square();
+                      ref.read(calculatorProvider.notifier).square();
                     }),
                 CalculatorButton(
                     text: 'ln',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      context.read<Calculator>().ln();
+                      ref.read(calculatorProvider.notifier).ln();
                     }),
                 CalculatorButton(
                     text: 'n!',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      context.read<Calculator>().factorial();
+                      ref.read(calculatorProvider.notifier).factorial();
                     }),
                 CalculatorButton(
                     text: '1/x',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      context.read<Calculator>().reciprocal();
+                      ref.read(calculatorProvider.notifier).reciprocal();
                     }),
               ].map((e) => Expanded(child: e)).toList(),
             ),
@@ -192,25 +199,25 @@ class CalculatorNumpad extends StatelessWidget {
                     text: '√',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      context.read<Calculator>().squareRoot();
+                      ref.read(calculatorProvider.notifier).squareRoot();
                     }),
                 CalculatorButton(
                     text: 'log',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      context.read<Calculator>().log10();
+                      ref.read(calculatorProvider.notifier).log10();
                     }),
                 CalculatorButton(
                     text: 'e',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      context.read<Calculator>().submitChar('e');
+                      ref.read(calculatorProvider.notifier).submitChar('e');
                     }),
                 CalculatorButton(
                     text: 'π',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      context.read<Calculator>().submitChar('π');
+                      ref.read(calculatorProvider.notifier).submitChar('π');
                     }),
               ].map((e) => Expanded(child: e)).toList(),
             ),
@@ -226,7 +233,7 @@ class CalculatorNumpad extends StatelessWidget {
                       text: char,
                       buttonType: ButtonType.number,
                       onPressed: () {
-                        context.read<Calculator>().submitChar(char);
+                        ref.read(calculatorProvider.notifier).submitChar(char);
                       },
                     );
                   },
@@ -236,7 +243,9 @@ class CalculatorNumpad extends StatelessWidget {
                     text: decimalSeparator,
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      context.read<Calculator>().submitChar(decimalSeparator);
+                      ref
+                          .read(calculatorProvider.notifier)
+                          .submitChar(decimalSeparator);
                     },
                   )
                 else if (columnIndex == 1)
@@ -244,7 +253,7 @@ class CalculatorNumpad extends StatelessWidget {
                     text: '0',
                     buttonType: ButtonType.number,
                     onPressed: () {
-                      context.read<Calculator>().submitChar('0');
+                      ref.read(calculatorProvider.notifier).submitChar('0');
                     },
                   )
                 else if (columnIndex == 2)
@@ -252,7 +261,7 @@ class CalculatorNumpad extends StatelessWidget {
                     text: '=',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      context.read<Calculator>().submitChar('=');
+                      ref.read(calculatorProvider.notifier).submitChar('=');
                     },
                   )
               ].map((e) => Expanded(child: e)).toList(),
@@ -261,40 +270,37 @@ class CalculatorNumpad extends StatelessWidget {
           Column(
             children: <Widget>[
               CalculatorButton(
-                  text:
-                      context.select<Calculator, bool>((calc) => calc.endNumber)
-                          ? 'AC'
-                          : '←',
+                  text: ref.read(endNumberProvider) ? 'AC' : '←',
                   buttonType: ButtonType.clear,
                   onPressed: () {
-                    context.read<Calculator>().adaptiveDeleteClear();
+                    ref.read(calculatorProvider.notifier).adaptiveDeleteClear();
                   },
                   onLongPress: () {
-                    context.read<Calculator>().clearAll();
+                    ref.read(calculatorProvider.notifier).clearAll();
                   }),
               CalculatorButton(
                   text: '÷',
                   buttonType: ButtonType.operation,
                   onPressed: () {
-                    context.read<Calculator>().submitChar('/');
+                    ref.read(calculatorProvider.notifier).submitChar('/');
                   }),
               CalculatorButton(
                   text: '×',
                   buttonType: ButtonType.operation,
                   onPressed: () {
-                    context.read<Calculator>().submitChar('*');
+                    ref.read(calculatorProvider.notifier).submitChar('*');
                   }),
               CalculatorButton(
                   text: '−',
                   buttonType: ButtonType.operation,
                   onPressed: () {
-                    context.read<Calculator>().submitChar('-');
+                    ref.read(calculatorProvider.notifier).submitChar('-');
                   }),
               CalculatorButton(
                   text: '+',
                   buttonType: ButtonType.operation,
                   onPressed: () {
-                    context.read<Calculator>().submitChar('+');
+                    ref.read(calculatorProvider.notifier).submitChar('+');
                   }),
             ].map((e) => Expanded(child: e)).toList(),
           ),
