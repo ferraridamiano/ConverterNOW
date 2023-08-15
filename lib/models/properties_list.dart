@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:units_converter/units_converter.dart';
 
 final propertiesListProvider = StateProvider<List<Property>>((ref) {
-  var removeTrailingZeros = true; //ref.watch(RemoveTrailingZeros.provider);
-  var significantFigures = 10; //ref.watch(SignificantFigures.provider);
+  var removeTrailingZeros = ref.watch(RemoveTrailingZeros.provider);
+  var significantFigures = ref.watch(SignificantFigures.provider);
   return [
     Length(
         significantFigures: significantFigures,

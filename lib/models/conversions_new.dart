@@ -8,12 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:units_converter/units_converter.dart';
 
 class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
-  late final List<Property> _propertyList;
+  //TODO watch never used on propertiesListProvider
 
   @override
   List<List<UnitData>> build() {
-    _propertyList = ref.watch(propertiesListProvider);
-
     //_checkCurrencies();
     _checkOrdersUnits();
     //_checkSettings();
@@ -81,7 +79,7 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
   _refreshCurrentUnitDataList(int page) {
     List<UnitData> currentUnitDataList = state[page];
     for (UnitData currentUnitData in currentUnitDataList) {
-      final currentProperty = _propertyList[page];
+      final currentProperty = ref.read(propertiesListProvider)[page];
       currentUnitData.unit = currentProperty.getUnit(currentUnitData.unit.name);
       if (currentUnitData != _selectedUnit) {
         if (currentUnitData.unit.stringValue == null) {
@@ -96,7 +94,7 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
   /// This function is used to convert all the values from one that has been
   /// modified
   convert(UnitData unitData, var value, int page) {
-    _propertyList[page].convert(unitData.unit.name, value);
+    ref.read(propertiesListProvider)[page].convert(unitData.unit.name, value);
     _selectedUnit = unitData;
     _refreshCurrentUnitDataList(page);
   }
@@ -105,7 +103,8 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
   /// (usefult with reorder units)
   List<UnitData> getUnitDataListAtPage(int page) => state[page];
 
-  PROPERTYX getPropertyNameAtPage(int page) => _propertyList[page].name;
+  PROPERTYX getPropertyNameAtPage(int page) =>
+      ref.read(propertiesListProvider)[page].name;
 
   ///Clears the values of the current page
   clearAllValues(int page) {
@@ -207,7 +206,7 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
     // Initialize the order for each property to default:
     // [0,1,2,...,size(property)]
     List<List<int>> temp = [];
-    for (Property property in _propertyList) {
+    for (Property property in ref.read(propertiesListProvider)) {
       temp.add(List.generate(property.size, (index) => index));
     }
 
@@ -246,10 +245,10 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
   List<List<UnitData>> _refreshOrderUnits() {
     assert(_conversionsOrder != null, true);
     List<List<UnitData>> tempUnitDataList = [];
-    for (int i = 0; i < _propertyList.length; i++) {
+    for (int i = 0; i < ref.read(propertiesListProvider).length; i++) {
       List<UnitData> tempUnitData = List.filled(_conversionsOrder![i].length,
           UnitData(Unit('none'), tec: TextEditingController()));
-      Property property = _propertyList[i];
+      Property property = ref.read(propertiesListProvider)[i];
       List<Unit> tempProperty = property.getAll();
       for (int j = 0; j < tempProperty.length; j++) {
         VALIDATOR validator;
