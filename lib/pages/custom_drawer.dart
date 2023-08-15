@@ -3,14 +3,14 @@ import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:translations/app_localizations.dart';
-import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends ConsumerWidget {
   final bool isDrawerFixed;
   final void Function() openCalculator;
   final void Function() openSearch;
@@ -23,7 +23,7 @@ class CustomDrawer extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     List<Widget> headerDrawer = [];
 
     Color iconColor = getIconColor(Theme.of(context));
@@ -88,9 +88,10 @@ class CustomDrawer extends StatelessWidget {
       ),
     );
 
-    List<int> conversionsOrderDrawer = context.select<AppModel, List<int>>(
+    List<int> conversionsOrderDrawer = List.generate(19, (i) => i);
+    /*context.select<AppModel, List<int>>(
       (appModel) => appModel.conversionsOrderDrawer!,
-    );
+    );*/
 
     List<PropertyUi> propertyUiList = getPropertyUiList(context);
     List<Widget> conversionDrawer = List<Widget>.filled(

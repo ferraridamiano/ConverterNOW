@@ -7,16 +7,16 @@ import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/utils/app_scaffold.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -27,6 +27,7 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
 class MyApp extends StatelessWidget {
   late final _router = GoRouter(
     navigatorKey: rootNavigatorKey,
+    initialLocation: '/conversions/length', // TODO remove this
     routes: [
       GoRoute(
         path: '/',
@@ -96,7 +97,7 @@ class MyApp extends StatelessWidget {
     ],
     redirect: (context, state) {
       // Bypass splashscreen if variables are already loaded
-      if (state.location == '/') {
+      /*if (state.location == '/') {
         final List<int>? conversionsOrderDrawer =
             context.read<AppModel>().conversionsOrderDrawer;
         final bool isConversionsLoaded =
@@ -105,7 +106,7 @@ class MyApp extends StatelessWidget {
         if (isConversionsLoaded && conversionsOrderDrawer != null) {
           return '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}';
         }
-      }
+      }*/
       return null;
     },
     errorBuilder: (context, state) => const ErrorPage(),
@@ -151,47 +152,45 @@ class MyApp extends StatelessWidget {
         drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
       );
 
-      return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => AppModel()),
-          ChangeNotifierProvider(create: (context) => Conversions()),
-        ],
-        child: Builder(builder: (BuildContext context) {
-          bool isDarkAmoled = context.select<AppModel, bool>(
-            (appModel) => appModel.isDarkAmoled,
-          );
-          return MaterialApp.router(
-            routeInformationProvider: _router.routeInformationProvider,
-            routeInformationParser: _router.routeInformationParser,
-            routerDelegate: _router.routerDelegate,
-            debugShowCheckedModeBanner: false,
-            title: 'Converter NOW',
-            themeMode: context.select<AppModel, ThemeMode>(
-              (appModel) => appModel.currentThemeMode,
-            ),
-            theme: lightTheme,
-            darkTheme: isDarkAmoled ? amoledTheme : darkTheme,
-            supportedLocales: context.read<AppModel>().supportedLocales,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            localeResolutionCallback:
-                (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
-              if (!deviceLocaleSetted) {
-                context.read<AppModel>().deviceLocale = deviceLocale;
-                deviceLocaleSetted = true;
-              }
-              if (supportedLocales
-                  .map((Locale locale) => locale.languageCode)
-                  .contains(deviceLocale?.languageCode)) {
-                return deviceLocale;
-              }
-              return const Locale('en');
-            },
-            locale: context.select<AppModel, Locale?>((appModel) {
-              return appModel.appLocale;
-            }),
-          );
-        }),
-      );
+      return Builder(builder: (BuildContext context) {
+        bool isDarkAmoled = false;
+        /*context.select<AppModel, bool>(
+          (appModel) => appModel.isDarkAmoled,
+        );*/
+        return MaterialApp.router(
+          routeInformationProvider: _router.routeInformationProvider,
+          routeInformationParser: _router.routeInformationParser,
+          routerDelegate: _router.routerDelegate,
+          debugShowCheckedModeBanner: false,
+          title: 'Converter NOW',
+          themeMode: ThemeMode.system,
+          /*context.select<AppModel, ThemeMode>(
+            (appModel) => appModel.currentThemeMode,
+          ),*/
+          theme: lightTheme,
+          darkTheme: isDarkAmoled ? amoledTheme : darkTheme,
+          supportedLocales: const [Locale('en')],
+          //context.read<AppModel>().supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          localeResolutionCallback:
+              (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
+            if (!deviceLocaleSetted) {
+              //context.read<AppModel>().deviceLocale = deviceLocale;
+              deviceLocaleSetted = true;
+            }
+            if (supportedLocales
+                .map((Locale locale) => locale.languageCode)
+                .contains(deviceLocale?.languageCode)) {
+              return deviceLocale;
+            }
+            return const Locale('en');
+          },
+          locale: Locale('en'),
+          /*context.select<AppModel, Locale?>((appModel) {
+            return appModel.appLocale;
+          }),*/
+        );
+      });
     });
   }
 }

@@ -2,16 +2,17 @@ import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/app_model.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:calculator_widget/calculator_widget.dart';
+import 'package:converterpro/models/conversions_new.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
-class AppScaffold extends StatelessWidget {
+class AppScaffold extends ConsumerWidget {
   const AppScaffold({
     required this.child,
     Key? key,
@@ -20,13 +21,13 @@ class AppScaffold extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     void openCalculator() {
       showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
         builder: (BuildContext context) {
-          return CalculatorWidget();
+          return const CalculatorWidget();
         },
       );
     }
@@ -34,8 +35,8 @@ class AppScaffold extends StatelessWidget {
     void clearAll(bool isDrawerFixed) {
       final int page = pageNumberMap[
           GoRouter.of(context).location.substring('/conversions/'.length)]!;
-      if (context.read<Conversions>().shouldShowSnackbar(page)) {
-        context.read<Conversions>().clearAllValues(page);
+      if (ref.read(conversionsProvider.notifier).shouldShowSnackbar(page)) {
+        ref.read(conversionsProvider.notifier).clearAllValues(page);
         //Snackbar undo request
         final SnackBar snackBar = SnackBar(
           content: Text(AppLocalizations.of(context)!.undoClearAllMessage),
@@ -45,7 +46,7 @@ class AppScaffold extends StatelessWidget {
             key: const ValueKey('undoClearAll'),
             label: AppLocalizations.of(context)!.undo,
             onPressed: () {
-              context.read<Conversions>().undoClearOperation();
+              ref.read(conversionsProvider.notifier).undoClearOperation();
             },
           ),
         );
@@ -53,7 +54,8 @@ class AppScaffold extends StatelessWidget {
       }
     }
 
-    void openSearch() async {
+    void openSearch() {}
+    /*void openSearch() async {
       final orderList = context.read<AppModel>().conversionsOrderDrawer;
       final int? newPage = await showSearch(
         context: context,
@@ -68,7 +70,7 @@ class AppScaffold extends StatelessWidget {
           context.go(targetPath);
         }
       }
-    }
+    }*/
 
     return LayoutBuilder(builder: (context, constraints) {
       // ignore: no_leading_underscores_for_local_identifiers

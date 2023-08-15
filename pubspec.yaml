@@ -16,6 +16,8 @@ dependencies:
   dynamic_color: ^1.6.2
   # Native splash screen on Android
   flutter_native_splash: ^2.2.17
+  # State management
+  flutter_riverpod: ^2.3.6
   # For svg icons
   flutter_svg: ^2.0.1
   # App logo in drawer

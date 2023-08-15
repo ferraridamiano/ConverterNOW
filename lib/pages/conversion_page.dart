@@ -1,26 +1,27 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
-import 'package:converterpro/models/conversions.dart';
+import 'package:converterpro/models/conversions_new.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:intl/intl.dart';
 
-class ConversionPage extends StatelessWidget {
+class ConversionPage extends ConsumerWidget {
   final int page;
 
   const ConversionPage(this.page, {Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     Map<PROPERTYX, String> propertyTranslationMap =
         getPropertyTranslationMap(context);
-    final bool isConversionsLoaded = context.select<Conversions, bool>(
+    final bool isConversionsLoaded = true;
+    /*context.select<Conversions, bool>(
       (conversions) => conversions.isConversionsLoaded,
-    );
+    );*/
 
     // if we remove the following check, if you enter the site directly to
     // '/conversions/:property' an error will occur
@@ -28,11 +29,11 @@ class ConversionPage extends StatelessWidget {
       return const SplashScreenWidget();
     }
 
-    List<UnitData> unitDataList =
-        context.read<Conversions>().getUnitDataListAtPage(page);
+    List<UnitData> unitDataList = ref.watch(conversionsProvider)[page];
+    //context.read<Conversions>().getUnitDataListAtPage(page);
 
     PROPERTYX currentProperty =
-        context.read<Conversions>().getPropertyNameAtPage(page);
+        ref.watch(conversionsProvider.notifier).getPropertyNameAtPage(page);
 
     String subTitle = '';
     if (currentProperty == PROPERTYX.currencies) {
@@ -65,7 +66,7 @@ class ConversionPage extends StatelessWidget {
             txt = '0$txt';
           }
           if (txt == '' || unitData.getValidator().hasMatch(txt)) {
-            Conversions conversions = context.read<Conversions>();
+            var conversions = ref.read(conversionsProvider.notifier);
             //just numeral system uses a string for conversion
             if (unitData.property == PROPERTYX.numeralSystems) {
               conversions.convert(unitData, txt == "" ? null : txt, page);
@@ -95,8 +96,9 @@ class ConversionPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  context.select<Conversions, bool>(
-                          (conversions) => conversions.isCurrenciesLoading)
+                  false
+                      /*context.select<Conversions, bool>(
+                          (conversions) => conversions.isCurrenciesLoading)*/
                       ? const SizedBox(
                           height: 30,
                           child: Center(
@@ -137,8 +139,9 @@ class ConversionPage extends StatelessWidget {
 }
 
 String _getLastUpdateString(BuildContext context) {
-  DateTime lastUpdateCurrencies = context
-      .select<Conversions, DateTime>((settings) => settings.lastUpdateCurrency);
+  DateTime lastUpdateCurrencies = DateTime
+      .now(); /*context
+      .select<Conversions, DateTime>((settings) => settings.lastUpdateCurrency);*/
   DateTime dateNow = DateTime.now();
   if (lastUpdateCurrencies.day == dateNow.day &&
       lastUpdateCurrencies.month == dateNow.month &&
