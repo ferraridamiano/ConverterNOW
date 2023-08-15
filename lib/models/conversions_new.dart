@@ -18,7 +18,7 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
     _checkOrdersUnits();
     //_checkSettings();
 
-    return []; // TODO
+    return _refreshOrderUnits();
   }
 
   /// Contains the List of the double (or String for numeral systems conversion)
@@ -203,7 +203,7 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
   }*/
 
   /// Get the orders of each units of measurement from the memory
-  _checkOrdersUnits() async {
+  _checkOrdersUnits() {
     // Initialize the order for each property to default:
     // [0,1,2,...,size(property)]
     List<List<int>> temp = [];
@@ -211,7 +211,7 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
       temp.add(List.generate(property.size, (index) => index));
     }
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    /*SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? stringList;
     // Update every order of every conversion
     for (int i = 0; i < _propertyList.length; i++) {
@@ -236,15 +236,14 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
         }
         temp[i] = intList;
       }
-    }
+    }*/
     _conversionsOrder = temp;
-    _refreshOrderUnits();
   }
 
   /// Apply the order defined in [_conversionsOrder] to [state].
   /// [state] will be redefined, so this function is used also during
   /// initialization
-  _refreshOrderUnits() {
+  List<List<UnitData>> _refreshOrderUnits() {
     assert(_conversionsOrder != null, true);
     List<List<UnitData>> tempUnitDataList = [];
     for (int i = 0; i < _propertyList.length; i++) {
@@ -321,7 +320,7 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
       }
       tempUnitDataList.add(tempUnitData);
     }
-    state = tempUnitDataList;
+    return tempUnitDataList;
   }
 
   /// Given a new ordering of a specific page it applys it to the app and store
@@ -339,7 +338,7 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
       for (int i = 0; i < _conversionsOrder![pageNumber].length; i++) {
         _conversionsOrder![pageNumber][i] = newOrder.indexOf(arrayCopy[i]);
       }
-      _refreshOrderUnits();
+      state = _refreshOrderUnits();
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       List<String> toConvertList = [];
@@ -385,7 +384,7 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
   /*set removeTrailingZeros(bool value) {
     _removeTrailingZeros = value;
     _initializePropertyList();
-    _refreshOrderUnits();
+    state = _refreshOrderUnits();
     _saveSettingsBool('remove_trailing_zeros', _removeTrailingZeros);
   }*/
 
@@ -394,7 +393,7 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
   /*set significantFigures(int value) {
     _significantFigures = value;
     _initializePropertyList();
-    _refreshOrderUnits();
+    state = _refreshOrderUnits();
     _saveSettingsInt('significant_figures', _significantFigures);
   }*/
 

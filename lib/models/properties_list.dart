@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:units_converter/units_converter.dart';
 
 final propertiesListProvider = StateProvider<List<Property>>((ref) {
-  var removeTrailingZeros = ref.watch(removeTrailingZerosProvider);
-  var significantFigures = ref.watch(significantFiguresProvider);
+  var removeTrailingZeros = true; //ref.watch(RemoveTrailingZeros.provider);
+  var significantFigures = 10; //ref.watch(SignificantFigures.provider);
   return [
     Length(
         significantFigures: significantFigures,
@@ -19,11 +19,12 @@ final propertiesListProvider = StateProvider<List<Property>>((ref) {
         significantFigures: significantFigures,
         removeTrailingZeros: removeTrailingZeros,
         name: PROPERTYX.volume),
-    /*SimpleCustomProperty(_currenciesObject.exchangeRates,
-        mapSymbols: _currenciesSymbols,
+    SimpleCustomProperty(
+        {'EUR': 1, 'USD': 1.1}, //_currenciesObject.exchangeRates,
+        //mapSymbols: _currenciesSymbols,
         significantFigures: significantFigures,
         removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.currencies),*/ //TODO
+        name: PROPERTYX.currencies), //TODO
     Time(
         significantFigures: significantFigures,
         removeTrailingZeros: removeTrailingZeros,

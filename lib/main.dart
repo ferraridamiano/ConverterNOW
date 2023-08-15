@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
             path: '/settings',
             name: 'settings',
             pageBuilder: (context, state) =>
-                const NoTransitionPage(child: SettingsPage()),
+                NoTransitionPage(child: SettingsPage()),
             routes: [
               GoRoute(
                 path: 'reorder-properties',
