@@ -65,9 +65,6 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
   };
   List<List<int>>? _conversionsOrder;
   bool _isCurrenciesLoading = true;
-  bool _removeTrailingZeros = true;
-  static const List<int> _significantFiguresList = <int>[6, 8, 10, 12, 14];
-  int _significantFigures = _significantFiguresList[2];
 
   /// Returns true if the model ha finished to load the stored
   /// _conversionsOrder and `state` is not empty, false otherwise.
@@ -346,66 +343,6 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
       }
       prefs.setStringList("conversion_$pageNumber", toConvertList);
     }
-  }
-
-  // Settings section ----------------------------------------------------------
-
-  /// It reads the settings related to the conversions model from the memory of
-  /// the device (if there are options saved)
-  /*_checkSettings() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? val1 = prefs.getInt("significant_figures");
-    bool? val2 = prefs.getBool("remove_trailing_zeros");
-
-    if (val1 != null || val2 != null) {
-      if (val1 != null) {
-        _significantFigures = val1;
-      }
-      if (val2 != null) {
-        _removeTrailingZeros = val2;
-      }
-      _initializePropertyList();
-    }
-  }*/
-
-  /// Returns true if you want to remove the trailing zeros of the conversions
-  /// e.g. 1.000000000e20 becomes 1e20
-  bool get removeTrailingZeros => _removeTrailingZeros;
-
-  /// Returns the list of possibile significant figures
-  List<int> get significantFiguresList => _significantFiguresList;
-
-  /// Returns the current significant figures selection
-  int get significantFigures => _significantFigures;
-
-  /// Set the ability of remove unecessary trailing zeros and save to
-  /// SharedPreferences e.g. 1.000000000e20 becomes 1e20
-  /*set removeTrailingZeros(bool value) {
-    _removeTrailingZeros = value;
-    _initializePropertyList();
-    state = _refreshOrderUnits();
-    _saveSettingsBool('remove_trailing_zeros', _removeTrailingZeros);
-  }*/
-
-  /// Set the current significant figures selection and save to
-  /// SharedPreferences
-  /*set significantFigures(int value) {
-    _significantFigures = value;
-    _initializePropertyList();
-    state = _refreshOrderUnits();
-    _saveSettingsInt('significant_figures', _significantFigures);
-  }*/
-
-  /// Saves the key value with SharedPreferences
-  _saveSettingsInt(String key, int value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt(key, value);
-  }
-
-  /// Saves the key value with SharedPreferences
-  _saveSettingsBool(String key, bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(key, value);
   }
 }
 
