@@ -1,3 +1,4 @@
+import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/pages/error_page.dart';
 import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/conversion_page.dart';
@@ -10,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:converterpro/models/app_model.dart';
-import 'package:converterpro/models/conversions.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 
 void main() async {
@@ -24,7 +23,7 @@ final GlobalKey<NavigatorState> rootNavigatorKey =
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   late final _router = GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: '/conversions/length', // TODO remove this
@@ -115,7 +114,7 @@ class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     bool deviceLocaleSetted = false;
 
     const Color fallbackColorSchemeSeed = Colors.blue;
@@ -153,24 +152,16 @@ class MyApp extends StatelessWidget {
       );
 
       return Builder(builder: (BuildContext context) {
-        bool isDarkAmoled = false;
-        /*context.select<AppModel, bool>(
-          (appModel) => appModel.isDarkAmoled,
-        );*/
         return MaterialApp.router(
           routeInformationProvider: _router.routeInformationProvider,
           routeInformationParser: _router.routeInformationParser,
           routerDelegate: _router.routerDelegate,
           debugShowCheckedModeBanner: false,
           title: 'Converter NOW',
-          themeMode: ThemeMode.system,
-          /*context.select<AppModel, ThemeMode>(
-            (appModel) => appModel.currentThemeMode,
-          ),*/
+          themeMode: ref.watch(CurrentThemeMode.provider),
           theme: lightTheme,
-          darkTheme: isDarkAmoled ? amoledTheme : darkTheme,
-          supportedLocales: const [Locale('en')],
-          //context.read<AppModel>().supportedLocales,
+          darkTheme: ref.watch(IsDarkAmoled.provider) ? amoledTheme : darkTheme,
+          supportedLocales: mapLocale.keys,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           localeResolutionCallback:
               (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
@@ -185,10 +176,7 @@ class MyApp extends StatelessWidget {
             }
             return const Locale('en');
           },
-          locale: Locale('en'),
-          /*context.select<AppModel, Locale?>((appModel) {
-            return appModel.appLocale;
-          }),*/
+          locale: ref.watch(CurrentLocale.provider),
         );
       });
     });

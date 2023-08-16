@@ -17,26 +17,16 @@ class EnvironmentConfig {
       String.fromEnvironment('IS_PLAYSTORE', defaultValue: 'false') == 'true';
 }
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends ConsumerWidget {
+  const SettingsPage({super.key});
+
   static const List<int> significantFiguresList = [6, 8, 10, 12, 14];
   static const TextStyle textStyle = TextStyle(fontSize: singlePageTextSize);
   static const BorderRadiusGeometry borderRadius =
       BorderRadius.all(Radius.circular(30));
-  String? locale = null;
-
-  /*@override
-  void initState() {
-    super.initState();
-    //Conversions conversions = context.read<Conversions>();
-    /*for (int value in conversions.significantFiguresList) {
-      significantFiguresList.add(value.toString());
-    }*/
-    //AppModel appModel = context.read<AppModel>();
-    //locale = appModel.mapLocale[appModel.appLocale];
-  }*/
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Map<ThemeMode, String> mapTheme = {
       ThemeMode.system: AppLocalizations.of(context)!.system,
       ThemeMode.dark: AppLocalizations.of(context)!.dark,
@@ -57,92 +47,83 @@ class SettingsPage extends StatelessWidget {
           title: AppLocalizations.of(context)!.language,
           textStyle: textStyle,
           items: [
-            'English'
-            /*AppLocalizations.of(context)!.system,
-            ...context.read<AppModel>().mapLocale.values.toList(),*/
+            AppLocalizations.of(context)!.system,
+            ...mapLocale.values.toList()
           ],
-          value: locale ?? AppLocalizations.of(context)!.system,
+          value: mapLocale[ref.watch(CurrentLocale.provider)] ??
+              AppLocalizations.of(context)!.system,
           onChanged: (String? string) {
-            /*if (string != null) {
-              setState(() => locale =
-                  string == AppLocalizations.of(context)!.system
-                      ? null
-                      : string);
-              context.read<AppModel>().setLocaleString(
-                  string == AppLocalizations.of(context)!.system
-                      ? null
-                      : string);
-            }*/
+            if (string != null) {
+              ref.read(CurrentLocale.provider.notifier).set(
+                    string == AppLocalizations.of(context)!.system
+                        ? null
+                        : mapLocale.keys.firstWhere(
+                            (element) => mapLocale[element] == string,
+                          ),
+                  );
+            }
           },
         ),
-        Consumer(
-          builder: (context, ref, _) => DropdownListTile(
-            leading: Icon(Icons.palette_outlined, color: iconColor),
-            title: AppLocalizations.of(context)!.theme,
-            textStyle: textStyle,
-            items: mapTheme.values.toList(),
-            value: mapTheme[ref.watch(CurrentThemeMode.provider)]!,
-            onChanged: (String? string) {
-              ref.read(CurrentThemeMode.provider.notifier).set(
-                  mapTheme.keys.where((key) => mapTheme[key] == string).single);
-            },
-          ),
+        DropdownListTile(
+          leading: Icon(Icons.palette_outlined, color: iconColor),
+          title: AppLocalizations.of(context)!.theme,
+          textStyle: textStyle,
+          items: mapTheme.values.toList(),
+          value: mapTheme[ref.watch(CurrentThemeMode.provider)]!,
+          onChanged: (String? string) {
+            ref.read(CurrentThemeMode.provider.notifier).set(
+                mapTheme.keys.where((key) => mapTheme[key] == string).single);
+          },
         ),
-        Consumer(
-          builder: (context, ref, _) => SwitchListTile(
-            secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
-            title: Text(
-              AppLocalizations.of(context)!.amoledDarkTheme,
-              style: textStyle,
-            ),
-            value: ref.watch(IsDarkAmoled.provider),
-            activeColor: Theme.of(context).colorScheme.secondary,
-            onChanged: (bool val) {
-              ref.read(IsDarkAmoled.provider.notifier).set(val);
-            },
-            shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+        SwitchListTile(
+          secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
+          title: Text(
+            AppLocalizations.of(context)!.amoledDarkTheme,
+            style: textStyle,
           ),
+          value: ref.watch(IsDarkAmoled.provider),
+          activeColor: Theme.of(context).colorScheme.secondary,
+          onChanged: (bool val) {
+            ref.read(IsDarkAmoled.provider.notifier).set(val);
+          },
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
-        Consumer(
-          builder: (context, ref, _) => SwitchListTile(
-            secondary: SvgPicture(
-              const AssetBytesLoader(
-                  'assets/app_icons/remove_trailing_zeros.svg.vec'),
-              width: 25,
-              colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-            ),
-            title: Text(
-              AppLocalizations.of(context)!.removeTrailingZeros,
-              style: textStyle,
-            ),
-            value: ref.watch(RemoveTrailingZeros.provider),
-            activeColor: Theme.of(context).colorScheme.secondary,
-            onChanged: (bool val) {
-              ref.read(RemoveTrailingZeros.provider.notifier).set(val);
-            },
-            shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+        SwitchListTile(
+          secondary: SvgPicture(
+            const AssetBytesLoader(
+                'assets/app_icons/remove_trailing_zeros.svg.vec'),
+            width: 25,
+            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
+          title: Text(
+            AppLocalizations.of(context)!.removeTrailingZeros,
+            style: textStyle,
+          ),
+          value: ref.watch(RemoveTrailingZeros.provider),
+          activeColor: Theme.of(context).colorScheme.secondary,
+          onChanged: (bool val) {
+            ref.read(RemoveTrailingZeros.provider.notifier).set(val);
+          },
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
-        Consumer(
-          builder: (context, ref, _) => DropdownListTile(
-            leading: SvgPicture(
-              const AssetBytesLoader(
-                  'assets/app_icons/significant_figures.svg.vec'),
-              width: 25,
-              colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-            ),
-            title: AppLocalizations.of(context)!.significantFigures,
-            textStyle: textStyle,
-            items: significantFiguresList.map((e) => e.toString()).toList(),
-            value: ref.watch(SignificantFigures.provider).toString(),
-            onChanged: (String? string) {
-              if (string != null) {
-                ref
-                    .read(SignificantFigures.provider.notifier)
-                    .set(int.parse(string));
-              }
-            },
+        DropdownListTile(
+          leading: SvgPicture(
+            const AssetBytesLoader(
+                'assets/app_icons/significant_figures.svg.vec'),
+            width: 25,
+            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
           ),
+          title: AppLocalizations.of(context)!.significantFigures,
+          textStyle: textStyle,
+          items: significantFiguresList.map((e) => e.toString()).toList(),
+          value: ref.watch(SignificantFigures.provider).toString(),
+          onChanged: (String? string) {
+            if (string != null) {
+              ref
+                  .read(SignificantFigures.provider.notifier)
+                  .set(int.parse(string));
+            }
+          },
         ),
         ListTile(
           key: const ValueKey('reorder-properties'),
