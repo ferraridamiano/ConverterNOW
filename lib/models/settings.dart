@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,5 +41,45 @@ class RemoveTrailingZeros extends StateNotifier<bool> {
   void set(bool value) {
     state = value;
     pref!.setBool(prefKey, state);
+  }
+}
+
+class IsDarkAmoled extends StateNotifier<bool> {
+  IsDarkAmoled(this.pref) : super(pref?.getBool(prefKey) ?? true);
+
+  final SharedPreferences? pref;
+  static const prefKey = 'isDarkAmoled';
+  static final provider = StateNotifierProvider<IsDarkAmoled, bool>((ref) {
+    final pref = ref.watch(sharedPrefs).maybeWhen(
+          data: (value) => value,
+          orElse: () => null,
+        );
+    return IsDarkAmoled(pref);
+  });
+
+  void set(bool value) {
+    state = value;
+    pref!.setBool(prefKey, state);
+  }
+}
+
+class CurrentThemeMode extends StateNotifier<ThemeMode> {
+  CurrentThemeMode(this.pref)
+      : super(ThemeMode.values[pref?.getInt(prefKey) ?? 0]);
+
+  static const prefKey = 'currentThemeMode';
+  final SharedPreferences? pref;
+  static final provider =
+      StateNotifierProvider<CurrentThemeMode, ThemeMode>((ref) {
+    final pref = ref.watch(sharedPrefs).maybeWhen(
+          data: (value) => value,
+          orElse: () => null,
+        );
+    return CurrentThemeMode(pref);
+  });
+
+  void set(ThemeMode value) {
+    state = value;
+    pref!.setInt(prefKey, ThemeMode.values.indexOf(state));
   }
 }

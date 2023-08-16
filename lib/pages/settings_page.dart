@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'package:converterpro/models/app_model.dart';
-import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
@@ -19,35 +17,21 @@ class EnvironmentConfig {
       String.fromEnvironment('IS_PLAYSTORE', defaultValue: 'false') == 'true';
 }
 
-/*class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
-
-  @override
-  State<SettingsPage> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {*/
 class SettingsPage extends ConsumerWidget {
   static const List<int> significantFiguresList = [6, 8, 10, 12, 14];
   static const TextStyle textStyle = TextStyle(fontSize: singlePageTextSize);
   static const BorderRadiusGeometry borderRadius =
       BorderRadius.all(Radius.circular(30));
-  ThemeMode currentTheme = ThemeMode.system;
-  bool isDarkAmoled = false;
   String? locale = null;
 
   /*@override
   void initState() {
     super.initState();
     //Conversions conversions = context.read<Conversions>();
-    //removeTrailingZeros = conversions.removeTrailingZeros;
-    //significantFigures = conversions.significantFigures;
     /*for (int value in conversions.significantFiguresList) {
       significantFiguresList.add(value.toString());
     }*/
     //AppModel appModel = context.read<AppModel>();
-    //currentTheme = appModel.currentThemeMode;
-    //isDarkAmoled = appModel.isDarkAmoled;
     //locale = appModel.mapLocale[appModel.appLocale];
   }*/
 
@@ -96,14 +80,10 @@ class SettingsPage extends ConsumerWidget {
           title: AppLocalizations.of(context)!.theme,
           textStyle: textStyle,
           items: mapTheme.values.toList(),
-          value: mapTheme[currentTheme]!,
+          value: mapTheme[ref.watch(CurrentThemeMode.provider)]!,
           onChanged: (String? string) {
-            /*if (string != null) {
-              setState(() => currentTheme =
-                  mapTheme.keys.where((key) => mapTheme[key] == string).single);
-              AppModel appModel = context.read<AppModel>();
-              appModel.currentThemeMode = currentTheme;
-            }*/
+            ref.read(CurrentThemeMode.provider.notifier).set(
+                mapTheme.keys.where((key) => mapTheme[key] == string).single);
           },
         ),
         SwitchListTile(
@@ -112,12 +92,10 @@ class SettingsPage extends ConsumerWidget {
             AppLocalizations.of(context)!.amoledDarkTheme,
             style: textStyle,
           ),
-          value: isDarkAmoled,
+          value: ref.watch(IsDarkAmoled.provider),
           activeColor: Theme.of(context).colorScheme.secondary,
           onChanged: (bool val) {
-            /*setState(() => isDarkAmoled = val);
-            AppModel appModel = context.read<AppModel>();
-            appModel.isDarkAmoled = val;*/
+            ref.read(IsDarkAmoled.provider.notifier).set(val);
           },
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
@@ -136,9 +114,6 @@ class SettingsPage extends ConsumerWidget {
           activeColor: Theme.of(context).colorScheme.secondary,
           onChanged: (bool val) {
             ref.read(RemoveTrailingZeros.provider.notifier).set(val);
-            /*setState(() => removeTrailingZeros = val);
-            Conversions conversions = context.read<Conversions>();
-            conversions.removeTrailingZeros = val;*/
           },
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
@@ -159,12 +134,6 @@ class SettingsPage extends ConsumerWidget {
                   .read(SignificantFigures.provider.notifier)
                   .set(int.parse(string));
             }
-            /*if (string != null) {
-              int val = int.parse(string);
-              setState(() => significantFigures = val);
-              Conversions conversions = context.read<Conversions>();
-              conversions.significantFigures = val;
-            }*/
           },
         ),
         ListTile(
