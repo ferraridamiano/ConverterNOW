@@ -17,7 +17,7 @@ class EnvironmentConfig {
       String.fromEnvironment('IS_PLAYSTORE', defaultValue: 'false') == 'true';
 }
 
-class SettingsPage extends ConsumerWidget {
+class SettingsPage extends StatelessWidget {
   static const List<int> significantFiguresList = [6, 8, 10, 12, 14];
   static const TextStyle textStyle = TextStyle(fontSize: singlePageTextSize);
   static const BorderRadiusGeometry borderRadius =
@@ -36,7 +36,7 @@ class SettingsPage extends ConsumerWidget {
   }*/
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     Map<ThemeMode, String> mapTheme = {
       ThemeMode.system: AppLocalizations.of(context)!.system,
       ThemeMode.dark: AppLocalizations.of(context)!.dark,
@@ -75,66 +75,74 @@ class SettingsPage extends ConsumerWidget {
             }*/
           },
         ),
-        DropdownListTile(
-          leading: Icon(Icons.palette_outlined, color: iconColor),
-          title: AppLocalizations.of(context)!.theme,
-          textStyle: textStyle,
-          items: mapTheme.values.toList(),
-          value: mapTheme[ref.watch(CurrentThemeMode.provider)]!,
-          onChanged: (String? string) {
-            ref.read(CurrentThemeMode.provider.notifier).set(
-                mapTheme.keys.where((key) => mapTheme[key] == string).single);
-          },
+        Consumer(
+          builder: (context, ref, _) => DropdownListTile(
+            leading: Icon(Icons.palette_outlined, color: iconColor),
+            title: AppLocalizations.of(context)!.theme,
+            textStyle: textStyle,
+            items: mapTheme.values.toList(),
+            value: mapTheme[ref.watch(CurrentThemeMode.provider)]!,
+            onChanged: (String? string) {
+              ref.read(CurrentThemeMode.provider.notifier).set(
+                  mapTheme.keys.where((key) => mapTheme[key] == string).single);
+            },
+          ),
         ),
-        SwitchListTile(
-          secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
-          title: Text(
-            AppLocalizations.of(context)!.amoledDarkTheme,
-            style: textStyle,
+        Consumer(
+          builder: (context, ref, _) => SwitchListTile(
+            secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
+            title: Text(
+              AppLocalizations.of(context)!.amoledDarkTheme,
+              style: textStyle,
+            ),
+            value: ref.watch(IsDarkAmoled.provider),
+            activeColor: Theme.of(context).colorScheme.secondary,
+            onChanged: (bool val) {
+              ref.read(IsDarkAmoled.provider.notifier).set(val);
+            },
+            shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           ),
-          value: ref.watch(IsDarkAmoled.provider),
-          activeColor: Theme.of(context).colorScheme.secondary,
-          onChanged: (bool val) {
-            ref.read(IsDarkAmoled.provider.notifier).set(val);
-          },
-          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
-        SwitchListTile(
-          secondary: SvgPicture(
-            const AssetBytesLoader(
-                'assets/app_icons/remove_trailing_zeros.svg.vec'),
-            width: 25,
-            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+        Consumer(
+          builder: (context, ref, _) => SwitchListTile(
+            secondary: SvgPicture(
+              const AssetBytesLoader(
+                  'assets/app_icons/remove_trailing_zeros.svg.vec'),
+              width: 25,
+              colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+            ),
+            title: Text(
+              AppLocalizations.of(context)!.removeTrailingZeros,
+              style: textStyle,
+            ),
+            value: ref.watch(RemoveTrailingZeros.provider),
+            activeColor: Theme.of(context).colorScheme.secondary,
+            onChanged: (bool val) {
+              ref.read(RemoveTrailingZeros.provider.notifier).set(val);
+            },
+            shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           ),
-          title: Text(
-            AppLocalizations.of(context)!.removeTrailingZeros,
-            style: textStyle,
-          ),
-          value: ref.watch(RemoveTrailingZeros.provider),
-          activeColor: Theme.of(context).colorScheme.secondary,
-          onChanged: (bool val) {
-            ref.read(RemoveTrailingZeros.provider.notifier).set(val);
-          },
-          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
-        DropdownListTile(
-          leading: SvgPicture(
-            const AssetBytesLoader(
-                'assets/app_icons/significant_figures.svg.vec'),
-            width: 25,
-            colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+        Consumer(
+          builder: (context, ref, _) => DropdownListTile(
+            leading: SvgPicture(
+              const AssetBytesLoader(
+                  'assets/app_icons/significant_figures.svg.vec'),
+              width: 25,
+              colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+            ),
+            title: AppLocalizations.of(context)!.significantFigures,
+            textStyle: textStyle,
+            items: significantFiguresList.map((e) => e.toString()).toList(),
+            value: ref.watch(SignificantFigures.provider).toString(),
+            onChanged: (String? string) {
+              if (string != null) {
+                ref
+                    .read(SignificantFigures.provider.notifier)
+                    .set(int.parse(string));
+              }
+            },
           ),
-          title: AppLocalizations.of(context)!.significantFigures,
-          textStyle: textStyle,
-          items: significantFiguresList.map((e) => e.toString()).toList(),
-          value: ref.watch(SignificantFigures.provider).toString(),
-          onChanged: (String? string) {
-            if (string != null) {
-              ref
-                  .read(SignificantFigures.provider.notifier)
-                  .set(int.parse(string));
-            }
-          },
         ),
         ListTile(
           key: const ValueKey('reorder-properties'),
