@@ -80,6 +80,20 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.1.0" date="2023-08-17">
+      <description>
+        <ul>
+          <li>Material you improvements</li>
+          <li>The calculator has a new look</li>
+          <li>Added dutch, chinese and traditional chinese translations</li>
+          <li>Improvements to other translations</li>
+          <li>Icons tweaks</li>
+          <li>General improvements</li>
+        </ul>
+        <p>Thanks to @David-git-code, @syu-pf-ssy, @plum7x, @HarshMakwana27 for your contributions!</p>
+        <p>What do you think about Converter NOW? Rate the app! ✔️</p>
+      </description>
+    </release>
     <release version="4.0.1" date="2023-02-15">
       <description>
         <ul>

@@ -2,7 +2,7 @@ name: converterpro
 description: Unit and currencies converter
 publish_to: none
 
-version: 4.0.1+39
+version: 4.1.0+40
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -28,7 +28,7 @@ dependencies:
   provider: ^6.0.5
   # Android app shortcuts
   quick_actions: ^1.0.5
-  # Store the customizations and the latest currencies convertions
+  # Store the customizations and the latest currencies conversions
   shared_preferences: ^2.2.0
   # Unit conversion
   units_converter: 2.0.1

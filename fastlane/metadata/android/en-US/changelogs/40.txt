@@ -1,0 +1,10 @@
+- Material you improvements
+- The calculator has a new look
+- Added dutch, chinese and traditional chinese translations
+- Improvements to other translations
+- Icons tweaks
+- General improvements
+
+Thanks to @David-git-code, @syu-pf-ssy, @plum7x, @HarshMakwana27 for your contributions!
+
+What do you think about Converter NOW? Rate the app! ✔️
