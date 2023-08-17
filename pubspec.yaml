@@ -24,6 +24,8 @@ dependencies:
   google_fonts: ^4.0.3
   # Navigation
   go_router: ^6.0.7
+  # Downloading the exchange rates
+  http: ^1.1.0
   # Translations
   intl: ^0.18.0
   # State management
@@ -48,9 +50,6 @@ dependencies:
   # Calculator widget and logic
   calculator_widget:
     path: packages/calculator_widget
-  # Update the exchange rates
-  exchange_rates:
-    path: packages/exchange_rates
   # App translations
   translations:
     path: packages/translations

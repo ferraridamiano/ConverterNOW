@@ -1,7 +1,42 @@
+import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:units_converter/units_converter.dart';
+
+const Map<String, String> _currenciesSymbols = {
+  'EUR': '€ 🇪🇺',
+  'CAD': '\$ 🇨🇦',
+  'HKD': 'HK\$ 🇭🇰',
+  'PHP': '₱ 🇵🇭',
+  'DKK': 'kr 🇩🇰',
+  'NZD': 'NZ\$ 🇳🇿',
+  'CNY': '¥ 🇨🇳',
+  'AUD': 'A\$ 🇦🇺',
+  'RON': 'L 🇷🇴',
+  'SEK': 'kr 🇸🇪',
+  'IDR': 'Rp 🇮🇩',
+  'INR': '₹ 🇮🇳',
+  'BRL': 'R\$ 🇧🇷',
+  'USD': '\$ 🇺🇸',
+  'ILS': '₪ 🇮🇱',
+  'JPY': '¥ 🇯🇵',
+  'THB': '฿ 🇹🇭',
+  'CHF': 'Fr. 🇨🇭',
+  'CZK': 'Kč 🇨🇿',
+  'MYR': 'RM 🇲🇾',
+  'TRY': '₺ 🇹🇷',
+  'MXN': '\$ 🇲🇽',
+  'NOK': 'kr 🇳🇴',
+  'HUF': 'Ft 🇭🇺',
+  'ZAR': 'R 🇿🇦',
+  'SGD': 'S\$ 🇸🇬',
+  'GBP': '£ 🇬🇧',
+  'KRW': '₩ 🇰🇷',
+  'PLN': 'zł 🇵🇱',
+  'BGN': 'лв 🇧🇬',
+  'ISK': 'kr 🇮🇸',
+};
 
 final propertiesListProvider = StateProvider<List<Property>>((ref) {
   var removeTrailingZeros = ref.watch(RemoveTrailingZeros.provider);
@@ -20,11 +55,14 @@ final propertiesListProvider = StateProvider<List<Property>>((ref) {
         removeTrailingZeros: removeTrailingZeros,
         name: PROPERTYX.volume),
     SimpleCustomProperty(
-        {'EUR': 1, 'USD': 1.1}, //_currenciesObject.exchangeRates,
-        //mapSymbols: _currenciesSymbols,
+        ref.watch(currenciesProvider).when(
+            data: (currencies) => currencies.exchangeRates,
+            error: (_, trace) => Currencies.defaultExchangeRates,
+            loading: () => Currencies.defaultExchangeRates),
+        mapSymbols: _currenciesSymbols,
         significantFigures: significantFigures,
         removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.currencies), //TODO
+        name: PROPERTYX.currencies),
     Time(
         significantFigures: significantFigures,
         removeTrailingZeros: removeTrailingZeros,

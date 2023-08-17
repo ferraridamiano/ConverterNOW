@@ -1,5 +1,5 @@
 import 'package:converterpro/utils/utils.dart';
-import 'package:exchange_rates/exchange_rates.dart';
+//import 'package:exchange_rates/exchange_rates.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -18,7 +18,7 @@ class Conversions with ChangeNotifier {
   int? _savedPropertyIndex;
 
   UnitData? _selectedUnit; //unit where the user is writing the value
-  CurrenciesObject _currenciesObject = CurrenciesObject();
+  //CurrenciesObject _currenciesObject = CurrenciesObject();
   final Map<String, String> _currenciesSymbols = {
     'EUR': '€ 🇪🇺',
     'CAD': '\$ 🇨🇦',
@@ -61,7 +61,7 @@ class Conversions with ChangeNotifier {
 
   Conversions() {
     // update the currencies with the latest conversions rates and then
-    _checkCurrencies();
+    //_checkCurrencies();
     _initializePropertyList();
     _checkOrdersUnits();
     _checkSettings();
@@ -81,7 +81,7 @@ class Conversions with ChangeNotifier {
           significantFigures: _significantFigures,
           removeTrailingZeros: _removeTrailingZeros,
           name: PROPERTYX.volume),
-      SimpleCustomProperty(_currenciesObject.exchangeRates,
+      SimpleCustomProperty({}, //_currenciesObject.exchangeRates,
           mapSymbols: _currenciesSymbols,
           significantFigures: _significantFigures,
           removeTrailingZeros: _removeTrailingZeros,
@@ -229,7 +229,7 @@ class Conversions with ChangeNotifier {
 
   /// Returns the DateTime of the latest update of the currencies conversions
   /// ratio (year, month, day)
-  get lastUpdateCurrency => _currenciesObject.lastUpdate;
+  //get lastUpdateCurrency => _currenciesObject.lastUpdate;
 
   /// Returns true if the currencies conversions ratio are not ready yet,
   /// returns false otherwise
@@ -237,19 +237,19 @@ class Conversions with ChangeNotifier {
 
   /// This method is used by _checkCurrencies to read the currencies conversions
   /// if the smartphone is offline
-  _readSavedCurrencies() async {
+  /*_readSavedCurrencies() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? currenciesRead = prefs.getString('currenciesRates');
     String? lastUpdate = prefs.getString("lastUpdateCurrencies");
     if (currenciesRead != null && lastUpdate != null) {
       _currenciesObject = CurrenciesObject.fromJson(currenciesRead, lastUpdate);
     }
-  }
+  }*/
 
   /// Updates the currencies conversions ratio with the latest values. The data
   /// comes from the internet if the connection is available or from memory if
   /// the smartphone is offline
-  _checkCurrencies() async {
+  /*_checkCurrencies() async {
     String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -279,7 +279,7 @@ class Conversions with ChangeNotifier {
     _initializePropertyList();
     // change the value of the current conversions
     notifyListeners();
-  }
+  }*/
 
   /// Get the orders of each units of measurement from the memory
   _checkOrdersUnits() async {

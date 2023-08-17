@@ -1,6 +1,5 @@
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/utils/utils.dart';
-import 'package:exchange_rates/exchange_rates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -29,40 +28,6 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
   int? _savedPropertyIndex;
 
   UnitData? _selectedUnit; //unit where the user is writing the value
-  CurrenciesObject _currenciesObject = CurrenciesObject();
-  final Map<String, String> _currenciesSymbols = {
-    'EUR': '€ 🇪🇺',
-    'CAD': '\$ 🇨🇦',
-    'HKD': 'HK\$ 🇭🇰',
-    'PHP': '₱ 🇵🇭',
-    'DKK': 'kr 🇩🇰',
-    'NZD': 'NZ\$ 🇳🇿',
-    'CNY': '¥ 🇨🇳',
-    'AUD': 'A\$ 🇦🇺',
-    'RON': 'L 🇷🇴',
-    'SEK': 'kr 🇸🇪',
-    'IDR': 'Rp 🇮🇩',
-    'INR': '₹ 🇮🇳',
-    'BRL': 'R\$ 🇧🇷',
-    'USD': '\$ 🇺🇸',
-    'ILS': '₪ 🇮🇱',
-    'JPY': '¥ 🇯🇵',
-    'THB': '฿ 🇹🇭',
-    'CHF': 'Fr. 🇨🇭',
-    'CZK': 'Kč 🇨🇿',
-    'MYR': 'RM 🇲🇾',
-    'TRY': '₺ 🇹🇷',
-    'MXN': '\$ 🇲🇽',
-    'NOK': 'kr 🇳🇴',
-    'HUF': 'Ft 🇭🇺',
-    'ZAR': 'R 🇿🇦',
-    'SGD': 'S\$ 🇸🇬',
-    'GBP': '£ 🇬🇧',
-    'KRW': '₩ 🇰🇷',
-    'PLN': 'zł 🇵🇱',
-    'BGN': 'лв 🇧🇬',
-    'ISK': 'kr 🇮🇸',
-  };
   List<List<int>>? _conversionsOrder;
   bool _isCurrenciesLoading = true;
 
@@ -145,25 +110,6 @@ class ConversionsNotifier extends Notifier<List<List<UnitData>>> {
   /// Returns true if we should show a snackbar when the user press on the clear
   /// all button (see [undoClearOperation]), false otherwise.
   bool shouldShowSnackbar(int page) => state[page][0].tec.text != '';
-
-  /// Returns the DateTime of the latest update of the currencies conversions
-  /// ratio (year, month, day)
-  get lastUpdateCurrency => _currenciesObject.lastUpdate;
-
-  /// Returns true if the currencies conversions ratio are not ready yet,
-  /// returns false otherwise
-  get isCurrenciesLoading => _isCurrenciesLoading;
-
-  /// This method is used by _checkCurrencies to read the currencies conversions
-  /// if the smartphone is offline
-  _readSavedCurrencies() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? currenciesRead = prefs.getString('currenciesRates');
-    String? lastUpdate = prefs.getString("lastUpdateCurrencies");
-    if (currenciesRead != null && lastUpdate != null) {
-      _currenciesObject = CurrenciesObject.fromJson(currenciesRead, lastUpdate);
-    }
-  }
 
   /// Updates the currencies conversions ratio with the latest values. The data
   /// comes from the internet if the connection is available or from memory if
