@@ -312,9 +312,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: Text(AppLocalizations.of(context)!.buyMeACoffee),
-                    content: Text(
-                      AppLocalizations.of(context)!.donationDialog,
-                      style: const TextStyle(fontSize: 18),
+                    content: SizedBox(
+                      width: 500,
+                      child: Text(
+                        AppLocalizations.of(context)!.donationDialog,
+                        style: const TextStyle(fontSize: 18),
+                      ),
                     ),
                     actions: <Widget>[
                       TextButton(

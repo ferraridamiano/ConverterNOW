@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   #Needed for calculator computation
-  decimal: ^2.3.2
+  decimal: ^2.3.3
   #Needed for the state management
   provider: ^6.0.5
   #Needed for app translation
@@ -23,7 +23,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   test: ^1.21.4
-  flutter_lints: ^2.0.1
+  flutter_lints: ^2.0.2
 
 flutter:
   uses-material-design: true

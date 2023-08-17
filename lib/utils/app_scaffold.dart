@@ -32,8 +32,10 @@ class AppScaffold extends StatelessWidget {
     }
 
     void clearAll(bool isDrawerFixed) {
-      final int page = pageNumberMap[
-          GoRouter.of(context).location.substring('/conversions/'.length)]!;
+      final int page = pageNumberMap[GoRouterState.of(context)
+          .uri
+          .toString()
+          .substring('/conversions/'.length)]!;
       if (context.read<Conversions>().shouldShowSnackbar(page)) {
         context.read<Conversions>().clearAllValues(page);
         //Snackbar undo request
@@ -63,7 +65,7 @@ class AppScaffold extends StatelessWidget {
         final String targetPath =
             '/conversions/${reversePageNumberListMap[newPage]}';
         // ignore: use_build_context_synchronously
-        if (GoRouter.of(context).location != targetPath) {
+        if (GoRouterState.of(context).uri.toString() != targetPath) {
           // ignore: use_build_context_synchronously
           context.go(targetPath);
         }

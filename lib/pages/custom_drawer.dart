@@ -155,7 +155,7 @@ class CustomDrawer extends StatelessWidget {
 
 int pathToNavigationIndex(BuildContext context, bool isDrawerFixed,
     List<int> conversionsOrderDrawer) {
-  final String location = GoRouterState.of(context).location;
+  final String location = GoRouterState.of(context).uri.toString();
   // 3 elements in the header
   if (isDrawerFixed) {
     if (location.startsWith('/conversions/')) {

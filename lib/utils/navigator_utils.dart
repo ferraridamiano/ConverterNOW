@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 enum AppPage { conversions, settings, reorder, reorderDetails }
 
 AppPage computeSelectedSection(BuildContext context) {
-  final String location = GoRouterState.of(context).location;
+  final String location = GoRouterState.of(context).uri.toString();
 
   if (location.startsWith('/conversions/')) {
     return AppPage.conversions;
@@ -27,7 +27,7 @@ AppPage computeSelectedSection(BuildContext context) {
 }
 
 int? computeSelectedConversionPage(BuildContext context) {
-  final location = GoRouterState.of(context).location;
+  final location = GoRouterState.of(context).uri.toString();
   if (location.startsWith('/conversions')) {
     return pageNumberMap[location.split('/').last];
   }
