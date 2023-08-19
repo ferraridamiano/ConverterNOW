@@ -1,6 +1,7 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:calculator_widget/calculator_widget.dart';
 import 'package:converterpro/models/conversions_new.dart';
+import 'package:converterpro/models/order.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
@@ -56,23 +57,23 @@ class AppScaffold extends ConsumerWidget {
       }
     }
 
-    void openSearch() {}
-    /*void openSearch() async {
-      final orderList = context.read<AppModel>().conversionsOrderDrawer;
-      final int? newPage = await showSearch(
-        context: context,
-        delegate: CustomSearchDelegate(orderList!),
-      );
-      if (newPage != null) {
-        final String targetPath =
-            '/conversions/${reversePageNumberListMap[newPage]}';
-        // ignore: use_build_context_synchronously
-        if (GoRouter.of(context).location != targetPath) {
+    void openSearch() {
+      ref.read(PropertiesOrderNotifier.provider).whenData((orderList) async {
+        final int? newPage = await showSearch(
+          context: context,
+          delegate: CustomSearchDelegate(orderList!),
+        );
+        if (newPage != null) {
+          final String targetPath =
+              '/conversions/${reversePageNumberListMap[newPage]}';
           // ignore: use_build_context_synchronously
-          context.go(targetPath);
+          if (GoRouter.of(context).location != targetPath) {
+            // ignore: use_build_context_synchronously
+            context.go(targetPath);
+          }
         }
-      }
-    }*/
+      });
+    }
 
     return LayoutBuilder(builder: (context, constraints) {
       // ignore: no_leading_underscores_for_local_identifiers
