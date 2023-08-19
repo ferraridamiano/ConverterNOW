@@ -1,5 +1,6 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/conversions_new.dart';
+import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
@@ -18,10 +19,6 @@ class ConversionPage extends ConsumerWidget {
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     Map<PROPERTYX, String> propertyTranslationMap =
         getPropertyTranslationMap(context);
-    final bool isConversionsLoaded = true;
-    /*context.select<Conversions, bool>(
-      (conversions) => conversions.isConversionsLoaded,
-    );*/
 
     List<List<UnitData>>? unitsList =
         ref.watch(ConversionsNotifier.provider).valueOrNull;
@@ -38,9 +35,29 @@ class ConversionPage extends ConsumerWidget {
         .watch(ConversionsNotifier.provider.notifier)
         .getPropertyNameAtPage(page);
 
-    String subTitle = '';
+    Widget? subtitleWidget;
     if (currentProperty == PROPERTYX.currencies) {
-      subTitle = _getLastUpdateString(context);
+      Currencies? currencies = ref.watch(currenciesProvider).maybeWhen(
+            data: (data) => data,
+            orElse: () => null,
+          );
+      if (currencies == null) {
+        subtitleWidget = const SizedBox(
+          height: 30,
+          child: Center(
+            child: SizedBox(
+              width: 25,
+              height: 25,
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        );
+      } else {
+        subtitleWidget = Text(
+          _getLastUpdateString(context, currencies.lastUpdate),
+          style: Theme.of(context).textTheme.titleSmall,
+        );
+      }
     }
 
     List<Widget> gridTiles = [];
@@ -92,31 +109,13 @@ class ConversionPage extends ConsumerWidget {
         SliverAppBar.large(
           title: Text(propertyTranslationMap[currentProperty]!),
         ),
-        if (subTitle != '')
+        if (subtitleWidget != null)
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  false
-                      /*context.select<Conversions, bool>(
-                          (conversions) => conversions.isCurrenciesLoading)*/
-                      ? const SizedBox(
-                          height: 30,
-                          child: Center(
-                            child: SizedBox(
-                              width: 25,
-                              height: 25,
-                              child: CircularProgressIndicator(),
-                            ),
-                          ),
-                        )
-                      : Text(
-                          subTitle,
-                          style: Theme.of(context).textTheme.titleSmall,
-                        )
-                ],
+                children: [subtitleWidget],
               ),
             ),
           ),
@@ -141,10 +140,8 @@ class ConversionPage extends ConsumerWidget {
   }
 }
 
-String _getLastUpdateString(BuildContext context) {
-  DateTime lastUpdateCurrencies = DateTime
-      .now(); /*context
-      .select<Conversions, DateTime>((settings) => settings.lastUpdateCurrency);*/
+String _getLastUpdateString(BuildContext context, String lastUpdate) {
+  DateTime lastUpdateCurrencies = DateTime.parse(lastUpdate);
   DateTime dateNow = DateTime.now();
   if (lastUpdateCurrencies.day == dateNow.day &&
       lastUpdateCurrencies.month == dateNow.month &&

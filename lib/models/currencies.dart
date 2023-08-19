@@ -79,7 +79,7 @@ class Currencies {
 final currenciesProvider = FutureProvider<Currencies>((ref) async {
   var pref = await ref.watch(sharedPrefs.future);
 
-  Currencies _readSavedCurrencies() {
+  Currencies readSavedCurrencies() {
     String? lastUpdate = pref.getString('lastUpdateCurrencies');
     String? currenciesRead = pref.getString('currenciesRates');
     if (currenciesRead != null) {
@@ -91,7 +91,7 @@ final currenciesProvider = FutureProvider<Currencies>((ref) async {
 
   /// Updates the currencies exchange rates with the latest values. It will also
   /// update the status at the end (updated or error)
-  Future<Currencies> _downloadCurrencies() async {
+  Future<Currencies> downloadCurrencies() async {
     // stringRequest prepares the string request for all the currencies
     String stringRequest = '';
     for (String currency in Currencies().exchangeRates.keys) {
@@ -139,7 +139,7 @@ final currenciesProvider = FutureProvider<Currencies>((ref) async {
     } catch (e) {
       debugPrint(e.toString());
     }
-    return _readSavedCurrencies();
+    return readSavedCurrencies();
   }
 
   final String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
@@ -148,9 +148,9 @@ final currenciesProvider = FutureProvider<Currencies>((ref) async {
   // if I have never updated the conversions or if I have updated before today
   // I have to update
   if (lastUpdate == null || lastUpdate != now) {
-    return _downloadCurrencies();
+    return downloadCurrencies();
   }
   // If I already have the data of today I just use it, no need of read them
   // from the web
-  return _readSavedCurrencies();
+  return readSavedCurrencies();
 });
