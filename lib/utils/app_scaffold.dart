@@ -1,6 +1,4 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
-import 'package:converterpro/models/app_model.dart';
-import 'package:converterpro/models/conversions.dart';
 import 'package:calculator_widget/calculator_widget.dart';
 import 'package:converterpro/models/conversions_new.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
