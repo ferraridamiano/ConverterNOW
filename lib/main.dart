@@ -10,14 +10,13 @@ import 'package:converterpro/utils/app_scaffold.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -26,7 +25,7 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
 
 class MyApp extends ConsumerWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -62,7 +61,7 @@ class MyApp extends ConsumerWidget {
               path: '/settings',
               name: 'settings',
               pageBuilder: (context, state) =>
-                  NoTransitionPage(child: SettingsPage()),
+                  const NoTransitionPage(child: SettingsPage()),
               routes: [
                 GoRoute(
                   path: 'reorder-properties',
