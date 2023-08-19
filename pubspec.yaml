@@ -28,8 +28,6 @@ dependencies:
   http: ^1.1.0
   # Translations
   intl: ^0.18.0
-  # State management
-  provider: ^6.0.5
   # Android app shortcuts
   quick_actions: ^1.0.1
   # Store the customizations and the latest currencies convertions

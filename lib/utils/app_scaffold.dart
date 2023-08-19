@@ -1,6 +1,6 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:calculator_widget/calculator_widget.dart';
-import 'package:converterpro/models/conversions_new.dart';
+import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/pages/search_page.dart';

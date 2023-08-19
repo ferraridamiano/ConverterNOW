@@ -1,5 +1,5 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
-import 'package:converterpro/models/conversions_new.dart';
+import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
