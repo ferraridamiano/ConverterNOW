@@ -1,23 +1,23 @@
-import 'package:converterpro/models/app_model.dart';
-import 'package:converterpro/models/conversions.dart';
+import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:converterpro/main.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends ConsumerWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final List<int>? conversionsOrderDrawer =
-        context.select<AppModel, List<int>?>(
-            (appModel) => appModel.conversionsOrderDrawer);
-    final bool isConversionsLoaded = context.select<Conversions, bool>(
-        (conversions) => conversions.isConversionsLoaded);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final List<int>? conversionsOrderDrawer = ref
+        .watch(PropertiesOrderNotifier.provider)
+        .maybeWhen(data: (data) => data, orElse: () => null);
+    final bool isConversionsLoaded = ref
+        .watch(UnitsOrderNotifier.provider)
+        .maybeWhen(data: (data) => true, orElse: () => false);
 
     if (isConversionsLoaded && conversionsOrderDrawer != null) {
       List<PropertyUi> propertyUiList = getPropertyUiList(context);

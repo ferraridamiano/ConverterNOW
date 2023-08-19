@@ -31,7 +31,6 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final _router = GoRouter(
       navigatorKey: rootNavigatorKey,
-      initialLocation: '/conversions/length', // TODO remove this
       routes: [
         GoRoute(
           path: '/',
@@ -102,12 +101,14 @@ class MyApp extends ConsumerWidget {
       redirect: (context, state) {
         // Bypass splashscreen if variables are already loaded
         if (state.location == '/') {
-          final conversionsOrderDrawer =
-              ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
-          /*final bool isConversionsLoaded =
-              context.read<Conversions>().isConversionsLoaded;*/
+          final List<int>? conversionsOrderDrawer = ref
+              .watch(PropertiesOrderNotifier.provider)
+              .maybeWhen(data: (data) => data, orElse: () => null);
+          final bool isConversionsLoaded = ref
+              .watch(UnitsOrderNotifier.provider)
+              .maybeWhen(data: (data) => true, orElse: () => false);
 
-          if (/*isConversionsLoaded &&*/ conversionsOrderDrawer != null) {
+          if (isConversionsLoaded && conversionsOrderDrawer != null) {
             return '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}';
           }
         }
