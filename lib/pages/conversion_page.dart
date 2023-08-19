@@ -23,17 +23,20 @@ class ConversionPage extends ConsumerWidget {
       (conversions) => conversions.isConversionsLoaded,
     );*/
 
+    List<List<UnitData>>? unitsList =
+        ref.watch(ConversionsNotifier.provider).valueOrNull;
     // if we remove the following check, if you enter the site directly to
     // '/conversions/:property' an error will occur
-    if (!isConversionsLoaded) {
+    if (unitsList == null) {
       return const SplashScreenWidget();
     }
 
-    List<UnitData> unitDataList = ref.watch(conversionsProvider)[page];
+    List<UnitData> unitDataList = unitsList[page];
     //context.read<Conversions>().getUnitDataListAtPage(page);
 
-    PROPERTYX currentProperty =
-        ref.watch(conversionsProvider.notifier).getPropertyNameAtPage(page);
+    PROPERTYX currentProperty = ref
+        .watch(ConversionsNotifier.provider.notifier)
+        .getPropertyNameAtPage(page);
 
     String subTitle = '';
     if (currentProperty == PROPERTYX.currencies) {
@@ -66,7 +69,7 @@ class ConversionPage extends ConsumerWidget {
             txt = '0$txt';
           }
           if (txt == '' || unitData.getValidator().hasMatch(txt)) {
-            var conversions = ref.read(conversionsProvider.notifier);
+            var conversions = ref.read(ConversionsNotifier.provider.notifier);
             //just numeral system uses a string for conversion
             if (unitData.property == PROPERTYX.numeralSystems) {
               conversions.convert(unitData, txt == "" ? null : txt, page);

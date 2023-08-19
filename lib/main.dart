@@ -1,4 +1,4 @@
-import 'package:converterpro/models/order_units.dart';
+import 'package:converterpro/models/order.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/pages/error_page.dart';
 import 'package:converterpro/pages/reorder_units_page.dart';
@@ -104,7 +104,7 @@ class MyApp extends ConsumerWidget {
         // Bypass splashscreen if variables are already loaded
         if (state.location == '/') {
           final conversionsOrderDrawer =
-              ref.watch(OrderNotifier.provider).valueOrNull;
+              ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
           /*final bool isConversionsLoaded =
               context.read<Conversions>().isConversionsLoaded;*/
 

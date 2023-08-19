@@ -33,8 +33,10 @@ class AppScaffold extends ConsumerWidget {
     void clearAll(bool isDrawerFixed) {
       final int page = pageNumberMap[
           GoRouter.of(context).location.substring('/conversions/'.length)]!;
-      if (ref.read(conversionsProvider.notifier).shouldShowSnackbar(page)) {
-        ref.read(conversionsProvider.notifier).clearAllValues(page);
+      if (ref
+          .read(ConversionsNotifier.provider.notifier)
+          .shouldShowSnackbar(page)) {
+        ref.read(ConversionsNotifier.provider.notifier).clearAllValues(page);
         //Snackbar undo request
         final SnackBar snackBar = SnackBar(
           content: Text(AppLocalizations.of(context)!.undoClearAllMessage),
@@ -44,7 +46,9 @@ class AppScaffold extends ConsumerWidget {
             key: const ValueKey('undoClearAll'),
             label: AppLocalizations.of(context)!.undo,
             onPressed: () {
-              ref.read(conversionsProvider.notifier).undoClearOperation();
+              ref
+                  .read(ConversionsNotifier.provider.notifier)
+                  .undoClearOperation();
             },
           ),
         );

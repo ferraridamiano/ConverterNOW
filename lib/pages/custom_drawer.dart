@@ -1,4 +1,4 @@
-import 'package:converterpro/models/order_units.dart';
+import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
@@ -89,7 +89,7 @@ class CustomDrawer extends ConsumerWidget {
     );
 
     List<int>? conversionsOrderDrawer;
-    ref.watch(OrderNotifier.provider).when(
+    ref.watch(PropertiesOrderNotifier.provider).when(
           data: (data) => conversionsOrderDrawer = data,
           error: (_, stacktrace) => conversionsOrderDrawer = null,
           loading: () => conversionsOrderDrawer = null,
