@@ -1,4 +1,5 @@
 import 'package:converterpro/models/order.dart';
+import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/pages/error_page.dart';
 import 'package:converterpro/pages/reorder_units_page.dart';
@@ -13,6 +14,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+
+final isEverythingLoadedProvider = Provider<bool>((ref) =>
+    ref.watch(SignificantFigures.provider).hasValue &&
+    ref.watch(RemoveTrailingZeros.provider).hasValue &&
+    ref.watch(IsDarkAmoled.provider).hasValue &&
+    ref.watch(CurrentThemeMode.provider).hasValue &&
+    ref.watch(CurrentLocale.provider).hasValue &&
+    ref.watch(PropertiesOrderNotifier.provider).hasValue &&
+    ref.watch(UnitsOrderNotifier.provider).hasValue &&
+    ref.watch(propertiesListProvider).hasValue);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -95,14 +106,9 @@ class MyApp extends ConsumerWidget {
       redirect: (context, state) {
         // Bypass splashscreen if variables are already loaded
         if (state.uri.toString() == '/') {
-          final List<int>? conversionsOrderDrawer = ref
-              .watch(PropertiesOrderNotifier.provider)
-              .maybeWhen(data: (data) => data, orElse: () => null);
-          final bool isConversionsLoaded = ref
-              .watch(UnitsOrderNotifier.provider)
-              .maybeWhen(data: (data) => true, orElse: () => false);
-
-          if (isConversionsLoaded && conversionsOrderDrawer != null) {
+          if (ref.read(isEverythingLoadedProvider)) {
+            final List<int> conversionsOrderDrawer =
+                ref.read(PropertiesOrderNotifier.provider).value!;
             return '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}';
           }
         }

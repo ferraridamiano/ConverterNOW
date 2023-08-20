@@ -85,7 +85,7 @@ class ConversionsNotifier extends AsyncNotifier<List<List<UnitData>>> {
           validator = VALIDATOR.rationalNonNegative;
         }
 
-        tempUnitData[conversionsOrder![i][j]] = UnitData(
+        tempUnitData[conversionsOrder[i][j]] = UnitData(
           tempProperty[j],
           property: property.name,
           tec: TextEditingController(),

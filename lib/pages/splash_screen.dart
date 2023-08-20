@@ -1,3 +1,4 @@
+import 'package:converterpro/main.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
@@ -11,14 +12,9 @@ class SplashScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<int>? conversionsOrderDrawer = ref
-        .watch(PropertiesOrderNotifier.provider)
-        .maybeWhen(data: (data) => data, orElse: () => null);
-    final bool isConversionsLoaded = ref
-        .watch(UnitsOrderNotifier.provider)
-        .maybeWhen(data: (data) => true, orElse: () => false);
-
-    if (isConversionsLoaded && conversionsOrderDrawer != null) {
+    if (ref.watch(isEverythingLoadedProvider)) {
+      final conversionsOrderDrawer =
+          ref.read(PropertiesOrderNotifier.provider).value!;
       List<PropertyUi> propertyUiList = getPropertyUiList(context);
       initializeQuickAction(
         conversionsOrderDrawer: conversionsOrderDrawer,

@@ -42,9 +42,6 @@ class SignificantFigures extends AsyncNotifier<int> {
   }
 }
 
-// TODO everything asyncnotifier
-// TODO add provider to check if everything is loaded
-
 class RemoveTrailingZeros extends AsyncNotifier<bool> {
   static const prefKey = 'remove_trailing_zeros';
   static final provider =
