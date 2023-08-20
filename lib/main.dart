@@ -77,7 +77,8 @@ class MyApp extends ConsumerWidget {
                     GoRoute(
                       path: ':property',
                       pageBuilder: (context, state) {
-                        final String property = state.params['property']!;
+                        final String property =
+                            state.pathParameters['property']!;
                         final int? pageNumber = pageNumberMap[property];
                         if (pageNumber == null) {
                           throw Exception('property not found: $property');
