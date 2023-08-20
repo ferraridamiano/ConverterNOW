@@ -63,7 +63,7 @@ class AppScaffold extends ConsumerWidget {
       ref.read(PropertiesOrderNotifier.provider).whenData((orderList) async {
         final int? newPage = await showSearch(
           context: context,
-          delegate: CustomSearchDelegate(orderList!),
+          delegate: CustomSearchDelegate(orderList),
         );
         if (newPage != null) {
           final String targetPath =

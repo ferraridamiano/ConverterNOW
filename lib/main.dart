@@ -19,25 +19,18 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-final GlobalKey<NavigatorState> rootNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'root');
-final GlobalKey<NavigatorState> _shellNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shell');
-
 class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _router = GoRouter(
-      navigatorKey: rootNavigatorKey,
       routes: [
         GoRoute(
           path: '/',
           builder: (context, _) => const SplashScreen(),
         ),
         ShellRoute(
-          navigatorKey: _shellNavigatorKey,
           builder: (context, state, child) {
             return AppScaffold(
               child: child,

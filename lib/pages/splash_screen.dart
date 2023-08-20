@@ -5,7 +5,6 @@ import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:converterpro/main.dart';
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -31,7 +30,7 @@ class SplashScreen extends ConsumerWidget {
       );
 
       WidgetsBinding.instance.addPostFrameCallback(
-        (_) => GoRouter.of(rootNavigatorKey.currentContext!).go(
+        (_) => GoRouter.of(context).go(
           '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}',
         ),
       );

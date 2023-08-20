@@ -88,12 +88,11 @@ class CustomDrawer extends ConsumerWidget {
       ),
     );
 
-    List<int>? conversionsOrderDrawer;
-    ref.watch(PropertiesOrderNotifier.provider).when(
-          data: (data) => conversionsOrderDrawer = data,
-          error: (_, stacktrace) => conversionsOrderDrawer = null,
-          loading: () => conversionsOrderDrawer = null,
-        );
+    List<int>? conversionsOrderDrawer =
+        ref.watch(PropertiesOrderNotifier.provider).maybeWhen(
+              data: (data) => data,
+              orElse: () => null,
+            );
 
     if (conversionsOrderDrawer == null) {
       return const SizedBox();
@@ -107,8 +106,7 @@ class CustomDrawer extends ConsumerWidget {
 
     for (int i = 0; i < propertyUiList.length; i++) {
       PropertyUi propertyUi = propertyUiList[i];
-      conversionDrawer[conversionsOrderDrawer![i]] =
-          NavigationDrawerDestination(
+      conversionDrawer[conversionsOrderDrawer[i]] = NavigationDrawerDestination(
         key: ValueKey('drawerItem_${reversePageNumberListMap[i]}'),
         icon: SvgPicture(
           AssetBytesLoader(propertyUi.imagePath),
@@ -125,12 +123,12 @@ class CustomDrawer extends ConsumerWidget {
         headerDrawer.whereType<NavigationDrawerDestination>().toList().length;
 
     return NavigationDrawer(
-      selectedIndex: pathToNavigationIndex(
-          context, isDrawerFixed, conversionsOrderDrawer!),
+      selectedIndex:
+          pathToNavigationIndex(context, isDrawerFixed, conversionsOrderDrawer),
       onDestinationSelected: (int selectedPage) {
         if (selectedPage >= headerElements) {
           context.go(
-              '/conversions/${reversePageNumberListMap[conversionsOrderDrawer!.indexWhere((val) => val == selectedPage - headerElements)]}');
+              '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == selectedPage - headerElements)]}');
           if (!isDrawerFixed) {
             Navigator.of(context).pop();
           }

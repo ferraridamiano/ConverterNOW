@@ -46,7 +46,7 @@ class ReorderPropertiesPage extends ConsumerWidget {
             },
           );
         }
-        context.goNamed('settings');
+        context.pop();
       },
     );
   }
