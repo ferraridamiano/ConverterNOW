@@ -153,7 +153,7 @@ class MyApp extends ConsumerWidget {
         drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
       );
 
-      return Builder(builder: (BuildContext context) {
+      return Consumer(builder: (context, ref, child) {
         return MaterialApp.router(
           routeInformationProvider: router.routeInformationProvider,
           routeInformationParser: router.routeInformationParser,
