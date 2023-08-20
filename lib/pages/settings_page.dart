@@ -69,7 +69,8 @@ class SettingsPage extends ConsumerWidget {
           title: AppLocalizations.of(context)!.theme,
           textStyle: textStyle,
           items: mapTheme.values.toList(),
-          value: mapTheme[ref.watch(CurrentThemeMode.provider)]!,
+          value:
+              mapTheme[ref.watch(CurrentThemeMode.provider).valueOrNull ?? 0]!,
           onChanged: (String? string) {
             ref.read(CurrentThemeMode.provider.notifier).set(
                 mapTheme.keys.where((key) => mapTheme[key] == string).single);
@@ -81,7 +82,7 @@ class SettingsPage extends ConsumerWidget {
             AppLocalizations.of(context)!.amoledDarkTheme,
             style: textStyle,
           ),
-          value: ref.watch(IsDarkAmoled.provider),
+          value: ref.watch(IsDarkAmoled.provider).valueOrNull ?? false,
           activeColor: Theme.of(context).colorScheme.secondary,
           onChanged: (bool val) {
             ref.read(IsDarkAmoled.provider.notifier).set(val);
@@ -99,7 +100,7 @@ class SettingsPage extends ConsumerWidget {
             AppLocalizations.of(context)!.removeTrailingZeros,
             style: textStyle,
           ),
-          value: ref.watch(RemoveTrailingZeros.provider),
+          value: ref.watch(RemoveTrailingZeros.provider).valueOrNull ?? true,
           activeColor: Theme.of(context).colorScheme.secondary,
           onChanged: (bool val) {
             ref.read(RemoveTrailingZeros.provider.notifier).set(val);
@@ -116,7 +117,8 @@ class SettingsPage extends ConsumerWidget {
           title: AppLocalizations.of(context)!.significantFigures,
           textStyle: textStyle,
           items: significantFiguresList.map((e) => e.toString()).toList(),
-          value: ref.watch(SignificantFigures.provider).toString(),
+          value: (ref.watch(SignificantFigures.provider).valueOrNull ?? 10)
+              .toString(),
           onChanged: (String? string) {
             if (string != null) {
               ref

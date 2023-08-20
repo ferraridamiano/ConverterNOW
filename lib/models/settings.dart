@@ -25,114 +25,105 @@ final Map<Locale, String> mapLocale = {
 final sharedPrefs = FutureProvider<SharedPreferences>(
     (_) async => await SharedPreferences.getInstance());
 
-class SignificantFigures extends StateNotifier<int> {
-  SignificantFigures(this.pref) : super(pref?.getInt(prefKey) ?? 10);
-
+class SignificantFigures extends AsyncNotifier<int> {
   static const prefKey = 'significant_figures';
-  final SharedPreferences? pref;
-  static final provider = StateNotifierProvider<SignificantFigures, int>((ref) {
-    final pref = ref.watch(sharedPrefs).maybeWhen(
-          data: (value) => value,
-          orElse: () => null,
-        );
-    return SignificantFigures(pref);
-  });
+  static final provider =
+      AsyncNotifierProvider<SignificantFigures, int>(SignificantFigures.new);
+
+  @override
+  Future<int> build() async {
+    var pref = await ref.watch(sharedPrefs.future);
+    return pref.getInt(prefKey) ?? 10;
+  }
 
   void set(int value) {
-    state = value;
-    pref!.setInt(prefKey, state);
+    state = AsyncData(value);
+    ref.read(sharedPrefs.future).then((pref) => pref.setInt(prefKey, value));
   }
 }
 
-class RemoveTrailingZeros extends StateNotifier<bool> {
-  RemoveTrailingZeros(this.pref) : super(pref?.getBool(prefKey) ?? true);
+// TODO everything asyncnotifier
+// TODO add provider to check if everything is loaded
 
-  final SharedPreferences? pref;
+class RemoveTrailingZeros extends AsyncNotifier<bool> {
   static const prefKey = 'remove_trailing_zeros';
   static final provider =
-      StateNotifierProvider<RemoveTrailingZeros, bool>((ref) {
-    final pref = ref.watch(sharedPrefs).maybeWhen(
-          data: (value) => value,
-          orElse: () => null,
-        );
-    return RemoveTrailingZeros(pref);
-  });
+      AsyncNotifierProvider<RemoveTrailingZeros, bool>(RemoveTrailingZeros.new);
+
+  @override
+  Future<bool> build() async {
+    var pref = await ref.watch(sharedPrefs.future);
+    return pref.getBool(prefKey) ?? true;
+  }
 
   void set(bool value) {
-    state = value;
-    pref!.setBool(prefKey, state);
+    state = AsyncData(value);
+    ref.read(sharedPrefs.future).then((pref) => pref.setBool(prefKey, value));
   }
 }
 
-class IsDarkAmoled extends StateNotifier<bool> {
-  IsDarkAmoled(this.pref) : super(pref?.getBool(prefKey) ?? true);
-
-  final SharedPreferences? pref;
+class IsDarkAmoled extends AsyncNotifier<bool> {
   static const prefKey = 'isDarkAmoled';
-  static final provider = StateNotifierProvider<IsDarkAmoled, bool>((ref) {
-    final pref = ref.watch(sharedPrefs).maybeWhen(
-          data: (value) => value,
-          orElse: () => null,
-        );
-    return IsDarkAmoled(pref);
-  });
+  static final provider =
+      AsyncNotifierProvider<IsDarkAmoled, bool>(IsDarkAmoled.new);
+
+  @override
+  Future<bool> build() async {
+    var pref = await ref.watch(sharedPrefs.future);
+    return pref.getBool(prefKey) ?? true;
+  }
 
   void set(bool value) {
-    state = value;
-    pref!.setBool(prefKey, state);
+    state = AsyncData(value);
+    ref.read(sharedPrefs.future).then((pref) => pref.setBool(prefKey, value));
   }
 }
 
-class CurrentThemeMode extends StateNotifier<ThemeMode> {
-  CurrentThemeMode(this.pref)
-      : super(ThemeMode.values[pref?.getInt(prefKey) ?? 0]);
-
+class CurrentThemeMode extends AsyncNotifier<ThemeMode> {
   static const prefKey = 'currentThemeMode';
-  final SharedPreferences? pref;
   static final provider =
-      StateNotifierProvider<CurrentThemeMode, ThemeMode>((ref) {
-    final pref = ref.watch(sharedPrefs).maybeWhen(
-          data: (value) => value,
-          orElse: () => null,
-        );
-    return CurrentThemeMode(pref);
-  });
+      AsyncNotifierProvider<CurrentThemeMode, ThemeMode>(CurrentThemeMode.new);
+
+  @override
+  Future<ThemeMode> build() async {
+    var pref = await ref.watch(sharedPrefs.future);
+    return ThemeMode.values[pref.getInt(prefKey) ?? 0];
+  }
 
   void set(ThemeMode value) {
-    state = value;
-    pref!.setInt(prefKey, ThemeMode.values.indexOf(state));
+    state = AsyncData(value);
+    ref
+        .read(sharedPrefs.future)
+        .then((pref) => pref.setInt(prefKey, ThemeMode.values.indexOf(value)));
   }
 }
 
-class CurrentLocale extends StateNotifier<Locale?> {
-  CurrentLocale(this.pref)
-      : super(() {
-          var savedLanguageCode = pref?.getString(prefKey);
-          if (savedLanguageCode == null) {
-            return null;
-          }
-          return mapLocale.keys.firstWhere(
-            (element) => element.languageCode == savedLanguageCode,
-            orElse: () => const Locale('en'),
-          );
-        }());
-
+class CurrentLocale extends AsyncNotifier<Locale?> {
   static const prefKey = 'locale';
-  final SharedPreferences? pref;
-  static final provider = StateNotifierProvider<CurrentLocale, Locale?>((ref) {
-    final pref = ref.watch(sharedPrefs).maybeWhen(
-          data: (value) => value,
-          orElse: () => null,
-        );
-    return CurrentLocale(pref);
-  });
+  static final provider =
+      AsyncNotifierProvider<CurrentLocale, Locale?>(CurrentLocale.new);
+
+  @override
+  Future<Locale?> build() async {
+    var pref = await ref.watch(sharedPrefs.future);
+
+    var savedLanguageCode = pref.getString(prefKey);
+    if (savedLanguageCode == null) {
+      return null;
+    }
+    return mapLocale.keys.firstWhere(
+      (element) => element.languageCode == savedLanguageCode,
+      orElse: () => const Locale('en'),
+    );
+  }
 
   void set(Locale? value) {
-    state = value;
-    if (state == null) {
-      pref!.remove(prefKey);
-    } else {
-      pref!.setString(prefKey, state!.languageCode);
+    state = AsyncData(value);
+    // TODO deal with null value
+    if (value != null) {
+      ref
+          .read(sharedPrefs.future)
+          .then((pref) => pref.setString(prefKey, value.languageCode));
     }
   }
 }

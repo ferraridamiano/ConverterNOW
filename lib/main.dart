@@ -154,9 +154,12 @@ class MyApp extends ConsumerWidget {
           routerDelegate: _router.routerDelegate,
           debugShowCheckedModeBanner: false,
           title: 'Converter NOW',
-          themeMode: ref.watch(CurrentThemeMode.provider),
+          themeMode: ref.watch(CurrentThemeMode.provider).valueOrNull ??
+              ThemeMode.system,
           theme: lightTheme,
-          darkTheme: ref.watch(IsDarkAmoled.provider) ? amoledTheme : darkTheme,
+          darkTheme: (ref.watch(IsDarkAmoled.provider).valueOrNull ?? false)
+              ? amoledTheme
+              : darkTheme,
           supportedLocales: mapLocale.keys,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           localeResolutionCallback:
@@ -172,7 +175,8 @@ class MyApp extends ConsumerWidget {
             }
             return const Locale('en');
           },
-          locale: ref.watch(CurrentLocale.provider),
+          locale: ref.watch(CurrentLocale.provider).valueOrNull ??
+              const Locale('en'),
         );
       });
     });

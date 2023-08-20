@@ -55,7 +55,7 @@ class UnitsOrderNotifier extends AsyncNotifier<List<List<int>>> {
   Future<List<List<int>>> build() async {
     // Initialize the order for each property to default:
     // [0,1,2,...,size(property)]
-    var propertyList = ref.read(propertiesListProvider);
+    var propertyList = await ref.read(propertiesListProvider.future);
     List<List<int>> temp = [];
     for (var property in propertyList) {
       temp.add(List.generate(property.size, (index) => index));

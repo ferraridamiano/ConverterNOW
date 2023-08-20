@@ -17,11 +17,14 @@ class ConversionsNotifier extends AsyncNotifier<List<List<UnitData>>> {
     List<List<int>> conversionsOrder =
         (await ref.watch(UnitsOrderNotifier.provider.future));
 
+    List<Property> propertiesList =
+        await ref.read(propertiesListProvider.future);
+
     List<List<UnitData>> tempUnitDataList = [];
-    for (int i = 0; i < ref.read(propertiesListProvider).length; i++) {
-      List<UnitData> tempUnitData = List.filled(conversionsOrder![i].length,
+    for (int i = 0; i < propertiesList.length; i++) {
+      List<UnitData> tempUnitData = List.filled(conversionsOrder[i].length,
           UnitData(Unit('none'), tec: TextEditingController()));
-      Property property = ref.read(propertiesListProvider)[i];
+      Property property = propertiesList[i];
       List<Unit> tempProperty = property.getAll();
       for (int j = 0; j < tempProperty.length; j++) {
         VALIDATOR validator;
@@ -109,35 +112,40 @@ class ConversionsNotifier extends AsyncNotifier<List<List<UnitData>>> {
   /// This function get the value of the unit from currentProperty and update
   /// the currentUnitDataList values. It is used when a conversion changes the
   /// values of the units
-  _refreshCurrentUnitDataList(int page) {
+  void _refreshCurrentUnitDataList(int page) {
     List<UnitData> currentUnitDataList = state.value![page];
-    for (UnitData currentUnitData in currentUnitDataList) {
-      final currentProperty = ref.read(propertiesListProvider)[page];
-      currentUnitData.unit = currentProperty.getUnit(currentUnitData.unit.name);
-      if (currentUnitData != _selectedUnit) {
-        if (currentUnitData.unit.stringValue == null) {
-          currentUnitData.tec.text = '';
-        } else {
-          currentUnitData.tec.text = currentUnitData.unit.stringValue!;
+    ref.read(propertiesListProvider.future).then((propertiesList) {
+      for (UnitData currentUnitData in currentUnitDataList) {
+        final currentProperty = propertiesList[page];
+        currentUnitData.unit =
+            currentProperty.getUnit(currentUnitData.unit.name);
+        if (currentUnitData != _selectedUnit) {
+          if (currentUnitData.unit.stringValue == null) {
+            currentUnitData.tec.text = '';
+          } else {
+            currentUnitData.tec.text = currentUnitData.unit.stringValue!;
+          }
         }
       }
-    }
+    });
   }
 
   /// This function is used to convert all the values from one that has been
   /// modified
-  convert(UnitData unitData, var value, int page) {
-    ref.read(propertiesListProvider)[page].convert(unitData.unit.name, value);
-    _selectedUnit = unitData;
-    _refreshCurrentUnitDataList(page);
+  void convert(UnitData unitData, var value, int page) {
+    ref.read(propertiesListProvider.future).then((propertiesList) {
+      propertiesList[page].convert(unitData.unit.name, value);
+      _selectedUnit = unitData;
+      _refreshCurrentUnitDataList(page);
+    });
   }
 
   /// Returns a UnitDataList at a certain page with the current ordering
   /// (usefult with reorder units)
   List<UnitData> getUnitDataListAtPage(int page) => state.value![page];
 
-  PROPERTYX getPropertyNameAtPage(int page) =>
-      ref.read(propertiesListProvider)[page].name;
+  /*PROPERTYX getPropertyNameAtPage(int page) =>
+      ref.read(propertiesListProvider)[page].name;*/
 
   ///Clears the values of the current page
   clearAllValues(int page) {

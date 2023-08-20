@@ -38,9 +38,10 @@ const Map<String, String> _currenciesSymbols = {
   'ISK': 'kr 🇮🇸',
 };
 
-final propertiesListProvider = StateProvider<List<Property>>((ref) {
-  var removeTrailingZeros = ref.watch(RemoveTrailingZeros.provider);
-  var significantFigures = ref.watch(SignificantFigures.provider);
+final propertiesListProvider = FutureProvider<List<Property>>((ref) async {
+  var removeTrailingZeros =
+      await ref.watch(RemoveTrailingZeros.provider.future);
+  var significantFigures = await ref.watch(SignificantFigures.provider.future);
   return [
     Length(
         significantFigures: significantFigures,

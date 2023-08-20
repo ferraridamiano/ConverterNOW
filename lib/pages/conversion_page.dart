@@ -1,6 +1,7 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/currencies.dart';
+import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
@@ -29,11 +30,9 @@ class ConversionPage extends ConsumerWidget {
     }
 
     List<UnitData> unitDataList = unitsList[page];
-    //context.read<Conversions>().getUnitDataListAtPage(page);
 
-    PROPERTYX currentProperty = ref
-        .watch(ConversionsNotifier.provider.notifier)
-        .getPropertyNameAtPage(page);
+    PROPERTYX currentProperty =
+        ref.read(propertiesListProvider).valueOrNull?[page].name;
 
     Widget? subtitleWidget;
     if (currentProperty == PROPERTYX.currencies) {
