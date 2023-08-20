@@ -35,7 +35,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _router = GoRouter(
+    final router = GoRouter(
       routes: [
         GoRoute(
           path: '/',
@@ -155,9 +155,9 @@ class MyApp extends ConsumerWidget {
 
       return Builder(builder: (BuildContext context) {
         return MaterialApp.router(
-          routeInformationProvider: _router.routeInformationProvider,
-          routeInformationParser: _router.routeInformationParser,
-          routerDelegate: _router.routerDelegate,
+          routeInformationProvider: router.routeInformationProvider,
+          routeInformationParser: router.routeInformationParser,
+          routerDelegate: router.routerDelegate,
           debugShowCheckedModeBanner: false,
           title: 'Converter NOW',
           themeMode: ref.watch(CurrentThemeMode.provider).valueOrNull ??

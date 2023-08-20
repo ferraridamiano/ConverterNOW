@@ -11,7 +11,7 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<int>> {
   Future<List<int>> build() async {
     List<int> temp = List.generate(19, (index) => index);
     List<String>? stringList =
-        (await ref.read(sharedPrefs.future)).getStringList('orderDrawer');
+        (await ref.read(sharedPref.future)).getStringList('orderDrawer');
     if (stringList != null) {
       final int len = stringList.length;
       for (int i = 0; i < len; i++) {
@@ -41,7 +41,7 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<int>> {
     for (int item in orderDrawer) {
       toConvertList.add(item.toString());
     }
-    (await ref.read(sharedPrefs.future))
+    (await ref.read(sharedPref.future))
         .setStringList('orderDrawer', toConvertList);
   }
 }
@@ -61,7 +61,7 @@ class UnitsOrderNotifier extends AsyncNotifier<List<List<int>>> {
       temp.add(List.generate(property.size, (index) => index));
     }
 
-    var prefs = await ref.read(sharedPrefs.future);
+    var prefs = await ref.read(sharedPref.future);
     List<String>? stringList;
     // Update every order of every conversion
     for (int i = 0; i < propertyList.length; i++) {
@@ -110,7 +110,7 @@ class UnitsOrderNotifier extends AsyncNotifier<List<List<int>>> {
       for (int item in stateCopy[pageNumber]) {
         toConvertList.add(item.toString());
       }
-      (await ref.read(sharedPrefs.future))
+      (await ref.read(sharedPref.future))
           .setStringList("conversion_$pageNumber", toConvertList);
     }
   }

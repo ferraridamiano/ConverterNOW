@@ -77,7 +77,7 @@ class Currencies {
 }
 
 final currenciesProvider = FutureProvider<Currencies>((ref) async {
-  var pref = await ref.watch(sharedPrefs.future);
+  var pref = await ref.watch(sharedPref.future);
 
   Currencies readSavedCurrencies() {
     String? lastUpdate = pref.getString('lastUpdateCurrencies');

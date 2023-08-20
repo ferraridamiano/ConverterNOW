@@ -22,89 +22,89 @@ final Map<Locale, String> mapLocale = {
   const Locale('zh', 'TW'): '中文 (台灣)',
 };
 
-final sharedPrefs = FutureProvider<SharedPreferences>(
+final sharedPref = FutureProvider<SharedPreferences>(
     (_) async => await SharedPreferences.getInstance());
 
 class SignificantFigures extends AsyncNotifier<int> {
-  static const prefKey = 'significant_figures';
+  static const _prefKey = 'significant_figures';
   static final provider =
       AsyncNotifierProvider<SignificantFigures, int>(SignificantFigures.new);
 
   @override
   Future<int> build() async {
-    var pref = await ref.watch(sharedPrefs.future);
-    return pref.getInt(prefKey) ?? 10;
+    var pref = await ref.watch(sharedPref.future);
+    return pref.getInt(_prefKey) ?? 10;
   }
 
   void set(int value) {
     state = AsyncData(value);
-    ref.read(sharedPrefs.future).then((pref) => pref.setInt(prefKey, value));
+    ref.read(sharedPref.future).then((pref) => pref.setInt(_prefKey, value));
   }
 }
 
 class RemoveTrailingZeros extends AsyncNotifier<bool> {
-  static const prefKey = 'remove_trailing_zeros';
+  static const _prefKey = 'remove_trailing_zeros';
   static final provider =
       AsyncNotifierProvider<RemoveTrailingZeros, bool>(RemoveTrailingZeros.new);
 
   @override
   Future<bool> build() async {
-    var pref = await ref.watch(sharedPrefs.future);
-    return pref.getBool(prefKey) ?? true;
+    var pref = await ref.watch(sharedPref.future);
+    return pref.getBool(_prefKey) ?? true;
   }
 
   void set(bool value) {
     state = AsyncData(value);
-    ref.read(sharedPrefs.future).then((pref) => pref.setBool(prefKey, value));
+    ref.read(sharedPref.future).then((pref) => pref.setBool(_prefKey, value));
   }
 }
 
 class IsDarkAmoled extends AsyncNotifier<bool> {
-  static const prefKey = 'isDarkAmoled';
+  static const _prefKey = 'isDarkAmoled';
   static final provider =
       AsyncNotifierProvider<IsDarkAmoled, bool>(IsDarkAmoled.new);
 
   @override
   Future<bool> build() async {
-    var pref = await ref.watch(sharedPrefs.future);
-    return pref.getBool(prefKey) ?? true;
+    var pref = await ref.watch(sharedPref.future);
+    return pref.getBool(_prefKey) ?? true;
   }
 
   void set(bool value) {
     state = AsyncData(value);
-    ref.read(sharedPrefs.future).then((pref) => pref.setBool(prefKey, value));
+    ref.read(sharedPref.future).then((pref) => pref.setBool(_prefKey, value));
   }
 }
 
 class CurrentThemeMode extends AsyncNotifier<ThemeMode> {
-  static const prefKey = 'currentThemeMode';
+  static const _prefKey = 'currentThemeMode';
   static final provider =
       AsyncNotifierProvider<CurrentThemeMode, ThemeMode>(CurrentThemeMode.new);
 
   @override
   Future<ThemeMode> build() async {
-    var pref = await ref.watch(sharedPrefs.future);
-    return ThemeMode.values[pref.getInt(prefKey) ?? 0];
+    var pref = await ref.watch(sharedPref.future);
+    return ThemeMode.values[pref.getInt(_prefKey) ?? 0];
   }
 
   void set(ThemeMode value) {
     state = AsyncData(value);
     ref
-        .read(sharedPrefs.future)
-        .then((pref) => pref.setInt(prefKey, ThemeMode.values.indexOf(value)));
+        .read(sharedPref.future)
+        .then((pref) => pref.setInt(_prefKey, ThemeMode.values.indexOf(value)));
   }
 }
 
 class CurrentLocale extends AsyncNotifier<Locale?> {
-  static const prefKey = 'locale';
+  static const _prefKey = 'locale';
   static final provider =
       AsyncNotifierProvider<CurrentLocale, Locale?>(CurrentLocale.new);
 
   @override
   Future<Locale?> build() async {
-    var pref = await ref.watch(sharedPrefs.future);
+    var pref = await ref.watch(sharedPref.future);
 
-    var savedLanguageCode = pref.getString(prefKey);
+    var savedLanguageCode = pref.getString(_prefKey);
     if (savedLanguageCode == null) {
       return null;
     }
@@ -119,8 +119,8 @@ class CurrentLocale extends AsyncNotifier<Locale?> {
     // TODO deal with null value
     if (value != null) {
       ref
-          .read(sharedPrefs.future)
-          .then((pref) => pref.setString(prefKey, value.languageCode));
+          .read(sharedPref.future)
+          .then((pref) => pref.setString(_prefKey, value.languageCode));
     }
   }
 }
