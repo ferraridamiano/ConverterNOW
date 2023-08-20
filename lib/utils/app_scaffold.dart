@@ -32,8 +32,10 @@ class AppScaffold extends ConsumerWidget {
     }
 
     void clearAll(bool isDrawerFixed) {
-      final int page = pageNumberMap[
-          GoRouter.of(context).location.substring('/conversions/'.length)]!;
+      final int page = pageNumberMap[GoRouterState.of(context)
+          .uri
+          .toString()
+          .substring('/conversions/'.length)]!;
       if (ref
           .read(ConversionsNotifier.provider.notifier)
           .shouldShowSnackbar(page)) {
@@ -67,7 +69,7 @@ class AppScaffold extends ConsumerWidget {
           final String targetPath =
               '/conversions/${reversePageNumberListMap[newPage]}';
           // ignore: use_build_context_synchronously
-          if (GoRouter.of(context).location != targetPath) {
+          if (GoRouterState.of(context).uri.toString() != targetPath) {
             // ignore: use_build_context_synchronously
             context.go(targetPath);
           }

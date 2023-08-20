@@ -47,7 +47,7 @@ class MyApp extends ConsumerWidget {
             GoRoute(
               path: '/conversions/:property',
               pageBuilder: (context, state) {
-                final String property = state.params['property']!;
+                final String property = state.pathParameters['property']!;
                 final int? pageNumber = pageNumberMap[property];
                 if (pageNumber == null) {
                   throw Exception('property not found: $property');
@@ -100,7 +100,7 @@ class MyApp extends ConsumerWidget {
       ],
       redirect: (context, state) {
         // Bypass splashscreen if variables are already loaded
-        if (state.location == '/') {
+        if (state.uri.toString() == '/') {
           final List<int>? conversionsOrderDrawer = ref
               .watch(PropertiesOrderNotifier.provider)
               .maybeWhen(data: (data) => data, orElse: () => null);
