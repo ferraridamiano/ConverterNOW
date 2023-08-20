@@ -34,14 +34,14 @@ class _CalculatorWidget extends ConsumerWidget {
             onKeyEvent: (KeyEvent event) {
               if (event.runtimeType.toString() == 'KeyDownEvent') {
                 if (event.logicalKey == LogicalKeyboardKey.backspace) {
-                  ref.read(calculatorProvider.notifier).adaptiveDeleteClear();
+                  ref.read(Calculator.provider.notifier).adaptiveDeleteClear();
                 } else if (event.logicalKey == LogicalKeyboardKey.delete) {
-                  ref.read(calculatorProvider.notifier).clearAll();
+                  ref.read(Calculator.provider.notifier).clearAll();
                 } else if (event.logicalKey == LogicalKeyboardKey.enter) {
-                  ref.read(calculatorProvider.notifier).submitChar('=');
+                  ref.read(Calculator.provider.notifier).submitChar('=');
                 } else {
                   ref
-                      .read(calculatorProvider.notifier)
+                      .read(Calculator.provider.notifier)
                       .submitChar(event.character ?? '');
                 }
               }
@@ -94,7 +94,7 @@ class CalculatorHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String text = ref.watch(calculatorProvider);
+    String text = ref.watch(Calculator.provider);
 
     var operation = ref.watch(selectedOperationProvider);
 
@@ -170,25 +170,25 @@ class CalculatorNumpad extends ConsumerWidget {
                     text: 'x²',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      ref.read(calculatorProvider.notifier).square();
+                      ref.read(Calculator.provider.notifier).square();
                     }),
                 CalculatorButton(
                     text: 'ln',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      ref.read(calculatorProvider.notifier).ln();
+                      ref.read(Calculator.provider.notifier).ln();
                     }),
                 CalculatorButton(
                     text: 'n!',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      ref.read(calculatorProvider.notifier).factorial();
+                      ref.read(Calculator.provider.notifier).factorial();
                     }),
                 CalculatorButton(
                     text: '1/x',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      ref.read(calculatorProvider.notifier).reciprocal();
+                      ref.read(Calculator.provider.notifier).reciprocal();
                     }),
               ].map((e) => Expanded(child: e)).toList(),
             ),
@@ -199,25 +199,25 @@ class CalculatorNumpad extends ConsumerWidget {
                     text: '√',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      ref.read(calculatorProvider.notifier).squareRoot();
+                      ref.read(Calculator.provider.notifier).squareRoot();
                     }),
                 CalculatorButton(
                     text: 'log',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      ref.read(calculatorProvider.notifier).log10();
+                      ref.read(Calculator.provider.notifier).log10();
                     }),
                 CalculatorButton(
                     text: 'e',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      ref.read(calculatorProvider.notifier).submitChar('e');
+                      ref.read(Calculator.provider.notifier).submitChar('e');
                     }),
                 CalculatorButton(
                     text: 'π',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      ref.read(calculatorProvider.notifier).submitChar('π');
+                      ref.read(Calculator.provider.notifier).submitChar('π');
                     }),
               ].map((e) => Expanded(child: e)).toList(),
             ),
@@ -233,7 +233,7 @@ class CalculatorNumpad extends ConsumerWidget {
                       text: char,
                       buttonType: ButtonType.number,
                       onPressed: () {
-                        ref.read(calculatorProvider.notifier).submitChar(char);
+                        ref.read(Calculator.provider.notifier).submitChar(char);
                       },
                     );
                   },
@@ -244,7 +244,7 @@ class CalculatorNumpad extends ConsumerWidget {
                     buttonType: ButtonType.operation,
                     onPressed: () {
                       ref
-                          .read(calculatorProvider.notifier)
+                          .read(Calculator.provider.notifier)
                           .submitChar(decimalSeparator);
                     },
                   )
@@ -253,7 +253,7 @@ class CalculatorNumpad extends ConsumerWidget {
                     text: '0',
                     buttonType: ButtonType.number,
                     onPressed: () {
-                      ref.read(calculatorProvider.notifier).submitChar('0');
+                      ref.read(Calculator.provider.notifier).submitChar('0');
                     },
                   )
                 else if (columnIndex == 2)
@@ -261,7 +261,7 @@ class CalculatorNumpad extends ConsumerWidget {
                     text: '=',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      ref.read(calculatorProvider.notifier).submitChar('=');
+                      ref.read(Calculator.provider.notifier).submitChar('=');
                     },
                   )
               ].map((e) => Expanded(child: e)).toList(),
@@ -273,34 +273,36 @@ class CalculatorNumpad extends ConsumerWidget {
                   text: ref.read(endNumberProvider) ? 'AC' : '←',
                   buttonType: ButtonType.clear,
                   onPressed: () {
-                    ref.read(calculatorProvider.notifier).adaptiveDeleteClear();
+                    ref
+                        .read(Calculator.provider.notifier)
+                        .adaptiveDeleteClear();
                   },
                   onLongPress: () {
-                    ref.read(calculatorProvider.notifier).clearAll();
+                    ref.read(Calculator.provider.notifier).clearAll();
                   }),
               CalculatorButton(
                   text: '÷',
                   buttonType: ButtonType.operation,
                   onPressed: () {
-                    ref.read(calculatorProvider.notifier).submitChar('/');
+                    ref.read(Calculator.provider.notifier).submitChar('/');
                   }),
               CalculatorButton(
                   text: '×',
                   buttonType: ButtonType.operation,
                   onPressed: () {
-                    ref.read(calculatorProvider.notifier).submitChar('*');
+                    ref.read(Calculator.provider.notifier).submitChar('*');
                   }),
               CalculatorButton(
                   text: '−',
                   buttonType: ButtonType.operation,
                   onPressed: () {
-                    ref.read(calculatorProvider.notifier).submitChar('-');
+                    ref.read(Calculator.provider.notifier).submitChar('-');
                   }),
               CalculatorButton(
                   text: '+',
                   buttonType: ButtonType.operation,
                   onPressed: () {
-                    ref.read(calculatorProvider.notifier).submitChar('+');
+                    ref.read(Calculator.provider.notifier).submitChar('+');
                   }),
             ].map((e) => Expanded(child: e)).toList(),
           ),

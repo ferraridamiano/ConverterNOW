@@ -19,9 +19,11 @@ enum OPERATION {
   }
 }
 
-class CalculatorNotifier extends Notifier<String> {
+class Calculator extends Notifier<String> {
   final RegExp _regExpValidatingChar = RegExp(r'^[0-9πe,.+-/=*×÷−]+$');
   final RegExp _regExpNumber = RegExp(r'^[0-9πe]+$');
+
+  static final provider = NotifierProvider<Calculator, String>(Calculator.new);
 
   Decimal? _firstNumber;
   Decimal? _secondNumber;
@@ -228,9 +230,6 @@ String _getStringFromNum(num value) {
 }
 
 int _myFactorialFunction(int x) => x == 0 ? 1 : x * _myFactorialFunction(x - 1);
-
-final calculatorProvider =
-    NotifierProvider<CalculatorNotifier, String>(() => CalculatorNotifier());
 
 class SelectedOperationNotifier extends Notifier<OPERATION?> {
   static const Map<String, OPERATION> _mapOperation = {
