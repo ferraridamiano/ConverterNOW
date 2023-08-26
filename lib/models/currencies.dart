@@ -104,7 +104,7 @@ final currenciesProvider = FutureProvider<Currencies>((ref) async {
     try {
       http.Response httpResponse = await http.get(
         Uri.https(
-          'sdw-wsrest.ecb.europa.eu',
+          'data-api.ecb.europa.eu',
           'service/data/EXR/D.$stringRequest.EUR.SP00.A',
           {'lastNObservations': '1', 'detail': 'dataonly'},
         ),
@@ -116,7 +116,7 @@ final currenciesProvider = FutureProvider<Currencies>((ref) async {
         Map<String, dynamic> jsonData = json.decode(httpResponse.body);
         var lastUpdate = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
-        Map<String, double> exchangeRates = {};
+        Map<String, double> exchangeRates = {'EUR': 1};
 
         for (int i = 0; i < Currencies().exchangeRates.length - 1; i++) {
           //-1 because in this list there is not EUR because it is the base unit

@@ -6,8 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:units_converter/units_converter.dart';
 
 class ConversionsNotifier extends AsyncNotifier<List<List<UnitData>>> {
-  //TODO watch never used on propertiesListProvider
-
   static final provider =
       AsyncNotifierProvider<ConversionsNotifier, List<List<UnitData>>>(
           ConversionsNotifier.new);
@@ -18,7 +16,7 @@ class ConversionsNotifier extends AsyncNotifier<List<List<UnitData>>> {
         (await ref.watch(UnitsOrderNotifier.provider.future));
 
     List<Property> propertiesList =
-        await ref.read(propertiesListProvider.future);
+        await ref.watch(propertiesListProvider.future);
 
     List<List<UnitData>> tempUnitDataList = [];
     for (int i = 0; i < propertiesList.length; i++) {
@@ -143,9 +141,6 @@ class ConversionsNotifier extends AsyncNotifier<List<List<UnitData>>> {
   /// Returns a UnitDataList at a certain page with the current ordering
   /// (usefult with reorder units)
   List<UnitData> getUnitDataListAtPage(int page) => state.value![page];
-
-  /*PROPERTYX getPropertyNameAtPage(int page) =>
-      ref.read(propertiesListProvider)[page].name;*/
 
   ///Clears the values of the current page
   clearAllValues(int page) {
