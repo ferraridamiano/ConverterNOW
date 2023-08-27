@@ -50,7 +50,7 @@ class SettingsPage extends ConsumerWidget {
             AppLocalizations.of(context)!.system,
             ...mapLocale.values.toList()
           ],
-          value: mapLocale[ref.watch(CurrentLocale.provider)] ??
+          value: mapLocale[ref.watch(CurrentLocale.provider).valueOrNull] ??
               AppLocalizations.of(context)!.system,
           onChanged: (String? string) {
             if (string != null) {

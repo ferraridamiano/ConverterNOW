@@ -116,11 +116,8 @@ class CurrentLocale extends AsyncNotifier<Locale?> {
 
   void set(Locale? value) {
     state = AsyncData(value);
-    // TODO deal with null value
-    if (value != null) {
-      ref
-          .read(sharedPref.future)
-          .then((pref) => pref.setString(_prefKey, value.languageCode));
-    }
+    ref.read(sharedPref.future).then((pref) => value == null
+        ? pref.remove(_prefKey)
+        : pref.setString(_prefKey, value.languageCode));
   }
 }
