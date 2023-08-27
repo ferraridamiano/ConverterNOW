@@ -1,25 +1,20 @@
-import 'package:converterpro/models/app_model.dart';
-import 'package:converterpro/models/conversions.dart';
+import 'package:converterpro/main.dart';
+import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:converterpro/main.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends ConsumerWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final List<int>? conversionsOrderDrawer =
-        context.select<AppModel, List<int>?>(
-            (appModel) => appModel.conversionsOrderDrawer);
-    final bool isConversionsLoaded = context.select<Conversions, bool>(
-        (conversions) => conversions.isConversionsLoaded);
-
-    if (isConversionsLoaded && conversionsOrderDrawer != null) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (ref.watch(isEverythingLoadedProvider)) {
+      final conversionsOrderDrawer =
+          ref.read(PropertiesOrderNotifier.provider).value!;
       List<PropertyUi> propertyUiList = getPropertyUiList(context);
       initializeQuickAction(
         conversionsOrderDrawer: conversionsOrderDrawer,
@@ -31,7 +26,7 @@ class SplashScreen extends StatelessWidget {
       );
 
       WidgetsBinding.instance.addPostFrameCallback(
-        (_) => GoRouter.of(rootNavigatorKey.currentContext!).go(
+        (_) => GoRouter.of(context).go(
           '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}',
         ),
       );

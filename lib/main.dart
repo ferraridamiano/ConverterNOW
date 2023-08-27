@@ -1,3 +1,6 @@
+import 'package:converterpro/models/order.dart';
+import 'package:converterpro/models/properties_list.dart';
+import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/pages/error_page.dart';
 import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/conversion_page.dart';
@@ -7,114 +10,113 @@ import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/utils/app_scaffold.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:converterpro/models/app_model.dart';
-import 'package:converterpro/models/conversions.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+
+final isEverythingLoadedProvider = Provider<bool>((ref) =>
+    ref.watch(SignificantFigures.provider).hasValue &&
+    ref.watch(RemoveTrailingZeros.provider).hasValue &&
+    ref.watch(IsDarkAmoled.provider).hasValue &&
+    ref.watch(CurrentThemeMode.provider).hasValue &&
+    ref.watch(CurrentLocale.provider).hasValue &&
+    ref.watch(PropertiesOrderNotifier.provider).hasValue &&
+    ref.watch(UnitsOrderNotifier.provider).hasValue &&
+    ref.watch(propertiesListProvider).hasValue);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-final GlobalKey<NavigatorState> rootNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'root');
-final GlobalKey<NavigatorState> _shellNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shell');
-
-class MyApp extends StatelessWidget {
-  late final _router = GoRouter(
-    navigatorKey: rootNavigatorKey,
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, _) => const SplashScreen(),
-      ),
-      ShellRoute(
-        navigatorKey: _shellNavigatorKey,
-        builder: (context, state, child) {
-          return AppScaffold(
-            child: child,
-          );
-        },
-        routes: [
-          GoRoute(
-            path: '/conversions/:property',
-            pageBuilder: (context, state) {
-              final String property = state.pathParameters['property']!;
-              final int? pageNumber = pageNumberMap[property];
-              if (pageNumber == null) {
-                throw Exception('property not found: $property');
-              } else {
-                return NoTransitionPage(child: ConversionPage(pageNumber));
-              }
-            },
-          ),
-          GoRoute(
-            path: '/settings',
-            name: 'settings',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: SettingsPage()),
-            routes: [
-              GoRoute(
-                path: 'reorder-properties',
-                name: 'reorder-properties',
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: ReorderPropertiesPage()),
-              ),
-              GoRoute(
-                path: 'reorder-units',
-                name: 'reorder-units',
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: ChoosePropertyPage()),
-                routes: [
-                  GoRoute(
-                    path: ':property',
-                    pageBuilder: (context, state) {
-                      final String property = state.pathParameters['property']!;
-                      final int? pageNumber = pageNumberMap[property];
-                      if (pageNumber == null) {
-                        throw Exception('property not found: $property');
-                      } else {
-                        return NoTransitionPage(
-                          child: ChoosePropertyPage(
-                            selectedProperty: pageNumber,
-                            isPropertySelected: true,
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
-    ],
-    redirect: (context, state) {
-      // Bypass splashscreen if variables are already loaded
-      if (state.uri.toString() == '/') {
-        final List<int>? conversionsOrderDrawer =
-            context.read<AppModel>().conversionsOrderDrawer;
-        final bool isConversionsLoaded =
-            context.read<Conversions>().isConversionsLoaded;
-
-        if (isConversionsLoaded && conversionsOrderDrawer != null) {
-          return '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}';
-        }
-      }
-      return null;
-    },
-    errorBuilder: (context, state) => const ErrorPage(),
-  );
-
-  MyApp({Key? key}) : super(key: key);
+class MyApp extends ConsumerWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, _) => const SplashScreen(),
+        ),
+        ShellRoute(
+          builder: (context, state, child) {
+            return AppScaffold(
+              child: child,
+            );
+          },
+          routes: [
+            GoRoute(
+              path: '/conversions/:property',
+              pageBuilder: (context, state) {
+                final String property = state.pathParameters['property']!;
+                final int? pageNumber = pageNumberMap[property];
+                if (pageNumber == null) {
+                  throw Exception('property not found: $property');
+                } else {
+                  return NoTransitionPage(child: ConversionPage(pageNumber));
+                }
+              },
+            ),
+            GoRoute(
+              path: '/settings',
+              name: 'settings',
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: SettingsPage()),
+              routes: [
+                GoRoute(
+                  path: 'reorder-properties',
+                  name: 'reorder-properties',
+                  pageBuilder: (context, state) =>
+                      const NoTransitionPage(child: ReorderPropertiesPage()),
+                ),
+                GoRoute(
+                  path: 'reorder-units',
+                  name: 'reorder-units',
+                  pageBuilder: (context, state) =>
+                      const NoTransitionPage(child: ChoosePropertyPage()),
+                  routes: [
+                    GoRoute(
+                      path: ':property',
+                      pageBuilder: (context, state) {
+                        final String property =
+                            state.pathParameters['property']!;
+                        final int? pageNumber = pageNumberMap[property];
+                        if (pageNumber == null) {
+                          throw Exception('property not found: $property');
+                        } else {
+                          return NoTransitionPage(
+                            child: ChoosePropertyPage(
+                              selectedProperty: pageNumber,
+                              isPropertySelected: true,
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+      redirect: (context, state) {
+        // Bypass splashscreen if variables are already loaded
+        if (state.uri.toString() == '/') {
+          if (ref.read(isEverythingLoadedProvider)) {
+            final List<int> conversionsOrderDrawer =
+                ref.read(PropertiesOrderNotifier.provider).value!;
+            return '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}';
+          }
+        }
+        return null;
+      },
+      errorBuilder: (context, state) => const ErrorPage(),
+    );
+
     bool deviceLocaleSetted = false;
 
     const Color fallbackColorSchemeSeed = Colors.blue;
@@ -151,47 +153,38 @@ class MyApp extends StatelessWidget {
         drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
       );
 
-      return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => AppModel()),
-          ChangeNotifierProvider(create: (context) => Conversions()),
-        ],
-        child: Builder(builder: (BuildContext context) {
-          bool isDarkAmoled = context.select<AppModel, bool>(
-            (appModel) => appModel.isDarkAmoled,
-          );
-          return MaterialApp.router(
-            routeInformationProvider: _router.routeInformationProvider,
-            routeInformationParser: _router.routeInformationParser,
-            routerDelegate: _router.routerDelegate,
-            debugShowCheckedModeBanner: false,
-            title: 'Converter NOW',
-            themeMode: context.select<AppModel, ThemeMode>(
-              (appModel) => appModel.currentThemeMode,
-            ),
-            theme: lightTheme,
-            darkTheme: isDarkAmoled ? amoledTheme : darkTheme,
-            supportedLocales: context.read<AppModel>().supportedLocales,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            localeResolutionCallback:
-                (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
-              if (!deviceLocaleSetted) {
-                context.read<AppModel>().deviceLocale = deviceLocale;
-                deviceLocaleSetted = true;
-              }
-              if (supportedLocales
-                  .map((Locale locale) => locale.languageCode)
-                  .contains(deviceLocale?.languageCode)) {
-                return deviceLocale;
-              }
-              return const Locale('en');
-            },
-            locale: context.select<AppModel, Locale?>((appModel) {
-              return appModel.appLocale;
-            }),
-          );
-        }),
-      );
+      return Consumer(builder: (context, ref, child) {
+        return MaterialApp.router(
+          routeInformationProvider: router.routeInformationProvider,
+          routeInformationParser: router.routeInformationParser,
+          routerDelegate: router.routerDelegate,
+          debugShowCheckedModeBanner: false,
+          title: 'Converter NOW',
+          themeMode: ref.watch(CurrentThemeMode.provider).valueOrNull ??
+              ThemeMode.system,
+          theme: lightTheme,
+          darkTheme: (ref.watch(IsDarkAmoled.provider).valueOrNull ?? false)
+              ? amoledTheme
+              : darkTheme,
+          supportedLocales: mapLocale.keys,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          localeResolutionCallback:
+              (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
+            if (!deviceLocaleSetted) {
+              //context.read<AppModel>().deviceLocale = deviceLocale;
+              deviceLocaleSetted = true;
+            }
+            if (supportedLocales
+                .map((Locale locale) => locale.languageCode)
+                .contains(deviceLocale?.languageCode)) {
+              return deviceLocale;
+            }
+            return const Locale('en');
+          },
+          locale: ref.watch(CurrentLocale.provider).valueOrNull ??
+              const Locale('en'),
+        );
+      });
     });
   }
 }

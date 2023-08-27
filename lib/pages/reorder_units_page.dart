@@ -1,5 +1,6 @@
-import 'package:converterpro/models/app_model.dart';
+import 'package:converterpro/main.dart';
 import 'package:converterpro/models/conversions.dart';
+import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/styles/consts.dart';
@@ -7,11 +8,11 @@ import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
-class ChoosePropertyPage extends StatelessWidget {
+class ChoosePropertyPage extends ConsumerWidget {
   /// The index of the property the user tap. null means not yet selected.
   final int? selectedProperty;
 
@@ -27,12 +28,12 @@ class ChoosePropertyPage extends StatelessWidget {
       BorderRadius.all(Radius.circular(30));
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     List<String> listUnitsNames = [];
     List<UnitData> selectedUnitDataList = [];
     // Read the order of the properties in the drawer
     List<int>? conversionsOrderDrawer =
-        context.read<AppModel>().conversionsOrderDrawer;
+        ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();
@@ -49,17 +50,15 @@ class ChoosePropertyPage extends StatelessWidget {
         getUnitTranslationMap(context);
     Widget? reorderPage;
     if (selectedProperty != null) {
-      final bool isConversionsLoaded = context.select<Conversions, bool>(
-        (conversions) => conversions.isConversionsLoaded,
-      );
       // if we remove the following check, if you enter the site directly to
       // '/conversions/:property' an error will occur
-      if (!isConversionsLoaded) {
+      if (!ref.watch(isEverythingLoadedProvider)) {
         return const SplashScreenWidget();
       }
 
-      selectedUnitDataList = context.read<Conversions>().getUnitDataListAtPage(
-          conversionsOrderDrawer
+      selectedUnitDataList = ref
+          .read(ConversionsNotifier.provider.notifier)
+          .getUnitDataListAtPage(conversionsOrderDrawer
               .indexWhere((index) => index == selectedProperty));
       listUnitsNames = List.generate(
         selectedUnitDataList.length,
@@ -69,7 +68,7 @@ class ChoosePropertyPage extends StatelessWidget {
         key: Key(listUnitsNames[0]),
         itemsList: listUnitsNames,
         onSave: (List<int>? orderList) {
-          context.read<Conversions>().saveOrderUnits(
+          ref.read(UnitsOrderNotifier.provider.notifier).set(
                 orderList,
                 conversionsOrderDrawer
                     .indexWhere((index) => index == selectedProperty),

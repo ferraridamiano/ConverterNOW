@@ -1,35 +1,39 @@
-import 'dart:math' as math;
 import 'package:decimal/decimal.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:math' as math;
 
 enum OPERATION {
   product,
   division,
   addition,
-  subtraction,
+  subtraction;
+
+  @override
+  String toString() {
+    return switch (this) {
+      product => '×',
+      division => '÷',
+      addition => '+',
+      subtraction => '−'
+    };
+  }
 }
 
-class Calculator with ChangeNotifier {
+class Calculator extends Notifier<String> {
   final RegExp _regExpValidatingChar = RegExp(r'^[0-9πe,.+-/=*×÷−]+$');
   final RegExp _regExpNumber = RegExp(r'^[0-9πe]+$');
-  static const Map<String, OPERATION> mapOperation = {
-    '*': OPERATION.product,
-    '/': OPERATION.division,
-    '+': OPERATION.addition,
-    '-': OPERATION.subtraction,
-    '×': OPERATION.product,
-    '÷': OPERATION.division,
-    '−': OPERATION.subtraction,
-  };
 
-  String currentNumber = '';
+  static final provider = NotifierProvider<Calculator, String>(Calculator.new);
+
   Decimal? _firstNumber;
   Decimal? _secondNumber;
-  OPERATION? selectedOperation;
-  bool endNumber = false;
-  bool isResult = false;
+  late final Map<String, OPERATION> mapOperation;
 
-  Calculator();
+  @override
+  String build() {
+    mapOperation = ref.read(selectedOperationProvider.notifier).mapOperation;
+    return '';
+  }
 
   /// With this function you can subit any char from 0-9, [, . + - * / =
   /// backspace canc]
@@ -41,99 +45,84 @@ class Calculator with ChangeNotifier {
 
     // if it is a number
     if (_regExpNumber.hasMatch(char)) {
-      if (isResult) {
-        isResult = false;
-        selectedOperation = _firstNumber = _secondNumber = null;
+      if (ref.read(isResultProvider)) {
+        ref.read(isResultProvider.notifier).state = false;
+        ref.read(selectedOperationProvider.notifier).state = null;
+        _firstNumber = _secondNumber = null;
       }
 
-      if (endNumber) {
-        currentNumber = '';
-        endNumber = false;
+      if (ref.read(endNumberProvider)) {
+        state = '';
+        ref.read(endNumberProvider.notifier).state = false;
       }
       if (char == 'π') {
-        currentNumber = math.pi.toString();
+        state = math.pi.toString();
       } else if (char == 'e') {
-        currentNumber = math.e.toString();
+        state = math.e.toString();
       } else {
         // is a number
-        currentNumber += char;
+        state += char;
       }
     }
     //if char is a comma or a dot
     else if (char == '.' || char == ',') {
       // if it is already submitted a decimal value ignore it
-      if (currentNumber.contains('.') || currentNumber.contains(',')) {
+      if (state.contains('.') || state.contains(',')) {
         return;
       }
       // otherwise
-      currentNumber += '.'; //append the point at the end
+      state += '.'; //append the point at the end
     }
     // if it is an operator
     else if (mapOperation.containsKey(char)) {
-      if (isResult) {
-        isResult = false;
-        selectedOperation = _firstNumber = _secondNumber = null;
+      if (ref.read(isResultProvider)) {
+        ref.read(isResultProvider.notifier).state = false;
+        ref.read(selectedOperationProvider.notifier).state = null;
+        _firstNumber = _secondNumber = null;
       }
+
       // if it is the first operation submitted
-      if (currentNumber.isNotEmpty &&
+      if (state.isNotEmpty &&
           _firstNumber == null &&
-          selectedOperation == null) {
-        _firstNumber = Decimal.parse(currentNumber);
-        selectedOperation = mapOperation[char];
-        endNumber = true;
-      } else if (currentNumber.isNotEmpty &&
+          ref.read(selectedOperationProvider) == null) {
+        _firstNumber = Decimal.parse(state);
+        ref.read(selectedOperationProvider.notifier).state = mapOperation[char];
+        ref.read(endNumberProvider.notifier).state = true;
+      } else if (state.isNotEmpty &&
           _firstNumber != null &&
-          selectedOperation != null &&
-          !endNumber) {
+          ref.read(selectedOperationProvider) != null &&
+          !ref.read(endNumberProvider)) {
         // chained operation
         // Compute the result with the previous operator
-        _secondNumber = Decimal.parse(currentNumber);
+        _secondNumber = Decimal.parse(state);
         _computeResult();
-        endNumber = true;
-        selectedOperation = mapOperation[char];
-      } else if (currentNumber.isNotEmpty &&
+        ref.read(endNumberProvider.notifier).state = true;
+        ref.read(selectedOperationProvider.notifier).state = mapOperation[char];
+      } else if (state.isNotEmpty &&
           _firstNumber != null &&
-          selectedOperation != null) {
+          ref.read(selectedOperationProvider) != null) {
         // change of operation
-        selectedOperation = mapOperation[char];
+        ref.read(selectedOperationProvider.notifier).state = mapOperation[char];
       }
     }
     // if it is equal symbol
     else if (char == '=') {
       if (_firstNumber != null &&
-          currentNumber.isNotEmpty &&
-          selectedOperation != null &&
-          !isResult) {
-        _secondNumber = Decimal.parse(currentNumber);
+          state.isNotEmpty &&
+          ref.read(selectedOperationProvider) != null &&
+          !ref.read(isResultProvider)) {
+        _secondNumber = Decimal.parse(state);
         _computeResult();
-        isResult = true;
+        ref.read(isResultProvider.notifier).state = true;
       } else if (_firstNumber != null &&
-          currentNumber.isNotEmpty &&
-          selectedOperation != null &&
-          isResult &&
+          state.isNotEmpty &&
+          ref.read(selectedOperationProvider) != null &&
+          ref.read(isResultProvider) &&
           _secondNumber != null) {
-        _firstNumber = Decimal.parse(currentNumber);
+        _firstNumber = Decimal.parse(state);
         _computeResult();
       }
     }
-    notifyListeners();
-  }
-
-  void submitString(String string) {
-    for (int i = 0; i < string.length; i++) {
-      submitChar(string.substring(i, i + 1));
-    }
-  }
-
-  /// Returns the symbol of the current operation if an operation is selected
-  /// otherwise it will return an empty string
-  String get stringOperation {
-    if (selectedOperation == null) {
-      return '';
-    }
-    return mapOperation.keys
-        .where((string) => mapOperation[string] == selectedOperation)
-        .last;
   }
 
   /// Given firstNumber, secondNumber and selectedOperation in computes the
@@ -143,7 +132,7 @@ class Calculator with ChangeNotifier {
     assert(_firstNumber != null && _secondNumber != null,
         'firstNumber/secondNumber is null');
 
-    switch (selectedOperation) {
+    switch (ref.read(selectedOperationProvider)) {
       case OPERATION.addition:
         result = _firstNumber! + _secondNumber!;
         break;
@@ -158,37 +147,35 @@ class Calculator with ChangeNotifier {
             .toDecimal(scaleOnInfinitePrecision: 15);
         break;
       case null:
-        assert(selectedOperation != null, 'selectedOperation is null');
+        assert(false, 'selectedOperation is null');
     }
     _firstNumber = result;
-    currentNumber = _getStringFromDecimal(result);
-    endNumber = true;
+    state = _getStringFromDecimal(result);
+    ref.read(endNumberProvider.notifier).state = true;
   }
 
   /// This method bring the calculator to the initial state (nothing submitted,
   /// no selected operation)
   void clearAll() {
-    currentNumber = '';
+    state = '';
     _firstNumber = null;
     _secondNumber = null;
-    selectedOperation = null;
-    endNumber = false;
-    isResult = false;
-    notifyListeners();
+    ref.read(selectedOperationProvider.notifier).state = null;
+    ref.read(endNumberProvider.notifier).state = false;
+    ref.read(isResultProvider.notifier).state = false;
   }
 
   /// This method delete the last character of currentNumber
   void deleteLastChar() {
-    int length = currentNumber.length;
-    if (length > 0) {
-      currentNumber = currentNumber.substring(0, length - 1);
-      notifyListeners();
+    if (state.isNotEmpty) {
+      state = state.substring(0, state.length - 1);
     }
   }
 
   /// This method either clearAll() or deleteLastChar() depending on the state
   /// of the calculator.
-  void adaptiveDeleteClear() => endNumber ? clearAll() : deleteLastChar();
+  void adaptiveDeleteClear() =>
+      ref.read(endNumberProvider) ? clearAll() : deleteLastChar();
 
   /// Computes the square root of currentNumber
   void squareRoot() => _unaryOperation(
@@ -218,10 +205,10 @@ class Calculator with ChangeNotifier {
   /// function
   void _unaryOperation(String Function(Decimal) operation) {
     //if it is the first operation submitted
-    if (currentNumber.isNotEmpty) {
-      currentNumber = operation(Decimal.parse(currentNumber));
-      endNumber = isResult = true;
-      notifyListeners();
+    if (state.isNotEmpty) {
+      state = operation(Decimal.parse(state));
+      ref.read(endNumberProvider.notifier).state = true;
+      ref.read(isResultProvider.notifier).state = true;
     }
   }
 }
@@ -243,3 +230,27 @@ String _getStringFromNum(num value) {
 }
 
 int _myFactorialFunction(int x) => x == 0 ? 1 : x * _myFactorialFunction(x - 1);
+
+class SelectedOperationNotifier extends Notifier<OPERATION?> {
+  static const Map<String, OPERATION> _mapOperation = {
+    '*': OPERATION.product,
+    '/': OPERATION.division,
+    '+': OPERATION.addition,
+    '-': OPERATION.subtraction,
+    '×': OPERATION.product,
+    '÷': OPERATION.division,
+    '−': OPERATION.subtraction,
+  };
+
+  @override
+  OPERATION? build() => null;
+
+  Map<String, OPERATION> get mapOperation => _mapOperation;
+}
+
+final selectedOperationProvider =
+    NotifierProvider<SelectedOperationNotifier, OPERATION?>(
+        () => SelectedOperationNotifier());
+
+final endNumberProvider = StateProvider<bool>((ref) => false);
+final isResultProvider = StateProvider<bool>((ref) => false);

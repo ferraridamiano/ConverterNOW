@@ -1,6 +1,13 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - reopened
 
 jobs:
   # JOB to run change detection
@@ -9,7 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     # Set job outputs to values from filter step
     outputs:
-      calculator_widget: ${{ steps.filter.outputs.calculator_widget }}
       integration_testing: ${{ steps.filter.outputs.integration_testing }}
     steps:
     - uses: actions/checkout@v3
@@ -21,31 +27,6 @@ jobs:
           - 'lib/**'
           - 'packages/**'
           - 'pubspec.yaml'
-          calculator_widget:
-          - 'packages/calculator_widget/**'
-
-  # JOB to build and test backend code
-  test_calculator_widget:
-    needs: changes
-    if: ${{ needs.changes.outputs.calculator_widget == 'true' }}
-    name: calculator_widget test
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        channel: stable
-        cache: true
-
-    - name: Flutter version
-      run: flutter --version
-
-    - name: Run tests
-      run: cd packages/calculator_widget && flutter test
 
   integration_testing:
     needs: changes

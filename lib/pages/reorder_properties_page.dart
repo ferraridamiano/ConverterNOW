@@ -1,21 +1,21 @@
-import 'package:converterpro/models/app_model.dart';
+import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
-class ReorderPropertiesPage extends StatelessWidget {
+class ReorderPropertiesPage extends ConsumerWidget {
   const ReorderPropertiesPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // Read the order of the properties in the drawer
     List<int>? conversionsOrderDrawer =
-        context.read<AppModel>().conversionsOrderDrawer;
+        ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();
@@ -33,7 +33,7 @@ class ReorderPropertiesPage extends StatelessWidget {
       onSave: (List<int>? orderList) {
         if (orderList != null) {
           // Save the order
-          context.read<AppModel>().saveOrderDrawer(orderList);
+          ref.read(PropertiesOrderNotifier.provider.notifier).set(orderList);
           // Update the quick actions
           List<PropertyUi> propertyUiList = getPropertyUiList(context);
           initializeQuickAction(
@@ -45,7 +45,7 @@ class ReorderPropertiesPage extends StatelessWidget {
             },
           );
         }
-        context.goNamed('settings');
+        context.pop();
       },
     );
   }

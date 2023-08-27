@@ -1,42 +1,59 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/conversions.dart';
+import 'package:converterpro/models/currencies.dart';
+import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:intl/intl.dart';
 
-class ConversionPage extends StatelessWidget {
+class ConversionPage extends ConsumerWidget {
   final int page;
 
   const ConversionPage(this.page, {Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     Map<PROPERTYX, String> propertyTranslationMap =
         getPropertyTranslationMap(context);
-    final bool isConversionsLoaded = context.select<Conversions, bool>(
-      (conversions) => conversions.isConversionsLoaded,
-    );
 
+    List<List<UnitData>>? unitsList =
+        ref.watch(ConversionsNotifier.provider).valueOrNull;
     // if we remove the following check, if you enter the site directly to
     // '/conversions/:property' an error will occur
-    if (!isConversionsLoaded) {
+    if (unitsList == null) {
       return const SplashScreenWidget();
     }
 
-    List<UnitData> unitDataList =
-        context.read<Conversions>().getUnitDataListAtPage(page);
+    List<UnitData> unitDataList = unitsList[page];
 
     PROPERTYX currentProperty =
-        context.read<Conversions>().getPropertyNameAtPage(page);
+        ref.read(propertiesListProvider).valueOrNull?[page].name;
 
-    String subTitle = '';
+    Widget? subtitleWidget;
     if (currentProperty == PROPERTYX.currencies) {
-      subTitle = _getLastUpdateString(context);
+      Currencies? currencies = ref.watch(currenciesProvider).valueOrNull;
+      if (currencies == null) {
+        subtitleWidget = const SizedBox(
+          height: 30,
+          child: Center(
+            child: SizedBox(
+              width: 25,
+              height: 25,
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        );
+      } else {
+        subtitleWidget = Text(
+          _getLastUpdateString(context, currencies.lastUpdate),
+          style: Theme.of(context).textTheme.titleSmall,
+        );
+      }
     }
 
     List<Widget> gridTiles = [];
@@ -65,7 +82,7 @@ class ConversionPage extends StatelessWidget {
             txt = '0$txt';
           }
           if (txt == '' || unitData.getValidator().hasMatch(txt)) {
-            Conversions conversions = context.read<Conversions>();
+            var conversions = ref.read(ConversionsNotifier.provider.notifier);
             //just numeral system uses a string for conversion
             if (unitData.property == PROPERTYX.numeralSystems) {
               conversions.convert(unitData, txt == "" ? null : txt, page);
@@ -88,30 +105,13 @@ class ConversionPage extends StatelessWidget {
         SliverAppBar.large(
           title: Text(propertyTranslationMap[currentProperty]!),
         ),
-        if (subTitle != '')
+        if (subtitleWidget != null)
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  context.select<Conversions, bool>(
-                          (conversions) => conversions.isCurrenciesLoading)
-                      ? const SizedBox(
-                          height: 30,
-                          child: Center(
-                            child: SizedBox(
-                              width: 25,
-                              height: 25,
-                              child: CircularProgressIndicator(),
-                            ),
-                          ),
-                        )
-                      : Text(
-                          subTitle,
-                          style: Theme.of(context).textTheme.titleSmall,
-                        )
-                ],
+                children: [subtitleWidget],
               ),
             ),
           ),
@@ -136,9 +136,8 @@ class ConversionPage extends StatelessWidget {
   }
 }
 
-String _getLastUpdateString(BuildContext context) {
-  DateTime lastUpdateCurrencies = context
-      .select<Conversions, DateTime>((settings) => settings.lastUpdateCurrency);
+String _getLastUpdateString(BuildContext context, String lastUpdate) {
+  DateTime lastUpdateCurrencies = DateTime.parse(lastUpdate);
   DateTime dateNow = DateTime.now();
   if (lastUpdateCurrencies.day == dateNow.day &&
       lastUpdateCurrencies.month == dateNow.month &&

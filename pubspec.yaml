@@ -16,16 +16,18 @@ dependencies:
   dynamic_color: ^1.6.6
   # Native splash screen on Android
   flutter_native_splash: ^2.2.17
+  # State management
+  flutter_riverpod: ^2.3.7
   # For svg icons
   flutter_svg: ^2.0.7
   # App logo in drawer
   google_fonts: ^5.1.0
   # Navigation
   go_router: ^10.0.0
+  # Downloading the exchange rates
+  http: ^1.1.0
   # Translations
   intl: ^0.18.1
-  # State management
-  provider: ^6.0.5
   # Android app shortcuts
   quick_actions: ^1.0.5
   # Store the customizations and the latest currencies conversions
@@ -46,9 +48,6 @@ dependencies:
   # Calculator widget and logic
   calculator_widget:
     path: packages/calculator_widget
-  # Update the exchange rates
-  exchange_rates:
-    path: packages/exchange_rates
   # App translations
   translations:
     path: packages/translations

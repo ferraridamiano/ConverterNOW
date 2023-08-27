@@ -1,17 +1,17 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
-import 'package:converterpro/models/app_model.dart';
-import 'package:converterpro/models/conversions.dart';
 import 'package:calculator_widget/calculator_widget.dart';
+import 'package:converterpro/models/conversions.dart';
+import 'package:converterpro/models/order.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
-class AppScaffold extends StatelessWidget {
+class AppScaffold extends ConsumerWidget {
   const AppScaffold({
     required this.child,
     Key? key,
@@ -20,13 +20,13 @@ class AppScaffold extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     void openCalculator() {
       showModalBottomSheet<void>(
         context: context,
         isScrollControlled: true,
         builder: (BuildContext context) {
-          return CalculatorWidget();
+          return const CalculatorWidget();
         },
       );
     }
@@ -36,8 +36,10 @@ class AppScaffold extends StatelessWidget {
           .uri
           .toString()
           .substring('/conversions/'.length)]!;
-      if (context.read<Conversions>().shouldShowSnackbar(page)) {
-        context.read<Conversions>().clearAllValues(page);
+      if (ref
+          .read(ConversionsNotifier.provider.notifier)
+          .shouldShowSnackbar(page)) {
+        ref.read(ConversionsNotifier.provider.notifier).clearAllValues(page);
         //Snackbar undo request
         final SnackBar snackBar = SnackBar(
           content: Text(AppLocalizations.of(context)!.undoClearAllMessage),
@@ -47,7 +49,9 @@ class AppScaffold extends StatelessWidget {
             key: const ValueKey('undoClearAll'),
             label: AppLocalizations.of(context)!.undo,
             onPressed: () {
-              context.read<Conversions>().undoClearOperation();
+              ref
+                  .read(ConversionsNotifier.provider.notifier)
+                  .undoClearOperation();
             },
           ),
         );
@@ -55,21 +59,22 @@ class AppScaffold extends StatelessWidget {
       }
     }
 
-    void openSearch() async {
-      final orderList = context.read<AppModel>().conversionsOrderDrawer;
-      final int? newPage = await showSearch(
-        context: context,
-        delegate: CustomSearchDelegate(orderList!),
-      );
-      if (newPage != null) {
-        final String targetPath =
-            '/conversions/${reversePageNumberListMap[newPage]}';
-        // ignore: use_build_context_synchronously
-        if (GoRouterState.of(context).uri.toString() != targetPath) {
+    void openSearch() {
+      ref.read(PropertiesOrderNotifier.provider).whenData((orderList) async {
+        final int? newPage = await showSearch(
+          context: context,
+          delegate: CustomSearchDelegate(orderList),
+        );
+        if (newPage != null) {
+          final String targetPath =
+              '/conversions/${reversePageNumberListMap[newPage]}';
           // ignore: use_build_context_synchronously
-          context.go(targetPath);
+          if (GoRouterState.of(context).uri.toString() != targetPath) {
+            // ignore: use_build_context_synchronously
+            context.go(targetPath);
+          }
         }
-      }
+      });
     }
 
     return LayoutBuilder(builder: (context, constraints) {
