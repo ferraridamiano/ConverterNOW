@@ -102,32 +102,28 @@ final currenciesProvider = FutureProvider<Currencies>((ref) async {
     // removes the last '+'
     stringRequest = stringRequest.substring(0, stringRequest.length - 1);
     try {
-      http.Response httpResponse = await http.get(
+      var response = await http.get(
         Uri.https(
           'data-api.ecb.europa.eu',
           'service/data/EXR/D.$stringRequest.EUR.SP00.A',
-          {'lastNObservations': '1', 'detail': 'dataonly'},
+          {'lastNObservations': '1', 'detail': 'dataonly', 'format': 'csvdata'},
         ),
-        headers: {'Accept': 'application/vnd.sdmx.data+json;version=1.0.0-wd'},
       );
 
       // if successful
-      if (httpResponse.statusCode == 200) {
-        Map<String, dynamic> jsonData = json.decode(httpResponse.body);
+      if (response.statusCode == 200) {
         var lastUpdate = DateFormat("yyyy-MM-dd").format(DateTime.now());
-
         Map<String, double> exchangeRates = {'EUR': 1};
-
-        for (int i = 0; i < Currencies().exchangeRates.length - 1; i++) {
-          //-1 because in this list there is not EUR because it is the base unit
-          double value = jsonData['dataSets'][0]['series']['0:$i:0:0:0']
-                  ['observations']
-              .values
-              .first[0]
-              .toDouble();
-          String name = jsonData['structure']['dimensions']['series'][1]
-              ['values'][i]['id'];
-          exchangeRates[name] = value;
+        final rows = const LineSplitter().convert(response.body);
+        final tableHeader = rows[0].split(',');
+        final valueIndex = tableHeader.indexOf('OBS_VALUE');
+        final currencyIndex = tableHeader.indexOf('CURRENCY');
+        rows.removeAt(0);
+        for (var row in rows) {
+          final elements = row.split(',');
+          final currency = elements[currencyIndex];
+          final value = double.parse(elements[valueIndex]);
+          exchangeRates[currency] = value;
         }
         pref.setString('currenciesRates', jsonEncode(exchangeRates));
         pref.setString('lastUpdateCurrencies', lastUpdate);
