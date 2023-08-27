@@ -14,9 +14,8 @@ class ReorderPropertiesPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Read the order of the properties in the drawer
-    List<int>? conversionsOrderDrawer = ref
-        .watch(PropertiesOrderNotifier.provider)
-        .maybeWhen(data: (data) => data, orElse: () => null);
+    List<int>? conversionsOrderDrawer =
+        ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();

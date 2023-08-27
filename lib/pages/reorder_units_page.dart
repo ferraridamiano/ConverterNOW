@@ -1,3 +1,4 @@
+import 'package:converterpro/main.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/reorder_page.dart';
@@ -31,9 +32,8 @@ class ChoosePropertyPage extends ConsumerWidget {
     List<String> listUnitsNames = [];
     List<UnitData> selectedUnitDataList = [];
     // Read the order of the properties in the drawer
-    List<int>? conversionsOrderDrawer = ref
-        .watch(PropertiesOrderNotifier.provider)
-        .maybeWhen(data: (data) => data, orElse: () => null);
+    List<int>? conversionsOrderDrawer =
+        ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();
@@ -50,12 +50,9 @@ class ChoosePropertyPage extends ConsumerWidget {
         getUnitTranslationMap(context);
     Widget? reorderPage;
     if (selectedProperty != null) {
-      final bool isConversionsLoaded = ref
-          .watch(UnitsOrderNotifier.provider)
-          .maybeWhen(data: (data) => true, orElse: () => false);
       // if we remove the following check, if you enter the site directly to
       // '/conversions/:property' an error will occur
-      if (!isConversionsLoaded) {
+      if (!ref.watch(isEverythingLoadedProvider)) {
         return const SplashScreenWidget();
       }
 

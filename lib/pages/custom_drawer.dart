@@ -89,10 +89,7 @@ class CustomDrawer extends ConsumerWidget {
     );
 
     List<int>? conversionsOrderDrawer =
-        ref.watch(PropertiesOrderNotifier.provider).maybeWhen(
-              data: (data) => data,
-              orElse: () => null,
-            );
+        ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
 
     if (conversionsOrderDrawer == null) {
       return const SizedBox();

@@ -36,10 +36,7 @@ class ConversionPage extends ConsumerWidget {
 
     Widget? subtitleWidget;
     if (currentProperty == PROPERTYX.currencies) {
-      Currencies? currencies = ref.watch(currenciesProvider).maybeWhen(
-            data: (data) => data,
-            orElse: () => null,
-          );
+      Currencies? currencies = ref.watch(currenciesProvider).valueOrNull;
       if (currencies == null) {
         subtitleWidget = const SizedBox(
           height: 30,
