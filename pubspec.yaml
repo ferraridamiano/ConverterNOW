@@ -17,7 +17,7 @@ dependencies:
   # Native splash screen on Android
   flutter_native_splash: ^2.2.17
   # State management
-  flutter_riverpod: ^2.3.6
+  flutter_riverpod: ^2.3.7
   # For svg icons
   flutter_svg: ^2.0.7
   # App logo in drawer
