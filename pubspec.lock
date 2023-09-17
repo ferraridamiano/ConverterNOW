@@ -623,10 +623,10 @@ packages:
     dependency: "direct main"
     description:
       name: quick_actions
-      sha256: "0562d78b8d6a87576fb8fe55bc655bda6ebe3c61a5904df56d20bd88f98cf3a3"
+      sha256: "3930e1cf78a0574495b4ea741ee197323c4a9081321d6ae384b3bfcd84c7ea83"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.5"
+    version: "1.0.6"
   quick_actions_android:
     dependency: transitive
     description:

@@ -29,7 +29,7 @@ dependencies:
   # Translations
   intl: ^0.18.1
   # Android app shortcuts
-  quick_actions: ^1.0.5
+  quick_actions: ^1.0.6
   # Store the customizations and the latest currencies conversions
   shared_preferences: ^2.2.0
   # Unit conversion
