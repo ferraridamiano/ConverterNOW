@@ -18,7 +18,7 @@ jobs:
     outputs:
       integration_testing: ${{ steps.filter.outputs.integration_testing }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: dorny/paths-filter@v2
       id: filter
       with:
@@ -36,7 +36,7 @@ jobs:
     timeout-minutes: 15
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install missing packages
       run: |
