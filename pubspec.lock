@@ -883,10 +883,10 @@ packages:
     dependency: "direct main"
     description:
       name: units_converter
-      sha256: "8885f35e2954bf5ba2e0de578ab1481c9dd2eba7feb9e71e1bd965e34cef06e8"
+      sha256: "17d9717f9efacfee14e79cff671e99657fe744d9969629cd9163636f2b11f248"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "2.1.1"
   universal_io:
     dependency: transitive
     description:
