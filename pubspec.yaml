@@ -35,7 +35,7 @@ dependencies:
   # Unit conversion
   units_converter: 2.0.1
   # Open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^6.1.12
+  url_launcher: ^6.1.14
   # Load optimized svg icons
   vector_graphics: ^1.1.7
   # Resize window during testing
