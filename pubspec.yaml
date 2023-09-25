@@ -59,7 +59,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   melos: ^3.1.1
-  msix: ^3.16.1
+  msix: ^3.16.3
   test: ^1.21.4
 
 flutter_native_splash:
