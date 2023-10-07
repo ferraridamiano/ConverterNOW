@@ -239,12 +239,20 @@ class DropdownListTile extends StatelessWidget {
                       child: ListView(
                           children: items
                               .map(
-                                (item) => RadioListTile(
+                                (item) => ListTile(
                                   title: Text(item),
-                                  value: item,
-                                  groupValue: selected,
-                                  onChanged: (String? val) {
-                                    onChanged(val);
+                                  leading: item != selected
+                                      ? SizedBox(
+                                          width:
+                                              Theme.of(context).iconTheme.size)
+                                      : Icon(
+                                          Icons.check,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                  onTap: () {
+                                    onChanged(item);
                                     Navigator.pop(context); // Close dialog
                                   },
                                 ),
