@@ -220,22 +220,40 @@ class DropdownListTile extends StatelessWidget {
           ),
           subtitle: Text(value),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-          onTap: () => showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => SimpleDialog(
-              title: Text(title),
-              children: items.map<Widget>((String item) {
-                return RadioListTile(
-                    title: Text(item),
-                    value: item,
-                    groupValue: selected,
-                    onChanged: (String? val) {
-                      onChanged(val);
-                      Navigator.pop(context); // Close dialog
-                    });
-              }).toList(),
-            ),
-          ),
+          onTap: () => showModalBottomSheet(
+              context: context,
+              showDragHandle: true,
+              builder: (context) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Text(
+                        title,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    Expanded(
+                      child: ListView(
+                          children: items
+                              .map(
+                                (item) => RadioListTile(
+                                  title: Text(item),
+                                  value: item,
+                                  groupValue: selected,
+                                  onChanged: (String? val) {
+                                    onChanged(val);
+                                    Navigator.pop(context); // Close dialog
+                                  },
+                                ),
+                              )
+                              .toList()),
+                    ),
+                  ],
+                );
+              }),
         );
       default:
         return ListTile(
