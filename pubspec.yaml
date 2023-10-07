@@ -21,7 +21,7 @@ dependencies:
   # For svg icons
   flutter_svg: ^2.0.7
   # App logo in drawer
-  google_fonts: ^5.1.0
+  google_fonts: ^6.1.0
   # Navigation
   go_router: ^10.0.0
   # Downloading the exchange rates
