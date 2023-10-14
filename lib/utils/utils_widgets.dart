@@ -221,47 +221,41 @@ class DropdownListTile extends StatelessWidget {
           subtitle: Text(value),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           onTap: () => showModalBottomSheet(
-              context: context,
-              showDragHandle: true,
-              builder: (context) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Text(
-                        title,
-                        style: Theme.of(context).textTheme.headlineSmall,
-                      ),
+            context: context,
+            showDragHandle: true,
+            builder: (context) {
+              return ListView(
+                shrinkWrap: true,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    const SizedBox(height: 15),
-                    Expanded(
-                      child: ListView(
-                          children: items
-                              .map(
-                                (item) => ListTile(
-                                  title: Text(item),
-                                  leading: item != selected
-                                      ? SizedBox(
-                                          width:
-                                              Theme.of(context).iconTheme.size)
-                                      : Icon(
-                                          Icons.check,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                        ),
-                                  onTap: () {
-                                    onChanged(item);
-                                    Navigator.pop(context); // Close dialog
-                                  },
-                                ),
-                              )
-                              .toList()),
+                  ),
+                  const SizedBox(height: 15),
+                  ...items.map(
+                    (item) => ListTile(
+                      title: Text(item),
+                      leading: item != selected
+                          ? SizedBox(
+                              width: Theme.of(context).iconTheme.size,
+                            )
+                          : Icon(
+                              Icons.check,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                      onTap: () {
+                        onChanged(item);
+                        Navigator.pop(context);
+                      },
                     ),
-                  ],
-                );
-              }),
+                  ),
+                ],
+              );
+            },
+          ),
         );
       default:
         return ListTile(
