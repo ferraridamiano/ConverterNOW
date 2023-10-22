@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
@@ -117,8 +118,6 @@ class MyApp extends ConsumerWidget {
       errorBuilder: (context, state) => const ErrorPage(),
     );
 
-    bool deviceLocaleSetted = false;
-
     const Color fallbackColorSchemeSeed = Colors.blue;
 
     return DynamicColorBuilder(
@@ -154,6 +153,19 @@ class MyApp extends ConsumerWidget {
       );
 
       return Consumer(builder: (context, ref, child) {
+        Locale? settingsLocale = ref.watch(CurrentLocale.provider).valueOrNull;
+        String deviceLocaleLanguageCode = Platform.localeName.split('_')[0];
+        Locale appLocale;
+        if (settingsLocale != null) {
+          appLocale = settingsLocale;
+        } else if (mapLocale.keys
+            .map((Locale locale) => locale.languageCode)
+            .contains(deviceLocaleLanguageCode)) {
+          appLocale = Locale(deviceLocaleLanguageCode);
+        } else {
+          appLocale = const Locale('en');
+        }
+
         return MaterialApp.router(
           routeInformationProvider: router.routeInformationProvider,
           routeInformationParser: router.routeInformationParser,
@@ -168,21 +180,7 @@ class MyApp extends ConsumerWidget {
               : darkTheme,
           supportedLocales: mapLocale.keys,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
-          localeResolutionCallback:
-              (Locale? deviceLocale, Iterable<Locale> supportedLocales) {
-            if (!deviceLocaleSetted) {
-              //context.read<AppModel>().deviceLocale = deviceLocale;
-              deviceLocaleSetted = true;
-            }
-            if (supportedLocales
-                .map((Locale locale) => locale.languageCode)
-                .contains(deviceLocale?.languageCode)) {
-              return deviceLocale;
-            }
-            return const Locale('en');
-          },
-          locale: ref.watch(CurrentLocale.provider).valueOrNull ??
-              const Locale('en'),
+          locale: appLocale,
         );
       });
     });
