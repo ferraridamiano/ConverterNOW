@@ -228,7 +228,7 @@ class DropdownListTile extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
                       title,
                       style: Theme.of(context).textTheme.titleLarge,
