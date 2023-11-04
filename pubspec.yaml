@@ -23,7 +23,7 @@ dependencies:
   # App logo in drawer
   google_fonts: ^6.1.0
   # Navigation
-  go_router: ^11.1.2
+  go_router: ^12.0.1
   # Downloading the exchange rates
   http: ^1.1.0
   # Translations
