@@ -12,8 +12,8 @@
   "settings": "Paramètres",
   "menu": "Menu",
   "donation": "Faire un don",
-  "buyMeACoffee": "Buy me a coffee",
-  "donationDialog": "Hi, as you might know this app is free and open source. It means that you can use it for free and copy/edit the source code. The developer will not gain nothing for it. But if you also believe in this project and would like to see new features, please consider buying me a coffee.",
+  "buyMeACoffee": "Offrez-moi un café",
+  "donationDialog": "Bonjour, comme vous le savez peut-être, cette application est libre et open-source. Cela signifie que vous pouvez l'utiliser gratuitement et copier/modifier le code source. Le développeur ne gagnera rien pour cela. Mais si vous croyez aussi en ce projet et que vous souhaitez voir de nouvelles fonctionnalités, veuillez envisager de m'offrir un café.",
   "drawerLogo": "Logo dans le tiroir",
   "rateApp": "Évaluer l'application",
   "repoGithub": "Ouvrir le dépôt sur GitHub",
@@ -22,7 +22,7 @@
   "clearAll": "Tout effacer",
   "calculator": "Calculatrice",
   "significantFigures": "Chiffres significatifs",
-  "removeTrailingZeros": "Supprimer les zero inutile",
+  "removeTrailingZeros": "Supprimer les zéros inutiles",
   "longPressAdvice": "Appuyez longuement pour déplacer des éléments",
   "back": "Retour",
   "save": "Enregistrer",
@@ -49,21 +49,10 @@
   },
   "otherPlatforms": "Converter NOW pour les autres plateformes",
   "sourceCode": "Code source",
-  "@undoClearAllMessage": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "undo": "Undo",
-  "@undo": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "routeError1": "This page doesn't exist",
-  "@routeError1": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "routeError2": "Go back to the first page",
-  "@routeError2": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "undoClearAllMessage": "Tout a été effacé. Voulez-vous annuler ?",
+  "undo": "Annuler",
+  "routeError1": "Cette page n'existe pas",
+  "routeError2": "Revenir à la première page",
 
   "length": "Distance",
   "area": "Superficie",
@@ -195,23 +184,14 @@
   "psi": "Livres par pouce carré",
   "torr": "Torricelli",
   "hectoPascal": "Hectopascal",
-  "@hectoPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "inchesOfMercury": "Inches of mercury",
-  "@inchesOfMercury": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "inchesOfMercury": "Pouces de mercure",
 
   "joule": "Joule",
   "calories": "Calorie",
   "kilowattHour": "Kilowatt heure",
   "electronvolt": "Électronvolt",
   "footPound": "Pied-livre",
-  "kilocalories": "Kilocalories",
-  "@kilocalories": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "kilocalories": "Kilocalorie",
 
   "degree": "Degré",
   "minutesDegree": "Minutes",
