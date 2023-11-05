@@ -264,7 +264,7 @@
   "decimal": "Décimal",
   "hexadecimal": "Hexadécimal",
   "octal": "Octal",
-  "binary": "Binaire"
+  "binary": "Binaire",
 
   "bit": "Bit",
   "nibble": "Nibble",
