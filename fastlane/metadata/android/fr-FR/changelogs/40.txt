@@ -1,0 +1,10 @@
+- Améliorations Material You
+- La calculatrice a un nouveau look
+- Ajout des traductions en néerlandais, chinois et chinois traditionnel
+- Amélioration des autres traductions
+- Légères modifications des icônes
+- Améliorations générales
+
+Merci à @David-git-code, @syu-pf-ssy, @plum7x, @HarshMakwana27 pour leurs contributions !
+
+Que pensez-vous de Converter NOW ? Évaluez l'appli ! ✔️
