@@ -3,16 +3,11 @@
 🚀 C'est <b> rapide et immédiat </b>: il suffit de commencer à taper et immédiatement vous avez la conversion en temps réel avec toutes les autres unités de mesure.
 🖌️ Il est <b> personnalisable </b>: les unités peuvent être réorganisées en fonction de vos priorités et de votre utilisation.
 🔢 Il intègre une <b> calculatrice </b> qui vous permet de faire les calculs dans chaque page.
-💰 Nous <b> mettons à jour quotidiennement </b> la valeur des devises
+💰 Les taux de change des devises sont <b> mis à jour quotidiennement </b>
+🎨 <b> Thème dynamique </b> basé sur les paramètres de votre appareil
 ⚫⚪ <b> Choisissez votre thème préféré </b>: thème sombre et blanc
- 📱 <b> Prise en charge complète </b> des smartphones et tablettes <b> </b>
-💯 C'est <b> Open Source </b>!
-
-Vérifiez le référentiel sur GitHub: https://github.com/ferraridamiano/ConverterNOW
-
-Nous avons également une application Web! 🖥️ Découvrez-le ici: https://ferraridamiano.github.io/ConverterNOW/
-
-🌍 Converter NOW est gratuit, sans publicité, il ne nécessite aucune autorisation et nous ne collectons pas vos données 🌍
+📱🖥️ <b> Multiplateforme </b>: disponible pour Android, Web, Linux et Windows
+💯 C'est <b>libre, sans publicités, sans collecte de données, sans autorisations</b> (seulement l'accès à Internet pour mettre à jour la valeur des devises) et surtout c'est <b>open-source</b> !
 
 <b> Converter NOW peut convertir plus de 200 unités de mesure et plus de 30 devises </b> 🎉🎉
 
@@ -22,7 +17,7 @@ Voici quelques-unes des quantités physiques que Converter NOW est capable de co
 - <b> Superficie: </b> mètres carrés, hectares, acres, etc.
 - <b> Volume: </b> mètres cubes, litres, gallons, pintes, cuillères, etc.
 - <b> Heure: </b> secondes, heures, jours, années, semaines, millénaires, etc.
-- <b> Température: </b> Centigrade, Fahreneit, Kelvin
+- <b> Température: </b> Centigrade, Fahrenheit, Kelvin
 - <b> Vitesse: </b> mètres par seconde, kilomètres par heure, nœuds, etc.
 - <b> Masse: </b> grammes, livres, tonnes, unités de masse atomique, etc.
 - <b> Force: </b> Newton, dyne, livre-force, poundal, etc.
@@ -32,7 +27,7 @@ Voici quelques-unes des quantités physiques que Converter NOW est capable de co
 - <b> Consommation de carburant: </b> Miles par gallon, kilomètres par litre, etc.
 - <b> Systèmes numériques: </b> décimal, binaire, hexadécimal etc.
 - <b> Couple: </b> Newton mètre, pied livre-force, Poundal mètre, etc.
-- <b> Données numériques: </b> Nibble, bit, byte, kibibit, kibibyte, etc.
+- <b> Données numériques: </b> Nibble, bit, octet, kibibit, kibioctet, etc.
 - <b> Pointure des chaussures: </b> Royaume-Uni, Inde, Europe, USA, Japon, etc.
 - <b> Angles: </b> degrés, radians, minutes, etc.
-- <b> Préfixe SI: </b> kilo, méga, giga, tera, milli, micro, nano, etc.
+- <b> Préfixe SI: </b> kilo, méga, giga, téra, milli, micro, nano, etc.
