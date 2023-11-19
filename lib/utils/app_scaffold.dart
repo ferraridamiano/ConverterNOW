@@ -112,25 +112,20 @@ class AppScaffold extends ConsumerWidget {
         );
       }
       // if the drawer is not fixed
-      return WillPopScope(
-        onWillPop: () async {
-          switch (selectedSection) {
-            case AppPage.settings:
-              context.go('/');
-              return false;
-            case AppPage.reorder:
+      return PopScope(
+        canPop: selectedSection == AppPage.conversions,
+        onPopInvoked: (var didPop) {
+          if (selectedSection == AppPage.settings) {
+            context.go('/');
+          } else if (selectedSection == AppPage.reorder) {
+            context.goNamed('settings');
+          } else if (selectedSection == AppPage.reorderDetails) {
+            //2 sided page
+            if (_isDrawerFixed) {
               context.goNamed('settings');
-              return false;
-            case AppPage.reorderDetails:
-              //2 sided page
-              if (_isDrawerFixed) {
-                context.goNamed('settings');
-              } else {
-                context.goNamed('reorder-units');
-              }
-              return false;
-            default:
-              return true;
+            } else {
+              context.goNamed('reorder-units');
+            }
           }
         },
         child: Scaffold(
