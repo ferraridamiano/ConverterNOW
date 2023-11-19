@@ -13,7 +13,7 @@ class UnitWidget extends StatefulWidget {
   final void Function(String)? onChanged;
 
   const UnitWidget({
-    Key? key,
+    super.key,
     required this.tffKey,
     this.keyboardType,
     required this.controller,
@@ -21,7 +21,7 @@ class UnitWidget extends StatefulWidget {
     required this.unitName,
     this.unitSymbol,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<UnitWidget> createState() => _UnitWidgetState();
@@ -98,7 +98,7 @@ class SearchUnit {
 
 class SearchUnitTile extends StatelessWidget {
   final SearchUnit searchUnit;
-  const SearchUnitTile(this.searchUnit, {Key? key}) : super(key: key);
+  const SearchUnitTile(this.searchUnit, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +119,7 @@ class SearchUnitTile extends StatelessWidget {
 
 class SuggestionList extends StatelessWidget {
   final List<SearchUnit> suggestions;
-  const SuggestionList({required this.suggestions, Key? key}) : super(key: key);
+  const SuggestionList({required this.suggestions, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -142,8 +142,8 @@ class SearchGridTile extends StatelessWidget {
     required this.footer,
     required this.onTap,
     required this.darkMode,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -289,7 +289,7 @@ class DropdownListTile extends StatelessWidget {
 }
 
 class SplashScreenWidget extends StatelessWidget {
-  const SplashScreenWidget({Key? key}) : super(key: key);
+  const SplashScreenWidget({super.key});
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -308,8 +308,7 @@ class SplashScreenWidget extends StatelessWidget {
 class ConstrainedContainer extends StatelessWidget {
   final Widget child;
   final double maxWidth;
-  const ConstrainedContainer(this.child, {this.maxWidth = 500, Key? key})
-      : super(key: key);
+  const ConstrainedContainer(this.child, {this.maxWidth = 500, super.key});
 
   @override
   Widget build(BuildContext context) {

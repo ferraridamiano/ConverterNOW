@@ -16,11 +16,11 @@ class CustomDrawer extends ConsumerWidget {
   final void Function() openSearch;
 
   const CustomDrawer({
-    key,
     required this.isDrawerFixed,
     required this.openCalculator,
     required this.openSearch,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -42,7 +42,7 @@ class CustomDrawer extends ConsumerWidget {
               'Converter NOW',
               // Fixed independently of the accessibility settings. Already as
               // large as possible
-              textScaleFactor: 1,
+              textScaler: TextScaler.noScaling,
               maxLines: 1,
               style: GoogleFonts.josefinSans(
                 fontWeight: FontWeight.w300,

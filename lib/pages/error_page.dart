@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:translations/app_localizations.dart';
 
 class ErrorPage extends StatelessWidget {
-  const ErrorPage({Key? key}) : super(key: key);
+  const ErrorPage({super.key});
 
   @override
   Widget build(BuildContext context) {

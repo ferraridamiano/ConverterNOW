@@ -34,6 +34,8 @@ dependencies:
   shared_preferences: ^2.2.0
   # Unit conversion
   units_converter: 2.0.1
+  # Just for getting the browser current language
+  universal_io: ^2.2.2
   # Open external pages such as GitHub repo, Play Store, etc
   url_launcher: ^6.1.12
   # Load optimized svg icons

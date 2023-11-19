@@ -11,8 +11,8 @@ class ReorderPage extends StatefulWidget {
     required this.itemsList,
     required this.onSave,
     required this.title,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ReorderPage> createState() => _ReorderPageState();

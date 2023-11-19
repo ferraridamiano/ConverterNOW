@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:universal_io/io.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
@@ -32,7 +32,7 @@ void main() async {
 }
 
 class MyApp extends ConsumerWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -138,12 +138,8 @@ class MyApp extends ConsumerWidget {
         );
       }
 
-      ThemeData lightTheme = ThemeData(
-        useMaterial3: true,
-        colorScheme: lightColorScheme,
-      );
+      ThemeData lightTheme = ThemeData(colorScheme: lightColorScheme);
       ThemeData darkTheme = ThemeData(
-        useMaterial3: true,
         brightness: Brightness.dark,
         colorScheme: darkColorScheme,
       );

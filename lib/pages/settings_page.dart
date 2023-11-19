@@ -46,10 +46,7 @@ class SettingsPage extends ConsumerWidget {
           leading: Icon(Icons.language, color: iconColor),
           title: AppLocalizations.of(context)!.language,
           textStyle: textStyle,
-          items: [
-            AppLocalizations.of(context)!.system,
-            ...mapLocale.values.toList()
-          ],
+          items: [AppLocalizations.of(context)!.system, ...mapLocale.values],
           value: mapLocale[ref.watch(CurrentLocale.provider).valueOrNull] ??
               AppLocalizations.of(context)!.system,
           onChanged: (String? string) {
