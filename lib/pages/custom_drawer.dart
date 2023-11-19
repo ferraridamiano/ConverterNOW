@@ -42,7 +42,7 @@ class CustomDrawer extends ConsumerWidget {
               'Converter NOW',
               // Fixed independently of the accessibility settings. Already as
               // large as possible
-              textScaleFactor: 1,
+              textScaler: TextScaler.noScaling,
               maxLines: 1,
               style: GoogleFonts.josefinSans(
                 fontWeight: FontWeight.w300,

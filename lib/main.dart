@@ -138,12 +138,8 @@ class MyApp extends ConsumerWidget {
         );
       }
 
-      ThemeData lightTheme = ThemeData(
-        useMaterial3: true,
-        colorScheme: lightColorScheme,
-      );
+      ThemeData lightTheme = ThemeData(colorScheme: lightColorScheme);
       ThemeData darkTheme = ThemeData(
-        useMaterial3: true,
         brightness: Brightness.dark,
         colorScheme: darkColorScheme,
       );
