@@ -16,11 +16,11 @@ class CustomDrawer extends ConsumerWidget {
   final void Function() openSearch;
 
   const CustomDrawer({
-    key,
     required this.isDrawerFixed,
     required this.openCalculator,
     required this.openSearch,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

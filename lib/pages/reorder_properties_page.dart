@@ -9,7 +9,7 @@ import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class ReorderPropertiesPage extends ConsumerWidget {
-  const ReorderPropertiesPage({Key? key}) : super(key: key);
+  const ReorderPropertiesPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

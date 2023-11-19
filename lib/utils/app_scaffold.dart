@@ -12,10 +12,7 @@ import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
 class AppScaffold extends ConsumerWidget {
-  const AppScaffold({
-    required this.child,
-    Key? key,
-  }) : super(key: key);
+  const AppScaffold({required this.child, super.key});
 
   final Widget child;
 

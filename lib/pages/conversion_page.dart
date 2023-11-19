@@ -13,7 +13,7 @@ import 'package:intl/intl.dart';
 class ConversionPage extends ConsumerWidget {
   final int page;
 
-  const ConversionPage(this.page, {Key? key}) : super(key: key);
+  const ConversionPage(this.page, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

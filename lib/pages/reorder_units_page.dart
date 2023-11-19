@@ -20,9 +20,11 @@ class ChoosePropertyPage extends ConsumerWidget {
   /// "Choose property page" to the "Reorder units" page
   final bool isPropertySelected;
 
-  const ChoosePropertyPage(
-      {this.selectedProperty, this.isPropertySelected = false, Key? key})
-      : super(key: key);
+  const ChoosePropertyPage({
+    this.selectedProperty,
+    this.isPropertySelected = false,
+    super.key,
+  });
 
   static const BorderRadius borderRadius =
       BorderRadius.all(Radius.circular(30));
