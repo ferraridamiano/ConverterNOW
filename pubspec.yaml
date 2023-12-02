@@ -2,7 +2,7 @@ name: converterpro
 description: Unit and currencies converter
 publish_to: none
 
-version: 4.1.0+40
+version: 4.2.0+41
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -13,33 +13,33 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   # App dynamic color theme
-  dynamic_color: ^1.6.6
+  dynamic_color: ^1.6.8
   # Native splash screen on Android
   flutter_native_splash: ^2.2.17
   # State management
-  flutter_riverpod: ^2.3.7
+  flutter_riverpod: ^2.4.9
   # For svg icons
-  flutter_svg: ^2.0.7
+  flutter_svg: ^2.0.9
   # App logo in drawer
   google_fonts: ^6.1.0
   # Navigation
-  go_router: ^12.0.1
+  go_router: ^12.1.1
   # Downloading the exchange rates
-  http: ^1.1.0
+  http: ^1.1.2
   # Translations
   intl: ^0.18.1
   # Android app shortcuts
-  quick_actions: ^1.0.5
+  quick_actions: ^1.0.6
   # Store the customizations and the latest currencies conversions
-  shared_preferences: ^2.2.0
+  shared_preferences: ^2.2.2
   # Unit conversion
   units_converter: 2.0.1
   # Just for getting the browser current language
   universal_io: ^2.2.2
   # Open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^6.1.12
+  url_launcher: ^6.2.1
   # Load optimized svg icons
-  vector_graphics: ^1.1.7
+  vector_graphics: ^1.1.9+1
   # Resize window during testing
   window_size:
     git:
@@ -55,14 +55,14 @@ dependencies:
     path: packages/translations
 
 dev_dependencies:
-  flutter_lints: ^3.0.0
+  flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
   integration_test:
     sdk: flutter
-  melos: ^3.1.1
-  msix: ^3.16.1
-  test: ^1.21.4
+  melos: ^3.3.0
+  msix: ^3.16.7
+  test: ^1.24.9
 
 flutter_native_splash:
   # Run code generation: `flutter pub run flutter_native_splash:create`

@@ -20,7 +20,7 @@ class CalculatorWidget extends StatelessWidget {
 class _CalculatorWidget extends ConsumerWidget {
   final FocusNode focusKeyboard = FocusNode();
 
-  _CalculatorWidget({Key? key}) : super(key: key);
+  _CalculatorWidget();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -319,12 +319,12 @@ class CalculatorButton extends StatelessWidget {
   final ButtonType buttonType;
 
   const CalculatorButton({
-    Key? key,
+    super.key,
     this.text,
     this.onLongPress,
     this.onPressed,
     required this.buttonType,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

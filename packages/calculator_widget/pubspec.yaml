@@ -14,7 +14,7 @@ dependencies:
   #Needed for calculator computation
   decimal: ^2.3.3
   #Needed for the state management
-  flutter_riverpod: ^2.3.7
+  flutter_riverpod: ^2.4.9
   #Needed for app translation
   translations:
     path: ../translations
@@ -22,7 +22,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.2
+  flutter_lints: ^3.0.1
 
 flutter:
   uses-material-design: true

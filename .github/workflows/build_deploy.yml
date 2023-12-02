@@ -83,28 +83,28 @@ jobs:
     - name: Release to GitHub
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "build/app/outputs/flutter-apk/app-*-release.apk,converternow-linux-x64.tar.gz"
+        artifacts: "build/app/outputs/flutter-apk/app-*-release.apk,build/app/outputs/bundle/release/app-release.aab,converternow-linux-x64.tar.gz"
         token: ${{ secrets.GH_TOKEN }}
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}
         allowUpdates: true     #so if you rerun a job it will overwrite the existing files
 
-    - name: Setup Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.6
-
-    - name: Download bundle dependencies
-      run: |
-        gem install bundler:2.0.2
-        bundle config path vendor/bundle
-        bundle install
-
-    - name: Release to Google Play (beta)
-      env:
-        SUPPLY_PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
-        SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
-      run: |
-        bundle exec fastlane supply \
-        --aab build/app/outputs/bundle/release/app-release.aab \
-        --track beta
+#    - name: Setup Ruby
+#      uses: ruby/setup-ruby@v1
+#      with:
+#        ruby-version: 2.6
+#
+#    - name: Download bundle dependencies
+#      run: |
+#        gem install bundler:2.0.2
+#        bundle config path vendor/bundle
+#        bundle install
+#
+#    - name: Release to Google Play (beta)
+#      env:
+#        SUPPLY_PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
+#        SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+#      run: |
+#        bundle exec fastlane supply \
+#        --aab build/app/outputs/bundle/release/app-release.aab \
+#        --track beta

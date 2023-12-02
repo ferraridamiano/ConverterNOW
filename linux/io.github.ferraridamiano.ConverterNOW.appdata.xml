@@ -80,6 +80,17 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.2.0" date="2023-12-02">
+      <description>
+        <ul>
+          <li>UI improvements</li>
+          <li>Improved french translation (credits: @Vsnmrn)</li>
+          <li>General improvements</li>
+          <li>Bugfix</li>
+        </ul>
+        <p>What do you think about Converter NOW? Rate the app! ✔️</p>
+      </description>
+    </release>
     <release version="4.1.0" date="2023-08-17">
       <description>
         <ul>
