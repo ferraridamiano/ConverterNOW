@@ -36,7 +36,7 @@ jobs:
       run: melos bootstrap
 
     - name: Build and create the .msix installer
-      run: flutter pub run msix:create --store
+      run: dart run msix:create --store
 
     - name: Release to GitHub
       uses: ncipollo/release-action@v1
