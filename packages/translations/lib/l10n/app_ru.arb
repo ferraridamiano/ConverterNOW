@@ -26,7 +26,7 @@
   "longPressAdvice": "Длительное нажатие для перемещения элементов",
   "back": "Назад",
   "save": "Сохранить",
-  "invalidCharacters": "Ошибка, недопустимые символы",
+  "invalidCharacters": "Ошибка: недопустимые символы",
   "theme": "Tема",
   "dark": "Тёмная",
   "light": "Cветлая",
@@ -52,18 +52,9 @@
   "@undoClearAllMessage": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "undo": "Назад",
-  "@undo": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "undo": "Отмена",
   "routeError1": "Этой страницы не существует",
-  "@routeError1": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
   "routeError2": "Вернутся на первую страницу",
-  "@routeError2": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
 
   "length": "Длина",
   "area": "Площадь",
@@ -103,9 +94,6 @@
   "parsec": "Парсек",
   "mils": "Tысячная дюйма",
   "feetUsSurvey": "Футы (США)",
-  "@feetUsSurvey": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
 
   "squareMeters": "Квадратные Метры",
   "squareCentimeters": "Квадратные Сантиметры",
@@ -119,9 +107,6 @@
   "acres": "Акры",
   "are": "АР",
   "squareFeetUsSurvey": "Квадратные Футы (США)",
-  "@squareFeetUsSurvey": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
 
   "cubicMeters": "Кубические Метры",
   "liters": "Литры",
@@ -195,23 +180,14 @@
   "psi": "Фунтов на квадратный дюйм",
   "torr": "Торричелли",
   "hectoPascal": "Гектопаскаль",
-  "@hectoPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
   "inchesOfMercury": "Дюймы ртутного столба",
-  "@inchesOfMercury": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
 
   "joule": "Джоули",
   "calories": "Калории",
   "kilowattHour": "Киловатт-час",
   "electronvolt": "Электронвольт",
   "footPound": "Фут-фунт",
-  "kilocalories": Килокалории",
-  "@kilocalories": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "kilocalories": "Килокалории",
 
   "degree": "Степень",
   "minutesDegree": "Минуты",
