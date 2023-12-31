@@ -28,10 +28,10 @@
   "save": "Сохранить",
   "invalidCharacters": "Ошибка, недопустимые символы",
   "theme": "Tема",
-  "dark": "Tемная",
+  "dark": "Тёмная",
   "light": "Cветлая",
-  "system": "Cистемная",
-  "amoledDarkTheme": "Темная тема AMOLED",
+  "system": "Как в системе",
+  "amoledDarkTheme": "Тёмная тема AMOLED",
   "copy": "Копировать",
   "more": "Более",
   "language": "Язык",
@@ -52,22 +52,22 @@
   "@undoClearAllMessage": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "undo": "Undo",
+  "undo": "Назад",
   "@undo": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "routeError1": "This page doesn't exist",
+  "routeError1": "Этой страницы не существует",
   "@routeError1": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "routeError2": "Go back to the first page",
+  "routeError2": "Вернутся на первую страницу",
   "@routeError2": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
   "length": "Длина",
   "area": "Площадь",
-  "volume": "Объем",
+  "volume": "Объём",
   "time": "Время",
   "temperature": "Температура",
   "speed": "Скорость",
@@ -102,7 +102,7 @@
   "lightYears": "Световых лет",
   "parsec": "Парсек",
   "mils": "Tысячная дюйма",
-  "feetUsSurvey": "Feet (US survey)",
+  "feetUsSurvey": "Футы (США)",
   "@feetUsSurvey": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -118,17 +118,17 @@
   "hectares": "Гектары",
   "acres": "Акры",
   "are": "АР",
-  "squareFeetUsSurvey": "Piedi Quadrati (US survey)",
+  "squareFeetUsSurvey": "Квадратные Футы (США)",
   "@squareFeetUsSurvey": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
   "cubicMeters": "Кубические Метры",
   "liters": "Литры",
-  "imperialGallons": "Имперские Галлоны",
+  "imperialGallons": "Британские Галлоны",
   "usGallons": "Галлоны США",
-  "imperialPints": "Имперские Пинты",
-  "usPints": "Американские Пинты",
+  "imperialPints": "Британские Пинты",
+  "usPints": "Пинты США",
   "milliliters": "Миллилитры",
   "tablespoonUs": "Столовые ложки США",
   "tablespoonAustralian": "Австралийские Столовые ложки",
@@ -137,7 +137,7 @@
   "cubicFeet": "Кубические Футы",
   "cubicInches": "Кубические Дюймы",
   "cubicMillimeters": "Кубические Миллилитры",
-  "imperialFluidOunces": "Имперские жидкие унции",
+  "imperialFluidOunces": "Британские жидкие унции",
   "usFluidOunces": "Жидкие унции США",
   "imperialGill": "Императорская жабра",
   "usGill": "Жабры США",
@@ -194,21 +194,21 @@
   "millibar":"Миллибар",
   "psi": "Фунтов на квадратный дюйм",
   "torr": "Торричелли",
-  "hectoPascal": "Hectopascal",
+  "hectoPascal": "Гектопаскаль",
   "@hectoPascal": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "inchesOfMercury": "Inches of mercury",
+  "inchesOfMercury": "Дюймы ртутного столба",
   "@inchesOfMercury": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
   "joule": "Джоули",
-  "calories": "Каллории",
+  "calories": "Калории",
   "kilowattHour": "Киловатт-час",
   "electronvolt": "Электронвольт",
   "footPound": "Фут-фунт",
-  "kilocalories": "Kilocalories",
+  "kilocalories": Килокалории",
   "@kilocalories": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -268,7 +268,7 @@
   "megawatt": "Мегатватты",
   "gigawatt": "Гигаватты",
   "europeanHorsePower": "Европейская лошадиная сила",
-  "imperialHorsePower": "Имперская конная сила",
+  "imperialHorsePower": "Британская конная сила",
 
   "newton": "Ньютоны",
   "dyne": "Дины",
