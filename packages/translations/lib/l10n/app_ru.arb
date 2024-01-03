@@ -37,7 +37,7 @@
   "language": "Язык",
   "reorderProperties": "Изменить порядок свойств",
   "reorderUnits": "Изменить порядок единиц измерения",
-  "chooseProperty": "Выберите единицу измерения",
+  "chooseProperty": "Выберите свойство",
   "reorderProperty": "Изменить порядок {property}",
   "@reorderProperty":{
     "placeholders": {
