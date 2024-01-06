@@ -37,7 +37,7 @@
   "language": "Язык",
   "reorderProperties": "Изменить порядок свойств",
   "reorderUnits": "Изменить порядок единиц измерения",
-  "chooseProperty": "Выберите недвижимость",
+  "chooseProperty": "Выберите свойство",
   "reorderProperty": "Изменить порядок {property}",
   "@reorderProperty":{
     "placeholders": {
@@ -124,7 +124,7 @@
   "cubicMillimeters": "Кубические Миллилитры",
   "imperialFluidOunces": "Британские жидкие унции",
   "usFluidOunces": "Жидкие унции США",
-  "imperialGill": "Императорская жабра",
+  "imperialGill": "Британские жабры",
   "usGill": "Жабры США",
 
   "seconds": "Секунды",
@@ -261,7 +261,7 @@
   "kilometersLiter": "Километров на литр",
   "liters100km": "Литров на 100 км",
   "milesUsGallon": "Мили на Галлон США",
-  "milesImperialGallon": "Миль на британский Галлон",
+  "milesImperialGallon": "Миль на Британский Галлон",
 
   "decimal": "Десятичные",
   "hexadecimal": "Шестнадцатеричные",
