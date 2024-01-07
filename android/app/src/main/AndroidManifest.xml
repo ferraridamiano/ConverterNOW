@@ -2,6 +2,8 @@
 
     <!-- The INTERNET permission is required in order to update currencies rates -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- The VIBRATE permission is used for haptic feedback -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <queries>
       <intent>

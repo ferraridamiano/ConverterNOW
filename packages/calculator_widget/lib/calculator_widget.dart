@@ -129,6 +129,7 @@ class CalculatorHeader extends ConsumerWidget {
                     ),
                     onPressed: () {
                       Clipboard.setData(ClipboardData(text: text));
+                      HapticFeedback.heavyImpact();
                     },
                   )
                 : Text(
