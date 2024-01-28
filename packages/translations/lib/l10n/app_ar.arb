@@ -195,6 +195,10 @@
   "@kilocalories": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "درجة",
   "minutesDegree": "دقيقة",

@@ -350,6 +350,8 @@ List<UnitUi> getUnitUiList(BuildContext context) {
         PROPERTYX.energy),
     UnitUi(ENERGY.kilocalories, l10n.kilocalories, '$basePath/energy.svg.vec',
         PROPERTYX.energy),
+    UnitUi(ENERGY.kilojoules, l10n.kilojoules, '$basePath/energy.svg.vec',
+        PROPERTYX.energy),
     UnitUi(POWER.watt, l10n.watt, '$basePath/power.svg.vec', PROPERTYX.power),
     UnitUi(POWER.milliwatt, l10n.milliwatt, '$basePath/power.svg.vec',
         PROPERTYX.power),

@@ -186,6 +186,10 @@
   "electronvolt": "Elektronvolt",
   "footPound": "Foot-pound",
   "kilocalories": "Kilokalori",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Grad",
   "minutesDegree": "Bueminutt",

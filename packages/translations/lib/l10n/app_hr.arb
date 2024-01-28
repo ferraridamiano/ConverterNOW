@@ -186,6 +186,10 @@
   "electronvolt": "Elektronvolt",
   "footPound": "Funta po stopi",
   "kilocalories": "Kilokalorija",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Stupanj",
   "minutesDegree": "Minuta",

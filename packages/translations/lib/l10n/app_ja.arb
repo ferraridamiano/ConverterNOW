@@ -186,6 +186,10 @@
   "electronvolt": "電子ボルト",
   "footPound": "フィート重量ポンド",
   "kilocalories": "キロカロリー",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "角度",
   "minutesDegree": "分",

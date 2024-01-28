@@ -187,6 +187,10 @@
   "pennyweights": "Pennyweight",
   "troyOunces": "Onças troy",
   "stones": "Stone",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "Pascal",
   "atmosphere": "Atmosfera",

@@ -188,6 +188,10 @@
   "electronvolt": "Электронвольт",
   "footPound": "Фут-фунт",
   "kilocalories": "Килокалории",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Степень",
   "minutesDegree": "Минуты",

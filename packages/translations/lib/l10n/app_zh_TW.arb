@@ -186,6 +186,10 @@
   "electronvolt": "電子伏特",
   "footPound": "英尺磅",
   "kilocalories": "大卡",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "度",
   "minutesDegree": "分",

@@ -186,6 +186,10 @@
   "electronvolt": "Electron volt",
   "footPound": "Voet pond",
   "kilocalories": "Kilocalorieën",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Graden",
   "minutesDegree": "Minuten",
