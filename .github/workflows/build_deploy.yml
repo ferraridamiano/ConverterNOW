@@ -1,14 +1,17 @@
-name: "Android, Linux, Web: build & deploy"
+name: "Build & deploy for Android, Linux, Web and Windows"
 
 on:
   push:
-    tags: ['v*']
+    branches:
+      - appimage
+#    tags: ['v*']
 
 jobs:
-  build_deploy:
-    name: Build and release Android APK
+
+  build_android:
+    name: Build and release Android app
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 20
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -19,11 +22,6 @@ jobs:
         distribution: 'temurin'
         java-version: '11'
 
-    - name: Install missing packages
-      run: |
-        sudo apt update
-        sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev
-
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
@@ -33,32 +31,11 @@ jobs:
     - name: Flutter version
       run: flutter --version
 
-    - name: Install required dart tools
+    - name: Bootstrap
       run: |
         dart pub global activate melos
         dart pub global activate vector_graphics_compiler
-
-    - name: Bootstrap
-      run: melos bootstrap
-
-    # Force canvaskit because of the bug with svg on html
-    # See: https://github.com/dnfield/flutter_svg/issues/845
-    - name: Build for Web
-      run: flutter build web --web-renderer canvaskit
-
-    - name: Upload to Firebase Hosting
-      uses: FirebaseExtended/action-hosting-deploy@v0
-      with:
-        repoToken: '${{ secrets.GITHUB_TOKEN }}'
-        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CONVERTER_NOW }}'
-        channelId: live
-        projectId: converter-now
-
-    - name: Build for linux
-      run: flutter build linux
-
-    - name: Tar linux package
-      run: tar -C build/linux/x64/release/bundle -czf converternow-linux-x64.tar.gz .
+        melos bootstrap
 
     - name: Download Android keystore
       id: android_keystore
@@ -83,11 +60,11 @@ jobs:
     - name: Release to GitHub
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "build/app/outputs/flutter-apk/app-*-release.apk,build/app/outputs/bundle/release/app-release.aab,converternow-linux-x64.tar.gz"
+        artifacts: "build/app/outputs/flutter-apk/app-*-release.apk,build/app/outputs/bundle/release/app-release.aab"
         token: ${{ secrets.GH_TOKEN }}
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}
-        allowUpdates: true     #so if you rerun a job it will overwrite the existing files
+        allowUpdates: true
 
 #    - name: Setup Ruby
 #      uses: ruby/setup-ruby@v1
@@ -108,3 +85,124 @@ jobs:
 #        bundle exec fastlane supply \
 #        --aab build/app/outputs/bundle/release/app-release.aab \
 #        --track beta
+
+  build_linux:
+    name: Build and release Linux app
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install missing packages
+      run: |
+        sudo apt update
+        sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+        cache: true
+
+    - name: Flutter version
+      run: flutter --version
+
+    - name: Bootstrap
+      run: |
+        dart pub global activate melos
+        dart pub global activate vector_graphics_compiler
+        melos bootstrap
+
+    - name: Build for linux
+      run: flutter build linux --release
+
+    - name: Tar linux package
+      run: tar -C build/linux/x64/release/bundle -czf converternow-linux-x64.tar.gz .
+
+    - name: Release to GitHub
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "converternow-linux-x64.tar.gz"
+        token: ${{ secrets.GH_TOKEN }}
+        tag: ${{ steps.version.outputs.content }}
+        commit: ${{ github.sha }}
+        allowUpdates: true
+
+  build_web:
+    name: Build and release Web app
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+        cache: true
+
+    - name: Flutter version
+      run: flutter --version
+
+    - name: Bootstrap
+      run: |
+        dart pub global activate melos
+        dart pub global activate vector_graphics_compiler
+        melos bootstrap
+
+    # Force canvaskit because of the bug with svg on html
+    # See: https://github.com/dnfield/flutter_svg/issues/845
+    - name: Build for Web
+      run: flutter build web --web-renderer canvaskit
+
+    - name: Upload to Firebase Hosting
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CONVERTER_NOW }}'
+        channelId: live
+        projectId: converter-now
+
+  build_windows:
+    name: Build and release Windows app
+    runs-on: windows-latest
+    timeout-minutes: 25
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+        cache: true
+
+    - name: Flutter version
+      run: flutter --version
+
+    - name: Install required dart tools
+      run: |
+        dart pub global activate melos
+        dart pub global activate vector_graphics_compiler
+
+    - name: Generate optimized icons (workaround for a bug of melos on Windows)
+      run: |
+        dart run vector_graphics_compiler --input-dir assets/app_icons
+        dart run vector_graphics_compiler --input-dir assets/property_icons
+
+    - name: Bootstrap
+      run: melos bootstrap
+
+    - name: Build and create the .msix installer
+      run: dart run msix:create --store
+
+    - name: Release to GitHub
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "build/windows/x64/runner/Release/converternow-windows.msix"
+        token: ${{ secrets.GH_TOKEN }}
+        tag: ${{ steps.version.outputs.content }}
+        commit: ${{ github.sha }}
+        allowUpdates: true
