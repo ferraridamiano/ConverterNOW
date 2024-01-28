@@ -215,8 +215,24 @@
   "pennyweights": "Pennyweight",
   "troyOunces": "Onças troy",
   "stones": "Stone",
-  "kilojoules": "Kilojoules",
-  "@kilojoules": {
+  "femtograms": "Femtograms",
+  "@femtograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "picograms": "Picograms",
+  "@picograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "nanograms": "Nanograms",
+  "@nanograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "micrograms": "Micrograms",
+  "@micrograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "decigrams": "Decigrams",
+  "@decigrams": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
@@ -242,6 +258,10 @@
   "footPound": "Libra do pé",
   "kilocalories": "Kilocalories",
   "@kilocalories": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 

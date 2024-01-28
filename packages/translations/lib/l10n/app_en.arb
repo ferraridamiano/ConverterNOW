@@ -177,6 +177,11 @@
   "pennyweights": "Pennyweights",
   "troyOunces": "Troy ounces",
   "stones": "Stones",
+  "femtograms": "Femtograms",
+  "picograms": "Picograms",
+  "nanograms": "Nanograms",
+  "micrograms": "Micrograms",
+  "decigrams": "Decigrams",
 
   "pascal": "Pascal",
   "atmosphere":"Atmosphere",

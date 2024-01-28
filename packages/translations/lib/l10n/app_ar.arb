@@ -204,6 +204,26 @@
   "pennyweights": "وزن البنس",
   "troyOunces": "أونصة تروي",
   "stones": "حجر",
+  "femtograms": "Femtograms",
+  "@femtograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "picograms": "Picograms",
+  "@picograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "nanograms": "Nanograms",
+  "@nanograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "micrograms": "Micrograms",
+  "@micrograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "decigrams": "Decigrams",
+  "@decigrams": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "باسكال",
   "atmosphere":"مقياس الغلاف الجوي",
