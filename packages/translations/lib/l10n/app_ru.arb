@@ -126,6 +126,34 @@
   "usFluidOunces": "Жидкие унции США",
   "imperialGill": "Британские жабры",
   "usGill": "Жабры США",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "femtoliters": "Femtoliters",
+  "@femtoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "picoliters": "Picoliters",
+  "@picoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "nanoliters": "Nanoliters",
+  "@nanoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Секунды",
   "deciseconds": "Десятых Секунды",

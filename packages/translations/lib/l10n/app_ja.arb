@@ -124,6 +124,34 @@
   "usFluidOunces": "米液用オンス",
   "imperialGill": "ジル(イギリス)",
   "usGill": "ジル(アメリカ)",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "femtoliters": "Femtoliters",
+  "@femtoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "picoliters": "Picoliters",
+  "@picoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "nanoliters": "Nanoliters",
+  "@nanoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "秒",
   "deciseconds": "デシ秒",
