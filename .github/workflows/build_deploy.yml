@@ -120,10 +120,23 @@ jobs:
     - name: Tar linux package
       run: tar -C build/linux/x64/release/bundle -czf converternow-linux-x64.tar.gz .
 
+    - name: Build appimage
+      run: |
+        wget https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage
+        chmod +x appimagetool-x86_64.AppImage
+        mkdir ConverterNOW.AppDir
+        cp -r build/linux/x64/release/bundle/* ConverterNOW.AppDir
+        cp assets/app_icons/logo.svg ConverterNOW.AppDir
+        echo -e '#!/bin/sh\ncd "$(dirname "$0")"\nexec ./converternow"' > ConverterNOW.AppDir/AppRun
+        chmod +x ConverterNOW.AppDir/AppRun
+        cp snap/gui/converternow.desktop ConverterNOW.AppDir
+        desktop-file-edit --set-icon="logo" --set-key="Exec" --set-value="converternow %u" ConverterNOW.AppDir/converternow.desktop
+        ./appimagetool-x86_64.AppImage ConverterNOW.AppDir
+
     - name: Release to GitHub
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "converternow-linux-x64.tar.gz"
+        artifacts: "converternow-linux-x64.tar.gz,Converter_NOW-x86_64.AppImage"
         token: ${{ secrets.GH_TOKEN }}
         tag: ${{ steps.version.outputs.content }}
         commit: ${{ github.sha }}
