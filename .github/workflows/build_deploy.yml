@@ -2,16 +2,14 @@ name: "Build & deploy for Android, Linux, Web and Windows"
 
 on:
   push:
-    branches:
-      - appimage
-#    tags: ['v*']
+    tags: ['v*']
 
 jobs:
 
   build_android:
     name: Build and release Android app
     runs-on: ubuntu-latest
-    timeout-minutes: 1
+    timeout-minutes: 15
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -87,6 +85,7 @@ jobs:
 #        --track beta
 
   build_linux:
+    needs: build_android
     name: Build and release Linux app
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -144,9 +143,10 @@ jobs:
         allowUpdates: true
 
   build_web:
+    needs: build_linux
     name: Build and release Web app
     runs-on: ubuntu-latest
-    timeout-minutes: 1
+    timeout-minutes: 15
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -180,9 +180,10 @@ jobs:
         projectId: converter-now
 
   build_windows:
+    needs: build_web
     name: Build and release Windows app
     runs-on: windows-latest
-    timeout-minutes: 1
+    timeout-minutes: 20
     steps:
     - name: Checkout
       uses: actions/checkout@v4
