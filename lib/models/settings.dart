@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final Map<Locale, String> mapLocale = {
   const Locale('en'): 'English',
+  const Locale('ca'): 'Català',
   const Locale('de'): 'Deutsch',
   const Locale('es'): 'Español',
   const Locale('fr'): 'Français',
