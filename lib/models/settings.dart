@@ -77,6 +77,23 @@ class IsDarkAmoled extends AsyncNotifier<bool> {
   }
 }
 
+class RevokeInternetNotifier extends AsyncNotifier<bool> {
+  static const _prefKey = 'revokeInternet';
+  static final provider = AsyncNotifierProvider<RevokeInternetNotifier, bool>(
+      RevokeInternetNotifier.new);
+
+  @override
+  Future<bool> build() async {
+    var pref = await ref.watch(sharedPref.future);
+    return pref.getBool(_prefKey) ?? false;
+  }
+
+  void set(bool value) {
+    state = AsyncData(value);
+    ref.read(sharedPref.future).then((pref) => pref.setBool(_prefKey, value));
+  }
+}
+
 class CurrentThemeMode extends AsyncNotifier<ThemeMode> {
   static const _prefKey = 'currentThemeMode';
   static final provider =

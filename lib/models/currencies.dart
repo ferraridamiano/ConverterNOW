@@ -143,7 +143,8 @@ final currenciesProvider = FutureProvider<Currencies>((ref) async {
   String? lastUpdate = pref.getString("lastUpdateCurrencies");
   // if I have never updated the conversions or if I have updated before today
   // I have to update
-  if (lastUpdate == null || lastUpdate != now) {
+  if (!(ref.read(RevokeInternetNotifier.provider).valueOrNull ?? false) &&
+      (lastUpdate == null || lastUpdate != now)) {
     return downloadCurrencies();
   }
   // If I already have the data of today I just use it, no need of read them

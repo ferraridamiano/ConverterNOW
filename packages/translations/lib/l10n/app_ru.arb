@@ -55,6 +55,18 @@
   "undo": "Отмена",
   "routeError1": "Этой страницы не существует",
   "routeError2": "Вернутся на первую страницу",
+  "ok": "Ok",
+  "@ok": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "revokeInternetAccess": "Revoke internet access",
+  "@revokeInternetAccess": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "revokeInternetExplanation": "This app uses the internet to update currency exchange rates once a day (when opened). It is a few kilobytes of download, but if you do not need this feature you can prevent the app from accessing the intenet by enabling this option.",
+  "@revokeInternetExplanation": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Длина",
   "area": "Площадь",

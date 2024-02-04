@@ -86,6 +86,59 @@ class SettingsPage extends ConsumerWidget {
           },
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
+        if (!kIsWeb)
+          SwitchListTile(
+            secondary: Icon(Icons.public_off, color: iconColor),
+            title: Text(
+              AppLocalizations.of(context)!.revokeInternetAccess,
+              style: textStyle,
+            ),
+            value:
+                ref.watch(RevokeInternetNotifier.provider).valueOrNull ?? false,
+            activeColor: Theme.of(context).colorScheme.secondary,
+            onChanged: (bool val) {
+              if (val) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text(
+                        AppLocalizations.of(context)!.revokeInternetAccess,
+                      ),
+                      content: SizedBox(
+                        width: 500,
+                        child: Text(
+                          AppLocalizations.of(context)!
+                              .revokeInternetExplanation,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            // Introduce a tiny delay to let the user see the
+                            // switch to turn on
+                            Future.delayed(
+                              const Duration(milliseconds: 200),
+                              () => ref
+                                  .read(
+                                      RevokeInternetNotifier.provider.notifier)
+                                  .set(val),
+                            );
+                          },
+                          child: Text(AppLocalizations.of(context)!.ok),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                ref.read(RevokeInternetNotifier.provider.notifier).set(val);
+              }
+            },
+            shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          ),
         SwitchListTile(
           secondary: SvgPicture(
             const AssetBytesLoader(
@@ -280,7 +333,7 @@ class SettingsPage extends ConsumerWidget {
                       width: 500,
                       child: Text(
                         AppLocalizations.of(context)!.donationDialog,
-                        style: const TextStyle(fontSize: 18),
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
                     actions: <Widget>[

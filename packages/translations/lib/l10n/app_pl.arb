@@ -42,7 +42,7 @@
   "@reorderProperty":{
     "placeholders": {
       "property": {
-        "type": "Ciąg",
+        "type": "String",
         "example": "Długość"
       }
     }
@@ -53,6 +53,18 @@
   "undo": "Cofnij",
   "routeError1": "Ta strona nie istnieje",
   "routeError2": "Wróć do pierwszej strony",
+  "ok": "Ok",
+  "@ok": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "revokeInternetAccess": "Revoke internet access",
+  "@revokeInternetAccess": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "revokeInternetExplanation": "This app uses the internet to update currency exchange rates once a day (when opened). It is a few kilobytes of download, but if you do not need this feature you can prevent the app from accessing the intenet by enabling this option.",
+  "@revokeInternetExplanation": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Długość",
   "area": "Powierzchnia",
