@@ -9,8 +9,12 @@ import 'package:converterpro/pages/settings_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/utils/app_scaffold.dart';
 import 'package:converterpro/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:translations/app_localizations.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 final isEverythingLoadedProvider = Provider<bool>((ref) =>
     ref.watch(SignificantFigures.provider).hasValue &&
@@ -84,6 +88,17 @@ final routerProvider = Provider<GoRouter>(
                     },
                   ),
                 ],
+              ),
+              GoRoute(
+                path: 'about',
+                name: 'about',
+                builder: (context, state) => LicensePage(
+                  applicationName: AppLocalizations.of(context)!.appName,
+                  applicationIcon: const SvgPicture(
+                    AssetBytesLoader('assets/app_icons/logo.svg.vec'),
+                    width: 50,
+                  ),
+                ),
               ),
             ],
           ),

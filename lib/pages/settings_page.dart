@@ -327,12 +327,7 @@ class SettingsPage extends ConsumerWidget {
             style: textStyle,
           ),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-          onTap: () {
-            showLicensePage(
-              context: context,
-              applicationName: AppLocalizations.of(context)!.appName,
-            );
-          },
+          onTap: () => context.goNamed('about'),
         ),
       ].map(ConstrainedContainer.new).toList()))
     ]);
