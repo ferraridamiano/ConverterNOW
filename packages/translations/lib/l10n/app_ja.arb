@@ -227,6 +227,10 @@
   "torr": "トル",
   "hectoPascal": "ヘクトパスカル",
   "inchesOfMercury": "水銀柱インチ",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "ジュール",
   "calories": "カロリー",

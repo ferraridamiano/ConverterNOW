@@ -233,6 +233,10 @@
   "torr": "Milimetre-cıva",
   "hectoPascal": "Hektopaskal",
   "inchesOfMercury": "İnç-cıva",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calories": "Kalori",

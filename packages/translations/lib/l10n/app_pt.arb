@@ -250,6 +250,10 @@
   "@inchesOfMercury": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calories": "Caloria",

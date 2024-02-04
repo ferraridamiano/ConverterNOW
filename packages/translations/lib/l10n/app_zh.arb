@@ -227,6 +227,10 @@
   "torr": "托",
   "hectoPascal": "百帕",
   "inchesOfMercury": "英寸汞柱",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "焦耳",
   "calories": "卡",

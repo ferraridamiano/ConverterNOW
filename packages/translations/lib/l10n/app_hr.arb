@@ -227,6 +227,10 @@
   "torr": "Tor",
   "hectoPascal": "Hektopaskal",
   "inchesOfMercury": "Inča živina stupca",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Džul",
   "calories": "Kalorija",

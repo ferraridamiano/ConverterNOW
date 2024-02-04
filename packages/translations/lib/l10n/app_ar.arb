@@ -233,6 +233,10 @@
   "torr": "تور",
   "hectoPascal": "هكتو باسكال",
   "inchesOfMercury": "بوصة زئبق",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "جول",
   "calories": "سعرة الحرارية)كالوري)",

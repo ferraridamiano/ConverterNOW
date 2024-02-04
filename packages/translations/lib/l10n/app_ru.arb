@@ -229,6 +229,10 @@
   "torr": "Торричелли",
   "hectoPascal": "Гектопаскаль",
   "inchesOfMercury": "Дюймы ртутного столба",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Джоули",
   "calories": "Калории",

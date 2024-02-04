@@ -227,6 +227,10 @@
   "torr": "Torricelli",
   "hectoPascal": "Hectopascal",
   "inchesOfMercury": "Pouces de mercure",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calories": "Calorie",

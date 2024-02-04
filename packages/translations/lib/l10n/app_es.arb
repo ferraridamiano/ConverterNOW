@@ -239,6 +239,10 @@
   "torr": "Torr",
   "hectoPascal": "Hectopascal",
   "inchesOfMercury": "Pulgadas de mercurio",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Julio",
   "calories": "Caloría",

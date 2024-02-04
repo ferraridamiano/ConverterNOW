@@ -362,6 +362,8 @@ List<UnitUi> getUnitUiList(BuildContext context) {
         '$basePath/pressure.svg.vec', PROPERTYX.pressure),
     UnitUi(PRESSURE.hectoPascal, l10n.hectoPascal, '$basePath/pressure.svg.vec',
         PROPERTYX.pressure),
+    UnitUi(PRESSURE.kiloPascal, l10n.kiloPascal, '$basePath/pressure.svg.vec',
+        PROPERTYX.pressure),
     UnitUi(ENERGY.joules, l10n.joule, '$basePath/energy.svg.vec',
         PROPERTYX.energy),
     UnitUi(ENERGY.calories, l10n.calories, '$basePath/energy.svg.vec',

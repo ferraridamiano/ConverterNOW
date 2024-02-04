@@ -227,6 +227,10 @@
   "torr": "Torr (Millimeter-Quecksilbersäule)",
   "hectoPascal": "Hektopascal",
   "inchesOfMercury": "Zoll Quecksilber",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calories": "Kalorien",
