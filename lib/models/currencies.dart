@@ -92,15 +92,8 @@ final currenciesProvider = FutureProvider<Currencies>((ref) async {
   /// Updates the currencies exchange rates with the latest values. It will also
   /// update the status at the end (updated or error)
   Future<Currencies> downloadCurrencies() async {
-    // stringRequest prepares the string request for all the currencies
-    String stringRequest = '';
-    for (String currency in Currencies().exchangeRates.keys) {
-      if (currency != 'EUR') {
-        stringRequest += '$currency+';
-      }
-    }
-    // removes the last '+'
-    stringRequest = stringRequest.substring(0, stringRequest.length - 1);
+    final stringRequest =
+        Currencies.defaultExchangeRates.keys.where((e) => e != 'EUR').join('+');
     try {
       var response = await http.get(
         Uri.https(
