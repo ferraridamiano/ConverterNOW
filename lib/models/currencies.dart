@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Currencies {
   static const defaultExchangeRates = {
@@ -76,10 +77,34 @@ class Currencies {
   }
 }
 
-final currenciesProvider = FutureProvider<Currencies>((ref) async {
-  var pref = await ref.watch(sharedPref.future);
+class CurrenciesNotifier extends AsyncNotifier<Currencies> {
+  static final provider = AsyncNotifierProvider<CurrenciesNotifier, Currencies>(
+      CurrenciesNotifier.new);
+  late SharedPreferences pref;
 
-  Currencies readSavedCurrencies() {
+  @override
+  Future<Currencies> build() async {
+    pref = await ref.watch(sharedPref.future);
+
+    final String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
+    // Let's search before if we already have downloaded the exchange rates
+    String? lastUpdate = pref.getString("lastUpdateCurrencies");
+    // if I have never updated the conversions or if I have updated before today
+    // I have to update
+    if (!(ref.read(RevokeInternetNotifier.provider).valueOrNull ?? false) &&
+        (lastUpdate == null || lastUpdate != now)) {
+      return _downloadCurrencies();
+    }
+    // If I already have the data of today I just use it, no need of read them
+    // from the web
+    return _readSavedCurrencies();
+  }
+
+  void forceCurrenciesDownload() async {
+    state = AsyncData(await _downloadCurrencies());
+  }
+
+  Currencies _readSavedCurrencies() {
     String? lastUpdate = pref.getString('lastUpdateCurrencies');
     String? currenciesRead = pref.getString('currenciesRates');
     if (currenciesRead != null) {
@@ -91,7 +116,7 @@ final currenciesProvider = FutureProvider<Currencies>((ref) async {
 
   /// Updates the currencies exchange rates with the latest values. It will also
   /// update the status at the end (updated or error)
-  Future<Currencies> downloadCurrencies() async {
+  Future<Currencies> _downloadCurrencies() async {
     final stringRequest =
         Currencies.defaultExchangeRates.keys.where((e) => e != 'EUR').join('+');
     try {
@@ -128,19 +153,6 @@ final currenciesProvider = FutureProvider<Currencies>((ref) async {
     } catch (e) {
       debugPrint(e.toString());
     }
-    return readSavedCurrencies();
+    return _readSavedCurrencies();
   }
-
-  final String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
-  // Let's search before if we already have downloaded the exchange rates
-  String? lastUpdate = pref.getString("lastUpdateCurrencies");
-  // if I have never updated the conversions or if I have updated before today
-  // I have to update
-  if (!(ref.read(RevokeInternetNotifier.provider).valueOrNull ?? false) &&
-      (lastUpdate == null || lastUpdate != now)) {
-    return downloadCurrencies();
-  }
-  // If I already have the data of today I just use it, no need of read them
-  // from the web
-  return readSavedCurrencies();
-});
+}

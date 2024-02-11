@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
@@ -135,6 +136,9 @@ class SettingsPage extends ConsumerWidget {
                 );
               } else {
                 ref.read(RevokeInternetNotifier.provider.notifier).set(val);
+                ref
+                    .read(CurrenciesNotifier.provider.notifier)
+                    .forceCurrenciesDownload();
               }
             },
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
