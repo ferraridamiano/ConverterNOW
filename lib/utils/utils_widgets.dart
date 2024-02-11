@@ -272,7 +272,7 @@ class DropdownListTile extends StatelessWidget {
             initialSelection: value,
             onSelected: onChanged,
             requestFocusOnTap: false,
-            width: 150,
+            width: 170,
             inputDecorationTheme: const InputDecorationTheme(
               outlineBorder: BorderSide.none,
             ),
@@ -308,7 +308,7 @@ class SplashScreenWidget extends StatelessWidget {
 class ConstrainedContainer extends StatelessWidget {
   final Widget child;
   final double maxWidth;
-  const ConstrainedContainer(this.child, {this.maxWidth = 500, super.key});
+  const ConstrainedContainer(this.child, {this.maxWidth = 600, super.key});
 
   @override
   Widget build(BuildContext context) {
