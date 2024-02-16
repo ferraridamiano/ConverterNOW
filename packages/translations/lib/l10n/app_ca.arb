@@ -53,18 +53,9 @@
   "undo": "Desfés",
   "routeError1": "Aquesta pàgina no existeix",
   "routeError2": "Torna a la primera pàgina",
-  "ok": "Ok",
-  "@ok": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "revokeInternetAccess": "Revoke internet access",
-  "@revokeInternetAccess": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "revokeInternetExplanation": "This app uses the internet to update currency exchange rates once a day (when opened). It is a few kilobytes of download, but if you do not need this feature you can prevent the app from accessing the intenet by enabling this option.",
-  "@revokeInternetExplanation": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "ok": "Accepta",
+  "revokeInternetAccess": "Revoca l'accés a internet",
+  "revokeInternetExplanation": "Aquesta aplicació utilitza internet per actualitzar els tipus de canvi de divises una vegada al dia (quan està oberta). Són només uns quants kilobytes de descàrrega, però si no necessiteu aquesta funció podeu impedir que l'aplicació accedeixi a internet activant aquesta opció.",
 
   "length": "Longitud",
   "area": "Àrea",
