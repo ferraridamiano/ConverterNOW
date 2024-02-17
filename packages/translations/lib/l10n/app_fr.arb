@@ -53,6 +53,18 @@
   "undo": "Annuler",
   "routeError1": "Cette page n'existe pas",
   "routeError2": "Revenir à la première page",
+  "ok": "Ok",
+  "@ok": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "revokeInternetAccess": "Revoke internet access",
+  "@revokeInternetAccess": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "revokeInternetExplanation": "This app uses the internet to update currency exchange rates once a day upon opening. This download only requires a few kilobytes. However, if you don't need this feature, you can prevent the app from accessing the internet by enabling this option.",
+  "@revokeInternetExplanation": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Distance",
   "area": "Superficie",

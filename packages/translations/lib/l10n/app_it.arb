@@ -53,6 +53,9 @@
   "undo": "Annulla",
   "routeError1": "Questa pagina non esiste",
   "routeError2": "Ritorna alla prima pagina",
+  "ok": "Ok",
+  "revokeInternetAccess": "Revoca l'accesso a internet",
+  "revokeInternetExplanation": "Questa app utilizza internet per aggiornare i tassi di cambio delle valute una volta al giorno (quando viene aperta). Si tratta di pochi chilobyte di download, ma se non hai bisogno di questa funzionalità puoi prevenire che la app acceda ad intenet abilitando questa opzione.",
 
   "length": "Lunghezza",
   "area": "Superficie",

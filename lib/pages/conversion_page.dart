@@ -36,7 +36,8 @@ class ConversionPage extends ConsumerWidget {
 
     Widget? subtitleWidget;
     if (currentProperty == PROPERTYX.currencies) {
-      Currencies? currencies = ref.watch(currenciesProvider).valueOrNull;
+      Currencies? currencies =
+          ref.watch(CurrenciesNotifier.provider).valueOrNull;
       if (currencies == null) {
         subtitleWidget = const SizedBox(
           height: 30,

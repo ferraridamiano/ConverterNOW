@@ -53,6 +53,9 @@
   "undo": "Desfés",
   "routeError1": "Aquesta pàgina no existeix",
   "routeError2": "Torna a la primera pàgina",
+  "ok": "Accepta",
+  "revokeInternetAccess": "Revoca l'accés a internet",
+  "revokeInternetExplanation": "Aquesta aplicació utilitza internet per actualitzar els tipus de canvi de divises una vegada al dia (quan està oberta). Són només uns quants kilobytes de descàrrega, però si no necessiteu aquesta funció podeu impedir que l'aplicació accedeixi a internet activant aquesta opció.",
 
   "length": "Longitud",
   "area": "Àrea",

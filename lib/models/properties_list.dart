@@ -56,7 +56,7 @@ final propertiesListProvider = FutureProvider<List<Property>>((ref) async {
         removeTrailingZeros: removeTrailingZeros,
         name: PROPERTYX.volume),
     SimpleCustomProperty(
-        ref.watch(currenciesProvider).when(
+        ref.watch(CurrenciesNotifier.provider).when(
             data: (currencies) => currencies.exchangeRates,
             error: (_, trace) => Currencies.defaultExchangeRates,
             loading: () => Currencies.defaultExchangeRates),
