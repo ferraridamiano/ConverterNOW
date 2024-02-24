@@ -13,23 +13,23 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   # App dynamic color theme
-  dynamic_color: ^1.6.8
+  dynamic_color: ^1.6.9
   # Native splash screen on Android
   flutter_native_splash: ^2.2.17
   # State management
-  flutter_riverpod: ^2.4.9
+  flutter_riverpod: ^2.4.10
   # For svg icons
-  flutter_svg: ^2.0.9
+  flutter_svg: ^2.0.10+1
   # App logo in drawer
   google_fonts: ^6.1.0
   # Navigation
-  go_router: ^13.0.0
+  go_router: ^13.2.0
   # Downloading the exchange rates
-  http: ^1.1.2
+  http: ^1.2.1
   # Translations
   intl: ^0.18.1
   # Android app shortcuts
-  quick_actions: ^1.0.6
+  quick_actions: ^1.0.7
   # Store the customizations and the latest currencies conversions
   shared_preferences: ^2.2.2
   # Unit conversion
@@ -37,9 +37,9 @@ dependencies:
   # Just for getting the browser current language
   universal_io: ^2.2.2
   # Open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^6.2.1
+  url_launcher: ^6.2.5
   # Load optimized svg icons
-  vector_graphics: ^1.1.9+1
+  vector_graphics: ^1.1.11+1
   # Resize window during testing
   window_size:
     git:
