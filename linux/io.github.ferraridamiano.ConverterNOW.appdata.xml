@@ -80,6 +80,18 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.2.1" date="2024-02-25">
+      <description>
+        <ul>
+          <li>You can now block the internet access to the app</li>
+          <li>Improved the license page</li>
+          <li>Improved the russian translation (@Atrafon)</li>
+          <li>Added catalan translation (@pereorga)</li>
+          <li>Bugfix and general improvements</li>
+        </ul>
+        <p>What do you think about Converter NOW? Rate the app! ✔️</p>
+      </description>
+    </release>
     <release version="4.2.0" date="2023-12-02">
       <description>
         <ul>

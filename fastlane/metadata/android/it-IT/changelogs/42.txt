@@ -1,0 +1,8 @@
+- Aggiunta la possibilità di bloccare l'accesso ad internet
+- Migliorata la pagina delle licenze
+- Aggiunto il feedback della vibrazione
+- Migliorata la traduzione in russo (@Atrafon)
+- Aggiunta la traduzione in catalano (@pereorga)
+- Bugfix e miglioramenti generali
+
+Cosa ne pensi di Converter NOW? Se ti va, recensisci l'app! ✔️
