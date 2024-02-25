@@ -142,6 +142,34 @@
   "usFluidOunces": "Sıvı ons (Amerikan)",
   "imperialGill": "Çay fincanı (İngiliz)",
   "usGill": "Çay fincanı (Amerikan)",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "femtoliters": "Femtoliters",
+  "@femtoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "picoliters": "Picoliters",
+  "@picoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "nanoliters": "Nanoliters",
+  "@nanoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Saniye",
   "deciseconds": "Desisaniye",
@@ -188,6 +216,26 @@
   "pennyweights": "Pennyweight",
   "troyOunces": "Troy ons",
   "stones": "Taş",
+  "femtograms": "Femtograms",
+  "@femtograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "picograms": "Picograms",
+  "@picograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "nanograms": "Nanograms",
+  "@nanograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "micrograms": "Micrograms",
+  "@micrograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "decigrams": "Decigrams",
+  "@decigrams": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "Paskal",
   "atmosphere":"Atmosfer",
@@ -197,6 +245,10 @@
   "torr": "Milimetre-cıva",
   "hectoPascal": "Hektopaskal",
   "inchesOfMercury": "İnç-cıva",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calories": "Kalori",
@@ -205,6 +257,10 @@
   "footPound": "Ayak pound",
   "kilocalories": "Kilocalories",
   "@kilocalories": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 

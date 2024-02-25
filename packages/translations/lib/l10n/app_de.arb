@@ -136,6 +136,34 @@
   "usFluidOunces": "US-Flüssigunzen",
   "imperialGill": "Gill (Imperial)",
   "usGill": "US-Gill",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "femtoliters": "Femtoliters",
+  "@femtoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "picoliters": "Picoliters",
+  "@picoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "nanoliters": "Nanoliters",
+  "@nanoliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Sekunden",
   "deciseconds": "Dezisekunden",
@@ -182,6 +210,26 @@
   "pennyweights": "Pennyweights",
   "troyOunces": "Feinunze",
   "stones": "Stone",
+  "femtograms": "Femtograms",
+  "@femtograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "picograms": "Picograms",
+  "@picograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "nanograms": "Nanograms",
+  "@nanograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "micrograms": "Micrograms",
+  "@micrograms": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "decigrams": "Decigrams",
+  "@decigrams": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "Pascal",
   "atmosphere": "Physikalische Atmosphäre",
@@ -191,6 +239,10 @@
   "torr": "Torr (Millimeter-Quecksilbersäule)",
   "hectoPascal": "Hektopascal",
   "inchesOfMercury": "Zoll Quecksilber",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calories": "Kalorien",
@@ -198,6 +250,10 @@
   "electronvolt": "Elektronenvolt",
   "footPound": "Foot-Pound",
   "kilocalories": "Kilokalorien",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Grad",
   "minutesDegree": "Minuten",

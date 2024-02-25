@@ -127,6 +127,13 @@
   "usFluidOunces": "US Fluid Ounces",
   "imperialGill": "Imperial Gill",
   "usGill": "US Gill",
+  "usQuarts": "US Quarts",
+  "femtoliters": "Femtoliters",
+  "picoliters": "Picoliters",
+  "nanoliters": "Nanoliters",
+  "microliters": "Microliters",
+  "deciliters": "Deciliters",
+  "centiliters": "Centiliters",
 
   "seconds": "Seconds",
   "deciseconds": "Deciseconds",
@@ -173,6 +180,11 @@
   "pennyweights": "Pennyweights",
   "troyOunces": "Troy ounces",
   "stones": "Stones",
+  "femtograms": "Femtograms",
+  "picograms": "Picograms",
+  "nanograms": "Nanograms",
+  "micrograms": "Micrograms",
+  "decigrams": "Decigrams",
 
   "pascal": "Pascal",
   "atmosphere":"Atmosphere",
@@ -182,6 +194,7 @@
   "torr": "Torricelli",
   "hectoPascal": "Hectopascal",
   "inchesOfMercury": "Inches of mercury",
+  "kiloPascal": "Kilopascal",
 
   "joule": "Joule",
   "calories": "Calories",
@@ -189,6 +202,7 @@
   "electronvolt": "Electron volt",
   "footPound": "Foot pound",
   "kilocalories": "Kilocalories",
+  "kilojoules": "Kilojoules",
 
   "degree": "Degree",
   "minutesDegree": "Minutes",
