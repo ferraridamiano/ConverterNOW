@@ -94,7 +94,7 @@
   "lightYears": "Anys llum",
   "parsec": "Parsec",
   "mils": "Mils",
-  "feetUsSurvey": "Peus (enquesta dels Estats Units)",
+  "feetUsSurvey": "Peus (mesura dels Estats Units)",
 
   "squareMeters": "Metres quadrats",
   "squareCentimeters": "Centímetres quadrats",
@@ -107,7 +107,7 @@
   "hectares": "Hectàrees",
   "acres": "Acres",
   "are": "Àrees",
-  "squareFeetUsSurvey": "Peus quadrats (enquesta dels Estats Units)",
+  "squareFeetUsSurvey": "Peus quadrats (mesura dels Estats Units)",
 
   "cubicMeters": "Metres cúbics",
   "liters": "Litres",
@@ -145,7 +145,7 @@
   "millennium": "Mil·lennis",
 
   "fahrenheit": "Fahrenheit",
-  "celsius": "Celsius",
+  "celsius": "Celsius (centígrads)",
   "kelvin": "Kelvin",
   "reamur": "Réaumur",
   "romer": "Rømer",
@@ -172,7 +172,7 @@
   "centigrams": "Centigrams",
   "pennyweights": "Pennyweights",
   "troyOunces": "Unces troy",
-  "stones": "Stones",
+  "stones": "Pedres",
 
   "pascal": "Pascal",
   "atmosphere": "Atmosfera",
@@ -190,7 +190,7 @@
   "footPound": "Peu lliura",
   "kilocalories": "Quilocalories",
 
-  "degree": "Grau",
+  "degree": "Graus",
   "minutesDegree": "Minuts",
   "secondsDegree": "Segons",
   "radiansDegree": "Radians",
