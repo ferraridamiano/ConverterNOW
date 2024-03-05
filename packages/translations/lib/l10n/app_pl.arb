@@ -53,17 +53,11 @@
   "undo": "Cofnij",
   "routeError1": "Ta strona nie istnieje",
   "routeError2": "Wróć do pierwszej strony",
-  "ok": "Ok",
-  "@ok": {
-    "description": "Not yet translated. Once done, remove this comment"
+ "ok": "Ok",
   },
-  "revokeInternetAccess": "Revoke internet access",
-  "@revokeInternetAccess": {
-    "description": "Not yet translated. Once done, remove this comment"
+  "revokeInternetAccess": "Odwołanie dostępu do Internetu",
   },
-  "revokeInternetExplanation": "This app uses the internet to update currency exchange rates once a day upon opening. This download only requires a few kilobytes. However, if you don't need this feature, you can prevent the app from accessing the internet by enabling this option.",
-  "@revokeInternetExplanation": {
-    "description": "Not yet translated. Once done, remove this comment"
+  "revokeInternetExplanation": "Ta aplikacja korzysta z Internetu, aby aktualizować kursy wymiany walut raz dziennie, po uruchomieniu aplikacji. Pobierane jest wtedy tylko kilka kilobajtów danych. Jeśli jednak nie potrzebujesz tej funkcji, możesz uniemożliwić aplikacji dostęp do Internetu, włączając tę opcję.",
   },
 
   "length": "Długość",
