@@ -56,6 +56,9 @@ You can find the compiled app in [GitHub releases](https://github.com/ferraridam
 [<img src="https://flathub.org/assets/badges/flathub-badge-en.png"
     alt="Download on Flathub"
     height="50">](https://flathub.org/apps/details/io.github.ferraridamiano.ConverterNOW)
+[<img src="https://user-images.githubusercontent.com/61944859/169455015-13385466-8901-48fe-ba90-b62d58b0be64.png"
+    alt="Download AppImage"
+    height="50">](https://github.com/ferraridamiano/ConverterNOW/releases/latest)
 [<img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg"
     alt="Get it from the Snap Store"
     height="50">](https://snapcraft.io/converternow)

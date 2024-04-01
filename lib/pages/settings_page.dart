@@ -263,13 +263,26 @@ class SettingsPage extends ConsumerWidget {
                     title: const Text('Linux (Flatpak)'),
                     leading: const Icon(Icons.desktop_windows_outlined),
                     onTap: () => launchURL(
-                        Uri(
-                          scheme: 'https',
-                          host: 'flathub.org',
-                          path:
-                              '/apps/details/io.github.ferraridamiano.ConverterNOW',
-                        ),
-                        mode: LaunchMode.externalApplication),
+                      Uri(
+                        scheme: 'https',
+                        host: 'flathub.org',
+                        path:
+                            '/apps/details/io.github.ferraridamiano.ConverterNOW',
+                      ),
+                      mode: LaunchMode.externalApplication,
+                    ),
+                  ),
+                  ListTile(
+                    title: const Text('Linux (AppImage)'),
+                    leading: const Icon(Icons.desktop_windows_outlined),
+                    onTap: () => launchURL(
+                      Uri(
+                        scheme: 'https',
+                        host: 'github.com',
+                        path: '/ferraridamiano/ConverterNOW/releases/latest',
+                      ),
+                      mode: LaunchMode.externalApplication,
+                    ),
                   ),
                   ListTile(
                     title: const Text('Linux (Snap)'),
