@@ -5,7 +5,7 @@ summary: Unit and currencies converter
 description: A Unit and Currencies Converter. Converter NOW is immediate, fast and easy to use!
 
 confinement: strict
-base: core18
+base: core22
 grade: stable
 
 architectures:
@@ -21,7 +21,7 @@ slots:
 apps:
   converternow:
     command: converternow
-    extensions: [flutter-stable]
+    extensions: [gnome]
     plugs:
     - network
     slots:
