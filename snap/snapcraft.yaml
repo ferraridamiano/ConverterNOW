@@ -1,16 +1,15 @@
 name: converternow
 version: 4.2.1
-title: Converter NOW Unit Converter
 summary: Unit and currencies converter
 description: A Unit and Currencies Converter. Converter NOW is immediate, fast and easy to use!
 
 confinement: strict
-base: core22
+base: core18
 grade: stable
 
 architectures:
   - build-on: amd64
-  - build-on: arm64
+    run-on: [amd64, i386, arm64]
 
 slots:
   dbus-converternow:
@@ -21,7 +20,7 @@ slots:
 apps:
   converternow:
     command: converternow
-    extensions: [gnome]
+    extensions: [flutter-stable]
     plugs:
     - network
     slots:
