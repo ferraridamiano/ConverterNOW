@@ -32,7 +32,6 @@ jobs:
     - name: Bootstrap
       run: |
         dart pub global activate melos
-        dart pub global activate vector_graphics_compiler
         melos bootstrap
 
     - name: Download Android keystore
@@ -111,7 +110,6 @@ jobs:
     - name: Bootstrap
       run: |
         dart pub global activate melos
-        dart pub global activate vector_graphics_compiler
         melos bootstrap
 
     - name: Build for linux
@@ -163,7 +161,6 @@ jobs:
     - name: Bootstrap
       run: |
         dart pub global activate melos
-        dart pub global activate vector_graphics_compiler
         melos bootstrap
 
     # Force canvaskit because of the bug with svg on html
@@ -200,7 +197,6 @@ jobs:
     - name: Install required dart tools
       run: |
         dart pub global activate melos
-        dart pub global activate vector_graphics_compiler
 
     - name: Generate optimized icons (workaround for a bug of melos on Windows)
       run: |

@@ -20,9 +20,9 @@ scripts:
     description: Run `flutter analyze` in all packages
 
   compile_icons:
-    run: |
-      dart run vector_graphics_compiler --input-dir assets/app_icons
-      dart run vector_graphics_compiler --input-dir assets/property_icons
+    steps:
+      - dart run vector_graphics_compiler --input-dir assets/app_icons
+      - dart run vector_graphics_compiler --input-dir assets/property_icons
     description: Optimizes the svg icons.
   
   format:
