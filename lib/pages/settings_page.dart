@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/styles/consts.dart';
+import 'package:converterpro/utils/palette.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -73,6 +74,51 @@ class SettingsPage extends ConsumerWidget {
             ref.read(CurrentThemeMode.provider.notifier).set(
                 mapTheme.keys.where((key) => mapTheme[key] == string).single);
           },
+        ),
+        ListTile(
+          title: const Text('Color theme'),
+          leading: Icon(
+            Icons.colorize,
+            color: iconColor,
+          ),
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          trailing: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Icon(
+              Icons.circle,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Color theme'),
+              content: SizedBox(
+                width: 300,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SwitchListTile(
+                      value: true,
+                      onChanged: (val) {},
+                      title: const Text('Use default color'),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Pick a color',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 4),
+                    Palette(
+                      initial: Colors.blue,
+                      onSelected: (color) {},
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
         SwitchListTile(
           secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
