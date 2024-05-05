@@ -43,6 +43,16 @@ class SettingsPage extends ConsumerWidget {
       SliverAppBar.large(title: Text(AppLocalizations.of(context)!.settings)),
       SliverList(
           delegate: SliverChildListDelegate([
+        Padding(
+          padding: const EdgeInsetsDirectional.only(start: 16),
+          child: Text(
+            'Appearance',
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall
+                ?.copyWith(color: Theme.of(context).primaryColor),
+          ),
+        ),
         DropdownListTile(
           key: const ValueKey('language'),
           leading: Icon(Icons.language, color: iconColor),
@@ -106,6 +116,16 @@ class SettingsPage extends ConsumerWidget {
           onTap: () => showDialog(
             context: context,
             builder: (context) => const ColorPickerDialog(),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+          child: Text(
+            'Conversion',
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall
+                ?.copyWith(color: Theme.of(context).primaryColor),
           ),
         ),
         if (!kIsWeb)
@@ -230,6 +250,16 @@ class SettingsPage extends ConsumerWidget {
           ),
           onTap: () => context.goNamed('reorder-units'),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+        ),
+        Padding(
+          padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+          child: Text(
+            'Find out more',
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall
+                ?.copyWith(color: Theme.of(context).primaryColor),
+          ),
         ),
         ListTile(
           leading: Icon(Icons.computer, color: iconColor),
