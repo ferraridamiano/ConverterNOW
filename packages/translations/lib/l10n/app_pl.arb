@@ -56,6 +56,30 @@
  "ok": "Ok",
   "revokeInternetAccess": "Odwołanie dostępu do Internetu",
   "revokeInternetExplanation": "Ta aplikacja korzysta z Internetu, aby aktualizować kursy wymiany walut raz dziennie, po uruchomieniu aplikacji. Pobierane jest wtedy tylko kilka kilobajtów danych. Jeśli jednak nie potrzebujesz tej funkcji, możesz uniemożliwić aplikacji dostęp do Internetu, włączając tę opcję.",
+  "useDeviceColor": "Use device color",
+  "@useDeviceColor": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "pickColor": "Pick a color",
+  "@pickColor": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "themeColor": "Theme color",
+  "@themeColor": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "appearance": "Appearance",
+  "@appearance": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "conversions": "Conversions",
+  "@conversions": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "findOutMore": "Find out more",
+  "@findOutMore": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Długość",
   "area": "Powierzchnia",

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/styles/consts.dart';
+import 'package:converterpro/utils/palette.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,12 +37,24 @@ class SettingsPage extends ConsumerWidget {
 
     updateNavBarColor(Theme.of(context).colorScheme);
 
-    Color iconColor = getIconColor(Theme.of(context));
+    final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
+
+    final iconColor = getIconColor(Theme.of(context));
 
     return CustomScrollView(slivers: <Widget>[
       SliverAppBar.large(title: Text(AppLocalizations.of(context)!.settings)),
       SliverList(
           delegate: SliverChildListDelegate([
+        Padding(
+          padding: const EdgeInsetsDirectional.only(start: 16),
+          child: Text(
+            AppLocalizations.of(context)!.appearance,
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall
+                ?.copyWith(color: Theme.of(context).primaryColor),
+          ),
+        ),
         DropdownListTile(
           key: const ValueKey('language'),
           leading: Icon(Icons.language, color: iconColor),
@@ -63,7 +76,7 @@ class SettingsPage extends ConsumerWidget {
           },
         ),
         DropdownListTile(
-          leading: Icon(Icons.palette_outlined, color: iconColor),
+          leading: Icon(Icons.contrast, color: iconColor),
           title: AppLocalizations.of(context)!.theme,
           textStyle: textStyle,
           items: mapTheme.values.toList(),
@@ -86,6 +99,38 @@ class SettingsPage extends ConsumerWidget {
             ref.read(IsDarkAmoled.provider.notifier).set(val);
           },
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+        ),
+        ListTile(
+          title: Text(AppLocalizations.of(context)!.themeColor),
+          leading: Icon(Icons.palette_outlined, color: iconColor),
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          trailing: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: Container(
+              width: 24,
+              height: 24,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24 / 2),
+                color: themeColor.useDeviceColor
+                    ? ref.watch(deviceAccentColorProvider)!
+                    : themeColor.colorTheme,
+              ),
+            ),
+          ),
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) => const ColorPickerDialog(),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+          child: Text(
+            AppLocalizations.of(context)!.conversions,
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall
+                ?.copyWith(color: Theme.of(context).primaryColor),
+          ),
         ),
         if (!kIsWeb)
           SwitchListTile(
@@ -209,6 +254,16 @@ class SettingsPage extends ConsumerWidget {
           ),
           onTap: () => context.goNamed('reorder-units'),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+        ),
+        Padding(
+          padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+          child: Text(
+            AppLocalizations.of(context)!.findOutMore,
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall
+                ?.copyWith(color: Theme.of(context).primaryColor),
+          ),
         ),
         ListTile(
           leading: Icon(Icons.computer, color: iconColor),
@@ -401,5 +456,54 @@ class SettingsPage extends ConsumerWidget {
         ),
       ].map(ConstrainedContainer.new).toList()))
     ]);
+  }
+}
+
+class ColorPickerDialog extends ConsumerWidget {
+  const ColorPickerDialog({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
+    final deviceAccentColor = ref.watch(deviceAccentColorProvider);
+
+    return AlertDialog(
+      title: Text(AppLocalizations.of(context)!.themeColor),
+      content: SizedBox(
+        width: 300,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (deviceAccentColor != null) ...[
+              SwitchListTile(
+                value: themeColor.useDeviceColor,
+                onChanged: (val) {
+                  ref
+                      .read(ThemeColorNotifier.provider.notifier)
+                      .setDefaultTheme(val);
+                },
+                title: Text(AppLocalizations.of(context)!.useDeviceColor),
+              ),
+              const SizedBox(height: 8),
+            ],
+            Text(
+              !themeColor.useDeviceColor
+                  ? AppLocalizations.of(context)!.pickColor
+                  : '',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 4),
+            Palette(
+              initial: themeColor.colorTheme,
+              enabled: !themeColor.useDeviceColor,
+              onSelected: (color) => ref
+                  .read(ThemeColorNotifier.provider.notifier)
+                  .setColorTheme(color),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

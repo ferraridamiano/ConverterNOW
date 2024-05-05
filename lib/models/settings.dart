@@ -77,6 +77,52 @@ class IsDarkAmoled extends AsyncNotifier<bool> {
   }
 }
 
+/// `null` means no accent color
+final deviceAccentColorProvider = StateProvider<Color?>((ref) => null);
+
+class ThemeColorNotifier
+    extends AsyncNotifier<({bool useDeviceColor, Color colorTheme})> {
+  static const _prefKeyDefault = 'useDeviceColor';
+  static const _prefKeyColor = 'colorTheme';
+  // Here we set default theme to Colors.blue (it is easier to support device
+  // that does not have a color accent)
+  static const deafultUseDeviceColor = false;
+  static const defaultColorTheme = Colors.blue;
+
+  static final provider = AsyncNotifierProvider<ThemeColorNotifier,
+      ({bool useDeviceColor, Color colorTheme})>(ThemeColorNotifier.new);
+
+  @override
+  Future<({bool useDeviceColor, Color colorTheme})> build() async {
+    var pref = await ref.watch(sharedPref.future);
+    return (
+      useDeviceColor: pref.getBool(_prefKeyDefault) ?? deafultUseDeviceColor,
+      colorTheme: Color(pref.getInt(_prefKeyColor) ?? defaultColorTheme.value)
+    );
+  }
+
+  void setDefaultTheme(bool value) {
+    state = AsyncData((
+      useDeviceColor: value,
+      colorTheme: state.valueOrNull?.colorTheme ?? defaultColorTheme
+    ));
+    ref
+        .read(sharedPref.future)
+        .then((pref) => pref.setBool(_prefKeyDefault, value));
+  }
+
+  void setColorTheme(Color color) {
+    state = AsyncData((
+      useDeviceColor:
+          state.valueOrNull?.useDeviceColor ?? deafultUseDeviceColor,
+      colorTheme: color
+    ));
+    ref
+        .read(sharedPref.future)
+        .then((pref) => pref.setInt(_prefKeyColor, color.value));
+  }
+}
+
 class RevokeInternetNotifier extends AsyncNotifier<bool> {
   static const _prefKey = 'revokeInternet';
   static final provider = AsyncNotifierProvider<RevokeInternetNotifier, bool>(
