@@ -15,7 +15,7 @@
 [<img src="https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square"
     alt="Maintained with Melos">](https://github.com/invertase/melos)
 
-<img src="fastlane/metadata/android/en-US/images/sevenInchScreenshots/1.jpg" width="650">
+<img src="screenshots/1.png" width="650">
 </div>
 
 ## Why Converter NOW
@@ -30,7 +30,7 @@ A few years ago I noticed that most of the unit converters on the digital stores
 
 💰 Currency exchange rates **updated daily**
 
-🎨 **Dynamic theming** based on your device settings
+🎨 **Choose your style**: use the accent color of your device or your favorite one
 
 ⚫⚪ **Choose your favourite theme**: dark or white theme
 
