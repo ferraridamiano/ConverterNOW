@@ -16,42 +16,52 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const Color fallbackColorSchemeSeed = Colors.blue;
-
     return DynamicColorBuilder(
         builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-      ColorScheme lightColorScheme;
-      ColorScheme darkColorScheme;
-      if (lightDynamic != null && darkDynamic != null) {
-        lightColorScheme = lightDynamic.harmonized();
-        darkColorScheme = darkDynamic.harmonized();
+      if (lightDynamic != null) {
         WidgetsBinding.instance.addPostFrameCallback(
           (_) => ref.read(deviceAccentColorProvider.notifier).state =
               lightDynamic.primary,
         );
-      } else {
-        // Otherwise, use fallback schemes.
-        lightColorScheme = ColorScheme.fromSeed(
-          seedColor: fallbackColorSchemeSeed,
-        );
-        darkColorScheme = ColorScheme.fromSeed(
-          seedColor: fallbackColorSchemeSeed,
-          brightness: Brightness.dark,
-        );
       }
 
-      ThemeData lightTheme = ThemeData(colorScheme: lightColorScheme);
-      ThemeData darkTheme = ThemeData(
-        brightness: Brightness.dark,
-        colorScheme: darkColorScheme,
-      );
-      ThemeData amoledTheme = darkTheme.copyWith(
-        scaffoldBackgroundColor: Colors.black,
-        drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
-      );
-
       return Consumer(builder: (context, ref, child) {
-        Locale? settingsLocale = ref.watch(CurrentLocale.provider).valueOrNull;
+        final settingsLocale = ref.watch(CurrentLocale.provider).valueOrNull;
+        final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull ??
+            (useDeviceColor: false, colorTheme: Colors.blue);
+
+        final ThemeData lightTheme, darkTheme, amoledTheme;
+        // Use device accent color
+        if (ref.watch(deviceAccentColorProvider) != null &&
+            themeColor.useDeviceColor) {
+          lightTheme = ThemeData(colorScheme: lightDynamic!.harmonized());
+          darkTheme = ThemeData(
+            brightness: Brightness.dark,
+            colorScheme: darkDynamic!.harmonized(),
+          );
+          amoledTheme = darkTheme.copyWith(
+            scaffoldBackgroundColor: Colors.black,
+            drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
+          );
+        } else {
+          lightTheme = ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: themeColor.colorTheme,
+            ),
+          );
+          darkTheme = ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: themeColor.colorTheme,
+              brightness: Brightness.dark,
+            ),
+            brightness: Brightness.dark,
+          );
+          amoledTheme = darkTheme.copyWith(
+            scaffoldBackgroundColor: Colors.black,
+            drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
+          );
+        }
+
         String deviceLocaleLanguageCode = Platform.localeName.split('_')[0];
         Locale appLocale;
         if (settingsLocale != null) {
