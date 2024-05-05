@@ -55,7 +55,6 @@ jobs:
     - name: Install required dart tools
       run: |
         dart pub global activate melos
-        dart pub global activate vector_graphics_compiler
 
     - name: Bootstrap
       run: melos bootstrap
