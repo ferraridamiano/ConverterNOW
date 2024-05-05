@@ -91,33 +91,7 @@ class SettingsPage extends ConsumerWidget {
           ),
           onTap: () => showDialog(
             context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Color theme'),
-              content: SizedBox(
-                width: 300,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SwitchListTile(
-                      value: true,
-                      onChanged: (val) {},
-                      title: const Text('Use default color'),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Pick a color',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 4),
-                    Palette(
-                      initial: Colors.blue,
-                      onSelected: (color) {},
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            builder: (context) => const ColorPickerDialog(),
           ),
         ),
         SwitchListTile(
@@ -447,5 +421,49 @@ class SettingsPage extends ConsumerWidget {
         ),
       ].map(ConstrainedContainer.new).toList()))
     ]);
+  }
+}
+
+class ColorPickerDialog extends ConsumerWidget {
+  const ColorPickerDialog({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
+
+    return AlertDialog(
+      title: const Text('Color theme'),
+      content: SizedBox(
+        width: 300,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SwitchListTile(
+              value: themeColor.defaultTheme,
+              onChanged: (val) {
+                ref
+                    .read(ThemeColorNotifier.provider.notifier)
+                    .setDefaultTheme(val);
+              },
+              title: const Text('Use default color'),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              !themeColor.defaultTheme ? 'Pick a color' : '',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 4),
+            Palette(
+              initial: themeColor.color,
+              enabled: !themeColor.defaultTheme,
+              onSelected: (color) => ref
+                  .read(ThemeColorNotifier.provider.notifier)
+                  .setColorTheme(color),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

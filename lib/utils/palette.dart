@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Palette extends StatefulWidget {
-  const Palette({super.key, required this.onSelected, required this.initial});
+  const Palette(
+      {super.key,
+      required this.onSelected,
+      required this.initial,
+      this.enabled = true});
 
   final Function(Color color) onSelected;
   final Color initial;
+  final bool enabled;
 
   @override
   State<Palette> createState() => _PaletteState();
@@ -14,7 +19,7 @@ class _PaletteState extends State<Palette> {
   Color? hoveredColor;
   late Color selectedColor;
 
-  static const double squareSize = 40;
+  static const double squareSize = 45;
   static const double checkSize = 25;
 
   @override
@@ -25,7 +30,7 @@ class _PaletteState extends State<Palette> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
+    final palette = Wrap(
       spacing: 5,
       runSpacing: 5,
       children: [
@@ -74,13 +79,17 @@ class _PaletteState extends State<Palette> {
                         isHovered ? squareSize / 2 : squareSize / 4,
                       ),
                       color: Color.lerp(
-                        e,
+                        widget.enabled
+                            ? e
+                            : HSVColor.fromColor(e)
+                                .withSaturation(0.02)
+                                .toColor(),
                         Colors.white,
                         isHovered ? 0.5 : 0,
                       ),
                     ),
                   ),
-                  if (selectedColor == e)
+                  if (widget.enabled && selectedColor == e)
                     Positioned(
                       top: (squareSize - checkSize) / 2,
                       left: (squareSize - checkSize) / 2,
@@ -99,5 +108,8 @@ class _PaletteState extends State<Palette> {
         },
       ).toList(),
     );
+    return widget.enabled
+        ? palette
+        : AbsorbPointer(absorbing: true, child: palette);
   }
 }

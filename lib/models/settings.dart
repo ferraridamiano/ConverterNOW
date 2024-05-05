@@ -77,6 +77,44 @@ class IsDarkAmoled extends AsyncNotifier<bool> {
   }
 }
 
+class ThemeColorNotifier
+    extends AsyncNotifier<({bool defaultTheme, Color color})> {
+  static const _prefKeyDefault = 'useDefaultTheme';
+  static const _prefKeyColor = 'colorTheme';
+  static const deafultTheme = true;
+  static const defaultColor = Colors.blue;
+
+  static final provider = AsyncNotifierProvider<ThemeColorNotifier,
+      ({bool defaultTheme, Color color})>(ThemeColorNotifier.new);
+
+  @override
+  Future<({bool defaultTheme, Color color})> build() async {
+    var pref = await ref.watch(sharedPref.future);
+    return (
+      defaultTheme: pref.getBool(_prefKeyDefault) ?? deafultTheme,
+      color: Color(pref.getInt(_prefKeyColor) ?? defaultColor.value)
+    );
+  }
+
+  void setDefaultTheme(bool value) {
+    state = AsyncData(
+        (defaultTheme: value, color: state.valueOrNull?.color ?? defaultColor));
+    ref
+        .read(sharedPref.future)
+        .then((pref) => pref.setBool(_prefKeyDefault, value));
+  }
+
+  void setColorTheme(Color color) {
+    state = AsyncData((
+      defaultTheme: state.valueOrNull?.defaultTheme ?? deafultTheme,
+      color: color
+    ));
+    ref
+        .read(sharedPref.future)
+        .then((pref) => pref.setInt(_prefKeyDefault, color.value));
+  }
+}
+
 class RevokeInternetNotifier extends AsyncNotifier<bool> {
   static const _prefKey = 'revokeInternet';
   static final provider = AsyncNotifierProvider<RevokeInternetNotifier, bool>(
