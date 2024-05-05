@@ -111,9 +111,9 @@ class SettingsPage extends ConsumerWidget {
               height: 24,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24 / 2),
-                color: themeColor.defaultTheme
+                color: themeColor.useDeviceColor
                     ? ref.watch(deviceAccentColorProvider)!
-                    : themeColor.color,
+                    : themeColor.colorTheme,
               ),
             ),
           ),
@@ -477,24 +477,24 @@ class ColorPickerDialog extends ConsumerWidget {
           children: [
             if (deviceAccentColor != null) ...[
               SwitchListTile(
-                value: themeColor.defaultTheme,
+                value: themeColor.useDeviceColor,
                 onChanged: (val) {
                   ref
                       .read(ThemeColorNotifier.provider.notifier)
                       .setDefaultTheme(val);
                 },
-                title: const Text('Use default color'),
+                title: const Text('Use device color'),
               ),
               const SizedBox(height: 8),
             ],
             Text(
-              !themeColor.defaultTheme ? 'Pick a color' : '',
+              !themeColor.useDeviceColor ? 'Pick a color' : '',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 4),
             Palette(
-              initial: themeColor.color,
-              enabled: !themeColor.defaultTheme,
+              initial: themeColor.colorTheme,
+              enabled: !themeColor.useDeviceColor,
               onSelected: (color) => ref
                   .read(ThemeColorNotifier.provider.notifier)
                   .setColorTheme(color),

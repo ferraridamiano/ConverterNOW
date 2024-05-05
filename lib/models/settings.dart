@@ -81,29 +81,31 @@ class IsDarkAmoled extends AsyncNotifier<bool> {
 final deviceAccentColorProvider = StateProvider<Color?>((ref) => null);
 
 class ThemeColorNotifier
-    extends AsyncNotifier<({bool defaultTheme, Color color})> {
-  static const _prefKeyDefault = 'useDefaultTheme';
+    extends AsyncNotifier<({bool useDeviceColor, Color colorTheme})> {
+  static const _prefKeyDefault = 'useDeviceColor';
   static const _prefKeyColor = 'colorTheme';
   // Here we set default theme to Colors.blue (it is easier to support device
   // that does not have a color accent)
-  static const deafultTheme = false;
-  static const defaultColor = Colors.blue;
+  static const deafultUseDeviceColor = false;
+  static const defaultColorTheme = Colors.blue;
 
   static final provider = AsyncNotifierProvider<ThemeColorNotifier,
-      ({bool defaultTheme, Color color})>(ThemeColorNotifier.new);
+      ({bool useDeviceColor, Color colorTheme})>(ThemeColorNotifier.new);
 
   @override
-  Future<({bool defaultTheme, Color color})> build() async {
+  Future<({bool useDeviceColor, Color colorTheme})> build() async {
     var pref = await ref.watch(sharedPref.future);
     return (
-      defaultTheme: pref.getBool(_prefKeyDefault) ?? deafultTheme,
-      color: Color(pref.getInt(_prefKeyColor) ?? defaultColor.value)
+      useDeviceColor: pref.getBool(_prefKeyDefault) ?? deafultUseDeviceColor,
+      colorTheme: Color(pref.getInt(_prefKeyColor) ?? defaultColorTheme.value)
     );
   }
 
   void setDefaultTheme(bool value) {
-    state = AsyncData(
-        (defaultTheme: value, color: state.valueOrNull?.color ?? defaultColor));
+    state = AsyncData((
+      useDeviceColor: value,
+      colorTheme: state.valueOrNull?.colorTheme ?? defaultColorTheme
+    ));
     ref
         .read(sharedPref.future)
         .then((pref) => pref.setBool(_prefKeyDefault, value));
@@ -111,8 +113,9 @@ class ThemeColorNotifier
 
   void setColorTheme(Color color) {
     state = AsyncData((
-      defaultTheme: state.valueOrNull?.defaultTheme ?? deafultTheme,
-      color: color
+      useDeviceColor:
+          state.valueOrNull?.useDeviceColor ?? deafultUseDeviceColor,
+      colorTheme: color
     ));
     ref
         .read(sharedPref.future)
