@@ -64,7 +64,7 @@ class SettingsPage extends ConsumerWidget {
           },
         ),
         DropdownListTile(
-          leading: Icon(Icons.palette_outlined, color: iconColor),
+          leading: Icon(Icons.contrast, color: iconColor),
           title: AppLocalizations.of(context)!.theme,
           textStyle: textStyle,
           items: mapTheme.values.toList(),
@@ -74,25 +74,6 @@ class SettingsPage extends ConsumerWidget {
             ref.read(CurrentThemeMode.provider.notifier).set(
                 mapTheme.keys.where((key) => mapTheme[key] == string).single);
           },
-        ),
-        ListTile(
-          title: const Text('Color theme'),
-          leading: Icon(
-            Icons.colorize,
-            color: iconColor,
-          ),
-          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-          trailing: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(
-              Icons.circle,
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          onTap: () => showDialog(
-            context: context,
-            builder: (context) => const ColorPickerDialog(),
-          ),
         ),
         SwitchListTile(
           secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
@@ -106,6 +87,26 @@ class SettingsPage extends ConsumerWidget {
             ref.read(IsDarkAmoled.provider.notifier).set(val);
           },
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+        ),
+        ListTile(
+          title: const Text('Color theme'),
+          leading: Icon(Icons.palette_outlined, color: iconColor),
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          trailing: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              child: Container(
+                width: 24,
+                height: 24,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(24 / 2),
+                  color:
+                      ref.watch(ThemeColorNotifier.provider).valueOrNull!.color,
+                ),
+              )),
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) => const ColorPickerDialog(),
+          ),
         ),
         if (!kIsWeb)
           SwitchListTile(
