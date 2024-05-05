@@ -119,7 +119,7 @@ class ThemeColorNotifier
     ));
     ref
         .read(sharedPref.future)
-        .then((pref) => pref.setInt(_prefKeyDefault, color.value));
+        .then((pref) => pref.setInt(_prefKeyColor, color.value));
   }
 }
 
