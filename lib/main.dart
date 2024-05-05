@@ -25,6 +25,10 @@ class MyApp extends ConsumerWidget {
       if (lightDynamic != null && darkDynamic != null) {
         lightColorScheme = lightDynamic.harmonized();
         darkColorScheme = darkDynamic.harmonized();
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => ref.read(deviceAccentColorProvider.notifier).state =
+              lightDynamic.primary,
+        );
       } else {
         // Otherwise, use fallback schemes.
         lightColorScheme = ColorScheme.fromSeed(

@@ -37,7 +37,9 @@ class SettingsPage extends ConsumerWidget {
 
     updateNavBarColor(Theme.of(context).colorScheme);
 
-    Color iconColor = getIconColor(Theme.of(context));
+    final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
+
+    final iconColor = getIconColor(Theme.of(context));
 
     return CustomScrollView(slivers: <Widget>[
       SliverAppBar.large(title: Text(AppLocalizations.of(context)!.settings)),
@@ -103,16 +105,18 @@ class SettingsPage extends ConsumerWidget {
           leading: Icon(Icons.palette_outlined, color: iconColor),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           trailing: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24 / 2),
-                  color:
-                      ref.watch(ThemeColorNotifier.provider).valueOrNull!.color,
-                ),
-              )),
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: Container(
+              width: 24,
+              height: 24,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24 / 2),
+                color: themeColor.defaultTheme
+                    ? ref.watch(deviceAccentColorProvider)!
+                    : themeColor.color,
+              ),
+            ),
+          ),
           onTap: () => showDialog(
             context: context,
             builder: (context) => const ColorPickerDialog(),
@@ -121,7 +125,7 @@ class SettingsPage extends ConsumerWidget {
         Padding(
           padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
           child: Text(
-            'Conversion',
+            'Conversions',
             style: Theme.of(context)
                 .textTheme
                 .titleSmall
@@ -461,6 +465,7 @@ class ColorPickerDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
+    final deviceAccentColor = ref.watch(deviceAccentColorProvider);
 
     return AlertDialog(
       title: const Text('Color theme'),
@@ -470,16 +475,18 @@ class ColorPickerDialog extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SwitchListTile(
-              value: themeColor.defaultTheme,
-              onChanged: (val) {
-                ref
-                    .read(ThemeColorNotifier.provider.notifier)
-                    .setDefaultTheme(val);
-              },
-              title: const Text('Use default color'),
-            ),
-            const SizedBox(height: 8),
+            if (deviceAccentColor != null) ...[
+              SwitchListTile(
+                value: themeColor.defaultTheme,
+                onChanged: (val) {
+                  ref
+                      .read(ThemeColorNotifier.provider.notifier)
+                      .setDefaultTheme(val);
+                },
+                title: const Text('Use default color'),
+              ),
+              const SizedBox(height: 8),
+            ],
             Text(
               !themeColor.defaultTheme ? 'Pick a color' : '',
               style: Theme.of(context).textTheme.titleMedium,

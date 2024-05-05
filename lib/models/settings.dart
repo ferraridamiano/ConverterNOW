@@ -77,11 +77,16 @@ class IsDarkAmoled extends AsyncNotifier<bool> {
   }
 }
 
+/// `null` means no accent color
+final deviceAccentColorProvider = StateProvider<Color?>((ref) => null);
+
 class ThemeColorNotifier
     extends AsyncNotifier<({bool defaultTheme, Color color})> {
   static const _prefKeyDefault = 'useDefaultTheme';
   static const _prefKeyColor = 'colorTheme';
-  static const deafultTheme = true;
+  // Here we set default theme to Colors.blue (it is easier to support device
+  // that does not have a color accent)
+  static const deafultTheme = false;
   static const defaultColor = Colors.blue;
 
   static final provider = AsyncNotifierProvider<ThemeColorNotifier,
