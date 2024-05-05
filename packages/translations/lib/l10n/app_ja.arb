@@ -65,6 +65,30 @@
   "@revokeInternetExplanation": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "useDeviceColor": "Use device color",
+  "@useDeviceColor": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "pickColor": "Pick a color",
+  "@pickColor": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "themeColor": "Theme color",
+  "@themeColor": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "appearance": "Appearance",
+  "@appearance": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "conversions": "Conversions",
+  "@conversions": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "findOutMore": "Find out more",
+  "@findOutMore": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "長さ",
   "area": "面積",

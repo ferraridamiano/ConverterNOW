@@ -48,7 +48,7 @@ class SettingsPage extends ConsumerWidget {
         Padding(
           padding: const EdgeInsetsDirectional.only(start: 16),
           child: Text(
-            'Appearance',
+            AppLocalizations.of(context)!.appearance,
             style: Theme.of(context)
                 .textTheme
                 .titleSmall
@@ -101,7 +101,7 @@ class SettingsPage extends ConsumerWidget {
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         ),
         ListTile(
-          title: const Text('Color theme'),
+          title: Text(AppLocalizations.of(context)!.themeColor),
           leading: Icon(Icons.palette_outlined, color: iconColor),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           trailing: Padding(
@@ -125,7 +125,7 @@ class SettingsPage extends ConsumerWidget {
         Padding(
           padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
           child: Text(
-            'Conversions',
+            AppLocalizations.of(context)!.conversions,
             style: Theme.of(context)
                 .textTheme
                 .titleSmall
@@ -258,7 +258,7 @@ class SettingsPage extends ConsumerWidget {
         Padding(
           padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
           child: Text(
-            'Find out more',
+            AppLocalizations.of(context)!.findOutMore,
             style: Theme.of(context)
                 .textTheme
                 .titleSmall
@@ -468,7 +468,7 @@ class ColorPickerDialog extends ConsumerWidget {
     final deviceAccentColor = ref.watch(deviceAccentColorProvider);
 
     return AlertDialog(
-      title: const Text('Color theme'),
+      title: Text(AppLocalizations.of(context)!.themeColor),
       content: SizedBox(
         width: 300,
         child: Column(
@@ -483,12 +483,14 @@ class ColorPickerDialog extends ConsumerWidget {
                       .read(ThemeColorNotifier.provider.notifier)
                       .setDefaultTheme(val);
                 },
-                title: const Text('Use device color'),
+                title: Text(AppLocalizations.of(context)!.useDeviceColor),
               ),
               const SizedBox(height: 8),
             ],
             Text(
-              !themeColor.useDeviceColor ? 'Pick a color' : '',
+              !themeColor.useDeviceColor
+                  ? AppLocalizations.of(context)!.pickColor
+                  : '',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 4),
