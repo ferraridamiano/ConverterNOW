@@ -4,6 +4,7 @@ import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/palette.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:translations/app_localizations.dart';
@@ -38,8 +39,14 @@ class SettingsPage extends ConsumerWidget {
     updateNavBarColor(Theme.of(context).colorScheme);
 
     final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
-
     final iconColor = getIconColor(Theme.of(context));
+    final titlesStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
+            color: switch (Theme.of(context).brightness) {
+          Brightness.light => Theme.of(context).primaryColor,
+          Brightness.dark => HSLColor.fromColor(Theme.of(context).primaryColor)
+              .withLightness(0.6)
+              .toColor()
+        });
 
     return CustomScrollView(slivers: <Widget>[
       SliverAppBar.large(title: Text(AppLocalizations.of(context)!.settings)),
@@ -49,10 +56,7 @@ class SettingsPage extends ConsumerWidget {
           padding: const EdgeInsetsDirectional.only(start: 16),
           child: Text(
             AppLocalizations.of(context)!.appearance,
-            style: Theme.of(context)
-                .textTheme
-                .titleSmall
-                ?.copyWith(color: Theme.of(context).primaryColor),
+            style: titlesStyle,
           ),
         ),
         DropdownListTile(
@@ -126,10 +130,7 @@ class SettingsPage extends ConsumerWidget {
           padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
           child: Text(
             AppLocalizations.of(context)!.conversions,
-            style: Theme.of(context)
-                .textTheme
-                .titleSmall
-                ?.copyWith(color: Theme.of(context).primaryColor),
+            style: titlesStyle,
           ),
         ),
         if (!kIsWeb)
@@ -259,10 +260,7 @@ class SettingsPage extends ConsumerWidget {
           padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
           child: Text(
             AppLocalizations.of(context)!.findOutMore,
-            style: Theme.of(context)
-                .textTheme
-                .titleSmall
-                ?.copyWith(color: Theme.of(context).primaryColor),
+            style: titlesStyle,
           ),
         ),
         ListTile(
