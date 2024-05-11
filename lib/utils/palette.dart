@@ -19,8 +19,8 @@ class _PaletteState extends State<Palette> {
   Color? hoveredColor;
   late Color selectedColor;
 
-  static const double squareSize = 45;
-  static const double checkSize = 25;
+  static const double squareSize = 43;
+  static const double checkSize = 24;
 
   @override
   void initState() {
@@ -31,8 +31,8 @@ class _PaletteState extends State<Palette> {
   @override
   Widget build(BuildContext context) {
     final palette = Wrap(
-      spacing: 5,
-      runSpacing: 5,
+      spacing: 4,
+      runSpacing: 4,
       children: [
         Colors.red,
         Colors.pink,

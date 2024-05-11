@@ -492,12 +492,14 @@ class ColorPickerDialog extends ConsumerWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 4),
-            Palette(
-              initial: themeColor.colorTheme,
-              enabled: !themeColor.useDeviceColor,
-              onSelected: (color) => ref
-                  .read(ThemeColorNotifier.provider.notifier)
-                  .setColorTheme(color),
+            Center(
+              child: Palette(
+                initial: themeColor.colorTheme,
+                enabled: !themeColor.useDeviceColor,
+                onSelected: (color) => ref
+                    .read(ThemeColorNotifier.provider.notifier)
+                    .setColorTheme(color),
+              ),
             )
           ],
         ),
