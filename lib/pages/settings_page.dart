@@ -4,7 +4,6 @@ import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/palette.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:translations/app_localizations.dart';
