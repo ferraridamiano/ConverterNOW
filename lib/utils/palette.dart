@@ -54,6 +54,7 @@ class _PaletteState extends State<Palette> {
         Colors.blueGrey,
       ].map(
         (e) {
+          final selectedColorValue = selectedColor.value;
           final isHovered = hoveredColor == e;
           return MouseRegion(
             onEnter: (_) {
@@ -89,7 +90,7 @@ class _PaletteState extends State<Palette> {
                       ),
                     ),
                   ),
-                  if (widget.enabled && selectedColor == e)
+                  if (widget.enabled && selectedColorValue == e.value)
                     Positioned(
                       top: (squareSize - checkSize) / 2,
                       left: (squareSize - checkSize) / 2,

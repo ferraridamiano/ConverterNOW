@@ -43,7 +43,7 @@ class SettingsPage extends ConsumerWidget {
             color: switch (Theme.of(context).brightness) {
           Brightness.light => Theme.of(context).primaryColor,
           Brightness.dark => HSLColor.fromColor(Theme.of(context).primaryColor)
-              .withLightness(0.6)
+              .withLightness(0.7)
               .toColor()
         });
 
