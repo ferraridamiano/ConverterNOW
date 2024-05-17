@@ -30,7 +30,7 @@ class ErrorPage extends StatelessWidget {
               ),
               onPressed: () => context.go('/'),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
+                backgroundColor: WidgetStateProperty.all<Color>(
                     Theme.of(context).primaryColor),
               ),
             )

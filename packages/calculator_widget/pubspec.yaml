@@ -14,7 +14,7 @@ dependencies:
   #Needed for calculator computation
   decimal: ^2.3.3
   #Needed for the state management
-  flutter_riverpod: ^2.4.10
+  flutter_riverpod: ^2.5.1
   #Needed for app translation
   translations:
     path: ../translations

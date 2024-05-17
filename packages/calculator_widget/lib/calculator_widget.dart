@@ -52,7 +52,7 @@ class _CalculatorWidget extends ConsumerWidget {
                   flex: 2,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.background,
+                      color: Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.all(Radius.circular(30)),
                     ),
                     child: Column(
@@ -109,7 +109,7 @@ class CalculatorHeader extends ConsumerWidget {
               style: TextStyle(
                 fontSize: 45.0,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onBackground,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
               maxLines: 1,
               textScaler: TextScaler.noScaling,
@@ -125,7 +125,7 @@ class CalculatorHeader extends ConsumerWidget {
                     tooltip: AppLocalizations.of(context)?.copy,
                     icon: Icon(
                       Icons.content_copy,
-                      color: Theme.of(context).colorScheme.onBackground,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                     onPressed: () {
                       Clipboard.setData(ClipboardData(text: text));
@@ -137,7 +137,7 @@ class CalculatorHeader extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: 45.0,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onBackground,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                     textScaler: TextScaler.noScaling,
                     maxLines: 1,

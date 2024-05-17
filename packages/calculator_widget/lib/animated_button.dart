@@ -32,8 +32,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
     with SingleTickerProviderStateMixin {
   late Animation<double> _animation;
   late AnimationController _animationController;
-  late final MaterialStatesController _materialStatesController =
-      MaterialStatesController();
+  late final _materialStatesController = WidgetStatesController();
 
   late Color backgroundColor;
   late Color foregroundColor;
@@ -44,7 +43,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
     if (!kIsWeb &&
         (Platform.isAndroid || Platform.isIOS || Platform.isFuchsia)) {
       _materialStatesController.addListener(() {
-        if (_materialStatesController.value.contains(MaterialState.pressed)) {
+        if (_materialStatesController.value.contains(WidgetState.pressed)) {
           _animationController.forward();
         } else {
           _animationController.reverse();
@@ -100,7 +99,7 @@ class _ElevatedButtonTransition extends AnimatedWidget {
   final void Function()? onPressed;
   final void Function()? onLongPress;
   final void Function(bool)? onHover;
-  final MaterialStatesController? materialStatesController;
+  final WidgetStatesController? materialStatesController;
   final Widget child;
   final Color foregroundColor;
   final Color backgroundColor;
@@ -127,11 +126,11 @@ class _ElevatedButtonTransition extends AnimatedWidget {
         borderRadius: BorderRadius.circular(radius.value),
       ),
     ).copyWith(
-      overlayColor: MaterialStateProperty.resolveWith<Color?>(
-        (Set<MaterialState> states) => Colors.transparent,
+      overlayColor: WidgetStateProperty.resolveWith<Color?>(
+        (Set<WidgetState> states) => Colors.transparent,
       ),
-      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-        (Set<MaterialState> states) => states.contains(MaterialState.pressed)
+      backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+        (Set<WidgetState> states) => states.contains(WidgetState.pressed)
             ? Color.alphaBlend(
                 Theme.of(context).brightness == Brightness.light
                     ? Colors.black.withOpacity(0.18)
