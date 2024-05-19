@@ -1,3 +1,4 @@
+import 'package:converterpro/styles/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -84,10 +85,9 @@ class ThemeColorNotifier
     extends AsyncNotifier<({bool useDeviceColor, Color colorTheme})> {
   static const _prefKeyDefault = 'useDeviceColor';
   static const _prefKeyColor = 'colorTheme';
-  // Here we set default theme to Colors.blue (it is easier to support device
-  // that does not have a color accent)
+  // Here we set default theme to fallbackColorTheme (it is easier to support
+  // device that does not have a color accent)
   static const deafultUseDeviceColor = false;
-  static const defaultColorTheme = Colors.blue;
 
   static final provider = AsyncNotifierProvider<ThemeColorNotifier,
       ({bool useDeviceColor, Color colorTheme})>(ThemeColorNotifier.new);
@@ -97,14 +97,14 @@ class ThemeColorNotifier
     var pref = await ref.watch(sharedPref.future);
     return (
       useDeviceColor: pref.getBool(_prefKeyDefault) ?? deafultUseDeviceColor,
-      colorTheme: Color(pref.getInt(_prefKeyColor) ?? defaultColorTheme.value)
+      colorTheme: Color(pref.getInt(_prefKeyColor) ?? fallbackColorTheme.value)
     );
   }
 
   void setDefaultTheme(bool value) {
     state = AsyncData((
       useDeviceColor: value,
-      colorTheme: state.valueOrNull?.colorTheme ?? defaultColorTheme
+      colorTheme: state.valueOrNull?.colorTheme ?? fallbackColorTheme
     ));
     ref
         .read(sharedPref.future)

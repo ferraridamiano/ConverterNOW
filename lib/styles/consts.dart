@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 const double singlePageFixedHeight = 650;
 const double singlePageTextSize = 18.0;
 
@@ -19,3 +21,5 @@ const double pixelWidth3Columns = 1300;
 /// trigger from 1 page reorder screen to 2 pages reorder screen (just inner
 /// view). Should be greater than `pixelFixedDrawer`
 const double twoSidedReorderScreen = 700;
+
+const fallbackColorTheme = Colors.blue;

@@ -1,4 +1,5 @@
 import 'package:converterpro/app_router.dart';
+import 'package:converterpro/styles/consts.dart';
 import 'package:universal_io/io.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:flutter/material.dart';
@@ -28,20 +29,18 @@ class MyApp extends ConsumerWidget {
       return Consumer(builder: (context, ref, child) {
         final settingsLocale = ref.watch(CurrentLocale.provider).valueOrNull;
         final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull ??
-            (useDeviceColor: false, colorTheme: Colors.blue);
+            (useDeviceColor: false, colorTheme: fallbackColorTheme);
 
-        final ThemeData lightTheme, darkTheme, amoledTheme;
+        final ThemeData lightTheme, darkTheme;
         // Use device accent color
         if (ref.watch(deviceAccentColorProvider) != null &&
             themeColor.useDeviceColor) {
-          lightTheme = ThemeData(colorScheme: lightDynamic!.harmonized());
+          lightTheme = ThemeData(
+            colorScheme: lightDynamic!.harmonized(),
+          );
           darkTheme = ThemeData(
             brightness: Brightness.dark,
             colorScheme: darkDynamic!.harmonized(),
-          );
-          amoledTheme = darkTheme.copyWith(
-            scaffoldBackgroundColor: Colors.black,
-            drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
           );
         } else {
           lightTheme = ThemeData(
@@ -56,11 +55,11 @@ class MyApp extends ConsumerWidget {
             ),
             brightness: Brightness.dark,
           );
-          amoledTheme = darkTheme.copyWith(
-            scaffoldBackgroundColor: Colors.black,
-            drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
-          );
         }
+        final amoledTheme = darkTheme.copyWith(
+          scaffoldBackgroundColor: Colors.black,
+          drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
+        );
 
         String deviceLocaleLanguageCode = Platform.localeName.split('_')[0];
         Locale appLocale;
