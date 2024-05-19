@@ -187,8 +187,8 @@ Color getIconColor(ThemeData theme) =>
 void updateNavBarColor(ColorScheme colorscheme) {
   var mySystemTheme = SystemUiOverlayStyle.light.copyWith(
       systemNavigationBarColor: ElevationOverlay.applySurfaceTint(
-    colorscheme.surface,
-    colorscheme.surfaceTint,
+    colorscheme.surfaceContainer,
+    Colors.transparent,
     3,
   ));
   SystemChrome.setSystemUIOverlayStyle(mySystemTheme);
