@@ -84,6 +84,18 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.2.2" date="2024-05-26">
+      <description>
+        <ul>
+          <li>🎨 Custom Themes! Give your app a unique touch by choosing your favorite theme.</li>
+          <li>⚙️ Optimized Settings Page! Now even simpler and more intuitive to use.</li>
+          <li>✨ Graphic Enhancements! Small improvements that make the app even more beautiful and enjoyable to use.</li>
+          <li>🌍 Improved Translations! Thanks to @rehork and @pereorga, the Polish and Catalan versions are more accurate than ever.</li>
+          <li>🐞 Bug Fixes and General Improvements! We've worked hard to provide you with an even better experience.</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
     <release version="4.2.1" date="2024-02-25">
       <description>
         <ul>

@@ -158,7 +158,7 @@ class CalculatorNumpad extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final calcWidth = MediaQuery.of(context).size.width;
+    final calcWidth = MediaQuery.sizeOf(context).width;
 
     return Padding(
       padding: const EdgeInsets.all(_buttonsSpacing),

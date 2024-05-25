@@ -98,7 +98,7 @@ class AppScaffold extends ConsumerWidget {
             ),
           ),
           floatingActionButton: (selectedSection == AppPage.conversions &&
-                  MediaQuery.of(context).viewInsets.bottom == 0)
+                  MediaQuery.viewInsetsOf(context).bottom == 0)
               ? FloatingActionButton(
                   key: const ValueKey('clearAll'),
                   onPressed: () => clearAll(_isDrawerFixed),
@@ -150,7 +150,7 @@ class AppScaffold extends ConsumerWidget {
                 )
               : null,
           floatingActionButton: (selectedSection == AppPage.conversions &&
-                  MediaQuery.of(context).viewInsets.bottom == 0)
+                  MediaQuery.viewInsetsOf(context).bottom == 0)
               ? FloatingActionButton(
                   key: const ValueKey('clearAll'),
                   onPressed: () => clearAll(_isDrawerFixed),

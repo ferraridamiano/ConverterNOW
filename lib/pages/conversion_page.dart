@@ -119,7 +119,7 @@ class ConversionPage extends ConsumerWidget {
         SliverPadding(
           padding: EdgeInsets.only(
             top: 10,
-            bottom: isDrawerFixed(MediaQuery.of(context).size.width)
+            bottom: isDrawerFixed(MediaQuery.sizeOf(context).width)
                 ? 55 // So FAB doesn't overlap the card
                 : 0,
           ),
