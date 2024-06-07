@@ -14,7 +14,7 @@
   "donation": "捐贈",
   "buyMeACoffee": "給我買一杯咖啡",
   "donationDialog": "嗨！您也許知道此應用程式是免費與開放原始碼的。這意味著您可以免費使用它與複製、編輯原始碼。開發者並不會因此獲得任何利益。但假如您認同此專案，或者想要看到新功能，請考慮給我買一杯咖啡。",
-  "drawerLogo": "Drawer logo",
+  "drawerLogo": "抽屜標誌",
   "rateApp": "為此應用程式評分",
   "repoGithub": "在 GitHub 開啟儲存庫",
   "contibuteTranslating": "為此應用程式貢獻翻譯",
@@ -53,42 +53,16 @@
   "undo": "取消",
   "routeError1": "此頁面不存在",
   "routeError2": "返回至第一頁",
-  "ok": "Ok",
-  "@ok": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "revokeInternetAccess": "Revoke internet access",
-  "@revokeInternetAccess": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "revokeInternetExplanation": "This app uses the internet to update currency exchange rates once a day upon opening. This download only requires a few kilobytes. However, if you don't need this feature, you can prevent the app from accessing the internet by enabling this option.",
-  "@revokeInternetExplanation": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "useDeviceColor": "Use device color",
-  "@useDeviceColor": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "pickColor": "Pick a color",
-  "@pickColor": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "themeColor": "Theme color",
-  "@themeColor": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "appearance": "Appearance",
-  "@appearance": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "conversions": "Conversions",
-  "@conversions": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "findOutMore": "Find out more",
-  "@findOutMore": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "ok": "OK",
+  "revokeInternetAccess": "禁用網路連線",
+  "revokeInternetExplanation": "該應用在每次啟動時透過網路更新匯率。所需下載的數據只有幾 kiB。不過，您若不需此功能，啟用該選項可阻止該應用連線網際網路。",
+  "useDeviceColor": "使用系統設定的強調色",
+  "pickColor": "選擇顏色",
+  "themeColor": "主題色",
+  "appearance": "外觀",
+  "conversions": "轉換",
+  "findOutMore": "進一步了解",
+
 
   "length": "長度",
   "area": "面積",
@@ -310,12 +284,12 @@
   "terabit": "兆位元 ",
   "petabit": "拍位元",
   "exabit": "艾位元",
-  "kibibit": "Kibibit",
-  "mebibit": "Mebibit",
-  "gibibit": "Gibibit",
-  "tebibit": "Tebibit",
-  "pebibit": "Pebibit",
-  "exbibit": "Exbibit",
+  "kibibit": "千位元（二進）",
+  "mebibit": "百萬位元（二進）",
+  "gibibit": "吉位元（二進）",
+  "tebibit": "兆位元（二進）",
+  "pebibit": "拍位元（二進）",
+  "exbibit": "艾位元（二進）",
   "byte": "位元組",
   "kilobyte": "千位元組",
   "megabyte": "百萬位元組",
@@ -323,12 +297,12 @@
   "terabyte": "兆位元組",
   "petabyte": "拍位元組",
   "exabyte": "艾位元組",
-  "kibibyte": "KibiByte",
-  "mebibyte": "MebiByte",
-  "gibibyte": "MebiByte",
-  "tebibyte": "TebiByte",
-  "pebibyte": "PebiByte",
-  "exbibyte": "ExbiByte",
+  "kibibyte": "千位元組",
+  "mebibyte": "百萬位元組",
+  "gibibyte": "吉位元組",
+  "tebibyte": "兆位元組",
+  "pebibyte": "拍位元組",
+  "exbibyte": "艾位元組",
 
   "base": "基數",
   "deca": "十-",

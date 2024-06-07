@@ -53,42 +53,15 @@
   "undo": "撤消",
   "routeError1": "不存在此页面",
   "routeError2": "返回上一级",
-  "ok": "Ok",
-  "@ok": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "revokeInternetAccess": "Revoke internet access",
-  "@revokeInternetAccess": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "revokeInternetExplanation": "This app uses the internet to update currency exchange rates once a day upon opening. This download only requires a few kilobytes. However, if you don't need this feature, you can prevent the app from accessing the internet by enabling this option.",
-  "@revokeInternetExplanation": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "useDeviceColor": "Use device color",
-  "@useDeviceColor": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "pickColor": "Pick a color",
-  "@pickColor": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "themeColor": "Theme color",
-  "@themeColor": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "appearance": "Appearance",
-  "@appearance": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "conversions": "Conversions",
-  "@conversions": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "findOutMore": "Find out more",
-  "@findOutMore": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "ok": "OK",
+  "revokeInternetAccess": "禁用网络连接",
+  "revokeInternetExplanation": "该应用在每次启动时通过网络更新汇率。所需下载的数据只有几 kiB。不过，您若不需此功能，启用该选项可阻止该应用连接互联网。",
+  "useDeviceColor": "使用系统设置的强调色",
+  "pickColor": "选择颜色",
+  "themeColor": "主题色",
+  "appearance": "外观",
+  "conversions": "转换",
+  "findOutMore": "更多",
 
   "length": "长度",
   "area": "面积",
@@ -171,7 +144,7 @@
   "hours": "小时",
   "days": "日",
   "weeks":"周",
-  "years": "年(365)",
+  "years": "年 (365)",
   "lustrum": "五年纪",
   "decades": "十年纪",
   "centuries":"世纪",
@@ -310,12 +283,12 @@
   "terabit": "太比特",
   "petabit": "拍比特",
   "exabit": "艾比特",
-  "kibibit": "Kibibit",
-  "mebibit": "Mebibit",
-  "gibibit": "GibiBit",
-  "tebibit": "Tebibit",
-  "pebibit": "Pebibit",
-  "exbibit": "Exbibit",
+  "kibibit": "千比特（二进）",
+  "mebibit": "兆比特（二进）",
+  "gibibit": "吉比特（二进）",
+  "tebibit": "太比特（二进）",
+  "pebibit": "拍比特（二进）",
+  "exbibit": "艾比特（二进）",
   "byte": "字节",
   "kilobyte": "千字节",
   "megabyte": "兆字节",
@@ -323,12 +296,12 @@
   "terabyte": "太字节",
   "petabyte": "拍字节",
   "exabyte": "艾字节",
-  "kibibyte": "Kibibyte",
-  "mebibyte": "Mebibyte",
-  "gibibyte": "GibiByte",
-  "tebibyte": "Tebibyte",
-  "pebibyte": "Pebibyte",
-  "exbibyte": "Exbibyte",
+  "kibibyte": "千字节（二进）",
+  "mebibyte": "兆字节（二进）",
+  "gibibyte": "吉字节（二进）",
+  "tebibyte": "太字节（二进）",
+  "pebibyte": "拍字节（二进）",
+  "exbibyte": "艾字节（二进）",
 
   "base": "基数",
   "deca": "十-",
