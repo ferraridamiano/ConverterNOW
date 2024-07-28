@@ -69,7 +69,7 @@ class IsDarkAmoled extends AsyncNotifier<bool> {
   @override
   Future<bool> build() async {
     var pref = await ref.watch(sharedPref.future);
-    return pref.getBool(_prefKey) ?? true;
+    return pref.getBool(_prefKey) ?? false;
   }
 
   void set(bool value) {
