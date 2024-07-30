@@ -14,11 +14,6 @@ import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-class EnvironmentConfig {
-  static const bool isPlaystore =
-      String.fromEnvironment('IS_PLAYSTORE', defaultValue: 'false') == 'true';
-}
-
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
@@ -29,10 +24,19 @@ class SettingsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Map<ThemeMode, String> mapTheme = {
-      ThemeMode.system: AppLocalizations.of(context)!.system,
-      ThemeMode.dark: AppLocalizations.of(context)!.dark,
-      ThemeMode.light: AppLocalizations.of(context)!.light,
+    final mapTheme = {
+      ThemeMode.system: (
+        title: AppLocalizations.of(context)!.system,
+        icon: Icons.brightness_auto_outlined
+      ),
+      ThemeMode.dark: (
+        title: AppLocalizations.of(context)!.dark,
+        icon: Icons.dark_mode_outlined
+      ),
+      ThemeMode.light: (
+        title: AppLocalizations.of(context)!.light,
+        icon: Icons.light_mode_outlined
+      ),
     };
 
     updateNavBarColor(Theme.of(context).colorScheme);
@@ -78,17 +82,19 @@ class SettingsPage extends ConsumerWidget {
             }
           },
         ),
-        DropdownListTile(
+        SegmentedButtonListTile(
           leading: Icon(Icons.contrast, color: iconColor),
           title: AppLocalizations.of(context)!.theme,
-          textStyle: textStyle,
           items: mapTheme.values.toList(),
           value:
-              mapTheme[ref.watch(CurrentThemeMode.provider).valueOrNull ?? 0]!,
-          onChanged: (String? string) {
-            ref.read(CurrentThemeMode.provider.notifier).set(
-                mapTheme.keys.where((key) => mapTheme[key] == string).single);
-          },
+              mapTheme[ref.watch(CurrentThemeMode.provider).valueOrNull ?? 0]!
+                  .title,
+          onChanged: (String? string) => ref
+              .read(CurrentThemeMode.provider.notifier)
+              .set(mapTheme.keys
+                  .where((key) => mapTheme[key]?.title == string)
+                  .single),
+          textStyle: textStyle,
         ),
         SwitchListTile(
           secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
@@ -383,7 +389,7 @@ class SettingsPage extends ConsumerWidget {
             );
           },
         ),
-        if (!EnvironmentConfig.isPlaystore)
+        if (!const bool.fromEnvironment('IS_PLAYSTORE', defaultValue: false))
           ListTile(
             leading: Icon(Icons.coffee_outlined, color: iconColor),
             title: Text(

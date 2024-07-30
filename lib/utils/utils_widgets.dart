@@ -207,12 +207,11 @@ class DropdownListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    switch (Theme.of(context).platform) {
-      case TargetPlatform.android:
-      case TargetPlatform.iOS:
-      case TargetPlatform.fuchsia:
-        String selected = value;
-        return ListTile(
+    return switch (Theme.of(context).platform) {
+      TargetPlatform.android ||
+      TargetPlatform.iOS ||
+      TargetPlatform.fuchsia =>
+        ListTile(
           leading: leading,
           title: Text(
             title,
@@ -238,7 +237,7 @@ class DropdownListTile extends StatelessWidget {
                   ...items.map(
                     (item) => ListTile(
                       title: Text(item),
-                      leading: item != selected
+                      leading: item != value
                           ? SizedBox(
                               width: Theme.of(context).iconTheme.size,
                             )
@@ -256,9 +255,11 @@ class DropdownListTile extends StatelessWidget {
               );
             },
           ),
-        );
-      default:
-        return ListTile(
+        ),
+      TargetPlatform.linux ||
+      TargetPlatform.windows ||
+      TargetPlatform.macOS =>
+        ListTile(
           leading: leading,
           title: Text(
             title,
@@ -283,8 +284,108 @@ class DropdownListTile extends StatelessWidget {
               );
             }).toList(),
           ),
-        );
-    }
+        )
+    };
+  }
+}
+
+class SegmentedButtonListTile extends StatelessWidget {
+  final String title;
+  final List<({IconData icon, String title})> items;
+  final String value;
+  final ValueChanged<String?> onChanged;
+  final TextStyle textStyle;
+  final Widget? leading;
+
+  /// This widget will return a [ListTile] with a dialog on mobile device and a
+  /// [ListTile] with a [DropdownMenu] for desktop device.
+  const SegmentedButtonListTile({
+    required this.title,
+    required this.items,
+    required this.value,
+    required this.onChanged,
+    required this.textStyle,
+    this.leading,
+    ValueKey? key,
+  }) : super(key: key);
+
+  static const BorderRadiusGeometry borderRadius =
+      BorderRadius.all(Radius.circular(30));
+
+  @override
+  Widget build(BuildContext context) {
+    return switch (Theme.of(context).platform) {
+      TargetPlatform.android ||
+      TargetPlatform.iOS ||
+      TargetPlatform.fuchsia =>
+        ListTile(
+          leading: leading,
+          title: Text(
+            title,
+            style: textStyle,
+          ),
+          subtitle: Text(value),
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          onTap: () => showModalBottomSheet(
+            context: context,
+            showDragHandle: true,
+            builder: (context) {
+              return ListView(
+                shrinkWrap: true,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  ...items.map(
+                    (item) => ListTile(
+                      title: Text(item.title),
+                      leading: item.title != value
+                          ? SizedBox(
+                              width: Theme.of(context).iconTheme.size,
+                            )
+                          : Icon(
+                              Icons.check,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                      onTap: () {
+                        onChanged(item.title);
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      TargetPlatform.linux ||
+      TargetPlatform.windows ||
+      TargetPlatform.macOS =>
+        ListTile(
+          leading: leading,
+          title: Text(
+            title,
+            style: textStyle,
+          ),
+          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          trailing: SegmentedButton<String>(
+            segments: items
+                .map((e) => ButtonSegment<String>(
+                      icon: Icon(e.icon),
+                      value: e.title,
+                      tooltip: e.title,
+                    ))
+                .toList(),
+            selected: {value},
+            onSelectionChanged: (val) => onChanged(val.first),
+          ),
+        ),
+    };
   }
 }
 
