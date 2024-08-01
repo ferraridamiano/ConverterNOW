@@ -34,7 +34,7 @@ dependencies:
   # Store the customizations and the latest currencies conversions
   shared_preferences: ^2.2.3
   # Unit conversion
-  units_converter: 2.0.1
+  units_converter: 3.0.1
   # Just for getting the browser current language
   universal_io: ^2.2.2
   # Open external pages such as GitHub repo, Play Store, etc
