@@ -314,78 +314,73 @@ class SegmentedButtonListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return switch (Theme.of(context).platform) {
-      TargetPlatform.android ||
-      TargetPlatform.iOS ||
-      TargetPlatform.fuchsia =>
-        ListTile(
-          leading: leading,
-          title: Text(
-            title,
-            style: textStyle,
-          ),
-          subtitle: Text(value),
-          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-          onTap: () => showModalBottomSheet(
-            context: context,
-            showDragHandle: true,
-            builder: (context) {
-              return ListView(
-                shrinkWrap: true,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  ...items.map(
-                    (item) => ListTile(
-                      title: Text(item.title),
-                      leading: item.title != value
-                          ? SizedBox(
-                              width: Theme.of(context).iconTheme.size,
-                            )
-                          : Icon(
-                              Icons.check,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                      onTap: () {
-                        onChanged(item.title);
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      TargetPlatform.linux ||
-      TargetPlatform.windows ||
-      TargetPlatform.macOS =>
-        ListTile(
-          leading: leading,
-          title: Text(
-            title,
-            style: textStyle,
-          ),
-          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-          trailing: SegmentedButton<String>(
-            segments: items
-                .map((e) => ButtonSegment<String>(
-                      icon: Icon(e.icon),
-                      value: e.title,
-                      tooltip: e.title,
-                    ))
-                .toList(),
-            selected: {value},
-            onSelectionChanged: (val) => onChanged(val.first),
-          ),
-        ),
-    };
+    return LayoutBuilder(
+      builder: (context, constraints) => constraints.maxWidth > 400
+          ? ListTile(
+              leading: leading,
+              title: Text(
+                title,
+                style: textStyle,
+              ),
+              shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+              trailing: SegmentedButton<String>(
+                segments: items
+                    .map((e) => ButtonSegment<String>(
+                          icon: Icon(e.icon),
+                          value: e.title,
+                          tooltip: e.title,
+                        ))
+                    .toList(),
+                selected: {value},
+                onSelectionChanged: (val) => onChanged(val.first),
+              ),
+            )
+          : ListTile(
+              leading: leading,
+              title: Text(
+                title,
+                style: textStyle,
+              ),
+              subtitle: Text(value),
+              shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+              onTap: () => showModalBottomSheet(
+                context: context,
+                showDragHandle: true,
+                builder: (context) {
+                  return ListView(
+                    shrinkWrap: true,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          title,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      ...items.map(
+                        (item) => ListTile(
+                          title: Text(item.title),
+                          leading: item.title != value
+                              ? SizedBox(
+                                  width: Theme.of(context).iconTheme.size,
+                                )
+                              : Icon(
+                                  Icons.check,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                          onTap: () {
+                            onChanged(item.title);
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+    );
   }
 }
 
