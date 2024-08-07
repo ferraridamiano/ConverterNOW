@@ -111,7 +111,7 @@ class AppScaffold extends ConsumerWidget {
       // if the drawer is not fixed
       return PopScope(
         canPop: selectedSection == AppPage.conversions,
-        onPopInvoked: (var didPop) {
+        onPopInvokedWithResult: (didPop, result) {
           if (selectedSection == AppPage.settings) {
             context.go('/');
           } else if (selectedSection == AppPage.reorder) {

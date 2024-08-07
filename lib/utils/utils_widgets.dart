@@ -315,7 +315,7 @@ class SegmentedButtonListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (context, constraints) => constraints.maxWidth > 400
+      builder: (context, constraints) => constraints.maxWidth > 450
           ? ListTile(
               leading: leading,
               title: Text(

@@ -143,10 +143,8 @@ jobs:
         dart pub global activate melos
         melos bootstrap
 
-    # Force canvaskit because of the bug with svg on html
-    # See: https://github.com/dnfield/flutter_svg/issues/845
     - name: Build for Web
-      run: flutter build web --web-renderer canvaskit
+      run: flutter build web
 
     - name: Upload to Firebase Hosting
       uses: FirebaseExtended/action-hosting-deploy@v0
