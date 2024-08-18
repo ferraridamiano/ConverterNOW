@@ -25,14 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.2+1"
-  ansicolor:
-    dependency: transitive
-    description:
-      name: ansicolor
-      sha256: "8bf17a8ff6ea17499e40a2d2542c2f481cd7615760c6d34065cb22bfd22e6880"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
   archive:
     dependency: transitive
     description:
@@ -160,22 +152,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  csslib:
-    dependency: transitive
-    description:
-      name: csslib
-      sha256: "706b5707578e0c1b4b7550f64078f0a0f19dec3f50a178ffae7006b0a9ca58fb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   decimal:
     dependency: transitive
     description:
       name: decimal
-      sha256: "24a261d5d5c87e86c7651c417a5dbdf8bcd7080dd592533910e8d0505a279f21"
+      sha256: "4140a688f9e443e2f4de3a1162387bf25e1ac6d51e24c9da263f245210f41440"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.3"
+    version: "3.0.2"
   dynamic_color:
     dependency: "direct main"
     description:
@@ -231,14 +215,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_native_splash:
-    dependency: "direct main"
-    description:
-      name: flutter_native_splash
-      sha256: edf39bcf4d74aca1eb2c1e43c3e445fd9f494013df7f0da752fefe72020eedc0
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.0"
   flutter_riverpod:
     dependency: "direct main"
     description:
@@ -318,14 +294,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
-  html:
-    dependency: transitive
-    description:
-      name: html
-      sha256: "3a7812d5bcd2894edf53dfaf8cd640876cf6cef50a8f238745c8b8120ea74d3a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.15.4"
   http:
     dependency: "direct main"
     description:

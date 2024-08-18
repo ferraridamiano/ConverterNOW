@@ -15,8 +15,6 @@ dependencies:
     sdk: flutter
   # App dynamic color theme
   dynamic_color: ^1.7.0
-  # Native splash screen on Android
-  flutter_native_splash: ^2.4.0
   # State management
   flutter_riverpod: ^2.5.1
   # For svg icons
@@ -64,13 +62,6 @@ dev_dependencies:
   melos: ^6.0.0
   msix: ^3.16.7
   test: ^1.25.2
-
-flutter_native_splash:
-  # Run code generation: `flutter pub run flutter_native_splash:create`
-  web: false
-  color: "#eeeeee"
-  color_dark: "#333333"
-  image: assets/app_icons/logo.png
 
 msix_config:
   display_name: Converter NOW
