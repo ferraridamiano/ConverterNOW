@@ -9,14 +9,12 @@ enum OPERATION {
   subtraction;
 
   @override
-  String toString() {
-    return switch (this) {
-      product => '×',
-      division => '÷',
-      addition => '+',
-      subtraction => '−'
-    };
-  }
+  String toString() => switch (this) {
+        product => '×',
+        division => '÷',
+        addition => '+',
+        subtraction => '−'
+      };
 }
 
 class Calculator extends Notifier<String> {
@@ -132,23 +130,14 @@ class Calculator extends Notifier<String> {
     assert(_firstNumber != null && _secondNumber != null,
         'firstNumber/secondNumber is null');
 
-    switch (ref.read(selectedOperationProvider)) {
-      case OPERATION.addition:
-        result = _firstNumber! + _secondNumber!;
-        break;
-      case OPERATION.subtraction:
-        result = _firstNumber! - _secondNumber!;
-        break;
-      case OPERATION.product:
-        result = _firstNumber! * _secondNumber!;
-        break;
-      case OPERATION.division:
-        result = (_firstNumber! / _secondNumber!)
-            .toDecimal(scaleOnInfinitePrecision: 15);
-        break;
-      case null:
-        assert(false, 'selectedOperation is null');
-    }
+    result = switch (ref.read(selectedOperationProvider)) {
+      OPERATION.addition => _firstNumber! + _secondNumber!,
+      OPERATION.subtraction => _firstNumber! - _secondNumber!,
+      OPERATION.product => _firstNumber! * _secondNumber!,
+      OPERATION.division => (_firstNumber! / _secondNumber!)
+          .toDecimal(scaleOnInfinitePrecision: 15),
+      null => throw Exception('selectedOperation is null'),
+    };
     _firstNumber = result;
     state = _getStringFromDecimal(result);
     ref.read(endNumberProvider.notifier).state = true;

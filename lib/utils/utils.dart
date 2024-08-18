@@ -56,23 +56,14 @@ class UnitData {
         const TextInputType.numberWithOptions(decimal: true, signed: false),
   });
 
-  RegExp getValidator() {
-    switch (validator) {
-      case VALIDATOR.binary:
-        return RegExp(r'^[0-1]+$');
-      case VALIDATOR.octal:
-        return RegExp(r'^[0-7]+$');
-      case VALIDATOR.decimal:
-        return RegExp(r'^[0-9]+$');
-      case VALIDATOR.hexadecimal:
-        return RegExp(r'^[0-9A-Fa-f]+$');
-      case VALIDATOR.rational:
-        return RegExp(r'^([+-]?\d+)\.?(\d*)(e[+-]?\d+)?$');
-      case VALIDATOR.rationalNonNegative:
-      default:
-        return RegExp(r'^(\+?\d+)\.?(\d*)(e[+-]?\d+)?$');
-    }
-  }
+  RegExp getValidator() => switch (validator) {
+        VALIDATOR.binary => RegExp(r'^[0-1]+$'),
+        VALIDATOR.octal => RegExp(r'^[0-7]+$'),
+        VALIDATOR.decimal => RegExp(r'^[0-9]+$'),
+        VALIDATOR.hexadecimal => RegExp(r'^[0-9A-Fa-f]+$'),
+        VALIDATOR.rational => RegExp(r'^([+-]?\d+)\.?(\d*)(e[+-]?\d+)?$'),
+        _ => RegExp(r'^(\+?\d+)\.?(\d*)(e[+-]?\d+)?$'),
+      };
 }
 
 /// Maps a string (path of the url) to a number value. This should be in the
@@ -156,29 +147,16 @@ void initializeQuickAction(
   // If it is not on a mobile device, return, otherwise set the quick actions
   final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
   if (!isMobileDevice) return;
-
-  final int index1 = conversionsOrderDrawer.indexWhere((val) => val == 1);
-  final int index2 = conversionsOrderDrawer.indexWhere((val) => val == 2);
-  final int index3 = conversionsOrderDrawer.indexWhere((val) => val == 3);
-  const QuickActions quickActions = QuickActions();
-  quickActions.initialize(onActionSelection);
-  quickActions.setShortcutItems(<ShortcutItem>[
-    ShortcutItem(
-      type: index1.toString(),
-      localizedTitle: propertyUiList[index1].name,
-      icon: 'launch_image',
-    ),
-    ShortcutItem(
-      type: index2.toString(),
-      localizedTitle: propertyUiList[index2].name,
-      icon: 'launch_image',
-    ),
-    ShortcutItem(
-      type: index3.toString(),
-      localizedTitle: propertyUiList[index3].name,
-      icon: 'launch_image',
-    ),
-  ]);
+  const QuickActions()
+    ..initialize(onActionSelection)
+    ..setShortcutItems([1, 2, 3].map((e) {
+      final index = conversionsOrderDrawer.indexWhere((val) => val == e);
+      return ShortcutItem(
+        type: index.toString(),
+        localizedTitle: propertyUiList[index].name,
+        icon: 'launch_image',
+      );
+    }).toList());
 }
 
 Color getIconColor(ThemeData theme) =>
