@@ -166,17 +166,17 @@ void initializeQuickAction(
     ShortcutItem(
       type: index1.toString(),
       localizedTitle: propertyUiList[index1].name,
-      icon: 'splash',
+      icon: 'launch_image',
     ),
     ShortcutItem(
       type: index2.toString(),
       localizedTitle: propertyUiList[index2].name,
-      icon: 'splash',
+      icon: 'launch_image',
     ),
     ShortcutItem(
       type: index3.toString(),
       localizedTitle: propertyUiList[index3].name,
-      icon: 'splash',
+      icon: 'launch_image',
     ),
   ]);
 }
