@@ -61,11 +61,40 @@ class CustomDrawer extends ConsumerWidget {
         : title);
 
     if (isDrawerFixed) {
+      final keyDecoration = BoxDecoration(
+        border: Border.all(),
+        borderRadius: BorderRadius.circular(6),
+      );
+      const keyPadding = EdgeInsets.symmetric(horizontal: 4);
       headerDrawer.add(
         NavigationDrawerDestination(
           key: const ValueKey('drawerItem_search'),
           icon: Icon(Icons.search_outlined, color: iconColor),
-          label: Text(AppLocalizations.of(context)!.search),
+          label: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(AppLocalizations.of(context)!.search),
+              const SizedBox(width: 16),
+              Container(
+                decoration: keyDecoration,
+                child: const Padding(
+                  padding: keyPadding,
+                  child: Text('Ctrl'),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 2),
+                child: Text('+'),
+              ),
+              Container(
+                decoration: keyDecoration,
+                child: const Padding(
+                  padding: keyPadding,
+                  child: Text('K'),
+                ),
+              ),
+            ],
+          ),
         ),
       );
       headerDrawer.add(
