@@ -68,10 +68,6 @@ class ConversionPage extends ConsumerWidget {
         controller: unitData.tec,
         validator: (String? input) {
           if (input != null) {
-            if (input.startsWith('.')) {
-              input = '0$input';
-            }
-
             if (input != '' && !unitData.getValidator().hasMatch(input)) {
               return AppLocalizations.of(context)!.invalidCharacters;
             }
@@ -79,8 +75,13 @@ class ConversionPage extends ConsumerWidget {
           return null;
         },
         onChanged: (String txt) {
+          if (txt.contains(',')) {
+            txt = txt.replaceAll(',', '.');
+            unitData.tec.text = txt;
+          }
           if (txt.startsWith('.')) {
             txt = '0$txt';
+            unitData.tec.text = txt;
           }
           if (txt == '' || unitData.getValidator().hasMatch(txt)) {
             var conversions = ref.read(ConversionsNotifier.provider.notifier);
