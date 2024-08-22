@@ -20,27 +20,39 @@
 
 ## Why Converter NOW
 
-A few years ago I noticed that most of the unit converters on the digital stores were ugly, not immediately usable, with ads and tracking software. I thought it would be a  good idea to develop Converter NOW in order to solve all these problems!
+Tired of complicated, cluttered, and ad-filled unit converters? Converter NOW
+is your perfect solution! A few years ago, we realized that most unit
+converters were not only visually unappealing but also lacked functionality,
+privacy, and ease of use. So, we created Converter NOW to change that!
 
-🚀 It is made to be **easy**, **fast** and **usable**: just start typing and immediately you have the real-time conversion with all the other units of measurement!
+🚀 **Fast & Intuitive**: Experience lightning-fast, real-time conversions as
+soon as you start typing. No more navigating through confusing menus – just
+instant results with all measurement units!
 
-🖌️ It is **customizable**: the units can be reorganized according to your priorities and your use case
+🛠️ **Fully Customizable**: Tailor your experience by reorganizing units based
+on your preferences and priorities. Make Converter NOW truly yours!
 
-🔢 It integrates a **calculator** that let you do the calculations in every page
+🔢 **Built-in Calculator**: Perform complex calculations effortlessly on any
+page. No need to switch between apps – it's all integrated seamlessly.
 
-💰 Currency exchange rates **updated daily**
+💱 **Daily Currency Exchange Updates**: Stay up-to-date with accurate, real-time
+currency conversions updated daily, perfect for travelers and global
+professionals.
 
-🎨 **Choose your style**: use the accent color of your device or your favorite one
+🎨 **Personalize Your Style**: Choose your favorite accent color, matching your
+device's theme or your unique style preferences.
 
-⚫⚪ **Choose your favourite theme**: dark or white theme
+⚫⚪ **Light & Dark Modes**: Switch between dark and light themes for a
+comfortable experience, day or night.
 
-📱🖥️ **Multiplatform**: available for Android, Web, Linux and Windows
+📱🖥️ **Cross-Platform Support**: Enjoy Converter NOW on Android, Web, Linux, and
+Windows. Whether you're on your phone or desktop, we've got you covered!
 
-💯 It is **free**, **no ads**, **no data collection**, **no permissions** (just Internet to update currency conversions). And first of all it is **open source**!
+💯 **Completely Free**: No ads, no data collection, and no intrusive permissions
+(just internet access for currency updates). Best of all, it's
+**100% open source!**
 
 ## Installation
-
-You can find the compiled app in [GitHub releases](https://github.com/ferraridamiano/ConverterNOW/releases) or in all of the following app stores:
 
 ### Android
 
@@ -85,10 +97,9 @@ translation files and optimize the `svg` icons. Then follow the instructions for
 
 ### Android
 On Android you should first disable the signing option in
-[`android/app/build.gradle`](https://github.com/ferraridamiano/ConverterNOW/blob/master/android/app/build.gradle#L70)
-(just comment that line). Then you can type `flutter build apk --split-per-abi`
-to compile the code. You can find the output in `build/app/outputs/flutter-apk`
-folder.
+[`android/app/build.gradle`](https://github.com/ferraridamiano/ConverterNOW/blob/master/android/app/build.gradle#L57)
+Then you can type `flutter build apk --split-per-abi` to compile the code. You
+can find the output in `build/app/outputs/flutter-apk` folder.
 
 ### Linux
 Type `flutter build linux` to build the Linux app. You can find the output in

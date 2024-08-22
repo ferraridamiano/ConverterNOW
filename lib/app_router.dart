@@ -7,7 +7,7 @@ import 'package:converterpro/pages/reorder_properties_page.dart';
 import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
-import 'package:converterpro/utils/app_scaffold.dart';
+import 'package:converterpro/pages/app_scaffold.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
