@@ -144,7 +144,7 @@ jobs:
         melos bootstrap
 
     - name: Build for Web
-      run: flutter build web
+      run: flutter build web --wasm
 
     - name: Upload to Firebase Hosting
       uses: FirebaseExtended/action-hosting-deploy@v0
