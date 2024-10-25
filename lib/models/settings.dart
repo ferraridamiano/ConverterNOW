@@ -9,7 +9,7 @@ final Map<Locale, String> mapLocale = {
   const Locale('de'): 'Deutsch',
   const Locale('es'): 'Español',
   const Locale('fr'): 'Français',
-  const Locale('gr'): 'Ελληνικά',
+  const Locale('el'): 'Ελληνικά',
   const Locale('hr'): 'Hrvatski',
   const Locale('id'): 'Bahasa Indonesia',
   const Locale('it'): 'Italiano',
