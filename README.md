@@ -84,6 +84,15 @@ Windows. Whether you're on your phone or desktop, we've got you covered!
 ### Web
 You can reach the PWA [here](https://converter-now.web.app).
 
+### Web app on Docker
+You can run a Docker container of Converter NOW in your environment by running:
+
+```shell
+docker run -d -p 80:80 ghcr.io/ferraridamiano/ConverterNOW:latest
+```
+
+Then, you can access it via browser on `localhost:80`
+
 ## Build from source code
 First you need to
 [install flutter](https://docs.flutter.dev/get-started/install) and all the
@@ -114,6 +123,20 @@ Type `flutter build web` to build the Web app. You can find the output in
 `build/web`.
 
 Note: if you deploy it not on the base path, add `--base-href=/path/` to the command above, change `/path/` with your path.
+
+### Web app on Docker
+You can build the Docker image of Converter NOW in your environment with the
+following command:
+```shell
+docker build -t converternow .
+```
+
+Then, run the docker container:
+```shell
+docker run -d -p 80:80 converternow
+```
+
+You can access it via browser at `localhost:80`
 
 ### iOS and MacOS
 The app is not tested against iOS and MacOS, but you should be able to compile
