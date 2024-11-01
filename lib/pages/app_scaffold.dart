@@ -107,56 +107,39 @@ class AppScaffold extends ConsumerWidget {
                     )
                   : null,
             )
-          : PopScope(
-              canPop: selectedSection == AppPage.conversions,
-              onPopInvokedWithResult: (didPop, result) {
-                if (selectedSection == AppPage.settings) {
-                  context.go('/');
-                } else if (selectedSection == AppPage.reorder) {
-                  context.goNamed('settings');
-                } else if (selectedSection == AppPage.reorderDetails) {
-                  //2 sided page
-                  if (_isDrawerFixed) {
-                    context.goNamed('settings');
-                  } else {
-                    context.goNamed('reorder-units');
-                  }
-                }
-              },
-              child: Scaffold(
-                drawer: drawer,
-                body: SafeArea(child: child),
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.endContained,
-                bottomNavigationBar: selectedSection == AppPage.conversions
-                    ? BottomAppBar(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            IconButton(
-                              tooltip: AppLocalizations.of(context)!.search,
-                              icon: const Icon(Icons.search),
-                              onPressed: openSearch,
-                            ),
-                            IconButton(
-                              tooltip: AppLocalizations.of(context)!.calculator,
-                              icon: const Icon(Icons.calculate_outlined),
-                              onPressed: openCalculator,
-                            ),
-                          ],
-                        ),
-                      )
-                    : null,
-                floatingActionButton: (selectedSection == AppPage.conversions &&
-                        MediaQuery.viewInsetsOf(context).bottom == 0)
-                    ? FloatingActionButton(
-                        key: const ValueKey('clearAll'),
-                        onPressed: () => clearAll(_isDrawerFixed),
-                        tooltip: AppLocalizations.of(context)!.clearAll,
-                        child: const Icon(Icons.clear_outlined),
-                      )
-                    : null,
-              ),
+          : Scaffold(
+              drawer: drawer,
+              body: SafeArea(child: child),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.endContained,
+              bottomNavigationBar: selectedSection == AppPage.conversions
+                  ? BottomAppBar(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          IconButton(
+                            tooltip: AppLocalizations.of(context)!.search,
+                            icon: const Icon(Icons.search),
+                            onPressed: openSearch,
+                          ),
+                          IconButton(
+                            tooltip: AppLocalizations.of(context)!.calculator,
+                            icon: const Icon(Icons.calculate_outlined),
+                            onPressed: openCalculator,
+                          ),
+                        ],
+                      ),
+                    )
+                  : null,
+              floatingActionButton: (selectedSection == AppPage.conversions &&
+                      MediaQuery.viewInsetsOf(context).bottom == 0)
+                  ? FloatingActionButton(
+                      key: const ValueKey('clearAll'),
+                      onPressed: () => clearAll(_isDrawerFixed),
+                      tooltip: AppLocalizations.of(context)!.clearAll,
+                      child: const Icon(Icons.clear_outlined),
+                    )
+                  : null,
             );
 
       return Shortcuts(
