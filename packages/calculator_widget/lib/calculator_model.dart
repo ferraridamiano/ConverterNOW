@@ -33,6 +33,12 @@ class Calculator extends Notifier<String> {
     return '';
   }
 
+  void submitString(String string) {
+    for (final char in string.split('')) {
+      submitChar(char);
+    }
+  }
+
   /// With this function you can subit any char from 0-9, [, . + - * / =
   /// backspace canc]
   void submitChar(String char) {
