@@ -22,7 +22,7 @@ dependencies:
   # App logo in drawer
   google_fonts: ^6.2.1
   # Navigation
-  go_router: ^12.1.3 # Do not upgrade until github.com/flutter/flutter/issues/140869 is fixed
+  go_router: ^12.1.3 # Do not upgrade until github.com/flutter/packages/pull/8162 is resolved
   # Downloading the exchange rates
   http: ^1.2.2
   # Translations
@@ -34,7 +34,7 @@ dependencies:
   # Unit conversion
   units_converter: 2.0.1
   # Just for getting the browser current language
-  universal_io: ^2.2.2
+  universal_io: ^2.2.2 # Can be removed once dart:io is supported on web (issue: github.com/flutter/flutter/issues/39998)
   # Open external pages such as GitHub repo, Play Store, etc
   url_launcher: ^6.3.0
   # Load optimized svg icons
@@ -43,6 +43,7 @@ dependencies:
   window_size:
     git:
       url: https://github.com/google/flutter-desktop-embedding
+      ref: eb3964990cf19629c89ff8cb4a37640c7b3d5601
       path: plugins/window_size
 
   # Sub packages ---------------------------------------------------------------
