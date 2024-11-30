@@ -31,7 +31,7 @@ class MyApp extends ConsumerWidget {
         final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull ??
             (useDeviceColor: false, colorTheme: fallbackColorTheme);
 
-        final ThemeData lightTheme, darkTheme;
+        ThemeData lightTheme, darkTheme;
         // Use device accent color
         if (ref.watch(deviceAccentColorProvider) != null &&
             themeColor.useDeviceColor) {
@@ -56,10 +56,22 @@ class MyApp extends ConsumerWidget {
             brightness: Brightness.dark,
           );
         }
-        final amoledTheme = darkTheme.copyWith(
+        ThemeData amoledTheme = darkTheme.copyWith(
           scaffoldBackgroundColor: Colors.black,
           drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
         );
+
+        const pageTransitionsTheme = PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+          },
+        );
+        lightTheme =
+            lightTheme.copyWith(pageTransitionsTheme: pageTransitionsTheme);
+        darkTheme =
+            darkTheme.copyWith(pageTransitionsTheme: pageTransitionsTheme);
+        amoledTheme =
+            amoledTheme.copyWith(pageTransitionsTheme: pageTransitionsTheme);
 
         String deviceLocaleLanguageCode = Platform.localeName.split('_')[0];
         Locale appLocale;

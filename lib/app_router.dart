@@ -57,34 +57,29 @@ final routerProvider = Provider<GoRouter>(
           GoRoute(
             path: '/settings',
             name: 'settings',
-            pageBuilder: (context, state) =>
-                const NoTransitionPage(child: SettingsPage()),
+            builder: (context, state) => const SettingsPage(),
             routes: [
               GoRoute(
                 path: 'reorder-properties',
                 name: 'reorder-properties',
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: ReorderPropertiesPage()),
+                builder: (context, state) => const ReorderPropertiesPage(),
               ),
               GoRoute(
                 path: 'reorder-units',
                 name: 'reorder-units',
-                pageBuilder: (context, state) =>
-                    const NoTransitionPage(child: ChoosePropertyPage()),
+                builder: (context, state) => const ChoosePropertyPage(),
                 routes: [
                   GoRoute(
                     path: ':property',
-                    pageBuilder: (context, state) {
+                    builder: (context, state) {
                       final String property = state.pathParameters['property']!;
                       final int? pageNumber = pageNumberMap[property];
                       if (pageNumber == null) {
                         throw Exception('property not found: $property');
                       } else {
-                        return NoTransitionPage(
-                          child: ChoosePropertyPage(
-                            selectedProperty: pageNumber,
-                            isPropertySelected: true,
-                          ),
+                        return ChoosePropertyPage(
+                          selectedProperty: pageNumber,
+                          isPropertySelected: true,
                         );
                       }
                     },
