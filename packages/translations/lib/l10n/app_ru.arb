@@ -39,11 +39,11 @@
   "reorderUnits": "Изменить порядок единиц измерения",
   "chooseProperty": "Выберите свойство",
   "reorderProperty": "Изменить порядок {property}",
-  "@reorderProperty":{
+  "@reorderProperty": {
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Length"
+        "example": "Длина"
       }
     }
   },
@@ -168,7 +168,7 @@
   "grams": "Граммы",
   "ettograms": "Этограммы",
   "kilograms": "Килограммы",
-  "pounds":" Фунты",
+  "pounds": "Фунты",
   "ounces": "Унции",
   "quintals": "Центнеры",
   "tons": "Тонны",
@@ -183,7 +183,7 @@
   "pascal": "Паскали",
   "atmosphere": "Атмосферы",
   "bar": "Бары",
-  "millibar":"Миллибары",
+  "millibar": "Миллибары",
   "psi": "Фунты на квадратный дюйм",
   "torr": "Торричелли",
   "hectoPascal": "Гектопаскали",

@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  
+
   "appName": "Converter NOW",
   "reorder": "Anordnen",
   "myOrdering": "Meine Anordnung",
@@ -39,11 +39,11 @@
   "reorderUnits": "Reihenfolge innerhalb der Kategorien ändern",
   "chooseProperty": "Eigenschaft wählen",
   "reorderProperty": "{property} anordnen",
-  "@reorderProperty":{
+  "@reorderProperty": {
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Lenght"
+        "example": "Länge"
       }
     }
   },
@@ -174,7 +174,7 @@
   "years": "Jahre (365)",
   "lustrum": "Jahrfünft",
   "decades": "Jahrzehnte",
-  "centuries":"Jahrhunderte",
+  "centuries": "Jahrhunderte",
   "millennium": "Jahrtausende",
 
   "fahrenheit": "Fahrenheit",

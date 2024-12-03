@@ -1,7 +1,7 @@
 {
   "@@locale": "it",
-  
-  "appName":"Converter NOW",
+
+  "appName": "Converter NOW",
   "reorder": "Riordina",
   "myOrdering": "Il mio ordinamento",
   "contactDeveloper": "Contatta lo sviluppatore",
@@ -39,11 +39,11 @@
   "reorderUnits": "Riordina le unità di misura",
   "chooseProperty": "Scegli una grandezza",
   "reorderProperty": "Riordina {property}",
-  "@reorderProperty":{
+  "@reorderProperty": {
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Lenght"
+        "example": "Lunghezza"
       }
     }
   },
@@ -168,7 +168,7 @@
   "grams": "Grammi",
   "ettograms": "Ettogrammi",
   "kilograms": "Chilogrammi",
-  "pounds":" Libbre",
+  "pounds": "Libbre",
   "ounces": "Once",
   "quintals": "Quintali",
   "tons": "Tonnellate",
@@ -296,5 +296,4 @@
   "atto": "Atto-",
   "zepto": "Zepto-",
   "yocto": "Yocto-"
-  
 }
