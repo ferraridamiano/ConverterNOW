@@ -6,7 +6,7 @@
   "myOrdering": "Ma commande",
   "contactDeveloper": "Contacter le développeur",
   "about": "À propos",
-  "lastCurrenciesUpdate": "Dernière mise à jour : ",
+  "lastCurrenciesUpdate": "Dernière mise à jour: ",
   "today": "aujourd'hui",
   "enableDarkTheme": "Activer le thème sombre",
   "settings": "Paramètres",
@@ -39,11 +39,11 @@
   "reorderUnits": "Réorganiser les unités de mesure",
   "chooseProperty": "Choisissez une propriété",
   "reorderProperty": "Réorganiser {property}",
-  "@reorderProperty":{
+  "@reorderProperty": {
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Lenght"
+        "example": "Distance"
       }
     }
   },
@@ -165,16 +165,16 @@
   "deciseconds": "Décisecondes",
   "centiseconds": "Centisecondes",
   "milliseconds": "Millisecondes",
-  "microseconds":"Microsecondes",
+  "microseconds": "Microsecondes",
   "nanoseconds": "Nanosecondes",
   "minutes": "Minutes",
   "hours": "Heures",
   "days": "Jours",
-  "weeks":"Semaines",
+  "weeks": "Semaines",
   "years": "Années (365)",
   "lustrum": "Lustre",
   "decades": "Décennies",
-  "centuries":"Siècles",
+  "centuries": "Siècles",
   "millennium": "Millénaires",
 
   "fahrenheit": "Fahrenheit",
@@ -195,7 +195,7 @@
   "grams": "Grammes",
   "ettograms": "Hectogramme",
   "kilograms": "Kilogrammes",
-  "pounds":" Livres",
+  "pounds": "Livres",
   "ounces": "Onces",
   "quintals": "Quintaux",
   "tons": "Tonnes",
@@ -208,9 +208,9 @@
   "stones": "Stone",
 
   "pascal": "Pascal",
-  "atmosphere":"Atmosphère",
+  "atmosphere": "Atmosphère",
   "bar": "Bar",
-  "millibar":"Millibar",
+  "millibar": "Millibar",
   "psi": "Livres par pouce carré",
   "torr": "Torricelli",
   "hectoPascal": "Hectopascal",

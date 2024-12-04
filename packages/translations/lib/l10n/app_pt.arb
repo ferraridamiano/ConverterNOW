@@ -1,10 +1,10 @@
 {
   "@@locale": "pt",
 
-  "appName":"Converter NOW",
+  "appName": "Converter NOW",
   "reorder": "Reorganizar",
   "myOrdering": "Minha classificação",
-  "contactDeveloper":"Entrar em contato com o desenvolvedor",
+  "contactDeveloper": "Entrar em contato com o desenvolvedor",
   "about": "Sobre",
   "lastCurrenciesUpdate": "Última atualização: ",
   "today": "hoje",
@@ -39,11 +39,11 @@
   "reorderUnits": "Reordenar unidades de medida",
   "chooseProperty": "Escolha uma propriedade",
   "reorderProperty": "Reorganizar {property}",
-  "@reorderProperty":{
+  "@reorderProperty": {
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Lenght"
+        "example": "Comprimento"
       }
     }
   },
@@ -123,7 +123,7 @@
 
   "meters": "Metros",
   "centimeters": "Centímetros",
-  "inches":"Polegadas",
+  "inches": "Polegadas",
   "feet": "Pés",
   "nauticalMiles": "Milhas náuticas",
   "yards": "Jardas",
@@ -145,11 +145,11 @@
 
   "squareMeters": "Metros Quadrados",
   "squareCentimeters": "Centimetros Quadrados",
-  "squareInches":"Polegadas Quadradas",
+  "squareInches": "Polegadas Quadradas",
   "squareFeet": "Pés Quadrados",
   "squareMiles": "Milhas Quadradas",
   "squareYard": "Jardas Quadradas",
-  "squareMillimeters":"Milímetros Quadrados",
+  "squareMillimeters": "Milímetros Quadrados",
   "squareKilometers": "Quilômetros Quadrados",
   "hectares": "Hectares",
   "acres": "Acres",
@@ -171,7 +171,7 @@
   "cups": "Copos",
   "cubicCentimeters": "Centimetros Cúbicos",
   "cubicFeet": "Pés Cúbicos",
-  "cubicInches":"Polegadas Cúbicas",
+  "cubicInches": "Polegadas Cúbicas",
   "cubicMillimeters": "Milímetros Cúbicos",
   "imperialFluidOunces": "Onça líquida imperial",
   "usFluidOunces": "Onça líquida americana",
@@ -182,16 +182,16 @@
   "deciseconds": "Decisecondos",
   "centiseconds": "Centisecondes",
   "milliseconds": "Milissegundos",
-  "microseconds":"Microssegundos",
+  "microseconds": "Microssegundos",
   "nanoseconds": "Nanossegundos",
   "minutes": "Minutos",
   "hours": "Horas",
   "days": "Dias",
-  "weeks":"Semanas",
+  "weeks": "Semanas",
   "years": "Anos (365)",
   "lustrum": "Lustra",
   "decades": "Décadas",
-  "centuries":"Séculos",
+  "centuries": "Séculos",
   "millennium": "Milénio",
 
   "fahrenheit": "Fahrenheit",
@@ -212,7 +212,7 @@
   "grams": "Gramas",
   "ettograms": "Ettogramas",
   "kilograms": "Kilogramas",
-  "pounds":"Libras",
+  "pounds": "Libras",
   "ounces": "Onças",
   "quintals": "Quintals",
   "tons": "Toneladas",

@@ -39,7 +39,7 @@
   "reorderUnits": "Reordena les unitats",
   "chooseProperty": "Tria una propietat",
   "reorderProperty": "Reordena {property}",
-  "@reorderProperty":{
+  "@reorderProperty": {
     "placeholders": {
       "property": {
         "type": "String",
@@ -186,7 +186,7 @@
   "grams": "Grams",
   "ettograms": "Ettograms",
   "kilograms": "Quilograms",
-  "pounds": " Lliures",
+  "pounds": "Lliures",
   "ounces": "Unces",
   "quintals": "Quintals",
   "tons": "Tones",

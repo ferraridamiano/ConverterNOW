@@ -1,7 +1,7 @@
 {
   "@@locale": "nb",
 
-  "appName":"Converter NOW",
+  "appName": "Converter NOW",
   "reorder": "Endre rekkefølge",
   "myOrdering": "Min rekkefølge",
   "contactDeveloper": "Kontakt utvikleren",
@@ -39,11 +39,11 @@
   "reorderUnits": "Endre rekkefølge på måleenheter",
   "chooseProperty": "Velg en kategori",
   "reorderProperty": "Endre rekkefølge for {property}",
-  "@reorderProperty":{
+  "@reorderProperty": {
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Lenght"
+        "example": "Lengde"
       }
     }
   },
@@ -65,7 +65,7 @@
 
   "length": "Lengde",
   "area": "Areal",
-  "volume":"Volum",
+  "volume": "Volum",
   "time": "Tid",
   "temperature": "Temperatur",
   "speed": "Hastighet",
@@ -94,7 +94,7 @@
   "micrometers": "Mikrometer",
   "nanometers": "Nanometer",
   "angstroms": "Ångström",
-  "picometers":"Pikometer",
+  "picometers": "Pikometer",
   "kilometers": "Kilometer",
   "astronomicalUnits": "Astronomisk enhet",
   "lightYears": "Lysår",
@@ -104,11 +104,11 @@
 
   "squareMeters": "Kvadratmeter",
   "squareCentimeters": "Kvadratcentimeter",
-  "squareInches":"Kvadrattomme",
+  "squareInches": "Kvadrattomme",
   "squareFeet": "Kvadratfot",
   "squareMiles": "Kvadratmil (eng.)",
   "squareYard": "Kvadratyard",
-  "squareMillimeters":"Kvadratmillimeter",
+  "squareMillimeters": "Kvadratmillimeter",
   "squareKilometers": "Kvadratkilometer",
   "hectares": "Hektar",
   "acres": "Acre",
@@ -118,16 +118,16 @@
   "cubicMeters": "Kubikkmeter",
   "liters": "Liter",
   "imperialGallons": "Britisk gallon",
-  "usGallons":"US gallon",
+  "usGallons": "US gallon",
   "imperialPints": "Britisk pint",
   "usPints": "US pint",
   "milliliters": "Milliliter",
   "tablespoonUs": "Teskje (US)",
-  "tablespoonAustralian":"Teskje (australsk)",
+  "tablespoonAustralian": "Teskje (australsk)",
   "cups": "Cup",
   "cubicCentimeters": "Kubikkcentimeter",
   "cubicFeet": "Kubikkfot",
-  "cubicInches":"Kubikktomme",
+  "cubicInches": "Kubikktomme",
   "cubicMillimeters": "Kubikkmillimeter",
   "imperialFluidOunces": "Imperial Fluid Ounce",
   "usFluidOunces": "US Fluid Ounce",
@@ -168,7 +168,7 @@
   "grams": "Gram",
   "ettograms": "Ettogram",
   "kilograms": "Kilogram",
-  "pounds":" Pund",
+  "pounds": "Pund",
   "ounces": "Ounce",
   "quintals": "Centner",
   "tons": "Tonn",
@@ -181,9 +181,9 @@
   "stones": "Stone",
 
   "pascal": "Pascal",
-  "atmosphere":"Atmosfære",
+  "atmosphere": "Atmosfære",
   "bar": "Bar",
-  "millibar":"Millibar",
+  "millibar": "Millibar",
   "psi": "Pund per kvadrattomme",
   "torr": "Torr",
   "hectoPascal": "Hektopascal",
