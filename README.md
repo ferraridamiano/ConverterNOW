@@ -81,12 +81,17 @@ Windows. Whether you're on your phone or desktop, we've got you covered!
     alt="Get it from the Microsoft Store"
     height="53">](https://www.microsoft.com/store/apps/9P0Q79HWJH72)
 
-### Web
-You can reach the PWA [here](https://converter-now.web.app).
+Alternatively, you can install Converter NOW using WinGet by running the
+following command:
+```
+winget install -e 9P0Q79HWJH72
+```
 
-### Web app on Docker
-You can run a Docker container of Converter NOW in your environment by running:
+### Web app
+You can access the web application directly at [Converter NOW](https://converter-now.web.app).
 
+Alternatively, to run Converter NOW in your local environment using Docker, run
+the following command:
 ```shell
 docker run -d -p 80:80 ghcr.io/ferraridamiano/ConverterNOW:latest
 ```
