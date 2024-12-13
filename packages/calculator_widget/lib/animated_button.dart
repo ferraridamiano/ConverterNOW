@@ -133,7 +133,7 @@ class _ElevatedButtonTransition extends AnimatedWidget {
         (Set<WidgetState> states) => states.contains(WidgetState.pressed)
             ? Color.alphaBlend(
                 Theme.of(context).brightness == Brightness.light
-                    ? Colors.black.withOpacity(0.18)
+                    ? Colors.black.withValues(alpha: 0.18)
                     : Colors.white30,
                 backgroundColor)
             : backgroundColor,

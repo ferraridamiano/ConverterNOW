@@ -85,8 +85,9 @@ class ChoosePropertyPage extends ConsumerWidget {
     Color selectedListTileColor = Theme.of(context)
         .colorScheme
         .primaryContainer
-        .withOpacity(
-            Theme.of(context).brightness == Brightness.light ? 0.5 : 0.8);
+        .withValues(
+          alpha: Theme.of(context).brightness == Brightness.light ? 0.5 : 0.8,
+        );
 
     final Widget choosePropertyPage = CustomScrollView(
       slivers: <Widget>[

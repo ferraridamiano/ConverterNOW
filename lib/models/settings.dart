@@ -1,4 +1,5 @@
 import 'package:converterpro/styles/consts.dart';
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -96,9 +97,10 @@ class ThemeColorNotifier
   @override
   Future<({bool useDeviceColor, Color colorTheme})> build() async {
     var pref = await ref.watch(sharedPref.future);
+    final prefColor = pref.getInt(_prefKeyColor);
     return (
       useDeviceColor: pref.getBool(_prefKeyDefault) ?? deafultUseDeviceColor,
-      colorTheme: Color(pref.getInt(_prefKeyColor) ?? fallbackColorTheme.value)
+      colorTheme: prefColor != null ? Color(prefColor) : fallbackColorTheme,
     );
   }
 
@@ -120,7 +122,7 @@ class ThemeColorNotifier
     ));
     ref
         .read(sharedPref.future)
-        .then((pref) => pref.setInt(_prefKeyColor, color.value));
+        .then((pref) => pref.setInt(_prefKeyColor, color2Int(color)));
   }
 }
 
