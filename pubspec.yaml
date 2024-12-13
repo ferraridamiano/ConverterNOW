@@ -6,7 +6,7 @@ version: 4.2.3+44
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.24.0 <4.0.0"
+  flutter: ">=3.27.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -16,9 +16,9 @@ dependencies:
   # App dynamic color theme
   dynamic_color: ^1.7.0
   # State management
-  flutter_riverpod: ^2.5.1
+  flutter_riverpod: ^2.6.1
   # For svg icons
-  flutter_svg: ^2.0.10+1
+  flutter_svg: ^2.0.16
   # App logo in drawer
   google_fonts: ^6.2.1
   # Navigation
@@ -28,17 +28,17 @@ dependencies:
   # Translations
   intl: ^0.19.0
   # Android app shortcuts
-  quick_actions: ^1.0.7
+  quick_actions: ^1.1.0
   # Store the customizations and the latest currencies conversions
-  shared_preferences: ^2.3.2
+  shared_preferences: ^2.3.3
   # Unit conversion
   units_converter: 2.0.1
   # Just for getting the browser current language
   universal_io: ^2.2.2 # Can be removed once dart:io is supported on web (issue: github.com/flutter/flutter/issues/39998)
   # Open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^6.3.0
+  url_launcher: ^6.3.1
   # Load optimized svg icons
-  vector_graphics: ^1.1.11+1
+  vector_graphics: ^1.1.15
   # Resize window during testing
   window_size:
     git:
@@ -60,7 +60,7 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  melos: ^6.1.0
+  melos: ^6.2.0
   msix: ^3.16.8
   test: ^1.25.7
 
