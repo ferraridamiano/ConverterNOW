@@ -6,27 +6,10 @@ updates:
     interval: "weekly"
 
 - package-ecosystem: "pub"
-  directory: "/"
-  schedule:
-    interval: "monthly"
-  ignore:
-  - dependency-name: "*"
-    update-types:
-    - "version-update:semver-patch"
-    - "version-update:semver-minor"
-
-- package-ecosystem: "pub"
-  directory: "/packages/calculator_widget"
-  schedule:
-    interval: "monthly"
-  ignore:
-  - dependency-name: "*"
-    update-types:
-    - "version-update:semver-patch"
-    - "version-update:semver-minor"
-
-- package-ecosystem: "pub"
-  directory: "/packages/translations"
+  directories:
+    - "/"
+    - "/packages/calculator_widget"
+    - "/packages/translations"
   schedule:
     interval: "monthly"
   ignore:
