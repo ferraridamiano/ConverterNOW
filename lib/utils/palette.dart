@@ -1,3 +1,4 @@
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class Palette extends StatefulWidget {
@@ -30,6 +31,7 @@ class _PaletteState extends State<Palette> {
 
   @override
   Widget build(BuildContext context) {
+    final selectedColorValue = color2Int(selectedColor);
     final palette = Wrap(
       spacing: 4,
       runSpacing: 4,
@@ -54,7 +56,6 @@ class _PaletteState extends State<Palette> {
         Colors.blueGrey,
       ].map(
         (e) {
-          final selectedColorValue = selectedColor.toString();
           final isHovered = hoveredColor == e;
           return MouseRegion(
             onEnter: (_) {
@@ -90,7 +91,7 @@ class _PaletteState extends State<Palette> {
                       ),
                     ),
                   ),
-                  if (widget.enabled && selectedColorValue == e.toString())
+                  if (widget.enabled && selectedColorValue == color2Int(e))
                     Positioned(
                       top: (squareSize - checkSize) / 2,
                       left: (squareSize - checkSize) / 2,
