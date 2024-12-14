@@ -32,8 +32,6 @@ class SplashScreen extends ConsumerWidget {
       );
     }
 
-    updateNavBarColor(Theme.of(context).colorScheme);
-
     return const SplashScreenWidget();
   }
 }

@@ -39,8 +39,6 @@ class SettingsPage extends ConsumerWidget {
       ),
     };
 
-    updateNavBarColor(Theme.of(context).colorScheme);
-
     final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
     final iconColor = getIconColor(Theme.of(context));
     final titlesStyle = Theme.of(context).textTheme.titleSmall?.copyWith(

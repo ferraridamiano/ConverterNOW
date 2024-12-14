@@ -2,7 +2,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:units_converter/models/unit.dart';
@@ -161,16 +160,6 @@ void initializeQuickAction(
 
 Color getIconColor(ThemeData theme) =>
     theme.brightness == Brightness.light ? Colors.black45 : Colors.white70;
-
-void updateNavBarColor(ColorScheme colorscheme) {
-  var mySystemTheme = SystemUiOverlayStyle.light.copyWith(
-      systemNavigationBarColor: ElevationOverlay.applySurfaceTint(
-    colorscheme.surfaceContainer,
-    Colors.transparent,
-    3,
-  ));
-  SystemChrome.setSystemUIOverlayStyle(mySystemTheme);
-}
 
 int _floatToInt8(double x) => (x * 255.0).round() & 0xff;
 
