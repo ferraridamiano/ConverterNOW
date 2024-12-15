@@ -35,7 +35,7 @@ class CustomDrawer extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const SvgPicture(
-              AssetBytesLoader('assets/app_icons/logo.svg.vec'),
+              AssetBytesLoader('assets/app_icons/logo.svg'),
               width: 55,
             ),
             Text(

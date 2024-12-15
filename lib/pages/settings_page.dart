@@ -202,7 +202,7 @@ class SettingsPage extends ConsumerWidget {
           SwitchListTile(
             secondary: SvgPicture(
               const AssetBytesLoader(
-                  'assets/app_icons/remove_trailing_zeros.svg.vec'),
+                  'assets/app_icons/remove_trailing_zeros.svg'),
               width: 25,
               colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
             ),
@@ -220,7 +220,7 @@ class SettingsPage extends ConsumerWidget {
           DropdownListTile(
             leading: SvgPicture(
               const AssetBytesLoader(
-                  'assets/app_icons/significant_figures.svg.vec'),
+                  'assets/app_icons/significant_figures.svg'),
               width: 25,
               colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
             ),
@@ -240,8 +240,7 @@ class SettingsPage extends ConsumerWidget {
           ListTile(
             key: const ValueKey('reorder-properties'),
             leading: SvgPicture(
-              const AssetBytesLoader(
-                  'assets/app_icons/reorder_properties.svg.vec'),
+              const AssetBytesLoader('assets/app_icons/reorder_properties.svg'),
               width: 25,
               colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
             ),
@@ -255,7 +254,7 @@ class SettingsPage extends ConsumerWidget {
           ListTile(
             key: const ValueKey('reorder-units'),
             leading: SvgPicture(
-              const AssetBytesLoader('assets/app_icons/reorder_units.svg.vec'),
+              const AssetBytesLoader('assets/app_icons/reorder_units.svg'),
               width: 25,
               colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
             ),

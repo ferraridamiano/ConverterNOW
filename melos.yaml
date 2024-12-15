@@ -8,18 +8,12 @@ command:
   bootstrap:
 
     hooks:
-      post: melos run compile_icons && melos run generate_translations
+      post: melos run generate_translations
 
 scripts:
   analyze:
     run: melos exec -- "flutter analyze"
     description: Run `flutter analyze` in all packages
-
-  compile_icons:
-    steps:
-      - dart run vector_graphics_compiler --input-dir assets/app_icons
-      - dart run vector_graphics_compiler --input-dir assets/property_icons
-    description: Optimizes the svg icons.
   
   format:
     run: melos exec -- "flutter format . --set-exit-if-changed"

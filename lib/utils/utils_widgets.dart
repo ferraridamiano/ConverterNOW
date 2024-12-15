@@ -391,7 +391,7 @@ class SplashScreenWidget extends StatelessWidget {
     return const Scaffold(
       body: Center(
         child: SvgPicture(
-          AssetBytesLoader('assets/app_icons/logo.svg.vec'),
+          AssetBytesLoader('assets/app_icons/logo.svg'),
           width: 150,
         ),
       ),
