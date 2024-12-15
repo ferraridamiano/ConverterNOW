@@ -50,70 +50,75 @@ class _CalculatorWidget extends ConsumerWidget {
             },
           ),
         },
-        child: SizedBox(
-          height: 450,
-          child: Builder(
-            builder: (context) {
-              focusKeyboard.requestFocus();
-              return KeyboardListener(
-                focusNode: focusKeyboard,
-                onKeyEvent: (KeyEvent event) {
-                  if (event.runtimeType.toString() == 'KeyDownEvent') {
-                    if (event.logicalKey == LogicalKeyboardKey.backspace) {
-                      ref
-                          .read(Calculator.provider.notifier)
-                          .adaptiveDeleteClear();
-                    } else if (event.logicalKey == LogicalKeyboardKey.delete) {
-                      ref.read(Calculator.provider.notifier).clearAll();
-                    } else if (event.logicalKey == LogicalKeyboardKey.enter) {
-                      ref.read(Calculator.provider.notifier).submitChar('=');
-                    } else {
-                      ref
-                          .read(Calculator.provider.notifier)
-                          .submitChar(event.character ?? '');
+        child: SafeArea(
+          child: SizedBox(
+            height: 450,
+            child: Builder(
+              builder: (context) {
+                focusKeyboard.requestFocus();
+                return KeyboardListener(
+                  focusNode: focusKeyboard,
+                  onKeyEvent: (KeyEvent event) {
+                    if (event.runtimeType.toString() == 'KeyDownEvent') {
+                      switch (event.logicalKey) {
+                        case LogicalKeyboardKey.backspace:
+                          ref
+                              .read(Calculator.provider.notifier)
+                              .adaptiveDeleteClear();
+                        case LogicalKeyboardKey.delete:
+                          ref.read(Calculator.provider.notifier).clearAll();
+                        case LogicalKeyboardKey.enter:
+                          ref
+                              .read(Calculator.provider.notifier)
+                              .submitChar('=');
+                        default:
+                          ref
+                              .read(Calculator.provider.notifier)
+                              .submitChar(event.character ?? '');
+                      }
                     }
-                  }
-                },
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(30)),
-                        ),
-                        child: Column(
-                          children: [
-                            // handle
-                            Center(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8),
-                                child: Container(
-                                  width: 32,
-                                  height: 4,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurfaceVariant
-                                        .withValues(alpha: 0.4),
-                                    borderRadius: BorderRadius.circular(2),
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.surface,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(30)),
+                          ),
+                          child: Column(
+                            children: [
+                              // handle
+                              Center(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  child: Container(
+                                    width: 32,
+                                    height: 4,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurfaceVariant
+                                          .withValues(alpha: 0.4),
+                                      borderRadius: BorderRadius.circular(2),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const CalculatorHeader(),
-                          ],
+                              const CalculatorHeader(),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const Expanded(flex: 7, child: CalculatorNumpad()),
-                  ],
-                ),
-              );
-            },
+                      const Expanded(flex: 7, child: CalculatorNumpad()),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),
