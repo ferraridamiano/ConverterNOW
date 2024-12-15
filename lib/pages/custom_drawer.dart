@@ -62,7 +62,7 @@ class CustomDrawer extends ConsumerWidget {
 
     if (isDrawerFixed) {
       final keyDecoration = BoxDecoration(
-        border: Border.all(),
+        border: Border.all(color: Theme.of(context).colorScheme.onSurface),
         borderRadius: BorderRadius.circular(6),
       );
       const keyPadding = EdgeInsets.symmetric(horizontal: 4);
