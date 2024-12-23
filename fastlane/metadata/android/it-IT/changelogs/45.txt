@@ -1,0 +1,5 @@
+⚙️ <b>Nuove funzioni</b>: usa la virgola come separatore decimale, incolla i numeri nella calcolatrice, cerca con ctrl+K, supporto ad android 15 e predictive back gesture
+🌍 <b>Traduzioni aggiornate</b> Grazie a @solokot, @makishart, @HectorAE
+🐞 <b>Correzioni di bug e miglioramenti generali!</b> Abbiamo lavorato sodo per offrirti un'esperienza sempre migliore
+
+<b>Ti piace Converter NOW?</b> Lascia una recensione e facci sapere cosa ne pensi! ✔️

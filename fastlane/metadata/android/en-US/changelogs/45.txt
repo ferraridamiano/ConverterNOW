@@ -1,0 +1,5 @@
+⚙️ <b>New features</b>: use comma as decimal separator, paste number into the calculator, search with ctrl+K, Android 15 support and predictive back gesture
+🌍 <b>Updated translations</b> Thanks to @solokot, @makishart, @HectorAE
+🐞 <b>Bug Fixes and General Improvements!</b> We've worked hard to provide you with an even better experience
+
+<b>Do you like Converter NOW?</b> Leave a review and let us know what you think! ✔️

@@ -84,6 +84,16 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.2.4" date="2024-12-23">
+      <description>
+        <ul>
+          <li>⚙️ New features: use comma as decimal separator, paste number into the calculator, search with ctrl+K</li>
+          <li>🌍 Updated translations. Thanks to @solokot, @makishart, @HectorAE</li>
+          <li>🐞 Bug Fixes and General Improvements! We've worked hard to provide you with an even better experience</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
     <release version="4.2.3" date="2024-08-18">
       <description>
         <ul>

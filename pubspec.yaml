@@ -2,11 +2,11 @@ name: converterpro
 description: Unit and currencies converter
 publish_to: none
 
-version: 4.2.3+44
+version: 4.2.4+45
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.27.0 <4.0.0"
+  flutter: ">=3.27.1 <4.0.0"
 
 dependencies:
   flutter:
@@ -30,7 +30,7 @@ dependencies:
   # Android app shortcuts
   quick_actions: ^1.1.0
   # Store the customizations and the latest currencies conversions
-  shared_preferences: ^2.3.3
+  shared_preferences: ^2.3.4
   # Unit conversion
   units_converter: 2.0.1
   # Just for getting the browser current language
