@@ -1,5 +1,6 @@
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/styles/consts.dart';
+import 'package:flutter/services.dart';
 import 'package:universal_io/io.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +73,22 @@ class MyApp extends ConsumerWidget {
             darkTheme.copyWith(pageTransitionsTheme: pageTransitionsTheme);
         amoledTheme =
             amoledTheme.copyWith(pageTransitionsTheme: pageTransitionsTheme);
+        final themeMode = ref.watch(CurrentThemeMode.provider).valueOrNull ??
+            ThemeMode.system;
+
+        SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(
+            statusBarIconBrightness: switch (themeMode) {
+              ThemeMode.light => Brightness.dark,
+              ThemeMode.dark => Brightness.light,
+              ThemeMode.system =>
+                WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+                        Brightness.dark
+                    ? Brightness.light
+                    : Brightness.dark
+            },
+          ),
+        );
 
         String deviceLocaleLanguageCode = Platform.localeName.split('_')[0];
         Locale appLocale;
@@ -93,8 +110,7 @@ class MyApp extends ConsumerWidget {
           routerDelegate: appRouter.routerDelegate,
           debugShowCheckedModeBanner: false,
           title: 'Converter NOW',
-          themeMode: ref.watch(CurrentThemeMode.provider).valueOrNull ??
-              ThemeMode.system,
+          themeMode: themeMode,
           theme: lightTheme,
           darkTheme: (ref.watch(IsDarkAmoled.provider).valueOrNull ?? false)
               ? amoledTheme

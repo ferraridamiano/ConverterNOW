@@ -89,13 +89,11 @@ class AppScaffold extends ConsumerWidget {
 
       final ret = _isDrawerFixed
           ? Scaffold(
-              body: SafeArea(
-                child: Row(
-                  children: <Widget>[
-                    drawer,
-                    Expanded(child: child),
-                  ],
-                ),
+              body: Row(
+                children: <Widget>[
+                  drawer,
+                  Expanded(child: child),
+                ],
               ),
               floatingActionButton: (selectedSection == AppPage.conversions &&
                       MediaQuery.viewInsetsOf(context).bottom == 0)
@@ -109,7 +107,7 @@ class AppScaffold extends ConsumerWidget {
             )
           : Scaffold(
               drawer: drawer,
-              body: SafeArea(child: child),
+              body: child,
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.endContained,
               bottomNavigationBar: selectedSection == AppPage.conversions
