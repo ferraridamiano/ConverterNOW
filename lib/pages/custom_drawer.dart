@@ -36,7 +36,7 @@ class CustomDrawer extends ConsumerWidget {
           children: [
             const SvgPicture(
               AssetBytesLoader('assets/app_icons/logo.svg'),
-              width: 55,
+              width: 50,
             ),
             Text(
               'Converter NOW',
@@ -46,7 +46,7 @@ class CustomDrawer extends ConsumerWidget {
               maxLines: 1,
               style: GoogleFonts.josefinSans(
                 fontWeight: FontWeight.w300,
-                textStyle: const TextStyle(fontSize: 31),
+                textStyle: const TextStyle(fontSize: 29),
               ),
             ),
           ],
