@@ -30,7 +30,7 @@ dependencies:
   # Android app shortcuts
   quick_actions: ^1.1.0
   # Store the customizations and the latest currencies conversions
-  shared_preferences: ^2.3.4
+  shared_preferences: ^2.3.3
   # Unit conversion
   units_converter: 2.0.1
   # Just for getting the browser current language
