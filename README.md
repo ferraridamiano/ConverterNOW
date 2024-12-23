@@ -93,7 +93,7 @@ You can access the web application directly at [Converter NOW](https://converter
 Alternatively, to run Converter NOW in your local environment using Docker, run
 the following command:
 ```shell
-docker run -d -p 80:80 ghcr.io/ferraridamiano/ConverterNOW:latest
+docker run -d -p 80:80 ghcr.io/ferraridamiano/converternow:latest
 ```
 
 Then, you can access it via browser on `localhost:80`
