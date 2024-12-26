@@ -33,8 +33,6 @@ dependencies:
   shared_preferences: ^2.3.3
   # Unit conversion
   units_converter: 2.0.1
-  # Just for getting the browser current language
-  universal_io: ^2.2.2 # Can be removed once dart:io is supported on web (issue: github.com/flutter/flutter/issues/39998)
   # Open external pages such as GitHub repo, Play Store, etc
   url_launcher: ^6.3.1
   # Load optimized svg icons

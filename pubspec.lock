@@ -900,14 +900,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  universal_io:
-    dependency: "direct main"
-    description:
-      name: universal_io
-      sha256: "1722b2dcc462b4b2f3ee7d188dad008b6eb4c40bbd03a3de451d82c78bba9aad"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.2"
   uri:
     dependency: transitive
     description:
@@ -1110,5 +1102,5 @@ packages:
     source: hosted
     version: "2.2.1"
 sdks:
-  dart: ">=3.6.0 <4.0.0"
+  dart: ">=3.6.0-0 <4.0.0"
   flutter: ">=3.27.1"

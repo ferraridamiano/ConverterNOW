@@ -1,7 +1,8 @@
+import 'dart:io';
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/styles/consts.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:universal_io/io.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -90,7 +91,10 @@ class MyApp extends ConsumerWidget {
           ),
         );
 
-        String deviceLocaleLanguageCode = Platform.localeName.split('_')[0];
+        // Workaround until https://github.com/flutter/flutter/issues/39998 got
+        // resolved
+        String deviceLocaleLanguageCode =
+            kIsWeb ? 'en' : Platform.localeName.split('_')[0];
         Locale appLocale;
         if (settingsLocale != null) {
           appLocale = settingsLocale;
