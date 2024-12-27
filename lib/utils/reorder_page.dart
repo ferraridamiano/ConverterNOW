@@ -2,6 +2,8 @@ import 'package:converterpro/styles/consts.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 
+typedef Item = ({int id, String title});
+
 class ReorderPage extends StatefulWidget {
   final String title;
   final List<String> itemsList;
@@ -24,10 +26,8 @@ class _ReorderPageState extends State<ReorderPage> {
 
   @override
   Widget build(BuildContext context) {
-    _itemsList = [];
-    for (int i = 0; i < widget.itemsList.length; i++) {
-      _itemsList.add(Item(i, widget.itemsList[i]));
-    }
+    _itemsList =
+        widget.itemsList.indexed.map((e) => (id: e.$1, title: e.$2)).toList();
 
     return Scaffold(
       key: _scaffoldKey,
@@ -98,13 +98,7 @@ class _ReorderPageState extends State<ReorderPage> {
     if (newIndex > oldIndex) {
       newIndex -= 1;
     }
-    final Item item = _itemsList.removeAt(oldIndex);
+    final item = _itemsList.removeAt(oldIndex);
     _itemsList.insert(newIndex, item);
   }
-}
-
-class Item {
-  final int id;
-  final String title;
-  Item(this.id, this.title);
 }
