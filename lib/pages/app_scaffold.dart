@@ -2,6 +2,7 @@ import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:calculator_widget/calculator_widget.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/order.dart';
+import 'package:converterpro/data/units_ordering.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
@@ -30,10 +31,13 @@ class AppScaffold extends ConsumerWidget {
     }
 
     void clearAll(bool isDrawerFixed) {
-      final int page = pageNumberMap[GoRouterState.of(context)
-          .uri
-          .toString()
-          .substring('/conversions/'.length)]!;
+      final int page = 0;
+      reversedPropertiesOrdering[kebabStringToPropertyX(
+        GoRouterState.of(context)
+            .uri
+            .toString()
+            .substring('/conversions/'.length),
+      )];
       if (ref
           .read(ConversionsNotifier.provider.notifier)
           .shouldShowSnackbar(page)) {
@@ -65,7 +69,7 @@ class AppScaffold extends ConsumerWidget {
         );
         if (newPage != null) {
           final String targetPath =
-              '/conversions/${reversePageNumberListMap[newPage]}';
+              '/conversions/${propertiesOrdering[newPage].toKebabCase()}';
           // ignore: use_build_context_synchronously
           if (GoRouterState.of(context).uri.toString() != targetPath) {
             // ignore: use_build_context_synchronously

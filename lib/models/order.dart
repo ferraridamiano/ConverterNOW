@@ -1,5 +1,6 @@
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PropertiesOrderNotifier extends AsyncNotifier<List<int>> {
@@ -9,8 +10,8 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<int>> {
 
   @override
   Future<List<int>> build() async {
-    List<int> temp = List.generate(19, (index) => index);
-    List<String>? stringList =
+    List<int> temp = List.generate(PROPERTYX.values.length, (index) => index);
+    /*List<String>? stringList =
         (await ref.read(sharedPref.future)).getStringList('orderDrawer');
     if (stringList != null) {
       final int len = stringList.length;
@@ -22,7 +23,7 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<int>> {
       for (int i = len; i < temp.length; i++) {
         temp[i] = i;
       }
-    }
+    }*/
     return temp;
   }
 

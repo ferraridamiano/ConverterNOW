@@ -1,3 +1,4 @@
+import 'package:converterpro/data/units_ordering.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -29,7 +30,8 @@ AppPage computeSelectedSection(BuildContext context) {
 int? computeSelectedConversionPage(BuildContext context) {
   final location = GoRouterState.of(context).uri.toString();
   if (location.startsWith('/conversions')) {
-    return pageNumberMap[location.split('/').last];
+    return reversedPropertiesOrdering[
+        kebabStringToPropertyX(location.split('/').last)];
   }
   return null;
 }

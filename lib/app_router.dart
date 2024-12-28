@@ -1,4 +1,5 @@
 import 'package:converterpro/models/order.dart';
+import 'package:converterpro/data/units_ordering.dart';
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/pages/conversion_page.dart';
@@ -46,7 +47,8 @@ final routerProvider = Provider<GoRouter>(
             path: '/conversions/:property',
             pageBuilder: (context, state) {
               final String property = state.pathParameters['property']!;
-              final int? pageNumber = pageNumberMap[property];
+              final pageNumber =
+                  reversedPropertiesOrdering[kebabStringToPropertyX(property)];
               if (pageNumber == null) {
                 throw Exception('property not found: $property');
               } else {
@@ -73,7 +75,8 @@ final routerProvider = Provider<GoRouter>(
                     path: ':property',
                     builder: (context, state) {
                       final String property = state.pathParameters['property']!;
-                      final int? pageNumber = pageNumberMap[property];
+                      final pageNumber = reversedPropertiesOrdering[
+                          kebabStringToPropertyX(property)];
                       if (pageNumber == null) {
                         throw Exception('property not found: $property');
                       } else {
@@ -108,7 +111,7 @@ final routerProvider = Provider<GoRouter>(
         if (ref.read(isEverythingLoadedProvider)) {
           final List<int> conversionsOrderDrawer =
               ref.read(PropertiesOrderNotifier.provider).value!;
-          return '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}';
+          return '/conversions/${propertiesOrdering[conversionsOrderDrawer.indexWhere((val) => val == 0)].toKebabCase()}';
         }
       }
       return null;

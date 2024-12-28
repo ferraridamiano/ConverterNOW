@@ -1,4 +1,5 @@
 import 'package:converterpro/models/order.dart';
+import 'package:converterpro/data/units_ordering.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
 import 'package:converterpro/utils/utils.dart';
@@ -133,7 +134,7 @@ class CustomDrawer extends ConsumerWidget {
     for (int i = 0; i < propertyUiList.length; i++) {
       PropertyUi propertyUi = propertyUiList[i];
       conversionDrawer[conversionsOrderDrawer[i]] = NavigationDrawerDestination(
-        key: ValueKey('drawerItem_${reversePageNumberListMap[i]}'),
+        key: ValueKey('drawerItem_${propertiesOrdering[i]}'),
         icon: SvgPicture(
           AssetBytesLoader(propertyUi.imagePath),
           width: 25,
@@ -154,7 +155,7 @@ class CustomDrawer extends ConsumerWidget {
       onDestinationSelected: (int selectedPage) {
         if (selectedPage >= headerElements) {
           context.go(
-              '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == selectedPage - headerElements)]}');
+              '/conversions/${propertiesOrdering[conversionsOrderDrawer.indexWhere((val) => val == selectedPage - headerElements)].toKebabCase()}');
           if (!isDrawerFixed) {
             Navigator.of(context).pop();
           }

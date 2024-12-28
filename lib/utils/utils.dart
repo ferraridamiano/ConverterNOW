@@ -65,34 +65,6 @@ class UnitData {
       };
 }
 
-/// Maps a string (path of the url) to a number value. This should be in the
-/// same order as in property_unit_list.dart
-const Map<String, int> pageNumberMap = {
-  'length': 0,
-  'area': 1,
-  'volume': 2,
-  'currencies': 3,
-  'time': 4,
-  'temperature': 5,
-  'speed': 6,
-  'mass': 7,
-  'force': 8,
-  'fuel-consumption': 9,
-  'numeral-systems': 10,
-  'pressure': 11,
-  'energy': 12,
-  'power': 13,
-  'angle': 14,
-  'shoe-size': 15,
-  'digital-data': 16,
-  'si-prefixes': 17,
-  'torque': 18,
-};
-
-/// Contains the same information of [pageNumberMap] but reversed. So I can
-/// access to the strings faster.
-final List<String> reversePageNumberListMap = pageNumberMap.keys.toList();
-
 /// PROPERTYX stands for PROPERTY extended and want to extends the PROPERTY enum
 /// defined in units_converter package
 enum PROPERTYX {
@@ -168,3 +140,15 @@ int color2Int(Color color) =>
     _floatToInt8(color.r) << 16 |
     _floatToInt8(color.g) << 8 |
     _floatToInt8(color.b) << 0;
+
+/// Converts PROPERTYX.digitalData to a kebab String like 'digital-data'
+extension KebabCaseExtension on PROPERTYX {
+  String toKebabCase() => toString().split('.').last.replaceAllMapped(
+      RegExp(r'([A-Z])'), (match) => '-${match[0]!.toLowerCase()}');
+}
+
+PROPERTYX kebabStringToPropertyX(String string) {
+  final lowerCaseString = string.replaceAll('-', '').toLowerCase();
+  return PROPERTYX.values.firstWhere(
+      (e) => e.toString().toLowerCase() == 'propertyx.$lowerCaseString');
+}

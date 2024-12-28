@@ -1,6 +1,7 @@
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/order.dart';
+import 'package:converterpro/data/units_ordering.dart';
 import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/styles/consts.dart';
@@ -133,7 +134,7 @@ class ChoosePropertyPage extends ConsumerWidget {
                     constraints: const BoxConstraints(maxWidth: 400),
                     child: ListTile(
                       key: ValueKey(
-                          'chooseProperty-${reversePageNumberListMap[index]}'),
+                          'chooseProperty-${propertiesOrdering[index].toKebabCase()}'),
                       title: Text(
                         orderedDrawerList[index],
                         style: TextStyle(
@@ -150,7 +151,7 @@ class ChoosePropertyPage extends ConsumerWidget {
                         if (selectedProperty == null ||
                             selectedProperty != index) {
                           context.go(
-                            '/settings/reorder-units/${reversePageNumberListMap[index]}',
+                            '/settings/reorder-units/${propertiesOrdering[index].toKebabCase()}',
                           );
                         }
                       },

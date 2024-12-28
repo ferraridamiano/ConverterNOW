@@ -1,4 +1,5 @@
 import 'package:converterpro/models/order.dart';
+import 'package:converterpro/data/units_ordering.dart';
 import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/utils/property_unit_list.dart';
@@ -41,7 +42,8 @@ class ReorderPropertiesPage extends ConsumerWidget {
             propertyUiList: propertyUiList,
             onActionSelection: (String shortcutType) {
               final int index = int.parse(shortcutType);
-              context.go('/conversions/${reversePageNumberListMap[index]}');
+              context.go(
+                  '/conversions/${propertiesOrdering[index].toKebabCase()}');
             },
           );
         }
