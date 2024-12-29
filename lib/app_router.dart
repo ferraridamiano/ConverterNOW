@@ -47,8 +47,10 @@ final routerProvider = Provider<GoRouter>(
             path: '/conversions/:property',
             pageBuilder: (context, state) {
               final String property = state.pathParameters['property']!;
-              final pageNumber =
-                  reversedPropertiesOrdering[kebabStringToPropertyX(property)];
+              final pageNumber = ref
+                  .read(PropertiesOrderNotifier.provider)
+                  .value!
+                  .inverse()[kebabStringToPropertyX(property)];
               if (pageNumber == null) {
                 throw Exception('property not found: $property');
               } else {
@@ -75,8 +77,10 @@ final routerProvider = Provider<GoRouter>(
                     path: ':property',
                     builder: (context, state) {
                       final String property = state.pathParameters['property']!;
-                      final pageNumber = reversedPropertiesOrdering[
-                          kebabStringToPropertyX(property)];
+                      final pageNumber = ref
+                          .read(PropertiesOrderNotifier.provider)
+                          .value!
+                          .inverse()[kebabStringToPropertyX(property)];
                       if (pageNumber == null) {
                         throw Exception('property not found: $property');
                       } else {
@@ -109,9 +113,9 @@ final routerProvider = Provider<GoRouter>(
       // Bypass splashscreen if variables are already loaded
       if (state.uri.toString() == '/') {
         if (ref.read(isEverythingLoadedProvider)) {
-          final List<int> conversionsOrderDrawer =
+          final conversionsOrderDrawer =
               ref.read(PropertiesOrderNotifier.provider).value!;
-          return '/conversions/${propertiesOrdering[conversionsOrderDrawer.indexWhere((val) => val == 0)].toKebabCase()}';
+          return '/conversions/${conversionsOrderDrawer[0].toKebabCase()}';
         }
       }
       return null;

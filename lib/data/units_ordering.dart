@@ -21,7 +21,3 @@ const propertiesOrdering = [
   PROPERTYX.siPrefixes,
   PROPERTYX.torque,
 ];
-
-final reversedPropertiesOrdering = Map.fromEntries(
-  propertiesOrdering.indexed.map((e) => MapEntry(e.$2, e.$1)),
-);

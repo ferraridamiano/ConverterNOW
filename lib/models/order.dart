@@ -1,33 +1,50 @@
+import 'package:converterpro/data/units_ordering.dart';
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PropertiesOrderNotifier extends AsyncNotifier<List<int>> {
+class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
   static final provider =
-      AsyncNotifierProvider<PropertiesOrderNotifier, List<int>>(
+      AsyncNotifierProvider<PropertiesOrderNotifier, List<PROPERTYX>>(
           PropertiesOrderNotifier.new);
 
+  static const storeKey = 'propertiesOrder';
+
   @override
-  Future<List<int>> build() async {
-    List<int> temp = List.generate(PROPERTYX.values.length, (index) => index);
-    /*List<String>? stringList =
-        (await ref.read(sharedPref.future)).getStringList('orderDrawer');
-    if (stringList != null) {
-      final int len = stringList.length;
-      for (int i = 0; i < len; i++) {
-        temp[i] = int.parse(stringList[i]);
+  Future<List<PROPERTYX>> build() async {
+    List<String>? storedList =
+        (await ref.read(sharedPref.future)).getStringList(storeKey);
+    if (storedList != null) {
+      final newState = storedList
+          .map(
+            (storedString) => PROPERTYX.values.firstWhere(
+              (property) =>
+                  storedString ==
+                  property.toString().substring('PROPERTYX.'.length),
+            ),
+          )
+          .toList();
+      if (newState.length != propertiesOrdering.length) {
+        newState
+            .addAll(propertiesOrdering.toSet().difference(newState.toSet()));
       }
-      // If new units of measurement will be added, the following 2
-      // lines of code ensure that everything will works fine
-      for (int i = len; i < temp.length; i++) {
-        temp[i] = i;
-      }
-    }*/
-    return temp;
+      return newState;
+    }
+    return propertiesOrdering;
   }
 
   void set(List<int> newOrder) async {
+    final propertiesOrder = newOrder.map((e) => propertiesOrdering[e]).toList();
+    final listToStore = propertiesOrder
+        .map((e) => e.toString().substring('PROPERTYX.'.length))
+        .toList();
+    // Update the state
+    state = AsyncData(propertiesOrder);
+    // Store the new values
+    (await ref.read(sharedPref.future)).setStringList(storeKey, listToStore);
+
+    /*
     List<int> orderDrawer = List<int>.from(state.value!);
     List arrayCopy = List.filled(orderDrawer.length, null);
     for (int i = 0; i < orderDrawer.length; i++) {
@@ -43,8 +60,13 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<int>> {
       toConvertList.add(item.toString());
     }
     (await ref.read(sharedPref.future))
-        .setStringList('orderDrawer', toConvertList);
+        .setStringList('orderDrawer', toConvertList);*/
   }
+}
+
+extension ReversedPropertiesOrdering on List<PROPERTYX> {
+  Map<PROPERTYX, int> inverse() =>
+      Map.fromEntries(indexed.map((e) => MapEntry(e.$2, e.$1)));
 }
 
 class UnitsOrderNotifier extends AsyncNotifier<List<List<int>>> {

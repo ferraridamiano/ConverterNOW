@@ -2,7 +2,6 @@ import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:calculator_widget/calculator_widget.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/order.dart';
-import 'package:converterpro/data/units_ordering.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
@@ -32,12 +31,6 @@ class AppScaffold extends ConsumerWidget {
 
     void clearAll(bool isDrawerFixed) {
       final int page = 0;
-      reversedPropertiesOrdering[kebabStringToPropertyX(
-        GoRouterState.of(context)
-            .uri
-            .toString()
-            .substring('/conversions/'.length),
-      )];
       if (ref
           .read(ConversionsNotifier.provider.notifier)
           .shouldShowSnackbar(page)) {
@@ -63,16 +56,16 @@ class AppScaffold extends ConsumerWidget {
 
     void openSearch() {
       ref.read(PropertiesOrderNotifier.provider).whenData((orderList) async {
-        final int? newPage = await showSearch(
+        final PROPERTYX? selectedProperty = await showSearch(
           context: context,
           delegate: CustomSearchDelegate(orderList),
         );
-        if (newPage != null) {
+        if (selectedProperty != null) {
           final String targetPath =
-              '/conversions/${propertiesOrdering[newPage].toKebabCase()}';
-          // ignore: use_build_context_synchronously
-          if (GoRouterState.of(context).uri.toString() != targetPath) {
-            // ignore: use_build_context_synchronously
+              '/conversions/${selectedProperty.toKebabCase()}';
+
+          if (context.mounted &&
+              GoRouterState.of(context).uri.toString() != targetPath) {
             context.go(targetPath);
           }
         }

@@ -18,8 +18,7 @@ class ConversionPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
-    Map<PROPERTYX, String> propertyTranslationMap =
-        getPropertyTranslationMap(context);
+    final propertyUiMap = getPropertyUiMap(context);
 
     List<List<UnitData>>? unitsList =
         ref.watch(ConversionsNotifier.provider).valueOrNull;
@@ -105,7 +104,7 @@ class ConversionPage extends ConsumerWidget {
       final int numCols = responsiveNumCols(constraint.maxWidth);
       return CustomScrollView(slivers: <Widget>[
         SliverAppBar.large(
-          title: Text(propertyTranslationMap[currentProperty]!),
+          title: Text(propertyUiMap[currentProperty]!.name),
         ),
         if (subtitleWidget != null)
           SliverToBoxAdapter(

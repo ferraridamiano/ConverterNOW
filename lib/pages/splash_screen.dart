@@ -16,10 +16,9 @@ class SplashScreen extends ConsumerWidget {
     if (ref.watch(isEverythingLoadedProvider)) {
       final conversionsOrderDrawer =
           ref.read(PropertiesOrderNotifier.provider).value!;
-      List<PropertyUi> propertyUiList = getPropertyUiList(context);
       initializeQuickAction(
         conversionsOrderDrawer: conversionsOrderDrawer,
-        propertyUiList: propertyUiList,
+        propertyUiMap: getPropertyUiMap(context),
         onActionSelection: (String shortcutType) {
           final int index = int.parse(shortcutType);
           context.go('/conversions/${propertiesOrdering[index].toKebabCase()}');
@@ -28,7 +27,7 @@ class SplashScreen extends ConsumerWidget {
 
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => GoRouter.of(context).go(
-          '/conversions/${propertiesOrdering[conversionsOrderDrawer.indexWhere((val) => val == 0)].toKebabCase()}',
+          '/conversions/${conversionsOrderDrawer[0].toKebabCase()}',
         ),
       );
     }

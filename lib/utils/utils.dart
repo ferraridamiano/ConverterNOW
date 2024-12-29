@@ -89,15 +89,7 @@ enum PROPERTYX {
   volume,
 }
 
-class PropertyUi {
-  final PROPERTYX property;
-
-  /// human readable name
-  final String name;
-  final String imagePath;
-
-  PropertyUi(this.property, this.name, this.imagePath);
-}
+typedef PropertyUi = ({String name, String imagePath});
 
 class UnitUi {
   /// name of the unit
@@ -113,21 +105,23 @@ class UnitUi {
 
 void initializeQuickAction(
     {required void Function(String index) onActionSelection,
-    required List<int> conversionsOrderDrawer,
-    required List<PropertyUi> propertyUiList}) {
+    required List<PROPERTYX> conversionsOrderDrawer,
+    required Map<PROPERTYX, PropertyUi> propertyUiMap}) {
   // If it is not on a mobile device, return, otherwise set the quick actions
   final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
   if (!isMobileDevice) return;
   const QuickActions()
     ..initialize(onActionSelection)
-    ..setShortcutItems([1, 2, 3].map((e) {
-      final index = conversionsOrderDrawer.indexWhere((val) => val == e);
-      return ShortcutItem(
-        type: index.toString(),
-        localizedTitle: propertyUiList[index].name,
-        icon: 'launch_image',
-      );
-    }).toList());
+    ..setShortcutItems(
+      conversionsOrderDrawer
+          .take(3)
+          .map((e) => ShortcutItem(
+                type: e.toString(),
+                localizedTitle: propertyUiMap[e]!.name,
+                icon: 'launch_image',
+              ))
+          .toList(),
+    );
 }
 
 Color getIconColor(ThemeData theme) =>

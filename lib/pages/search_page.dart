@@ -1,10 +1,11 @@
 import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:translations/app_localizations.dart';
 
-class CustomSearchDelegate extends SearchDelegate<int> {
-  final List<int> orderList;
+class CustomSearchDelegate extends SearchDelegate<PROPERTYX> {
+  final List<PROPERTYX> orderList;
 
   CustomSearchDelegate(this.orderList);
 
@@ -17,7 +18,8 @@ class CustomSearchDelegate extends SearchDelegate<int> {
         progress: transitionAnimation,
       ),
       onPressed: () {
-        close(context, 0);
+        // TODO change to the first item
+        close(context, PROPERTYX.length);
       },
     );
   }
@@ -26,12 +28,12 @@ class CustomSearchDelegate extends SearchDelegate<int> {
   Widget buildSuggestions(BuildContext context) {
     final Brightness brightness = Theme.of(context).brightness;
 
-    final List<SearchUnit> dataSearch = getSearchUnitsList((int pageNumber) {
-      close(context, pageNumber);
+    final List<SearchUnit> dataSearch = getSearchUnitsList((PROPERTYX result) {
+      close(context, result);
     }, context);
     final List<SearchGridTile> allConversions = initializeGridSearch(
-      (int pageNumber) {
-        close(context, pageNumber);
+      (PROPERTYX result) {
+        close(context, result);
       },
       context,
       brightness == Brightness.dark,

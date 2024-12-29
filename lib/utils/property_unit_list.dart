@@ -6,58 +6,55 @@ import 'utils_widgets.dart';
 
 /// This will return the list of [PropertyUi], an objext that contains all the data regarding the displaying of the
 /// property all over the app. From this List depends also other functions.
-List<PropertyUi> getPropertyUiList(BuildContext context) {
+Map<PROPERTYX, PropertyUi> getPropertyUiMap(BuildContext context) {
   const String basePath = 'assets/property_icons';
   var l10n = AppLocalizations.of(context)!;
   //The order is important!
-  return [
-    PropertyUi(PROPERTYX.length, l10n.length, '$basePath/length.svg'),
-    PropertyUi(PROPERTYX.area, l10n.area, '$basePath/area.svg'),
-    PropertyUi(PROPERTYX.volume, l10n.volume, '$basePath/volume.svg'),
-    PropertyUi(
-        PROPERTYX.currencies, l10n.currencies, '$basePath/currencies.svg'),
-    PropertyUi(PROPERTYX.time, l10n.time, '$basePath/time.svg'),
-    PropertyUi(
-        PROPERTYX.temperature, l10n.temperature, '$basePath/temperature.svg'),
-    PropertyUi(PROPERTYX.speed, l10n.speed, '$basePath/speed.svg'),
-    PropertyUi(PROPERTYX.mass, l10n.mass, '$basePath/mass.svg'),
-    PropertyUi(PROPERTYX.force, l10n.force, '$basePath/force.svg'),
-    PropertyUi(
-        PROPERTYX.fuelConsumption, l10n.fuelConsumption, '$basePath/fuel.svg'),
-    PropertyUi(PROPERTYX.numeralSystems, l10n.numeralSystems,
-        '$basePath/numeral_systems.svg'),
-    PropertyUi(PROPERTYX.pressure, l10n.pressure, '$basePath/pressure.svg'),
-    PropertyUi(PROPERTYX.energy, l10n.energy, '$basePath/energy.svg'),
-    PropertyUi(PROPERTYX.power, l10n.power, '$basePath/power.svg'),
-    PropertyUi(PROPERTYX.angle, l10n.angles, '$basePath/angle.svg'),
-    PropertyUi(PROPERTYX.shoeSize, l10n.shoeSize, '$basePath/shoe_size.svg'),
-    PropertyUi(PROPERTYX.digitalData, l10n.digitalData, '$basePath/data.svg'),
-    PropertyUi(
-        PROPERTYX.siPrefixes, l10n.siPrefixes, '$basePath/si_prefixes.svg'),
-    PropertyUi(PROPERTYX.torque, l10n.torque, '$basePath/torque.svg')
-  ];
-}
-
-/// This method will return a map of Property name translated:
-/// {PROPERTYX.LENGTH: 'Length', ...}
-Map<PROPERTYX, String> getPropertyTranslationMap(BuildContext context) {
-  List<PropertyUi> propertyUiList = getPropertyUiList(context);
-  Map<PROPERTYX, String> propertyTranslationMap = {};
-
-  for (PropertyUi propertyUi in propertyUiList) {
-    propertyTranslationMap.putIfAbsent(
-      propertyUi.property,
-      () => propertyUi.name,
-    );
-  }
-
-  return propertyTranslationMap;
-}
-
-/// This method will return the list of Property name translated: ['Length',
-/// 'Area', 'Volume', ...]
-List<String> getPropertyNameList(BuildContext context) {
-  return getPropertyTranslationMap(context).values.toList();
+  return {
+    PROPERTYX.length: (name: l10n.length, imagePath: '$basePath/length.svg'),
+    PROPERTYX.area: (name: l10n.area, imagePath: '$basePath/area.svg'),
+    PROPERTYX.volume: (name: l10n.volume, imagePath: '$basePath/volume.svg'),
+    PROPERTYX.currencies: (
+      name: l10n.currencies,
+      imagePath: '$basePath/currencies.svg'
+    ),
+    PROPERTYX.time: (name: l10n.time, imagePath: '$basePath/time.svg'),
+    PROPERTYX.temperature: (
+      name: l10n.temperature,
+      imagePath: '$basePath/temperature.svg'
+    ),
+    PROPERTYX.speed: (name: l10n.speed, imagePath: '$basePath/speed.svg'),
+    PROPERTYX.mass: (name: l10n.mass, imagePath: '$basePath/mass.svg'),
+    PROPERTYX.force: (name: l10n.force, imagePath: '$basePath/force.svg'),
+    PROPERTYX.fuelConsumption: (
+      name: l10n.fuelConsumption,
+      imagePath: '$basePath/fuel.svg'
+    ),
+    PROPERTYX.numeralSystems: (
+      name: l10n.numeralSystems,
+      imagePath: '$basePath/numeral_systems.svg'
+    ),
+    PROPERTYX.pressure: (
+      name: l10n.pressure,
+      imagePath: '$basePath/pressure.svg'
+    ),
+    PROPERTYX.energy: (name: l10n.energy, imagePath: '$basePath/energy.svg'),
+    PROPERTYX.power: (name: l10n.power, imagePath: '$basePath/power.svg'),
+    PROPERTYX.angle: (name: l10n.angles, imagePath: '$basePath/angle.svg'),
+    PROPERTYX.shoeSize: (
+      name: l10n.shoeSize,
+      imagePath: '$basePath/shoe_size.svg'
+    ),
+    PROPERTYX.digitalData: (
+      name: l10n.digitalData,
+      imagePath: '$basePath/data.svg'
+    ),
+    PROPERTYX.siPrefixes: (
+      name: l10n.siPrefixes,
+      imagePath: '$basePath/si_prefixes.svg'
+    ),
+    PROPERTYX.torque: (name: l10n.torque, imagePath: '$basePath/torque.svg')
+  };
 }
 
 /// This will return the list of [UnitUi], an objext that contains all the data
@@ -466,73 +463,55 @@ Map<dynamic, String> getUnitTranslationMap(BuildContext context) {
 }
 
 /// This method will return a List of [SearchUnit], needed in order to display the tiles in the search
-List<SearchUnit> getSearchUnitsList(Function onTap, BuildContext context) {
+List<SearchUnit> getSearchUnitsList(
+    void Function(PROPERTYX) onTap, BuildContext context) {
   List<SearchUnit> searchUnitsList = [];
   List<UnitUi> unitUiList = getUnitUiList(context);
-  List<PropertyUi> propertyUiList = getPropertyUiList(context);
+  final propertyUiMap = getPropertyUiMap(context);
 
-  int propertyNumber = 0;
+  // int propertyNumber = 0;
   PROPERTYX previousProperty = PROPERTYX.length;
 
-  // Add units in searhc
+  // Add units in search
   for (UnitUi unitUi in unitUiList) {
     if (previousProperty != unitUi.property) {
-      propertyNumber++;
+      // propertyNumber++;
       previousProperty = unitUi.property;
     }
-    int currentNumber = propertyNumber;
     searchUnitsList.add(SearchUnit(
       iconAsset: unitUi.imagePath,
       unitName: unitUi.name,
       onTap: () {
-        onTap(currentNumber);
+        // TODO
+        onTap(PROPERTYX.length);
       },
     ));
   }
 
   // Add properties in search
-  propertyNumber = 0;
-  for (PropertyUi properrtyUi in propertyUiList) {
-    int currentNumber = propertyNumber;
+  for (final property in propertyUiMap.entries) {
+    final propertyUi = property.value;
     searchUnitsList.add(SearchUnit(
-      iconAsset: properrtyUi.imagePath,
-      unitName: properrtyUi.name,
-      onTap: () {
-        onTap(currentNumber);
-      },
+      iconAsset: propertyUi.imagePath,
+      unitName: propertyUi.name,
+      onTap: () => onTap(property.key),
     ));
-    propertyNumber++;
   }
 
   return searchUnitsList;
 }
 
 /// This method will return a List of [SearchGridTile], needed in order to display the gridtiles in the search
-List<SearchGridTile> initializeGridSearch(
-    Function onTap, BuildContext context, bool darkMode, List<int> orderList) {
-  List<PropertyUi> propertyUiList = getPropertyUiList(context);
-  final int propertyCount = propertyUiList.length;
-  List<SearchGridTile> searchGridTileList = List.filled(
-    propertyCount,
-    SearchGridTile(
-      iconAsset: 'assets/app_icons/logo.svg',
-      darkMode: darkMode,
-      footer: 'None',
-      onTap: () {},
-    ),
-  );
-
-  for (int i = 0; i < propertyCount; i++) {
-    PropertyUi propertyUi = propertyUiList[i];
-    searchGridTileList[orderList[i]] = SearchGridTile(
+List<SearchGridTile> initializeGridSearch(void Function(PROPERTYX) onTap,
+    BuildContext context, bool darkMode, List<PROPERTYX> orderList) {
+  final propertyUiMap = getPropertyUiMap(context);
+  return orderList.map((e) {
+    final propertyUi = propertyUiMap[e]!;
+    return SearchGridTile(
       iconAsset: propertyUi.imagePath,
       footer: propertyUi.name,
-      onTap: () {
-        onTap(i);
-      },
+      onTap: () => onTap(e),
       darkMode: darkMode,
     );
-  }
-
-  return searchGridTileList;
+  }).toList();
 }

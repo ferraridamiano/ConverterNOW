@@ -35,19 +35,16 @@ class ChoosePropertyPage extends ConsumerWidget {
     List<String> listUnitsNames = [];
     List<UnitData> selectedUnitDataList = [];
     // Read the order of the properties in the drawer
-    List<int>? conversionsOrderDrawer =
+    List<PROPERTYX>? conversionsOrderDrawer =
         ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();
     }
 
-    List<String> propertyNameList = getPropertyNameList(context);
+    final propertyUiMap = getPropertyUiMap(context);
     List<String> orderedDrawerList =
-        List.filled(conversionsOrderDrawer.length, "");
-    for (int i = 0; i < conversionsOrderDrawer.length; i++) {
-      orderedDrawerList[conversionsOrderDrawer[i]] = propertyNameList[i];
-    }
+        conversionsOrderDrawer.map((e) => propertyUiMap[e]!.name).toList();
 
     final Map<dynamic, String> unitTranslationMap =
         getUnitTranslationMap(context);
