@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:converterpro/data/units_ordering.dart';
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
@@ -18,16 +19,20 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
     if (storedList != null) {
       final newState = storedList
           .map(
-            (storedString) => PROPERTYX.values.firstWhere(
+            (storedString) => PROPERTYX.values.firstWhereOrNull(
               (property) =>
                   storedString ==
                   property.toString().substring('PROPERTYX.'.length),
             ),
           )
+          .nonNulls
           .toList();
+      // If there are different properties in the two lists
       if (newState.length != propertiesOrdering.length) {
         newState
             .addAll(propertiesOrdering.toSet().difference(newState.toSet()));
+        (await ref.read(sharedPref.future))
+            .setStringList(storeKey, _toStorableString(newState));
       }
       return newState;
     }
@@ -36,32 +41,16 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
 
   void set(List<int> newOrder) async {
     final propertiesOrder = newOrder.map((e) => propertiesOrdering[e]).toList();
-    final listToStore = propertiesOrder
-        .map((e) => e.toString().substring('PROPERTYX.'.length))
-        .toList();
     // Update the state
     state = AsyncData(propertiesOrder);
     // Store the new values
-    (await ref.read(sharedPref.future)).setStringList(storeKey, listToStore);
-
-    /*
-    List<int> orderDrawer = List<int>.from(state.value!);
-    List arrayCopy = List.filled(orderDrawer.length, null);
-    for (int i = 0; i < orderDrawer.length; i++) {
-      arrayCopy[i] = orderDrawer[i];
-    }
-    for (int i = 0; i < orderDrawer.length; i++) {
-      orderDrawer[i] = newOrder.indexOf(arrayCopy[i]);
-    }
-    state = AsyncData(orderDrawer);
-    // Save new orders to storage
-    List<String> toConvertList = [];
-    for (int item in orderDrawer) {
-      toConvertList.add(item.toString());
-    }
     (await ref.read(sharedPref.future))
-        .setStringList('orderDrawer', toConvertList);*/
+        .setStringList(storeKey, _toStorableString(propertiesOrder));
   }
+
+  List<String> _toStorableString(List<PROPERTYX> listToConvert) => listToConvert
+      .map((e) => e.toString().substring('PROPERTYX.'.length))
+      .toList();
 }
 
 extension ReversedPropertiesOrdering on List<PROPERTYX> {

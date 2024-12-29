@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  # Various collection utilities
+  collection: ^1.19.0
   # App dynamic color theme
   dynamic_color: ^1.7.0
   # State management
