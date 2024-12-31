@@ -150,9 +150,9 @@ void main() {
       // At the beginning the ordering is Meters, Centimeters, Inches, ...
       expect(
         tester.getCenter(find.text('Meters')).dy <
-                tester.getCenter(find.text('Centimeters')).dy &&
-            tester.getCenter(find.text('Centimeters')).dy <
-                tester.getCenter(find.text('Inches')).dy,
+                tester.getCenter(find.text('Feet')).dy &&
+            tester.getCenter(find.text('Yards')).dy <
+                tester.getCenter(find.text('Kilometers')).dy,
         true,
         reason: 'Initial ordering of length units is not what expected',
       );
@@ -160,10 +160,18 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
       await tester.pumpAndSettle();
 
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('reorder-units')),
+        300,
+        scrollable: find.byType(Scrollable).at(1),
+        maxScrolls: 2,
+      );
+
       await tester.tap(find.byKey(const ValueKey('reorder-units')));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const ValueKey('chooseProperty-length')));
+      await tester
+          .tap(find.byKey(const ValueKey('chooseProperty-PROPERTYX.length')));
       await tester.pumpAndSettle();
 
       final xDragHadle =
@@ -172,14 +180,14 @@ void main() {
       await dragGesture(
         tester,
         Offset(xDragHadle, tester.getCenter(find.text('Meters')).dy),
-        Offset(xDragHadle, tester.getCenter(find.text('Feet')).dy),
+        Offset(xDragHadle, tester.getCenter(find.text('Yards')).dy),
       );
       await tester.pumpAndSettle();
 
       await dragGesture(
         tester,
-        Offset(xDragHadle, tester.getCenter(find.text('Inches')).dy),
-        Offset(xDragHadle, tester.getCenter(find.text('Centimeters')).dy),
+        Offset(xDragHadle, tester.getCenter(find.text('Kilometers')).dy),
+        Offset(xDragHadle, tester.getCenter(find.text('Feet')).dy),
       );
       await tester.pumpAndSettle();
 
@@ -191,10 +199,10 @@ void main() {
 
       // Now the ordering should be Inches, Centimeters, Meters, ...
       expect(
-        tester.getCenter(find.text('Meters')).dy >
-                tester.getCenter(find.text('Centimeters')).dy &&
-            tester.getCenter(find.text('Centimeters')).dy >
-                tester.getCenter(find.text('Inches')).dy,
+        tester.getCenter(find.text('Kilometers')).dy <
+                tester.getCenter(find.text('Feet')).dy &&
+            tester.getCenter(find.text('Feet')).dy <
+                tester.getCenter(find.text('Meters')).dy,
         true,
         reason: 'Final ordering of length units is not what expected',
       );

@@ -123,7 +123,7 @@ class ChoosePropertyPage extends ConsumerWidget {
                       constraints: const BoxConstraints(maxWidth: 400),
                       child: ListTile(
                         key: ValueKey(
-                            'chooseProperty-${conversionsOrderDrawer[index].toKebabCase()}'),
+                            'chooseProperty-${conversionsOrderDrawer[index]}'),
                         title: Text(
                           orderedDrawerList[index],
                           style: TextStyle(

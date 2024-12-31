@@ -171,7 +171,8 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('reorder-units')));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const ValueKey('chooseProperty-length')));
+      await tester
+          .tap(find.byKey(const ValueKey('chooseProperty-PROPERTYX.length')));
       await tester.pumpAndSettle();
 
       final xDragHadle =
@@ -186,8 +187,8 @@ void main() {
 
       await dragGesture(
         tester,
-        Offset(xDragHadle, tester.getCenter(find.text('Inches')).dy),
-        Offset(xDragHadle, tester.getCenter(find.text('Centimeters')).dy),
+        Offset(xDragHadle, tester.getCenter(find.text('Kilometers')).dy),
+        Offset(xDragHadle, tester.getCenter(find.text('Meters')).dy),
       );
       await tester.pumpAndSettle();
 
