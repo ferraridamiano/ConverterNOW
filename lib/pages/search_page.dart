@@ -4,7 +4,7 @@ import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:translations/app_localizations.dart';
 
-class CustomSearchDelegate extends SearchDelegate<PROPERTYX> {
+class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
   final List<PROPERTYX> orderList;
 
   CustomSearchDelegate(this.orderList);
@@ -18,8 +18,7 @@ class CustomSearchDelegate extends SearchDelegate<PROPERTYX> {
         progress: transitionAnimation,
       ),
       onPressed: () {
-        // TODO change to the first item
-        close(context, PROPERTYX.length);
+        close(context, null);
       },
     );
   }

@@ -61,7 +61,7 @@ class AppScaffold extends ConsumerWidget {
 
     void openSearch() {
       ref.read(PropertiesOrderNotifier.provider).whenData((orderList) async {
-        final PROPERTYX? selectedProperty = await showSearch(
+        final selectedProperty = await showSearch<PROPERTYX?>(
           context: context,
           delegate: CustomSearchDelegate(orderList),
         );
