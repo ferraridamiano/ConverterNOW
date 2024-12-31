@@ -1,6 +1,5 @@
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/order.dart';
-import 'package:converterpro/data/default_order.dart';
 import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/styles/consts.dart';
@@ -32,7 +31,7 @@ class ChoosePropertyPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Read the order of the properties in the drawer
-    List<PROPERTYX>? conversionsOrderDrawer =
+    final conversionsOrderDrawer =
         ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
 
     if (conversionsOrderDrawer == null) {
@@ -45,6 +44,9 @@ class ChoosePropertyPage extends ConsumerWidget {
 
     Widget? reorderPage;
     if (selectedProperty != null) {
+      final unitUiMap = getUnitUiMap(context);
+      final conversionOrderUnits =
+          ref.watch(UnitsOrderNotifier.provider).value![selectedProperty]!;
       // if we remove the following check, if you enter the site directly to
       // '/conversions/:property' an error will occur
       if (!ref.watch(isEverythingLoadedProvider)) {
@@ -52,8 +54,9 @@ class ChoosePropertyPage extends ConsumerWidget {
       }
       reorderPage = ReorderPage(
         key: Key(selectedProperty.toString()),
-        // TODO reorder the items
-        itemsList: getUnitUiMap(context)[selectedProperty]!.values.toList(),
+        itemsList: conversionOrderUnits
+            .map((e) => unitUiMap[selectedProperty]![e]!)
+            .toList(),
         onSave: (List<int>? orderList) {
           ref.read(UnitsOrderNotifier.provider.notifier).set(
                 orderList,
@@ -117,7 +120,7 @@ class ChoosePropertyPage extends ConsumerWidget {
                     constraints: const BoxConstraints(maxWidth: 400),
                     child: ListTile(
                       key: ValueKey(
-                          'chooseProperty-${defaultPropertiesOrder[index].toKebabCase()}'),
+                          'chooseProperty-${conversionsOrderDrawer[index].toKebabCase()}'),
                       title: Text(
                         orderedDrawerList[index],
                         style: TextStyle(
@@ -134,7 +137,7 @@ class ChoosePropertyPage extends ConsumerWidget {
                         if (selectedProperty == null ||
                             selectedProperty != index) {
                           context.go(
-                            '/settings/reorder-units/${defaultPropertiesOrder[index].toKebabCase()}',
+                            '/settings/reorder-units/${conversionsOrderDrawer[index].toKebabCase()}',
                           );
                         }
                       },

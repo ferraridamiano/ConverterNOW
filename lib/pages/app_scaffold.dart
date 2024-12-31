@@ -30,8 +30,10 @@ class AppScaffold extends ConsumerWidget {
     }
 
     void clearAll(bool isDrawerFixed) {
-      // TODO
-      final currentProperty = PROPERTYX.length;
+      final currentProperty = kebabStringToPropertyX(GoRouterState.of(context)
+          .uri
+          .toString()
+          .substring('/conversions/'.length));
       if (ref
           .read(ConversionsNotifier.provider.notifier)
           .shouldShowSnackbar(currentProperty)) {
