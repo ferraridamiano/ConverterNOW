@@ -26,7 +26,7 @@ final isEverythingLoadedProvider = Provider<bool>((ref) =>
     ref.watch(CurrentLocale.provider).hasValue &&
     ref.watch(PropertiesOrderNotifier.provider).hasValue &&
     ref.watch(UnitsOrderNotifier.provider).hasValue &&
-    ref.watch(propertiesListProvider).hasValue);
+    ref.watch(propertiesMapProvider).hasValue);
 
 final routerProvider = Provider<GoRouter>(
   (ref) => GoRouter(
@@ -46,15 +46,8 @@ final routerProvider = Provider<GoRouter>(
             path: '/conversions/:property',
             pageBuilder: (context, state) {
               final String property = state.pathParameters['property']!;
-              final pageNumber = ref
-                  .read(PropertiesOrderNotifier.provider)
-                  .value!
-                  .inverse()[kebabStringToPropertyX(property)];
-              if (pageNumber == null) {
-                throw Exception('property not found: $property');
-              } else {
-                return NoTransitionPage(child: ConversionPage(pageNumber));
-              }
+              final propertyx = kebabStringToPropertyX(property);
+              return NoTransitionPage(child: ConversionPage(propertyx));
             },
           ),
           GoRoute(
@@ -76,18 +69,11 @@ final routerProvider = Provider<GoRouter>(
                     path: ':property',
                     builder: (context, state) {
                       final String property = state.pathParameters['property']!;
-                      final pageNumber = ref
-                          .read(PropertiesOrderNotifier.provider)
-                          .value!
-                          .inverse()[kebabStringToPropertyX(property)];
-                      if (pageNumber == null) {
-                        throw Exception('property not found: $property');
-                      } else {
-                        return ChoosePropertyPage(
-                          selectedProperty: pageNumber,
-                          isPropertySelected: true,
-                        );
-                      }
+                      final propertyx = kebabStringToPropertyX(property);
+                      return ChoosePropertyPage(
+                        selectedProperty: propertyx,
+                        isPropertySelected: true,
+                      );
                     },
                   ),
                 ],

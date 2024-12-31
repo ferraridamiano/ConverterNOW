@@ -1,7 +1,6 @@
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/data/default_order.dart';
-import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/styles/consts.dart';
@@ -15,7 +14,7 @@ import 'package:go_router/go_router.dart';
 
 class ChoosePropertyPage extends ConsumerWidget {
   /// The index of the property the user tap. null means not yet selected.
-  final int? selectedProperty;
+  final PROPERTYX? selectedProperty;
 
   /// If `isDrawerFixed=false` then this variable is used to transition from the
   /// "Choose property page" to the "Reorder units" page
@@ -51,22 +50,19 @@ class ChoosePropertyPage extends ConsumerWidget {
       if (!ref.watch(isEverythingLoadedProvider)) {
         return const SplashScreenWidget();
       }
-      final currentProperty =
-          ref.read(propertiesListProvider).valueOrNull?[selectedProperty!].name;
       reorderPage = ReorderPage(
-        key: Key(currentProperty.toString()),
+        key: Key(selectedProperty.toString()),
         // TODO reorder the items
-        itemsList: getUnitUiMap(context)[currentProperty]!.values.toList(),
+        itemsList: getUnitUiMap(context)[selectedProperty]!.values.toList(),
         onSave: (List<int>? orderList) {
           ref.read(UnitsOrderNotifier.provider.notifier).set(
                 orderList,
-                conversionsOrderDrawer
-                    .indexWhere((index) => index == selectedProperty),
+                selectedProperty!,
               );
           context.goNamed('settings');
         },
         title: AppLocalizations.of(context)!
-            .reorderProperty(orderedDrawerList[selectedProperty!]),
+            .reorderProperty(propertyUiMap[selectedProperty]!.name),
       );
     }
 

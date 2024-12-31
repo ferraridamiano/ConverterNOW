@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:converterpro/data/default_order.dart';
-import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +18,7 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
     if (storedList != null) {
       final newState = storedList
           .map(
-            (storedString) => PROPERTYX.values.firstWhereOrNull(
+            (storedString) => defaultPropertiesOrder.firstWhereOrNull(
               (property) =>
                   storedString ==
                   property.toString().substring('PROPERTYX.'.length),
@@ -59,75 +58,68 @@ extension ReversedPropertiesOrdering on List<PROPERTYX> {
       Map.fromEntries(indexed.map((e) => MapEntry(e.$2, e.$1)));
 }
 
-class UnitsOrderNotifier extends AsyncNotifier<List<List<int>>> {
+class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
   static final provider =
-      AsyncNotifierProvider<UnitsOrderNotifier, List<List<int>>>(
+      AsyncNotifierProvider<UnitsOrderNotifier, Map<PROPERTYX, List>>(
           UnitsOrderNotifier.new);
 
   @override
-  Future<List<List<int>>> build() async {
-    // Initialize the order for each property to default:
-    // [0,1,2,...,size(property)]
-    var propertyList = await ref.read(propertiesListProvider.future);
-    List<List<int>> temp = [];
-    for (var property in propertyList) {
-      temp.add(List.generate(property.size, (index) => index));
-    }
-
+  Future<Map<PROPERTYX, List>> build() async {
     var prefs = await ref.read(sharedPref.future);
-    List<String>? stringList;
-    // Update every order of every conversion
-    for (int i = 0; i < propertyList.length; i++) {
-      stringList = prefs.getStringList('conversion_$i');
-      if (stringList != null) {
-        // If some units has been removed, adapt the reordering and save it.
-        // It is triggered just the first time after an update
-        if (propertyList[i].size < stringList.length) {
-          stringList.removeWhere(
-              (element) => int.tryParse(element)! >= propertyList[i].size);
-          prefs.setStringList('conversion_$i', stringList);
-        }
 
-        final int len = stringList.length;
-        List<int> intList = [];
-        for (int j = 0; j < len; j++) {
-          intList.add(int.parse(stringList[j]));
+    final Map<PROPERTYX, List> newState = {};
+
+    for (final property in defaultPropertiesOrder) {
+      final storedList = prefs.getStringList(_storeKey(property));
+      final defaultOrder = defaultUnitsOrder[property]!;
+      if (storedList == null) {
+        newState[property] = defaultOrder;
+      } else {
+        final storedOrder = storedList
+            .map(
+              (storedString) => defaultOrder.firstWhereOrNull(
+                (unit) => storedString == unit.toString(),
+              ),
+            )
+            .nonNulls
+            .cast()
+            .toList();
+        // Add missing units
+        if (storedOrder.length != defaultOrder.length) {
+          storedOrder
+              .addAll(defaultOrder.toSet().difference(storedOrder.toSet()));
+          (await ref.read(sharedPref.future)).setStringList(
+              _storeKey(property), _toStorableString(storedOrder));
         }
-        // solves the problem of adding new units after an update
-        for (int j = len; j < temp[i].length; j++) {
-          intList.add(j);
-        }
-        temp[i] = intList;
+        newState[property] = storedOrder;
       }
     }
-    return temp;
+    return newState;
   }
 
-  void set(List<int>? newOrder, int pageNumber) async {
-    assert(newOrder == null
-        ? true
-        : newOrder.length == state.value![pageNumber].length);
+  void set(List<int>? newOrder, PROPERTYX property) async {
+    assert(
+      newOrder!.length == state.value![property]!.length,
+      'The size of the order list is not correct',
+    );
     // if there aren't any changes, do nothing
     if (newOrder != null) {
-      List<int?> arrayCopy = List.filled(state.value![pageNumber].length, null);
-      for (int i = 0; i < state.value![pageNumber].length; i++) {
-        arrayCopy[i] = state.value![pageNumber][i];
-      }
-      var stateCopy = _copyState();
-      for (int i = 0; i < state.value![pageNumber].length; i++) {
-        stateCopy[pageNumber][i] = newOrder.indexOf(arrayCopy[i]!);
-      }
-      state = AsyncData(stateCopy);
-      // Save to storage
-      List<String> toConvertList = [];
-      for (int item in stateCopy[pageNumber]) {
-        toConvertList.add(item.toString());
-      }
+      final defaultUnitsOrderProperty = defaultUnitsOrder[property]!;
+      final unitsOrder =
+          newOrder.map((e) => defaultUnitsOrderProperty[e]).toList();
+      // Update the state
+      final newState = {...state.value!};
+      newState[property] = unitsOrder;
+      state = AsyncData(newState);
+      // Store the new values
       (await ref.read(sharedPref.future))
-          .setStringList("conversion_$pageNumber", toConvertList);
+          .setStringList(_storeKey(property), _toStorableString(unitsOrder));
     }
   }
 
-  List<List<int>> _copyState() =>
-      state.value!.map((subList) => List<int>.from(subList)).toList();
+  String _storeKey(PROPERTYX property) =>
+      'unitsOrder_${property.toString().substring('PROPERTYX.'.length)}';
+
+  List<String> _toStorableString(List listToConvert) =>
+      listToConvert.map((e) => e.toString()).toList();
 }

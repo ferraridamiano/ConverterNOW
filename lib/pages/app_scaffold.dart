@@ -30,11 +30,14 @@ class AppScaffold extends ConsumerWidget {
     }
 
     void clearAll(bool isDrawerFixed) {
-      final int page = 0;
+      // TODO
+      final currentProperty = PROPERTYX.length;
       if (ref
           .read(ConversionsNotifier.provider.notifier)
-          .shouldShowSnackbar(page)) {
-        ref.read(ConversionsNotifier.provider.notifier).clearAllValues(page);
+          .shouldShowSnackbar(currentProperty)) {
+        ref
+            .read(ConversionsNotifier.provider.notifier)
+            .clearAllValues(currentProperty);
         //Snackbar undo request
         final SnackBar snackBar = SnackBar(
           content: Text(AppLocalizations.of(context)!.undoClearAllMessage),
