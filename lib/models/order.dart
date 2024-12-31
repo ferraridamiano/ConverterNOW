@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:converterpro/data/units_ordering.dart';
+import 'package:converterpro/data/default_order.dart';
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/utils.dart';
@@ -28,19 +28,20 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
           .nonNulls
           .toList();
       // If there are different properties in the two lists
-      if (newState.length != propertiesOrdering.length) {
-        newState
-            .addAll(propertiesOrdering.toSet().difference(newState.toSet()));
+      if (newState.length != defaultPropertiesOrder.length) {
+        newState.addAll(
+            defaultPropertiesOrder.toSet().difference(newState.toSet()));
         (await ref.read(sharedPref.future))
             .setStringList(storeKey, _toStorableString(newState));
       }
       return newState;
     }
-    return propertiesOrdering;
+    return defaultPropertiesOrder;
   }
 
   void set(List<int> newOrder) async {
-    final propertiesOrder = newOrder.map((e) => propertiesOrdering[e]).toList();
+    final propertiesOrder =
+        newOrder.map((e) => defaultPropertiesOrder[e]).toList();
     // Update the state
     state = AsyncData(propertiesOrder);
     // Store the new values

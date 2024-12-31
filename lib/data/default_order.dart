@@ -1,7 +1,7 @@
 import 'package:converterpro/utils/utils.dart';
 import 'package:units_converter/units_converter.dart';
 
-const propertiesOrdering = [
+const defaultPropertiesOrder = [
   PROPERTYX.length,
   PROPERTYX.area,
   PROPERTYX.volume,
@@ -23,7 +23,7 @@ const propertiesOrdering = [
   PROPERTYX.torque,
 ];
 
-const Map<PROPERTYX, List<dynamic>> unitsOrder = {
+const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
   PROPERTYX.length: [
     LENGTH.meters,
     LENGTH.feet,
