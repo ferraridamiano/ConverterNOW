@@ -1,5 +1,4 @@
 import 'package:converterpro/models/order.dart';
-import 'package:converterpro/data/units_ordering.dart';
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/pages/conversion_page.dart';

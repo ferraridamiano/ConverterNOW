@@ -147,7 +147,7 @@ class CustomDrawer extends ConsumerWidget {
       selectedIndex: pathToNavigationIndex(
         context,
         isDrawerFixed,
-        propertiesOrdering!.inverse(),
+        propertiesOrdering.inverse(),
       ),
       onDestinationSelected: (int selectedPage) {
         if (selectedPage >= headerElements) {
