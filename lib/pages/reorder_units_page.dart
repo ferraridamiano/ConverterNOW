@@ -83,69 +83,71 @@ class ChoosePropertyPage extends ConsumerWidget {
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            (context, index) => Stack(
-              children: [
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    final offsetAnimation = Tween<Offset>(
-                      begin: const Offset(-1.0, 0.0),
-                      end: const Offset(0.0, 0.0),
-                    ).animate(animation);
-                    return SlideTransition(
-                      position: offsetAnimation,
-                      child: child,
-                    );
-                  },
-                  child: Padding(
-                    key: Key(
-                        '${orderedDrawerList[index]}-${(selectedProperty == index).toString()}'),
+            (context, index) {
+              final isSelectedProperty =
+                  conversionsOrderDrawer[index] == selectedProperty;
+              return Stack(
+                children: [
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                      final offsetAnimation = Tween<Offset>(
+                        begin: const Offset(-1.0, 0.0),
+                        end: const Offset(0.0, 0.0),
+                      ).animate(animation);
+                      return SlideTransition(
+                        position: offsetAnimation,
+                        child: child,
+                      );
+                    },
+                    child: Padding(
+                      key: Key(
+                          '${orderedDrawerList[index]}-$isSelectedProperty'),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Container(
+                        constraints: const BoxConstraints(maxWidth: 400),
+                        decoration: isSelectedProperty
+                            ? BoxDecoration(
+                                color: selectedListTileColor,
+                                borderRadius: borderRadius,
+                              )
+                            : null,
+                        child: const ListTile(),
+                      ),
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
                       constraints: const BoxConstraints(maxWidth: 400),
-                      decoration: selectedProperty == index
-                          ? BoxDecoration(
-                              color: selectedListTileColor,
-                              borderRadius: borderRadius,
-                            )
-                          : null,
-                      child: const ListTile(),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 400),
-                    child: ListTile(
-                      key: ValueKey(
-                          'chooseProperty-${conversionsOrderDrawer[index].toKebabCase()}'),
-                      title: Text(
-                        orderedDrawerList[index],
-                        style: TextStyle(
+                      child: ListTile(
+                        key: ValueKey(
+                            'chooseProperty-${conversionsOrderDrawer[index].toKebabCase()}'),
+                        title: Text(
+                          orderedDrawerList[index],
+                          style: TextStyle(
                             fontSize: singlePageTextSize,
-                            color: selectedProperty == index
+                            color: isSelectedProperty
                                 ? Theme.of(context)
                                     .colorScheme
                                     .onPrimaryContainer
-                                : null),
-                      ),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: borderRadius),
-                      onTap: () {
-                        if (selectedProperty == null ||
-                            selectedProperty != index) {
+                                : null,
+                          ),
+                        ),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: borderRadius),
+                        onTap: () {
                           context.go(
                             '/settings/reorder-units/${conversionsOrderDrawer[index].toKebabCase()}',
                           );
-                        }
-                      },
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              );
+            },
             childCount: orderedDrawerList.length,
           ),
         )
