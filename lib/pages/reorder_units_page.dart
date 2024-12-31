@@ -1,7 +1,7 @@
 import 'package:converterpro/app_router.dart';
-import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/data/units_ordering.dart';
+import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/styles/consts.dart';
@@ -32,8 +32,6 @@ class ChoosePropertyPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<String> listUnitsNames = [];
-    List<UnitData> selectedUnitDataList = [];
     // Read the order of the properties in the drawer
     List<PROPERTYX>? conversionsOrderDrawer =
         ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
@@ -46,8 +44,6 @@ class ChoosePropertyPage extends ConsumerWidget {
     List<String> orderedDrawerList =
         conversionsOrderDrawer.map((e) => propertyUiMap[e]!.name).toList();
 
-    final Map<dynamic, String> unitTranslationMap =
-        getUnitTranslationMap(context);
     Widget? reorderPage;
     if (selectedProperty != null) {
       // if we remove the following check, if you enter the site directly to
@@ -55,18 +51,12 @@ class ChoosePropertyPage extends ConsumerWidget {
       if (!ref.watch(isEverythingLoadedProvider)) {
         return const SplashScreenWidget();
       }
-
-      selectedUnitDataList = ref
-          .read(ConversionsNotifier.provider.notifier)
-          .getUnitDataListAtPage(conversionsOrderDrawer
-              .indexWhere((index) => index == selectedProperty));
-      listUnitsNames = List.generate(
-        selectedUnitDataList.length,
-        (index) => unitTranslationMap[selectedUnitDataList[index].unit.name]!,
-      );
+      final currentProperty =
+          ref.read(propertiesListProvider).valueOrNull?[selectedProperty!].name;
       reorderPage = ReorderPage(
-        key: Key(listUnitsNames[0]),
-        itemsList: listUnitsNames,
+        key: Key(currentProperty.toString()),
+        // TODO reorder the items
+        itemsList: getUnitUiMap(context)[currentProperty]!.values.toList(),
         onSave: (List<int>? orderList) {
           ref.read(UnitsOrderNotifier.provider.notifier).set(
                 orderList,

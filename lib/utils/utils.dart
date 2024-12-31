@@ -91,18 +91,6 @@ enum PROPERTYX {
 
 typedef PropertyUi = ({String name, String imagePath});
 
-class UnitUi {
-  /// name of the unit
-  final dynamic unit;
-
-  /// human readable name
-  final String name;
-  final String imagePath;
-  final PROPERTYX property;
-
-  UnitUi(this.unit, this.name, this.imagePath, this.property);
-}
-
 void initializeQuickAction(
     {required void Function(String index) onActionSelection,
     required List<PROPERTYX> conversionsOrderDrawer,

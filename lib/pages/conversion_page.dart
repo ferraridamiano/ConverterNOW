@@ -17,7 +17,6 @@ class ConversionPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
     final propertyUiMap = getPropertyUiMap(context);
 
     List<List<UnitData>>? unitsList =
@@ -30,8 +29,9 @@ class ConversionPage extends ConsumerWidget {
 
     List<UnitData> unitDataList = unitsList[page];
 
-    PROPERTYX currentProperty =
+    final currentProperty =
         ref.read(propertiesListProvider).valueOrNull?[page].name;
+    final unitMap = getUnitUiMap(context)[currentProperty]!;
 
     Widget? subtitleWidget;
     if (currentProperty == PROPERTYX.currencies) {
@@ -61,7 +61,7 @@ class ConversionPage extends ConsumerWidget {
     for (UnitData unitData in unitDataList) {
       gridTiles.add(UnitWidget(
         tffKey: unitData.unit.name.toString(),
-        unitName: unitTranslationMap[unitData.unit.name]!,
+        unitName: unitMap[unitData.unit.name]!,
         unitSymbol: unitData.unit.symbol,
         keyboardType: unitData.textInputType,
         controller: unitData.tec,
