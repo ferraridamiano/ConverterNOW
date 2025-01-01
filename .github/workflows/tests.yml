@@ -55,8 +55,8 @@ jobs:
 
     - name: Validate svgs
       run: |
-        dart run vector_graphics_compiler --input-dir assets/app_icons/ --out-dir /tmp/ --no-optimize-masks --no-optimize-clips --no-optimize-overdraw --no-tessellate
-        dart run vector_graphics_compiler --input-dir assets/property_icons/ --out-dir /tmp/ --no-optimize-masks --no-optimize-clips --no-optimize-overdraw --no-tessellate
+        dart run vector_graphics_compiler --input-dir assets/app_icons --out-dir /tmp
+        dart run vector_graphics_compiler --input-dir assets/property_icons --out-dir /tmp
 
     - name: Bootstrap
       run: melos bootstrap
