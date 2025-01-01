@@ -133,6 +133,22 @@
   "usFluidOunces": "US Oυγγιά Yγρών",
   "imperialGill": "Imperial Gill",
   "usGill": "US Gill",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Δευτερόλεπτα",
   "deciseconds": "Δεκατοστά του δευτερολέπτου",
@@ -188,6 +204,10 @@
   "torr": "Torricelli",
   "hectoPascal": "Hectopascal",
   "inchesOfMercury": "Ίντσες υδραργύρου",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Τζάουλ",
   "calories": "Θερμίδες",
@@ -195,6 +215,10 @@
   "electronvolt": "Ηλεκτρονιοβόλτ",
   "footPound": "Ποδόλιβρα",
   "kilocalories": "Κιλοθερμίδες",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Βαθμός",
   "minutesDegree": "Λεπτά",

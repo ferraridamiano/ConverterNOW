@@ -133,6 +133,22 @@
   "usFluidOunces": "Жидкие унции США",
   "imperialGill": "Британские гиллы",
   "usGill": "Гиллы США",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Секунды",
   "deciseconds": "Десятые доли секунды",
@@ -188,6 +204,10 @@
   "torr": "Торричелли",
   "hectoPascal": "Гектопаскали",
   "inchesOfMercury": "Дюймы ртутного столба",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Джоули",
   "calories": "Калории",
@@ -195,6 +215,10 @@
   "electronvolt": "Электрон-вольты",
   "footPound": "Фут-фунты",
   "kilocalories": "Килокалории",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Градусы",
   "minutesDegree": "Минуты",

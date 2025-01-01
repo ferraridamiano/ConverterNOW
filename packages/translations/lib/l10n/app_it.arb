@@ -133,6 +133,10 @@
   "usFluidOunces": "Once liquide US",
   "imperialGill": "Gill Imperiali",
   "usGill": "Gill US",
+  "usQuarts": "Quarti USA",
+  "microliters": "Microlitri",
+  "deciliters": "Decilitri",
+  "centiliters": "Centilitri",
 
   "seconds": "Secondi",
   "deciseconds": "Decimi di Secondo",
@@ -188,13 +192,15 @@
   "torr": "Torricelli",
   "hectoPascal": "Ettopascal",
   "inchesOfMercury": "Pollici di mercurio",
+  "kiloPascal": "Chilopascal",
 
   "joule": "Joule",
   "calories": "Calorie",
-  "kilowattHour": "Kilowattora",
+  "kilowattHour": "Chilowattora",
   "electronvolt": "Elettronvolt",
   "footPound": "Piede per libbra forza",
-  "kilocalories": "Kilocalorie",
+  "kilocalories": "Chilocalorie",
+  "kilojoules": "Chilojoules",
 
   "degree": "Gradi",
   "minutesDegree": "Primi",

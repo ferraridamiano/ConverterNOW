@@ -160,6 +160,22 @@
   "usFluidOunces": "Once liquide US",
   "imperialGill": "Gill impériales",
   "usGill": "Gill US",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Secondes",
   "deciseconds": "Décisecondes",
@@ -215,6 +231,10 @@
   "torr": "Torricelli",
   "hectoPascal": "Hectopascal",
   "inchesOfMercury": "Pouces de mercure",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calories": "Calorie",
@@ -222,6 +242,10 @@
   "electronvolt": "Électronvolt",
   "footPound": "Pied-livre",
   "kilocalories": "Kilocalorie",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Degré",
   "minutesDegree": "Minutes",

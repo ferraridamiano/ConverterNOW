@@ -166,6 +166,22 @@
   "usFluidOunces": "أونصة سائلة أمريكية",
   "imperialGill": "جل",
   "usGill": "جل أمريكي",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "ثانية",
   "deciseconds": "ديسي ثانية",
@@ -221,6 +237,10 @@
   "torr": "تور",
   "hectoPascal": "هكتو باسكال",
   "inchesOfMercury": "بوصة زئبق",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "جول",
   "calories": "سعرة الحرارية)كالوري)",
@@ -229,6 +249,10 @@
   "footPound": "قدم - رطل",
   "kilocalories": "Kilocalories",
   "@kilocalories": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 

@@ -160,6 +160,22 @@
   "usFluidOunces": "Amerikaanse Vloeibare Ounce",
   "imperialGill": "Britse Gill (kwart pint)",
   "usGill": "Amerikaanse Gill (kwart pint)",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Seconden",
   "deciseconds": "Deciseconden",
@@ -215,6 +231,10 @@
   "torr": "Torricelli",
   "hectoPascal": "Hectopascal",
   "inchesOfMercury": "Inch-Kwikdruk",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calories": "Calorieën",
@@ -222,6 +242,10 @@
   "electronvolt": "Electron volt",
   "footPound": "Voet pond",
   "kilocalories": "Kilocalorieën",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Graden",
   "minutesDegree": "Minuten",

@@ -133,6 +133,22 @@
   "usFluidOunces": "美液盎司",
   "imperialGill": "英制及耳",
   "usGill": "美制及耳",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "秒",
   "deciseconds": "分秒",
@@ -188,6 +204,10 @@
   "torr": "托",
   "hectoPascal": "百帕",
   "inchesOfMercury": "英寸汞柱",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "焦耳",
   "calories": "卡",
@@ -195,6 +215,10 @@
   "electronvolt": "电子伏特",
   "footPound": "英尺磅",
   "kilocalories": "大卡",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "度",
   "minutesDegree": "分",

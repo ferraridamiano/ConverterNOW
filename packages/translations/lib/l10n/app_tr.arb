@@ -143,7 +143,7 @@
   "hectares": "Hektar",
   "acres": "Dönüm",
   "are": "Ar",
-  "squareFeetUsSurvey": "Piedi Quadrati (US survey)",
+  "squareFeetUsSurvey": "Square Feet (US survey)",
   "@squareFeetUsSurvey": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -166,6 +166,22 @@
   "usFluidOunces": "Sıvı ons (Amerikan)",
   "imperialGill": "Çay fincanı (İngiliz)",
   "usGill": "Çay fincanı (Amerikan)",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Saniye",
   "deciseconds": "Desisaniye",
@@ -221,6 +237,10 @@
   "torr": "Milimetre-cıva",
   "hectoPascal": "Hektopaskal",
   "inchesOfMercury": "İnç-cıva",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calories": "Kalori",
@@ -229,6 +249,10 @@
   "footPound": "Ayak pound",
   "kilocalories": "Kilocalories",
   "@kilocalories": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 

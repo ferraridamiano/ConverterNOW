@@ -140,7 +140,10 @@
   "hectares": "Hektare",
   "acres": "Ekar",
   "are": "Are",
-  "squareFeetUsSurvey": "Piedi Quadrati (Survei AS)",
+  "squareFeetUsSurvey": "Square Feet (US survey)",
+  "@squareFeetUsSurvey": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "cubicMeters": "Meter Kubik",
   "liters": "Liter",
@@ -160,6 +163,22 @@
   "usFluidOunces": "Ons Cairan AS",
   "imperialGill": "Gil Imperial",
   "usGill": "Gil AS",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Detik",
   "deciseconds": "Desidetik",
@@ -215,6 +234,10 @@
   "torr": "Torr",
   "hectoPascal": "Hektopascal",
   "inchesOfMercury": "Inci Merkurium",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Joule",
   "calories": "Kalori",
@@ -222,6 +245,10 @@
   "electronvolt": "Elektron Volt",
   "footPound": "Pon Kaki",
   "kilocalories": "Kilokalori",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Derajat",
   "minutesDegree": "Menit",

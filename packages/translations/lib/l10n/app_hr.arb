@@ -160,6 +160,22 @@
   "usFluidOunces": "Američka unca tekućine",
   "imperialGill": "Imperijalni gill",
   "usGill": "Američki gill",
+  "usQuarts": "US Quarts",
+  "@usQuarts": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microliters": "Microliters",
+  "@microliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "deciliters": "Deciliters",
+  "@deciliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "centiliters": "Centiliters",
+  "@centiliters": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Sekunda",
   "deciseconds": "Desetinka sekunde",
@@ -215,6 +231,10 @@
   "torr": "Tor",
   "hectoPascal": "Hektopaskal",
   "inchesOfMercury": "Inča živina stupca",
+  "kiloPascal": "Kilopascal",
+  "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Džul",
   "calories": "Kalorija",
@@ -222,6 +242,10 @@
   "electronvolt": "Elektronvolt",
   "footPound": "Funta po stopi",
   "kilocalories": "Kilokalorija",
+  "kilojoules": "Kilojoules",
+  "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Stupanj",
   "minutesDegree": "Minuta",
