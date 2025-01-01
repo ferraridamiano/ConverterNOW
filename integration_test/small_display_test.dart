@@ -1,4 +1,3 @@
-import 'package:window_size/window_size.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter/material.dart';
@@ -8,32 +7,35 @@ import 'utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  /// Sets the window size
-  void setWindowSize({Size size = const Size(400, 700)}) {
-    setWindowMinSize(size);
-    setWindowMaxSize(size);
+  Future<void> testInit(
+    WidgetTester tester, {
+    bool clearPrefs = true,
+  }) async {
+    if (clearPrefs) {
+      await clearPreferences();
+    }
+    app.main();
+    await tester.pumpAndSettle();
+    setWindowSize(400, 800);
+    await tester.pumpAndSettle();
   }
 
   group('Common conversions tasks', () {
     testWidgets('Perform conversion, clear and undo',
         (WidgetTester tester) async {
-      await clearPreferences();
-      app.main();
-      await tester.pumpAndSettle();
-      setWindowSize();
-      await tester.pumpAndSettle();
+      await testInit(tester);
 
-      var tffFeet = find
+      final tffMiles = find
+          .byKey(const ValueKey('LENGTH.miles'))
+          .evaluate()
+          .single
+          .widget as TextFormField;
+      final tffFeet = find
           .byKey(const ValueKey('LENGTH.feet'))
           .evaluate()
           .single
           .widget as TextFormField;
-      var tffInches = find
-          .byKey(const ValueKey('LENGTH.inches'))
-          .evaluate()
-          .single
-          .widget as TextFormField;
-      var tffMeters = find
+      final tffMeters = find
           .byKey(const ValueKey('LENGTH.meters'))
           .evaluate()
           .single
@@ -42,81 +44,80 @@ void main() {
       expect(find.text('Length'), findsAtLeastNWidgets(1),
           reason: 'Expected the length page');
 
-      await tester.enterText(find.byKey(const ValueKey('LENGTH.feet')), '1');
+      await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
       await tester.pumpAndSettle();
 
-      expect(tffInches.controller!.text, '12', reason: 'Conversion error');
-      expect(tffMeters.controller!.text, '0.3048', reason: 'Conversion error');
+      expect(tffFeet.controller!.text, '5280', reason: 'Conversion error');
+      expect(tffMeters.controller!.text, '1609.344',
+          reason: 'Conversion error');
 
-      await tester.tap(find.byTooltip('Clear all'));
+      await tester.tap(find.byKey(const ValueKey('clearAll')));
       await tester.pumpAndSettle();
+      expect(tffMiles.controller!.text, '', reason: 'Text not cleared');
       expect(tffFeet.controller!.text, '', reason: 'Text not cleared');
-      expect(tffInches.controller!.text, '', reason: 'Text not cleared');
       expect(tffMeters.controller!.text, '', reason: 'Text not cleared');
 
       await tester.tap(find.byKey(const ValueKey('undoClearAll')));
       await tester.pumpAndSettle();
-      expect(tffFeet.controller!.text, '1.0', reason: 'Text not restored');
-      expect(tffInches.controller!.text, '12.0', reason: 'Text not restored');
-      expect(tffMeters.controller!.text, '0.3048', reason: 'Text not restored');
+      expect(tffMiles.controller!.text, '1.0', reason: 'Text not restored');
+      expect(tffFeet.controller!.text, '5280.0', reason: 'Text not restored');
+      expect(tffMeters.controller!.text, '1609.344',
+          reason: 'Text not restored');
     });
 
     testWidgets('Change to a new property and perform conversion',
         (WidgetTester tester) async {
-      app.main();
-      await tester.pumpAndSettle();
+      await testInit(tester);
       await tester.tap(find.byIcon(Icons.menu)); // Open drawer
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const ValueKey('drawerItem_currencies')));
+      await tester
+          .tap(find.byKey(const ValueKey('drawerItem_PROPERTYX.currencies')));
       await tester.pumpAndSettle();
       expect(find.text('Currencies'), findsAtLeastNWidgets(1),
           reason: 'Expected the currencies page');
       await tester.tap(find.byIcon(Icons.menu)); // Open drawer
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const ValueKey('drawerItem_area')));
+      await tester.tap(find.byKey(const ValueKey('drawerItem_PROPERTYX.area')));
       await tester.pumpAndSettle();
       expect(find.text('Area'), findsAtLeastNWidgets(1),
           reason: 'Expected the area page');
 
-      var tffInches = find
-          .byKey(const ValueKey('AREA.squareInches'))
+      final tffFeet = find
+          .byKey(const ValueKey('AREA.squareFeet'))
           .evaluate()
           .single
           .widget as TextFormField;
-      var tffCentimeters = find
-          .byKey(const ValueKey('AREA.squareCentimeters'))
+      final tffHectares = find
+          .byKey(const ValueKey('AREA.hectares'))
           .evaluate()
           .single
           .widget as TextFormField;
-      var tffMeters = find
+      final tffMeters = find
           .byKey(const ValueKey('AREA.squareMeters'))
           .evaluate()
           .single
           .widget as TextFormField;
 
       await tester.enterText(
-          find.byKey(const ValueKey('AREA.squareInches')), '1');
+          find.byKey(const ValueKey('AREA.squareFeet')), '1000');
       await tester.pumpAndSettle();
 
-      expect(tffCentimeters.controller!.text, '6.4516',
+      expect(tffHectares.controller!.text, '0.009290304',
           reason: 'Conversion error');
-      expect(tffMeters.controller!.text, '0.00064516',
+      expect(tffMeters.controller!.text, '92.90304',
           reason: 'Conversion error');
 
-      await tester.tap(find.byTooltip('Clear all'));
+      await tester.tap(find.byKey(const ValueKey('clearAll')));
       await tester.pumpAndSettle();
-      expect(tffInches.controller!.text, '', reason: 'Text not cleared');
-      expect(tffCentimeters.controller!.text, '', reason: 'Text not cleared');
+      expect(tffFeet.controller!.text, '', reason: 'Text not cleared');
+      expect(tffHectares.controller!.text, '', reason: 'Text not cleared');
       expect(tffMeters.controller!.text, '', reason: 'Text not cleared');
     });
   });
 
   group('Language tasks', () {
     testWidgets('Change language', (WidgetTester tester) async {
-      await clearPreferences();
-      app.main();
-      await tester.pumpAndSettle();
-      setWindowSize();
+      await testInit(tester);
       await tester.pumpAndSettle();
       await tester.tap(find.byIcon(Icons.menu)); // Open drawer
       await tester.pumpAndSettle();
@@ -135,8 +136,7 @@ void main() {
     });
     testWidgets('Check if language has been saved',
         (WidgetTester tester) async {
-      app.main();
-      await tester.pumpAndSettle();
+      await testInit(tester, clearPrefs: false);
       expect(find.text('Lunghezza'), findsAtLeastNWidgets(1),
           reason: 'Expected translated string');
       await clearPreferences();
@@ -145,12 +145,7 @@ void main() {
 
   group('Reordering tasks', () {
     testWidgets('Reorder units', (WidgetTester tester) async {
-      await clearPreferences();
-
-      app.main();
-      await tester.pumpAndSettle();
-      setWindowSize(); //size: const Size(800, 700));
-      await tester.pumpAndSettle();
+      await testInit(tester);
 
       // At the beginning the ordering is Meters, Centimeters, Inches, ...
       expect(
@@ -214,8 +209,7 @@ void main() {
 
     testWidgets('Check if units ordering has been saved',
         (WidgetTester tester) async {
-      app.main();
-      await tester.pumpAndSettle();
+      await testInit(tester, clearPrefs: false);
 
       expect(
         tester.getCenter(find.text('Meters')).dy >
@@ -293,8 +287,7 @@ void main() {
 
     testWidgets('Check if properties ordering has been saved',
         (WidgetTester tester) async {
-      app.main();
-      await tester.pumpAndSettle();
+      await testInit(tester, clearPrefs: false);
       await tester.tap(find.byIcon(Icons.menu)); // Open drawer
       await tester.pumpAndSettle();
       expect(

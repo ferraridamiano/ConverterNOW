@@ -1,4 +1,3 @@
-import 'package:window_size/window_size.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter/material.dart';
@@ -8,21 +7,23 @@ import 'utils.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  /// Sets the window size
-  void setWindowSize({Size size = const Size(800, 700)}) {
-    setWindowMinSize(size);
-    setWindowMaxSize(size);
+  Future<void> testInit(
+    WidgetTester tester, {
+    bool clearPrefs = true,
+  }) async {
+    if (clearPrefs) {
+      await clearPreferences();
+    }
+    app.main();
+    await tester.pumpAndSettle();
+    setWindowSize(800, 700);
+    await tester.pumpAndSettle();
   }
 
   group('Common conversions tasks', () {
     testWidgets('Perform conversion, clear and undo',
         (WidgetTester tester) async {
-      await clearPreferences();
-      app.main();
-      await tester.pumpAndSettle();
-      setWindowSize();
-      await tester.pumpAndSettle();
-
+      await testInit(tester);
       final tffMiles = find
           .byKey(const ValueKey('LENGTH.miles'))
           .evaluate()
@@ -65,8 +66,7 @@ void main() {
 
     testWidgets('Change to a new property and perform conversion',
         (WidgetTester tester) async {
-      app.main();
-      await tester.pumpAndSettle();
+      await testInit(tester);
       await tester
           .tap(find.byKey(const ValueKey('drawerItem_PROPERTYX.currencies')));
       await tester.pumpAndSettle();
@@ -77,17 +77,17 @@ void main() {
       expect(find.text('Area'), findsAtLeastNWidgets(2),
           reason: 'Expected the area page');
 
-      var tffFeet = find
+      final tffFeet = find
           .byKey(const ValueKey('AREA.squareFeet'))
           .evaluate()
           .single
           .widget as TextFormField;
-      var tffHectares = find
+      final tffHectares = find
           .byKey(const ValueKey('AREA.hectares'))
           .evaluate()
           .single
           .widget as TextFormField;
-      var tffMeters = find
+      final tffMeters = find
           .byKey(const ValueKey('AREA.squareMeters'))
           .evaluate()
           .single
@@ -112,11 +112,7 @@ void main() {
 
   group('Language tasks', () {
     testWidgets('Change language', (WidgetTester tester) async {
-      await clearPreferences();
-      app.main();
-      await tester.pumpAndSettle();
-      setWindowSize();
-      await tester.pumpAndSettle();
+      await testInit(tester);
       await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(const ValueKey('language-dropdown')));
@@ -140,12 +136,7 @@ void main() {
 
   group('Reordering tasks', () {
     testWidgets('Reorder units', (WidgetTester tester) async {
-      await clearPreferences();
-
-      app.main();
-      await tester.pumpAndSettle();
-      setWindowSize();
-      await tester.pumpAndSettle();
+      await testInit(tester);
 
       // At the beginning the ordering is Meters, Centimeters, Inches, ...
       expect(
@@ -210,10 +201,7 @@ void main() {
 
     testWidgets('Check if units ordering has been saved',
         (WidgetTester tester) async {
-      app.main();
-      await tester.pumpAndSettle();
-      setWindowSize();
-      await tester.pumpAndSettle();
+      await testInit(tester, clearPrefs: false);
 
       expect(
         tester.getCenter(find.text('Kilometers')).dy <
@@ -226,10 +214,7 @@ void main() {
     });
 
     testWidgets('Reorder properties', (WidgetTester tester) async {
-      app.main();
-      await tester.pumpAndSettle();
-      setWindowSize();
-      await tester.pumpAndSettle();
+      await testInit(tester);
 
       // At the beginning the ordering is Length, Area, Volume, ...
       expect(
@@ -304,8 +289,7 @@ void main() {
 
     testWidgets('Check if properties ordering has been saved',
         (WidgetTester tester) async {
-      app.main();
-      await tester.pumpAndSettle();
+      await testInit(tester, clearPrefs: false);
       expect(
         tester
                     .getCenter(find
