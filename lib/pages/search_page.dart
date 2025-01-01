@@ -1,4 +1,4 @@
-import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
@@ -72,4 +72,51 @@ class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
         ),
     ];
   }
+}
+
+/// This method will return a List of [SearchUnit], needed in order to display the tiles in the search
+List<SearchUnit> getSearchUnitsList(
+    void Function(PROPERTYX) onTap, BuildContext context) {
+  List<SearchUnit> searchUnitsList = [];
+  final propertyUiMap = getPropertyUiMap(context);
+  final unitUiMap = getUnitUiMap(context);
+
+  for (final property in propertyUiMap.entries) {
+    final propertyx = property.key;
+    final propertyUi = property.value;
+    final propertyImagePath = property.value.imagePath;
+    // Add properties in search
+    searchUnitsList.add(SearchUnit(
+      iconAsset: propertyImagePath,
+      unitName: propertyUi.name,
+      onTap: () => onTap(property.key),
+    ));
+    // Add units in search
+    searchUnitsList.addAll(
+      unitUiMap[propertyx]!.values.map(
+            (e) => SearchUnit(
+              iconAsset: propertyImagePath,
+              unitName: e,
+              onTap: () => onTap(propertyx),
+            ),
+          ),
+    );
+  }
+
+  return searchUnitsList;
+}
+
+/// This method will return a List of [SearchGridTile], needed in order to display the gridtiles in the search
+List<SearchGridTile> initializeGridSearch(void Function(PROPERTYX) onTap,
+    BuildContext context, bool darkMode, List<PROPERTYX> orderList) {
+  final propertyUiMap = getPropertyUiMap(context);
+  return orderList.map((e) {
+    final propertyUi = propertyUiMap[e]!;
+    return SearchGridTile(
+      iconAsset: propertyUi.imagePath,
+      footer: propertyUi.name,
+      onTap: () => onTap(e),
+      darkMode: darkMode,
+    );
+  }).toList();
 }

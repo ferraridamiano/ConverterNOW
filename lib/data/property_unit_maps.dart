@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:units_converter/units_converter.dart';
 import 'package:converterpro/utils/utils.dart';
-import 'utils_widgets.dart';
 
 /// This will return the map of [PropertyUi], a record that contains all the
 /// data regarding the displaying of the property all over the app.
@@ -323,51 +322,4 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       TORQUE.poundalMeter: l10n.poundalMeter,
     }
   };
-}
-
-/// This method will return a List of [SearchUnit], needed in order to display the tiles in the search
-List<SearchUnit> getSearchUnitsList(
-    void Function(PROPERTYX) onTap, BuildContext context) {
-  List<SearchUnit> searchUnitsList = [];
-  final propertyUiMap = getPropertyUiMap(context);
-  final unitUiMap = getUnitUiMap(context);
-
-  for (final property in propertyUiMap.entries) {
-    final propertyx = property.key;
-    final propertyUi = property.value;
-    final propertyImagePath = property.value.imagePath;
-    // Add properties in search
-    searchUnitsList.add(SearchUnit(
-      iconAsset: propertyImagePath,
-      unitName: propertyUi.name,
-      onTap: () => onTap(property.key),
-    ));
-    // Add units in search
-    searchUnitsList.addAll(
-      unitUiMap[propertyx]!.values.map(
-            (e) => SearchUnit(
-              iconAsset: propertyImagePath,
-              unitName: e,
-              onTap: () => onTap(propertyx),
-            ),
-          ),
-    );
-  }
-
-  return searchUnitsList;
-}
-
-/// This method will return a List of [SearchGridTile], needed in order to display the gridtiles in the search
-List<SearchGridTile> initializeGridSearch(void Function(PROPERTYX) onTap,
-    BuildContext context, bool darkMode, List<PROPERTYX> orderList) {
-  final propertyUiMap = getPropertyUiMap(context);
-  return orderList.map((e) {
-    final propertyUi = propertyUiMap[e]!;
-    return SearchGridTile(
-      iconAsset: propertyUi.imagePath,
-      footer: propertyUi.name,
-      onTap: () => onTap(e),
-      darkMode: darkMode,
-    );
-  }).toList();
 }

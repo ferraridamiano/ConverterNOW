@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:intl/intl.dart';
 
 class ConversionPage extends ConsumerWidget {

@@ -2,7 +2,7 @@ import 'package:converterpro/models/order.dart';
 import 'package:converterpro/data/default_order.dart';
 import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
-import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

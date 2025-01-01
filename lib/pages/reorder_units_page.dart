@@ -3,7 +3,7 @@ import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/styles/consts.dart';
-import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';

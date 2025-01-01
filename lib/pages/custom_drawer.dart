@@ -1,6 +1,6 @@
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
-import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,7 +1,7 @@
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/data/default_order.dart';
-import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
