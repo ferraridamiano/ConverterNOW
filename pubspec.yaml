@@ -82,8 +82,8 @@ flutter:
     - path: assets/app_icons/
       transformers:
         - package: vector_graphics_compiler
-          args: ['--no-optimize-masks', '--no-optimize-overdraw', '--no-tessellate']
+          args: ['--no-optimize-masks', '--no-optimize-clips', '--no-tessellate']
     - path: assets/property_icons/
       transformers:
         - package: vector_graphics_compiler
-          args: ['--no-optimize-masks', '--no-optimize-overdraw', '--no-tessellate']
+          args: ['--no-optimize-masks', '--no-optimize-clips', '--no-tessellate']
