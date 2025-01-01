@@ -1,6 +1,7 @@
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/order.dart';
-import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/data/default_order.dart';
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
@@ -15,19 +16,19 @@ class SplashScreen extends ConsumerWidget {
     if (ref.watch(isEverythingLoadedProvider)) {
       final conversionsOrderDrawer =
           ref.read(PropertiesOrderNotifier.provider).value!;
-      List<PropertyUi> propertyUiList = getPropertyUiList(context);
       initializeQuickAction(
         conversionsOrderDrawer: conversionsOrderDrawer,
-        propertyUiList: propertyUiList,
+        propertyUiMap: getPropertyUiMap(context),
         onActionSelection: (String shortcutType) {
           final int index = int.parse(shortcutType);
-          context.go('/conversions/${reversePageNumberListMap[index]}');
+          context.go(
+              '/conversions/${defaultPropertiesOrder[index].toKebabCase()}');
         },
       );
 
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => GoRouter.of(context).go(
-          '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}',
+          '/conversions/${conversionsOrderDrawer[0].toKebabCase()}',
         ),
       );
     }

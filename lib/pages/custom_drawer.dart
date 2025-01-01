@@ -1,6 +1,6 @@
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
-import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -117,23 +117,18 @@ class CustomDrawer extends ConsumerWidget {
       ),
     );
 
-    List<int>? conversionsOrderDrawer =
+    List<PROPERTYX>? propertiesOrdering =
         ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
 
-    if (conversionsOrderDrawer == null) {
+    if (propertiesOrdering == null) {
       return const SizedBox();
     }
 
-    List<PropertyUi> propertyUiList = getPropertyUiList(context);
-    List<Widget> conversionDrawer = List<Widget>.filled(
-      propertyUiList.length,
-      const SizedBox(),
-    );
-
-    for (int i = 0; i < propertyUiList.length; i++) {
-      PropertyUi propertyUi = propertyUiList[i];
-      conversionDrawer[conversionsOrderDrawer[i]] = NavigationDrawerDestination(
-        key: ValueKey('drawerItem_${reversePageNumberListMap[i]}'),
+    final propertyUiMap = getPropertyUiMap(context);
+    final propertiesDrawer = propertiesOrdering.map((e) {
+      final propertyUi = propertyUiMap[e]!;
+      return NavigationDrawerDestination(
+        key: ValueKey('drawerItem_$e'),
         icon: SvgPicture(
           AssetBytesLoader(propertyUi.imagePath),
           width: 25,
@@ -142,19 +137,22 @@ class CustomDrawer extends ConsumerWidget {
         ),
         label: Text(propertyUi.name),
       );
-    }
+    });
 
     // How many NavigationDrawerDestination elements are there in the drawer
     int headerElements =
         headerDrawer.whereType<NavigationDrawerDestination>().toList().length;
 
     return NavigationDrawer(
-      selectedIndex:
-          pathToNavigationIndex(context, isDrawerFixed, conversionsOrderDrawer),
+      selectedIndex: pathToNavigationIndex(
+        context,
+        isDrawerFixed,
+        propertiesOrdering.inverse(),
+      ),
       onDestinationSelected: (int selectedPage) {
         if (selectedPage >= headerElements) {
           context.go(
-              '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == selectedPage - headerElements)]}');
+              '/conversions/${propertiesOrdering[selectedPage - headerElements].toKebabCase()}');
           if (!isDrawerFixed) {
             Navigator.of(context).pop();
           }
@@ -179,19 +177,21 @@ class CustomDrawer extends ConsumerWidget {
       },
       children: <Widget>[
         ...headerDrawer,
-        ...conversionDrawer,
+        ...propertiesDrawer,
       ],
     );
   }
 }
 
 int pathToNavigationIndex(BuildContext context, bool isDrawerFixed,
-    List<int> conversionsOrderDrawer) {
+    Map<PROPERTYX, int> inversePropertiesOrdering) {
   final String location = GoRouterState.of(context).uri.toString();
+
   // 3 elements in the header
   if (isDrawerFixed) {
     if (location.startsWith('/conversions/')) {
-      return conversionsOrderDrawer[computeSelectedConversionPage(context)!] +
+      return computeSelectedConversionPage(
+              context, inversePropertiesOrdering)! +
           3;
     } else {
       return 2; // Settings
@@ -200,7 +200,8 @@ int pathToNavigationIndex(BuildContext context, bool isDrawerFixed,
   // 1 element in the header
   else {
     if (location.startsWith('/conversions/')) {
-      return conversionsOrderDrawer[computeSelectedConversionPage(context)!] +
+      return computeSelectedConversionPage(
+              context, inversePropertiesOrdering)! +
           1;
     } else {
       return 0; // Settings

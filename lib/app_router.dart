@@ -26,7 +26,7 @@ final isEverythingLoadedProvider = Provider<bool>((ref) =>
     ref.watch(CurrentLocale.provider).hasValue &&
     ref.watch(PropertiesOrderNotifier.provider).hasValue &&
     ref.watch(UnitsOrderNotifier.provider).hasValue &&
-    ref.watch(propertiesListProvider).hasValue);
+    ref.watch(propertiesMapProvider).hasValue);
 
 final routerProvider = Provider<GoRouter>(
   (ref) => GoRouter(
@@ -46,12 +46,8 @@ final routerProvider = Provider<GoRouter>(
             path: '/conversions/:property',
             pageBuilder: (context, state) {
               final String property = state.pathParameters['property']!;
-              final int? pageNumber = pageNumberMap[property];
-              if (pageNumber == null) {
-                throw Exception('property not found: $property');
-              } else {
-                return NoTransitionPage(child: ConversionPage(pageNumber));
-              }
+              final propertyx = kebabStringToPropertyX(property);
+              return NoTransitionPage(child: ConversionPage(propertyx));
             },
           ),
           GoRoute(
@@ -73,15 +69,11 @@ final routerProvider = Provider<GoRouter>(
                     path: ':property',
                     builder: (context, state) {
                       final String property = state.pathParameters['property']!;
-                      final int? pageNumber = pageNumberMap[property];
-                      if (pageNumber == null) {
-                        throw Exception('property not found: $property');
-                      } else {
-                        return ChoosePropertyPage(
-                          selectedProperty: pageNumber,
-                          isPropertySelected: true,
-                        );
-                      }
+                      final propertyx = kebabStringToPropertyX(property);
+                      return ChoosePropertyPage(
+                        selectedProperty: propertyx,
+                        isPropertySelected: true,
+                      );
                     },
                   ),
                 ],
@@ -106,9 +98,9 @@ final routerProvider = Provider<GoRouter>(
       // Bypass splashscreen if variables are already loaded
       if (state.uri.toString() == '/') {
         if (ref.read(isEverythingLoadedProvider)) {
-          final List<int> conversionsOrderDrawer =
+          final conversionsOrderDrawer =
               ref.read(PropertiesOrderNotifier.provider).value!;
-          return '/conversions/${reversePageNumberListMap[conversionsOrderDrawer.indexWhere((val) => val == 0)]}';
+          return '/conversions/${conversionsOrderDrawer[0].toKebabCase()}';
         }
       }
       return null;

@@ -1,10 +1,9 @@
 import 'package:converterpro/app_router.dart';
-import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/styles/consts.dart';
-import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,7 @@ import 'package:go_router/go_router.dart';
 
 class ChoosePropertyPage extends ConsumerWidget {
   /// The index of the property the user tap. null means not yet selected.
-  final int? selectedProperty;
+  final PROPERTYX? selectedProperty;
 
   /// If `isDrawerFixed=false` then this variable is used to transition from the
   /// "Choose property page" to the "Reorder units" page
@@ -31,54 +30,42 @@ class ChoosePropertyPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<String> listUnitsNames = [];
-    List<UnitData> selectedUnitDataList = [];
     // Read the order of the properties in the drawer
-    List<int>? conversionsOrderDrawer =
+    final conversionsOrderDrawer =
         ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();
     }
 
-    List<String> propertyNameList = getPropertyNameList(context);
+    final propertyUiMap = getPropertyUiMap(context);
     List<String> orderedDrawerList =
-        List.filled(conversionsOrderDrawer.length, "");
-    for (int i = 0; i < conversionsOrderDrawer.length; i++) {
-      orderedDrawerList[conversionsOrderDrawer[i]] = propertyNameList[i];
-    }
+        conversionsOrderDrawer.map((e) => propertyUiMap[e]!.name).toList();
 
-    final Map<dynamic, String> unitTranslationMap =
-        getUnitTranslationMap(context);
     Widget? reorderPage;
     if (selectedProperty != null) {
+      final unitUiMap = getUnitUiMap(context);
+      final conversionOrderUnits =
+          ref.watch(UnitsOrderNotifier.provider).value![selectedProperty]!;
       // if we remove the following check, if you enter the site directly to
       // '/conversions/:property' an error will occur
       if (!ref.watch(isEverythingLoadedProvider)) {
         return const SplashScreenWidget();
       }
-
-      selectedUnitDataList = ref
-          .read(ConversionsNotifier.provider.notifier)
-          .getUnitDataListAtPage(conversionsOrderDrawer
-              .indexWhere((index) => index == selectedProperty));
-      listUnitsNames = List.generate(
-        selectedUnitDataList.length,
-        (index) => unitTranslationMap[selectedUnitDataList[index].unit.name]!,
-      );
       reorderPage = ReorderPage(
-        key: Key(listUnitsNames[0]),
-        itemsList: listUnitsNames,
+        key: Key(selectedProperty.toString()),
+        itemsList: conversionOrderUnits
+            .map((e) => unitUiMap[selectedProperty]![e]!)
+            .toList(),
         onSave: (List<int>? orderList) {
           ref.read(UnitsOrderNotifier.provider.notifier).set(
                 orderList,
-                conversionsOrderDrawer
-                    .indexWhere((index) => index == selectedProperty),
+                selectedProperty!,
               );
           context.goNamed('settings');
         },
         title: AppLocalizations.of(context)!
-            .reorderProperty(orderedDrawerList[selectedProperty!]),
+            .reorderProperty(propertyUiMap[selectedProperty]!.name),
       );
     }
 
@@ -96,69 +83,71 @@ class ChoosePropertyPage extends ConsumerWidget {
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
-            (context, index) => Stack(
-              children: [
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    final offsetAnimation = Tween<Offset>(
-                      begin: const Offset(-1.0, 0.0),
-                      end: const Offset(0.0, 0.0),
-                    ).animate(animation);
-                    return SlideTransition(
-                      position: offsetAnimation,
-                      child: child,
-                    );
-                  },
-                  child: Padding(
-                    key: Key(
-                        '${orderedDrawerList[index]}-${(selectedProperty == index).toString()}'),
+            (context, index) {
+              final isSelectedProperty =
+                  conversionsOrderDrawer[index] == selectedProperty;
+              return Stack(
+                children: [
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                      final offsetAnimation = Tween<Offset>(
+                        begin: const Offset(-1.0, 0.0),
+                        end: const Offset(0.0, 0.0),
+                      ).animate(animation);
+                      return SlideTransition(
+                        position: offsetAnimation,
+                        child: child,
+                      );
+                    },
+                    child: Padding(
+                      key: Key(
+                          '${orderedDrawerList[index]}-$isSelectedProperty'),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Container(
+                        constraints: const BoxConstraints(maxWidth: 400),
+                        decoration: isSelectedProperty
+                            ? BoxDecoration(
+                                color: selectedListTileColor,
+                                borderRadius: borderRadius,
+                              )
+                            : null,
+                        child: const ListTile(),
+                      ),
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
                       constraints: const BoxConstraints(maxWidth: 400),
-                      decoration: selectedProperty == index
-                          ? BoxDecoration(
-                              color: selectedListTileColor,
-                              borderRadius: borderRadius,
-                            )
-                          : null,
-                      child: const ListTile(),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 400),
-                    child: ListTile(
-                      key: ValueKey(
-                          'chooseProperty-${reversePageNumberListMap[index]}'),
-                      title: Text(
-                        orderedDrawerList[index],
-                        style: TextStyle(
+                      child: ListTile(
+                        key: ValueKey(
+                            'chooseProperty-${conversionsOrderDrawer[index]}'),
+                        title: Text(
+                          orderedDrawerList[index],
+                          style: TextStyle(
                             fontSize: singlePageTextSize,
-                            color: selectedProperty == index
+                            color: isSelectedProperty
                                 ? Theme.of(context)
                                     .colorScheme
                                     .onPrimaryContainer
-                                : null),
-                      ),
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: borderRadius),
-                      onTap: () {
-                        if (selectedProperty == null ||
-                            selectedProperty != index) {
+                                : null,
+                          ),
+                        ),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: borderRadius),
+                        onTap: () {
                           context.go(
-                            '/settings/reorder-units/${reversePageNumberListMap[index]}',
+                            '/settings/reorder-units/${conversionsOrderDrawer[index].toKebabCase()}',
                           );
-                        }
-                      },
+                        },
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              );
+            },
             childCount: orderedDrawerList.length,
           ),
         )

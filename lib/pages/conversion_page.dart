@@ -1,41 +1,36 @@
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/currencies.dart';
-import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:converterpro/utils/property_unit_list.dart';
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:intl/intl.dart';
 
 class ConversionPage extends ConsumerWidget {
-  final int page;
+  final PROPERTYX property;
 
-  const ConversionPage(this.page, {super.key});
+  const ConversionPage(this.property, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Map<dynamic, String> unitTranslationMap = getUnitTranslationMap(context);
-    Map<PROPERTYX, String> propertyTranslationMap =
-        getPropertyTranslationMap(context);
+    final propertyUiMap = getPropertyUiMap(context);
 
-    List<List<UnitData>>? unitsList =
-        ref.watch(ConversionsNotifier.provider).valueOrNull;
+    final unitsMap = ref.watch(ConversionsNotifier.provider).valueOrNull;
     // if we remove the following check, if you enter the site directly to
     // '/conversions/:property' an error will occur
-    if (unitsList == null) {
+    if (unitsMap == null) {
       return const SplashScreenWidget();
     }
 
-    List<UnitData> unitDataList = unitsList[page];
+    final unitDataList = unitsMap[property]!;
 
-    PROPERTYX currentProperty =
-        ref.read(propertiesListProvider).valueOrNull?[page].name;
+    final unitMap = getUnitUiMap(context)[property]!;
 
     Widget? subtitleWidget;
-    if (currentProperty == PROPERTYX.currencies) {
+    if (property == PROPERTYX.currencies) {
       Currencies? currencies =
           ref.watch(CurrenciesNotifier.provider).valueOrNull;
       if (currencies == null) {
@@ -62,7 +57,7 @@ class ConversionPage extends ConsumerWidget {
     for (UnitData unitData in unitDataList) {
       gridTiles.add(UnitWidget(
         tffKey: unitData.unit.name.toString(),
-        unitName: unitTranslationMap[unitData.unit.name]!,
+        unitName: unitMap[unitData.unit.name]!,
         unitSymbol: unitData.unit.symbol,
         keyboardType: unitData.textInputType,
         controller: unitData.tec,
@@ -87,12 +82,12 @@ class ConversionPage extends ConsumerWidget {
             var conversions = ref.read(ConversionsNotifier.provider.notifier);
             //just numeral system uses a string for conversion
             if (unitData.property == PROPERTYX.numeralSystems) {
-              conversions.convert(unitData, txt == "" ? null : txt, page);
+              conversions.convert(unitData, txt == "" ? null : txt, property);
             } else {
               conversions.convert(
                 unitData,
                 txt == "" ? null : double.parse(txt),
-                page,
+                property,
               );
             }
           }
@@ -105,7 +100,7 @@ class ConversionPage extends ConsumerWidget {
       final int numCols = responsiveNumCols(constraint.maxWidth);
       return CustomScrollView(slivers: <Widget>[
         SliverAppBar.large(
-          title: Text(propertyTranslationMap[currentProperty]!),
+          title: Text(propertyUiMap[property]!.name),
         ),
         if (subtitleWidget != null)
           SliverToBoxAdapter(

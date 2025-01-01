@@ -38,88 +38,108 @@ const Map<String, String> _currenciesSymbols = {
   'ISK': 'kr 🇮🇸',
 };
 
-final propertiesListProvider = FutureProvider<List<Property>>((ref) async {
-  var removeTrailingZeros =
+final propertiesMapProvider =
+    FutureProvider<Map<PROPERTYX, Property>>((ref) async {
+  final removeTrailingZeros =
       await ref.watch(RemoveTrailingZeros.provider.future);
-  var significantFigures = await ref.watch(SignificantFigures.provider.future);
-  return [
-    Length(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.length),
-    Area(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.area),
-    Volume(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.volume),
-    SimpleCustomProperty(
-        ref.watch(CurrenciesNotifier.provider).when(
-            data: (currencies) => currencies.exchangeRates,
-            error: (_, trace) => Currencies.defaultExchangeRates,
-            loading: () => Currencies.defaultExchangeRates),
-        mapSymbols: _currenciesSymbols,
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.currencies),
-    Time(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.time),
-    Temperature(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.temperature),
-    Speed(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.speed),
-    Mass(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.mass),
-    Force(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.force),
-    FuelConsumption(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.fuelConsumption),
-    NumeralSystems(name: PROPERTYX.numeralSystems),
-    Pressure(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.pressure),
-    Energy(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.energy),
-    Power(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.power),
-    Angle(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.angle),
-    ShoeSize(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.shoeSize),
-    DigitalData(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.digitalData),
-    SIPrefixes(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.siPrefixes),
-    Torque(
-        significantFigures: significantFigures,
-        removeTrailingZeros: removeTrailingZeros,
-        name: PROPERTYX.torque),
-  ];
+  final significantFigures =
+      await ref.watch(SignificantFigures.provider.future);
+  return {
+    PROPERTYX.length: Length(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.length,
+    ),
+    PROPERTYX.area: Area(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.area,
+    ),
+    PROPERTYX.volume: Volume(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.volume,
+    ),
+    PROPERTYX.currencies: SimpleCustomProperty(
+      ref.watch(CurrenciesNotifier.provider).when(
+          data: (currencies) => currencies.exchangeRates,
+          error: (_, trace) => Currencies.defaultExchangeRates,
+          loading: () => Currencies.defaultExchangeRates),
+      mapSymbols: _currenciesSymbols,
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.currencies,
+    ),
+    PROPERTYX.time: Time(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.time,
+    ),
+    PROPERTYX.temperature: Temperature(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.temperature,
+    ),
+    PROPERTYX.speed: Speed(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.speed,
+    ),
+    PROPERTYX.mass: Mass(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.mass,
+    ),
+    PROPERTYX.force: Force(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.force,
+    ),
+    PROPERTYX.fuelConsumption: FuelConsumption(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.fuelConsumption,
+    ),
+    PROPERTYX.numeralSystems: NumeralSystems(name: PROPERTYX.numeralSystems),
+    PROPERTYX.pressure: Pressure(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.pressure,
+    ),
+    PROPERTYX.energy: Energy(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.energy,
+    ),
+    PROPERTYX.power: Power(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.power,
+    ),
+    PROPERTYX.angle: Angle(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.angle,
+    ),
+    PROPERTYX.shoeSize: ShoeSize(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.shoeSize,
+    ),
+    PROPERTYX.digitalData: DigitalData(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.digitalData,
+    ),
+    PROPERTYX.siPrefixes: SIPrefixes(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.siPrefixes,
+    ),
+    PROPERTYX.torque: Torque(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.torque,
+    ),
+  };
 });

@@ -30,14 +30,16 @@ class AppScaffold extends ConsumerWidget {
     }
 
     void clearAll(bool isDrawerFixed) {
-      final int page = pageNumberMap[GoRouterState.of(context)
+      final currentProperty = kebabStringToPropertyX(GoRouterState.of(context)
           .uri
           .toString()
-          .substring('/conversions/'.length)]!;
+          .substring('/conversions/'.length));
       if (ref
           .read(ConversionsNotifier.provider.notifier)
-          .shouldShowSnackbar(page)) {
-        ref.read(ConversionsNotifier.provider.notifier).clearAllValues(page);
+          .shouldShowSnackbar(currentProperty)) {
+        ref
+            .read(ConversionsNotifier.provider.notifier)
+            .clearAllValues(currentProperty);
         //Snackbar undo request
         final SnackBar snackBar = SnackBar(
           content: Text(AppLocalizations.of(context)!.undoClearAllMessage),
@@ -59,16 +61,16 @@ class AppScaffold extends ConsumerWidget {
 
     void openSearch() {
       ref.read(PropertiesOrderNotifier.provider).whenData((orderList) async {
-        final int? newPage = await showSearch(
+        final selectedProperty = await showSearch<PROPERTYX?>(
           context: context,
           delegate: CustomSearchDelegate(orderList),
         );
-        if (newPage != null) {
+        if (selectedProperty != null) {
           final String targetPath =
-              '/conversions/${reversePageNumberListMap[newPage]}';
-          // ignore: use_build_context_synchronously
-          if (GoRouterState.of(context).uri.toString() != targetPath) {
-            // ignore: use_build_context_synchronously
+              '/conversions/${selectedProperty.toKebabCase()}';
+
+          if (context.mounted &&
+              GoRouterState.of(context).uri.toString() != targetPath) {
             context.go(targetPath);
           }
         }
