@@ -53,6 +53,11 @@ jobs:
       run: |
         dart pub global activate melos
 
+    - name: Validate svgs
+      run: |
+        dart run vector_graphics_compiler --input-dir assets/app_icons/ --out-dir /tmp/ --no-optimize-masks --no-optimize-clips --no-optimize-overdraw --no-tessellate
+        dart run vector_graphics_compiler --input-dir assets/property_icons/ --out-dir /tmp/ --no-optimize-masks --no-optimize-clips --no-optimize-overdraw --no-tessellate
+
     - name: Bootstrap
       run: melos bootstrap
 
