@@ -150,9 +150,9 @@ void main() {
       // At the beginning the ordering is Meters, Centimeters, Inches, ...
       expect(
         tester.getCenter(find.text('Meters')).dy <
-                tester.getCenter(find.text('Centimeters')).dy &&
-            tester.getCenter(find.text('Centimeters')).dy <
-                tester.getCenter(find.text('Inches')).dy,
+                tester.getCenter(find.text('Feet')).dy &&
+            tester.getCenter(find.text('Yards')).dy <
+                tester.getCenter(find.text('Kilometers')).dy,
         true,
         reason: 'Initial ordering of length units is not what expected',
       );
@@ -176,14 +176,14 @@ void main() {
       await dragGesture(
         tester,
         Offset(xDragHadle, tester.getCenter(find.text('Meters')).dy),
-        Offset(xDragHadle, tester.getCenter(find.text('Feet')).dy),
+        Offset(xDragHadle, tester.getCenter(find.text('Yards')).dy),
       );
       await tester.pumpAndSettle();
 
       await dragGesture(
         tester,
         Offset(xDragHadle, tester.getCenter(find.text('Kilometers')).dy),
-        Offset(xDragHadle, tester.getCenter(find.text('Meters')).dy),
+        Offset(xDragHadle, tester.getCenter(find.text('Feet')).dy),
       );
       await tester.pumpAndSettle();
 
@@ -198,10 +198,10 @@ void main() {
 
       // Now the ordering should be Inches, Centimeters, Meters, ...
       expect(
-        tester.getCenter(find.text('Meters')).dy >
-                tester.getCenter(find.text('Centimeters')).dy &&
-            tester.getCenter(find.text('Centimeters')).dy >
-                tester.getCenter(find.text('Inches')).dy,
+        tester.getCenter(find.text('Kilometers')).dy <
+                tester.getCenter(find.text('Feet')).dy &&
+            tester.getCenter(find.text('Feet')).dy <
+                tester.getCenter(find.text('Meters')).dy,
         true,
         reason: 'Final ordering of length units is not what expected',
       );
@@ -212,30 +212,37 @@ void main() {
       await testInit(tester, clearPrefs: false);
 
       expect(
-        tester.getCenter(find.text('Meters')).dy >
-                tester.getCenter(find.text('Centimeters')).dy &&
-            tester.getCenter(find.text('Centimeters')).dy >
-                tester.getCenter(find.text('Inches')).dy,
+        tester.getCenter(find.text('Kilometers')).dy <
+                tester.getCenter(find.text('Feet')).dy &&
+            tester.getCenter(find.text('Feet')).dy <
+                tester.getCenter(find.text('Meters')).dy,
         true,
         reason: 'Ordering of length units is not what expected',
       );
     });
 
     testWidgets('Reorder properties', (WidgetTester tester) async {
-      app.main();
-      await tester.pumpAndSettle();
+      await testInit(tester);
 
       await tester.tap(find.byIcon(Icons.menu)); // Open drawer
       await tester.pumpAndSettle();
       // At the beginning the ordering is Length, Area, Volume, ...
       expect(
-        tester.getCenter(find.byKey(const ValueKey('drawerItem_length'))).dy <
+        tester
+                    .getCenter(find
+                        .byKey(const ValueKey('drawerItem_PROPERTYX.length')))
+                    .dy <
                 tester
-                    .getCenter(find.byKey(const ValueKey('drawerItem_area')))
+                    .getCenter(
+                        find.byKey(const ValueKey('drawerItem_PROPERTYX.area')))
                     .dy &&
-            tester.getCenter(find.byKey(const ValueKey('drawerItem_area'))).dy <
+            tester
+                    .getCenter(
+                        find.byKey(const ValueKey('drawerItem_PROPERTYX.area')))
+                    .dy <
                 tester
-                    .getCenter(find.byKey(const ValueKey('drawerItem_volume')))
+                    .getCenter(find
+                        .byKey(const ValueKey('drawerItem_PROPERTYX.volume')))
                     .dy,
         true,
         reason: 'Initial ordering of properties is not what expected',
@@ -272,13 +279,21 @@ void main() {
 
       // Now the ordering should be Volume, Area, Length, ...
       expect(
-        tester.getCenter(find.byKey(const ValueKey('drawerItem_length'))).dy >
+        tester
+                    .getCenter(find
+                        .byKey(const ValueKey('drawerItem_PROPERTYX.length')))
+                    .dy >
                 tester
-                    .getCenter(find.byKey(const ValueKey('drawerItem_area')))
+                    .getCenter(
+                        find.byKey(const ValueKey('drawerItem_PROPERTYX.area')))
                     .dy &&
-            tester.getCenter(find.byKey(const ValueKey('drawerItem_area'))).dy >
+            tester
+                    .getCenter(
+                        find.byKey(const ValueKey('drawerItem_PROPERTYX.area')))
+                    .dy >
                 tester
-                    .getCenter(find.byKey(const ValueKey('drawerItem_volume')))
+                    .getCenter(find
+                        .byKey(const ValueKey('drawerItem_PROPERTYX.volume')))
                     .dy,
         true,
         reason: 'Final ordering the of properties is not what expected',
@@ -291,13 +306,21 @@ void main() {
       await tester.tap(find.byIcon(Icons.menu)); // Open drawer
       await tester.pumpAndSettle();
       expect(
-        tester.getCenter(find.byKey(const ValueKey('drawerItem_length'))).dy >
+        tester
+                    .getCenter(find
+                        .byKey(const ValueKey('drawerItem_PROPERTYX.length')))
+                    .dy >
                 tester
-                    .getCenter(find.byKey(const ValueKey('drawerItem_area')))
+                    .getCenter(
+                        find.byKey(const ValueKey('drawerItem_PROPERTYX.area')))
                     .dy &&
-            tester.getCenter(find.byKey(const ValueKey('drawerItem_area'))).dy >
+            tester
+                    .getCenter(
+                        find.byKey(const ValueKey('drawerItem_PROPERTYX.area')))
+                    .dy >
                 tester
-                    .getCenter(find.byKey(const ValueKey('drawerItem_volume')))
+                    .getCenter(find
+                        .byKey(const ValueKey('drawerItem_PROPERTYX.volume')))
                     .dy,
         true,
         reason: 'Ordering of the properties is not what expected',
