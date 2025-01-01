@@ -896,10 +896,10 @@ packages:
     dependency: "direct main"
     description:
       name: units_converter
-      sha256: "8885f35e2954bf5ba2e0de578ab1481c9dd2eba7feb9e71e1bd965e34cef06e8"
+      sha256: "0e0b62a7ac10e6c79942aa52a14225733ce3bc68b70b4d64f99e79fc4477ad6f"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "3.0.2"
   uri:
     dependency: transitive
     description:
