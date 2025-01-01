@@ -20,7 +20,7 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  group('Common conversions tasks', () {
+  group('Common conversions tasks:', () {
     testWidgets('Perform conversion, clear and undo',
         (WidgetTester tester) async {
       await testInit(tester);
@@ -115,7 +115,7 @@ void main() {
     });
   });
 
-  group('Language tasks', () {
+  group('Language tasks:', () {
     testWidgets('Change language', (WidgetTester tester) async {
       await testInit(tester);
       await tester.pumpAndSettle();
@@ -143,7 +143,7 @@ void main() {
     });
   });
 
-  group('Reordering tasks', () {
+  group('Reordering tasks:', () {
     testWidgets('Reorder units', (WidgetTester tester) async {
       await testInit(tester);
 
@@ -170,20 +170,20 @@ void main() {
           .tap(find.byKey(const ValueKey('chooseProperty-PROPERTYX.length')));
       await tester.pumpAndSettle();
 
-      final xDragHadle =
+      final xDragHandle =
           tester.getCenter(find.byIcon(Icons.drag_handle).first).dx;
 
       await dragGesture(
         tester,
-        Offset(xDragHadle, tester.getCenter(find.text('Meters')).dy),
-        Offset(xDragHadle, tester.getCenter(find.text('Yards')).dy),
+        Offset(xDragHandle, tester.getCenter(find.text('Meters')).dy),
+        Offset(xDragHandle, tester.getCenter(find.text('Yards')).dy),
       );
       await tester.pumpAndSettle();
 
       await dragGesture(
         tester,
-        Offset(xDragHadle, tester.getCenter(find.text('Kilometers')).dy),
-        Offset(xDragHadle, tester.getCenter(find.text('Feet')).dy),
+        Offset(xDragHandle, tester.getCenter(find.text('Kilometers')).dy),
+        Offset(xDragHandle, tester.getCenter(find.text('Feet')).dy),
       );
       await tester.pumpAndSettle();
 
@@ -254,20 +254,20 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('reorder-properties')));
       await tester.pumpAndSettle();
 
-      final xDragHadle =
+      final xDragHandle =
           tester.getCenter(find.byIcon(Icons.drag_handle).first).dx;
 
       await dragGesture(
         tester,
-        Offset(xDragHadle, tester.getCenter(find.text('Length').last).dy),
-        Offset(xDragHadle, tester.getCenter(find.text('Currencies').last).dy),
+        Offset(xDragHandle, tester.getCenter(find.text('Length').last).dy),
+        Offset(xDragHandle, tester.getCenter(find.text('Currencies').last).dy),
       );
       await tester.pumpAndSettle();
 
       await dragGesture(
         tester,
-        Offset(xDragHadle, tester.getCenter(find.text('Volume').last).dy),
-        Offset(xDragHadle, tester.getCenter(find.text('Area').last).dy),
+        Offset(xDragHandle, tester.getCenter(find.text('Volume').last).dy),
+        Offset(xDragHandle, tester.getCenter(find.text('Area').last).dy),
       );
       await tester.pumpAndSettle();
 
@@ -325,6 +325,126 @@ void main() {
         true,
         reason: 'Ordering of the properties is not what expected',
       );
+    });
+  });
+
+  group('Conversion after reorder:', () {
+    testWidgets('Change the order of properties and units and convert',
+        (WidgetTester tester) async {
+      await testInit(tester);
+
+      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey('reorder-properties')));
+      await tester.pumpAndSettle();
+
+      final xDragHandleProperties =
+          tester.getCenter(find.byIcon(Icons.drag_handle).first).dx;
+
+      await dragGesture(
+        tester,
+        Offset(xDragHandleProperties,
+            tester.getCenter(find.text('Length').last).dy),
+        Offset(xDragHandleProperties,
+            tester.getCenter(find.text('Currencies').last).dy),
+      );
+      await tester.pumpAndSettle();
+
+      await dragGesture(
+        tester,
+        Offset(xDragHandleProperties,
+            tester.getCenter(find.text('Volume').last).dy),
+        Offset(
+            xDragHandleProperties, tester.getCenter(find.text('Area').last).dy),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey('confirm')));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey('reorder-units')));
+      await tester.pumpAndSettle();
+
+      await tester
+          .tap(find.byKey(const ValueKey('chooseProperty-PROPERTYX.length')));
+      await tester.pumpAndSettle();
+
+      final xDragHandleUnits =
+          tester.getCenter(find.byIcon(Icons.drag_handle).first).dx;
+
+      await dragGesture(
+        tester,
+        Offset(xDragHandleUnits, tester.getCenter(find.text('Meters')).dy),
+        Offset(xDragHandleUnits, tester.getCenter(find.text('Yards')).dy),
+      );
+      await tester.pumpAndSettle();
+
+      await dragGesture(
+        tester,
+        Offset(xDragHandleUnits, tester.getCenter(find.text('Kilometers')).dy),
+        Offset(xDragHandleUnits, tester.getCenter(find.text('Feet')).dy),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const ValueKey('confirm')));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Length'));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
+      await tester.pumpAndSettle();
+
+      final tffFeet = find
+          .byKey(const ValueKey('LENGTH.feet'))
+          .evaluate()
+          .single
+          .widget as TextFormField;
+      final tffMeters = find
+          .byKey(const ValueKey('LENGTH.meters'))
+          .evaluate()
+          .single
+          .widget as TextFormField;
+
+      expect(tffFeet.controller!.text, '5280', reason: 'Conversion error');
+      expect(tffMeters.controller!.text, '1609.344',
+          reason: 'Conversion error');
+    });
+
+    testWidgets('Check if it is capable of the same conversion after restart',
+        (WidgetTester tester) async {
+      await testInit(tester, clearPrefs: false);
+
+      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Length'));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
+      await tester.pumpAndSettle();
+
+      final tffFeet = find
+          .byKey(const ValueKey('LENGTH.feet'))
+          .evaluate()
+          .single
+          .widget as TextFormField;
+      final tffMeters = find
+          .byKey(const ValueKey('LENGTH.meters'))
+          .evaluate()
+          .single
+          .widget as TextFormField;
+
+      expect(tffFeet.controller!.text, '5280', reason: 'Conversion error');
+      expect(tffMeters.controller!.text, '1609.344',
+          reason: 'Conversion error');
     });
   });
 }
