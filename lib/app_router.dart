@@ -3,6 +3,7 @@ import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/pages/conversion_page.dart';
 import 'package:converterpro/pages/error_page.dart';
+import 'package:converterpro/pages/hide_units_page.dart';
 import 'package:converterpro/pages/reorder_properties_page.dart';
 import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
@@ -71,6 +72,24 @@ final routerProvider = Provider<GoRouter>(
                       final String property = state.pathParameters['property']!;
                       final propertyx = kebabStringToPropertyX(property);
                       return ReorderUnitsPage(
+                        selectedProperty: propertyx,
+                        isPropertySelected: true,
+                      );
+                    },
+                  ),
+                ],
+              ),
+              GoRoute(
+                path: 'hide-units',
+                name: 'hide-units',
+                builder: (context, state) => const HideUnitsPage(),
+                routes: [
+                  GoRoute(
+                    path: ':property',
+                    builder: (context, state) {
+                      final String property = state.pathParameters['property']!;
+                      final propertyx = kebabStringToPropertyX(property);
+                      return HideUnitsPage(
                         selectedProperty: propertyx,
                         isPropertySelected: true,
                       );

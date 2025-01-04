@@ -265,6 +265,16 @@ class SettingsPage extends ConsumerWidget {
             onTap: () => context.goNamed('reorder-units'),
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           ),
+          ListTile(
+            key: const ValueKey('hide-units'),
+            leading: Icon(Icons.visibility_off_outlined, color: iconColor),
+            title: Text(
+              'Hide units', // TODO
+              style: textStyle,
+            ),
+            onTap: () => context.goNamed('hide-units'),
+            shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          ),
           Padding(
             padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
             child: Text(
