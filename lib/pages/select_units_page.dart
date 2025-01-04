@@ -5,6 +5,8 @@ import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:translations/app_localizations.dart';
 
 class SelectUnitsPage extends ConsumerStatefulWidget {
   const SelectUnitsPage({super.key, required this.selectedProperty});
@@ -20,8 +22,18 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
   final tempUnselectedUnitsProvider = StateProvider<List>((ref) => []);
 
   @override
+  void initState() {
+    super.initState();
+    initProvider();
+  }
+
+  @override
   void didUpdateWidget(covariant SelectUnitsPage oldWidget) {
     super.didUpdateWidget(oldWidget);
+    initProvider();
+  }
+
+  void initProvider() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(tempUnselectedUnitsProvider.notifier).state = ref
           .read(HiddenUnitsNotifier.provider)
@@ -41,8 +53,15 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        key: const ValueKey('confirm'),
+        tooltip: AppLocalizations.of(context)!.save,
         child: const Icon(Icons.check),
-        onPressed: () {}, // TODO
+        onPressed: () {
+          ref
+              .read(HiddenUnitsNotifier.provider.notifier)
+              .set(unselectedUnits, widget.selectedProperty);
+          context.goNamed('settings');
+        },
       ),
       body: CustomScrollView(slivers: <Widget>[
         SliverAppBar.large(
