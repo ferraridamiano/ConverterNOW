@@ -1,7 +1,7 @@
 import 'package:converterpro/app_router.dart';
-import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/pages/choose_property_page.dart';
+import 'package:converterpro/pages/select_units_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/utils.dart';
@@ -41,35 +41,7 @@ class HideUnitsPage extends ConsumerWidget {
       if (!ref.watch(isEverythingLoadedProvider)) {
         return const SplashScreenWidget();
       }
-      final unitUiMap = getUnitUiMap(context);
-      final conversionOrderUnits =
-          ref.watch(UnitsOrderNotifier.provider).value![selectedProperty]!;
-      final unitsNames = unitUiMap[selectedProperty]!;
-      hideUnitsPage = CustomScrollView(slivers: <Widget>[
-        SliverAppBar.large(
-          title: Text('Visible units'), // TODO
-          actions: [
-            TextButton.icon(
-              onPressed: () {},
-              label: Text('Select all'),
-              icon: Icon(Icons.check_box),
-            )
-          ],
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            childCount: conversionOrderUnits.length,
-            (context, index) {
-              return CheckboxListTile(
-                value: true,
-                controlAffinity: ListTileControlAffinity.leading,
-                onChanged: (value) {},
-                title: Text(unitsNames[conversionOrderUnits[index]]!),
-              );
-            },
-          ),
-        )
-      ]);
+      hideUnitsPage = SelectUnitsPage(selectedProperty: selectedProperty!);
     }
 
     final choosePropertyPage = ChoosePropertyPage(
