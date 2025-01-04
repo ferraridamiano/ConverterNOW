@@ -63,14 +63,14 @@ final routerProvider = Provider<GoRouter>(
               GoRoute(
                 path: 'reorder-units',
                 name: 'reorder-units',
-                builder: (context, state) => const ChoosePropertyPage(),
+                builder: (context, state) => const ReorderUnitsPage(),
                 routes: [
                   GoRoute(
                     path: ':property',
                     builder: (context, state) {
                       final String property = state.pathParameters['property']!;
                       final propertyx = kebabStringToPropertyX(property);
-                      return ChoosePropertyPage(
+                      return ReorderUnitsPage(
                         selectedProperty: propertyx,
                         isPropertySelected: true,
                       );

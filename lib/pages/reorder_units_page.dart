@@ -1,5 +1,6 @@
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/order.dart';
+import 'package:converterpro/pages/choose_property_page.dart';
 import 'package:converterpro/utils/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/styles/consts.dart';
@@ -11,7 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 
-class ChoosePropertyPage extends ConsumerWidget {
+class ReorderUnitsPage extends ConsumerWidget {
   /// The index of the property the user tap. null means not yet selected.
   final PROPERTYX? selectedProperty;
 
@@ -19,14 +20,11 @@ class ChoosePropertyPage extends ConsumerWidget {
   /// "Choose property page" to the "Reorder units" page
   final bool isPropertySelected;
 
-  const ChoosePropertyPage({
+  const ReorderUnitsPage({
     this.selectedProperty,
     this.isPropertySelected = false,
     super.key,
   });
-
-  static const BorderRadius borderRadius =
-      BorderRadius.all(Radius.circular(30));
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,8 +37,6 @@ class ChoosePropertyPage extends ConsumerWidget {
     }
 
     final propertyUiMap = getPropertyUiMap(context);
-    List<String> orderedDrawerList =
-        conversionsOrderDrawer.map((e) => propertyUiMap[e]!.name).toList();
 
     Widget? reorderPage;
     if (selectedProperty != null) {
@@ -69,89 +65,11 @@ class ChoosePropertyPage extends ConsumerWidget {
       );
     }
 
-    Color selectedListTileColor = Theme.of(context)
-        .colorScheme
-        .primaryContainer
-        .withValues(
-          alpha: Theme.of(context).brightness == Brightness.light ? 0.5 : 0.8,
-        );
-
-    final Widget choosePropertyPage = CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar.large(
-          title: Text(AppLocalizations.of(context)!.chooseProperty),
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              final isSelectedProperty =
-                  conversionsOrderDrawer[index] == selectedProperty;
-              return Stack(
-                children: [
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) {
-                      final offsetAnimation = Tween<Offset>(
-                        begin: const Offset(-1.0, 0.0),
-                        end: const Offset(0.0, 0.0),
-                      ).animate(animation);
-                      return SlideTransition(
-                        position: offsetAnimation,
-                        child: child,
-                      );
-                    },
-                    child: Padding(
-                      key: Key(
-                          '${orderedDrawerList[index]}-$isSelectedProperty'),
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Container(
-                        constraints: const BoxConstraints(maxWidth: 400),
-                        decoration: isSelectedProperty
-                            ? BoxDecoration(
-                                color: selectedListTileColor,
-                                borderRadius: borderRadius,
-                              )
-                            : null,
-                        child: const ListTile(),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Container(
-                      constraints: const BoxConstraints(maxWidth: 400),
-                      child: ListTile(
-                        key: ValueKey(
-                            'chooseProperty-${conversionsOrderDrawer[index]}'),
-                        title: Text(
-                          orderedDrawerList[index],
-                          style: TextStyle(
-                            fontSize: singlePageTextSize,
-                            color: isSelectedProperty
-                                ? Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer
-                                : null,
-                          ),
-                        ),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: borderRadius),
-                        onTap: () {
-                          context.go(
-                            '/settings/reorder-units/${conversionsOrderDrawer[index].toKebabCase()}',
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            },
-            childCount: orderedDrawerList.length,
-          ),
-        )
-      ],
+    final choosePropertyPage = ChoosePropertyPage(
+      selectedProperty: selectedProperty,
+      onSelectedProperty: (property) => context.go(
+        '/settings/reorder-units/${property.toKebabCase()}',
+      ),
     );
 
     return LayoutBuilder(
