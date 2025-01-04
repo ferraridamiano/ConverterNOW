@@ -48,27 +48,13 @@ class HideUnitsPage extends ConsumerWidget {
       hideUnitsPage = CustomScrollView(slivers: <Widget>[
         SliverAppBar.large(
           title: Text('Visible units'), // TODO
-        ),
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsetsDirectional.only(top: 4, end: 24),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'Select all', // TODO select all / none
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(width: 4),
-                Checkbox(
-                  value: true, // TODO
-                  onChanged: (value) {
-                    // TODO
-                  },
-                ),
-              ],
-            ),
-          ),
+          actions: [
+            TextButton.icon(
+              onPressed: () {},
+              label: Text('Select all'),
+              icon: Icon(Icons.check_box),
+            )
+          ],
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate(
@@ -76,6 +62,7 @@ class HideUnitsPage extends ConsumerWidget {
             (context, index) {
               return CheckboxListTile(
                 value: true,
+                controlAffinity: ListTileControlAffinity.leading,
                 onChanged: (value) {},
                 title: Text(unitsNames[conversionOrderUnits[index]]!),
               );
