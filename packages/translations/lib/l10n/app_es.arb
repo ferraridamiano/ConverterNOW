@@ -95,6 +95,32 @@
   "@findOutMore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "hideUnits": "Hide units",
+  "@hideUnits": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "visibleUnits": "{property}, visible units",
+  "@visibleUnits": {
+    "description": "Not yet translated. Once done, remove this comment",
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Length"
+      }
+    }
+  },
+  "hiddenUnits": "Hidden units",
+  "@hiddenUnits": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "selectAll": "Select all",
+  "@selectAll": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "unselectAll": "Unselect all",
+  "@unselectAll": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Longitud",
   "area": "Área",

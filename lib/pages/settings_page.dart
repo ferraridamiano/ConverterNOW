@@ -269,7 +269,7 @@ class SettingsPage extends ConsumerWidget {
             key: const ValueKey('hide-units'),
             leading: Icon(Icons.visibility_off_outlined, color: iconColor),
             title: Text(
-              'Hide units', // TODO
+              AppLocalizations.of(context)!.hideUnits,
               style: textStyle,
             ),
             onTap: () => context.goNamed('hide-units'),

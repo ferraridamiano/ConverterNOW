@@ -43,13 +43,13 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final unitUiMap = getUnitUiMap(context);
+    final unitsNames = getUnitUiMap(context)[widget.selectedProperty]!;
     final conversionOrderUnits =
         ref.watch(UnitsOrderNotifier.provider).value![widget.selectedProperty]!;
-    final unitsNames = unitUiMap[widget.selectedProperty]!;
-
     final unselectedUnits = ref.watch(tempUnselectedUnitsProvider);
     final areAllSelected = unselectedUnits.isEmpty;
+
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -65,10 +65,13 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
       ),
       body: CustomScrollView(slivers: <Widget>[
         SliverAppBar.large(
-          title: Text('Visible units'), // TODO
+          title: Text(
+            l10n.visibleUnits(
+                getPropertyUiMap(context)[widget.selectedProperty]!.name),
+          ),
           actions: [
             TextButton.icon(
-              label: Text(areAllSelected ? 'Unselect all' : 'Select all'),
+              label: Text(areAllSelected ? l10n.unselectAll : l10n.selectAll),
               onPressed: () {
                 if (areAllSelected) {
                   ref.read(tempUnselectedUnitsProvider.notifier).state =

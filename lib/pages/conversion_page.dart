@@ -130,8 +130,9 @@ class ConversionPage extends ConsumerWidget {
         if (hiddenUnitData.isNotEmpty)
           SliverToBoxAdapter(
             child: ExpansionTile(
+              leading: Icon(Icons.visibility_off_outlined),
               title: Text(
-                'Hidden units', // TODO
+                AppLocalizations.of(context)!.hiddenUnits,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               children: [
