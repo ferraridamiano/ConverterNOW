@@ -43,6 +43,8 @@ void main() {
       expect(find.text('Length'), findsAtLeastNWidgets(2),
           reason: 'Expected the length page');
 
+      await tester.pump(const Duration(milliseconds: 1000));
+
       await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
       await tester.pumpAndSettle();
 
