@@ -7,13 +7,15 @@ class ErrorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              AppLocalizations.of(context)!.routeError1,
+              l10n.routeError1,
               style: const TextStyle(fontSize: 30),
             ),
             const SizedBox(
@@ -24,7 +26,7 @@ class ErrorPage extends StatelessWidget {
               label: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  AppLocalizations.of(context)!.routeError2,
+                  l10n.routeError2,
                   style: const TextStyle(fontSize: 20),
                 ),
               ),

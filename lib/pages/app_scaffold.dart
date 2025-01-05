@@ -19,6 +19,8 @@ class AppScaffold extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+
     void openCalculator() {
       showModalBottomSheet<void>(
         context: context,
@@ -42,12 +44,12 @@ class AppScaffold extends ConsumerWidget {
             .clearAllValues(currentProperty);
         //Snackbar undo request
         final SnackBar snackBar = SnackBar(
-          content: Text(AppLocalizations.of(context)!.undoClearAllMessage),
+          content: Text(l10n.undoClearAllMessage),
           behavior: SnackBarBehavior.floating,
           width: isDrawerFixed ? 400 : null,
           action: SnackBarAction(
             key: const ValueKey('undoClearAll'),
-            label: AppLocalizations.of(context)!.undo,
+            label: l10n.undo,
             onPressed: () {
               ref
                   .read(ConversionsNotifier.provider.notifier)
@@ -102,7 +104,7 @@ class AppScaffold extends ConsumerWidget {
                   ? FloatingActionButton(
                       key: const ValueKey('clearAll'),
                       onPressed: () => clearAll(_isDrawerFixed),
-                      tooltip: AppLocalizations.of(context)!.clearAll,
+                      tooltip: l10n.clearAll,
                       child: const Icon(Icons.clear_outlined),
                     )
                   : null,
@@ -118,12 +120,12 @@ class AppScaffold extends ConsumerWidget {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           IconButton(
-                            tooltip: AppLocalizations.of(context)!.search,
+                            tooltip: l10n.search,
                             icon: const Icon(Icons.search),
                             onPressed: openSearch,
                           ),
                           IconButton(
-                            tooltip: AppLocalizations.of(context)!.calculator,
+                            tooltip: l10n.calculator,
                             icon: const Icon(Icons.calculate_outlined),
                             onPressed: openCalculator,
                           ),
@@ -136,7 +138,7 @@ class AppScaffold extends ConsumerWidget {
                   ? FloatingActionButton(
                       key: const ValueKey('clearAll'),
                       onPressed: () => clearAll(_isDrawerFixed),
-                      tooltip: AppLocalizations.of(context)!.clearAll,
+                      tooltip: l10n.clearAll,
                       child: const Icon(Icons.clear_outlined),
                     )
                   : null,

@@ -24,19 +24,15 @@ class SettingsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+
     final mapTheme = {
       ThemeMode.system: (
-        title: AppLocalizations.of(context)!.system,
+        title: l10n.system,
         icon: Icons.brightness_auto_outlined
       ),
-      ThemeMode.dark: (
-        title: AppLocalizations.of(context)!.dark,
-        icon: Icons.dark_mode_outlined
-      ),
-      ThemeMode.light: (
-        title: AppLocalizations.of(context)!.light,
-        icon: Icons.light_mode_outlined
-      ),
+      ThemeMode.dark: (title: l10n.dark, icon: Icons.dark_mode_outlined),
+      ThemeMode.light: (title: l10n.light, icon: Icons.light_mode_outlined),
     };
 
     final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
@@ -57,28 +53,28 @@ class SettingsPage extends ConsumerWidget {
         }
       },
       child: CustomScrollView(slivers: <Widget>[
-        SliverAppBar.large(title: Text(AppLocalizations.of(context)!.settings)),
+        SliverAppBar.large(title: Text(l10n.settings)),
         SliverList(
             delegate: SliverChildListDelegate([
           Padding(
             padding: const EdgeInsetsDirectional.only(start: 16),
             child: Text(
-              AppLocalizations.of(context)!.appearance,
+              l10n.appearance,
               style: titlesStyle,
             ),
           ),
           DropdownListTile(
             key: const ValueKey('language'),
             leading: Icon(Icons.language, color: iconColor),
-            title: AppLocalizations.of(context)!.language,
+            title: l10n.language,
             textStyle: textStyle,
-            items: [AppLocalizations.of(context)!.system, ...mapLocale.values],
+            items: [l10n.system, ...mapLocale.values],
             value: mapLocale[ref.watch(CurrentLocale.provider).valueOrNull] ??
-                AppLocalizations.of(context)!.system,
+                l10n.system,
             onChanged: (String? string) {
               if (string != null) {
                 ref.read(CurrentLocale.provider.notifier).set(
-                      string == AppLocalizations.of(context)!.system
+                      string == l10n.system
                           ? null
                           : mapLocale.keys.firstWhere(
                               (element) => mapLocale[element] == string,
@@ -89,7 +85,7 @@ class SettingsPage extends ConsumerWidget {
           ),
           SegmentedButtonListTile(
             leading: Icon(Icons.contrast, color: iconColor),
-            title: AppLocalizations.of(context)!.theme,
+            title: l10n.theme,
             items: mapTheme.values.toList(),
             value:
                 mapTheme[ref.watch(CurrentThemeMode.provider).valueOrNull ?? 0]!
@@ -104,7 +100,7 @@ class SettingsPage extends ConsumerWidget {
           SwitchListTile(
             secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
             title: Text(
-              AppLocalizations.of(context)!.amoledDarkTheme,
+              l10n.amoledDarkTheme,
               style: textStyle,
             ),
             value: ref.watch(IsDarkAmoled.provider).valueOrNull ?? false,
@@ -115,7 +111,7 @@ class SettingsPage extends ConsumerWidget {
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           ),
           ListTile(
-            title: Text(AppLocalizations.of(context)!.themeColor),
+            title: Text(l10n.themeColor),
             leading: Icon(Icons.palette_outlined, color: iconColor),
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
             trailing: Padding(
@@ -139,7 +135,7 @@ class SettingsPage extends ConsumerWidget {
           Padding(
             padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
             child: Text(
-              AppLocalizations.of(context)!.conversions,
+              l10n.conversions,
               style: titlesStyle,
             ),
           ),
@@ -147,7 +143,7 @@ class SettingsPage extends ConsumerWidget {
             SwitchListTile(
               secondary: Icon(Icons.public_off, color: iconColor),
               title: Text(
-                AppLocalizations.of(context)!.revokeInternetAccess,
+                l10n.revokeInternetAccess,
                 style: textStyle,
               ),
               value: ref.watch(RevokeInternetNotifier.provider).valueOrNull ??
@@ -160,13 +156,12 @@ class SettingsPage extends ConsumerWidget {
                     builder: (context) {
                       return AlertDialog(
                         title: Text(
-                          AppLocalizations.of(context)!.revokeInternetAccess,
+                          l10n.revokeInternetAccess,
                         ),
                         content: SizedBox(
                           width: 500,
                           child: Text(
-                            AppLocalizations.of(context)!
-                                .revokeInternetExplanation,
+                            l10n.revokeInternetExplanation,
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ),
@@ -184,7 +179,7 @@ class SettingsPage extends ConsumerWidget {
                                     .set(val),
                               );
                             },
-                            child: Text(AppLocalizations.of(context)!.ok),
+                            child: Text(l10n.ok),
                           ),
                         ],
                       );
@@ -207,7 +202,7 @@ class SettingsPage extends ConsumerWidget {
               colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
             ),
             title: Text(
-              AppLocalizations.of(context)!.removeTrailingZeros,
+              l10n.removeTrailingZeros,
               style: textStyle,
             ),
             value: ref.watch(RemoveTrailingZeros.provider).valueOrNull ?? true,
@@ -224,7 +219,7 @@ class SettingsPage extends ConsumerWidget {
               width: 25,
               colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
             ),
-            title: AppLocalizations.of(context)!.significantFigures,
+            title: l10n.significantFigures,
             textStyle: textStyle,
             items: significantFiguresList.map((e) => e.toString()).toList(),
             value: (ref.watch(SignificantFigures.provider).valueOrNull ?? 10)
@@ -245,7 +240,7 @@ class SettingsPage extends ConsumerWidget {
               colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
             ),
             title: Text(
-              AppLocalizations.of(context)!.reorderProperties,
+              l10n.reorderProperties,
               style: textStyle,
             ),
             onTap: () => context.goNamed('reorder-properties'),
@@ -259,7 +254,7 @@ class SettingsPage extends ConsumerWidget {
               colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
             ),
             title: Text(
-              AppLocalizations.of(context)!.reorderUnits,
+              l10n.reorderUnits,
               style: textStyle,
             ),
             onTap: () => context.goNamed('reorder-units'),
@@ -269,7 +264,7 @@ class SettingsPage extends ConsumerWidget {
             key: const ValueKey('hide-units'),
             leading: Icon(Icons.visibility_off_outlined, color: iconColor),
             title: Text(
-              AppLocalizations.of(context)!.hideUnits,
+              l10n.hideUnits,
               style: textStyle,
             ),
             onTap: () => context.goNamed('hide-units'),
@@ -278,14 +273,14 @@ class SettingsPage extends ConsumerWidget {
           Padding(
             padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
             child: Text(
-              AppLocalizations.of(context)!.findOutMore,
+              l10n.findOutMore,
               style: titlesStyle,
             ),
           ),
           ListTile(
             leading: Icon(Icons.computer, color: iconColor),
             title: Text(
-              AppLocalizations.of(context)!.otherPlatforms,
+              l10n.otherPlatforms,
               style: textStyle,
             ),
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
@@ -293,7 +288,7 @@ class SettingsPage extends ConsumerWidget {
               context: context,
               builder: (BuildContext context) {
                 return SimpleDialog(
-                  title: Text(AppLocalizations.of(context)!.otherPlatforms),
+                  title: Text(l10n.otherPlatforms),
                   children: [
                     if (!kIsWeb)
                       ListTile(
@@ -369,7 +364,7 @@ class SettingsPage extends ConsumerWidget {
                       ),
                     ),
                     ListTile(
-                      title: Text(AppLocalizations.of(context)!.sourceCode),
+                      title: Text(l10n.sourceCode),
                       leading: const Icon(Icons.code),
                       onTap: () => launchURL(
                         Uri(
@@ -388,7 +383,7 @@ class SettingsPage extends ConsumerWidget {
           ListTile(
             leading: Icon(Icons.translate, color: iconColor),
             title: Text(
-              AppLocalizations.of(context)!.contibuteTranslating,
+              l10n.contibuteTranslating,
               style: textStyle,
             ),
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
@@ -407,7 +402,7 @@ class SettingsPage extends ConsumerWidget {
             ListTile(
               leading: Icon(Icons.coffee_outlined, color: iconColor),
               title: Text(
-                AppLocalizations.of(context)!.buyMeACoffee,
+                l10n.buyMeACoffee,
                 style: textStyle,
               ),
               shape: const RoundedRectangleBorder(borderRadius: borderRadius),
@@ -417,18 +412,18 @@ class SettingsPage extends ConsumerWidget {
                   barrierDismissible: true,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.buyMeACoffee),
+                      title: Text(l10n.buyMeACoffee),
                       content: SizedBox(
                         width: 500,
                         child: Text(
-                          AppLocalizations.of(context)!.donationDialog,
+                          l10n.donationDialog,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                       actions: <Widget>[
                         TextButton(
                           child: Text(
-                            AppLocalizations.of(context)!.buyMeACoffee,
+                            l10n.buyMeACoffee,
                             style: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary),
                           ),
@@ -452,7 +447,7 @@ class SettingsPage extends ConsumerWidget {
           ListTile(
             leading: Icon(Icons.email_outlined, color: iconColor),
             title: Text(
-              AppLocalizations.of(context)!.contactDeveloper,
+              l10n.contactDeveloper,
               style: textStyle,
             ),
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
@@ -465,7 +460,7 @@ class SettingsPage extends ConsumerWidget {
           ListTile(
             leading: Icon(Icons.info_outline, color: iconColor),
             title: Text(
-              AppLocalizations.of(context)!.about,
+              l10n.about,
               style: textStyle,
             ),
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
@@ -482,11 +477,12 @@ class ColorPickerDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
     final deviceAccentColor = ref.watch(deviceAccentColorProvider);
 
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.themeColor),
+      title: Text(l10n.themeColor),
       content: SizedBox(
         width: 300,
         child: Column(
@@ -501,14 +497,12 @@ class ColorPickerDialog extends ConsumerWidget {
                       .read(ThemeColorNotifier.provider.notifier)
                       .setDefaultTheme(val);
                 },
-                title: Text(AppLocalizations.of(context)!.useDeviceColor),
+                title: Text(l10n.useDeviceColor),
               ),
               const SizedBox(height: 8),
             ],
             Text(
-              !themeColor.useDeviceColor
-                  ? AppLocalizations.of(context)!.pickColor
-                  : '',
+              !themeColor.useDeviceColor ? l10n.pickColor : '',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 4),

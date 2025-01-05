@@ -43,18 +43,18 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     final unitsNames = getUnitUiMap(context)[widget.selectedProperty]!;
     final conversionOrderUnits =
         ref.watch(UnitsOrderNotifier.provider).value![widget.selectedProperty]!;
     final unselectedUnits = ref.watch(tempUnselectedUnitsProvider);
     final areAllSelected = unselectedUnits.isEmpty;
 
-    final l10n = AppLocalizations.of(context)!;
-
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         key: const ValueKey('confirm'),
-        tooltip: AppLocalizations.of(context)!.save,
+        tooltip: l10n.save,
         child: const Icon(Icons.check),
         onPressed: () {
           ref

@@ -24,6 +24,8 @@ class ConversionPage extends ConsumerWidget {
       return const SplashScreenWidget();
     }
 
+    final l10n = AppLocalizations.of(context)!;
+
     final unitDataList =
         ref.watch(ConversionsNotifier.provider).value![property]!;
     final propertyUiMap = getPropertyUiMap(context);
@@ -66,7 +68,7 @@ class ConversionPage extends ConsumerWidget {
           validator: (String? input) {
             if (input != null) {
               if (input != '' && !unitData.getValidator().hasMatch(input)) {
-                return AppLocalizations.of(context)!.invalidCharacters;
+                return l10n.invalidCharacters;
               }
             }
             return null;
@@ -132,7 +134,7 @@ class ConversionPage extends ConsumerWidget {
             child: ExpansionTile(
               leading: Icon(Icons.visibility_off_outlined),
               title: Text(
-                AppLocalizations.of(context)!.hiddenUnits,
+                l10n.hiddenUnits,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               children: [
@@ -155,15 +157,15 @@ class ConversionPage extends ConsumerWidget {
 }
 
 String _getLastUpdateString(BuildContext context, String lastUpdate) {
+  final l10n = AppLocalizations.of(context)!;
   DateTime lastUpdateCurrencies = DateTime.parse(lastUpdate);
   DateTime dateNow = DateTime.now();
   if (lastUpdateCurrencies.day == dateNow.day &&
       lastUpdateCurrencies.month == dateNow.month &&
       lastUpdateCurrencies.year == dateNow.year) {
-    return AppLocalizations.of(context)!.lastCurrenciesUpdate +
-        AppLocalizations.of(context)!.today;
+    return l10n.lastCurrenciesUpdate + l10n.today;
   }
-  return AppLocalizations.of(context)!.lastCurrenciesUpdate +
+  return l10n.lastCurrenciesUpdate +
       DateFormat.yMd(Localizations.localeOf(context).languageCode)
           .format(lastUpdateCurrencies);
 }
