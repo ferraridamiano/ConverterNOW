@@ -19,7 +19,7 @@ class SelectUnitsPage extends ConsumerStatefulWidget {
 }
 
 class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
-  final tempUnselectedUnitsProvider = StateProvider<List>((ref) => []);
+  List unselectedUnits = [];
 
   @override
   void initState() {
@@ -34,11 +34,9 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
   }
 
   void initProvider() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(tempUnselectedUnitsProvider.notifier).state = ref
-          .read(HiddenUnitsNotifier.provider)
-          .valueOrNull![widget.selectedProperty]!;
-    });
+    unselectedUnits = ref
+        .read(HiddenUnitsNotifier.provider)
+        .valueOrNull![widget.selectedProperty]!;
   }
 
   @override
@@ -48,7 +46,6 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
     final unitsNames = getUnitUiMap(context)[widget.selectedProperty]!;
     final conversionOrderUnits =
         ref.watch(UnitsOrderNotifier.provider).value![widget.selectedProperty]!;
-    final unselectedUnits = ref.watch(tempUnselectedUnitsProvider);
     final areAllSelected = unselectedUnits.isEmpty;
 
     return Scaffold(
@@ -60,7 +57,7 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
           ref
               .read(HiddenUnitsNotifier.provider.notifier)
               .set(unselectedUnits, widget.selectedProperty);
-          context.goNamed('settings');
+          context.goNamed('hide-units');
         },
       ),
       body: CustomScrollView(slivers: <Widget>[
@@ -73,12 +70,11 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
             TextButton.icon(
               label: Text(areAllSelected ? l10n.unselectAll : l10n.selectAll),
               onPressed: () {
-                if (areAllSelected) {
-                  ref.read(tempUnselectedUnitsProvider.notifier).state =
-                      defaultUnitsOrder[widget.selectedProperty]!;
-                } else {
-                  ref.read(tempUnselectedUnitsProvider.notifier).state = [];
-                }
+                setState(() {
+                  unselectedUnits = areAllSelected
+                      ? defaultUnitsOrder[widget.selectedProperty]!
+                      : [];
+                });
               },
               icon: Icon(
                 areAllSelected
@@ -96,18 +92,19 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
               return CheckboxListTile(
                 value: !unselectedUnits.contains(unitCodeName),
                 controlAffinity: ListTileControlAffinity.leading,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
                 onChanged: (selected) {
                   if (selected == null) {
                     return;
                   }
-                  final newState = [...unselectedUnits];
-                  if (selected) {
-                    newState.remove(unitCodeName);
-                  } else {
-                    newState.add(unitCodeName);
-                  }
-                  ref.read(tempUnselectedUnitsProvider.notifier).state =
-                      newState;
+                  setState(() {
+                    if (selected) {
+                      unselectedUnits.remove(unitCodeName);
+                    } else {
+                      unselectedUnits.add(unitCodeName);
+                    }
+                  });
                 },
                 title: Text(unitsNames[unitCodeName]!),
               );

@@ -58,7 +58,7 @@ class ReorderUnitsPage extends ConsumerWidget {
                 orderList,
                 selectedProperty!,
               );
-          context.goNamed('settings');
+          context.goNamed('reorder-units');
         },
         title: AppLocalizations.of(context)!
             .reorderProperty(propertyUiMap[selectedProperty]!.name),
