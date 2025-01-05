@@ -62,6 +62,19 @@
   "appearance": "Appearance",
   "conversions": "Conversions",
   "findOutMore": "Find out more",
+  "hideUnits": "Hide units",
+  "visibleUnits": "{property}, visible units",
+  "@visibleUnits": {
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Length"
+      }
+    }
+  },
+  "hiddenUnits": "Hidden units",
+  "selectAll": "Select all",
+  "unselectAll": "Unselect all",
 
   "length": "Length",
   "area": "Area",

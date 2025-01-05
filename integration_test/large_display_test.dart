@@ -21,49 +21,6 @@ void main() {
   }
 
   group('Common conversions tasks:', () {
-    testWidgets('Perform conversion, clear and undo',
-        (WidgetTester tester) async {
-      await testInit(tester);
-      final tffMiles = find
-          .byKey(const ValueKey('LENGTH.miles'))
-          .evaluate()
-          .single
-          .widget as TextFormField;
-      final tffFeet = find
-          .byKey(const ValueKey('LENGTH.feet'))
-          .evaluate()
-          .single
-          .widget as TextFormField;
-      final tffMeters = find
-          .byKey(const ValueKey('LENGTH.meters'))
-          .evaluate()
-          .single
-          .widget as TextFormField;
-
-      expect(find.text('Length'), findsAtLeastNWidgets(2),
-          reason: 'Expected the length page');
-
-      await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
-      await tester.pumpAndSettle();
-
-      expect(tffFeet.controller!.text, '5280', reason: 'Conversion error');
-      expect(tffMeters.controller!.text, '1609.344',
-          reason: 'Conversion error');
-
-      await tester.tap(find.byKey(const ValueKey('clearAll')));
-      await tester.pumpAndSettle();
-      expect(tffMiles.controller!.text, '', reason: 'Text not cleared');
-      expect(tffFeet.controller!.text, '', reason: 'Text not cleared');
-      expect(tffMeters.controller!.text, '', reason: 'Text not cleared');
-
-      await tester.tap(find.byKey(const ValueKey('undoClearAll')));
-      await tester.pumpAndSettle();
-      expect(tffMiles.controller!.text, '1.0', reason: 'Text not restored');
-      expect(tffFeet.controller!.text, '5280.0', reason: 'Text not restored');
-      expect(tffMeters.controller!.text, '1609.344',
-          reason: 'Text not restored');
-    });
-
     testWidgets('Change to a new property and perform conversion',
         (WidgetTester tester) async {
       await testInit(tester);
@@ -108,6 +65,47 @@ void main() {
       expect(tffHectares.controller!.text, '', reason: 'Text not cleared');
       expect(tffMeters.controller!.text, '', reason: 'Text not cleared');
     });
+  });
+
+  testWidgets('Perform conversion, clear and undo',
+      (WidgetTester tester) async {
+    await testInit(tester);
+    final tffMiles = find
+        .byKey(const ValueKey('LENGTH.miles'))
+        .evaluate()
+        .single
+        .widget as TextFormField;
+    final tffFeet = find
+        .byKey(const ValueKey('LENGTH.feet'))
+        .evaluate()
+        .single
+        .widget as TextFormField;
+    final tffMeters = find
+        .byKey(const ValueKey('LENGTH.meters'))
+        .evaluate()
+        .single
+        .widget as TextFormField;
+
+    expect(find.text('Length'), findsAtLeastNWidgets(2),
+        reason: 'Expected the length page');
+
+    await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
+    await tester.pumpAndSettle();
+
+    expect(tffFeet.controller!.text, '5280', reason: 'Conversion error');
+    expect(tffMeters.controller!.text, '1609.344', reason: 'Conversion error');
+
+    await tester.tap(find.byKey(const ValueKey('clearAll')));
+    await tester.pumpAndSettle();
+    expect(tffMiles.controller!.text, '', reason: 'Text not cleared');
+    expect(tffFeet.controller!.text, '', reason: 'Text not cleared');
+    expect(tffMeters.controller!.text, '', reason: 'Text not cleared');
+
+    await tester.tap(find.byKey(const ValueKey('undoClearAll')));
+    await tester.pumpAndSettle();
+    expect(tffMiles.controller!.text, '1.0', reason: 'Text not restored');
+    expect(tffFeet.controller!.text, '5280.0', reason: 'Text not restored');
+    expect(tffMeters.controller!.text, '1609.344', reason: 'Text not restored');
   });
 
   group('Language tasks:', () {
@@ -184,7 +182,7 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('confirm')));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Length'));
+      await tester.tap(find.byKey(ValueKey('drawerItem_PROPERTYX.length')));
       await tester.pumpAndSettle();
 
       // Now the ordering should be Inches, Centimeters, Meters, ...
@@ -381,7 +379,7 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('confirm')));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Length'));
+      await tester.tap(find.byKey(ValueKey('drawerItem_PROPERTYX.length')));
       await tester.pumpAndSettle();
 
       await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');

@@ -1,6 +1,8 @@
+import 'package:converterpro/app_router.dart';
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/currencies.dart';
+import 'package:converterpro/models/hide_units.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
@@ -16,23 +18,28 @@ class ConversionPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final propertyUiMap = getPropertyUiMap(context);
-
-    final unitsMap = ref.watch(ConversionsNotifier.provider).valueOrNull;
     // if we remove the following check, if you enter the site directly to
     // '/conversions/:property' an error will occur
-    if (unitsMap == null) {
+    if (!ref.watch(isEverythingLoadedProvider)) {
       return const SplashScreenWidget();
     }
 
-    final unitDataList = unitsMap[property]!;
+    final l10n = AppLocalizations.of(context)!;
 
+    final unitDataList =
+        ref.watch(ConversionsNotifier.provider).value![property]!;
+    final propertyUiMap = getPropertyUiMap(context);
     final unitMap = getUnitUiMap(context)[property]!;
+    final hiddenUnits =
+        ref.watch(HiddenUnitsNotifier.provider).value![property]!;
+    final hiddenUnitData =
+        unitDataList.where((e) => hiddenUnits.contains(e.unit.name));
+    final unhiddenUnitData =
+        unitDataList.where((e) => !hiddenUnits.contains(e.unit.name));
 
     Widget? subtitleWidget;
     if (property == PROPERTYX.currencies) {
-      Currencies? currencies =
-          ref.watch(CurrenciesNotifier.provider).valueOrNull;
+      Currencies? currencies = ref.watch(CurrenciesNotifier.provider).value;
       if (currencies == null) {
         subtitleWidget = const SizedBox(
           height: 30,
@@ -52,48 +59,47 @@ class ConversionPage extends ConsumerWidget {
       }
     }
 
-    List<Widget> gridTiles = [];
+    UnitWidget unitWidgetBuilder(UnitData unitData) => UnitWidget(
+          tffKey: unitData.unit.name.toString(),
+          unitName: unitMap[unitData.unit.name]!,
+          unitSymbol: unitData.unit.symbol,
+          keyboardType: unitData.textInputType,
+          controller: unitData.tec,
+          validator: (String? input) {
+            if (input != null) {
+              if (input != '' && !unitData.getValidator().hasMatch(input)) {
+                return l10n.invalidCharacters;
+              }
+            }
+            return null;
+          },
+          onChanged: (String txt) {
+            if (txt.contains(',')) {
+              txt = txt.replaceAll(',', '.');
+              unitData.tec.text = txt;
+            }
+            if (txt.startsWith('.')) {
+              txt = '0$txt';
+              unitData.tec.text = txt;
+            }
+            if (txt == '' || unitData.getValidator().hasMatch(txt)) {
+              var conversions = ref.read(ConversionsNotifier.provider.notifier);
+              //just numeral system uses a string for conversion
+              if (unitData.property == PROPERTYX.numeralSystems) {
+                conversions.convert(unitData, txt == "" ? null : txt, property);
+              } else {
+                conversions.convert(
+                  unitData,
+                  txt == "" ? null : double.parse(txt),
+                  property,
+                );
+              }
+            }
+          },
+        );
 
-    for (UnitData unitData in unitDataList) {
-      gridTiles.add(UnitWidget(
-        tffKey: unitData.unit.name.toString(),
-        unitName: unitMap[unitData.unit.name]!,
-        unitSymbol: unitData.unit.symbol,
-        keyboardType: unitData.textInputType,
-        controller: unitData.tec,
-        validator: (String? input) {
-          if (input != null) {
-            if (input != '' && !unitData.getValidator().hasMatch(input)) {
-              return AppLocalizations.of(context)!.invalidCharacters;
-            }
-          }
-          return null;
-        },
-        onChanged: (String txt) {
-          if (txt.contains(',')) {
-            txt = txt.replaceAll(',', '.');
-            unitData.tec.text = txt;
-          }
-          if (txt.startsWith('.')) {
-            txt = '0$txt';
-            unitData.tec.text = txt;
-          }
-          if (txt == '' || unitData.getValidator().hasMatch(txt)) {
-            var conversions = ref.read(ConversionsNotifier.provider.notifier);
-            //just numeral system uses a string for conversion
-            if (unitData.property == PROPERTYX.numeralSystems) {
-              conversions.convert(unitData, txt == "" ? null : txt, property);
-            } else {
-              conversions.convert(
-                unitData,
-                txt == "" ? null : double.parse(txt),
-                property,
-              );
-            }
-          }
-        },
-      ));
-    }
+    final unhiddenGridTiles = unhiddenUnitData.map(unitWidgetBuilder).toList();
+    final hiddenGridTiles = hiddenUnitData.map(unitWidgetBuilder).toList();
 
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraint) {
@@ -113,36 +119,53 @@ class ConversionPage extends ConsumerWidget {
             ),
           ),
         SliverPadding(
-          padding: EdgeInsets.only(
-            top: 10,
-            bottom: isDrawerFixed(MediaQuery.sizeOf(context).width)
-                ? 55 // So FAB doesn't overlap the card
-                : 0,
-          ),
+          padding: EdgeInsets.only(top: 10),
           sliver: SliverGrid.count(
             crossAxisCount: numCols,
             childAspectRatio: responsiveChildAspectRatio(
               constraint.maxWidth,
               numCols,
             ),
-            children: gridTiles,
+            children: unhiddenGridTiles,
           ),
         ),
+        if (hiddenUnitData.isNotEmpty)
+          SliverToBoxAdapter(
+            child: ExpansionTile(
+              leading: Icon(Icons.visibility_off_outlined),
+              title: Text(
+                l10n.hiddenUnits,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              children: [
+                GridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: numCols,
+                  childAspectRatio:
+                      responsiveChildAspectRatio(constraint.maxWidth, numCols),
+                  children: hiddenGridTiles,
+                ),
+              ],
+            ),
+          ),
+        if (isDrawerFixed(MediaQuery.sizeOf(context).width))
+          SliverToBoxAdapter(child: SizedBox(height: 70)),
       ]);
     });
   }
 }
 
 String _getLastUpdateString(BuildContext context, String lastUpdate) {
+  final l10n = AppLocalizations.of(context)!;
   DateTime lastUpdateCurrencies = DateTime.parse(lastUpdate);
   DateTime dateNow = DateTime.now();
   if (lastUpdateCurrencies.day == dateNow.day &&
       lastUpdateCurrencies.month == dateNow.month &&
       lastUpdateCurrencies.year == dateNow.year) {
-    return AppLocalizations.of(context)!.lastCurrenciesUpdate +
-        AppLocalizations.of(context)!.today;
+    return l10n.lastCurrenciesUpdate + l10n.today;
   }
-  return AppLocalizations.of(context)!.lastCurrenciesUpdate +
+  return l10n.lastCurrenciesUpdate +
       DateFormat.yMd(Localizations.localeOf(context).languageCode)
           .format(lastUpdateCurrencies);
 }

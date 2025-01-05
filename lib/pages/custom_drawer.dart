@@ -24,6 +24,8 @@ class CustomDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+
     List<Widget> headerDrawer = [];
 
     Color iconColor = getIconColor(Theme.of(context));
@@ -73,7 +75,7 @@ class CustomDrawer extends ConsumerWidget {
           label: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(AppLocalizations.of(context)!.search),
+              Text(l10n.search),
               const SizedBox(width: 16),
               Container(
                 decoration: keyDecoration,
@@ -101,14 +103,14 @@ class CustomDrawer extends ConsumerWidget {
         NavigationDrawerDestination(
           key: const ValueKey('drawerItem_calculator'),
           icon: Icon(Icons.calculate_outlined, color: iconColor),
-          label: Text(AppLocalizations.of(context)!.calculator),
+          label: Text(l10n.calculator),
         ),
       );
     }
     headerDrawer.add(NavigationDrawerDestination(
       key: const ValueKey('drawerItem_settings'),
       icon: Icon(Icons.settings_outlined, color: iconColor),
-      label: Text(AppLocalizations.of(context)!.settings),
+      label: Text(l10n.settings),
     ));
     headerDrawer.add(
       const Padding(

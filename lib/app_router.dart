@@ -1,8 +1,11 @@
+import 'package:converterpro/models/conversions.dart';
+import 'package:converterpro/models/hide_units.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/pages/conversion_page.dart';
 import 'package:converterpro/pages/error_page.dart';
+import 'package:converterpro/pages/hide_units_page.dart';
 import 'package:converterpro/pages/reorder_properties_page.dart';
 import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
@@ -26,6 +29,8 @@ final isEverythingLoadedProvider = Provider<bool>((ref) =>
     ref.watch(CurrentLocale.provider).hasValue &&
     ref.watch(PropertiesOrderNotifier.provider).hasValue &&
     ref.watch(UnitsOrderNotifier.provider).hasValue &&
+    ref.watch(ConversionsNotifier.provider).hasValue &&
+    ref.watch(HiddenUnitsNotifier.provider).hasValue &&
     ref.watch(propertiesMapProvider).hasValue);
 
 final routerProvider = Provider<GoRouter>(
@@ -63,14 +68,32 @@ final routerProvider = Provider<GoRouter>(
               GoRoute(
                 path: 'reorder-units',
                 name: 'reorder-units',
-                builder: (context, state) => const ChoosePropertyPage(),
+                builder: (context, state) => const ReorderUnitsPage(),
                 routes: [
                   GoRoute(
                     path: ':property',
                     builder: (context, state) {
                       final String property = state.pathParameters['property']!;
                       final propertyx = kebabStringToPropertyX(property);
-                      return ChoosePropertyPage(
+                      return ReorderUnitsPage(
+                        selectedProperty: propertyx,
+                        isPropertySelected: true,
+                      );
+                    },
+                  ),
+                ],
+              ),
+              GoRoute(
+                path: 'hide-units',
+                name: 'hide-units',
+                builder: (context, state) => const HideUnitsPage(),
+                routes: [
+                  GoRoute(
+                    path: ':property',
+                    builder: (context, state) {
+                      final String property = state.pathParameters['property']!;
+                      final propertyx = kebabStringToPropertyX(property);
+                      return HideUnitsPage(
                         selectedProperty: propertyx,
                         isPropertySelected: true,
                       );

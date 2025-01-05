@@ -49,6 +49,7 @@
   },
   "otherPlatforms": "Converter NOW para outras plataformas",
   "sourceCode": "Código fonte",
+  "undoClearAllMessage": "Cleared all. Do you want to undo it?",
   "@undoClearAllMessage": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -98,6 +99,32 @@
   },
   "findOutMore": "Find out more",
   "@findOutMore": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "hideUnits": "Hide units",
+  "@hideUnits": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "visibleUnits": "{property}, visible units",
+  "@visibleUnits": {
+    "description": "Not yet translated. Once done, remove this comment",
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Length"
+      }
+    }
+  },
+  "hiddenUnits": "Hidden units",
+  "@hiddenUnits": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "selectAll": "Select all",
+  "@selectAll": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "unselectAll": "Unselect all",
+  "@unselectAll": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 

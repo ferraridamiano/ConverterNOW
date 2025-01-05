@@ -62,6 +62,19 @@
   "appearance": "Aspetto",
   "conversions": "Conversioni",
   "findOutMore": "Scopri di più",
+  "hideUnits": "Nascondi le unità",
+  "visibleUnits": "{property}, unità visibili:",
+  "@visibleUnits": {
+    "placeholders": {
+      "property": {
+        "type": "String",
+        "example": "Lunghezza"
+      }
+    }
+  },
+  "hiddenUnits": "Unità nascoste",
+  "selectAll": "Seleziona tutto",
+  "unselectAll": "Deseleziona tutto",
 
   "length": "Lunghezza",
   "area": "Superficie",
