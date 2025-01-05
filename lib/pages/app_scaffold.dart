@@ -146,6 +146,9 @@ class AppScaffold extends ConsumerWidget {
         shortcuts: <LogicalKeySet, Intent>{
           LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyK):
               const ActivateIntent(),
+          // Workaround for linux platform. See github.com/flutter/flutter/issues/156806
+          LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyK,
+              LogicalKeyboardKey.numLock): const ActivateIntent(),
         },
         child: Actions(
           actions: <Type, Action<Intent>>{
