@@ -53,7 +53,10 @@ class _ReorderPageState extends State<ReorderPage> {
           slivers: <Widget>[
             SliverAppBar.large(title: Text(widget.title)),
             SliverPadding(
-              padding: const EdgeInsets.only(bottom: 60),
+              // Space for FAB + navigation bar (android)
+              padding: EdgeInsets.only(
+                bottom: 60 + MediaQuery.of(context).padding.bottom,
+              ),
               sliver: SliverReorderableList(
                 onReorder: (int oldIndex, int newIndex) =>
                     setState(() => _updateItemsOrder(oldIndex, newIndex)),

@@ -84,33 +84,39 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
             )
           ],
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            childCount: conversionOrderUnits.length,
-            (context, index) {
-              final unitCodeName = conversionOrderUnits[index];
-              return CheckboxListTile(
-                value: !unselectedUnits.contains(unitCodeName),
-                controlAffinity: ListTileControlAffinity.leading,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
-                onChanged: (selected) {
-                  if (selected == null) {
-                    return;
-                  }
-                  setState(() {
-                    if (selected) {
-                      unselectedUnits.remove(unitCodeName);
-                    } else {
-                      unselectedUnits.add(unitCodeName);
-                    }
-                  });
-                },
-                title: Text(unitsNames[unitCodeName]!),
-              );
-            },
+        SliverPadding(
+          // Space for FAB + navigation bar (android)
+          padding: EdgeInsets.only(
+            bottom: 60 + MediaQuery.of(context).padding.bottom,
           ),
-        )
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              childCount: conversionOrderUnits.length,
+              (context, index) {
+                final unitCodeName = conversionOrderUnits[index];
+                return CheckboxListTile(
+                  value: !unselectedUnits.contains(unitCodeName),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30))),
+                  onChanged: (selected) {
+                    if (selected == null) {
+                      return;
+                    }
+                    setState(() {
+                      if (selected) {
+                        unselectedUnits.remove(unitCodeName);
+                      } else {
+                        unselectedUnits.add(unitCodeName);
+                      }
+                    });
+                  },
+                  title: Text(unitsNames[unitCodeName]!),
+                );
+              },
+            ),
+          ),
+        ),
       ]),
     );
   }

@@ -39,72 +39,79 @@ class ChoosePropertyPage extends ConsumerWidget {
         SliverAppBar.large(
           title: Text(AppLocalizations.of(context)!.chooseProperty),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            childCount: propertiesStringOrdered.length,
-            (context, index) {
-              final isSelectedProperty =
-                  propertiesOrder[index] == selectedProperty;
-              return Stack(
-                children: [
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    transitionBuilder:
-                        (Widget child, Animation<double> animation) =>
-                            SlideTransition(
-                      position: Tween<Offset>(
-                        begin: const Offset(-1.0, 0.0),
-                        end: const Offset(0.0, 0.0),
-                      ).animate(animation),
-                      child: child,
+        SliverPadding(
+          // Space for the navigation bar (android)
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).padding.bottom,
+          ),
+          sliver: SliverList(
+            delegate: SliverChildBuilderDelegate(
+              childCount: propertiesStringOrdered.length,
+              (context, index) {
+                final isSelectedProperty =
+                    propertiesOrder[index] == selectedProperty;
+                return Stack(
+                  children: [
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) =>
+                              SlideTransition(
+                        position: Tween<Offset>(
+                          begin: const Offset(-1.0, 0.0),
+                          end: const Offset(0.0, 0.0),
+                        ).animate(animation),
+                        child: child,
+                      ),
+                      child: Padding(
+                        key: Key(
+                            '${propertiesStringOrdered[index]}-$isSelectedProperty'),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Container(
+                          constraints: const BoxConstraints(maxWidth: 400),
+                          decoration: isSelectedProperty
+                              ? BoxDecoration(
+                                  color: selectedListTileColor,
+                                  borderRadius: borderRadius,
+                                )
+                              : null,
+                          child: const ListTile(),
+                        ),
+                      ),
                     ),
-                    child: Padding(
-                      key: Key(
-                          '${propertiesStringOrdered[index]}-$isSelectedProperty'),
+                    Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Container(
                         constraints: const BoxConstraints(maxWidth: 400),
-                        decoration: isSelectedProperty
-                            ? BoxDecoration(
-                                color: selectedListTileColor,
-                                borderRadius: borderRadius,
-                              )
-                            : null,
-                        child: const ListTile(),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Container(
-                      constraints: const BoxConstraints(maxWidth: 400),
-                      child: ListTile(
-                        key: ValueKey(
-                            'chooseProperty-${propertiesOrder[index]}'),
-                        title: Text(
-                          propertiesStringOrdered[index],
-                          style: TextStyle(
-                            fontSize: singlePageTextSize,
-                            color: isSelectedProperty
-                                ? Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer
-                                : null,
+                        child: ListTile(
+                          key: ValueKey(
+                              'chooseProperty-${propertiesOrder[index]}'),
+                          title: Text(
+                            propertiesStringOrdered[index],
+                            style: TextStyle(
+                              fontSize: singlePageTextSize,
+                              color: isSelectedProperty
+                                  ? Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer
+                                  : null,
+                            ),
                           ),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: borderRadius),
+                          onTap: onSelectedProperty == null
+                              ? null
+                              : () =>
+                                  onSelectedProperty!(propertiesOrder[index]),
                         ),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: borderRadius),
-                        onTap: onSelectedProperty == null
-                            ? null
-                            : () => onSelectedProperty!(propertiesOrder[index]),
                       ),
                     ),
-                  ),
-                ],
-              );
-            },
+                  ],
+                );
+              },
+            ),
           ),
-        )
+        ),
       ],
     );
   }

@@ -150,7 +150,10 @@ class ConversionPage extends ConsumerWidget {
             ),
           ),
         if (isDrawerFixed(MediaQuery.sizeOf(context).width))
-          SliverToBoxAdapter(child: SizedBox(height: 70)),
+          // Space for FAB + navigation bar (android)
+          SliverToBoxAdapter(
+            child: SizedBox(height: 60 + MediaQuery.of(context).padding.bottom),
+          ),
       ]);
     });
   }

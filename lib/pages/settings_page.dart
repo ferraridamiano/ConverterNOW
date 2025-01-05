@@ -466,6 +466,8 @@ class SettingsPage extends ConsumerWidget {
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
             onTap: () => context.goNamed('about'),
           ),
+          // Space for the navigation bar (android)
+          SizedBox(height: MediaQuery.of(context).padding.bottom),
         ].map(ConstrainedContainer.new).toList()))
       ]),
     );
