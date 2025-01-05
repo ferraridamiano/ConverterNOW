@@ -56,9 +56,6 @@ jobs:
     - name: Bootstrap
       run: melos bootstrap
       
-    - name: Run small display integration testing
-      run: xvfb-run -a flutter test integration_test/small_display_test.dart -d linux
+    - name: Run integration testing
+      run: xvfb-run $(flutter test integration_test/large_display_test.dart -d linux && flutter test integration_test/small_display_test.dart -d linux)
   
-    - name: Run large display integration testing
-      run: xvfb-run -a flutter test integration_test/large_display_test.dart -d linux
-
