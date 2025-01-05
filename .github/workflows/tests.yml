@@ -57,5 +57,5 @@ jobs:
       run: melos bootstrap
       
     - name: Run integration testing
-      run: xvfb-run sh "flutter test integration_test/large_display_test.dart -d linux && flutter test integration_test/small_display_test.dart -d linux"
+      run: xvfb-run sh -c "flutter test integration_test/large_display_test.dart -d linux && flutter test integration_test/small_display_test.dart -d linux"
   
