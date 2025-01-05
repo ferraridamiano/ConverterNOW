@@ -1,7 +1,7 @@
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/pages/choose_property_page.dart';
-import 'package:converterpro/utils/reorder_page.dart';
+import 'package:converterpro/pages/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
