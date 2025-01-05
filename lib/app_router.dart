@@ -1,3 +1,4 @@
+import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/hide_units.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/models/properties_list.dart';
@@ -28,6 +29,7 @@ final isEverythingLoadedProvider = Provider<bool>((ref) =>
     ref.watch(CurrentLocale.provider).hasValue &&
     ref.watch(PropertiesOrderNotifier.provider).hasValue &&
     ref.watch(UnitsOrderNotifier.provider).hasValue &&
+    ref.watch(ConversionsNotifier.provider).hasValue &&
     ref.watch(HiddenUnitsNotifier.provider).hasValue &&
     ref.watch(propertiesMapProvider).hasValue);
 
