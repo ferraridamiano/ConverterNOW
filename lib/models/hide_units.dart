@@ -11,7 +11,7 @@ class HiddenUnitsNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
 
   @override
   Future<Map<PROPERTYX, List>> build() async {
-    var prefs = await ref.read(sharedPref.future);
+    final prefs = await ref.read(sharedPref.future);
 
     final Map<PROPERTYX, List> newState = {};
 

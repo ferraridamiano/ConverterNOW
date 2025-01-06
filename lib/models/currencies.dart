@@ -80,11 +80,11 @@ class Currencies {
 class CurrenciesNotifier extends AsyncNotifier<Currencies> {
   static final provider = AsyncNotifierProvider<CurrenciesNotifier, Currencies>(
       CurrenciesNotifier.new);
-  late SharedPreferences pref;
+  late SharedPreferencesWithCache pref;
 
   @override
   Future<Currencies> build() async {
-    pref = await ref.watch(sharedPref.future);
+    pref = await ref.read(sharedPref.future);
 
     final String now = DateFormat("yyyy-MM-dd").format(DateTime.now());
     // Let's search before if we already have downloaded the exchange rates

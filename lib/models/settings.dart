@@ -26,8 +26,9 @@ final Map<Locale, String> mapLocale = {
   const Locale('zh', 'TW'): '中文 (台灣)',
 };
 
-final sharedPref = FutureProvider<SharedPreferences>(
-    (_) async => await SharedPreferences.getInstance());
+final sharedPref = FutureProvider<SharedPreferencesWithCache>((_) async =>
+    await SharedPreferencesWithCache.create(
+        cacheOptions: const SharedPreferencesWithCacheOptions()));
 
 class SignificantFigures extends AsyncNotifier<int> {
   static const _prefKey = 'significant_figures';
