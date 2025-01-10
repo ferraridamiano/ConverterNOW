@@ -10,6 +10,13 @@ import 'package:translations/app_localizations.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 
 void main() async {
+  LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks(
+      ['Josefin Sans'],
+      await rootBundle.loadString('assets/fonts/OFL.txt'),
+    );
+  });
+
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
 }

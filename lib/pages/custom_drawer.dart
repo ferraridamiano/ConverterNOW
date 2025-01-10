@@ -5,7 +5,6 @@ import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vector_graphics/vector_graphics.dart';
@@ -46,9 +45,10 @@ class CustomDrawer extends ConsumerWidget {
               // large as possible
               textScaler: TextScaler.noScaling,
               maxLines: 1,
-              style: GoogleFonts.josefinSans(
+              style: TextStyle(
+                fontFamily: 'JosefinSans',
                 fontWeight: FontWeight.w300,
-                textStyle: const TextStyle(fontSize: 29),
+                fontSize: 29,
               ),
             ),
           ],
