@@ -4,7 +4,7 @@ import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:translations/app_localizations.dart';
 
-class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
+class CustomSearchDelegate extends SearchDelegate<(PROPERTYX, String?)?> {
   final List<PROPERTYX> orderList;
 
   CustomSearchDelegate(this.orderList);
@@ -27,12 +27,13 @@ class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
   Widget buildSuggestions(BuildContext context) {
     final Brightness brightness = Theme.of(context).brightness;
 
-    final List<SearchUnit> dataSearch = getSearchUnitsList((PROPERTYX result) {
-      close(context, result);
+    final List<SearchUnit> dataSearch =
+        getSearchUnitsList((PROPERTYX property, String? unitName) {
+      close(context, (property, unitName));
     }, context);
     final List<SearchGridTile> allConversions = initializeGridSearch(
-      (PROPERTYX result) {
-        close(context, result);
+      (PROPERTYX property) {
+        close(context, (property, null));
       },
       context,
       brightness == Brightness.dark,
@@ -76,7 +77,7 @@ class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
 
 /// This method will return a List of [SearchUnit], needed in order to display the tiles in the search
 List<SearchUnit> getSearchUnitsList(
-    void Function(PROPERTYX) onTap, BuildContext context) {
+    void Function(PROPERTYX, String?) onTap, BuildContext context) {
   List<SearchUnit> searchUnitsList = [];
   final propertyUiMap = getPropertyUiMap(context);
   final unitUiMap = getUnitUiMap(context);
@@ -89,15 +90,15 @@ List<SearchUnit> getSearchUnitsList(
     searchUnitsList.add(SearchUnit(
       iconAsset: propertyImagePath,
       unitName: propertyUi.name,
-      onTap: () => onTap(property.key),
+      onTap: () => onTap(property.key, null),
     ));
     // Add units in search
     searchUnitsList.addAll(
-      unitUiMap[propertyx]!.values.map(
+      unitUiMap[propertyx]!.entries.map(
             (e) => SearchUnit(
               iconAsset: propertyImagePath,
-              unitName: e,
-              onTap: () => onTap(propertyx),
+              unitName: e.value,
+              onTap: () => onTap(propertyx, unitName2KebabCase(e.key)),
             ),
           ),
     );

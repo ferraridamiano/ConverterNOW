@@ -51,8 +51,14 @@ final routerProvider = Provider<GoRouter>(
             path: '/conversions/:property',
             pageBuilder: (context, state) {
               final String property = state.pathParameters['property']!;
-              final propertyx = kebabStringToPropertyX(property);
-              return NoTransitionPage(child: ConversionPage(propertyx));
+              final propertyx = property.kebab2PropertyX();
+              final fragment = state.uri.fragment;
+              return NoTransitionPage(
+                child: ConversionPage(
+                  propertyx,
+                  focusedUnit: fragment == '' ? null : fragment,
+                ),
+              );
             },
           ),
           GoRoute(
@@ -74,7 +80,7 @@ final routerProvider = Provider<GoRouter>(
                     path: ':property',
                     builder: (context, state) {
                       final String property = state.pathParameters['property']!;
-                      final propertyx = kebabStringToPropertyX(property);
+                      final propertyx = property.kebab2PropertyX();
                       return ReorderUnitsPage(
                         selectedProperty: propertyx,
                         isPropertySelected: true,
@@ -92,7 +98,7 @@ final routerProvider = Provider<GoRouter>(
                     path: ':property',
                     builder: (context, state) {
                       final String property = state.pathParameters['property']!;
-                      final propertyx = kebabStringToPropertyX(property);
+                      final propertyx = property.kebab2PropertyX();
                       return HideUnitsPage(
                         selectedProperty: propertyx,
                         isPropertySelected: true,
