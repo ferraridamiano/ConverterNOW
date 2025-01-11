@@ -6,7 +6,8 @@ import 'package:window_size/window_size.dart';
 
 /// Clears the saved shared preferences
 Future<void> clearPreferences() async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
+  final pref = await SharedPreferencesWithCache.create(
+      cacheOptions: const SharedPreferencesWithCacheOptions());
   await pref.clear();
 }
 
