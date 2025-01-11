@@ -70,7 +70,7 @@ Windows. Whether you're on your phone or desktop, we've got you covered!
     height="50">](https://flathub.org/apps/details/io.github.ferraridamiano.ConverterNOW)
 [<img src="https://user-images.githubusercontent.com/61944859/169455015-13385466-8901-48fe-ba90-b62d58b0be64.png"
     alt="Download AppImage"
-    height="50">](https://github.com/ferraridamiano/ConverterNOW/releases/latest)
+    height="50">](https://github.com/ferraridamiano/ConverterNOW/releases/latest/download/Converter_NOW-x86_64.AppImage)
 [<img src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg"
     alt="Get it from the Snap Store"
     height="50">](https://snapcraft.io/converternow)
