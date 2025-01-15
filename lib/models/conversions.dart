@@ -82,9 +82,10 @@ class ConversionsNotifier
             currentProperty.getUnit(currentUnitData.unit.name);
         if (currentUnitData != _selectedUnit) {
           if (currentUnitData.unit.stringValue == null) {
-            currentUnitData.tec.text = '';
+            currentUnitData.tec.value = TextEditingValue.empty;
           } else {
-            currentUnitData.tec.text = currentUnitData.unit.stringValue!;
+            currentUnitData.tec.value =
+                TextEditingValue(text: currentUnitData.unit.stringValue!);
           }
         }
       }
@@ -120,8 +121,8 @@ class ConversionsNotifier
     }
     _savedProperty = property;
     convert(currentUnitDataList[0], null, property);
-    currentUnitDataList[0].tec.text =
-        ''; // convert doesn't clear a selected textfield
+    // convert doesn't clear a selected textfield
+    currentUnitDataList[0].tec.value = TextEditingValue.empty;
   }
 
   /// Undo the last clear all operation performed
@@ -132,13 +133,14 @@ class ConversionsNotifier
         for (int i = 0; i < listToUndo.length; i++) {
           listToUndo[i]
             ..unit.value = _savedUnitDataList![i]
-            ..tec.text = _savedUnitDataList![i].toString();
+            ..tec.value =
+                TextEditingValue(text: _savedUnitDataList![i].toString());
         }
       } else if (_savedUnitDataList![0] is String) {
         for (int i = 0; i < listToUndo.length; i++) {
           listToUndo[i]
             ..unit.stringValue = _savedUnitDataList![i]
-            ..tec.text = _savedUnitDataList![i];
+            ..tec.value = TextEditingValue(text: _savedUnitDataList![i]);
         }
       }
       _savedUnitDataList = _savedProperty = null;
@@ -148,5 +150,5 @@ class ConversionsNotifier
   /// Returns true if we should show a snackbar when the user press on the clear
   /// all button (see [undoClearOperation]), false otherwise.
   bool shouldShowSnackbar(PROPERTYX property) =>
-      state.value![property]![0].tec.text != '';
+      state.value![property]![0].tec.value.text != '';
 }

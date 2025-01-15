@@ -84,13 +84,21 @@ class ConversionPage extends ConsumerWidget {
           return null;
         },
         onChanged: (String txt) {
-          if (txt.contains(',')) {
-            txt = txt.replaceAll(',', '.');
-            unitData.tec.text = txt;
+          String newTxt = txt;
+          bool changed = false;
+          if (newTxt.contains(',')) {
+            newTxt = newTxt.replaceAll(',', '.');
+            changed = true;
           }
-          if (txt.startsWith('.')) {
-            txt = '0$txt';
-            unitData.tec.text = txt;
+          if (newTxt.startsWith('.')) {
+            newTxt = '0$newTxt';
+            changed = true;
+          }
+          if (changed) {
+            unitData.tec.value = TextEditingValue(
+              text: newTxt,
+              selection: TextSelection.collapsed(offset: newTxt.length),
+            );
           }
           if (txt == '' || unitData.getValidator().hasMatch(txt)) {
             var conversions = ref.read(ConversionsNotifier.provider.notifier);
