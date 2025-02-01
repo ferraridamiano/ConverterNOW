@@ -52,7 +52,7 @@
   "undoClearAllMessage": "Всё очищено. Отменить это действие?",
   "undo": "Отмена",
   "routeError1": "Этой страницы не существует",
-  "routeError2": "Вернутся на первую страницу",
+  "routeError2": "Вернуться на первую страницу",
   "ok": "OK",
   "revokeInternetAccess": "Запретить доступ в интернет",
   "revokeInternetExplanation": "Это приложение использует интернет для обновления курсов валют один раз в день при открытии. Для загрузки требуется всего несколько килобайт. Однако, если вам не нужна эта функция, вы можете запретить приложению доступ к интернету, включив данную настройку.",
@@ -62,32 +62,19 @@
   "appearance": "Внешний вид",
   "conversions": "Преобразования",
   "findOutMore": "Узнать больше",
-  "hideUnits": "Hide units",
-  "@hideUnits": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "visibleUnits": "{property}, visible units",
+  "hideUnits": "Скрыть единицы измерения",
+  "visibleUnits": "{property}, отображаемые единицы",
   "@visibleUnits": {
-    "description": "Not yet translated. Once done, remove this comment",
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Length"
+        "example": "Длина"
       }
     }
   },
-  "hiddenUnits": "Hidden units",
-  "@hiddenUnits": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "selectAll": "Select all",
-  "@selectAll": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "unselectAll": "Unselect all",
-  "@unselectAll": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "hiddenUnits": "Скрытые единицы измерения",
+  "selectAll": "Выбрать все",
+  "unselectAll": "Снять выбор",
 
   "length": "Длина",
   "area": "Площадь",
@@ -159,22 +146,10 @@
   "usFluidOunces": "Жидкие унции США",
   "imperialGill": "Британские гиллы",
   "usGill": "Гиллы США",
-  "usQuarts": "US Quarts",
-  "@usQuarts": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microliters": "Microliters",
-  "@microliters": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "deciliters": "Deciliters",
-  "@deciliters": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "centiliters": "Centiliters",
-  "@centiliters": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "usQuarts": "Кварты США",
+  "microliters": "Микролитры",
+  "deciliters": "Децилитры",
+  "centiliters": "Сантилитры",
 
   "seconds": "Секунды",
   "deciseconds": "Десятые доли секунды",
@@ -230,10 +205,7 @@
   "torr": "Торричелли",
   "hectoPascal": "Гектопаскали",
   "inchesOfMercury": "Дюймы ртутного столба",
-  "kiloPascal": "Kilopascal",
-  "@kiloPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "kiloPascal": "Килопаскали",
 
   "joule": "Джоули",
   "calories": "Калории",
@@ -241,10 +213,7 @@
   "electronvolt": "Электрон-вольты",
   "footPound": "Фут-фунты",
   "kilocalories": "Килокалории",
-  "kilojoules": "Kilojoules",
-  "@kilojoules": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "kilojoules": "Килоджоули",
 
   "degree": "Градусы",
   "minutesDegree": "Минуты",
@@ -374,4 +343,4 @@
   "atto": "Атто-",
   "zepto": "Зепто-",
   "yocto": "Йокто-"
-} 
+}
