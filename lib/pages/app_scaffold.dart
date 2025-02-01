@@ -32,8 +32,10 @@ class AppScaffold extends ConsumerWidget {
     }
 
     void clearAll(bool isDrawerFixed) {
-      final currentProperty =
-          GoRouterState.of(context).uri.pathSegments.last.kebab2PropertyX();
+      final currentProperty = kebabStringToPropertyX(GoRouterState.of(context)
+          .uri
+          .toString()
+          .substring('/conversions/'.length));
       if (ref
           .read(ConversionsNotifier.provider.notifier)
           .shouldShowSnackbar(currentProperty)) {
@@ -61,17 +63,13 @@ class AppScaffold extends ConsumerWidget {
 
     void openSearch() {
       ref.read(PropertiesOrderNotifier.provider).whenData((orderList) async {
-        final result = await showSearch(
+        final selectedProperty = await showSearch<PROPERTYX?>(
           context: context,
           delegate: CustomSearchDelegate(orderList),
         );
-        if (result != null) {
-          final selectedProperty = result.$1;
-          final selectedUnit = result.$2;
-          var targetPath = '/conversions/${selectedProperty.toKebabCase()}';
-          if (selectedUnit != null) {
-            targetPath = '$targetPath#$selectedUnit';
-          }
+        if (selectedProperty != null) {
+          final String targetPath =
+              '/conversions/${selectedProperty.toKebabCase()}';
 
           if (context.mounted &&
               GoRouterState.of(context).uri.toString() != targetPath) {

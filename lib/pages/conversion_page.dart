@@ -13,9 +13,8 @@ import 'package:intl/intl.dart';
 
 class ConversionPage extends ConsumerWidget {
   final PROPERTYX property;
-  final String? focusedUnit;
 
-  const ConversionPage(this.property, {super.key, this.focusedUnit});
+  const ConversionPage(this.property, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -60,62 +59,52 @@ class ConversionPage extends ConsumerWidget {
       }
     }
 
-    UnitWidget unitWidgetBuilder(
-      UnitData unitData,
-    ) {
-      final focusNode = FocusNode();
-      if (focusedUnit != null &&
-          focusedUnit == unitName2KebabCase(unitData.unit.name)) {
-        focusNode.requestFocus();
-      }
-      return UnitWidget(
-        tffKey: unitData.unit.name.toString(),
-        unitName: unitMap[unitData.unit.name]!,
-        unitSymbol: unitData.unit.symbol,
-        keyboardType: unitData.textInputType,
-        controller: unitData.tec,
-        focusNode: focusNode,
-        validator: (String? input) {
-          if (input != null) {
-            if (input != '' && !unitData.getValidator().hasMatch(input)) {
-              return l10n.invalidCharacters;
+    UnitWidget unitWidgetBuilder(UnitData unitData) => UnitWidget(
+          tffKey: unitData.unit.name.toString(),
+          unitName: unitMap[unitData.unit.name]!,
+          unitSymbol: unitData.unit.symbol,
+          keyboardType: unitData.textInputType,
+          controller: unitData.tec,
+          validator: (String? input) {
+            if (input != null) {
+              if (input != '' && !unitData.getValidator().hasMatch(input)) {
+                return l10n.invalidCharacters;
+              }
             }
-          }
-          return null;
-        },
-        onChanged: (String txt) {
-          String newTxt = txt;
-          bool changed = false;
-          if (newTxt.contains(',')) {
-            newTxt = newTxt.replaceAll(',', '.');
-            changed = true;
-          }
-          if (newTxt.startsWith('.')) {
-            newTxt = '0$newTxt';
-            changed = true;
-          }
-          if (changed) {
-            unitData.tec.value = TextEditingValue(
-              text: newTxt,
-              selection: TextSelection.collapsed(offset: newTxt.length),
-            );
-          }
-          if (txt == '' || unitData.getValidator().hasMatch(txt)) {
-            var conversions = ref.read(ConversionsNotifier.provider.notifier);
-            //just numeral system uses a string for conversion
-            if (unitData.property == PROPERTYX.numeralSystems) {
-              conversions.convert(unitData, txt == "" ? null : txt, property);
-            } else {
-              conversions.convert(
-                unitData,
-                txt == "" ? null : double.parse(txt),
-                property,
+            return null;
+          },
+          onChanged: (String txt) {
+            String newTxt = txt;
+            bool changed = false;
+            if (newTxt.contains(',')) {
+              newTxt = newTxt.replaceAll(',', '.');
+              changed = true;
+            }
+            if (newTxt.startsWith('.')) {
+              newTxt = '0$newTxt';
+              changed = true;
+            }
+            if (changed) {
+              unitData.tec.value = TextEditingValue(
+                text: newTxt,
+                selection: TextSelection.collapsed(offset: newTxt.length),
               );
             }
-          }
-        },
-      );
-    }
+            if (txt == '' || unitData.getValidator().hasMatch(txt)) {
+              var conversions = ref.read(ConversionsNotifier.provider.notifier);
+              //just numeral system uses a string for conversion
+              if (unitData.property == PROPERTYX.numeralSystems) {
+                conversions.convert(unitData, txt == "" ? null : txt, property);
+              } else {
+                conversions.convert(
+                  unitData,
+                  txt == "" ? null : double.parse(txt),
+                  property,
+                );
+              }
+            }
+          },
+        );
 
     final unhiddenGridTiles = unhiddenUnitData.map(unitWidgetBuilder).toList();
     final hiddenGridTiles = hiddenUnitData.map(unitWidgetBuilder).toList();

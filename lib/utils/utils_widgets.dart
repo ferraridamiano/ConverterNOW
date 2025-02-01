@@ -11,7 +11,6 @@ class UnitWidget extends StatefulWidget {
   final String unitName;
   final String? unitSymbol;
   final void Function(String)? onChanged;
-  final FocusNode focusNode;
 
   const UnitWidget({
     super.key,
@@ -22,7 +21,6 @@ class UnitWidget extends StatefulWidget {
     required this.unitName,
     this.unitSymbol,
     this.onChanged,
-    required this.focusNode,
   });
 
   @override
@@ -30,13 +28,22 @@ class UnitWidget extends StatefulWidget {
 }
 
 class _UnitWidgetState extends State<UnitWidget> {
+  FocusNode focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    super.dispose();
+    focusNode.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    focusNode.addListener(() => setState(() {}));
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
       child: TextFormField(
         key: ValueKey(widget.tffKey),
-        focusNode: widget.focusNode,
+        focusNode: focusNode,
         style: const TextStyle(fontSize: 16.0),
         keyboardType: widget.keyboardType,
         controller: widget.controller,
@@ -70,7 +77,7 @@ class _UnitWidgetState extends State<UnitWidget> {
           ),
           floatingLabelStyle: TextStyle(
             fontSize: 20,
-            color: widget.focusNode.hasFocus
+            color: focusNode.hasFocus
                 ? Theme.of(context).colorScheme.secondary
                 : null,
           ),

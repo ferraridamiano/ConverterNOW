@@ -123,23 +123,14 @@ int color2Int(Color color) =>
     _floatToInt8(color.g) << 8 |
     _floatToInt8(color.b) << 0;
 
-extension on String {
-  String _toKebabCase() => replaceAllMapped(
+/// Converts PROPERTYX.digitalData to a kebab String like 'digital-data'
+extension KebabCaseExtension on PROPERTYX {
+  String toKebabCase() => toString().split('.').last.replaceAllMapped(
       RegExp(r'([A-Z])'), (match) => '-${match[0]!.toLowerCase()}');
 }
 
-/// Converts PROPERTYX.digitalData to a kebab String like 'digital-data'
-extension KebabCaseProperty on PROPERTYX {
-  String toKebabCase() => toString().split('.').last._toKebabCase();
+PROPERTYX kebabStringToPropertyX(String string) {
+  final lowerCaseString = string.replaceAll('-', '').toLowerCase();
+  return PROPERTYX.values.firstWhere(
+      (e) => e.toString().toLowerCase() == 'propertyx.$lowerCaseString');
 }
-
-extension KebabStringToPropertyX on String {
-  PROPERTYX kebab2PropertyX() {
-    final lowerCaseString = replaceAll('-', '').toLowerCase();
-    return PROPERTYX.values.firstWhere(
-        (e) => e.toString().toLowerCase() == 'propertyx.$lowerCaseString');
-  }
-}
-
-String unitName2KebabCase(dynamic unitName) =>
-    unitName.toString().split('.').last._toKebabCase();

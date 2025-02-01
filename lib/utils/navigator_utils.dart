@@ -28,10 +28,10 @@ AppPage computeSelectedSection(BuildContext context) {
 
 int? computeSelectedConversionPage(
     BuildContext context, Map<PROPERTYX, int> inversePropertiesOrdering) {
-  final segments = GoRouterState.of(context).uri.pathSegments;
-
-  if (segments.isNotEmpty && segments[0] == 'conversions') {
-    return inversePropertiesOrdering[segments.last.kebab2PropertyX()];
+  final location = GoRouterState.of(context).uri.toString();
+  if (location.startsWith('/conversions')) {
+    return inversePropertiesOrdering[
+        kebabStringToPropertyX(location.split('/').last)];
   }
   return null;
 }
