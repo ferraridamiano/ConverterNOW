@@ -235,18 +235,12 @@ class DropdownListTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
                   ...items.map(
-                    (item) => ListTile(
+                    (item) => RadioListTile(
+                      value: item,
+                      groupValue: value,
                       title: Text(item),
-                      leading: item != value
-                          ? SizedBox(
-                              width: Theme.of(context).iconTheme.size,
-                            )
-                          : Icon(
-                              Icons.check,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                      onTap: () {
-                        onChanged(item);
+                      onChanged: (newValue) {
+                        onChanged(newValue);
                         Navigator.pop(context);
                       },
                     ),
