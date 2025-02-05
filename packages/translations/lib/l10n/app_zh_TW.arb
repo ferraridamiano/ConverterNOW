@@ -62,32 +62,18 @@
   "appearance": "外觀",
   "conversions": "轉換",
   "findOutMore": "進一步了解",
-  "hideUnits": "Hide units",
-  "@hideUnits": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "visibleUnits": "{property}, visible units",
-  "@visibleUnits": {
-    "description": "Not yet translated. Once done, remove this comment",
+  "hideUnits": "隱藏單位",
+  "visibleUnits": "{property}, 可見單位",
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Length"
+        "example": "長度"
       }
     }
   },
-  "hiddenUnits": "Hidden units",
-  "@hiddenUnits": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "selectAll": "Select all",
-  "@selectAll": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "unselectAll": "Unselect all",
-  "@unselectAll": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "hiddenUnits": "隱藏的單位",
+  "selectAll": "選擇所有",
+  "unselectAll": "取消選擇",
 
   "length": "長度",
   "area": "面積",
@@ -159,22 +145,10 @@
   "usFluidOunces": "美制液盎司",
   "imperialGill": "英制及耳",
   "usGill": "美制及耳",
-  "usQuarts": "US Quarts",
-  "@usQuarts": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microliters": "Microliters",
-  "@microliters": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "deciliters": "Deciliters",
-  "@deciliters": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "centiliters": "Centiliters",
-  "@centiliters": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "usQuarts": "美制夸脫",
+  "microliters": "微升",
+  "deciliters": "公合；分升",
+  "centiliters": "公勺；厘升",
 
   "seconds": "秒",
   "deciseconds": "分秒",
@@ -230,10 +204,7 @@
   "torr": "托",
   "hectoPascal": "百帕[斯卡]",
   "inchesOfMercury": "英寸汞柱",
-  "kiloPascal": "Kilopascal",
-  "@kiloPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "kiloPascal": "千帕[斯卡]",
 
   "joule": "焦耳",
   "calories": "卡[路里]",
@@ -241,9 +212,7 @@
   "electronvolt": "電子伏特",
   "footPound": "英尺磅",
   "kilocalories": "大卡",
-  "kilojoules": "Kilojoules",
-  "@kilojoules": {
-    "description": "Not yet translated. Once done, remove this comment"
+  "kilojoules": "千焦耳",
   },
 
   "degree": "度",
