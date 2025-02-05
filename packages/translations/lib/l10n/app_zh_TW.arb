@@ -64,6 +64,7 @@
   "findOutMore": "進一步了解",
   "hideUnits": "隱藏單位",
   "visibleUnits": "{property}, 可見單位",
+  "@visibleUnits": {
     "placeholders": {
       "property": {
         "type": "String",
