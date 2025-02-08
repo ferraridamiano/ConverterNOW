@@ -88,12 +88,12 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev desktop-file-utils
     
-    # Use snap because subosito/flutter-action does not support arm64 yet (https://github.com/subosito/flutter-action/issues/345)
+    # Use git because subosito/flutter-action does not support arm64 yet (https://github.com/subosito/flutter-action/issues/345)
     - name: Setup Flutter
       run: |
-        sudo snap install flutter --classic --channel latest/stable
-        flutter channel stable
-        flutter upgrade
+        git clone --depth 1 --branch stable https://github.com/flutter/flutter.git $RUNNER_TEMP/flutter
+        echo "$RUNNER_TEMP/flutter/bin" >> $GITHUB_PATH
+        echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
 
     - name: Flutter version
       run: flutter --version
