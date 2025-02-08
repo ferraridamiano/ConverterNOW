@@ -177,7 +177,7 @@ class CurrentLocale extends AsyncNotifier<Locale?> {
       return null;
     }
     return mapLocale.keys.firstWhere(
-      (element) => element.languageCode == savedLanguageCode,
+      (element) => element.toLanguageTag() == savedLanguageCode,
       orElse: () => const Locale('en'),
     );
   }
@@ -186,6 +186,6 @@ class CurrentLocale extends AsyncNotifier<Locale?> {
     state = AsyncData(value);
     ref.read(sharedPref.future).then((pref) => value == null
         ? pref.remove(_prefKey)
-        : pref.setString(_prefKey, value.languageCode));
+        : pref.setString(_prefKey, value.toLanguageTag()));
   }
 }
