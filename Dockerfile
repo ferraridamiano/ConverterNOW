@@ -38,7 +38,7 @@ COPY . .
 
 RUN dart pub global activate melos && \
     melos bootstrap && \
-    flutter build web --release
+    flutter build web --release --wasm
 
 FROM nginx:1.27-alpine3.20-slim
 
