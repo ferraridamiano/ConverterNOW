@@ -1,0 +1,7 @@
+⚙️ <b>New features</b>: hide unused units, improved default unit sorting, more units, improved conversion speed
+🌍 <b>Updated translations</b> Thanks to @albanobattistella, @plum7x, @solokot
+🐞 <b>Bug Fixes and General Improvements!</b> We've worked hard to provide you with an even better experience
+
+This version may break your unit sorting. We've made improvements so that this will no longer happen. We apologize for the inconvenience.
+
+<b>Do you like Converter NOW?</b> Leave a review and let us know what you think! ✔️

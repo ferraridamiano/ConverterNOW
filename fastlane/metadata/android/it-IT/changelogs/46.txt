@@ -1,0 +1,7 @@
+⚙️ <b>Nuove funzioni</b>: nascondi le unità di misura che non usi, ordinamento delle unità di default migliorato, più unità di misura, velocità di conversione migliorata
+🌍 <b>Traduzioni aggiornate</b> Grazie a @albanobattistella, @plum7x, @solokot
+🐞 <b>Correzioni di bug e miglioramenti generali!</b> Abbiamo lavorato sodo per offrirti un'esperienza sempre migliore
+
+Questa versione potrebbe rompere il tuo ordinamento delle unità di misura. Abbiamo fatto dei miglioramenti in modo che questo non accada più. Ci scusiamo per il diseguido.
+
+<b>Ti piace Converter NOW?</b> Lascia una recensione e facci sapere cosa ne pensi! ✔️

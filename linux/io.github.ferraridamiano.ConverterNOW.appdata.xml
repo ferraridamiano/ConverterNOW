@@ -84,6 +84,17 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.3.0" date="2024-02-16">
+      <description>
+        <ul>
+          <li>⚙️ New features: hide unused units, improved default unit sorting, more units, improved conversion speed</li>
+          <li>🌍 Updated translations. Thanks to @albanobattistella, @plum7x, @solokot</li>
+          <li>🐞 Bug Fixes and General Improvements! We've worked hard to provide you with an even better experience</li>
+        </ul>
+        <p>This version may break your unit sorting. We've made improvements so that this will no longer happen. We apologize for the inconvenience.</p>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
     <release version="4.2.4" date="2024-12-23">
       <description>
         <ul>
