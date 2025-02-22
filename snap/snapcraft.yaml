@@ -29,7 +29,6 @@ parts:
   converternow:
     override-build: |
       dart pub global activate melos
-      dart pub global activate vector_graphics_compiler
       export PATH="$PATH":"$HOME/.pub-cache/bin"
       melos bootstrap
       snapcraftctl build

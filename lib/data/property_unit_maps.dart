@@ -6,53 +6,62 @@ import 'package:converterpro/utils/utils.dart';
 /// This will return the map of [PropertyUi], a record that contains all the
 /// data regarding the displaying of the property all over the app.
 Map<PROPERTYX, PropertyUi> getPropertyUiMap(BuildContext context) {
-  const String basePath = 'assets/property_icons';
+  const String basePath = 'assets/property_icons_opti';
   final l10n = AppLocalizations.of(context)!;
   //The order is important!
   return {
-    PROPERTYX.length: (name: l10n.length, imagePath: '$basePath/length.svg'),
-    PROPERTYX.area: (name: l10n.area, imagePath: '$basePath/area.svg'),
-    PROPERTYX.volume: (name: l10n.volume, imagePath: '$basePath/volume.svg'),
+    PROPERTYX.length: (
+      name: l10n.length,
+      imagePath: '$basePath/length.svg.vec'
+    ),
+    PROPERTYX.area: (name: l10n.area, imagePath: '$basePath/area.svg.vec'),
+    PROPERTYX.volume: (
+      name: l10n.volume,
+      imagePath: '$basePath/volume.svg.vec'
+    ),
     PROPERTYX.currencies: (
       name: l10n.currencies,
-      imagePath: '$basePath/currencies.svg'
+      imagePath: '$basePath/currencies.svg.vec'
     ),
-    PROPERTYX.time: (name: l10n.time, imagePath: '$basePath/time.svg'),
+    PROPERTYX.time: (name: l10n.time, imagePath: '$basePath/time.svg.vec'),
     PROPERTYX.temperature: (
       name: l10n.temperature,
-      imagePath: '$basePath/temperature.svg'
+      imagePath: '$basePath/temperature.svg.vec'
     ),
-    PROPERTYX.speed: (name: l10n.speed, imagePath: '$basePath/speed.svg'),
-    PROPERTYX.mass: (name: l10n.mass, imagePath: '$basePath/mass.svg'),
-    PROPERTYX.force: (name: l10n.force, imagePath: '$basePath/force.svg'),
+    PROPERTYX.speed: (name: l10n.speed, imagePath: '$basePath/speed.svg.vec'),
+    PROPERTYX.mass: (name: l10n.mass, imagePath: '$basePath/mass.svg.vec'),
+    PROPERTYX.force: (name: l10n.force, imagePath: '$basePath/force.svg.vec'),
     PROPERTYX.fuelConsumption: (
       name: l10n.fuelConsumption,
-      imagePath: '$basePath/fuel.svg'
+      imagePath: '$basePath/fuel.svg.vec'
     ),
     PROPERTYX.numeralSystems: (
       name: l10n.numeralSystems,
-      imagePath: '$basePath/numeral_systems.svg'
+      imagePath: '$basePath/numeral_systems.svg.vec'
     ),
     PROPERTYX.pressure: (
       name: l10n.pressure,
-      imagePath: '$basePath/pressure.svg'
+      imagePath: '$basePath/pressure.svg.vec'
     ),
-    PROPERTYX.energy: (name: l10n.energy, imagePath: '$basePath/energy.svg'),
-    PROPERTYX.power: (name: l10n.power, imagePath: '$basePath/power.svg'),
-    PROPERTYX.angle: (name: l10n.angles, imagePath: '$basePath/angle.svg'),
+    PROPERTYX.energy: (
+      name: l10n.energy,
+      imagePath: '$basePath/energy.svg.vec'
+    ),
+    PROPERTYX.power: (name: l10n.power, imagePath: '$basePath/power.svg.vec'),
+    PROPERTYX.angle: (name: l10n.angles, imagePath: '$basePath/angle.svg.vec'),
     PROPERTYX.shoeSize: (
       name: l10n.shoeSize,
-      imagePath: '$basePath/shoe_size.svg'
+      imagePath: '$basePath/shoe_size.svg.vec'
     ),
     PROPERTYX.digitalData: (
       name: l10n.digitalData,
-      imagePath: '$basePath/data.svg'
+      imagePath: '$basePath/data.svg.vec'
     ),
     PROPERTYX.siPrefixes: (
       name: l10n.siPrefixes,
-      imagePath: '$basePath/si_prefixes.svg'
+      imagePath: '$basePath/si_prefixes.svg.vec'
     ),
-    PROPERTYX.torque: (name: l10n.torque, imagePath: '$basePath/torque.svg')
+    PROPERTYX.torque: (name: l10n.torque, imagePath: '$basePath/torque.svg.vec')
   };
 }
 

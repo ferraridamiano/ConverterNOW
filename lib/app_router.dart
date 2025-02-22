@@ -107,7 +107,7 @@ final routerProvider = Provider<GoRouter>(
                 builder: (context, state) => LicensePage(
                   applicationName: AppLocalizations.of(context)!.appName,
                   applicationIcon: const SvgPicture(
-                    AssetBytesLoader('assets/app_icons/logo.svg'),
+                    AssetBytesLoader('assets/app_icons_opti/logo.svg.vec'),
                     width: 50,
                   ),
                 ),

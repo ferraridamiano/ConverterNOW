@@ -61,7 +61,6 @@ dev_dependencies:
   melos: ^6.3.2
   msix: ^3.16.8
   test: ^1.25.15
-  vector_graphics_compiler: ^1.1.16
 
 msix_config:
   display_name: Converter NOW
@@ -83,15 +82,5 @@ flutter:
   assets:
     - assets/fonts/OFL.txt
     - assets/logo.png
-    - path: assets/app_icons/
-      transformers:
-        - package: vector_graphics_compiler
-          # This is added because with this optimizations sometime it is not
-          # possible to compile the app
-          args: ['--no-optimize-masks', '--no-optimize-clips', '--no-tessellate', '--no-optimize-overdraw']
-    - path: assets/property_icons/
-      transformers:
-        - package: vector_graphics_compiler
-          # This is added because with this optimizations sometime it is not
-          # possible to compile the app
-          args: ['--no-optimize-masks', '--no-optimize-clips', '--no-tessellate', '--no-optimize-overdraw']
+    - assets/app_icons_opti/
+    - assets/property_icons_opti/
