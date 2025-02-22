@@ -36,7 +36,7 @@ RUN flutter config --no-enable-windows-desktop --no-enable-macos-desktop --no-en
 WORKDIR /app
 COPY . .
 
-RUN dart pub global activate melos && \
+RUN flutter pub global activate melos && \
     melos bootstrap && \
     flutter build web --release --wasm
 
