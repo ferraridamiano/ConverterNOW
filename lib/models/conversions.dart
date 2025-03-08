@@ -35,10 +35,10 @@ class ConversionsNotifier
                         decimal: true, signed: true),
                   NUMERAL_SYSTEMS.binary ||
                   NUMERAL_SYSTEMS.octal ||
-                  NUMERAL_SYSTEMS.decimal ||
-                  NUMERAL_SYSTEMS.hexadecimal =>
+                  NUMERAL_SYSTEMS.decimal =>
                     const TextInputType.numberWithOptions(
                         decimal: false, signed: false),
+                  NUMERAL_SYSTEMS.hexadecimal => TextInputType.text,
                   _ => const TextInputType.numberWithOptions(
                       decimal: true, signed: false),
                 },
