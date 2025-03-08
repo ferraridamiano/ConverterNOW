@@ -133,7 +133,7 @@ Note: if you deploy it not on the base path, add `--base-href=/path/` to the com
 You can build the Docker image of Converter NOW in your environment with the
 following command:
 ```shell
-docker build -t converternow .
+docker buildx build -t converternow .
 ```
 
 Then, run the docker container:

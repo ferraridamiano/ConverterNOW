@@ -90,11 +90,13 @@ class SettingsPage extends ConsumerWidget {
             value:
                 mapTheme[ref.watch(CurrentThemeMode.provider).valueOrNull ?? 0]!
                     .title,
-            onChanged: (String? string) => ref
-                .read(CurrentThemeMode.provider.notifier)
-                .set(mapTheme.keys
+            onChanged: (String? string) {
+              if (string != null) {
+                ref.read(CurrentThemeMode.provider.notifier).set(mapTheme.keys
                     .where((key) => mapTheme[key]?.title == string)
-                    .single),
+                    .single);
+              }
+            },
             textStyle: textStyle,
           ),
           SwitchListTile(

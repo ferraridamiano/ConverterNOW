@@ -219,35 +219,13 @@ class DropdownListTile extends StatelessWidget {
           ),
           subtitle: Text(value),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-          onTap: () => showModalBottomSheet(
-            context: context,
-            showDragHandle: true,
-            builder: (context) {
-              return ListView(
-                shrinkWrap: true,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  ...items.map(
-                    (item) => RadioListTile(
-                      value: item,
-                      groupValue: value,
-                      title: Text(item),
-                      onChanged: (newValue) {
-                        onChanged(newValue);
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
-              );
-            },
+          onTap: () async => onChanged(
+            await showModalBottomRadioList(
+              context: context,
+              title: title,
+              items: items,
+              value: value,
+            ),
           ),
         ),
       TargetPlatform.linux ||
@@ -337,45 +315,52 @@ class SegmentedButtonListTile extends StatelessWidget {
               ),
               subtitle: Text(value),
               shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-              onTap: () => showModalBottomSheet(
-                context: context,
-                showDragHandle: true,
-                builder: (context) {
-                  return ListView(
-                    shrinkWrap: true,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          title,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      ...items.map(
-                        (item) => ListTile(
-                          title: Text(item.title),
-                          leading: item.title != value
-                              ? SizedBox(
-                                  width: Theme.of(context).iconTheme.size,
-                                )
-                              : Icon(
-                                  Icons.check,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                          onTap: () {
-                            onChanged(item.title);
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    ],
-                  );
-                },
+              onTap: () async => onChanged(
+                await showModalBottomRadioList(
+                  context: context,
+                  title: title,
+                  items: items.map((e) => e.title).toList(),
+                  value: value,
+                ),
               ),
             ),
     );
   }
+}
+
+Future<String?> showModalBottomRadioList({
+  required BuildContext context,
+  required String title,
+  required List<String> items,
+  required String value,
+}) {
+  return showModalBottomSheet<String?>(
+    context: context,
+    showDragHandle: true,
+    builder: (context) {
+      return ListView(
+        shrinkWrap: true,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+          const SizedBox(height: 15),
+          ...items.map(
+            (item) => RadioListTile(
+              value: item,
+              groupValue: value,
+              title: Text(item),
+              onChanged: (value) => Navigator.pop(context, value),
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }
 
 class SplashScreenWidget extends StatelessWidget {
