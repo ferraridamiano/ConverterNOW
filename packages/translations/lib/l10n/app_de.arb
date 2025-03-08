@@ -254,7 +254,7 @@
   "bar": "Bar",
   "millibar": "Millibar",
   "psi": "Pfund pro Quadratzoll",
-  "torr": "Torr (Millimeter-Quecksilbersäule)",
+  "torr": "Millimeter-Quecksilbersäule (Torr)",
   "hectoPascal": "Hektopascal",
   "inchesOfMercury": "Zoll Quecksilber",
   "kiloPascal": "Kilopascal",

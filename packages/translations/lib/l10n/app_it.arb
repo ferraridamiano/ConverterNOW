@@ -202,7 +202,7 @@
   "bar": "Bar",
   "millibar": "Millibar",
   "psi": "Libbra su Pollice Quadrato",
-  "torr": "Torricelli",
+  "torr": "Millimetri di mercurio (Torr)",
   "hectoPascal": "Ettopascal",
   "inchesOfMercury": "Pollici di mercurio",
   "kiloPascal": "Chilopascal",

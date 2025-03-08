@@ -272,7 +272,7 @@
   "bar": "Bar",
   "millibar": "Millibar",
   "psi": "Libras por polegada quadrada",
-  "torr": "Torricelli",
+  "torr": "Milímetro de mercúrio (Torr)",
   "hectoPascal": "Hectopascal",
   "@hectoPascal": {
     "description": "Not yet translated. Once done, remove this comment"

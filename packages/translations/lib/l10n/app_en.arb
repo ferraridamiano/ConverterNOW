@@ -202,7 +202,7 @@
   "bar": "Bar",
   "millibar": "Millibar",
   "psi": "Pounds per square inch",
-  "torr": "Torricelli",
+  "torr": "Millimeter of mercury (Torr)",
   "hectoPascal": "Hectopascal",
   "inchesOfMercury": "Inches of mercury",
   "kiloPascal": "Kilopascal",
