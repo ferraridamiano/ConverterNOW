@@ -84,6 +84,14 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.3.1" date="2024-03-09">
+      <description>
+        <ul>
+          <li>🐞 Bug Fixes and General Improvements! We've worked hard to provide you with an even better experience</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
     <release version="4.3.0" date="2024-02-16">
       <description>
         <ul>

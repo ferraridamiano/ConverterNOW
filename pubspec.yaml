@@ -2,11 +2,11 @@ name: converterpro
 description: Unit and currencies converter
 publish_to: none
 
-version: 4.3.0+46
+version: 4.3.1+47
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.29.0 <4.0.0"
+  flutter: ">=3.29.1 <4.0.0"
 
 dependencies:
   flutter:
