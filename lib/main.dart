@@ -84,20 +84,6 @@ class MyApp extends ConsumerWidget {
         final themeMode = ref.watch(CurrentThemeMode.provider).valueOrNull ??
             ThemeMode.system;
 
-        SystemChrome.setSystemUIOverlayStyle(
-          SystemUiOverlayStyle(
-            statusBarIconBrightness: switch (themeMode) {
-              ThemeMode.light => Brightness.dark,
-              ThemeMode.dark => Brightness.light,
-              ThemeMode.system =>
-                WidgetsBinding.instance.platformDispatcher.platformBrightness ==
-                        Brightness.dark
-                    ? Brightness.light
-                    : Brightness.dark
-            },
-          ),
-        );
-
         // Workaround until https://github.com/flutter/flutter/issues/39998 got
         // resolved
         String deviceLocaleLanguageCode =
