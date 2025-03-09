@@ -39,8 +39,8 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
   }
 
   void set(List<int> newOrder) async {
-    final propertiesOrder =
-        newOrder.map((e) => defaultPropertiesOrder[e]).toList();
+    final currentOrdering = state.value!;
+    final propertiesOrder = newOrder.map((e) => currentOrdering[e]).toList();
     // Update the state
     state = AsyncData(propertiesOrder);
     // Store the new values
@@ -104,9 +104,9 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
     );
     // if there aren't any changes, do nothing
     if (newOrder != null) {
-      final defaultUnitsOrderProperty = defaultUnitsOrder[property]!;
+      final currentUnitsOrderProperty = state.value![property]!;
       final unitsOrder =
-          newOrder.map((e) => defaultUnitsOrderProperty[e]).toList();
+          newOrder.map((e) => currentUnitsOrderProperty[e]).toList();
       // Update the state
       final newState = {...state.value!};
       newState[property] = unitsOrder;
