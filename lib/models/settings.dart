@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final Map<Locale, String> mapLocale = {
+  const Locale('bn'): 'বাংলা',
   const Locale('en'): 'English',
   const Locale('ca'): 'Català',
   const Locale('de'): 'Deutsch',
