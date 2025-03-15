@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:math' as math;
+import 'package:rational/rational.dart';
 
 enum OPERATION {
   product,
@@ -172,6 +173,9 @@ class Calculator extends Notifier<String> {
   void adaptiveDeleteClear() =>
       ref.read(endNumberProvider) ? clearAll() : deleteLastChar();
 
+  void percentage() => _unaryOperation(
+      (Decimal x) => _getStringFromRational(x / Decimal.fromInt(100)));
+
   /// Computes the square root of currentNumber
   void squareRoot() => _unaryOperation(
       (Decimal x) => _getStringFromNum(math.sqrt(x.toDouble())));
@@ -201,6 +205,11 @@ class Calculator extends Notifier<String> {
   void _unaryOperation(String Function(Decimal) operation) {
     //if it is the first operation submitted
     if (state.isNotEmpty) {
+      if (_firstNumber != null) {
+        // If the previous operation is not completed, compute it before
+        // computing the new unary operation
+        submitChar('=');
+      }
       state = operation(Decimal.parse(state));
       ref.read(endNumberProvider.notifier).state = true;
       ref.read(isResultProvider.notifier).state = true;
@@ -208,13 +217,16 @@ class Calculator extends Notifier<String> {
   }
 }
 
-String _getStringFromDecimal(Decimal value) {
-  String stringValue = value.toString();
+String _getStringFromRational(Rational rational) {
+  String stringValue = (rational.numerator / rational.denominator).toString();
   if (stringValue.endsWith('.0')) {
     stringValue = stringValue.substring(0, stringValue.length - 2);
   }
   return stringValue;
 }
+
+String _getStringFromDecimal(Decimal value) =>
+    _getStringFromRational(value.toRational());
 
 String _getStringFromNum(num value) {
   String stringValue = value.toString();

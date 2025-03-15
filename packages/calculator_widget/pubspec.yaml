@@ -11,11 +11,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  #Needed for calculator computation
+  # Calculator computation
   decimal: ^3.0.2
-  #Needed for the state management
+  # State management
   flutter_riverpod: ^2.6.1
-  #Needed for app translation
+  # Calculator computation
+  rational: ^2.2.3
+  # App translation
   translations:
     path: ../translations
 

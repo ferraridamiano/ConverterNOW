@@ -234,6 +234,11 @@ class CalculatorNumpad extends ConsumerWidget {
             Column(
               children: <Widget>[
                 CalculatorButton(
+                  text: '%',
+                  buttonType: ButtonType.operation,
+                  onPressed: ref.read(Calculator.provider.notifier).percentage,
+                ),
+                CalculatorButton(
                     text: '√',
                     buttonType: ButtonType.operation,
                     onPressed: () {
@@ -244,12 +249,6 @@ class CalculatorNumpad extends ConsumerWidget {
                     buttonType: ButtonType.operation,
                     onPressed: () {
                       ref.read(Calculator.provider.notifier).log10();
-                    }),
-                CalculatorButton(
-                    text: 'e',
-                    buttonType: ButtonType.operation,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).submitChar('e');
                     }),
                 CalculatorButton(
                     text: 'π',
