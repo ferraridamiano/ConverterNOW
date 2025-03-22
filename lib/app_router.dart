@@ -49,10 +49,10 @@ final routerProvider = Provider<GoRouter>(
         routes: [
           GoRoute(
             path: '/conversions/:property',
-            pageBuilder: (context, state) {
+            builder: (context, state) {
               final String property = state.pathParameters['property']!;
               final propertyx = kebabStringToPropertyX(property);
-              return NoTransitionPage(child: ConversionPage(propertyx));
+              return ConversionPage(propertyx);
             },
           ),
           GoRoute(

@@ -70,10 +70,13 @@ class MyApp extends ConsumerWidget {
           drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
         );
 
-        const pageTransitionsTheme = PageTransitionsTheme(
-          builders: {
-            TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
-          },
+        final pageTransitionsTheme = PageTransitionsTheme(
+          builders: Map<TargetPlatform, PageTransitionsBuilder>.fromIterable(
+            TargetPlatform.values,
+            value: (e) => e == TargetPlatform.android
+                ? const PredictiveBackPageTransitionsBuilder()
+                : const FadeForwardsPageTransitionsBuilder(),
+          ),
         );
         lightTheme =
             lightTheme.copyWith(pageTransitionsTheme: pageTransitionsTheme);
