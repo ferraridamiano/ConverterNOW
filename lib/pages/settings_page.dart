@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/styles/consts.dart';
+import 'package:converterpro/utils/backup_restore_clear.dart';
 import 'package:converterpro/utils/palette.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -272,6 +273,62 @@ class SettingsPage extends ConsumerWidget {
               style: textStyle,
             ),
             onTap: () => context.goNamed('hide-units'),
+            shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          ),
+          ListTile(
+            key: const ValueKey(''),
+            leading: Icon(Icons.archive_outlined, color: iconColor),
+            title: Text(
+              'Backup / restore / clear settings',
+              style: textStyle,
+            ),
+            onTap: () {
+              final dialogContent = ListView(
+                shrinkWrap: true,
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.archive_outlined),
+                    title: Text('Backup settings'),
+                    onTap: () async {
+                      await exportSettingsBackup(ref.read(sharedPref).value!);
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.unarchive_outlined),
+                    title: Text('Restore settings'),
+                    onTap: () async {
+                      await importSettingsBackup();
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.delete_forever_outlined),
+                    title: Text('Clear settings'),
+                    onTap: () {
+                      // TODO
+                    },
+                  ),
+                ],
+              );
+
+              if (Platform.isAndroid || Platform.isIOS || Platform.isFuchsia) {
+                showBottomSheet(
+                  context: context,
+                  showDragHandle: true,
+                  builder: (context) => dialogContent,
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text('Backup / restore / clear settings'),
+                    content: SizedBox(
+                      width: 600,
+                      child: dialogContent,
+                    ),
+                  ),
+                );
+              }
+            },
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           ),
           Padding(
