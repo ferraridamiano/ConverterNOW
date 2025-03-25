@@ -23,3 +23,6 @@ const double pixelWidth3Columns = 1300;
 const double twoSidedReorderScreen = 700;
 
 const fallbackColorTheme = Colors.blue;
+
+/// default window size when app starts on Windows 
+const defaultWindowSize = Size(800, 600);
