@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:file_selector/file_selector.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -56,7 +57,7 @@ Future<void> exportSettingsBackup(SharedPreferencesWithCache prefs) async {
   await backupFile.writeAsString(jsonData);
 }
 
-Future<void> importSettingsBackup() async {
+Future<void> importSettingsBackup(SharedPreferencesWithCache prefs) async {
   final XFile? file = await openFile(
     acceptedTypeGroups: const [
       XTypeGroup(
@@ -72,6 +73,22 @@ Future<void> importSettingsBackup() async {
 
   final String jsonData = await file.readAsString();
   final Map<String, dynamic> allPrefs = jsonDecode(jsonData);
-  // TODO
-  print(allPrefs);
+
+  for (final entry in allPrefs.entries) {
+    final key = entry.key;
+    final value = entry.value;
+    if (value is String) {
+      prefs.setString(key, value);
+    } else if (value is bool) {
+      prefs.setBool(key, value);
+    } else if (value is int) {
+      prefs.setInt(key, value);
+    } else if (value is double) {
+      prefs.setDouble(key, value);
+    } else if (value is List<String>) {
+      prefs.setStringList(key, value);
+    } else {
+      debugPrint('Invalid entry');
+    }
+  }
 }

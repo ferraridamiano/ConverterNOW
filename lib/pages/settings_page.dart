@@ -291,13 +291,20 @@ class SettingsPage extends ConsumerWidget {
                     title: Text('Backup settings'),
                     onTap: () async {
                       await exportSettingsBackup(ref.read(sharedPref).value!);
+                      if (context.mounted) {
+                        context.pop();
+                      }
                     },
                   ),
                   ListTile(
                     leading: Icon(Icons.unarchive_outlined),
                     title: Text('Restore settings'),
                     onTap: () async {
-                      await importSettingsBackup();
+                      await importSettingsBackup(ref.read(sharedPref).value!);
+                      ref.invalidate(sharedPref);
+                      if (context.mounted) {
+                        context.pop();
+                      }
                     },
                   ),
                   ListTile(
