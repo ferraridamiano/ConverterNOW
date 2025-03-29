@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> exportSettingsBackup(SharedPreferencesWithCache prefs) async {
+Future<String?> exportSettingsBackup(SharedPreferencesWithCache prefs) async {
   final Map<String, dynamic> allPrefs = {};
 
   for (String key in prefs.keys) {
@@ -35,14 +35,14 @@ Future<void> exportSettingsBackup(SharedPreferencesWithCache prefs) async {
     if (!status.isGranted) {
       await Permission.storage.request();
       if (!(await Permission.storage.status).isGranted) {
-        return;
+        return null;
       }
     }
   }
 
   final downloadsDir = await getDownloadsDirectory();
   if (downloadsDir == null) {
-    return;
+    return null;
   }
   if (!(await downloadsDir.exists())) {
     downloadsDir.create();
@@ -55,6 +55,7 @@ Future<void> exportSettingsBackup(SharedPreferencesWithCache prefs) async {
     await backupFile.create();
   }
   await backupFile.writeAsString(jsonData);
+  return backupFile.path;
 }
 
 Future<void> importSettingsBackup(SharedPreferencesWithCache prefs) async {

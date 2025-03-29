@@ -290,9 +290,21 @@ class SettingsPage extends ConsumerWidget {
                     leading: Icon(Icons.archive_outlined),
                     title: Text('Backup settings'),
                     onTap: () async {
-                      await exportSettingsBackup(ref.read(sharedPref).value!);
+                      final path = await exportSettingsBackup(
+                          ref.read(sharedPref).value!);
                       if (context.mounted) {
                         context.pop();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              path == null
+                                  ? 'Error in backup file creation'
+                                  : 'Backup saved in the download folder',
+                            ),
+                            behavior: SnackBarBehavior.floating,
+                            width: 400,
+                          ),
+                        );
                       }
                     },
                   ),
