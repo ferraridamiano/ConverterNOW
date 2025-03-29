@@ -275,82 +275,60 @@ class SettingsPage extends ConsumerWidget {
             onTap: () => context.goNamed('hide-units'),
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           ),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+            child: Text(
+              'App configuration data', // TODO
+              style: titlesStyle,
+            ),
+          ),
           ListTile(
-            key: const ValueKey(''),
+            key: const ValueKey('backup'),
             leading: Icon(Icons.archive_outlined, color: iconColor),
             title: Text(
-              'Backup / restore / clear settings',
+              'Backup settings', // TODO
               style: textStyle,
             ),
-            onTap: () {
-              final dialogContent = ListView(
-                shrinkWrap: true,
-                children: [
-                  ListTile(
-                    leading: Icon(Icons.archive_outlined),
-                    title: Text('Backup settings'),
-                    onTap: () async {
-                      final path = await exportSettingsBackup(
-                          ref.read(sharedPref).value!);
-                      if (context.mounted) {
-                        context.pop();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              path == null
-                                  ? 'Error in backup file creation'
-                                  : 'Backup saved in the download folder',
-                            ),
-                            behavior: SnackBarBehavior.floating,
-                            width: 400,
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.unarchive_outlined),
-                    title: Text('Restore settings'),
-                    onTap: () async {
-                      await importSettingsBackup(ref.read(sharedPref).value!);
-                      ref.invalidate(sharedPref);
-                      if (context.mounted) {
-                        context.pop();
-                      }
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.delete_forever_outlined),
-                    title: Text('Clear settings'),
-                    onTap: () async {
-                      await ref.read(sharedPref).value!.clear();
-                      ref.invalidate(sharedPref);
-                      if (context.mounted) {
-                        context.pop();
-                      }
-                    },
-                  ),
-                ],
-              );
-
-              if (Platform.isAndroid || Platform.isIOS || Platform.isFuchsia) {
-                showBottomSheet(
-                  context: context,
-                  showDragHandle: true,
-                  builder: (context) => dialogContent,
-                );
-              } else {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text('Backup / restore / clear settings'),
-                    content: SizedBox(
-                      width: 600,
-                      child: dialogContent,
+            onTap: () async {
+              final path =
+                  await exportSettingsBackup(ref.read(sharedPref).value!);
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      path == null
+                          ? 'Error in backup file creation'
+                          : 'Backup saved in the download folder',
                     ),
+                    behavior: SnackBarBehavior.floating,
+                    width: 400,
                   ),
                 );
               }
+            },
+            shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          ),
+          ListTile(
+            leading: Icon(Icons.unarchive_outlined, color: iconColor),
+            title: Text(
+              'Restore settings', // TODO
+              style: textStyle,
+            ),
+            onTap: () async {
+              await importSettingsBackup(ref.read(sharedPref).value!);
+              ref.invalidate(sharedPref);
+            },
+            shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+          ),
+          ListTile(
+            leading: Icon(Icons.delete_forever_outlined, color: iconColor),
+            title: Text(
+              'Clear settings', // TODO
+              style: textStyle,
+            ),
+            onTap: () async {
+              await ref.read(sharedPref).value!.clear();
+              ref.invalidate(sharedPref);
             },
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           ),
