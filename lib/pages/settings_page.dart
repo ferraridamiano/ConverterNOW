@@ -303,8 +303,12 @@ class SettingsPage extends ConsumerWidget {
                   ListTile(
                     leading: Icon(Icons.delete_forever_outlined),
                     title: Text('Clear settings'),
-                    onTap: () {
-                      // TODO
+                    onTap: () async {
+                      await ref.read(sharedPref).value!.clear();
+                      ref.invalidate(sharedPref);
+                      if (context.mounted) {
+                        context.pop();
+                      }
                     },
                   ),
                 ],
