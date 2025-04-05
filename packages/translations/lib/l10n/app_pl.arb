@@ -62,13 +62,9 @@
   "appearance": "Wygląd",
   "conversions": "Konwersje",
   "findOutMore": "Więcej informacji",
-  "hideUnits": "Hide units",
-  "@hideUnits": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "visibleUnits": "{property}, visible units",
+  "hideUnits": "Ukrywaj jednostki",
+  "visibleUnits": "{property}, widoczne jednostki",
   "@visibleUnits": {
-    "description": "Not yet translated. Once done, remove this comment",
     "placeholders": {
       "property": {
         "type": "String",
@@ -76,18 +72,9 @@
       }
     }
   },
-  "hiddenUnits": "Hidden units",
-  "@hiddenUnits": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "selectAll": "Select all",
-  "@selectAll": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "unselectAll": "Unselect all",
-  "@unselectAll": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "hiddenUnits": "Ukryte jednostki",
+  "selectAll": "Zaznacz wszystkie",
+  "unselectAll": "Odznacz wszystkie",
 
   "length": "Długość",
   "area": "Powierzchnia",
@@ -159,22 +146,10 @@
   "usFluidOunces": "Amerykańskie uncje płynne",
   "imperialGill": "Angielski gill",
   "usGill": "Amerykański gill",
-  "usQuarts": "US Quarts",
-  "@usQuarts": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microliters": "Microliters",
-  "@microliters": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "deciliters": "Deciliters",
-  "@deciliters": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "centiliters": "Centiliters",
-  "@centiliters": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "usQuarts": "Kwarta amerykańska",
+  "microliters": "Mikrolitry",
+  "deciliters": "Decylitry",
+  "centiliters": "Centylitry",
 
   "seconds": "Sekundy",
   "deciseconds": "Decysekundy",
@@ -230,10 +205,7 @@
   "torr": "Tor",
   "hectoPascal": "Hektopaskal",
   "inchesOfMercury": "Cal rtęci",
-  "kiloPascal": "Kilopascal",
-  "@kiloPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "kiloPascal": "Kilopaskal",
 
   "joule": "Dżule",
   "calories": "Kalorie",
@@ -241,10 +213,7 @@
   "electronvolt": "Elektronowolt",
   "footPound": "Stopa funta",
   "kilocalories": "Kilokalorie",
-  "kilojoules": "Kilojoules",
-  "@kilojoules": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "kilojoules": "Kilodżule",
 
   "degree": "Stopnie",
   "minutesDegree": "Minuty",
@@ -292,7 +261,7 @@
   "ukIndiaWoman": "Wielka Brytania i Indie - Kobieta",
   "usaCanadaChild": "USA i Kanada - Dziecko",
   "usaCanadaMan": "USA i Kanada - Mężczyzna",
-  "usaCanadaWoman": "UUSA i Kanada - Kobieta",
+  "usaCanadaWoman": "USA i Kanada - Kobieta",
   "japan": "Japonia",
 
   "watt": "Wat",
