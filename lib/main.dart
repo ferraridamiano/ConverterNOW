@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:window_manager/window_manager.dart' show windowManager;
+import 'helpers/app_window_manager.dart';
 
 void main() async {
   LicenseRegistry.addLicense(() async* {
@@ -18,6 +20,12 @@ void main() async {
   });
 
   WidgetsFlutterBinding.ensureInitialized();
+  
+  if (Platform.isWindows) {
+    await windowManager.ensureInitialized();
+    await AppWindowManager.setupWindowPersistence();
+  }
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
