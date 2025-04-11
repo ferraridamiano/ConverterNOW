@@ -70,6 +70,7 @@ class UnitData {
 enum PROPERTYX {
   angle,
   area,
+  density,
   currencies,
   digitalData,
   energy,

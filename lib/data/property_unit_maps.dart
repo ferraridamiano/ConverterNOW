@@ -15,6 +15,10 @@ Map<PROPERTYX, PropertyUi> getPropertyUiMap(BuildContext context) {
       imagePath: '$basePath/length.svg.vec'
     ),
     PROPERTYX.area: (name: l10n.area, imagePath: '$basePath/area.svg.vec'),
+    PROPERTYX.density: (
+      name: l10n.density,
+      imagePath: '$basePath/density.svg.vec'
+    ),
     PROPERTYX.volume: (
       name: l10n.volume,
       imagePath: '$basePath/volume.svg.vec'
@@ -103,6 +107,28 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       AREA.squareInches: l10n.squareInches,
       AREA.are: l10n.are,
       AREA.squareFeetUs: l10n.squareFeetUsSurvey,
+    },
+    PROPERTYX.density: {
+      DENSITY.gramsPerLiter: l10n.gramsPerLiter,
+      DENSITY.gramsPerCubicCentimeter: l10n.gramsPerCubicCentimeter,
+      DENSITY.gramsPerMilliliter: l10n.gramsPerMilliliter,
+      DENSITY.gramsPerDeciliter: l10n.gramsPerDeciliter,
+      DENSITY.kilogramsPerLiter: l10n.kilogramsPerLiter,
+      DENSITY.kilogramsPerCubicMeter: l10n.kilogramsPerCubicMeter,
+      DENSITY.milligramsPerLiter: l10n.milligramsPerLiter,
+      DENSITY.milligramsPerDeciliter: l10n.milligramsPerDeciliter,
+      DENSITY.milligramsPerMilliliter: l10n.milligramsPerMilliliter,
+      DENSITY.milligramsPerCubicMeter: l10n.milligramsPerCubicMeter,
+      DENSITY.milligramsPerCubicCentimeter: l10n.milligramsPerCubicCentimeter,
+      DENSITY.microgramsPerLiter: l10n.microgramsPerLiter,
+      DENSITY.microgramsPerDeciliter: l10n.microgramsPerDeciliter,
+      DENSITY.microgramsPerMilliliter: l10n.microgramsPerMilliliter,
+      DENSITY.nanogramsPerLiter: l10n.nanogramsPerLiter,
+      DENSITY.nanogramsPerMilliliter: l10n.nanogramsPerMilliliter,
+      DENSITY.picogramsPerLiter: l10n.picogramsPerLiter,
+      DENSITY.picogramsPerMilliliter: l10n.picogramsPerMilliliter,
+      // DENSITY.poundsPerCubicInches: l10n.poundsPerCubicInches,
+      // DENSITY.poundsPerCubicFeet: l10n.poundsPerCubicFeet,
     },
     PROPERTYX.volume: {
       VOLUME.cubicMeters: l10n.cubicMeters,
