@@ -82,6 +82,8 @@ flutter:
         - asset: assets/fonts/JosefinSans-Light.ttf
           weight: 300
   assets:
+    - assets/app_icons_opti/
+    - assets/property_icons_opti/
     - assets/fonts/OFL.txt
     - assets/logo.png
     - assets/app_icons/
