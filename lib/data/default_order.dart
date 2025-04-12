@@ -62,8 +62,8 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
   PROPERTYX.density: [
     DENSITY.gramsPerCubicCentimeter,
     DENSITY.kilogramsPerCubicMeter,
-    // DENSITY.poundsPerCubicInches,
-    // DENSITY.poundsPerCubicFeet,
+    DENSITY.poundsPerCubicInches,
+    DENSITY.poundsPerCubicFeet,
     DENSITY.gramsPerLiter,
     DENSITY.gramsPerMilliliter,
     DENSITY.gramsPerDeciliter,
@@ -217,8 +217,8 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
     PRESSURE.torr,
     PRESSURE.inchOfMercury,
     PRESSURE.hectoPascal,
-    // PRESSURE.ksi,
-    // PRESSURE.megaPascal
+    PRESSURE.ksi,
+    PRESSURE.megaPascal
   ],
   PROPERTYX.energy: [
     ENERGY.kilowattHours,
