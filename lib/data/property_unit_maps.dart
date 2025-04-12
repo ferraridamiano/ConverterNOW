@@ -240,6 +240,8 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       PRESSURE.torr: l10n.torr,
       PRESSURE.inchOfMercury: l10n.inchesOfMercury,
       PRESSURE.hectoPascal: l10n.hectoPascal,
+      // PRESSURE.ksi: l10n.ksi,
+      // PRESSURE.megaPascal: l10n.megaPascal,
     },
     PROPERTYX.energy: {
       ENERGY.kilowattHours: l10n.kilowattHour,
