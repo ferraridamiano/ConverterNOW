@@ -20,8 +20,8 @@ void main() async {
   });
 
   WidgetsFlutterBinding.ensureInitialized();
-  
-  if (Platform.isWindows) {
+
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
     await windowManager.ensureInitialized();
     await AppWindowManager.setupWindowPersistence();
   }
