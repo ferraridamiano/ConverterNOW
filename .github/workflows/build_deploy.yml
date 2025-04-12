@@ -6,7 +6,32 @@ on:
 
 jobs:
 
+  create_release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate Changelog using git-cliff
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
+        with:
+          args: --latest
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body: ${{ steps.git-cliff.outputs.content }}
+
   build_android:
+    needs: create_release
     name: Build and release Android app
     runs-on: ubuntu-latest
     timeout-minutes: 15
