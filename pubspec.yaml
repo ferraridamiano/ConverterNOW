@@ -32,7 +32,7 @@ dependencies:
   # Store the customizations and the latest currencies conversions
   shared_preferences: ^2.5.2
   # Unit conversion
-  units_converter: ^3.0.2
+  units_converter: ^3.0.3
   # Open external pages such as GitHub repo, Play Store, etc
   url_launcher: ^6.3.1
   # Load optimized svg icons
