@@ -29,13 +29,13 @@ class CustomDrawer extends ConsumerWidget {
 
     Color iconColor = getIconColor(Theme.of(context));
 
-    final Widget title = Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30),
+    const title = Padding(
+      padding: EdgeInsets.symmetric(vertical: 30),
       child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const SvgPicture(
+            SvgPicture(
               AssetBytesLoader('assets/app_icons_opti/logo.svg.vec'),
               width: 50,
             ),
