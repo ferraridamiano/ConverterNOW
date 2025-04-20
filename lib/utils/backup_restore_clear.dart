@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:file_selector/file_selector.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -59,20 +59,16 @@ Future<String?> exportSettingsBackup(SharedPreferencesWithCache prefs) async {
 }
 
 Future<void> importSettingsBackup(SharedPreferencesWithCache prefs) async {
-  final XFile? file = await openFile(
-    acceptedTypeGroups: const [
-      XTypeGroup(
-        label: 'Backup file',
-        extensions: ['json'],
-      )
-    ],
+  final pickerResult = await FilePicker.platform.pickFiles(
+    dialogTitle: 'Pick a backup', // TODO translate
+    allowedExtensions: ['json'],
   );
 
-  if (file == null) {
+  if (pickerResult == null) {
     return;
   }
 
-  final String jsonData = await file.readAsString();
+  final String jsonData = await pickerResult.files.single.xFile.readAsString();
   final Map<String, dynamic> allPrefs = jsonDecode(jsonData);
 
   for (final entry in allPrefs.entries) {

@@ -18,7 +18,7 @@ dependencies:
   # App dynamic color theme
   dynamic_color: ^1.7.0
   # To select the file to restore from a backup
-  file_selector: ^1.0.3
+  file_picker: ^10.1.2
   # State management
   flutter_riverpod: ^2.6.1
   # For svg icons
