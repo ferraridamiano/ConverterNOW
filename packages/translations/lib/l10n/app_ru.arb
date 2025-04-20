@@ -35,10 +35,10 @@
   "copy": "Копировать",
   "more": "Ещё",
   "language": "Язык",
-  "reorderProperties": "Изменить порядок свойств",
+  "reorderProperties": "Изменить порядок категорий",
   "reorderUnits": "Изменить порядок единиц измерения",
-  "chooseProperty": "Выберите свойство",
-  "reorderProperty": "Изменить порядок {property}",
+  "chooseProperty": "Выберите категорию",
+  "reorderProperty": "Изменить порядок в «{property}»",
   "@reorderProperty": {
     "placeholders": {
       "property": {

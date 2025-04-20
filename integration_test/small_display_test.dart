@@ -191,7 +191,8 @@ void main() {
       await tester.tap(find.byIcon(Icons.menu)); // Open drawer
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(ValueKey('drawerItem_PROPERTYX.length')));
+      await tester
+          .tap(find.byKey(const ValueKey('drawerItem_PROPERTYX.length')));
       await tester.pumpAndSettle();
 
       // Now the ordering should be Inches, Centimeters, Meters, ...
@@ -394,7 +395,8 @@ void main() {
       await tester.tap(find.byIcon(Icons.menu)); // Open drawer
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(ValueKey('drawerItem_PROPERTYX.length')));
+      await tester
+          .tap(find.byKey(const ValueKey('drawerItem_PROPERTYX.length')));
       await tester.pumpAndSettle();
 
       await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
