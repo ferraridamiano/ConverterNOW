@@ -206,6 +206,99 @@
   "hectoPascal": "Гектопаскали",
   "inchesOfMercury": "Дюймы ртутного столба",
   "kiloPascal": "Килопаскали",
+  "ksi": "Kilopounds per square inch",
+  "@ksi": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "megaPascal": "Megapascal",
+  "@megaPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+
+  "density": "Density",
+  "@density": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
+  "@gramsPerCubicCentimeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerLiter": "Grams per Liter",
+  "@gramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerMilliliter": "Grams per Milliliter",
+  "@gramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerDeciliter": "Grams per Deciliter",
+  "@gramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilogramsPerLiter": "Kilograms per Liter",
+  "@kilogramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
+  "@kilogramsPerCubicMeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerLiter": "Milligrams per Liter",
+  "@milligramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerDeciliter": "Milligrams per Deciliter",
+  "@milligramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerMilliliter": "Milligrams per Milliliter",
+  "@milligramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
+  "@milligramsPerCubicMeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
+  "@milligramsPerCubicCentimeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerLiter": "Micrograms per Liter",
+  "@microgramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerDeciliter": "Micrograms per Deciliter",
+  "@microgramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerMilliliter": "Micrograms per Milliliter",
+  "@microgramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "nanogramsPerLiter": "Nanograms per Liter",
+  "@nanogramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "nanogramsPerMilliliter": "Nanograms per Milliliter",
+  "@nanogramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "picogramsPerLiter": "Picograms per Liter",
+  "@picogramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "picogramsPerMilliliter": "Picograms per Milliliter",
+  "@picogramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "poundsPerCubicInches": "Pounds per Cubic Inches",
+  "@poundsPerCubicInches": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "poundsPerCubicFeet": "Pounds per Cubic Feet",
+  "@poundsPerCubicFeet": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "joule": "Джоули",
   "calories": "Калории",
