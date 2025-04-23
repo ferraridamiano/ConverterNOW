@@ -76,10 +76,6 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
     DENSITY.microgramsPerLiter,
     DENSITY.microgramsPerDeciliter,
     DENSITY.microgramsPerMilliliter,
-    DENSITY.nanogramsPerLiter,
-    DENSITY.nanogramsPerMilliliter,
-    DENSITY.picogramsPerLiter,
-    DENSITY.picogramsPerMilliliter,
   ],
   PROPERTYX.volume: [
     VOLUME.cubicMeters,
