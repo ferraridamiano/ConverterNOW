@@ -131,6 +131,10 @@
   "shoeSize": "靴のサイズ",
   "digitalData": "デジタルデータ",
   "power": "仕事率",
+  "density": "Density",
+  "@density": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "torque": "トルク",
   "force": "力",
   "fuelConsumption": "燃費",
@@ -270,10 +274,6 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "density": "Density",
-  "@density": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
   "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"

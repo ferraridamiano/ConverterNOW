@@ -78,7 +78,6 @@
 
   "length": "Length",
   "area": "Area",
-  "density": "Density",
   "volume": "Volume",
   "time": "Time",
   "temperature": "Temperature",
@@ -92,6 +91,7 @@
   "shoeSize": "Shoe size",
   "digitalData": "Digital data",
   "power": "Power",
+  "density": "Density",
   "torque": "Torque",
   "force": "Force",
   "fuelConsumption": "Fuel consumption",

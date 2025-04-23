@@ -137,6 +137,10 @@
   "shoeSize": "Talla de calzado",
   "digitalData": "Sistema digital",
   "power": "Potencia",
+  "density": "Density",
+  "@density": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "torque": "Torque",
   "force": "Fuerza",
   "fuelConsumption": "Consumo de combustible",
@@ -266,10 +270,6 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "density": "Density",
-  "@density": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
   "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"

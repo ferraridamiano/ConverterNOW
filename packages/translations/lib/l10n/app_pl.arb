@@ -91,6 +91,10 @@
   "shoeSize": "Rozmiar buta",
   "digitalData": "Dane cyfrowe",
   "power": "Moc",
+  "density": "Density",
+  "@density": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "torque": "Moment obrotowy",
   "force": "Siła",
   "fuelConsumption": "Zużycie paliwa",
@@ -215,10 +219,6 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "density": "Density",
-  "@density": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
   "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"

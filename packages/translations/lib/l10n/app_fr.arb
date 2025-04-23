@@ -131,6 +131,10 @@
   "shoeSize": "Pointure de chaussure",
   "digitalData": "Données numériques",
   "power": "Puissance",
+  "density": "Density",
+  "@density": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "torque": "Couple",
   "force": "Force",
   "fuelConsumption": "Consommation de carburant",
@@ -270,10 +274,6 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "density": "Density",
-  "@density": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
   "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"

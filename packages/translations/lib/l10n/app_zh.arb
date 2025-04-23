@@ -104,6 +104,10 @@
   "shoeSize": "鞋子尺寸",
   "digitalData": "电子数据",
   "power": "功率",
+  "density": "Density",
+  "@density": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "torque": "力矩",
   "force": "力",
   "fuelConsumption": "燃费",
@@ -243,10 +247,6 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "density": "Density",
-  "@density": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
   "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"

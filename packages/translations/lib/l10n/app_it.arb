@@ -91,6 +91,7 @@
   "shoeSize": "Taglia scarpe",
   "digitalData": "Dati digitali",
   "power": "Potenza",
+  "density": "Densità",
   "torque": "Momento",
   "force": "Forza",
   "fuelConsumption": "Consumo carburante",
@@ -215,7 +216,6 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "density": "Densità",
   "gramsPerCubicCentimeter": "Grammi per centimetro cubo",
   "gramsPerLiter": "Grammi per litro",
   "gramsPerMilliliter": "Grammi per millilitro",

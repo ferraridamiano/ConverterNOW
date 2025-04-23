@@ -131,6 +131,10 @@
   "shoeSize": "Veličina obuće",
   "digitalData": "Digitalni podaci",
   "power": "Snaga",
+  "density": "Density",
+  "@density": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "torque": "Zakretni moment",
   "force": "Sila",
   "fuelConsumption": "Potrošnja goriva",
@@ -270,10 +274,6 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "density": "Density",
-  "@density": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
   "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
