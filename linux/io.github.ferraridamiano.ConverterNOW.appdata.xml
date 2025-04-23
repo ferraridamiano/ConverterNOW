@@ -44,7 +44,6 @@
       <li>Currencies: Dollars, Euro, Pound, Rupee, Yen, etc.</li>
       <li>Length: meters, inches, miles, yards, light years, etc.</li>
       <li>Area: square meters, hectares, acres, etc.</li>
-      <li>Density: grams per cubic meter, etc.</li>
       <li>Volume: cubic meters, liters, gallons, pints, spoons, etc.</li>
       <li>Time: seconds, hours, days, years, weeks, millennia, etc.</li>
       <li>Temperature: Centigrade, Fahrenheit, Kelvin, etc.</li>
@@ -54,6 +53,7 @@
       <li>Pressure: pascal, bar, atmosphere, psi, etc.</li>
       <li>Energy: Joule, calories, kilowatt hours, etc.</li>
       <li>Power: Watt, kilowatt, horsepower, etc.</li>
+      <li>Density: grams per cubic meter, etc.</li>
       <li>Fuel consumption: Miles per Gallon, Kilometers per liter, etc.</li>
       <li>Numeral systems: decimal, binary, hexadecimal etc.</li>
       <li>Torque: Newton meter, pound-force foot, poundal meter, etc.</li>
