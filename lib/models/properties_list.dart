@@ -55,6 +55,11 @@ final propertiesMapProvider =
       removeTrailingZeros: removeTrailingZeros,
       name: PROPERTYX.area,
     ),
+    PROPERTYX.density: Density(
+      significantFigures: significantFigures,
+      removeTrailingZeros: removeTrailingZeros,
+      name: PROPERTYX.density,
+    ),
     PROPERTYX.volume: Volume(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,

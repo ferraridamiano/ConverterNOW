@@ -91,6 +91,7 @@
   "shoeSize": "Taglia scarpe",
   "digitalData": "Dati digitali",
   "power": "Potenza",
+  "density": "Densità",
   "torque": "Momento",
   "force": "Forza",
   "fuelConsumption": "Consumo carburante",
@@ -206,6 +207,31 @@
   "hectoPascal": "Ettopascal",
   "inchesOfMercury": "Pollici di mercurio",
   "kiloPascal": "Chilopascal",
+  "ksi": "Kilopounds per square inch",
+  "@ksi": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "megaPascal": "Megapascal",
+  "@megaPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+
+  "gramsPerCubicCentimeter": "Grammi per centimetro cubo",
+  "gramsPerLiter": "Grammi per litro",
+  "gramsPerMilliliter": "Grammi per millilitro",
+  "gramsPerDeciliter": "Grammi per decilitro",
+  "kilogramsPerLiter": "Chilogrammi per litro",
+  "kilogramsPerCubicMeter": "Chilogrammi per metro cubo",
+  "milligramsPerLiter": "Milligrammi per litro",
+  "milligramsPerDeciliter": "Milligrammi per decilitro",
+  "milligramsPerMilliliter": "Milligrammi per millilitro",
+  "milligramsPerCubicMeter": "Milligrammi per metro cubo",
+  "milligramsPerCubicCentimeter": "Milligrammi per centimetro cubo",
+  "microgramsPerLiter": "Microgrammi per litro",
+  "microgramsPerDeciliter": "Microgrammi per decilitro",
+  "microgramsPerMilliliter": "Microgrammi per millilitro",
+  "poundsPerCubicInches": "Libbre per pollice cubo",
+  "poundsPerCubicFeet": "Libbre per piede cubo",
 
   "joule": "Joule",
   "calories": "Calorie",
