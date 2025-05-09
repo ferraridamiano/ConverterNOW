@@ -273,6 +273,10 @@
   "@megaPascal": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "gigaPascal": "Gigapascal",
+  "@gigaPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
   "@gramsPerCubicCentimeter": {
