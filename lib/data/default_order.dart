@@ -214,7 +214,8 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
     PRESSURE.inchOfMercury,
     PRESSURE.hectoPascal,
     PRESSURE.ksi,
-    PRESSURE.megaPascal
+    PRESSURE.megaPascal,
+    // PRESSURE.gigaPascal,
   ],
   PROPERTYX.energy: [
     ENERGY.kilowattHours,
