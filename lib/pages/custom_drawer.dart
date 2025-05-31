@@ -38,6 +38,7 @@ class CustomDrawer extends ConsumerWidget {
             SvgPicture(
               AssetBytesLoader('assets/app_icons_opti/logo.svg.vec'),
               width: 50,
+              height: 50,
             ),
             Text(
               'Converter NOW',

@@ -15,7 +15,7 @@ Future<void> launchURL(
 }
 
 ///Saves the key value with SharedPreferences
-saveSettings(String key, dynamic value) async {
+void saveSettings(String key, dynamic value) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (value is bool) {
     prefs.setBool(key, value);
