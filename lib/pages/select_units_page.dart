@@ -73,6 +73,7 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
                 setState(() {
                   unselectedUnits = areAllSelected
                       ? defaultUnitsOrder[widget.selectedProperty]!
+                          .toList(growable: true)
                       : [];
                 });
               },
