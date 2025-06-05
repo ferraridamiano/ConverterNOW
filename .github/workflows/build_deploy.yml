@@ -6,90 +6,7 @@ on:
 
 jobs:
 
-  create_release:
-    name: Create GitHub Release
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Generate Changelog using git-cliff
-        uses: orhun/git-cliff-action@v4
-        id: git-cliff
-        with:
-          args: --latest
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          body: ${{ steps.git-cliff.outputs.content }}
-
-  build_android:
-    needs: create_release
-    name: Build and release Android app
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        channel: stable
-        cache: true
-
-    - name: Flutter version
-      run: flutter --version
-
-    - name: Bootstrap
-      run: |
-        dart pub global activate melos
-        melos bootstrap
-
-    - name: Download Android keystore
-      id: android_keystore
-      uses: timheuer/base64-to-file@v1
-      with:
-        fileName: key.jks
-        encodedString: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-  
-    - name: Create key.properties
-      run: |
-        echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
-        echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> android/key.properties
-        echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
-        echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
-  
-    - name: Build Android App Bundle
-      run: flutter build appbundle --dart-define=IS_PLAYSTORE=true --obfuscate --split-debug-info=/tmp
-
-    - name: Build Android APK files
-      run: flutter build apk --release --split-per-abi --obfuscate --split-debug-info=/tmp
-
-    - name: Release to GitHub
-      uses: ncipollo/release-action@v1
-      with:
-        artifacts: "build/app/outputs/flutter-apk/app-*-release.apk,build/app/outputs/bundle/release/app-release.aab"
-        token: ${{ secrets.GH_TOKEN }}
-        tag: ${{ steps.version.outputs.content }}
-        commit: ${{ github.sha }}
-        allowUpdates: true
-
   build_linux:
-    needs: build_android
     name: Build and release Linux app
     strategy:
       matrix:
@@ -152,16 +69,73 @@ jobs:
         APPIMAGETOOL_APP_NAME=converternow ./appimagetool-${{ matrix.label }}.AppImage ConverterNOW.AppDir
 
     - name: Release to GitHub
-      uses: ncipollo/release-action@v1
+      uses: softprops/action-gh-release@v2
       with:
-        artifacts: "converternow-linux-${{ matrix.label }}.tar.gz,converternow-${{ matrix.label }}.AppImage"
+        files: |
+          converternow-linux-${{ matrix.label }}.tar.gz
+          converternow-${{ matrix.label }}.AppImage
         token: ${{ secrets.GH_TOKEN }}
-        tag: ${{ steps.version.outputs.content }}
-        commit: ${{ github.sha }}
-        allowUpdates: true
 
-  build_web:
+  build_android:
     needs: build_linux
+    name: Build and release Android app
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+        cache: true
+
+    - name: Flutter version
+      run: flutter --version
+
+    - name: Bootstrap
+      run: |
+        dart pub global activate melos
+        melos bootstrap
+
+    - name: Download Android keystore
+      id: android_keystore
+      uses: timheuer/base64-to-file@v1
+      with:
+        fileName: key.jks
+        encodedString: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+  
+    - name: Create key.properties
+      run: |
+        echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
+        echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> android/key.properties
+        echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
+        echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
+  
+    - name: Build Android App Bundle
+      run: flutter build appbundle --dart-define=IS_PLAYSTORE=true --obfuscate --split-debug-info=/tmp
+
+    - name: Build Android APK files
+      run: flutter build apk --release --split-per-abi --obfuscate --split-debug-info=/tmp
+
+    - name: Release to GitHub
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          build/app/outputs/flutter-apk/app-*-release.apk
+          build/app/outputs/bundle/release/app-release.aab
+        token: ${{ secrets.GH_TOKEN }}
+
+  
+  build_web:
+    needs: build_android
     name: Build and release Web app
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -221,13 +195,12 @@ jobs:
       run: dart run msix:create --store
 
     - name: Release to GitHub
-      uses: ncipollo/release-action@v1
+      uses: softprops/action-gh-release@v2
       with:
-        artifacts: "build/windows/x64/runner/Release/converternow-windows.msix"
+        files: |
+          build/windows/x64/runner/Release/converternow-windows.msix
         token: ${{ secrets.GH_TOKEN }}
-        tag: ${{ steps.version.outputs.content }}
-        commit: ${{ github.sha }}
-        allowUpdates: true
+      
 
   build_docker:
     needs: build_windows
@@ -283,3 +256,28 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+
+  create_release:
+    needs: build_docker
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate Changelog using git-cliff
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
+        with:
+          args: --latest
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body: ${{ steps.git-cliff.outputs.content }}
