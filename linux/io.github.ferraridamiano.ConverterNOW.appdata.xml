@@ -85,6 +85,14 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.3.3" date="2025-06-07">
+      <description>
+        <ul>
+          <li>🐞 Fixed a bug related to the "Hide units" feature</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
     <release version="4.3.2" date="2025-05-31">
       <description>
         <ul>
