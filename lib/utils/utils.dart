@@ -90,7 +90,7 @@ enum PROPERTYX {
   volume,
 }
 
-typedef PropertyUi = ({String name, String imagePath});
+typedef PropertyUi = ({String name, String icon, String selectedIcon});
 
 void initializeQuickAction(
     {required void Function(String index) onActionSelection,

@@ -111,6 +111,7 @@ class CustomDrawer extends ConsumerWidget {
     headerDrawer.add(NavigationDrawerDestination(
       key: const ValueKey('drawerItem_settings'),
       icon: Icon(Icons.settings_outlined, color: iconColor),
+      selectedIcon: Icon(Icons.settings, color: iconColor),
       label: Text(l10n.settings),
     ));
     headerDrawer.add(
@@ -133,7 +134,13 @@ class CustomDrawer extends ConsumerWidget {
       return NavigationDrawerDestination(
         key: ValueKey('drawerItem_$e'),
         icon: SvgPicture(
-          AssetBytesLoader(propertyUi.imagePath),
+          AssetBytesLoader(propertyUi.icon),
+          width: 25,
+          height: 25,
+          colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+        ),
+        selectedIcon: SvgPicture(
+          AssetBytesLoader(propertyUi.selectedIcon),
           width: 25,
           height: 25,
           colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),

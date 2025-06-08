@@ -84,7 +84,7 @@ List<SearchUnit> getSearchUnitsList(
   for (final property in propertyUiMap.entries) {
     final propertyx = property.key;
     final propertyUi = property.value;
-    final propertyImagePath = property.value.imagePath;
+    final propertyImagePath = property.value.icon;
     // Add properties in search
     searchUnitsList.add(SearchUnit(
       iconAsset: propertyImagePath,
@@ -113,7 +113,7 @@ List<SearchGridTile> initializeGridSearch(void Function(PROPERTYX) onTap,
   return orderList.map((e) {
     final propertyUi = propertyUiMap[e]!;
     return SearchGridTile(
-      iconAsset: propertyUi.imagePath,
+      iconAsset: propertyUi.icon,
       footer: propertyUi.name,
       onTap: () => onTap(e),
       darkMode: darkMode,
