@@ -64,7 +64,7 @@ jobs:
         cp assets/app_icons/logo.svg ConverterNOW.AppDir
         echo -e '#!/bin/sh\ncd "$(dirname "$0")"\nexec ./converternow' > ConverterNOW.AppDir/AppRun
         chmod +x ConverterNOW.AppDir/AppRun
-        cp snap/gui/converternow.desktop ConverterNOW.AppDir
+        cp linux/io.github.ferraridamiano.ConverterNOW.desktop ConverterNOW.AppDir
         desktop-file-edit --set-icon="logo" --set-key="Exec" --set-value="converternow %u" ConverterNOW.AppDir/converternow.desktop
         APPIMAGETOOL_APP_NAME=converternow ./appimagetool-${{ matrix.label }}.AppImage ConverterNOW.AppDir
 

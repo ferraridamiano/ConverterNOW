@@ -2,7 +2,7 @@
 Name=Converter NOW
 Comment=A Unit and Currencies Converter. It is immediate, fast and easy to use!
 Exec=converternow
-Icon=${SNAP}/meta/gui/icon.svg
+Icon=io.github.ferraridamiano.ConverterNOW.svg
 Terminal=false
 Type=Application
 Categories=Utility;
