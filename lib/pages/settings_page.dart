@@ -356,18 +356,6 @@ class SettingsPage extends ConsumerWidget {
                       ),
                     ),
                     ListTile(
-                      title: const Text('Linux (Snap)'),
-                      leading: const Icon(Icons.desktop_windows_outlined),
-                      onTap: () => launchURL(
-                        Uri(
-                          scheme: 'https',
-                          host: 'snapcraft.io',
-                          path: '/converternow',
-                        ),
-                        mode: LaunchMode.externalApplication,
-                      ),
-                    ),
-                    ListTile(
                       title: Text(l10n.sourceCode),
                       leading: const Icon(Icons.code),
                       onTap: () => launchURL(
