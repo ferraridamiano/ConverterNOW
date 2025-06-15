@@ -24,8 +24,9 @@ Ecco alcune delle grandezze che Converter NOW è in grado di convertire:
 -<b>Pressione:</b> pascal, bar, atomsfere, psi, ecc
 -<b>Energia:</b> Joule, calorie, kilowattora, ecc
 -<b>Potenza:</b> Watt, kilowatt, cavalli vapore, ecc
+-<b>Densità:</b>: Grammi per metro cubo, ecc.</li>
 -<b>Consumo carburante:</b> Chilometri con un litro, litro ogni 100 km, ecc
--<b>Basi numeriche:</b> decimale, binario, esadecimale etc.
+-<b>Basi numeriche:</b> decimale, binario, esadecimale, ecc.
 -<b>Momento:</b> Newton metro, libbre-forza piede, poundal metro, ecc
 -<b>Dati digitali:</b> Nibble, bit, byte, kibibit, kibibyte, ecc
 -<b>Taglia scarpe:</b> UK, India, Europa, USA, Giappone, ecc

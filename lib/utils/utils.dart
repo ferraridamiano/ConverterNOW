@@ -15,7 +15,7 @@ Future<void> launchURL(
 }
 
 ///Saves the key value with SharedPreferences
-saveSettings(String key, dynamic value) async {
+void saveSettings(String key, dynamic value) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (value is bool) {
     prefs.setBool(key, value);
@@ -70,6 +70,7 @@ class UnitData {
 enum PROPERTYX {
   angle,
   area,
+  density,
   currencies,
   digitalData,
   energy,
@@ -89,7 +90,7 @@ enum PROPERTYX {
   volume,
 }
 
-typedef PropertyUi = ({String name, String imagePath});
+typedef PropertyUi = ({String name, String icon, String selectedIcon});
 
 void initializeQuickAction(
     {required void Function(String index) onActionSelection,

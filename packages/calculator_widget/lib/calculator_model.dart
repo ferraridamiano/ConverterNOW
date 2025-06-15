@@ -132,7 +132,7 @@ class Calculator extends Notifier<String> {
 
   /// Given firstNumber, secondNumber and selectedOperation in computes the
   /// result and put it in currentNumber string
-  _computeResult() {
+  void _computeResult() {
     late Decimal result;
     assert(_firstNumber != null && _secondNumber != null,
         'firstNumber/secondNumber is null');

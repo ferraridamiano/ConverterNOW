@@ -24,6 +24,7 @@ Here are some of the physical quantity that Converter NOW is able to convert:
 -<b>Pressure:</b> pascal, bar, atmosphere, psi, etc.
 -<b>Energy:</b> Joule, calories, kilowatt hours, etc.
 -<b>Power:</b> Watt, kilowatt, horsepower, etc.
+-<b>Density:</b>: grams per cubic meter, etc.</li>
 -<b>Fuel consumption:</b> Miles per Gallon, Kilometers per liter, etc.
 -<b>Numeral systems:</b> decimal, binary, hexadecimal etc.
 -<b>Torque:</b> Newton meter, pound-force foot, poundal meter, etc.

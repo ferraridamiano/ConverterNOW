@@ -104,6 +104,10 @@
   "shoeSize": "鞋子尺寸",
   "digitalData": "电子数据",
   "power": "功率",
+  "density": "Density",
+  "@density": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "torque": "力矩",
   "force": "力",
   "fuelConsumption": "燃费",
@@ -232,6 +236,83 @@
   "inchesOfMercury": "英寸汞柱",
   "kiloPascal": "Kilopascal",
   "@kiloPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "ksi": "Kilopounds per square inch",
+  "@ksi": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "megaPascal": "Megapascal",
+  "@megaPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gigaPascal": "Gigapascal",
+  "@gigaPascal": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+
+  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
+  "@gramsPerCubicCentimeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerLiter": "Grams per Liter",
+  "@gramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerMilliliter": "Grams per Milliliter",
+  "@gramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerDeciliter": "Grams per Deciliter",
+  "@gramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilogramsPerLiter": "Kilograms per Liter",
+  "@kilogramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
+  "@kilogramsPerCubicMeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerLiter": "Milligrams per Liter",
+  "@milligramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerDeciliter": "Milligrams per Deciliter",
+  "@milligramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerMilliliter": "Milligrams per Milliliter",
+  "@milligramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
+  "@milligramsPerCubicMeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
+  "@milligramsPerCubicCentimeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerLiter": "Micrograms per Liter",
+  "@microgramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerDeciliter": "Micrograms per Deciliter",
+  "@microgramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerMilliliter": "Micrograms per Milliliter",
+  "@microgramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "poundsPerCubicInches": "Pounds per Cubic Inches",
+  "@poundsPerCubicInches": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "poundsPerCubicFeet": "Pounds per Cubic Feet",
+  "@poundsPerCubicFeet": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 

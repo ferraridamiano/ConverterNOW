@@ -53,6 +53,7 @@
       <li>Pressure: pascal, bar, atmosphere, psi, etc.</li>
       <li>Energy: Joule, calories, kilowatt hours, etc.</li>
       <li>Power: Watt, kilowatt, horsepower, etc.</li>
+      <li>Density: grams per cubic meter, etc.</li>
       <li>Fuel consumption: Miles per Gallon, Kilometers per liter, etc.</li>
       <li>Numeral systems: decimal, binary, hexadecimal etc.</li>
       <li>Torque: Newton meter, pound-force foot, poundal meter, etc.</li>
@@ -84,7 +85,25 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
-    <release version="4.3.1" date="2024-03-09">
+    <release version="4.3.3" date="2025-06-07">
+      <description>
+        <ul>
+          <li>🐞 Fixed a bug related to the "Hide units" feature</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
+    <release version="4.3.2" date="2025-05-31">
+      <description>
+        <ul>
+          <li>⚙️ New units of measure: added density and new pressure units. Thanks to @Kheirlb</li>
+          <li>🌍 Translation improvements: added Bengali and updated existing translations. Thanks to @aazmii, @rehork, @solokot</li>
+          <li>🐞 Bug fixes and general improvements! We've worked hard to give you an ever-better experience</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
+    <release version="4.3.1" date="2025-03-09">
       <description>
         <ul>
           <li>🐞 Bug Fixes and General Improvements! We've worked hard to provide you with an even better experience</li>
@@ -92,7 +111,7 @@
         <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
       </description>
     </release>
-    <release version="4.3.0" date="2024-02-16">
+    <release version="4.3.0" date="2025-02-16">
       <description>
         <ul>
           <li>⚙️ New features: hide unused units, improved default unit sorting, more units, improved conversion speed</li>

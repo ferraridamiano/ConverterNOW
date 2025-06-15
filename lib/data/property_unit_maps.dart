@@ -8,61 +8,38 @@ import 'package:converterpro/utils/utils.dart';
 Map<PROPERTYX, PropertyUi> getPropertyUiMap(BuildContext context) {
   const String basePath = 'assets/property_icons_opti';
   final l10n = AppLocalizations.of(context)!;
-  //The order is important!
+
   return {
-    PROPERTYX.length: (
-      name: l10n.length,
-      imagePath: '$basePath/length.svg.vec'
+    PROPERTYX.length: l10n.length,
+    PROPERTYX.area: l10n.area,
+    PROPERTYX.density: l10n.density,
+    PROPERTYX.volume: l10n.volume,
+    PROPERTYX.currencies: l10n.currencies,
+    PROPERTYX.time: l10n.time,
+    PROPERTYX.temperature: l10n.temperature,
+    PROPERTYX.speed: l10n.speed,
+    PROPERTYX.mass: l10n.mass,
+    PROPERTYX.force: l10n.force,
+    PROPERTYX.fuelConsumption: l10n.fuelConsumption,
+    PROPERTYX.numeralSystems: l10n.numeralSystems,
+    PROPERTYX.pressure: l10n.pressure,
+    PROPERTYX.energy: l10n.energy,
+    PROPERTYX.power: l10n.power,
+    PROPERTYX.angle: l10n.angles,
+    PROPERTYX.shoeSize: l10n.shoeSize,
+    PROPERTYX.digitalData: l10n.digitalData,
+    PROPERTYX.siPrefixes: l10n.siPrefixes,
+    PROPERTYX.torque: l10n.torque,
+  }.map(
+    (key, value) => MapEntry(
+      key,
+      (
+        name: value,
+        icon: '$basePath/${key.name}.svg.vec',
+        selectedIcon: '$basePath/${key.name}_filled.svg.vec',
+      ),
     ),
-    PROPERTYX.area: (name: l10n.area, imagePath: '$basePath/area.svg.vec'),
-    PROPERTYX.volume: (
-      name: l10n.volume,
-      imagePath: '$basePath/volume.svg.vec'
-    ),
-    PROPERTYX.currencies: (
-      name: l10n.currencies,
-      imagePath: '$basePath/currencies.svg.vec'
-    ),
-    PROPERTYX.time: (name: l10n.time, imagePath: '$basePath/time.svg.vec'),
-    PROPERTYX.temperature: (
-      name: l10n.temperature,
-      imagePath: '$basePath/temperature.svg.vec'
-    ),
-    PROPERTYX.speed: (name: l10n.speed, imagePath: '$basePath/speed.svg.vec'),
-    PROPERTYX.mass: (name: l10n.mass, imagePath: '$basePath/mass.svg.vec'),
-    PROPERTYX.force: (name: l10n.force, imagePath: '$basePath/force.svg.vec'),
-    PROPERTYX.fuelConsumption: (
-      name: l10n.fuelConsumption,
-      imagePath: '$basePath/fuel.svg.vec'
-    ),
-    PROPERTYX.numeralSystems: (
-      name: l10n.numeralSystems,
-      imagePath: '$basePath/numeral_systems.svg.vec'
-    ),
-    PROPERTYX.pressure: (
-      name: l10n.pressure,
-      imagePath: '$basePath/pressure.svg.vec'
-    ),
-    PROPERTYX.energy: (
-      name: l10n.energy,
-      imagePath: '$basePath/energy.svg.vec'
-    ),
-    PROPERTYX.power: (name: l10n.power, imagePath: '$basePath/power.svg.vec'),
-    PROPERTYX.angle: (name: l10n.angles, imagePath: '$basePath/angle.svg.vec'),
-    PROPERTYX.shoeSize: (
-      name: l10n.shoeSize,
-      imagePath: '$basePath/shoe_size.svg.vec'
-    ),
-    PROPERTYX.digitalData: (
-      name: l10n.digitalData,
-      imagePath: '$basePath/data.svg.vec'
-    ),
-    PROPERTYX.siPrefixes: (
-      name: l10n.siPrefixes,
-      imagePath: '$basePath/si_prefixes.svg.vec'
-    ),
-    PROPERTYX.torque: (name: l10n.torque, imagePath: '$basePath/torque.svg.vec')
-  };
+  );
 }
 
 /// This will return a Map from a [PROPERTYX] to a Map from a unit key to the
@@ -103,6 +80,24 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       AREA.squareInches: l10n.squareInches,
       AREA.are: l10n.are,
       AREA.squareFeetUs: l10n.squareFeetUsSurvey,
+    },
+    PROPERTYX.density: {
+      DENSITY.gramsPerLiter: l10n.gramsPerLiter,
+      DENSITY.gramsPerCubicCentimeter: l10n.gramsPerCubicCentimeter,
+      DENSITY.gramsPerMilliliter: l10n.gramsPerMilliliter,
+      DENSITY.gramsPerDeciliter: l10n.gramsPerDeciliter,
+      DENSITY.kilogramsPerLiter: l10n.kilogramsPerLiter,
+      DENSITY.kilogramsPerCubicMeter: l10n.kilogramsPerCubicMeter,
+      DENSITY.milligramsPerLiter: l10n.milligramsPerLiter,
+      DENSITY.milligramsPerDeciliter: l10n.milligramsPerDeciliter,
+      DENSITY.milligramsPerMilliliter: l10n.milligramsPerMilliliter,
+      DENSITY.milligramsPerCubicMeter: l10n.milligramsPerCubicMeter,
+      DENSITY.milligramsPerCubicCentimeter: l10n.milligramsPerCubicCentimeter,
+      DENSITY.microgramsPerLiter: l10n.microgramsPerLiter,
+      DENSITY.microgramsPerDeciliter: l10n.microgramsPerDeciliter,
+      DENSITY.microgramsPerMilliliter: l10n.microgramsPerMilliliter,
+      DENSITY.poundsPerCubicInches: l10n.poundsPerCubicInches,
+      DENSITY.poundsPerCubicFeet: l10n.poundsPerCubicFeet,
     },
     PROPERTYX.volume: {
       VOLUME.cubicMeters: l10n.cubicMeters,
@@ -240,6 +235,9 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       PRESSURE.torr: l10n.torr,
       PRESSURE.inchOfMercury: l10n.inchesOfMercury,
       PRESSURE.hectoPascal: l10n.hectoPascal,
+      PRESSURE.ksi: l10n.ksi,
+      PRESSURE.megaPascal: l10n.megaPascal,
+      PRESSURE.gigaPascal: l10n.gigaPascal,
     },
     PROPERTYX.energy: {
       ENERGY.kilowattHours: l10n.kilowattHour,
