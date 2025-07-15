@@ -44,6 +44,7 @@ FROM nginx:1.28-alpine3.21-slim
 
 COPY --from=builder /app/build/web /usr/share/nginx/html
 
+# Workaround, remove once https://github.com/nginx/nginx/pull/448 has been merged
 RUN sed -i 's|application/javascript[[:space:]]\+js;|application/javascript       js mjs;|' /etc/nginx/mime.types
 
 EXPOSE 80
