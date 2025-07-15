@@ -60,8 +60,9 @@ class UnitData {
         VALIDATOR.octal => RegExp(r'^[0-7]+$'),
         VALIDATOR.decimal => RegExp(r'^[0-9]+$'),
         VALIDATOR.hexadecimal => RegExp(r'^[0-9A-Fa-f]+$'),
-        VALIDATOR.rational => RegExp(r'^([+-]?\d+)\.?(\d*)(e[+-]?\d+)?$'),
-        _ => RegExp(r'^(\+?\d+)\.?(\d*)(e[+-]?\d+)?$'),
+        VALIDATOR.rational =>
+          RegExp(r'^[+-]?\d{1,3}(?: ?\d{3})*(?:\.\d*)?(?:e[+-]?\d+)?$'),
+        _ => RegExp(r'^\+?\d{1,3}(?: ?\d{3})*(?:\.\d*)?(?:e[+-]?\d+)?$'),
       };
 }
 
@@ -134,4 +135,70 @@ PROPERTYX kebabStringToPropertyX(String string) {
   final lowerCaseString = string.replaceAll('-', '').toLowerCase();
   return PROPERTYX.values.firstWhere(
       (e) => e.toString().toLowerCase() == 'propertyx.$lowerCaseString');
+}
+
+String formatNumberWithThousandsSeparator(
+  String numberString, {
+  String thousandsSeparator = ' ', // Default to space
+  String decimalSeparator = '.', // Default to dot
+}) {
+  // Try to parse the string into a double.
+  double? number = double.tryParse(numberString);
+
+  if (number == null) {
+    print("Warning: '$numberString' is not a valid number string.");
+    return numberString;
+  }
+
+  // Convert the number to its string representation.
+  // This will naturally handle exponential notation expansion for reasonable ranges,
+  // e.g., 1e+6 becomes "1000000.0".
+  String numStr = number.toString();
+
+  // Handle scientific notation if it's still present after toString().
+  // This can happen for very large or very small numbers where Dart's toString()
+  // still opts for scientific notation. In these cases, applying thousands
+  // separators to the mantissa might not be the desired output.
+  if (numStr.contains('e') || numStr.contains('E')) {
+    // For simplicity, we return the number as is in scientific notation.
+    // If you need to convert all scientific notation to full decimal form
+    // before formatting, that would require a more complex number-to-string
+    // conversion logic.
+    return numStr;
+  }
+
+  // Split the string into integer and fractional parts based on the default decimal separator ('.').
+  // We parse the string first to double, then convert back to string,
+  // so the internal representation will use '.' as decimal separator.
+  List<String> parts = numStr.split('.');
+  String integerPart = parts[0];
+  String? fractionalPart = parts.length > 1 ? parts[1] : null;
+
+  // Add thousands separators to the integer part
+  String formattedIntegerPart = '';
+  // Check for a leading minus sign
+  bool isNegative = integerPart.startsWith('-');
+  String digitsOnlyIntegerPart =
+      isNegative ? integerPart.substring(1) : integerPart;
+
+  for (int i = 0; i < digitsOnlyIntegerPart.length; i++) {
+    formattedIntegerPart += digitsOnlyIntegerPart[i];
+    // Add separator every three digits from the right, but not at the very beginning
+    if ((digitsOnlyIntegerPart.length - 1 - i) % 3 == 0 &&
+        (digitsOnlyIntegerPart.length - 1 - i) != 0) {
+      formattedIntegerPart += thousandsSeparator;
+    }
+  }
+
+  // Add back the minus sign if it was present
+  if (isNegative) {
+    formattedIntegerPart = '-' + formattedIntegerPart;
+  }
+
+  // Combine integer and fractional parts, using the configurable decimalSeparator
+  if (fractionalPart != null) {
+    return '$formattedIntegerPart$decimalSeparator$fractionalPart';
+  } else {
+    return formattedIntegerPart;
+  }
 }

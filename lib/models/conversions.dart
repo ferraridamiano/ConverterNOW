@@ -80,12 +80,18 @@ class ConversionsNotifier
         final currentProperty = propertiesMap[property]!;
         currentUnitData.unit =
             currentProperty.getUnit(currentUnitData.unit.name);
+        final stringValue = currentUnitData.unit.stringValue;
         if (currentUnitData != _selectedUnit) {
-          if (currentUnitData.unit.stringValue == null) {
+          if (stringValue == null) {
             currentUnitData.tec.value = TextEditingValue.empty;
           } else {
-            currentUnitData.tec.value =
-                TextEditingValue(text: currentUnitData.unit.stringValue!);
+            currentUnitData.tec.value = TextEditingValue(
+                text: formatNumberWithThousandsSeparator(stringValue));
+          }
+        } else {
+          if (stringValue != null) {
+            currentUnitData.tec.value = TextEditingValue(
+                text: formatNumberWithThousandsSeparator(stringValue));
           }
         }
       }
