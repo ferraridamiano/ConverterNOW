@@ -78,6 +78,10 @@ class Calculator extends Notifier<String> {
       // otherwise
       state += '.'; //append the point at the end
     }
+    // If it is the leading minus before the first number
+    else if (char == '-' && state == '' && _firstNumber == null) {
+      state += '-';
+    }
     // if it is an operator
     else if (mapOperation.containsKey(char)) {
       if (ref.read(isResultProvider)) {
