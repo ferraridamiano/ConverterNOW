@@ -83,7 +83,7 @@ Run the following command:
 winget install -e 9P0Q79HWJH72
 ```
 
-### Docker self-hoster web app
+### Docker self-hosted web app
 
 Run the following command:
 ```bash
