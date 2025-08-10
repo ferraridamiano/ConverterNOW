@@ -94,17 +94,20 @@ Then, you can access it via browser on `localhost:80`
 ## Build from source code
 First you need to
 [install flutter](https://docs.flutter.dev/get-started/install) and all the
-tooling for your target platform (e.g. Android Studio for Android, etc.). Then you have to install two tools:
+tooling for your target platform (e.g. Android Studio for Android, etc.). Then
+you have to install `melos` in order to do some pre-compiling task:
 
-- `dart pub global activate melos` (useful to easily manage the repository)
-- `dart pub global activate vector_graphics_compiler` (useful to compile the `svg` icons)
+```shell
+dart pub global activate melos
+```
 
-Then, run `melos bootstrap` in the root of the project in order to get all the dependencies, generate the
-translation files and optimize the `svg` icons. Then follow the instructions for the platform you want to target.
+Then, run `melos bootstrap` in the root of the project in order to get all the
+dependencies, generate the translation files and optimize the `svg` icons. Then
+follow the instructions for the platform you want to target.
 
 ### Android
 On Android you should first disable the signing option in
-[`android/app/build.gradle`](https://github.com/ferraridamiano/ConverterNOW/blob/master/android/app/build.gradle#L57)
+[`android/app/build.gradle.kts`](https://github.com/ferraridamiano/ConverterNOW/blob/master/android/app/build.gradle.kts#L42)
 Then you can type `flutter build apk --split-per-abi` to compile the code. You
 can find the output in `build/app/outputs/flutter-apk` folder.
 
