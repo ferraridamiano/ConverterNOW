@@ -17,7 +17,7 @@
   "drawerLogo": "Drawer logo",
   "rateApp": "قيم التطبيق",
   "repoGithub": "تصفح مستودع الكود على منصة ال Github",
-  "contibuteTranslating": "ساهم في ترجمة التطبيق",
+  "contributeTranslating": "ساهم في ترجمة التطبيق",
   "search": "بحث",
   "clearAll": "مسح الكل",
   "calculator": "الآلة الحاسبة",
@@ -31,7 +31,10 @@
   "dark": "داكن",
   "light": "فاتح",
   "system": "إعتماداً على النظام",
-  "amoledDarkTheme": "مظهر AMOLED المظلم",
+  "pureBlackTheme": "مظهر AMOLED المظلم",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "نسخ",
   "more": "المزيد",
   "language": "اللغة",

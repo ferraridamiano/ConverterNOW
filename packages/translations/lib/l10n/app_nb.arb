@@ -17,7 +17,7 @@
   "drawerLogo": "Menylogo",
   "rateApp": "Bedøm appen",
   "repoGithub": "Åpne repo på GitHub",
-  "contibuteTranslating": "Bidra med oversettelse av appen",
+  "contributeTranslating": "Bidra med oversettelse av appen",
   "search": "Søk",
   "clearAll": "Fjern alle",
   "calculator": "Kalkulator",
@@ -31,7 +31,10 @@
   "dark": "Mørkt",
   "light": "Lyst",
   "system": "System",
-  "amoledDarkTheme": "AMOLED mørkt tema",
+  "pureBlackTheme": "AMOLED mørkt tema",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Kopier",
   "more": "Mer",
   "language": "Språk",

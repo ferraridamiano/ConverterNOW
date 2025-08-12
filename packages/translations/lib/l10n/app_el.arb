@@ -17,7 +17,7 @@
   "drawerLogo": "Λογότυπο του μενού",
   "rateApp": "Αξιολόγησε την εφαρμογή",
   "repoGithub": "Άνοιξε το αποθετήριο στο GitHub",
-  "contibuteTranslating": "Συνεισφέρετε μεταφράζοντας την εφαρμογή",
+  "contributeTranslating": "Συνεισφέρετε μεταφράζοντας την εφαρμογή",
   "search": "Αναζήτηση",
   "clearAll": "Καθαρισμός όλων",
   "calculator": "Υπολογιστής",
@@ -31,7 +31,10 @@
   "dark": "Σκοτεινό",
   "light": "Φωτεινό",
   "system": "Προεπιλογή συστήματος",
-  "amoledDarkTheme": "AMOLED σκοτεινό θέμα",
+  "pureBlackTheme": "AMOLED σκοτεινό θέμα",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Αντιγραφή",
   "more": "Περισσότερα",
   "language": "Γλώσσα",

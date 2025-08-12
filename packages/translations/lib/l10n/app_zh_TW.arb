@@ -17,7 +17,7 @@
   "drawerLogo": "抽屜標誌",
   "rateApp": "為此應用程式評分",
   "repoGithub": "在 GitHub 開啟儲存庫",
-  "contibuteTranslating": "為此應用程式貢獻翻譯",
+  "contributeTranslating": "為此應用程式貢獻翻譯",
   "search": "搜尋",
   "clearAll": "清除全部",
   "calculator": "計算器",
@@ -31,7 +31,10 @@
   "dark": "深色",
   "light": "淺色",
   "system": "系統預設",
-  "amoledDarkTheme": "AMOLED 深色主題",
+  "pureBlackTheme": "AMOLED 深色主題",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "複製",
   "more": "更多",
   "language": "語言",

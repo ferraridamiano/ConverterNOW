@@ -17,7 +17,7 @@
   "drawerLogo": "Logotip u izborniku",
   "rateApp": "Ocijeni program",
   "repoGithub": "Otvori repozitorij na GitHub-u",
-  "contibuteTranslating": "Pomogni prevoditi program",
+  "contributeTranslating": "Pomogni prevoditi program",
   "search": "Pretraga",
   "clearAll": "Isprazni sva polja",
   "calculator": "Kalkulator",
@@ -31,7 +31,10 @@
   "dark": "Tamna",
   "light": "Svijetla",
   "system": "Sustav",
-  "amoledDarkTheme": "AMOLED tamna tema",
+  "pureBlackTheme": "AMOLED tamna tema",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Kopiraj",
   "more": "Više",
   "language": "Jezik",

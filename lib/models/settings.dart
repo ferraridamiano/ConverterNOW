@@ -65,10 +65,10 @@ class RemoveTrailingZeros extends AsyncNotifier<bool> {
   }
 }
 
-class IsDarkAmoled extends AsyncNotifier<bool> {
+class IsPureDark extends AsyncNotifier<bool> {
   static const _prefKey = 'isDarkAmoled';
   static final provider =
-      AsyncNotifierProvider<IsDarkAmoled, bool>(IsDarkAmoled.new);
+      AsyncNotifierProvider<IsPureDark, bool>(IsPureDark.new);
 
   @override
   Future<bool> build() async {

@@ -17,7 +17,7 @@
   "drawerLogo": "Logo szuflady",
   "rateApp": "Oceń aplikację",
   "repoGithub": "Otwórz repozytorium na GitHubie",
-  "contibuteTranslating": "Przetłumacz tę aplikację",
+  "contributeTranslating": "Przetłumacz tę aplikację",
   "search": "Szukaj",
   "clearAll": "Wyczyść wszystko",
   "calculator": "Kalkulator",
@@ -31,7 +31,10 @@
   "dark": "Ciemny",
   "light": "Jasny",
   "system": "Domyślne ustawienie systemu",
-  "amoledDarkTheme": "Ciemny motyw AMOLED",
+  "pureBlackTheme": "Ciemny motyw AMOLED",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Kopiuj",
   "more": "Wiecej",
   "language": "Język",

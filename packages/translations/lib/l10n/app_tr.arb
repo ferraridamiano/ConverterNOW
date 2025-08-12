@@ -17,7 +17,7 @@
   "drawerLogo": "Çekmece logosu",
   "rateApp": "Uygulamayı oyla",
   "repoGithub": "Github deposunu aç",
-  "contibuteTranslating": "Uygulamanın çevrilmesine katkıda bulun",
+  "contributeTranslating": "Uygulamanın çevrilmesine katkıda bulun",
   "search": "Ara",
   "clearAll": "Tümünü temizle",
   "calculator": "Hesap makinesi",
@@ -31,7 +31,10 @@
   "dark": "Koyu",
   "light": "Açık",
   "system": "Sistem varsayılanı",
-  "amoledDarkTheme": "AMOLED koyu teması",
+  "pureBlackTheme": "AMOLED koyu teması",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Kopyala",
   "more": "Daha fazlası",
   "language": "Dil",

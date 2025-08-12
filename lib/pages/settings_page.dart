@@ -102,13 +102,13 @@ class SettingsPage extends ConsumerWidget {
           SwitchListTile(
             secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
             title: Text(
-              l10n.amoledDarkTheme,
+              l10n.pureBlackTheme,
               style: textStyle,
             ),
-            value: ref.watch(IsDarkAmoled.provider).valueOrNull ?? false,
+            value: ref.watch(IsPureDark.provider).valueOrNull ?? false,
             activeColor: Theme.of(context).colorScheme.secondary,
             onChanged: (bool val) {
-              ref.read(IsDarkAmoled.provider.notifier).set(val);
+              ref.read(IsPureDark.provider.notifier).set(val);
             },
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           ),
@@ -375,7 +375,7 @@ class SettingsPage extends ConsumerWidget {
           ListTile(
             leading: Icon(Icons.translate, color: iconColor),
             title: Text(
-              l10n.contibuteTranslating,
+              l10n.contributeTranslating,
               style: textStyle,
             ),
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),

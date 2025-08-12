@@ -17,7 +17,7 @@
   "drawerLogo": "Logo anzeigen",
   "rateApp": "App bewerten",
   "repoGithub": "Öffne das Repo auf GitHub.",
-  "contibuteTranslating": "Unterstütze uns bei der Übersetzung der App.",
+  "contributeTranslating": "Unterstütze uns bei der Übersetzung der App.",
   "search": "Suche",
   "clearAll": "Leere alles",
   "calculator": "Rechner",
@@ -31,7 +31,10 @@
   "dark": "Dunkel",
   "light": "Hell",
   "system": "System",
-  "amoledDarkTheme": "schwarzes AMOLED-Thema",
+  "pureBlackTheme": "schwarzes AMOLED-Thema",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Kopieren",
   "more": "Mehr",
   "language": "Sprache",
