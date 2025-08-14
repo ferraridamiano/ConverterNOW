@@ -31,10 +31,7 @@
   "dark": "Тёмная",
   "light": "Светлая",
   "system": "Как в системе",
-  "pureBlackTheme": "Чёрная тема AMOLED",
-  "@pureBlackTheme": {
-    "description": "Revise this translation"
-  },
+  "pureBlackTheme": "Чёрная тема",
   "copy": "Копировать",
   "more": "Ещё",
   "language": "Язык",
