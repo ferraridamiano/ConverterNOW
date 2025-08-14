@@ -113,7 +113,10 @@ class SettingsPage extends ConsumerWidget {
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           ),
           ListTile(
-            title: Text(l10n.themeColor),
+            title: Text(
+              l10n.themeColor,
+              style: textStyle,
+            ),
             leading: Icon(Icons.palette_outlined, color: iconColor),
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
             trailing: Padding(
