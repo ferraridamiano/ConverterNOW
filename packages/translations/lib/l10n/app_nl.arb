@@ -17,7 +17,7 @@
   "drawerLogo": "Lade logo",
   "rateApp": "Beoordeel de app",
   "repoGithub": "Open de repo op GitHub",
-  "contibuteTranslating": "Draag bij aan het vertalen van de app",
+  "contributeTranslating": "Draag bij aan het vertalen van de app",
   "search": "Zoekn",
   "clearAll": "Wis alles",
   "calculator": "Rekenmachine",
@@ -31,7 +31,10 @@
   "dark": "Donker",
   "light": "Licht",
   "system": "Systeem standaard",
-  "amoledDarkTheme": "AMOLED donker thema",
+  "pureBlackTheme": "AMOLED donker thema",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Kopiëren",
   "more": "Meer",
   "language": "Taal",

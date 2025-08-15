@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   # Calculator computation
-  decimal: ^3.2.1
+  decimal: ^3.2.4
   # State management
   flutter_riverpod: ^2.6.1
   # Calculator computation

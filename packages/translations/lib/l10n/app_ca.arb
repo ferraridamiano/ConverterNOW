@@ -17,7 +17,7 @@
   "drawerLogo": "Logo del menú",
   "rateApp": "Valoreu l'aplicació",
   "repoGithub": "Obre el repositori a GitHub",
-  "contibuteTranslating": "Contribuïu traduint l'aplicació",
+  "contributeTranslating": "Contribuïu traduint l'aplicació",
   "search": "Cerca",
   "clearAll": "Neteja-ho tot",
   "calculator": "Calculadora",
@@ -31,7 +31,10 @@
   "dark": "Fosc",
   "light": "Clar",
   "system": "Predeterminat del sistema",
-  "amoledDarkTheme": "Tema fosc AMOLED",
+  "pureBlackTheme": "Tema fosc AMOLED",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Copia",
   "more": "Més",
   "language": "Idioma",

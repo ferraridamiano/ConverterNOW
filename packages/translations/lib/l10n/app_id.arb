@@ -17,7 +17,7 @@
   "drawerLogo": "Logo pada menu",
   "rateApp": "Ulas aplikasi",
   "repoGithub": "Buka repo di GitHub",
-  "contibuteTranslating": "Berkontribusi menerjemahkan aplikasi",
+  "contributeTranslating": "Berkontribusi menerjemahkan aplikasi",
   "search": "Cari",
   "clearAll": "Bersihkan semua",
   "calculator": "Kalkulator",
@@ -31,7 +31,10 @@
   "dark": "Gelap",
   "light": "Terang",
   "system": "Sistem",
-  "amoledDarkTheme": "Tema gelap AMOLED",
+  "pureBlackTheme": "Tema gelap AMOLED",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Salin",
   "more": "Lebih banyak",
   "language": "Bahasa",

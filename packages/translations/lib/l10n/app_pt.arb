@@ -17,7 +17,7 @@
   "drawerLogo": "Logotipo do menu",
   "rateApp": "Avaliar o App",
   "repoGithub": "Abrir repo no GitHub",
-  "contibuteTranslating": "Contribua traduzindo o App",
+  "contributeTranslating": "Contribua traduzindo o App",
   "search": "Procurar",
   "clearAll": "Excluir tudo",
   "calculator": "Calculadora",
@@ -31,7 +31,10 @@
   "dark": "Escuro",
   "light": "Claro",
   "system": "Sistema",
-  "amoledDarkTheme": "Tema escuro AMOLED",
+  "pureBlackTheme": "Tema escuro AMOLED",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Cópia de",
   "more": "Mais",
   "language": "Língua",

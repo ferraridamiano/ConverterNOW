@@ -17,7 +17,7 @@
   "drawerLogo": "Drawer logo",
   "rateApp": "评价此程序",
   "repoGithub": "打开GitHub仓库",
-  "contibuteTranslating": "参加此程序的翻译",
+  "contributeTranslating": "参加此程序的翻译",
   "search": "搜索",
   "clearAll": "全部删除",
   "calculator": "计算器",
@@ -31,7 +31,10 @@
   "dark": "深色",
   "light": "浅色",
   "system": "系统设置",
-  "amoledDarkTheme": "AMOLED黑暗模式",
+  "pureBlackTheme": "AMOLED黑暗模式",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "复制",
   "more": "更多",
   "language": "语言",

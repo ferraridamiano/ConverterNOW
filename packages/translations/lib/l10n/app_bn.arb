@@ -17,7 +17,7 @@
   "drawerLogo": "ড্রয়ার লোগো",
   "rateApp": "অ্যাপ রেট করুন",
   "repoGithub": "গিটহাবে রিপো খুলুন",
-  "contibuteTranslating": "অ্যাপ অনুবাদে সহায়তা করুন",
+  "contributeTranslating": "অ্যাপ অনুবাদে সহায়তা করুন",
   "search": "অনুসন্ধান",
   "clearAll": "সব মুছে ফেলুন",
   "calculator": "ক্যালকুলেটর",
@@ -31,7 +31,10 @@
   "dark": "ডার্ক",
   "light": "লাইট",
   "system": "সিস্টেম ডিফল্ট",
-  "amoledDarkTheme": "AMOLED ডার্ক থিম",
+  "pureBlackTheme": "AMOLED ডার্ক থিম",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "কপি",
   "more": "আরও",
   "language": "ভাষা",

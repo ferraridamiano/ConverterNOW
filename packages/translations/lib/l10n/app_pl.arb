@@ -17,7 +17,7 @@
   "drawerLogo": "Logo szuflady",
   "rateApp": "Oceń aplikację",
   "repoGithub": "Otwórz repozytorium na GitHubie",
-  "contibuteTranslating": "Przetłumacz tę aplikację",
+  "contributeTranslating": "Przetłumacz tę aplikację",
   "search": "Szukaj",
   "clearAll": "Wyczyść wszystko",
   "calculator": "Kalkulator",
@@ -31,7 +31,10 @@
   "dark": "Ciemny",
   "light": "Jasny",
   "system": "Domyślne ustawienie systemu",
-  "amoledDarkTheme": "Ciemny motyw AMOLED",
+  "pureBlackTheme": "Ciemny motyw AMOLED",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Kopiuj",
   "more": "Wiecej",
   "language": "Język",
@@ -91,10 +94,7 @@
   "shoeSize": "Rozmiar buta",
   "digitalData": "Dane cyfrowe",
   "power": "Moc",
-  "density": "Density",
-  "@density": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "density": "Gęstość",
   "torque": "Moment obrotowy",
   "force": "Siła",
   "fuelConsumption": "Zużycie paliwa",
@@ -210,83 +210,26 @@
   "hectoPascal": "Hektopaskal",
   "inchesOfMercury": "Cal rtęci",
   "kiloPascal": "Kilopaskal",
-  "ksi": "Kilopounds per square inch",
-  "@ksi": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "megaPascal": "Megapascal",
-  "@megaPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gigaPascal": "Gigapascal",
-  "@gigaPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "ksi": "Kilofunt na cal kwadratowy",
+  "megaPascal": "Megapaskal",
+  "gigaPascal": "Gigapaskal",
 
-  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
-  "@gramsPerCubicCentimeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerLiter": "Grams per Liter",
-  "@gramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerMilliliter": "Grams per Milliliter",
-  "@gramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerDeciliter": "Grams per Deciliter",
-  "@gramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "kilogramsPerLiter": "Kilograms per Liter",
-  "@kilogramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
-  "@kilogramsPerCubicMeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerLiter": "Milligrams per Liter",
-  "@milligramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerDeciliter": "Milligrams per Deciliter",
-  "@milligramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerMilliliter": "Milligrams per Milliliter",
-  "@milligramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
-  "@milligramsPerCubicMeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
-  "@milligramsPerCubicCentimeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerLiter": "Micrograms per Liter",
-  "@microgramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerDeciliter": "Micrograms per Deciliter",
-  "@microgramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerMilliliter": "Micrograms per Milliliter",
-  "@microgramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "poundsPerCubicInches": "Pounds per Cubic Inches",
-  "@poundsPerCubicInches": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "poundsPerCubicFeet": "Pounds per Cubic Feet",
-  "@poundsPerCubicFeet": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "gramsPerCubicCentimeter": "Gram na centymetr sześcienny",
+  "gramsPerLiter": "Gram na litr",
+  "gramsPerMilliliter": "Gram na mililitr",
+  "gramsPerDeciliter": "Gram na decylitr",
+  "kilogramsPerLiter": "Kilogram na litr",
+  "kilogramsPerCubicMeter": "Kilogram na meter sześcienny",
+  "milligramsPerLiter": "Miligram na litr",
+  "milligramsPerDeciliter": "Miligram na decylitr",
+  "milligramsPerMilliliter": "Miligram na mililitr",
+  "milligramsPerCubicMeter": "Miligram na metr sześcienny",
+  "milligramsPerCubicCentimeter": "Miligram na centymetr sześcienny",
+  "microgramsPerLiter": "Mikrogram na litr",
+  "microgramsPerDeciliter": "Mikrogram na decylitr",
+  "microgramsPerMilliliter": "Mikrogram na mililitr",
+  "poundsPerCubicInches": "Funt na cal sześcienny",
+  "poundsPerCubicFeet": "Funt na stopę sześcienną",
 
   "joule": "Dżule",
   "calories": "Kalorie",
@@ -377,7 +320,7 @@
 
   "bit": "Bit",
   "nibble": "Półbajt",
-  "kilobit": "KiloBit",
+  "kilobit": "Kilobit",
   "megabit": "Megabit",
   "gigabit": "Gigabit",
   "terabit": "Terabit",

@@ -17,7 +17,7 @@
   "drawerLogo": "Logo en el cajón",
   "rateApp": "Calificar la aplicación",
   "repoGithub": "Abrir repositorio en GitHub",
-  "contibuteTranslating": "Contribuya traduciendo la aplicación",
+  "contributeTranslating": "Contribuya traduciendo la aplicación",
   "search": "Buscar",
   "clearAll": "Limpiar todo",
   "calculator": "Calculadora",
@@ -31,7 +31,10 @@
   "dark": "Oscuro",
   "light": "Claro",
   "system": "Sistema",
-  "amoledDarkTheme": "Tema oscuro AMOLED",
+  "pureBlackTheme": "Tema oscuro AMOLED",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "Copiar",
   "more": "Más",
   "language": "Idioma",

@@ -17,7 +17,7 @@
   "drawerLogo": "ロゴドロワー",
   "rateApp": "アプリを評価する",
   "repoGithub": "GitHubでリポジトリを開く",
-  "contibuteTranslating": "アプリの翻訳に参加する",
+  "contributeTranslating": "アプリの翻訳に参加する",
   "search": "検索",
   "clearAll": "すべて削除",
   "calculator": "電卓",
@@ -31,7 +31,10 @@
   "dark": "ダーク",
   "light": "ライト",
   "system": "システムの設定",
-  "amoledDarkTheme": "AMOLEDダークテーマ",
+  "pureBlackTheme": "AMOLEDダークテーマ",
+  "@pureBlackTheme": {
+    "description": "Revise this translation"
+  },
   "copy": "コピー",
   "more": "さらに",
   "language": "言語",

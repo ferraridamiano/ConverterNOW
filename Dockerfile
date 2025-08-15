@@ -1,4 +1,4 @@
-FROM debian:12-slim AS builder
+FROM debian:13-slim AS builder
 
 USER root
 
@@ -40,9 +40,12 @@ RUN flutter pub global activate melos && \
     melos bootstrap && \
     flutter build web --release --wasm
 
-FROM nginx:1.28-alpine3.21-slim
+FROM nginx:1.29-alpine3.22-slim
 
 COPY --from=builder /app/build/web /usr/share/nginx/html
+
+# Workaround, remove once https://github.com/nginx/nginx/pull/448 has been merged
+RUN sed -i 's|application/javascript[[:space:]]\+js;|application/javascript       js mjs;|' /etc/nginx/mime.types
 
 EXPOSE 80
 

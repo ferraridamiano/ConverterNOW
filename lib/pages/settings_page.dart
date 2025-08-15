@@ -102,18 +102,20 @@ class SettingsPage extends ConsumerWidget {
           SwitchListTile(
             secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
             title: Text(
-              l10n.amoledDarkTheme,
+              l10n.pureBlackTheme,
               style: textStyle,
             ),
-            value: ref.watch(IsDarkAmoled.provider).valueOrNull ?? false,
-            activeColor: Theme.of(context).colorScheme.secondary,
+            value: ref.watch(IsPureDark.provider).valueOrNull ?? false,
             onChanged: (bool val) {
-              ref.read(IsDarkAmoled.provider.notifier).set(val);
+              ref.read(IsPureDark.provider.notifier).set(val);
             },
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           ),
           ListTile(
-            title: Text(l10n.themeColor),
+            title: Text(
+              l10n.themeColor,
+              style: textStyle,
+            ),
             leading: Icon(Icons.palette_outlined, color: iconColor),
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),
             trailing: Padding(
@@ -150,7 +152,6 @@ class SettingsPage extends ConsumerWidget {
               ),
               value: ref.watch(RevokeInternetNotifier.provider).valueOrNull ??
                   false,
-              activeColor: Theme.of(context).colorScheme.secondary,
               onChanged: (bool val) {
                 if (val) {
                   showDialog(
@@ -208,7 +209,6 @@ class SettingsPage extends ConsumerWidget {
               style: textStyle,
             ),
             value: ref.watch(RemoveTrailingZeros.provider).valueOrNull ?? true,
-            activeColor: Theme.of(context).colorScheme.secondary,
             onChanged: (bool val) {
               ref.read(RemoveTrailingZeros.provider.notifier).set(val);
             },
@@ -375,7 +375,7 @@ class SettingsPage extends ConsumerWidget {
           ListTile(
             leading: Icon(Icons.translate, color: iconColor),
             title: Text(
-              l10n.contibuteTranslating,
+              l10n.contributeTranslating,
               style: textStyle,
             ),
             shape: const RoundedRectangleBorder(borderRadius: borderRadius),

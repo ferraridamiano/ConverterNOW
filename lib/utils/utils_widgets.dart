@@ -349,12 +349,16 @@ Future<String?> showModalBottomRadioList({
             ),
           ),
           const SizedBox(height: 15),
-          ...items.map(
-            (item) => RadioListTile(
-              value: item,
-              groupValue: value,
-              title: Text(item),
-              onChanged: (value) => Navigator.pop(context, value),
+          RadioGroup(
+            groupValue: value,
+            onChanged: (value) => Navigator.pop(context, value),
+            child: Column(
+              children: items
+                  .map((item) => RadioListTile(
+                        value: item,
+                        title: Text(item),
+                      ))
+                  .toList(),
             ),
           ),
         ],
