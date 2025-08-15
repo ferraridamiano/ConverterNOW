@@ -106,7 +106,6 @@ class SettingsPage extends ConsumerWidget {
               style: textStyle,
             ),
             value: ref.watch(IsPureDark.provider).valueOrNull ?? false,
-            activeColor: Theme.of(context).colorScheme.secondary,
             onChanged: (bool val) {
               ref.read(IsPureDark.provider.notifier).set(val);
             },
@@ -153,7 +152,6 @@ class SettingsPage extends ConsumerWidget {
               ),
               value: ref.watch(RevokeInternetNotifier.provider).valueOrNull ??
                   false,
-              activeColor: Theme.of(context).colorScheme.secondary,
               onChanged: (bool val) {
                 if (val) {
                   showDialog(
@@ -211,7 +209,6 @@ class SettingsPage extends ConsumerWidget {
               style: textStyle,
             ),
             value: ref.watch(RemoveTrailingZeros.provider).valueOrNull ?? true,
-            activeColor: Theme.of(context).colorScheme.secondary,
             onChanged: (bool val) {
               ref.read(RemoveTrailingZeros.provider.notifier).set(val);
             },
