@@ -1,12 +1,12 @@
 name: translations
 description: All the translations for Converter NOW.
-
 publish_to: 'none'
+resolution: workspace
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.9.0 <4.0.0"
 
 dependencies:
 
