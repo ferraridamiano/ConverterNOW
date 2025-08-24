@@ -14,7 +14,7 @@
   <a href="https://play.google.com/store/apps/details?id=com.ferrarid.converterpro">
     <img alt="Google Play Badge" src="promotional/banners/play_store.png" height="48px">
   </a>
-  <a href="https://www.microsoft.com/store/apps/9P0Q79HWJH72">
+  <a href="https://apps.microsoft.com/detail/9p0q79hwjh72">
     <img alt="Microsoft store Badge" src="promotional/banners/microsoft_store.png" height="48px">
   </a>
   <a href="https://flathub.org/apps/details/io.github.ferraridamiano.ConverterNOW">
