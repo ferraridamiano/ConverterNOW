@@ -12,7 +12,7 @@ jobs:
       matrix:
         os:
         - ubuntu-latest
-        - ubuntu-24.04-arm
+#        - ubuntu-24.04-arm # temporarily remove arm linux support due to https://github.com/flutter/flutter/issues/158865
         include:
         - label: x86_64
           os: ubuntu-latest
