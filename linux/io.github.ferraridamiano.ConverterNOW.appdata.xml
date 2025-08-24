@@ -85,6 +85,17 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.4.0" date="2025-08-24">
+      <description>
+        <ul>
+          <li>🎨 New logo! Thanks to Giovanni Spitti for the suggestions</li>
+          <li>🖌️ Improved icons in the app</li>
+          <li>🌍 Translation improvements: thanks to @solokot</li>
+          <li>🐞 Bug fixes and general improvements! We've worked hard to give you an ever-better experience</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
     <release version="4.3.3" date="2025-06-07">
       <description>
         <ul>
