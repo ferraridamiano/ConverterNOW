@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/data/default_order.dart';
@@ -19,10 +20,12 @@ class SplashScreen extends ConsumerWidget {
       initializeQuickAction(
         conversionsOrderDrawer: conversionsOrderDrawer,
         propertyUiMap: getPropertyUiMap(context),
-        onActionSelection: (String shortcutType) {
-          final int index = int.parse(shortcutType);
-          context.go(
-              '/conversions/${defaultPropertiesOrder[index].toKebabCase()}');
+        onActionSelection: (String shortcut) {
+          final selectedProperty = defaultPropertiesOrder
+              .firstWhereOrNull((e) => e.toString() == shortcut);
+          if (selectedProperty != null) {
+            context.go('/conversions/${selectedProperty.toKebabCase()}');
+          }
         },
       );
 
