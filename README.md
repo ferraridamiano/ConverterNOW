@@ -2,20 +2,42 @@
 
 # Converter NOW
 
-[<img src="https://img.shields.io/github/contributors/ferraridamiano/ConverterNOW?style=flat-square"
-    alt="Contributors"
-    height="30">](https://github.com/ferraridamiano/ConverterNOW/graphs/contributors)
-[<img src="https://img.shields.io/static/v1?style=for-the-badge&message=PWA&color=5A0FC8&logo=PWA&logoColor=FFFFFF&label="
-    alt="Open web app"
-    height="30">](https://converter-now.web.app)
-[<img src="https://img.shields.io/static/v1?style=for-the-badge&message=PayPal&color=00457C&logo=PayPal&logoColor=FFFFFF&label="
-    alt="Donate paypal"
-    height="30">](https://www.paypal.me/DemApps)
+</div>
 
-[<img src="https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square"
-    alt="Maintained with Melos">](https://github.com/invertase/melos)
+<div align="center">
+    <img alt="Icon" src="assets/logo.png" height="150px">
+</div>
 
-<img src="screenshots/1.png" width="650">
+<br/>
+
+<div align="center">
+  <a href="https://play.google.com/store/apps/details?id=com.ferrarid.converterpro">
+    <img alt="Google Play Badge" src="promotional/banners/play_store.png" height="48px">
+  </a>
+  <a href="https://www.microsoft.com/store/apps/9P0Q79HWJH72">
+    <img alt="Microsoft store Badge" src="promotional/banners/microsoft_store.png" height="48px">
+  </a>
+  <a href="https://flathub.org/apps/details/io.github.ferraridamiano.ConverterNOW">
+    <img alt="Flathub Badge" src="promotional/banners/flathub.png" height="48px">
+  </a>
+  <a href="https://github.com/ferraridamiano/ConverterNOW/releases">
+    <img alt="GitHub Badge" src="promotional/banners/github.png" height="48px">
+  </a>
+  <a href="https://f-droid.org/packages/com.ferrarid.converterpro">
+    <img alt="F-Droid Badge" src="promotional/banners/fdroid.png" height="48px">
+  </a>
+  <a href="https://github.com/ferraridamiano/ConverterNOW/releases/latest">
+    <img alt="AppImage Badge" src="promotional/banners/appimage.png" height="48px">
+  </a>
+  <a href="https://converter-now.web.app">
+    <img alt="PWA Badge" src="promotional/banners/pwa.png" height="48px">
+  </a>
+</div>
+
+<br/>
+
+<div align="center">
+  <img src="promotional/screenshots/1.png" width="650">
 </div>
 
 ## Why Converter NOW
@@ -52,63 +74,40 @@ Windows. Whether you're on your phone or desktop, we've got you covered!
 (just internet access for currency updates). Best of all, it's
 **100% open source!**
 
-## Installation
+## Alternative installation sources
 
-### Android
+### Winget
 
-[<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
-    alt="Get it on Google Play"
-    height="72">](https://play.google.com/store/apps/details?id=com.ferrarid.converterpro)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-    alt="Get it on F-Droid"
-    height="72">](https://f-droid.org/packages/com.ferrarid.converterpro)
-
-### Linux
-
-[<img src="https://flathub.org/assets/badges/flathub-badge-en.png"
-    alt="Download on Flathub"
-    height="50">](https://flathub.org/apps/details/io.github.ferraridamiano.ConverterNOW)
-[<img src="https://user-images.githubusercontent.com/61944859/169455015-13385466-8901-48fe-ba90-b62d58b0be64.png"
-    alt="Download AppImage"
-    height="50">](https://github.com/ferraridamiano/ConverterNOW/releases/latest)
-
-### Windows
-
-[<img src="https://get.microsoft.com/images/en-us dark.svg"
-    alt="Get it from the Microsoft Store"
-    height="53">](https://www.microsoft.com/store/apps/9P0Q79HWJH72)
-
-Alternatively, you can install Converter NOW using WinGet by running the
-following command:
-```
+Run the following command:
+```bash
 winget install -e 9P0Q79HWJH72
 ```
 
-### Web app
-You can access the web application directly at [Converter NOW](https://converter-now.web.app).
+### Docker self-hosted web app
 
-Alternatively, to run Converter NOW in your local environment using Docker, run
-the following command:
-```shell
+Run the following command:
+```bash
 docker run -d -p 80:80 ghcr.io/ferraridamiano/converternow:latest
 ```
-
 Then, you can access it via browser on `localhost:80`
 
 ## Build from source code
 First you need to
 [install flutter](https://docs.flutter.dev/get-started/install) and all the
-tooling for your target platform (e.g. Android Studio for Android, etc.). Then you have to install two tools:
+tooling for your target platform (e.g. Android Studio for Android, etc.). Then
+you have to install `melos` in order to do some pre-compiling task:
 
-- `dart pub global activate melos` (useful to easily manage the repository)
-- `dart pub global activate vector_graphics_compiler` (useful to compile the `svg` icons)
+```shell
+dart pub global activate melos
+```
 
-Then, run `melos bootstrap` in the root of the project in order to get all the dependencies, generate the
-translation files and optimize the `svg` icons. Then follow the instructions for the platform you want to target.
+Then, run `melos bootstrap` in the root of the project in order to get all the
+dependencies, generate the translation files and optimize the `svg` icons. Then
+follow the instructions for the platform you want to target.
 
 ### Android
 On Android you should first disable the signing option in
-[`android/app/build.gradle`](https://github.com/ferraridamiano/ConverterNOW/blob/master/android/app/build.gradle#L57)
+[`android/app/build.gradle.kts`](https://github.com/ferraridamiano/ConverterNOW/blob/master/android/app/build.gradle.kts#L42)
 Then you can type `flutter build apk --split-per-abi` to compile the code. You
 can find the output in `build/app/outputs/flutter-apk` folder.
 
