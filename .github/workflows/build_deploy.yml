@@ -65,7 +65,7 @@ jobs:
         echo -e '#!/bin/sh\ncd "$(dirname "$0")"\nexec ./converternow' > ConverterNOW.AppDir/AppRun
         chmod +x ConverterNOW.AppDir/AppRun
         cp linux/io.github.ferraridamiano.ConverterNOW.desktop ConverterNOW.AppDir
-        desktop-file-edit --set-icon="logo" --set-key="Exec" --set-value="converternow %u" ConverterNOW.AppDir/converternow.desktop
+        desktop-file-edit --set-icon="logo" --set-key="Exec" --set-value="converternow %u" ConverterNOW.AppDir/io.github.ferraridamiano.ConverterNOW.desktop
         APPIMAGETOOL_APP_NAME=converternow ./appimagetool-${{ matrix.label }}.AppImage ConverterNOW.AppDir
 
     - name: Release to GitHub
