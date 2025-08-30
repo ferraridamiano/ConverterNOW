@@ -504,24 +504,6 @@ class SettingsPage extends ConsumerWidget {
                     },
                   ),
                 ListTile(
-                  leading: Icon(Icons.email_outlined, color: iconColor),
-                  title: Text(
-                    l10n.contactDeveloper,
-                    style: textStyle,
-                  ),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                  onTap: () {
-                    launchURL(
-                      Uri(
-                        scheme: 'mailto',
-                        path: 'damianoferrari1998@gmail.com',
-                      ),
-                    );
-                  },
-                ),
-                ListTile(
                   leading: Icon(Icons.info_outline, color: iconColor),
                   title: Text(
                     l10n.about,
