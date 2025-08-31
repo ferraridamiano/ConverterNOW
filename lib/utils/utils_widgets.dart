@@ -1,6 +1,8 @@
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:translations/app_localizations.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 class UnitWidget extends StatefulWidget {
@@ -10,7 +12,7 @@ class UnitWidget extends StatefulWidget {
   final String? Function(String?)? validator;
   final String unitName;
   final String? unitSymbol;
-  final void Function(String)? onChanged;
+  final void Function(String) onChanged;
 
   const UnitWidget({
     super.key,
@@ -20,7 +22,7 @@ class UnitWidget extends StatefulWidget {
     this.validator,
     required this.unitName,
     this.unitSymbol,
-    this.onChanged,
+    required this.onChanged,
   });
 
   @override
@@ -51,12 +53,24 @@ class _UnitWidgetState extends State<UnitWidget> {
         validator: widget.validator,
         decoration: InputDecoration(
           labelText: widget.unitName,
-          suffixIcon: widget.unitSymbol == null
-              ? null
-              : Padding(
-                  padding: const EdgeInsetsDirectional.only(end: 10),
-                  child: Text(widget.unitSymbol!),
-                ),
+          suffixIcon: focusNode.hasFocus && widget.controller.text.isNotEmpty
+              ? IconButton(
+                  iconSize: 20,
+                  icon: const Icon(Icons.copy),
+                  tooltip: AppLocalizations.of(context)?.copy,
+                  onPressed: () {
+                    Clipboard.setData(
+                      ClipboardData(text: widget.controller.text),
+                    );
+                    HapticFeedback.heavyImpact();
+                  },
+                )
+              : widget.unitSymbol == null
+                  ? null
+                  : Padding(
+                      padding: const EdgeInsetsDirectional.only(end: 10),
+                      child: Text(widget.unitSymbol!),
+                    ),
           // Workaround to make suffixIcon always visible
           // See: https://stackoverflow.com/questions/58819979
           suffixIconConstraints: const BoxConstraints(
@@ -82,7 +96,10 @@ class _UnitWidgetState extends State<UnitWidget> {
                 : null,
           ),
         ),
-        onChanged: widget.onChanged,
+        onChanged: (text) {
+          widget.onChanged(text);
+          setState(() {});
+        },
       ),
     );
   }
