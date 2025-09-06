@@ -83,13 +83,17 @@ Run the following command:
 winget install -e 9P0Q79HWJH72
 ```
 
-### Docker self-hosted web app
+### Container self-hosted web app
 
-Run the following command:
+You can easily self-host the Converter NOW web app on your own machine using
+either Docker or Podman. Simply run one of the commands below, depending on your
+containerization tool of choice:
 ```bash
-docker run -d -p 80:80 ghcr.io/ferraridamiano/converternow:latest
+docker run -d -p 8080:80 ghcr.io/ferraridamiano/converternow:latest
+podman run -d -p 8080:80 ghcr.io/ferraridamiano/converternow:latest
 ```
-Then, you can access it via browser on `localhost:80`
+After running the command, the web app will be accessible in your web browser at
+`http://localhost:8080`.
 
 ## Build from source code
 First you need to
