@@ -2,23 +2,14 @@ name: "Build & deploy for Android, Linux, Web and Windows"
 
 on:
   push:
-    tags: ['v*']
+    # tags: ['v*']
 
 jobs:
 
-  build_linux:
-    name: Build and release Linux app
-    strategy:
-      matrix:
-        os:
-        - ubuntu-latest
-#        - ubuntu-24.04-arm       # temporarily remove arm linux support due to https://github.com/flutter/flutter/issues/158865
-        include:
-        - label: x86_64
-          os: ubuntu-latest
-        # - label: aarch64        # temporarily remove arm linux support due to https://github.com/flutter/flutter/issues/158865
-        #   os: ubuntu-24.04-arm  # temporarily remove arm linux support due to https://github.com/flutter/flutter/issues/158865
-    runs-on: ${{ matrix.os }}
+  build_linux_x86_64:
+    name: Build and release Linux app (x86_64)
+    os: ubuntu-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
     - name: Checkout
@@ -30,13 +21,11 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev desktop-file-utils
     
-    # Use git because subosito/flutter-action does not support arm64 yet (https://github.com/subosito/flutter-action/issues/345)
     - name: Setup Flutter
-      run: |
-        git clone --branch stable https://github.com/flutter/flutter.git $RUNNER_TEMP/flutter
-        cd $RUNNER_TEMP/flutter
-        echo "$RUNNER_TEMP/flutter/bin" >> $GITHUB_PATH
-        echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+        cache: true
 
     - name: Flutter version
       run: flutter --version
@@ -52,32 +41,94 @@ jobs:
     - name: Tar linux package
       run: |
         arch=$(ls build/linux)
-        tar -C build/linux/$arch/release/bundle -czf converternow-linux-${{ matrix.label }}.tar.gz .
+        tar -C build/linux/$arch/release/bundle -czf converternow-linux-x86_64.tar.gz .
 
     - name: Build appimage
       run: |
-        arch=$(ls build/linux)
-        wget https://github.com/AppImage/appimagetool/releases/latest/download/appimagetool-${{ matrix.label }}.AppImage
-        chmod +x appimagetool-${{ matrix.label }}.AppImage
-        mkdir ConverterNOW.AppDir
-        cp -r build/linux/$arch/release/bundle/* ConverterNOW.AppDir
-        cp assets/app_icons/logo.svg ConverterNOW.AppDir
-        echo -e '#!/bin/sh\ncd "$(dirname "$0")"\nexec ./converternow' > ConverterNOW.AppDir/AppRun
-        chmod +x ConverterNOW.AppDir/AppRun
-        cp linux/io.github.ferraridamiano.ConverterNOW.desktop ConverterNOW.AppDir
-        desktop-file-edit --set-icon="logo" --set-key="Exec" --set-value="converternow %u" ConverterNOW.AppDir/io.github.ferraridamiano.ConverterNOW.desktop
-        APPIMAGETOOL_APP_NAME=converternow ./appimagetool-${{ matrix.label }}.AppImage ConverterNOW.AppDir
+        chmod +x .github/workflows/scripts/build_appimage.sh
+        ./.github/workflows/scripts/build_appimage.sh
 
-    - name: Release to GitHub
-      uses: softprops/action-gh-release@v2
+    # - name: Release to GitHub
+    #   uses: softprops/action-gh-release@v2
+    #   with:
+    #     files: |
+    #       converternow-linux-x86_64.tar.gz
+    #       converternow-x86_64.AppImage
+    #     token: ${{ secrets.GH_TOKEN }}
+
+    - name: Upload compiled icons
+      uses: actions/upload-artifact@v4
       with:
-        files: |
-          converternow-linux-${{ matrix.label }}.tar.gz
-          converternow-${{ matrix.label }}.AppImage
-        token: ${{ secrets.GH_TOKEN }}
+        name: assets
+        path: assets
+
+  build_linux_aarch64:
+    name: Build and release Linux app (aarch64)
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 15
+    needs: build_linux_x86_64
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v5
+
+    - name: Install missing packages
+      run: |
+        sudo add-apt-repository universe
+        sudo apt-get update
+        sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev desktop-file-utils
+
+    # Use git because subosito/flutter-action does not support arm64 yet (https://github.com/subosito/flutter-action/issues/345)
+    - name: Setup Flutter
+      run: |
+        git clone --branch stable https://github.com/flutter/flutter.git $RUNNER_TEMP/flutter
+        cd $RUNNER_TEMP/flutter
+        echo "$RUNNER_TEMP/flutter/bin" >> $GITHUB_PATH
+        echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+    - name: Flutter version
+      run: flutter --version
+
+    # continue-on-error is set because we would receive an error on icon
+    # compilation (but we import the compiled icons from previous step)
+    - name: Bootstrap
+      continue-on-error: true
+      run: |
+        flutter pub global activate melos
+        melos bootstrap
+
+    - name: Remove current assets
+      run: rm -rf assets
+
+    - name: Download compiled assets
+      uses: actions/download-artifact@v5
+      with:
+        name: assets
+        path: assets
+
+    - name: Build for linux
+      run: flutter build linux --release
+
+    - name: Tar linux package
+      run: |
+        arch=$(ls build/linux)
+        tar -C build/linux/$arch/release/bundle -czf converternow-linux-aarch64.tar.gz .
+
+    - name: Build appimage
+      run: |
+        chmod +x .github/workflows/scripts/build_appimage.sh
+        ./.github/workflows/scripts/build_appimage.sh
+
+    # - name: Release to GitHub
+    #   uses: softprops/action-gh-release@v2
+    #   with:
+    #     files: |
+    #       converternow-linux-aarch64.tar.gz
+    #       converternow-aarch64.AppImage
+    #     token: ${{ secrets.GH_TOKEN }}
 
   build_android:
-    needs: build_linux
+    needs: build_linux_aarch64
     name: Build and release Android app
     runs-on: ubuntu-latest
     timeout-minutes: 15

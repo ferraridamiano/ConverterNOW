@@ -70,7 +70,7 @@ melos:
   command:
     bootstrap:
       hooks:
-        post: melos run compile_icons && melos run generate_translations
+        post: melos run generate_translations && melos run compile_icons
   scripts:
     analyze:
       run: melos exec -- "flutter analyze"
