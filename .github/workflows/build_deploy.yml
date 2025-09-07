@@ -2,7 +2,7 @@ name: "Build & deploy for Android, Linux, Web and Windows"
 
 on:
   push:
-    # tags: ['v*']
+    tags: ['v*']
 
 jobs:
 
@@ -47,13 +47,13 @@ jobs:
         chmod +x .github/workflows/scripts/build_appimage.sh
         ./.github/workflows/scripts/build_appimage.sh
 
-    # - name: Release to GitHub
-    #   uses: softprops/action-gh-release@v2
-    #   with:
-    #     files: |
-    #       converternow-linux-x86_64.tar.gz
-    #       converternow-x86_64.AppImage
-    #     token: ${{ secrets.GH_TOKEN }}
+    - name: Release to GitHub
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          converternow-linux-x86_64.tar.gz
+          converternow-x86_64.AppImage
+        token: ${{ secrets.GH_TOKEN }}
 
     - name: Upload compiled icons
       uses: actions/upload-artifact@v4
@@ -118,13 +118,13 @@ jobs:
         chmod +x .github/workflows/scripts/build_appimage.sh
         ./.github/workflows/scripts/build_appimage.sh
 
-    # - name: Release to GitHub
-    #   uses: softprops/action-gh-release@v2
-    #   with:
-    #     files: |
-    #       converternow-linux-aarch64.tar.gz
-    #       converternow-aarch64.AppImage
-    #     token: ${{ secrets.GH_TOKEN }}
+    - name: Release to GitHub
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          converternow-linux-aarch64.tar.gz
+          converternow-aarch64.AppImage
+        token: ${{ secrets.GH_TOKEN }}
 
   build_android:
     needs: build_linux_aarch64
