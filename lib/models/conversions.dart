@@ -15,7 +15,8 @@ class ConversionsNotifier
     final conversionsOrder =
         (await ref.watch(UnitsOrderNotifier.provider.future));
     final propertiesMap = await ref.watch(propertiesMapProvider.future);
-    final conversions = conversionsOrder.map(
+
+    return conversionsOrder.map(
       (propertyx, orderedUnits) => MapEntry(
         propertyx,
         orderedUnits
@@ -59,14 +60,6 @@ class ConversionsNotifier
             .toList(),
       ),
     );
-    ref.onDispose(() {
-      for (final unitDataList in conversions.values) {
-        for (final unitData in unitDataList) {
-          unitData.tec.dispose();
-        }
-      }
-    });
-    return conversions;
   }
 
   /// The list of values that has been just cleared out
