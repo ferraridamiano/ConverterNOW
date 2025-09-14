@@ -55,7 +55,7 @@ class _ReorderPageState extends State<ReorderPage> {
             SliverPadding(
               // Space for FAB + navigation bar (android)
               padding: EdgeInsets.only(
-                bottom: 60 + MediaQuery.of(context).padding.bottom,
+                bottom: 60 + MediaQuery.paddingOf(context).bottom,
               ),
               sliver: SliverReorderableList(
                 onReorder: (int oldIndex, int newIndex) =>

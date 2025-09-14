@@ -39,13 +39,13 @@ class SettingsPage extends ConsumerWidget {
     final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
     final iconColor = getIconColor(Theme.of(context));
     final titlesStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
-      color: switch (Theme.of(context).brightness) {
-        Brightness.light => Theme.of(context).primaryColor,
-        Brightness.dark => HSLColor.fromColor(
-          Theme.of(context).primaryColor,
-        ).withLightness(0.7).toColor(),
-      },
-    );
+          color: switch (Theme.of(context).brightness) {
+            Brightness.light => Theme.of(context).primaryColor,
+            Brightness.dark => HSLColor.fromColor(
+                Theme.of(context).primaryColor,
+              ).withLightness(0.7).toColor(),
+          },
+        );
 
     return PopScope(
       canPop: false,
@@ -73,16 +73,12 @@ class SettingsPage extends ConsumerWidget {
                   title: l10n.language,
                   textStyle: textStyle,
                   items: [l10n.system, ...mapLocale.values],
-                  value:
-                      mapLocale[ref
-                          .watch(CurrentLocale.provider)
-                          .valueOrNull] ??
+                  value: mapLocale[
+                          ref.watch(CurrentLocale.provider).valueOrNull] ??
                       l10n.system,
                   onChanged: (String? string) {
                     if (string != null) {
-                      ref
-                          .read(CurrentLocale.provider.notifier)
-                          .set(
+                      ref.read(CurrentLocale.provider.notifier).set(
                             string == l10n.system
                                 ? null
                                 : mapLocale.keys.firstWhere(
@@ -96,17 +92,13 @@ class SettingsPage extends ConsumerWidget {
                   leading: Icon(Icons.contrast, color: iconColor),
                   title: l10n.theme,
                   items: mapTheme.values.toList(),
-                  value:
-                      mapTheme[ref
-                                  .watch(CurrentThemeMode.provider)
-                                  .valueOrNull ??
+                  value: mapTheme[
+                          ref.watch(CurrentThemeMode.provider).valueOrNull ??
                               0]!
-                          .title,
+                      .title,
                   onChanged: (String? string) {
                     if (string != null) {
-                      ref
-                          .read(CurrentThemeMode.provider.notifier)
-                          .set(
+                      ref.read(CurrentThemeMode.provider.notifier).set(
                             mapTheme.keys
                                 .where((key) => mapTheme[key]?.title == string)
                                 .single,
@@ -170,8 +162,7 @@ class SettingsPage extends ConsumerWidget {
                       l10n.revokeInternetAccess,
                       style: textStyle,
                     ),
-                    value:
-                        ref
+                    value: ref
                             .watch(RevokeInternetNotifier.provider)
                             .valueOrNull ??
                         false,
@@ -202,8 +193,7 @@ class SettingsPage extends ConsumerWidget {
                                       () => ref
                                           .read(
                                             RevokeInternetNotifier
-                                                .provider
-                                                .notifier,
+                                                .provider.notifier,
                                           )
                                           .set(val),
                                     );
@@ -239,8 +229,7 @@ class SettingsPage extends ConsumerWidget {
                     l10n.removeTrailingZeros,
                     style: textStyle,
                   ),
-                  value:
-                      ref.watch(RemoveTrailingZeros.provider).valueOrNull ??
+                  value: ref.watch(RemoveTrailingZeros.provider).valueOrNull ??
                       true,
                   onChanged: (bool val) {
                     ref.read(RemoveTrailingZeros.provider.notifier).set(val);
@@ -259,9 +248,8 @@ class SettingsPage extends ConsumerWidget {
                   ),
                   title: l10n.significantFigures,
                   textStyle: textStyle,
-                  items: significantFiguresList
-                      .map((e) => e.toString())
-                      .toList(),
+                  items:
+                      significantFiguresList.map((e) => e.toString()).toList(),
                   value:
                       (ref.watch(SignificantFigures.provider).valueOrNull ?? 10)
                           .toString(),
@@ -515,7 +503,7 @@ class SettingsPage extends ConsumerWidget {
                   onTap: () => context.goNamed('about'),
                 ),
                 // Space for the navigation bar (android)
-                SizedBox(height: MediaQuery.of(context).padding.bottom),
+                SizedBox(height: MediaQuery.paddingOf(context).bottom),
               ].map(ConstrainedContainer.new).toList(),
             ),
           ),

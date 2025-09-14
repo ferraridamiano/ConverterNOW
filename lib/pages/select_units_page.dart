@@ -88,7 +88,7 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
         SliverPadding(
           // Space for FAB + navigation bar (android)
           padding: EdgeInsets.only(
-            bottom: 60 + MediaQuery.of(context).padding.bottom,
+            bottom: 60 + MediaQuery.paddingOf(context).bottom,
           ),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(

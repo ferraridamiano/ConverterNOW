@@ -42,7 +42,7 @@ class ChoosePropertyPage extends ConsumerWidget {
         SliverPadding(
           // Space for the navigation bar (android)
           padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).padding.bottom,
+            bottom: MediaQuery.paddingOf(context).bottom,
           ),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(

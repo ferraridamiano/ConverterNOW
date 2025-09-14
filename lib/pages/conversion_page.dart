@@ -160,7 +160,7 @@ class ConversionPage extends ConsumerWidget {
         if (isDrawerFixed(MediaQuery.sizeOf(context).width))
           // Space for FAB + navigation bar (android)
           SliverToBoxAdapter(
-            child: SizedBox(height: 60 + MediaQuery.of(context).padding.bottom),
+            child: SizedBox(height: 60 + MediaQuery.paddingOf(context).bottom),
           ),
       ]);
     });
