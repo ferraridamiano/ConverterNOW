@@ -135,3 +135,10 @@ PROPERTYX kebabStringToPropertyX(String string) {
   return PROPERTYX.values.firstWhere(
       (e) => e.toString().toLowerCase() == 'propertyx.$lowerCaseString');
 }
+
+@pragma('vm:prefer-inline')
+void dPrint(String Function() message) {
+  if (kDebugMode) {
+    debugPrint(message());
+  }
+}
