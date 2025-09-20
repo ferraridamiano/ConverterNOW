@@ -35,6 +35,10 @@
     "description": "Revise this translation"
   },
   "copy": "Salin",
+  "paste": "Paste",
+  "@paste": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "more": "Lebih banyak",
   "language": "Bahasa",
   "reorderProperties": "Tata ulang properti",

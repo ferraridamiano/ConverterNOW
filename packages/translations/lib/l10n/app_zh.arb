@@ -35,6 +35,10 @@
     "description": "Revise this translation"
   },
   "copy": "复制",
+  "paste": "Paste",
+  "@paste": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "more": "更多",
   "language": "语言",
   "reorderProperties": "排序组",

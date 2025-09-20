@@ -35,6 +35,10 @@
     "description": "Revise this translation"
   },
   "copy": "Kopieren",
+  "paste": "Paste",
+  "@paste": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "more": "Mehr",
   "language": "Sprache",
   "reorderProperties": "Reihenfolge der Kategorien ändern",

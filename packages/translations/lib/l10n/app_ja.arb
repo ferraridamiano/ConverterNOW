@@ -35,6 +35,10 @@
     "description": "Revise this translation"
   },
   "copy": "コピー",
+  "paste": "Paste",
+  "@paste": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "more": "さらに",
   "language": "言語",
   "reorderProperties": "グループを並び替える",

@@ -35,6 +35,10 @@
     "description": "Revise this translation"
   },
   "copy": "Kopiraj",
+  "paste": "Paste",
+  "@paste": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "more": "Više",
   "language": "Jezik",
   "reorderProperties": "Promijeni redoslijed svojstava",

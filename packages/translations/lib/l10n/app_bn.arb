@@ -35,6 +35,10 @@
     "description": "Revise this translation"
   },
   "copy": "কপি",
+  "paste": "Paste",
+  "@paste": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "more": "আরও",
   "language": "ভাষা",
   "reorderProperties": "প্রোপার্টিগুলি পুনর্বিন্যাস করুন",

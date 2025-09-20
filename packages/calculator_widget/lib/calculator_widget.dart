@@ -161,11 +161,30 @@ class CalculatorHeader extends ConsumerWidget {
                 ? IconButton(
                     tooltip: AppLocalizations.of(context)?.copy,
                     icon: Icon(
-                      Icons.content_copy,
+                      Icons.content_copy_outlined,
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
                     onPressed: () {
                       Clipboard.setData(ClipboardData(text: text));
+                      HapticFeedback.heavyImpact();
+                    },
+                  )
+                : text.isEmpty
+                ? IconButton(
+                    tooltip: AppLocalizations.of(context)?.paste,
+                    icon: Icon(
+                      Icons.content_paste_outlined,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    onPressed: () {
+                      Clipboard.getData(Clipboard.kTextPlain).then((value) {
+                        final cliboard = value?.text;
+                        if (cliboard != null) {
+                          ref
+                              .watch(Calculator.provider.notifier)
+                              .submitString(cliboard);
+                        }
+                      });
                       HapticFeedback.heavyImpact();
                     },
                   )

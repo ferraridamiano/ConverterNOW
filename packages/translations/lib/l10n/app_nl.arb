@@ -35,6 +35,10 @@
     "description": "Revise this translation"
   },
   "copy": "Kopiëren",
+  "paste": "Paste",
+  "@paste": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "more": "Meer",
   "language": "Taal",
   "reorderProperties": "Meetwaarde opnieuw ordenen",

@@ -35,6 +35,10 @@
     "description": "Revise this translation"
   },
   "copy": "Kopier",
+  "paste": "Paste",
+  "@paste": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "more": "Mer",
   "language": "Språk",
   "reorderProperties": "Endre rekkefølge på kategorier",

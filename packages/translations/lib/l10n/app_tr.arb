@@ -35,6 +35,10 @@
     "description": "Revise this translation"
   },
   "copy": "Kopyala",
+  "paste": "Paste",
+  "@paste": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "more": "Daha fazlası",
   "language": "Dil",
   "reorderProperties": "Özellikleri yeniden sırala",

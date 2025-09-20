@@ -35,6 +35,10 @@
     "description": "Revise this translation"
   },
   "copy": "Αντιγραφή",
+  "paste": "Paste",
+  "@paste": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "more": "Περισσότερα",
   "language": "Γλώσσα",
   "reorderProperties": "Αναδιάταξη ιδιοτήτων",
