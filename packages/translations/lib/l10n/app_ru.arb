@@ -32,10 +32,7 @@
   "system": "Как в системе",
   "pureBlackTheme": "Чёрная тема",
   "copy": "Копировать",
-  "paste": "Paste",
-  "@paste": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "paste": "Вставить",
   "more": "Ещё",
   "language": "Язык",
   "reorderProperties": "Изменить порядок категорий",
