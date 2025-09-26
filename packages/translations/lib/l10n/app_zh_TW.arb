@@ -30,15 +30,9 @@
   "dark": "深色",
   "light": "淺色",
   "system": "系統預設",
-  "pureBlackTheme": "AMOLED 深色主題",
-  "@pureBlackTheme": {
-    "description": "Revise this translation"
-  },
+  "pureBlackTheme": "純黑主題",
   "copy": "複製",
-  "paste": "Paste",
-  "@paste": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "paste": "貼上",
   "more": "更多",
   "language": "語言",
   "reorderProperties": "排序屬性",
@@ -138,7 +132,7 @@
   "are": "公畝",
   "squareFeetUsSurvey": "平方英尺 (美國)",
 
-  "cubicMeters": "立方公尺",
+  "cubicMeters": "立方公尺；立方米",
   "liters": "公升",
   "imperialGallons": "英制加侖",
   "usGallons": "美制加侖",
@@ -216,83 +210,25 @@
   "hectoPascal": "百帕[斯卡]",
   "inchesOfMercury": "英寸汞柱",
   "kiloPascal": "千帕[斯卡]",
-  "ksi": "Kilopounds per square inch",
-  "@ksi": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "megaPascal": "Megapascal",
-  "@megaPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gigaPascal": "Gigapascal",
-  "@gigaPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-
-  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
-  "@gramsPerCubicCentimeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerLiter": "Grams per Liter",
-  "@gramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerMilliliter": "Grams per Milliliter",
-  "@gramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerDeciliter": "Grams per Deciliter",
-  "@gramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "kilogramsPerLiter": "Kilograms per Liter",
-  "@kilogramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
-  "@kilogramsPerCubicMeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerLiter": "Milligrams per Liter",
-  "@milligramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerDeciliter": "Milligrams per Deciliter",
-  "@milligramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerMilliliter": "Milligrams per Milliliter",
-  "@milligramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
-  "@milligramsPerCubicMeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
-  "@milligramsPerCubicCentimeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerLiter": "Micrograms per Liter",
-  "@microgramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerDeciliter": "Micrograms per Deciliter",
-  "@microgramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerMilliliter": "Micrograms per Milliliter",
-  "@microgramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "poundsPerCubicInches": "Pounds per Cubic Inches",
-  "@poundsPerCubicInches": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "poundsPerCubicFeet": "Pounds per Cubic Feet",
-  "@poundsPerCubicFeet": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "ksi": "千磅每平方英寸",
+  "megaPascal": "百萬帕[斯卡]",
+  "gigaPascal": "吉帕[斯卡]",
+  "gramsPerCubicCentimeter": "公克每立方公分",
+  "gramsPerLiter": "公克每公升",
+  "gramsPerMilliliter": "公克每毫升",
+  "gramsPerDeciliter": "公克每公合；公克每分升",
+  "kilogramsPerLiter": "公斤每公升",
+  "kilogramsPerCubicMeter": "公斤每立方米",
+  "milligramsPerLiter": "毫克每公升",
+  "milligramsPerDeciliter": "毫克每公合；毫克每分升",
+  "milligramsPerMilliliter": "毫克每毫升",
+  "milligramsPerCubicMeter": "毫克每立方公尺；毫克每立方米",
+  "milligramsPerCubicCentimeter": "毫克每立方公分；毫克每立方厘米",
+  "microgramsPerLiter": "微克每公升",
+  "microgramsPerDeciliter": "微克每公合；微克每分升",
+  "microgramsPerMilliliter": "微克每毫升",
+  "poundsPerCubicInches": "磅每立方英寸",
+  "poundsPerCubicFeet": "磅每立方英尺",
 
   "joule": "焦耳",
   "calories": "卡[路里]",
