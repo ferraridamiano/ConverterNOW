@@ -36,7 +36,7 @@ class SettingsPage extends ConsumerWidget {
       ThemeMode.light: (title: l10n.light, icon: Icons.light_mode_outlined),
     };
 
-    final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
+    final themeColor = ref.watch(ThemeColorNotifier.provider).value!;
     final iconColor = getIconColor(Theme.of(context));
     final titlesStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
           color: switch (Theme.of(context).brightness) {
@@ -73,8 +73,7 @@ class SettingsPage extends ConsumerWidget {
                   title: l10n.language,
                   textStyle: textStyle,
                   items: [l10n.system, ...mapLocale.values],
-                  value: mapLocale[
-                          ref.watch(CurrentLocale.provider).valueOrNull] ??
+                  value: mapLocale[ref.watch(CurrentLocale.provider).value] ??
                       l10n.system,
                   onChanged: (String? string) {
                     if (string != null) {
@@ -92,10 +91,9 @@ class SettingsPage extends ConsumerWidget {
                   leading: Icon(Icons.contrast, color: iconColor),
                   title: l10n.theme,
                   items: mapTheme.values.toList(),
-                  value: mapTheme[
-                          ref.watch(CurrentThemeMode.provider).valueOrNull ??
-                              0]!
-                      .title,
+                  value:
+                      mapTheme[ref.watch(CurrentThemeMode.provider).value ?? 0]!
+                          .title,
                   onChanged: (String? string) {
                     if (string != null) {
                       ref.read(CurrentThemeMode.provider.notifier).set(
@@ -113,7 +111,7 @@ class SettingsPage extends ConsumerWidget {
                     l10n.pureBlackTheme,
                     style: textStyle,
                   ),
-                  value: ref.watch(IsPureDark.provider).valueOrNull ?? false,
+                  value: ref.watch(IsPureDark.provider).value ?? false,
                   onChanged: (bool val) {
                     ref.read(IsPureDark.provider.notifier).set(val);
                   },
@@ -162,9 +160,7 @@ class SettingsPage extends ConsumerWidget {
                       l10n.revokeInternetAccess,
                       style: textStyle,
                     ),
-                    value: ref
-                            .watch(RevokeInternetNotifier.provider)
-                            .valueOrNull ??
+                    value: ref.watch(RevokeInternetNotifier.provider).value ??
                         false,
                     onChanged: (bool val) {
                       if (val) {
@@ -229,8 +225,7 @@ class SettingsPage extends ConsumerWidget {
                     l10n.removeTrailingZeros,
                     style: textStyle,
                   ),
-                  value: ref.watch(RemoveTrailingZeros.provider).valueOrNull ??
-                      true,
+                  value: ref.watch(RemoveTrailingZeros.provider).value ?? true,
                   onChanged: (bool val) {
                     ref.read(RemoveTrailingZeros.provider.notifier).set(val);
                   },
@@ -250,9 +245,8 @@ class SettingsPage extends ConsumerWidget {
                   textStyle: textStyle,
                   items:
                       significantFiguresList.map((e) => e.toString()).toList(),
-                  value:
-                      (ref.watch(SignificantFigures.provider).valueOrNull ?? 10)
-                          .toString(),
+                  value: (ref.watch(SignificantFigures.provider).value ?? 10)
+                      .toString(),
                   onChanged: (String? string) {
                     if (string != null) {
                       ref
@@ -519,7 +513,7 @@ class ColorPickerDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final themeColor = ref.watch(ThemeColorNotifier.provider).valueOrNull!;
+    final themeColor = ref.watch(ThemeColorNotifier.provider).value!;
     final deviceAccentColor = ref.watch(deviceAccentColorProvider);
 
     return AlertDialog(

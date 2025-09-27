@@ -22,7 +22,7 @@ dependencies:
   # App dynamic color theme
   dynamic_color: ^1.8.1
   # State management
-  flutter_riverpod: ^2.6.1
+  flutter_riverpod: ^3.0.0
   # For svg icons
   flutter_svg: ^2.2.0
   # Navigation

@@ -91,7 +91,7 @@ class CurrenciesNotifier extends AsyncNotifier<Currencies> {
     String? lastUpdate = pref.getString("lastUpdateCurrencies");
     // if I have never updated the conversions or if I have updated before today
     // I have to update
-    if (!(ref.read(RevokeInternetNotifier.provider).valueOrNull ?? false) &&
+    if (!(ref.read(RevokeInternetNotifier.provider).value ?? false) &&
         (lastUpdate == null || lastUpdate != now)) {
       return _downloadCurrencies();
     }

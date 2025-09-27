@@ -14,7 +14,7 @@ dependencies:
   # Calculator computation
   decimal: ^3.2.4
   # State management
-  flutter_riverpod: ^2.6.1
+  flutter_riverpod: ^3.0.0
   # Calculator computation
   rational: ^2.2.3
   # App translation

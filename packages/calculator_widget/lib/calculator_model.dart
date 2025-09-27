@@ -1,5 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'dart:math' as math;
 import 'package:rational/rational.dart';
 
@@ -11,11 +12,11 @@ enum OPERATION {
 
   @override
   String toString() => switch (this) {
-        product => '×',
-        division => '÷',
-        addition => '+',
-        subtraction => '−'
-      };
+    product => '×',
+    division => '÷',
+    addition => '+',
+    subtraction => '−',
+  };
 }
 
 class Calculator extends Notifier<String> {
@@ -138,15 +139,18 @@ class Calculator extends Notifier<String> {
   /// result and put it in currentNumber string
   void _computeResult() {
     late Decimal result;
-    assert(_firstNumber != null && _secondNumber != null,
-        'firstNumber/secondNumber is null');
+    assert(
+      _firstNumber != null && _secondNumber != null,
+      'firstNumber/secondNumber is null',
+    );
 
     result = switch (ref.read(selectedOperationProvider)) {
       OPERATION.addition => _firstNumber! + _secondNumber!,
       OPERATION.subtraction => _firstNumber! - _secondNumber!,
       OPERATION.product => _firstNumber! * _secondNumber!,
-      OPERATION.division => (_firstNumber! / _secondNumber!)
-          .toDecimal(scaleOnInfinitePrecision: 15),
+      OPERATION.division => (_firstNumber! / _secondNumber!).toDecimal(
+        scaleOnInfinitePrecision: 15,
+      ),
       null => throw Exception('selectedOperation is null'),
     };
     _firstNumber = result;
@@ -178,15 +182,18 @@ class Calculator extends Notifier<String> {
       ref.read(endNumberProvider) ? clearAll() : deleteLastChar();
 
   void percentage() => _unaryOperation(
-      (Decimal x) => _getStringFromRational(x / Decimal.fromInt(100)));
+    (Decimal x) => _getStringFromRational(x / Decimal.fromInt(100)),
+  );
 
   /// Computes the square root of currentNumber
   void squareRoot() => _unaryOperation(
-      (Decimal x) => _getStringFromNum(math.sqrt(x.toDouble())));
+    (Decimal x) => _getStringFromNum(math.sqrt(x.toDouble())),
+  );
 
   /// Computes the base-10 logarithm of currentNumber
-  void log10() => _unaryOperation((Decimal x) =>
-      _getStringFromNum((math.log(x.toDouble()) / math.log(10))));
+  void log10() => _unaryOperation(
+    (Decimal x) => _getStringFromNum((math.log(x.toDouble()) / math.log(10))),
+  );
 
   /// Computes the square of currentNumber
   void square() =>
@@ -197,12 +204,15 @@ class Calculator extends Notifier<String> {
       _unaryOperation((Decimal x) => _getStringFromNum(math.log(x.toDouble())));
 
   /// Computes the reciprocal (multiplicative inverse) of currentNumber
-  void reciprocal() => _unaryOperation((Decimal x) =>
-      x.inverse.toDecimal(scaleOnInfinitePrecision: 15).toString());
+  void reciprocal() => _unaryOperation(
+    (Decimal x) => x.inverse.toDecimal(scaleOnInfinitePrecision: 15).toString(),
+  );
 
   /// Computes the factorial of currentNumber
-  void factorial() => _unaryOperation((Decimal x) =>
-      _getStringFromNum(_myFactorialFunction(x.toBigInt().toInt())));
+  void factorial() => _unaryOperation(
+    (Decimal x) =>
+        _getStringFromNum(_myFactorialFunction(x.toBigInt().toInt())),
+  );
 
   /// General function that applies to all the unary operations, just pass the
   /// function
@@ -261,7 +271,8 @@ class SelectedOperationNotifier extends Notifier<OPERATION?> {
 
 final selectedOperationProvider =
     NotifierProvider<SelectedOperationNotifier, OPERATION?>(
-        () => SelectedOperationNotifier());
+      () => SelectedOperationNotifier(),
+    );
 
 final endNumberProvider = StateProvider<bool>((ref) => false);
 final isResultProvider = StateProvider<bool>((ref) => false);

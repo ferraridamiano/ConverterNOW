@@ -2,6 +2,7 @@ import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final Map<Locale, String> mapLocale = {
@@ -109,7 +110,7 @@ class ThemeColorNotifier
   void setDefaultTheme(bool value) {
     state = AsyncData((
       useDeviceColor: value,
-      colorTheme: state.valueOrNull?.colorTheme ?? fallbackColorTheme
+      colorTheme: state.value?.colorTheme ?? fallbackColorTheme
     ));
     ref
         .read(sharedPref.future)
@@ -118,8 +119,7 @@ class ThemeColorNotifier
 
   void setColorTheme(Color color) {
     state = AsyncData((
-      useDeviceColor:
-          state.valueOrNull?.useDeviceColor ?? deafultUseDeviceColor,
+      useDeviceColor: state.value?.useDeviceColor ?? deafultUseDeviceColor,
       colorTheme: color
     ));
     ref

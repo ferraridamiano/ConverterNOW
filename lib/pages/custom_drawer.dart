@@ -122,7 +122,7 @@ class CustomDrawer extends ConsumerWidget {
     );
 
     List<PROPERTYX>? propertiesOrdering =
-        ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
+        ref.watch(PropertiesOrderNotifier.provider).value;
 
     if (propertiesOrdering == null) {
       return const SizedBox();

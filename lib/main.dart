@@ -37,11 +37,8 @@ class MyApp extends ConsumerWidget {
 
         return Consumer(
           builder: (context, ref, child) {
-            final settingsLocale = ref
-                .watch(CurrentLocale.provider)
-                .valueOrNull;
-            final themeColor =
-                ref.watch(ThemeColorNotifier.provider).valueOrNull ??
+            final settingsLocale = ref.watch(CurrentLocale.provider).value;
+            final themeColor = ref.watch(ThemeColorNotifier.provider).value ??
                 (useDeviceColor: false, colorTheme: fallbackColorTheme);
 
             ThemeData lightTheme, darkTheme;
@@ -77,11 +74,11 @@ class MyApp extends ConsumerWidget {
             final pageTransitionsTheme = PageTransitionsTheme(
               builders:
                   Map<TargetPlatform, PageTransitionsBuilder>.fromIterable(
-                    TargetPlatform.values,
-                    value: (e) => e == TargetPlatform.android
-                        ? const PredictiveBackFullscreenPageTransitionsBuilder()
-                        : const FadeForwardsPageTransitionsBuilder(),
-                  ),
+                TargetPlatform.values,
+                value: (e) => e == TargetPlatform.android
+                    ? const PredictiveBackFullscreenPageTransitionsBuilder()
+                    : const FadeForwardsPageTransitionsBuilder(),
+              ),
             );
             lightTheme = lightTheme.copyWith(
               pageTransitionsTheme: pageTransitionsTheme,
@@ -93,14 +90,12 @@ class MyApp extends ConsumerWidget {
               pageTransitionsTheme: pageTransitionsTheme,
             );
             final themeMode =
-                ref.watch(CurrentThemeMode.provider).valueOrNull ??
-                ThemeMode.system;
+                ref.watch(CurrentThemeMode.provider).value ?? ThemeMode.system;
 
             // Workaround until https://github.com/flutter/flutter/issues/39998 got
             // resolved
-            String deviceLocaleLanguageCode = kIsWeb
-                ? 'en'
-                : Platform.localeName.split('_')[0];
+            String deviceLocaleLanguageCode =
+                kIsWeb ? 'en' : Platform.localeName.split('_')[0];
             Locale appLocale;
             if (settingsLocale != null) {
               appLocale = settingsLocale;
@@ -122,7 +117,7 @@ class MyApp extends ConsumerWidget {
               title: 'Converter NOW',
               themeMode: themeMode,
               theme: lightTheme,
-              darkTheme: (ref.watch(IsPureDark.provider).valueOrNull ?? false)
+              darkTheme: (ref.watch(IsPureDark.provider).value ?? false)
                   ? amoledTheme
                   : darkTheme,
               supportedLocales: mapLocale.keys,

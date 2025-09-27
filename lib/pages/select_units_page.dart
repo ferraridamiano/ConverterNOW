@@ -34,9 +34,8 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
   }
 
   void initProvider() {
-    unselectedUnits = ref
-        .read(HiddenUnitsNotifier.provider)
-        .valueOrNull![widget.selectedProperty]!;
+    unselectedUnits =
+        ref.read(HiddenUnitsNotifier.provider).value![widget.selectedProperty]!;
   }
 
   @override

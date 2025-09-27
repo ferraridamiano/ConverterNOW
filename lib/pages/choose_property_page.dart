@@ -21,8 +21,7 @@ class ChoosePropertyPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final propertiesOrder =
-        ref.watch(PropertiesOrderNotifier.provider).valueOrNull!;
+    final propertiesOrder = ref.watch(PropertiesOrderNotifier.provider).value!;
     final propertyUiMap = getPropertyUiMap(context);
     final propertiesStringOrdered =
         propertiesOrder.map((e) => propertyUiMap[e]!.name).toList();
