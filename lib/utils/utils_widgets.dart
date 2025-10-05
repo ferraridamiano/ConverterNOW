@@ -207,7 +207,6 @@ class DropdownListTile extends StatelessWidget {
   final List<String> items;
   final String value;
   final ValueChanged<String?> onChanged;
-  final TextStyle textStyle;
   final Widget? leading;
 
   /// This widget will return a [ListTile] with a dialog on mobile device and a
@@ -217,7 +216,6 @@ class DropdownListTile extends StatelessWidget {
     required this.items,
     required this.value,
     required this.onChanged,
-    required this.textStyle,
     this.leading,
     ValueKey? key,
   }) : super(key: key);
@@ -235,7 +233,6 @@ class DropdownListTile extends StatelessWidget {
           leading: leading,
           title: Text(
             title,
-            style: textStyle,
           ),
           subtitle: Text(value),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
@@ -255,7 +252,6 @@ class DropdownListTile extends StatelessWidget {
           leading: leading,
           title: Text(
             title,
-            style: textStyle,
           ),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           trailing: DropdownMenu<String>(
@@ -286,7 +282,6 @@ class SegmentedButtonListTile extends StatelessWidget {
   final List<({IconData icon, String title})> items;
   final String value;
   final ValueChanged<String?> onChanged;
-  final TextStyle textStyle;
   final Widget? leading;
 
   /// This widget will return a [ListTile] with a dialog on mobile device and a
@@ -296,7 +291,6 @@ class SegmentedButtonListTile extends StatelessWidget {
     required this.items,
     required this.value,
     required this.onChanged,
-    required this.textStyle,
     this.leading,
     ValueKey? key,
   }) : super(key: key);
@@ -310,10 +304,7 @@ class SegmentedButtonListTile extends StatelessWidget {
       builder: (context, constraints) => constraints.maxWidth > 450
           ? ListTile(
               leading: leading,
-              title: Text(
-                title,
-                style: textStyle,
-              ),
+              title: Text(title),
               shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               trailing: SegmentedButton<String>(
                 segments: items
@@ -329,10 +320,7 @@ class SegmentedButtonListTile extends StatelessWidget {
             )
           : ListTile(
               leading: leading,
-              title: Text(
-                title,
-                style: textStyle,
-              ),
+              title: Text(title),
               subtitle: Text(value),
               shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               onTap: () async => onChanged(

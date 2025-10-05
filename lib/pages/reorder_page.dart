@@ -68,10 +68,7 @@ class _ReorderPageState extends State<ReorderPage> {
                       padding: const EdgeInsetsDirectional.only(start: 34),
                       child: ListTile(
                         key: ValueKey(_itemsList[index].id),
-                        title: Text(
-                          _itemsList[index].title,
-                          style: const TextStyle(fontSize: singlePageTextSize),
-                        ),
+                        title: Text(_itemsList[index].title),
                       ),
                     ),
                     Positioned.directional(

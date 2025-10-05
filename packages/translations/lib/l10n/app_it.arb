@@ -31,6 +31,8 @@
   "light": "Chiaro",
   "system": "Sistema",
   "pureBlackTheme": "Tema nero puro",
+  "propertySelectionOnStartup": "Selezione delle proprietà all'avvio",
+  "propertySelectionOnStartupSubtitle": "Mostra la pagina di selezione delle proprietà all'avvio sui dispositivi con piccolo schermo",
   "copy": "Copia",
   "paste": "Incolla",
   "more": "Altro",

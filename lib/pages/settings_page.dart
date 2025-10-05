@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/models/settings.dart';
-import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/palette.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +17,6 @@ class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
   static const List<int> significantFiguresList = [6, 8, 10, 12, 14];
-  static const TextStyle textStyle = TextStyle(fontSize: singlePageTextSize);
   static const BorderRadiusGeometry borderRadius = BorderRadius.all(
     Radius.circular(30),
   );
@@ -71,7 +69,6 @@ class SettingsPage extends ConsumerWidget {
                   key: const ValueKey('language'),
                   leading: Icon(Icons.language, color: iconColor),
                   title: l10n.language,
-                  textStyle: textStyle,
                   items: [l10n.system, ...mapLocale.values],
                   value: mapLocale[ref.watch(CurrentLocale.provider).value] ??
                       l10n.system,
@@ -87,43 +84,8 @@ class SettingsPage extends ConsumerWidget {
                     }
                   },
                 ),
-                SegmentedButtonListTile(
-                  leading: Icon(Icons.contrast, color: iconColor),
-                  title: l10n.theme,
-                  items: mapTheme.values.toList(),
-                  value:
-                      mapTheme[ref.watch(CurrentThemeMode.provider).value ?? 0]!
-                          .title,
-                  onChanged: (String? string) {
-                    if (string != null) {
-                      ref.read(CurrentThemeMode.provider.notifier).set(
-                            mapTheme.keys
-                                .where((key) => mapTheme[key]?.title == string)
-                                .single,
-                          );
-                    }
-                  },
-                  textStyle: textStyle,
-                ),
-                SwitchListTile(
-                  secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
-                  title: Text(
-                    l10n.pureBlackTheme,
-                    style: textStyle,
-                  ),
-                  value: ref.watch(IsPureDark.provider).value ?? false,
-                  onChanged: (bool val) {
-                    ref.read(IsPureDark.provider.notifier).set(val);
-                  },
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                ),
                 ListTile(
-                  title: Text(
-                    l10n.themeColor,
-                    style: textStyle,
-                  ),
+                  title: Text(l10n.themeColor),
                   leading: Icon(Icons.palette_outlined, color: iconColor),
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
@@ -146,6 +108,49 @@ class SettingsPage extends ConsumerWidget {
                     builder: (context) => const ColorPickerDialog(),
                   ),
                 ),
+                SegmentedButtonListTile(
+                  leading: Icon(Icons.contrast, color: iconColor),
+                  title: l10n.theme,
+                  items: mapTheme.values.toList(),
+                  value:
+                      mapTheme[ref.watch(CurrentThemeMode.provider).value ?? 0]!
+                          .title,
+                  onChanged: (String? string) {
+                    if (string != null) {
+                      ref.read(CurrentThemeMode.provider.notifier).set(
+                            mapTheme.keys
+                                .where((key) => mapTheme[key]?.title == string)
+                                .single,
+                          );
+                    }
+                  },
+                ),
+                SwitchListTile(
+                  secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
+                  title: Text(l10n.pureBlackTheme),
+                  value: ref.watch(IsPureDark.provider).value ?? false,
+                  onChanged: (bool val) {
+                    ref.read(IsPureDark.provider.notifier).set(val);
+                  },
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: borderRadius,
+                  ),
+                ),
+                SwitchListTile(
+                  secondary: Icon(Icons.apps_rounded, color: iconColor),
+                  title: Text(l10n.propertySelectionOnStartup),
+                  subtitle: Text(l10n.propertySelectionOnStartupSubtitle),
+                  value: ref.watch(PropertySelectionOnStartup.provider).value ??
+                      true,
+                  onChanged: (bool val) {
+                    ref
+                        .read(PropertySelectionOnStartup.provider.notifier)
+                        .set(val);
+                  },
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: borderRadius,
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
                   child: Text(
@@ -156,10 +161,7 @@ class SettingsPage extends ConsumerWidget {
                 if (!kIsWeb)
                   SwitchListTile(
                     secondary: Icon(Icons.public_off, color: iconColor),
-                    title: Text(
-                      l10n.revokeInternetAccess,
-                      style: textStyle,
-                    ),
+                    title: Text(l10n.revokeInternetAccess),
                     value: ref.watch(RevokeInternetNotifier.provider).value ??
                         false,
                     onChanged: (bool val) {
@@ -221,10 +223,7 @@ class SettingsPage extends ConsumerWidget {
                     width: 25,
                     colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                   ),
-                  title: Text(
-                    l10n.removeTrailingZeros,
-                    style: textStyle,
-                  ),
+                  title: Text(l10n.removeTrailingZeros),
                   value: ref.watch(RemoveTrailingZeros.provider).value ?? true,
                   onChanged: (bool val) {
                     ref.read(RemoveTrailingZeros.provider.notifier).set(val);
@@ -242,7 +241,6 @@ class SettingsPage extends ConsumerWidget {
                     colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                   ),
                   title: l10n.significantFigures,
-                  textStyle: textStyle,
                   items:
                       significantFiguresList.map((e) => e.toString()).toList(),
                   value: (ref.watch(SignificantFigures.provider).value ?? 10)
@@ -264,10 +262,7 @@ class SettingsPage extends ConsumerWidget {
                     width: 25,
                     colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                   ),
-                  title: Text(
-                    l10n.reorderProperties,
-                    style: textStyle,
-                  ),
+                  title: Text(l10n.reorderProperties),
                   onTap: () => context.goNamed('reorder-properties'),
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
@@ -282,10 +277,7 @@ class SettingsPage extends ConsumerWidget {
                     width: 25,
                     colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                   ),
-                  title: Text(
-                    l10n.reorderUnits,
-                    style: textStyle,
-                  ),
+                  title: Text(l10n.reorderUnits),
                   onTap: () => context.goNamed('reorder-units'),
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
@@ -297,10 +289,7 @@ class SettingsPage extends ConsumerWidget {
                     Icons.visibility_off_outlined,
                     color: iconColor,
                   ),
-                  title: Text(
-                    l10n.hideUnits,
-                    style: textStyle,
-                  ),
+                  title: Text(l10n.hideUnits),
                   onTap: () => context.goNamed('hide-units'),
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
@@ -315,10 +304,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.computer, color: iconColor),
-                  title: Text(
-                    l10n.otherPlatforms,
-                    style: textStyle,
-                  ),
+                  title: Text(l10n.otherPlatforms),
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
                   ),
@@ -413,10 +399,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 ListTile(
                   leading: Icon(Icons.translate, color: iconColor),
-                  title: Text(
-                    l10n.contributeTranslating,
-                    style: textStyle,
-                  ),
+                  title: Text(l10n.contributeTranslating),
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
                   ),
@@ -437,10 +420,7 @@ class SettingsPage extends ConsumerWidget {
                 ))
                   ListTile(
                     leading: Icon(Icons.coffee_outlined, color: iconColor),
-                    title: Text(
-                      l10n.buyMeACoffee,
-                      style: textStyle,
-                    ),
+                    title: Text(l10n.buyMeACoffee),
                     shape: const RoundedRectangleBorder(
                       borderRadius: borderRadius,
                     ),
@@ -487,10 +467,7 @@ class SettingsPage extends ConsumerWidget {
                   ),
                 ListTile(
                   leading: Icon(Icons.info_outline, color: iconColor),
-                  title: Text(
-                    l10n.about,
-                    style: textStyle,
-                  ),
+                  title: Text(l10n.about),
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
                   ),

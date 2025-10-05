@@ -31,6 +31,8 @@
   "light": "Light",
   "system": "System default",
   "pureBlackTheme": "Pure black theme",
+  "propertySelectionOnStartup": "Property selection on startup",
+  "propertySelectionOnStartupSubtitle": "Show the property selection page on startup on small screen devices",
   "copy": "Copy",
   "paste": "Paste",
   "more": "More",

@@ -88,7 +88,6 @@ class ChoosePropertyPage extends ConsumerWidget {
                           title: Text(
                             propertiesStringOrdered[index],
                             style: TextStyle(
-                              fontSize: singlePageTextSize,
                               color: isSelectedProperty
                                   ? Theme.of(context)
                                       .colorScheme

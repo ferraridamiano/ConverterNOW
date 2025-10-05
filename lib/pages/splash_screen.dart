@@ -3,6 +3,7 @@ import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/data/default_order.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
+import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
@@ -32,7 +33,8 @@ class SplashScreen extends ConsumerWidget {
 
       WidgetsBinding.instance
           .addPostFrameCallback((_) => GoRouter.of(context).go(
-                MediaQuery.sizeOf(context).width > pixelFixedDrawer
+                MediaQuery.sizeOf(context).width > pixelFixedDrawer ||
+                        !ref.read(PropertySelectionOnStartup.provider).value!
                     ? '/conversions/${conversionsOrderDrawer[0].toKebabCase()}'
                     : '/conversions',
               ));

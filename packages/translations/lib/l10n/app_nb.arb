@@ -34,6 +34,14 @@
   "@pureBlackTheme": {
     "description": "Revise this translation"
   },
+  "propertySelectionOnStartup": "Property selection on startup",
+  "@propertySelectionOnStartup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "propertySelectionOnStartupSubtitle": "Show the property selection page on startup on small screen devices",
+  "@propertySelectionOnStartupSubtitle": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "copy": "Kopier",
   "paste": "Paste",
   "@paste": {

@@ -24,6 +24,7 @@ final isEverythingLoadedProvider = Provider<bool>((ref) =>
     ref.watch(SignificantFigures.provider).hasValue &&
     ref.watch(RemoveTrailingZeros.provider).hasValue &&
     ref.watch(IsPureDark.provider).hasValue &&
+    ref.watch(PropertySelectionOnStartup.provider).hasValue &&
     ref.watch(ThemeColorNotifier.provider).hasValue &&
     ref.watch(RevokeInternetNotifier.provider).hasValue &&
     ref.watch(CurrentThemeMode.provider).hasValue &&

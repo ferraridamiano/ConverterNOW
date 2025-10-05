@@ -83,6 +83,24 @@ class IsPureDark extends AsyncNotifier<bool> {
   }
 }
 
+class PropertySelectionOnStartup extends AsyncNotifier<bool> {
+  static const _prefKey = 'propertySelectionOnStartup';
+  static final provider =
+      AsyncNotifierProvider<PropertySelectionOnStartup, bool>(
+          PropertySelectionOnStartup.new);
+
+  @override
+  Future<bool> build() async {
+    var pref = await ref.watch(sharedPref.future);
+    return pref.getBool(_prefKey) ?? true;
+  }
+
+  void set(bool value) {
+    state = AsyncData(value);
+    ref.read(sharedPref.future).then((pref) => pref.setBool(_prefKey, value));
+  }
+}
+
 /// `null` means no accent color
 final deviceAccentColorProvider = StateProvider<Color?>((ref) => null);
 
