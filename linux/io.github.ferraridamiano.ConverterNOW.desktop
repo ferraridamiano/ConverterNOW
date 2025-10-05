@@ -6,5 +6,5 @@ Icon=io.github.ferraridamiano.ConverterNOW.svg
 Terminal=false
 Type=Application
 Categories=Utility;
-Keywords=Converter,Unit,Currencies,Tools;
+Keywords=Converter;Unit;Currencies;Tools;
 StartupNotify=false
