@@ -426,12 +426,13 @@ class ConstrainedContainer extends StatelessWidget {
 List<PropertyGridTile> getPropertyGridTiles(void Function(PROPERTYX) onTap,
     BuildContext context, List<PROPERTYX> orderList) {
   final propertyUiMap = getPropertyUiMap(context);
-  return orderList.map((e) {
-    final propertyUi = propertyUiMap[e]!;
+  return orderList.indexed.map((e) {
+    final propertyUi = propertyUiMap[e.$2]!;
     return PropertyGridTile(
+      key: ValueKey('gridtile-${e.$1}'),
       iconAsset: propertyUi.icon,
       footer: propertyUi.name,
-      onTap: () => onTap(e),
+      onTap: () => onTap(e.$2),
     );
   }).toList();
 }
