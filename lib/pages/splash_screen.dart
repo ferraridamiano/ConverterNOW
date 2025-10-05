@@ -3,6 +3,7 @@ import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/data/default_order.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
+import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter/material.dart';
@@ -29,11 +30,12 @@ class SplashScreen extends ConsumerWidget {
         },
       );
 
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) => GoRouter.of(context).go(
-          '/conversions/${conversionsOrderDrawer[0].toKebabCase()}',
-        ),
-      );
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => GoRouter.of(context).go(
+                MediaQuery.sizeOf(context).width > pixelFixedDrawer
+                    ? '/conversions/${conversionsOrderDrawer[0].toKebabCase()}'
+                    : '/conversions',
+              ));
     }
 
     return const SplashScreenWidget();

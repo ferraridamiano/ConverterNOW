@@ -30,7 +30,7 @@ class ChoosePropertyPage extends ConsumerWidget {
         .colorScheme
         .primaryContainer
         .withValues(
-          alpha: Theme.of(context).brightness == Brightness.light ? 0.5 : 0.8,
+          alpha: Theme.brightnessOf(context) == Brightness.light ? 0.5 : 0.8,
         );
 
     return CustomScrollView(

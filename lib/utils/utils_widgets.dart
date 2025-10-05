@@ -1,3 +1,4 @@
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -78,7 +79,7 @@ class _UnitWidgetState extends State<UnitWidget> {
             minHeight: 0,
           ),
           suffixStyle: TextStyle(
-            color: Theme.of(context).brightness == Brightness.light
+            color: Theme.brightnessOf(context) == Brightness.light
                 ? Colors.black
                 : Colors.white,
           ),
@@ -149,16 +150,14 @@ class SuggestionList extends StatelessWidget {
   }
 }
 
-class SearchGridTile extends StatelessWidget {
+class PropertyGridTile extends StatelessWidget {
   final String iconAsset;
   final String footer;
   final GestureTapCallback onTap;
-  final bool darkMode;
-  const SearchGridTile({
+  const PropertyGridTile({
     required this.iconAsset,
     required this.footer,
     required this.onTap,
-    required this.darkMode,
     super.key,
   });
 
@@ -171,6 +170,7 @@ class SearchGridTile extends StatelessWidget {
         child: GridTile(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 8,
             children: [
               SizedBox(
                 width: 55.0,
@@ -178,18 +178,21 @@ class SearchGridTile extends StatelessWidget {
                 child: SvgPicture(
                   AssetBytesLoader(iconAsset),
                   colorFilter: ColorFilter.mode(
-                    darkMode ? Colors.white : Colors.grey,
+                    Theme.brightnessOf(context) == Brightness.dark
+                        ? Colors.white
+                        : Colors.grey,
                     BlendMode.srcIn,
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                footer,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 18.0),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+              Expanded(
+                child: Text(
+                  footer,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 18, height: 1.1),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),
@@ -416,4 +419,19 @@ class ConstrainedContainer extends StatelessWidget {
       ),
     );
   }
+}
+
+/// This method will return a List of [PropertyGridTile], needed in order to
+/// display the gridtiles in the search
+List<PropertyGridTile> getPropertyGridTiles(void Function(PROPERTYX) onTap,
+    BuildContext context, List<PROPERTYX> orderList) {
+  final propertyUiMap = getPropertyUiMap(context);
+  return orderList.map((e) {
+    final propertyUi = propertyUiMap[e]!;
+    return PropertyGridTile(
+      iconAsset: propertyUi.icon,
+      footer: propertyUi.name,
+      onTap: () => onTap(e),
+    );
+  }).toList();
 }

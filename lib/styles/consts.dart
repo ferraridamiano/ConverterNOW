@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-const double singlePageFixedHeight = 650;
 const double singlePageTextSize = 18.0;
 
 /// trigger from classic drawer to drawer fixed open

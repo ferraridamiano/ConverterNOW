@@ -39,7 +39,7 @@ class SettingsPage extends ConsumerWidget {
     final themeColor = ref.watch(ThemeColorNotifier.provider).value!;
     final iconColor = getIconColor(Theme.of(context));
     final titlesStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
-          color: switch (Theme.of(context).brightness) {
+          color: switch (Theme.brightnessOf(context)) {
             Brightness.light => Theme.of(context).primaryColor,
             Brightness.dark => HSLColor.fromColor(
                 Theme.of(context).primaryColor,
