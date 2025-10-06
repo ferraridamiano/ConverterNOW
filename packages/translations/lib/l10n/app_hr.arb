@@ -31,14 +31,8 @@
   "light": "Svijetla",
   "system": "Sustav",
   "pureBlackTheme": "Potpuno crna tema",
-  "propertySelectionOnStartup": "Property selection on startup",
-  "@propertySelectionOnStartup": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "propertySelectionOnStartupSubtitle": "Show the property selection page on startup on small screen devices",
-  "@propertySelectionOnStartupSubtitle": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "propertySelectionOnStartup": "Odabir svojstva pri pokretanju",
+  "propertySelectionOnStartupSubtitle": "Prikaži stranicu za odabir svojstva pri pokretanju na uređajima s malim ekranom.",
   "copy": "Kopiraj",
   "paste": "Umetni",
   "more": "Više",
@@ -69,7 +63,7 @@
   "themeColor": "Boja teme",
   "appearance": "Izgled",
   "conversions": "Konverzije",
-  "findOutMore": "Saznaj vipe",
+  "findOutMore": "Saznaj više",
   "hideUnits": "Sakrij jedinice",
   "visibleUnits": "{property}, vidljive jedinice",
   "@visibleUnits": {
