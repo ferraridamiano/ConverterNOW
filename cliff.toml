@@ -8,6 +8,15 @@ body = """
 {%- macro remote_url() -%}
   https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
 {%- endmacro -%}
+{%- macro github_username(email) -%}
+  {%- if email is containing("@users.noreply.github.com") -%}
+    {{ email | split(pat="@") | first | split(pat="+") | last }}
+  {%- elif email is containing("@") -%}
+    {{ email | split(pat="@") | first }}
+  {%- else -%}
+    {{ email }}
+  {%- endif -%}
+{%- endmacro -%}
 {% for group, commits in commits | group_by(attribute="group") %}
     ### {{ group | upper_first }}
     {% for commit in commits %}
@@ -16,6 +25,12 @@ body = """
             , {{ footer.token }}{{ footer.separator }}{{ footer.value }}\
           {% endfor %}\
     {% endfor %}
+{% endfor %}
+
+### 👥 Contributors
+{% set contributors = commits | unique(attribute="author.email") | sort(attribute="author.email") -%}
+{% for contributor in contributors -%}
+  - @{{ self::github_username(email=contributor.author.email) }}
 {% endfor %}\n
 """
 
