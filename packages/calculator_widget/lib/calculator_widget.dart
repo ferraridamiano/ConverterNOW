@@ -50,7 +50,7 @@ class _CalculatorWidget extends ConsumerWidget {
         },
         child: SafeArea(
           child: SizedBox(
-            height: 450,
+            height: 500,
             child: Builder(
               builder: (context) {
                 focusKeyboard.requestFocus();
@@ -79,7 +79,7 @@ class _CalculatorWidget extends ConsumerWidget {
                   child: Column(
                     children: <Widget>[
                       Expanded(
-                        flex: 2,
+                        flex: 3,
                         child: Container(
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.surface,
@@ -108,12 +108,12 @@ class _CalculatorWidget extends ConsumerWidget {
                                   ),
                                 ),
                               ),
-                              const CalculatorHeader(),
+                              const Expanded(child: CalculatorHeader()),
                             ],
                           ),
                         ),
                       ),
-                      const Expanded(flex: 7, child: CalculatorNumpad()),
+                      const Expanded(flex: 6, child: CalculatorNumpad()),
                     ],
                   ),
                 );
@@ -132,25 +132,55 @@ class CalculatorHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     String text = ref.watch(Calculator.provider);
+    String previewText = ref.watch(previewResultProvider);
 
     var operation = ref.watch(selectedOperationProvider);
+    
+    // Responsive font sizes based on screen height
+    final screenHeight = MediaQuery.sizeOf(context).height;
+    final mainFontSize = screenHeight > 800 ? 45.0 : 36.0;
+    final previewFontSize = screenHeight > 800 ? 20.0 : 16.0;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: SelectableText(
-              text,
-              style: TextStyle(
-                fontSize: 45.0,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-              maxLines: 1,
-              textScaler: TextScaler.noScaling,
-              scrollPhysics: const ClampingScrollPhysics(),
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(
+                  child: SelectableText(
+                    text,
+                    style: TextStyle(
+                      fontSize: mainFontSize,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    maxLines: 1,
+                    textScaler: TextScaler.noScaling,
+                    scrollPhysics: const ClampingScrollPhysics(),
+                  ),
+                ),
+                if (previewText.isNotEmpty)
+                  Flexible(
+                    child: SelectableText(
+                      previewText,
+                      style: TextStyle(
+                        fontSize: previewFontSize,
+                        fontWeight: FontWeight.normal,
+                        color: Theme.of(context).colorScheme.onSurface.withValues(
+                              alpha: 0.5,
+                            ),
+                      ),
+                      maxLines: 1,
+                      textScaler: TextScaler.noScaling,
+                      scrollPhysics: const ClampingScrollPhysics(),
+                    ),
+                  ),
+              ],
             ),
           ),
         ),
