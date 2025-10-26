@@ -26,7 +26,6 @@ class Calculator extends Notifier<String> {
   static final provider = NotifierProvider<Calculator, String>(Calculator.new);
 
   Decimal? _firstNumber;
-  Decimal? _secondNumber;
   late final Map<String, OPERATION> mapOperation;
 
   @override
@@ -54,7 +53,8 @@ class Calculator extends Notifier<String> {
       if (ref.read(isResultProvider)) {
         ref.read(isResultProvider.notifier).state = false;
         ref.read(selectedOperationProvider.notifier).state = null;
-        _firstNumber = _secondNumber = null;
+        _firstNumber = null;
+        ref.read(previewResultProvider.notifier).state = '';
       }
 
       if (ref.read(endNumberProvider)) {
@@ -69,6 +69,8 @@ class Calculator extends Notifier<String> {
         // is a number
         state += char;
       }
+      // Update preview result if an operation is selected
+      _updatePreviewResult();
     }
     //if char is a comma or a dot
     else if (char == '.' || char == ',') {
@@ -88,7 +90,7 @@ class Calculator extends Notifier<String> {
       if (ref.read(isResultProvider)) {
         ref.read(isResultProvider.notifier).state = false;
         ref.read(selectedOperationProvider.notifier).state = null;
-        _firstNumber = _secondNumber = null;
+        _firstNumber = null;
       }
 
       // if it is the first operation submitted
@@ -104,7 +106,6 @@ class Calculator extends Notifier<String> {
           !ref.read(endNumberProvider)) {
         // chained operation
         // Compute the result with the previous operator
-        _secondNumber = Decimal.parse(state);
         _computeResult();
         ref.read(endNumberProvider.notifier).state = true;
         ref.read(selectedOperationProvider.notifier).state = mapOperation[char];
@@ -121,16 +122,15 @@ class Calculator extends Notifier<String> {
           state.isNotEmpty &&
           ref.read(selectedOperationProvider) != null &&
           !ref.read(isResultProvider)) {
-        _secondNumber = Decimal.parse(state);
         _computeResult();
         ref.read(isResultProvider.notifier).state = true;
+        ref.read(previewResultProvider.notifier).state = '';
       } else if (_firstNumber != null &&
           state.isNotEmpty &&
           ref.read(selectedOperationProvider) != null &&
-          ref.read(isResultProvider) &&
-          _secondNumber != null) {
-        _firstNumber = Decimal.parse(state);
+          ref.read(isResultProvider)) {
         _computeResult();
+        ref.read(previewResultProvider.notifier).state = '';
       }
     }
   }
@@ -138,24 +138,50 @@ class Calculator extends Notifier<String> {
   /// Given firstNumber, secondNumber and selectedOperation in computes the
   /// result and put it in currentNumber string
   void _computeResult() {
-    late Decimal result;
     assert(
-      _firstNumber != null && _secondNumber != null,
-      'firstNumber/secondNumber is null',
+      _firstNumber != null && state.isNotEmpty,
+      'firstNumber is null or state is empty',
     );
 
-    result = switch (ref.read(selectedOperationProvider)) {
-      OPERATION.addition => _firstNumber! + _secondNumber!,
-      OPERATION.subtraction => _firstNumber! - _secondNumber!,
-      OPERATION.product => _firstNumber! * _secondNumber!,
-      OPERATION.division => (_firstNumber! / _secondNumber!).toDecimal(
-        scaleOnInfinitePrecision: 15,
-      ),
-      null => throw Exception('selectedOperation is null'),
-    };
-    _firstNumber = result;
-    state = _getStringFromDecimal(result);
-    ref.read(endNumberProvider.notifier).state = true;
+    final previewResult = ref.read(previewResultProvider);
+
+    if (previewResult.isNotEmpty) {
+      final result = Decimal.parse(previewResult);
+      _firstNumber = result;
+      state = previewResult;
+      ref.read(endNumberProvider.notifier).state = true;
+      ref.read(previewResultProvider.notifier).state = '';
+    }
+  }
+
+  /// Computes the preview result without updating the main state.
+  /// This is used to show a preview of the result before the user clicks '='
+  void _updatePreviewResult() {
+    if (_firstNumber != null &&
+        state.isNotEmpty &&
+        ref.read(selectedOperationProvider) != null) {
+      try {
+        final secondNumber = Decimal.parse(state);
+        late Decimal result;
+        result = switch (ref.read(selectedOperationProvider)) {
+          OPERATION.addition => _firstNumber! + secondNumber,
+          OPERATION.subtraction => _firstNumber! - secondNumber,
+          OPERATION.product => _firstNumber! * secondNumber,
+          OPERATION.division => (_firstNumber! / secondNumber).toDecimal(
+            scaleOnInfinitePrecision: 15,
+          ),
+          null => throw Exception('selectedOperation is null'),
+        };
+        ref.read(previewResultProvider.notifier).state = _getStringFromDecimal(
+          result,
+        );
+      } catch (_) {
+        // If parsing fails, clear the preview
+        ref.read(previewResultProvider.notifier).state = '';
+      }
+    } else {
+      ref.read(previewResultProvider.notifier).state = '';
+    }
   }
 
   /// This method bring the calculator to the initial state (nothing submitted,
@@ -163,10 +189,10 @@ class Calculator extends Notifier<String> {
   void clearAll() {
     state = '';
     _firstNumber = null;
-    _secondNumber = null;
     ref.read(selectedOperationProvider.notifier).state = null;
     ref.read(endNumberProvider.notifier).state = false;
     ref.read(isResultProvider.notifier).state = false;
+    ref.read(previewResultProvider.notifier).state = '';
   }
 
   /// This method delete the last character of currentNumber
@@ -276,3 +302,4 @@ final selectedOperationProvider =
 
 final endNumberProvider = StateProvider<bool>((ref) => false);
 final isResultProvider = StateProvider<bool>((ref) => false);
+final previewResultProvider = StateProvider<String>((ref) => '');
