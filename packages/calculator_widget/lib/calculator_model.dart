@@ -150,6 +150,7 @@ class Calculator extends Notifier<String> {
       _firstNumber = result;
       state = previewResult;
       ref.read(endNumberProvider.notifier).state = true;
+      ref.read(previewResultProvider.notifier).state = '';
     }
   }
 
