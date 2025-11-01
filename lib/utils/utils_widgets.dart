@@ -169,17 +169,19 @@ class PropertyGridTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
       ),
       child: Column(
+        spacing: 12,
         children: [
           Expanded(
             flex: 6,
-            child: SvgPicture(
-              AssetBytesLoader(iconAsset),
-              height: 55,
-              colorFilter: ColorFilter.mode(
-                Theme.brightnessOf(context) == Brightness.dark
-                    ? Colors.white
-                    : Colors.grey,
-                BlendMode.srcIn,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: SvgPicture(
+                AssetBytesLoader(iconAsset),
+                height: 55,
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.secondary,
+                  BlendMode.srcIn,
+                ),
               ),
             ),
           ),
