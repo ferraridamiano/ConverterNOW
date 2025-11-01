@@ -165,38 +165,35 @@ class PropertyGridTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(5.0),
-        child: GridTile(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: 8,
-            children: [
-              SizedBox(
-                width: 55.0,
-                height: 55.0,
-                child: SvgPicture(
-                  AssetBytesLoader(iconAsset),
-                  colorFilter: ColorFilter.mode(
-                    Theme.brightnessOf(context) == Brightness.dark
-                        ? Colors.white
-                        : Colors.grey,
-                    BlendMode.srcIn,
-                  ),
-                ),
+      customBorder: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Column(
+        children: [
+          Expanded(
+            flex: 6,
+            child: SvgPicture(
+              AssetBytesLoader(iconAsset),
+              height: 55,
+              colorFilter: ColorFilter.mode(
+                Theme.brightnessOf(context) == Brightness.dark
+                    ? Colors.white
+                    : Colors.grey,
+                BlendMode.srcIn,
               ),
-              Expanded(
-                child: Text(
-                  footer,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 18, height: 1.1),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              footer,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18, height: 1.1),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
       ),
     );
   }
