@@ -25,17 +25,14 @@ class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final Brightness brightness = Theme.of(context).brightness;
-
     final List<SearchUnit> dataSearch = getSearchUnitsList((PROPERTYX result) {
       close(context, result);
     }, context);
-    final List<SearchGridTile> allConversions = initializeGridSearch(
+    final List<PropertyGridTile> allConversions = getPropertyGridTiles(
       (PROPERTYX result) {
         close(context, result);
       },
       context,
-      brightness == Brightness.dark,
       orderList,
     );
 
@@ -84,7 +81,7 @@ List<SearchUnit> getSearchUnitsList(
   for (final property in propertyUiMap.entries) {
     final propertyx = property.key;
     final propertyUi = property.value;
-    final propertyImagePath = property.value.imagePath;
+    final propertyImagePath = property.value.icon;
     // Add properties in search
     searchUnitsList.add(SearchUnit(
       iconAsset: propertyImagePath,
@@ -104,19 +101,4 @@ List<SearchUnit> getSearchUnitsList(
   }
 
   return searchUnitsList;
-}
-
-/// This method will return a List of [SearchGridTile], needed in order to display the gridtiles in the search
-List<SearchGridTile> initializeGridSearch(void Function(PROPERTYX) onTap,
-    BuildContext context, bool darkMode, List<PROPERTYX> orderList) {
-  final propertyUiMap = getPropertyUiMap(context);
-  return orderList.map((e) {
-    final propertyUi = propertyUiMap[e]!;
-    return SearchGridTile(
-      iconAsset: propertyUi.imagePath,
-      footer: propertyUi.name,
-      onTap: () => onTap(e),
-      darkMode: darkMode,
-    );
-  }).toList();
 }

@@ -33,26 +33,24 @@ class _CalculatorWidget extends ConsumerWidget {
         actions: <Type, Action<Intent>>{
           ActivateIntent: CallbackAction<ActivateIntent>(
             onInvoke: (ActivateIntent intent) {
-              Clipboard.getData(Clipboard.kTextPlain).then(
-                (value) {
-                  if (value != null) {
-                    final clipboardContent = value.text;
-                    if (clipboardContent != null &&
-                        clipboardContent.length < 30) {
-                      ref
-                          .read(Calculator.provider.notifier)
-                          .submitString(clipboardContent);
-                    }
+              Clipboard.getData(Clipboard.kTextPlain).then((value) {
+                if (value != null) {
+                  final clipboardContent = value.text;
+                  if (clipboardContent != null &&
+                      clipboardContent.length < 30) {
+                    ref
+                        .read(Calculator.provider.notifier)
+                        .submitString(clipboardContent);
                   }
-                },
-              );
+                }
+              });
               return null;
             },
           ),
         },
         child: SafeArea(
           child: SizedBox(
-            height: 450,
+            height: 480,
             child: Builder(
               builder: (context) {
                 focusKeyboard.requestFocus();
@@ -81,20 +79,22 @@ class _CalculatorWidget extends ConsumerWidget {
                   child: Column(
                     children: <Widget>[
                       Expanded(
-                        flex: 2,
+                        flex: 3,
                         child: Container(
                           decoration: BoxDecoration(
                             color: Theme.of(context).colorScheme.surface,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(30)),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(30),
+                            ),
                           ),
                           child: Column(
                             children: [
                               // handle
                               Center(
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8),
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 8,
+                                  ),
                                   child: Container(
                                     width: 32,
                                     height: 4,
@@ -108,7 +108,7 @@ class _CalculatorWidget extends ConsumerWidget {
                                   ),
                                 ),
                               ),
-                              const CalculatorHeader(),
+                              const Expanded(child: CalculatorHeader()),
                             ],
                           ),
                         ),
@@ -131,26 +131,46 @@ class CalculatorHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    String text = ref.watch(Calculator.provider);
-
-    var operation = ref.watch(selectedOperationProvider);
+    final text = ref.watch(Calculator.provider);
+    final previewText = ref.watch(previewResultProvider);
+    final operation = ref.watch(selectedOperationProvider);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: SelectableText(
-              text,
-              style: TextStyle(
-                fontSize: 45.0,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-              maxLines: 1,
-              textScaler: TextScaler.noScaling,
-              scrollPhysics: const ClampingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SelectableText(
+                  text,
+                  style: TextStyle(
+                    fontSize: 45,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  maxLines: 1,
+                  textScaler: TextScaler.noScaling,
+                  scrollPhysics: const ClampingScrollPhysics(),
+                ),
+                if (previewText.isNotEmpty)
+                  SelectableText(
+                    previewText,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.5),
+                    ),
+                    maxLines: 1,
+                    textScaler: TextScaler.noScaling,
+                    scrollPhysics: const ClampingScrollPhysics(),
+                  ),
+              ],
             ),
           ),
         ),
@@ -161,11 +181,30 @@ class CalculatorHeader extends ConsumerWidget {
                 ? IconButton(
                     tooltip: AppLocalizations.of(context)?.copy,
                     icon: Icon(
-                      Icons.content_copy,
+                      Icons.content_copy_outlined,
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
                     onPressed: () {
                       Clipboard.setData(ClipboardData(text: text));
+                      HapticFeedback.heavyImpact();
+                    },
+                  )
+                : text.isEmpty
+                ? IconButton(
+                    tooltip: AppLocalizations.of(context)?.paste,
+                    icon: Icon(
+                      Icons.content_paste_outlined,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    onPressed: () {
+                      Clipboard.getData(Clipboard.kTextPlain).then((value) {
+                        final cliboard = value?.text;
+                        if (cliboard != null) {
+                          ref
+                              .watch(Calculator.provider.notifier)
+                              .submitString(cliboard);
+                        }
+                      });
                       HapticFeedback.heavyImpact();
                     },
                   )
@@ -205,77 +244,80 @@ class CalculatorNumpad extends ConsumerWidget {
             Column(
               children: <Widget>[
                 CalculatorButton(
-                    text: 'x²',
-                    buttonType: ButtonType.operation,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).square();
-                    }),
+                  text: 'x²',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    ref.read(Calculator.provider.notifier).square();
+                  },
+                ),
                 CalculatorButton(
-                    text: 'ln',
-                    buttonType: ButtonType.operation,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).ln();
-                    }),
+                  text: 'ln',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    ref.read(Calculator.provider.notifier).ln();
+                  },
+                ),
                 CalculatorButton(
-                    text: 'n!',
-                    buttonType: ButtonType.operation,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).factorial();
-                    }),
+                  text: 'n!',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    ref.read(Calculator.provider.notifier).factorial();
+                  },
+                ),
                 CalculatorButton(
-                    text: '1/x',
-                    buttonType: ButtonType.operation,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).reciprocal();
-                    }),
+                  text: '1/x',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    ref.read(Calculator.provider.notifier).reciprocal();
+                  },
+                ),
               ].map((e) => Expanded(child: e)).toList(),
             ),
           if (calcWidth > breakPoint1)
             Column(
               children: <Widget>[
                 CalculatorButton(
-                    text: '√',
-                    buttonType: ButtonType.operation,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).squareRoot();
-                    }),
+                  text: '%',
+                  buttonType: ButtonType.operation,
+                  onPressed: ref.read(Calculator.provider.notifier).percentage,
+                ),
                 CalculatorButton(
-                    text: 'log',
-                    buttonType: ButtonType.operation,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).log10();
-                    }),
+                  text: '√',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    ref.read(Calculator.provider.notifier).squareRoot();
+                  },
+                ),
                 CalculatorButton(
-                    text: 'e',
-                    buttonType: ButtonType.operation,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).submitChar('e');
-                    }),
+                  text: 'log',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    ref.read(Calculator.provider.notifier).log10();
+                  },
+                ),
                 CalculatorButton(
-                    text: 'π',
-                    buttonType: ButtonType.operation,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).submitChar('π');
-                    }),
+                  text: 'π',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    ref.read(Calculator.provider.notifier).submitChar('π');
+                  },
+                ),
               ].map((e) => Expanded(child: e)).toList(),
             ),
           ...List.generate(
             3,
             (columnIndex) => Column(
               children: [
-                ...List.generate(
-                  3,
-                  (rowIndex) {
-                    final char = (7 - 3 * rowIndex + columnIndex).toString();
-                    return CalculatorButton(
-                      text: char,
-                      buttonType: ButtonType.number,
-                      onPressed: () {
-                        ref.read(Calculator.provider.notifier).submitChar(char);
-                      },
-                    );
-                  },
-                ),
+                ...List.generate(3, (rowIndex) {
+                  final char = (7 - 3 * rowIndex + columnIndex).toString();
+                  return CalculatorButton(
+                    text: char,
+                    buttonType: ButtonType.number,
+                    onPressed: () {
+                      ref.read(Calculator.provider.notifier).submitChar(char);
+                    },
+                  );
+                }),
                 if (columnIndex == 0)
                   CalculatorButton(
                     text: decimalSeparator,
@@ -301,47 +343,50 @@ class CalculatorNumpad extends ConsumerWidget {
                     onPressed: () {
                       ref.read(Calculator.provider.notifier).submitChar('=');
                     },
-                  )
+                  ),
               ].map((e) => Expanded(child: e)).toList(),
             ),
           ),
           Column(
             children: <Widget>[
               CalculatorButton(
-                  text: ref.read(endNumberProvider) ? 'AC' : '←',
-                  buttonType: ButtonType.clear,
-                  onPressed: () {
-                    ref
-                        .read(Calculator.provider.notifier)
-                        .adaptiveDeleteClear();
-                  },
-                  onLongPress: () {
-                    ref.read(Calculator.provider.notifier).clearAll();
-                  }),
+                text: ref.read(endNumberProvider) ? 'AC' : '←',
+                buttonType: ButtonType.clear,
+                onPressed: () {
+                  ref.read(Calculator.provider.notifier).adaptiveDeleteClear();
+                },
+                onLongPress: () {
+                  ref.read(Calculator.provider.notifier).clearAll();
+                },
+              ),
               CalculatorButton(
-                  text: '÷',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    ref.read(Calculator.provider.notifier).submitChar('/');
-                  }),
+                text: '÷',
+                buttonType: ButtonType.operation,
+                onPressed: () {
+                  ref.read(Calculator.provider.notifier).submitChar('/');
+                },
+              ),
               CalculatorButton(
-                  text: '×',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    ref.read(Calculator.provider.notifier).submitChar('*');
-                  }),
+                text: '×',
+                buttonType: ButtonType.operation,
+                onPressed: () {
+                  ref.read(Calculator.provider.notifier).submitChar('*');
+                },
+              ),
               CalculatorButton(
-                  text: '−',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    ref.read(Calculator.provider.notifier).submitChar('-');
-                  }),
+                text: '−',
+                buttonType: ButtonType.operation,
+                onPressed: () {
+                  ref.read(Calculator.provider.notifier).submitChar('-');
+                },
+              ),
               CalculatorButton(
-                  text: '+',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    ref.read(Calculator.provider.notifier).submitChar('+');
-                  }),
+                text: '+',
+                buttonType: ButtonType.operation,
+                onPressed: () {
+                  ref.read(Calculator.provider.notifier).submitChar('+');
+                },
+              ),
             ].map((e) => Expanded(child: e)).toList(),
           ),
         ].map((e) => Expanded(child: e)).toList(),
@@ -368,8 +413,9 @@ class CalculatorButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final foregroundColor = switch (buttonType) {
       ButtonType.number => Theme.of(context).colorScheme.onPrimaryContainer,
-      ButtonType.operation =>
-        Theme.of(context).colorScheme.onSecondaryContainer,
+      ButtonType.operation => Theme.of(
+        context,
+      ).colorScheme.onSecondaryContainer,
       ButtonType.clear => Theme.of(context).colorScheme.onTertiaryContainer,
     };
 
@@ -386,14 +432,22 @@ class CalculatorButton extends StatelessWidget {
         finalRadius: 20,
         foregroundColor: foregroundColor,
         backgroundColor: backgroundColor,
-        onPressed: onPressed,
-        onLongPress: onLongPress,
+        onPressed: () {
+          if (onPressed != null) {
+            HapticFeedback.heavyImpact();
+            onPressed!();
+          }
+        },
+        onLongPress: () {
+          if (onLongPress != null) {
+            HapticFeedback.heavyImpact();
+            onLongPress!();
+          }
+        },
         child: SizedBox.expand(
           child: Center(
             child: text == "←"
-                ? const Icon(
-                    Icons.backspace_outlined,
-                  )
+                ? const Icon(Icons.backspace_outlined)
                 : Text(
                     text ?? '',
                     style: const TextStyle(fontSize: 27),

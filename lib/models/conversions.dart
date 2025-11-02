@@ -108,7 +108,7 @@ class ConversionsNotifier
       state.value![property]!;
 
   ///Clears the values of the current page
-  clearAllValues(PROPERTYX property) {
+  void clearAllValues(PROPERTYX property) {
     List<UnitData> currentUnitDataList = state.value![property]!;
     if (currentUnitDataList[0].property == PROPERTYX.numeralSystems) {
       _savedUnitDataList = [
@@ -126,7 +126,7 @@ class ConversionsNotifier
   }
 
   /// Undo the last clear all operation performed
-  undoClearOperation() {
+  void undoClearOperation() {
     if (_savedUnitDataList != null && _savedProperty != null) {
       List<UnitData> listToUndo = state.value![_savedProperty!]!;
       if (_savedUnitDataList![0] is double) {

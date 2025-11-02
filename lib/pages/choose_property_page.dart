@@ -1,6 +1,5 @@
 import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/models/order.dart';
-import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,8 +20,7 @@ class ChoosePropertyPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final propertiesOrder =
-        ref.watch(PropertiesOrderNotifier.provider).valueOrNull!;
+    final propertiesOrder = ref.watch(PropertiesOrderNotifier.provider).value!;
     final propertyUiMap = getPropertyUiMap(context);
     final propertiesStringOrdered =
         propertiesOrder.map((e) => propertyUiMap[e]!.name).toList();
@@ -31,7 +29,7 @@ class ChoosePropertyPage extends ConsumerWidget {
         .colorScheme
         .primaryContainer
         .withValues(
-          alpha: Theme.of(context).brightness == Brightness.light ? 0.5 : 0.8,
+          alpha: Theme.brightnessOf(context) == Brightness.light ? 0.5 : 0.8,
         );
 
     return CustomScrollView(
@@ -42,7 +40,7 @@ class ChoosePropertyPage extends ConsumerWidget {
         SliverPadding(
           // Space for the navigation bar (android)
           padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).padding.bottom,
+            bottom: MediaQuery.paddingOf(context).bottom,
           ),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(
@@ -89,7 +87,6 @@ class ChoosePropertyPage extends ConsumerWidget {
                           title: Text(
                             propertiesStringOrdered[index],
                             style: TextStyle(
-                              fontSize: singlePageTextSize,
                               color: isSelectedProperty
                                   ? Theme.of(context)
                                       .colorScheme

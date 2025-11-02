@@ -1,4 +1,3 @@
-import 'package:converterpro/styles/consts.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +54,7 @@ class _ReorderPageState extends State<ReorderPage> {
             SliverPadding(
               // Space for FAB + navigation bar (android)
               padding: EdgeInsets.only(
-                bottom: 60 + MediaQuery.of(context).padding.bottom,
+                bottom: 60 + MediaQuery.paddingOf(context).bottom,
               ),
               sliver: SliverReorderableList(
                 onReorder: (int oldIndex, int newIndex) =>
@@ -68,10 +67,7 @@ class _ReorderPageState extends State<ReorderPage> {
                       padding: const EdgeInsetsDirectional.only(start: 34),
                       child: ListTile(
                         key: ValueKey(_itemsList[index].id),
-                        title: Text(
-                          _itemsList[index].title,
-                          style: const TextStyle(fontSize: singlePageTextSize),
-                        ),
+                        title: Text(_itemsList[index].title),
                       ),
                     ),
                     Positioned.directional(

@@ -1,28 +1,30 @@
 name: calculator_widget
 description: Calculator widget for Converter NOW
-
 publish_to: 'none'
+resolution: workspace
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.9.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  #Needed for calculator computation
-  decimal: ^3.0.2
-  #Needed for the state management
-  flutter_riverpod: ^2.6.1
-  #Needed for app translation
+  # Calculator computation
+  decimal: ^3.2.4
+  # State management
+  flutter_riverpod: ^3.0.0
+  # Calculator computation
+  rational: ^2.2.3
+  # App translation
   translations:
     path: ../translations
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true

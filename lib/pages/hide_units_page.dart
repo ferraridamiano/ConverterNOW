@@ -28,7 +28,7 @@ class HideUnitsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Read the order of the properties in the drawer
     final conversionsOrderDrawer =
-        ref.watch(PropertiesOrderNotifier.provider).valueOrNull;
+        ref.watch(PropertiesOrderNotifier.provider).value;
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();

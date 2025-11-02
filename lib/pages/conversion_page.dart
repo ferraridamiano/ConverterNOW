@@ -127,7 +127,7 @@ class ConversionPage extends ConsumerWidget {
             ),
           ),
         SliverPadding(
-          padding: EdgeInsets.only(top: 10),
+          padding: const EdgeInsets.only(top: 10),
           sliver: SliverGrid.count(
             crossAxisCount: numCols,
             childAspectRatio: responsiveChildAspectRatio(
@@ -140,7 +140,7 @@ class ConversionPage extends ConsumerWidget {
         if (hiddenUnitData.isNotEmpty)
           SliverToBoxAdapter(
             child: ExpansionTile(
-              leading: Icon(Icons.visibility_off_outlined),
+              leading: const Icon(Icons.visibility_off_outlined),
               title: Text(
                 l10n.hiddenUnits,
                 style: Theme.of(context).textTheme.titleLarge,
@@ -160,7 +160,7 @@ class ConversionPage extends ConsumerWidget {
         if (isDrawerFixed(MediaQuery.sizeOf(context).width))
           // Space for FAB + navigation bar (android)
           SliverToBoxAdapter(
-            child: SizedBox(height: 60 + MediaQuery.of(context).padding.bottom),
+            child: SizedBox(height: 60 + MediaQuery.paddingOf(context).bottom),
           ),
       ]);
     });

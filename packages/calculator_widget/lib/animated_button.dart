@@ -55,22 +55,22 @@ class _AnimatedButtonState extends State<AnimatedButton>
       reverseDuration: widget.animationDuration,
       vsync: this,
     );
-    _animation = Tween<double>(
-      begin: widget.initialRadius,
-      end: widget.finalRadius,
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.linear,
-      ),
-    );
+    _animation =
+        Tween<double>(
+          begin: widget.initialRadius,
+          end: widget.finalRadius,
+        ).animate(
+          CurvedAnimation(parent: _animationController, curve: Curves.linear),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
-    backgroundColor = widget.backgroundColor ??
+    backgroundColor =
+        widget.backgroundColor ??
         Theme.of(context).colorScheme.secondaryContainer;
-    foregroundColor = widget.foregroundColor ??
+    foregroundColor =
+        widget.foregroundColor ??
         Theme.of(context).colorScheme.onSecondaryContainer;
 
     return _ElevatedButtonTransition(
@@ -119,26 +119,28 @@ class _ElevatedButtonTransition extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle style = FilledButton.styleFrom(
-      foregroundColor: foregroundColor,
-      backgroundColor: backgroundColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radius.value),
-      ),
-    ).copyWith(
-      overlayColor: WidgetStateProperty.resolveWith<Color?>(
-        (Set<WidgetState> states) => Colors.transparent,
-      ),
-      backgroundColor: WidgetStateProperty.resolveWith<Color?>(
-        (Set<WidgetState> states) => states.contains(WidgetState.pressed)
-            ? Color.alphaBlend(
-                Theme.of(context).brightness == Brightness.light
-                    ? Colors.black.withValues(alpha: 0.18)
-                    : Colors.white30,
-                backgroundColor)
-            : backgroundColor,
-      ),
-    );
+    final ButtonStyle style =
+        FilledButton.styleFrom(
+          foregroundColor: foregroundColor,
+          backgroundColor: backgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radius.value),
+          ),
+        ).copyWith(
+          overlayColor: WidgetStateProperty.resolveWith<Color?>(
+            (Set<WidgetState> states) => Colors.transparent,
+          ),
+          backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+            (Set<WidgetState> states) => states.contains(WidgetState.pressed)
+                ? Color.alphaBlend(
+                    Theme.brightnessOf(context) == Brightness.light
+                        ? Colors.black.withValues(alpha: 0.18)
+                        : Colors.white30,
+                    backgroundColor,
+                  )
+                : backgroundColor,
+          ),
+        );
 
     return FilledButton(
       onPressed: onPressed,

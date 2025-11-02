@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:converterpro/models/settings.dart';
-import 'package:flutter/material.dart';
+import 'package:converterpro/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -91,7 +91,7 @@ class CurrenciesNotifier extends AsyncNotifier<Currencies> {
     String? lastUpdate = pref.getString("lastUpdateCurrencies");
     // if I have never updated the conversions or if I have updated before today
     // I have to update
-    if (!(ref.read(RevokeInternetNotifier.provider).valueOrNull ?? false) &&
+    if (!(ref.read(RevokeInternetNotifier.provider).value ?? false) &&
         (lastUpdate == null || lastUpdate != now)) {
       return _downloadCurrencies();
     }
@@ -151,7 +151,7 @@ class CurrenciesNotifier extends AsyncNotifier<Currencies> {
         );
       }
     } catch (e) {
-      debugPrint(e.toString());
+      dPrint(e.toString);
     }
     return _readSavedCurrencies();
   }

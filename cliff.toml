@@ -1,0 +1,57 @@
+[remote.github]
+owner = "ferraridamiano"
+repo = "ConverterNOW"
+
+[changelog]
+header = ""
+body = """
+{%- macro remote_url() -%}
+  https://github.com/{{ remote.github.owner }}/{{ remote.github.repo }}
+{%- endmacro -%}
+{%- macro github_username(email) -%}
+  {%- if email is containing("@users.noreply.github.com") -%}
+    {{ email | split(pat="@") | first | split(pat="+") | last }}
+  {%- elif email is containing("@") -%}
+    {{ email | split(pat="@") | first }}
+  {%- else -%}
+    {{ email }}
+  {%- endif -%}
+{%- endmacro -%}
+{% for group, commits in commits | group_by(attribute="group") %}
+    ### {{ group | upper_first }}
+    {% for commit in commits %}
+        - {{ commit.message | split(pat="\n") | first | upper_first | trim }} ([`{{ commit.id | truncate(length=7, end="") }}`]({{ self::remote_url() }}/commit/{{ commit.id }}))\
+          {% for footer in commit.footers -%}
+            , {{ footer.token }}{{ footer.separator }}{{ footer.value }}\
+          {% endfor %}\
+    {% endfor %}
+{% endfor %}
+
+### 👥 Contributors
+{% set contributors = commits | unique(attribute="author.email") | sort(attribute="author.email") -%}
+{% for contributor in contributors -%}
+  - @{{ self::github_username(email=contributor.author.email) }}
+{% endfor %}\n
+"""
+
+[git]
+conventional_commits = true
+filter_unconventional = false
+commit_parsers = [
+    { message = "^feat", group = "🚀 Features" },
+    { message = "^fix", group = "🐛 Bug Fixes" },
+    { message = "^doc", group = "📝 Documentation" },
+    { message = "^perf", group = "⚡ Performance" },
+    { message = "^refactor", group = "🧹 Refactor" },
+    { message = "^style", group = "🎨 Styling" },
+    { message = "^test", group = "🧪 Testing" },
+    { message = "^chore\\(deps.*\\)", skip = true },
+    { message = "^chore\\(pr\\)", skip = true },
+    { message = "^chore\\(pull\\)", skip = true },
+    { message = "^chore\\(release\\)", skip = true },
+    { message = "^chore|^ci", group = "🧰 Miscellaneous Tasks" },
+    { body = ".*security", group = "🔐 Security" },
+]
+filter_commits = false
+topo_order = false
+sort_commits = "oldest"

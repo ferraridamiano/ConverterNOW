@@ -2,10 +2,12 @@ import 'package:converterpro/styles/consts.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final Map<Locale, String> mapLocale = {
   const Locale('en'): 'English',
+  const Locale('bn'): 'বাংলা',
   const Locale('ca'): 'Català',
   const Locale('de'): 'Deutsch',
   const Locale('es'): 'Español',
@@ -64,15 +66,33 @@ class RemoveTrailingZeros extends AsyncNotifier<bool> {
   }
 }
 
-class IsDarkAmoled extends AsyncNotifier<bool> {
+class IsPureDark extends AsyncNotifier<bool> {
   static const _prefKey = 'isDarkAmoled';
   static final provider =
-      AsyncNotifierProvider<IsDarkAmoled, bool>(IsDarkAmoled.new);
+      AsyncNotifierProvider<IsPureDark, bool>(IsPureDark.new);
 
   @override
   Future<bool> build() async {
     var pref = await ref.watch(sharedPref.future);
     return pref.getBool(_prefKey) ?? false;
+  }
+
+  void set(bool value) {
+    state = AsyncData(value);
+    ref.read(sharedPref.future).then((pref) => pref.setBool(_prefKey, value));
+  }
+}
+
+class PropertySelectionOnStartup extends AsyncNotifier<bool> {
+  static const _prefKey = 'propertySelectionOnStartup';
+  static final provider =
+      AsyncNotifierProvider<PropertySelectionOnStartup, bool>(
+          PropertySelectionOnStartup.new);
+
+  @override
+  Future<bool> build() async {
+    var pref = await ref.watch(sharedPref.future);
+    return pref.getBool(_prefKey) ?? true;
   }
 
   void set(bool value) {
@@ -108,7 +128,7 @@ class ThemeColorNotifier
   void setDefaultTheme(bool value) {
     state = AsyncData((
       useDeviceColor: value,
-      colorTheme: state.valueOrNull?.colorTheme ?? fallbackColorTheme
+      colorTheme: state.value?.colorTheme ?? fallbackColorTheme
     ));
     ref
         .read(sharedPref.future)
@@ -117,8 +137,7 @@ class ThemeColorNotifier
 
   void setColorTheme(Color color) {
     state = AsyncData((
-      useDeviceColor:
-          state.valueOrNull?.useDeviceColor ?? deafultUseDeviceColor,
+      useDeviceColor: state.value?.useDeviceColor ?? deafultUseDeviceColor,
       colorTheme: color
     ));
     ref

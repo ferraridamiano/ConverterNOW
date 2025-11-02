@@ -6,6 +6,7 @@ import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/pages/conversion_page.dart';
 import 'package:converterpro/pages/error_page.dart';
 import 'package:converterpro/pages/hide_units_page.dart';
+import 'package:converterpro/pages/initial_page.dart';
 import 'package:converterpro/pages/reorder_properties_page.dart';
 import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
@@ -22,7 +23,8 @@ import 'package:vector_graphics/vector_graphics.dart';
 final isEverythingLoadedProvider = Provider<bool>((ref) =>
     ref.watch(SignificantFigures.provider).hasValue &&
     ref.watch(RemoveTrailingZeros.provider).hasValue &&
-    ref.watch(IsDarkAmoled.provider).hasValue &&
+    ref.watch(IsPureDark.provider).hasValue &&
+    ref.watch(PropertySelectionOnStartup.provider).hasValue &&
     ref.watch(ThemeColorNotifier.provider).hasValue &&
     ref.watch(RevokeInternetNotifier.provider).hasValue &&
     ref.watch(CurrentThemeMode.provider).hasValue &&
@@ -40,19 +42,20 @@ final routerProvider = Provider<GoRouter>(
         path: '/',
         builder: (context, _) => const SplashScreen(),
       ),
+      GoRoute(
+        path: '/conversions',
+        name: 'conversions',
+        builder: (context, state) => const InitialPage(),
+      ),
       ShellRoute(
-        builder: (context, state, child) {
-          return AppScaffold(
-            child: child,
-          );
-        },
+        builder: (context, state, child) => AppScaffold(child: child),
         routes: [
           GoRoute(
             path: '/conversions/:property',
-            pageBuilder: (context, state) {
+            builder: (context, state) {
               final String property = state.pathParameters['property']!;
               final propertyx = kebabStringToPropertyX(property);
-              return NoTransitionPage(child: ConversionPage(propertyx));
+              return ConversionPage(propertyx);
             },
           ),
           GoRoute(

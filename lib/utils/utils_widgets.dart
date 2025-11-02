@@ -1,6 +1,9 @@
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:translations/app_localizations.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 class UnitWidget extends StatefulWidget {
@@ -10,7 +13,7 @@ class UnitWidget extends StatefulWidget {
   final String? Function(String?)? validator;
   final String unitName;
   final String? unitSymbol;
-  final void Function(String)? onChanged;
+  final void Function(String) onChanged;
 
   const UnitWidget({
     super.key,
@@ -20,7 +23,7 @@ class UnitWidget extends StatefulWidget {
     this.validator,
     required this.unitName,
     this.unitSymbol,
-    this.onChanged,
+    required this.onChanged,
   });
 
   @override
@@ -51,12 +54,24 @@ class _UnitWidgetState extends State<UnitWidget> {
         validator: widget.validator,
         decoration: InputDecoration(
           labelText: widget.unitName,
-          suffixIcon: widget.unitSymbol == null
-              ? null
-              : Padding(
-                  padding: const EdgeInsetsDirectional.only(end: 10),
-                  child: Text(widget.unitSymbol!),
-                ),
+          suffixIcon: focusNode.hasFocus && widget.controller.text.isNotEmpty
+              ? IconButton(
+                  iconSize: 20,
+                  icon: const Icon(Icons.copy),
+                  tooltip: AppLocalizations.of(context)?.copy,
+                  onPressed: () {
+                    Clipboard.setData(
+                      ClipboardData(text: widget.controller.text),
+                    );
+                    HapticFeedback.heavyImpact();
+                  },
+                )
+              : widget.unitSymbol == null
+                  ? null
+                  : Padding(
+                      padding: const EdgeInsetsDirectional.only(end: 10),
+                      child: Text(widget.unitSymbol!),
+                    ),
           // Workaround to make suffixIcon always visible
           // See: https://stackoverflow.com/questions/58819979
           suffixIconConstraints: const BoxConstraints(
@@ -64,7 +79,7 @@ class _UnitWidgetState extends State<UnitWidget> {
             minHeight: 0,
           ),
           suffixStyle: TextStyle(
-            color: Theme.of(context).brightness == Brightness.light
+            color: Theme.brightnessOf(context) == Brightness.light
                 ? Colors.black
                 : Colors.white,
           ),
@@ -82,7 +97,10 @@ class _UnitWidgetState extends State<UnitWidget> {
                 : null,
           ),
         ),
-        onChanged: widget.onChanged,
+        onChanged: (text) {
+          widget.onChanged(text);
+          setState(() {});
+        },
       ),
     );
   }
@@ -132,16 +150,14 @@ class SuggestionList extends StatelessWidget {
   }
 }
 
-class SearchGridTile extends StatelessWidget {
+class PropertyGridTile extends StatelessWidget {
   final String iconAsset;
   final String footer;
   final GestureTapCallback onTap;
-  final bool darkMode;
-  const SearchGridTile({
+  const PropertyGridTile({
     required this.iconAsset,
     required this.footer,
     required this.onTap,
-    required this.darkMode,
     super.key,
   });
 
@@ -149,34 +165,37 @@ class SearchGridTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(5.0),
-        child: GridTile(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 55.0,
-                height: 55.0,
-                child: SvgPicture(
-                  AssetBytesLoader(iconAsset),
-                  colorFilter: ColorFilter.mode(
-                    darkMode ? Colors.white : Colors.grey,
-                    BlendMode.srcIn,
-                  ),
+      customBorder: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Column(
+        spacing: 12,
+        children: [
+          Expanded(
+            flex: 6,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: SvgPicture(
+                AssetBytesLoader(iconAsset),
+                height: 55,
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).colorScheme.secondary,
+                  BlendMode.srcIn,
                 ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                footer,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 18.0),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
+            ),
           ),
-        ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              footer,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18, height: 1.1),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -187,7 +206,6 @@ class DropdownListTile extends StatelessWidget {
   final List<String> items;
   final String value;
   final ValueChanged<String?> onChanged;
-  final TextStyle textStyle;
   final Widget? leading;
 
   /// This widget will return a [ListTile] with a dialog on mobile device and a
@@ -197,7 +215,6 @@ class DropdownListTile extends StatelessWidget {
     required this.items,
     required this.value,
     required this.onChanged,
-    required this.textStyle,
     this.leading,
     ValueKey? key,
   }) : super(key: key);
@@ -215,7 +232,6 @@ class DropdownListTile extends StatelessWidget {
           leading: leading,
           title: Text(
             title,
-            style: textStyle,
           ),
           subtitle: Text(value),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
@@ -235,7 +251,6 @@ class DropdownListTile extends StatelessWidget {
           leading: leading,
           title: Text(
             title,
-            style: textStyle,
           ),
           shape: const RoundedRectangleBorder(borderRadius: borderRadius),
           trailing: DropdownMenu<String>(
@@ -266,7 +281,6 @@ class SegmentedButtonListTile extends StatelessWidget {
   final List<({IconData icon, String title})> items;
   final String value;
   final ValueChanged<String?> onChanged;
-  final TextStyle textStyle;
   final Widget? leading;
 
   /// This widget will return a [ListTile] with a dialog on mobile device and a
@@ -276,7 +290,6 @@ class SegmentedButtonListTile extends StatelessWidget {
     required this.items,
     required this.value,
     required this.onChanged,
-    required this.textStyle,
     this.leading,
     ValueKey? key,
   }) : super(key: key);
@@ -290,10 +303,7 @@ class SegmentedButtonListTile extends StatelessWidget {
       builder: (context, constraints) => constraints.maxWidth > 450
           ? ListTile(
               leading: leading,
-              title: Text(
-                title,
-                style: textStyle,
-              ),
+              title: Text(title),
               shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               trailing: SegmentedButton<String>(
                 segments: items
@@ -309,10 +319,7 @@ class SegmentedButtonListTile extends StatelessWidget {
             )
           : ListTile(
               leading: leading,
-              title: Text(
-                title,
-                style: textStyle,
-              ),
+              title: Text(title),
               subtitle: Text(value),
               shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               onTap: () async => onChanged(
@@ -349,12 +356,16 @@ Future<String?> showModalBottomRadioList({
             ),
           ),
           const SizedBox(height: 15),
-          ...items.map(
-            (item) => RadioListTile(
-              value: item,
-              groupValue: value,
-              title: Text(item),
-              onChanged: (value) => Navigator.pop(context, value),
+          RadioGroup(
+            groupValue: value,
+            onChanged: (value) => Navigator.pop(context, value),
+            child: Column(
+              children: items
+                  .map((item) => RadioListTile(
+                        value: item,
+                        title: Text(item),
+                      ))
+                  .toList(),
             ),
           ),
         ],
@@ -395,4 +406,20 @@ class ConstrainedContainer extends StatelessWidget {
       ),
     );
   }
+}
+
+/// This method will return a List of [PropertyGridTile], needed in order to
+/// display the gridtiles in the search
+List<PropertyGridTile> getPropertyGridTiles(void Function(PROPERTYX) onTap,
+    BuildContext context, List<PROPERTYX> orderList) {
+  final propertyUiMap = getPropertyUiMap(context);
+  return orderList.indexed.map((e) {
+    final propertyUi = propertyUiMap[e.$2]!;
+    return PropertyGridTile(
+      key: ValueKey('gridtile-${e.$1}'),
+      iconAsset: propertyUi.icon,
+      footer: propertyUi.name,
+      onTap: () => onTap(e.$2),
+    );
+  }).toList();
 }

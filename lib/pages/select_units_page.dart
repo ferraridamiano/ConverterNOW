@@ -34,9 +34,8 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
   }
 
   void initProvider() {
-    unselectedUnits = ref
-        .read(HiddenUnitsNotifier.provider)
-        .valueOrNull![widget.selectedProperty]!;
+    unselectedUnits =
+        ref.read(HiddenUnitsNotifier.provider).value![widget.selectedProperty]!;
   }
 
   @override
@@ -73,6 +72,7 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
                 setState(() {
                   unselectedUnits = areAllSelected
                       ? defaultUnitsOrder[widget.selectedProperty]!
+                          .toList(growable: true)
                       : [];
                 });
               },
@@ -87,7 +87,7 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
         SliverPadding(
           // Space for FAB + navigation bar (android)
           padding: EdgeInsets.only(
-            bottom: 60 + MediaQuery.of(context).padding.bottom,
+            bottom: 60 + MediaQuery.paddingOf(context).bottom,
           ),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(

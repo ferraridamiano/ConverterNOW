@@ -1,0 +1,5 @@
+⚙️ <b>New units of measure</b>: added density and new pressure units (Thanks to @Kheirlb)
+🌍 <b>Translation improvements</b>: added Bengali and updated existing translations. Thanks to @aazmii, @rehork, @solokot
+🐞 <b>Bug fixes and general improvements!</b> We've worked hard to give you an ever-better experience
+
+<b>Do you like Converter NOW?</b> Leave a review and let us know what you think! ✔️
