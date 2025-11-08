@@ -1,5 +1,4 @@
-import 'dart:ui' show Offset, Size;
-
+import 'dart:ui';
 import 'package:converterpro/styles/consts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
@@ -33,7 +32,8 @@ class AppWindowManager {
       await windowManager.setPosition(Offset(x, y));
       await windowManager.setSize(Size(width, height));
     } else {
-      WindowOptions windowOptions = WindowOptions(size: defaultWindowSize, center: true);
+      const windowOptions =
+          WindowOptions(size: defaultWindowSize, center: true);
       await windowManager.waitUntilReadyToShow(windowOptions, () async {
         await windowManager.show();
         await windowManager.focus();
