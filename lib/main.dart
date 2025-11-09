@@ -117,7 +117,7 @@ class MyApp extends ConsumerWidget {
               title: 'Converter NOW',
               themeMode: themeMode,
               theme: lightTheme,
-              darkTheme: (ref.watch(IsPureDark.provider).value ?? false)
+              darkTheme: (ref.watch(isPureDarkProvider).value ?? false)
                   ? amoledTheme
                   : darkTheme,
               supportedLocales: mapLocale.keys,

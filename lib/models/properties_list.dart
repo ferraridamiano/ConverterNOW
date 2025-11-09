@@ -41,10 +41,9 @@ const Map<String, String> _currenciesSymbols = {
 final propertiesMapProvider =
     FutureProvider<Map<PROPERTYX, Property>>((ref) async {
   final removeTrailingZeros =
-      await ref.watch(RemoveTrailingZeros.provider.future);
-  final significantFigures =
-      await ref.watch(SignificantFigures.provider.future);
-  return {
+      await ref.watch(removeTrailingZerosProvider.future);
+          final significantFigures =
+              await ref.watch(significantFiguresProvider.future);  return {
     PROPERTYX.length: Length(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,

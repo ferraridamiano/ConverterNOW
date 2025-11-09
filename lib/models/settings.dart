@@ -32,74 +32,73 @@ final sharedPref = FutureProvider<SharedPreferencesWithCache>((_) async =>
     await SharedPreferencesWithCache.create(
         cacheOptions: const SharedPreferencesWithCacheOptions()));
 
-class SignificantFigures extends AsyncNotifier<int> {
-  static const _prefKey = 'significant_figures';
-  static final provider =
-      AsyncNotifierProvider<SignificantFigures, int>(SignificantFigures.new);
+class SettingsNotifier<T> extends AsyncNotifier<T> {
+  late final String prefKey;
+  late final T defaultValue;
 
-  @override
-  Future<int> build() async {
-    var pref = await ref.watch(sharedPref.future);
-    return pref.getInt(_prefKey) ?? 10;
+  void set(T value) {
+    state = AsyncData(value);
+    ref.read(sharedPref.future).then((pref) {
+      switch (T) {
+        case const (int):
+          pref.setInt(prefKey, value as int);
+          break;
+        case const (bool):
+          pref.setBool(prefKey, value as bool);
+          break;
+        case const (String):
+          pref.setString(prefKey, value as String);
+          break;
+        case const (double):
+          pref.setDouble(prefKey, value as double);
+          break;
+        default:
+          throw UnimplementedError('Type not supported');
+      }
+    });
   }
 
-  void set(int value) {
-    state = AsyncData(value);
-    ref.read(sharedPref.future).then((pref) => pref.setInt(_prefKey, value));
+  @override
+  Future<T> build() async {
+    var pref = await ref.watch(sharedPref.future);
+    return pref.get(prefKey) as T? ?? defaultValue;
   }
 }
 
-class RemoveTrailingZeros extends AsyncNotifier<bool> {
-  static const _prefKey = 'remove_trailing_zeros';
-  static final provider =
-      AsyncNotifierProvider<RemoveTrailingZeros, bool>(RemoveTrailingZeros.new);
+final significantFiguresProvider =
+    AsyncNotifierProvider<SettingsNotifier<int>, int>(() {
+  return SettingsNotifier<int>()
+    ..prefKey = 'significant_figures'
+    ..defaultValue = 10;
+});
 
-  @override
-  Future<bool> build() async {
-    var pref = await ref.watch(sharedPref.future);
-    return pref.getBool(_prefKey) ?? true;
-  }
+final removeTrailingZerosProvider =
+    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+  return SettingsNotifier<bool>()
+    ..prefKey = 'remove_trailing_zeros'
+    ..defaultValue = true;
+});
 
-  void set(bool value) {
-    state = AsyncData(value);
-    ref.read(sharedPref.future).then((pref) => pref.setBool(_prefKey, value));
-  }
-}
+final isPureDarkProvider =
+    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+  return SettingsNotifier<bool>()
+    ..prefKey = 'isDarkAmoled'
+    ..defaultValue = false;
+});
 
-class IsPureDark extends AsyncNotifier<bool> {
-  static const _prefKey = 'isDarkAmoled';
-  static final provider =
-      AsyncNotifierProvider<IsPureDark, bool>(IsPureDark.new);
+final propertySelectionOnStartupProvider =
+    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+  return SettingsNotifier<bool>()
+    ..prefKey = 'propertySelectionOnStartup'
+    ..defaultValue = true;
+});
 
-  @override
-  Future<bool> build() async {
-    var pref = await ref.watch(sharedPref.future);
-    return pref.getBool(_prefKey) ?? false;
-  }
-
-  void set(bool value) {
-    state = AsyncData(value);
-    ref.read(sharedPref.future).then((pref) => pref.setBool(_prefKey, value));
-  }
-}
-
-class PropertySelectionOnStartup extends AsyncNotifier<bool> {
-  static const _prefKey = 'propertySelectionOnStartup';
-  static final provider =
-      AsyncNotifierProvider<PropertySelectionOnStartup, bool>(
-          PropertySelectionOnStartup.new);
-
-  @override
-  Future<bool> build() async {
-    var pref = await ref.watch(sharedPref.future);
-    return pref.getBool(_prefKey) ?? true;
-  }
-
-  void set(bool value) {
-    state = AsyncData(value);
-    ref.read(sharedPref.future).then((pref) => pref.setBool(_prefKey, value));
-  }
-}
+final revokeInternetProvider =
+    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+  return SettingsNotifier<bool>()
+    ..prefKey = 'revokeInternet'
+    ..defaultValue = false;
+});
 
 /// `null` means no accent color
 final deviceAccentColorProvider = StateProvider<Color?>((ref) => null);
@@ -143,23 +142,6 @@ class ThemeColorNotifier
     ref
         .read(sharedPref.future)
         .then((pref) => pref.setInt(_prefKeyColor, color2Int(color)));
-  }
-}
-
-class RevokeInternetNotifier extends AsyncNotifier<bool> {
-  static const _prefKey = 'revokeInternet';
-  static final provider = AsyncNotifierProvider<RevokeInternetNotifier, bool>(
-      RevokeInternetNotifier.new);
-
-  @override
-  Future<bool> build() async {
-    var pref = await ref.watch(sharedPref.future);
-    return pref.getBool(_prefKey) ?? false;
-  }
-
-  void set(bool value) {
-    state = AsyncData(value);
-    ref.read(sharedPref.future).then((pref) => pref.setBool(_prefKey, value));
   }
 }
 

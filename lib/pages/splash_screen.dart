@@ -34,7 +34,7 @@ class SplashScreen extends ConsumerWidget {
       WidgetsBinding.instance
           .addPostFrameCallback((_) => GoRouter.of(context).go(
                 MediaQuery.sizeOf(context).width > pixelFixedDrawer ||
-                        !ref.read(PropertySelectionOnStartup.provider).value!
+                        !ref.read(propertySelectionOnStartupProvider).value!
                     ? '/conversions/${conversionsOrderDrawer[0].toKebabCase()}'
                     : '/conversions',
               ));

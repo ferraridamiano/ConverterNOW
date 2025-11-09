@@ -128,9 +128,9 @@ class SettingsPage extends ConsumerWidget {
                 SwitchListTile(
                   secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
                   title: Text(l10n.pureBlackTheme),
-                  value: ref.watch(IsPureDark.provider).value ?? false,
+                  value: ref.watch(isPureDarkProvider).value ?? false,
                   onChanged: (bool val) {
-                    ref.read(IsPureDark.provider.notifier).set(val);
+                    ref.read(isPureDarkProvider.notifier).set(val);
                   },
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
@@ -140,11 +140,11 @@ class SettingsPage extends ConsumerWidget {
                   secondary: Icon(Icons.apps_rounded, color: iconColor),
                   title: Text(l10n.propertySelectionOnStartup),
                   subtitle: Text(l10n.propertySelectionOnStartupSubtitle),
-                  value: ref.watch(PropertySelectionOnStartup.provider).value ??
+                  value: ref.watch(propertySelectionOnStartupProvider).value ??
                       true,
                   onChanged: (bool val) {
                     ref
-                        .read(PropertySelectionOnStartup.provider.notifier)
+                        .read(propertySelectionOnStartupProvider.notifier)
                         .set(val);
                   },
                   shape: const RoundedRectangleBorder(
@@ -162,7 +162,7 @@ class SettingsPage extends ConsumerWidget {
                   SwitchListTile(
                     secondary: Icon(Icons.public_off, color: iconColor),
                     title: Text(l10n.revokeInternetAccess),
-                    value: ref.watch(RevokeInternetNotifier.provider).value ??
+                    value: ref.watch(revokeInternetProvider).value ??
                         false,
                     onChanged: (bool val) {
                       if (val) {
@@ -190,8 +190,7 @@ class SettingsPage extends ConsumerWidget {
                                       const Duration(milliseconds: 200),
                                       () => ref
                                           .read(
-                                            RevokeInternetNotifier
-                                                .provider.notifier,
+                                            revokeInternetProvider.notifier,
                                           )
                                           .set(val),
                                     );
@@ -204,7 +203,7 @@ class SettingsPage extends ConsumerWidget {
                         );
                       } else {
                         ref
-                            .read(RevokeInternetNotifier.provider.notifier)
+                            .read(revokeInternetProvider.notifier)
                             .set(val);
                         ref
                             .read(CurrenciesNotifier.provider.notifier)
@@ -224,9 +223,9 @@ class SettingsPage extends ConsumerWidget {
                     colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                   ),
                   title: Text(l10n.removeTrailingZeros),
-                  value: ref.watch(RemoveTrailingZeros.provider).value ?? true,
+                  value: ref.watch(removeTrailingZerosProvider).value ?? true,
                   onChanged: (bool val) {
-                    ref.read(RemoveTrailingZeros.provider.notifier).set(val);
+                    ref.read(removeTrailingZerosProvider.notifier).set(val);
                   },
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
@@ -243,12 +242,12 @@ class SettingsPage extends ConsumerWidget {
                   title: l10n.significantFigures,
                   items:
                       significantFiguresList.map((e) => e.toString()).toList(),
-                  value: (ref.watch(SignificantFigures.provider).value ?? 10)
+                  value: (ref.watch(significantFiguresProvider).value ?? 10)
                       .toString(),
                   onChanged: (String? string) {
                     if (string != null) {
                       ref
-                          .read(SignificantFigures.provider.notifier)
+                          .read(significantFiguresProvider.notifier)
                           .set(int.parse(string));
                     }
                   },
