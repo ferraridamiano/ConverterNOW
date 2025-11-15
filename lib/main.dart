@@ -69,6 +69,9 @@ class MyApp extends ConsumerWidget {
             ThemeData amoledTheme = darkTheme.copyWith(
               scaffoldBackgroundColor: Colors.black,
               drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
+              appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
+              bottomAppBarTheme:
+                  const BottomAppBarThemeData(color: Colors.black),
             );
 
             final pageTransitionsTheme = PageTransitionsTheme(
