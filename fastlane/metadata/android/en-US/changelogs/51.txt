@@ -1,0 +1,6 @@
+🔢 View the <b>result preview</b> in the calculator (Thanks to Bisher Asil)
+⚙️ <b>Choose the property</b> to convert on startup (mobile only)
+🌍 <b>Translation improvements</b>
+🐞 <b>Bug fixes and general improvements!</b> We've worked hard to give you an even better experience
+
+<b>Do you like Converter NOW?</b> Leave a review and let us know what you think! ✔️
