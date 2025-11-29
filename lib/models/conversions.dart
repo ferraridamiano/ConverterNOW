@@ -73,33 +73,31 @@ class ConversionsNotifier
   /// This function get the value of the unit from currentProperty and update
   /// the currentUnitDataList values. It is used when a conversion changes the
   /// values of the units
-  void _refreshCurrentUnitDataList(PROPERTYX property) {
+  Future<void> _refreshCurrentUnitDataList(PROPERTYX property) async {
     final currentUnitDataList = state.value![property]!;
-    ref.read(propertiesMapProvider.future).then((propertiesMap) {
-      for (UnitData currentUnitData in currentUnitDataList) {
-        final currentProperty = propertiesMap[property]!;
-        currentUnitData.unit =
-            currentProperty.getUnit(currentUnitData.unit.name);
-        if (currentUnitData != _selectedUnit) {
-          if (currentUnitData.unit.stringValue == null) {
-            currentUnitData.tec.value = TextEditingValue.empty;
-          } else {
-            currentUnitData.tec.value =
-                TextEditingValue(text: currentUnitData.unit.stringValue!);
-          }
+    final propertiesMap = await ref.read(propertiesMapProvider.future);
+    for (UnitData currentUnitData in currentUnitDataList) {
+      final currentProperty = propertiesMap[property]!;
+      currentUnitData.unit =
+          currentProperty.getUnit(currentUnitData.unit.name);
+      if (currentUnitData != _selectedUnit) {
+        if (currentUnitData.unit.stringValue == null) {
+          currentUnitData.tec.value = TextEditingValue.empty;
+        } else {
+          currentUnitData.tec.value =
+              TextEditingValue(text: currentUnitData.unit.stringValue!);
         }
       }
-    });
+    }
   }
 
   /// This function is used to convert all the values from one that has been
   /// modified
-  void convert(UnitData unitData, var value, PROPERTYX property) {
-    ref.read(propertiesMapProvider.future).then((propertiesMap) {
-      propertiesMap[property]!.convert(unitData.unit.name, value);
-      _selectedUnit = unitData;
-      _refreshCurrentUnitDataList(property);
-    });
+  Future<void> convert(UnitData unitData, var value, PROPERTYX property) async {
+    final propertiesMap = await ref.read(propertiesMapProvider.future);
+    propertiesMap[property]!.convert(unitData.unit.name, value);
+    _selectedUnit = unitData;
+    await _refreshCurrentUnitDataList(property);
   }
 
   /// Returns a UnitDataList at a certain page with the current ordering
@@ -108,7 +106,7 @@ class ConversionsNotifier
       state.value![property]!;
 
   ///Clears the values of the current page
-  void clearAllValues(PROPERTYX property) {
+  Future<void> clearAllValues(PROPERTYX property) async {
     List<UnitData> currentUnitDataList = state.value![property]!;
     if (currentUnitDataList[0].property == PROPERTYX.numeralSystems) {
       _savedUnitDataList = [
@@ -120,13 +118,13 @@ class ConversionsNotifier
       ];
     }
     _savedProperty = property;
-    convert(currentUnitDataList[0], null, property);
+    await convert(currentUnitDataList[0], null, property);
     // convert doesn't clear a selected textfield
     currentUnitDataList[0].tec.value = TextEditingValue.empty;
   }
 
   /// Undo the last clear all operation performed
-  void undoClearOperation() {
+  Future<void> undoClearOperation() async {
     if (_savedUnitDataList != null && _savedProperty != null) {
       List<UnitData> listToUndo = state.value![_savedProperty!]!;
       if (_savedUnitDataList![0] is double) {
