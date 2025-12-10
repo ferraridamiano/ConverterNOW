@@ -31,14 +31,8 @@
   "light": "Светлая",
   "system": "Как в системе",
   "pureBlackTheme": "Чёрная тема",
-  "propertySelectionOnStartup": "Property selection on startup",
-  "@propertySelectionOnStartup": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "propertySelectionOnStartupSubtitle": "Show the property selection page on startup on small screen devices",
-  "@propertySelectionOnStartupSubtitle": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "propertySelectionOnStartup": "Выбор категории при запуске",
+  "propertySelectionOnStartupSubtitle": "Открывать страницу выбора категории при запуске на устройствах с маленьким экраном",
   "copy": "Копировать",
   "paste": "Вставить",
   "more": "Ещё",
