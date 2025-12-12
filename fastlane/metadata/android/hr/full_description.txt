@@ -24,7 +24,7 @@ Fizikalne veličine koje Converter NOW pretvara su:
 -<b>Pritisak:</b> paskal, bar, atomfera, psi itd.
 -<b>Energija:</b> džul, kalorija, kilovat-sat itd.
 -<b>Snaga:</b> vat, kilovat, konjska snaga itd.
--<b>Gustoća:</b> grami po kubičnom metru, itd.</li>
+-<b>Gustoća:</b> gram po kubičnom metru, itd.</li>
 -<b>Potrošnja goriva:</b> milja na galon, kilometara na litru itd.
 -<b>Numerički sustavi:</b> decimalni, binarni, heksadecimalni itd.
 -<b>Zakretni moment:</b> njutn metar, funta-sila stopa, poundal metar itd.
