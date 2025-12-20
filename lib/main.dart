@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/styles/consts.dart';
 import 'package:flutter/foundation.dart';
@@ -95,10 +94,8 @@ class MyApp extends ConsumerWidget {
             final themeMode =
                 ref.watch(CurrentThemeMode.provider).value ?? ThemeMode.system;
 
-            // Workaround until https://github.com/flutter/flutter/issues/39998 got
-            // resolved
-            String deviceLocaleLanguageCode =
-                kIsWeb ? 'en' : Platform.localeName.split('_')[0];
+            final deviceLocaleLanguageCode =
+                PlatformDispatcher.instance.locale.languageCode;
             Locale appLocale;
             if (settingsLocale != null) {
               appLocale = settingsLocale;
