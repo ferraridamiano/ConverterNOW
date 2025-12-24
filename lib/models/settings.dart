@@ -156,7 +156,7 @@ final languageTagProvider =
   return SettingsNotifier<String>()
     ..prefKey = 'locale'
     ..defaultValue = fallbackLocale.toLanguageTag()
-    ..validate = (val) => true; // TODO
+    ..validate = (val) => mapLocale.keys.any((e) => e.toLanguageTag() == val);
 });
 
 final useDeviceLocaleProvider =
