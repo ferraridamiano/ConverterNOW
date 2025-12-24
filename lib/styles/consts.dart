@@ -20,3 +20,5 @@ const double pixelWidth3Columns = 1300;
 const double twoSidedReorderScreen = 700;
 
 const fallbackColorTheme = Colors.blue;
+
+const fallbackLocale = Locale('en');

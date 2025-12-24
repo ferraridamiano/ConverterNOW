@@ -1,5 +1,4 @@
 import 'package:converterpro/app_router.dart';
-import 'package:converterpro/styles/consts.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:converterpro/models/settings.dart';
@@ -36,35 +35,19 @@ class MyApp extends ConsumerWidget {
 
         return Consumer(
           builder: (context, ref, child) {
-            final settingsLocale = ref.watch(CurrentLocale.provider).value;
-            final themeColor = ref.watch(ThemeColorNotifier.provider).value ??
-                (useDeviceColor: false, colorTheme: fallbackColorTheme);
-
-            ThemeData lightTheme, darkTheme;
-            // Use device accent color
-            if (ref.watch(deviceAccentColorProvider) != null &&
-                themeColor.useDeviceColor) {
-              lightTheme = ThemeData(
-                colorScheme: lightDynamic!.harmonized(),
-              );
-              darkTheme = ThemeData(
+            final colorTheme = ref.watch(actualColorThemeProvider);
+            ThemeData lightTheme = ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: colorTheme,
+              ),
+            );
+            ThemeData darkTheme = ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: colorTheme,
                 brightness: Brightness.dark,
-                colorScheme: darkDynamic!.harmonized(),
-              );
-            } else {
-              lightTheme = ThemeData(
-                colorScheme: ColorScheme.fromSeed(
-                  seedColor: themeColor.colorTheme,
-                ),
-              );
-              darkTheme = ThemeData(
-                colorScheme: ColorScheme.fromSeed(
-                  seedColor: themeColor.colorTheme,
-                  brightness: Brightness.dark,
-                ),
-                brightness: Brightness.dark,
-              );
-            }
+              ),
+              brightness: Brightness.dark,
+            );
             ThemeData amoledTheme = darkTheme.copyWith(
               scaffoldBackgroundColor: Colors.black,
               drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
@@ -91,22 +74,9 @@ class MyApp extends ConsumerWidget {
             amoledTheme = amoledTheme.copyWith(
               pageTransitionsTheme: pageTransitionsTheme,
             );
-            final themeMode =
-                ref.watch(CurrentThemeMode.provider).value ?? ThemeMode.system;
-
-            final deviceLocaleLanguageCode =
-                PlatformDispatcher.instance.locale.languageCode;
-            Locale appLocale;
-            if (settingsLocale != null) {
-              appLocale = settingsLocale;
-            } else if (mapLocale.keys
-                .map((Locale locale) => locale.languageCode)
-                .contains(deviceLocaleLanguageCode)) {
-              appLocale = Locale(deviceLocaleLanguageCode);
-            } else {
-              appLocale = const Locale('en');
-            }
-
+            final ThemeMode themeMode = ThemeMode.values[
+                ref.watch(themeModeProvider).value ?? ThemeMode.system.index];
+            final appLocale = ref.watch(actualLocaleProvider);
             final appRouter = ref.read(routerProvider);
 
             return MaterialApp.router(
