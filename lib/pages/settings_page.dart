@@ -26,15 +26,18 @@ class SettingsPage extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
 
     final mapTheme = {
-      ThemeMode.system: (
+      ThemeMode.system.index: (
         title: l10n.system,
         icon: Icons.brightness_auto_outlined,
       ),
-      ThemeMode.dark: (title: l10n.dark, icon: Icons.dark_mode_outlined),
-      ThemeMode.light: (title: l10n.light, icon: Icons.light_mode_outlined),
+      ThemeMode.dark.index: (title: l10n.dark, icon: Icons.dark_mode_outlined),
+      ThemeMode.light.index: (
+        title: l10n.light,
+        icon: Icons.light_mode_outlined
+      ),
     };
+    final languageTag = ref.watch(languageTagProvider).value;
 
-    final themeColor = ref.watch(ThemeColorNotifier.provider).value!;
     final iconColor = getIconColor(Theme.of(context));
     final titlesStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
           color: switch (Theme.brightnessOf(context)) {
@@ -70,18 +73,20 @@ class SettingsPage extends ConsumerWidget {
                   leading: Icon(Icons.language, color: iconColor),
                   title: l10n.language,
                   items: [l10n.system, ...mapLocale.values],
-                  value: mapLocale[ref.watch(CurrentLocale.provider).value] ??
-                      l10n.system,
+                  value: languageTag == null
+                      ? l10n.system
+                      : mapLocale[languageTagToLocale(languageTag)]!,
                   onChanged: (String? string) {
-                    if (string != null) {
-                      ref.read(CurrentLocale.provider.notifier).set(
-                            string == l10n.system
-                                ? null
-                                : mapLocale.keys.firstWhere(
-                                    (element) => mapLocale[element] == string,
-                                  ),
-                          );
-                    }
+                    if (string == null) return;
+                    ref
+                        .read(languageTagProvider.notifier)
+                        .set(string == l10n.system
+                            ? null
+                            : mapLocale.keys
+                                .firstWhere(
+                                  (element) => mapLocale[element] == string,
+                                )
+                                .toLanguageTag());
                   },
                 ),
                 ListTile(
@@ -97,9 +102,7 @@ class SettingsPage extends ConsumerWidget {
                       height: 24,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24 / 2),
-                        color: themeColor.useDeviceColor
-                            ? ref.watch(deviceAccentColorProvider)!
-                            : themeColor.colorTheme,
+                        color: ref.watch(actualColorThemeProvider),
                       ),
                     ),
                   ),
@@ -113,11 +116,10 @@ class SettingsPage extends ConsumerWidget {
                   title: l10n.theme,
                   items: mapTheme.values.toList(),
                   value:
-                      mapTheme[ref.watch(CurrentThemeMode.provider).value ?? 0]!
-                          .title,
+                      mapTheme[ref.watch(themeModeProvider).value ?? 0]!.title,
                   onChanged: (String? string) {
                     if (string != null) {
-                      ref.read(CurrentThemeMode.provider.notifier).set(
+                      ref.read(themeModeProvider.notifier).set(
                             mapTheme.keys
                                 .where((key) => mapTheme[key]?.title == string)
                                 .single,
@@ -162,8 +164,7 @@ class SettingsPage extends ConsumerWidget {
                   SwitchListTile(
                     secondary: Icon(Icons.public_off, color: iconColor),
                     title: Text(l10n.revokeInternetAccess),
-                    value: ref.watch(revokeInternetProvider).value ??
-                        false,
+                    value: ref.watch(revokeInternetProvider).value ?? false,
                     onChanged: (bool val) {
                       if (val) {
                         showDialog(
@@ -202,9 +203,7 @@ class SettingsPage extends ConsumerWidget {
                           },
                         );
                       } else {
-                        ref
-                            .read(revokeInternetProvider.notifier)
-                            .set(val);
+                        ref.read(revokeInternetProvider.notifier).set(val);
                         ref
                             .read(CurrenciesNotifier.provider.notifier)
                             .forceCurrenciesDownload();
@@ -489,8 +488,9 @@ class ColorPickerDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final themeColor = ref.watch(ThemeColorNotifier.provider).value!;
     final deviceAccentColor = ref.watch(deviceAccentColorProvider);
+    final colorTheme = Color(ref.watch(colorThemeProvider).value!);
+    final useDeviceColor = ref.watch(useDeviceColorProvider).value!;
 
     return AlertDialog(
       title: Text(l10n.themeColor),
@@ -502,28 +502,24 @@ class ColorPickerDialog extends ConsumerWidget {
           children: [
             if (deviceAccentColor != null) ...[
               SwitchListTile(
-                value: themeColor.useDeviceColor,
-                onChanged: (val) {
-                  ref
-                      .read(ThemeColorNotifier.provider.notifier)
-                      .setDefaultTheme(val);
-                },
+                value: useDeviceColor,
+                onChanged: (val) =>
+                    ref.read(useDeviceColorProvider.notifier).set(val),
                 title: Text(l10n.useDeviceColor),
               ),
               const SizedBox(height: 8),
             ],
             Text(
-              !themeColor.useDeviceColor ? l10n.pickColor : '',
+              !useDeviceColor ? l10n.pickColor : '',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 4),
             Center(
               child: Palette(
-                initial: themeColor.colorTheme,
-                enabled: !themeColor.useDeviceColor,
-                onSelected: (color) => ref
-                    .read(ThemeColorNotifier.provider.notifier)
-                    .setColorTheme(color),
+                initial: colorTheme,
+                enabled: !useDeviceColor,
+                onSelected: (color) =>
+                    ref.read(colorThemeProvider.notifier).set(color.toARGB32()),
               ),
             ),
           ],
