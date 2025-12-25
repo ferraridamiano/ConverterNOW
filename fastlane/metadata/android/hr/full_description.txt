@@ -1,18 +1,13 @@
-<b>Converter NOW učinkovit je konverter mjernih jedinica i valuta</b>
+<b>Converter NOW je učinkovit konverter mjernih jedinica i valuta</b>
 ✔️ <b>Pojednostavlja</b> dosadan postupak izračunavanja mjernih jedinica kroz više koraka.
-🚀 <b>Računa<b> brzo i trenutno</b>: Jednostavno upiši vrijednost za željenu mjernu jedinicu. Sve ostale jedinice izračunavaju se trenutno.
+🚀 <b>Računa<b> brzo i trenutno</b>: Jednostavno upiši vrijednost za željenu mjernu jedinicu. Sve ostale jedinice se izračunavaju trenutno.
 🖌️ <b>Prilagodljiv prikaz</b>: redoslijed jedinica može se promijeniti prema vlastitim potrebama.
-🔢 Sadrži <b>kalkulator</b> koji omogućuje računanje na svakoj stranici.
-💰 <b>Dnevno aktualiziramo</b> vrijednosti valuta.
+🔢 Integrira <b>kalkulator</b> koji omogućuje računanje na svakoj stranici.
+💰 <b>Dnevno aktualiziranje</b> vrijednosti valuta.
+🎨 <b>Dinamičke teme</b> na osnovi postavki tvog uređaja
 ⚫⚪ <b>Odaberi svoju omiljenu temu</b>: tamna i svijetla tema
- 📱 <b>Potpuna podrška</b> za pametne telefone i tablete.
-💯 Program je <b>otvorenog koda</b>!
-
-Pogledaj repozitorij na GitHub-u: https://github.com/ferraridamiano/ConverterNOW
-
-Imamo i web aplikaciju! 🖥️ Pogledaj ovdje: https://ferraridamiano.github.io/ConverterNOW/
-
-Converter NOW je besplatan, bez oglasa, ne zahtijeva nikakve dozvole i ne prikuplja tvoje podatke 🌍
+📱🖥️  <b>Višeplatformski</b>: dostupno za Android, web, Linux i Windows
+💯 Besplatan je, bez oglasa, bez prikupljanja podataka, bez dozvola (osim internetske veze za aktualiziranje tečaja valuta), a prije svega je otvorenog koda!
 
 <b>Converter NOW pretvara više od 200 mjernih jedinica i više od 30 valuta</b> 🎉🎉
 
@@ -29,6 +24,7 @@ Fizikalne veličine koje Converter NOW pretvara su:
 -<b>Pritisak:</b> paskal, bar, atomfera, psi itd.
 -<b>Energija:</b> džul, kalorija, kilovat-sat itd.
 -<b>Snaga:</b> vat, kilovat, konjska snaga itd.
+-<b>Gustoća:</b> gram po kubičnom metru, itd.</li>
 -<b>Potrošnja goriva:</b> milja na galon, kilometara na litru itd.
 -<b>Numerički sustavi:</b> decimalni, binarni, heksadecimalni itd.
 -<b>Zakretni moment:</b> njutn metar, funta-sila stopa, poundal metar itd.
