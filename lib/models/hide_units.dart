@@ -36,20 +36,33 @@ class HiddenUnitsNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
     return newState;
   }
 
-  void set(List hiddenUnits, PROPERTYX property) async {
+  bool set(List hiddenUnits, PROPERTYX property) {
+    final allUnits = defaultUnitsOrder[property];
+    if (allUnits == null) return false;
+
+    // Check if hiddenUnits are valid for this property
+    final allUnitsStrings = allUnits.map((e) => e.toString()).toSet();
+    final hiddenUnitsStrings = hiddenUnits.map((e) => e.toString()).toSet();
+    if (!allUnitsStrings.containsAll(hiddenUnitsStrings)) {
+      return false;
+    }
+
     // Update the state
     final newState = {...state.value!};
     newState[property] = hiddenUnits;
     state = AsyncData(newState);
     // Store the new values
-    if (hiddenUnits.isEmpty) {
-      // if there aren't hidden units (all visible), just delete the
-      // corresponding value from storage
-      (await ref.read(sharedPref.future)).remove(_storeKey(property));
-    } else {
-      (await ref.read(sharedPref.future)).setStringList(
-          _storeKey(property), hiddenUnits.map((e) => e.toString()).toList());
-    }
+    ref.read(sharedPref.future).then((prefs) {
+      if (hiddenUnits.isEmpty) {
+        // if there aren't hidden units (all visible), just delete the
+        // corresponding value from storage
+        prefs.remove(_storeKey(property));
+      } else {
+        prefs.setStringList(
+            _storeKey(property), hiddenUnits.map((e) => e.toString()).toList());
+      }
+    });
+    return true;
   }
 
   String _storeKey(PROPERTYX property) =>
