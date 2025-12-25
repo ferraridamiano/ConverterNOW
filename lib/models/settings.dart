@@ -32,101 +32,105 @@ final sharedPref = FutureProvider<SharedPreferencesWithCache>((_) async =>
     await SharedPreferencesWithCache.create(
         cacheOptions: const SharedPreferencesWithCacheOptions()));
 
-class SettingsNotifier<T> extends AsyncNotifier<T> {
+class SettingsNotifier<T> extends AsyncNotifier<T?> {
   late final String prefKey;
-  late final T defaultValue;
-  late final bool Function(T) validate;
+  late final T? defaultValue;
+  late final bool Function(T?) validate;
 
   // Returns true if the validation succeded, false otherwise
-  bool set(T value) {
+  bool set(T? value) {
     if (!validate(value)) {
       return false;
     }
     state = AsyncData(value);
-    ref.read(sharedPref.future).then((pref) {
-      switch (T) {
-        case const (int):
-          pref.setInt(prefKey, value as int);
-          break;
-        case const (bool):
-          pref.setBool(prefKey, value as bool);
-          break;
-        case const (String):
-          pref.setString(prefKey, value as String);
-          break;
-        case const (double):
-          pref.setDouble(prefKey, value as double);
-          break;
-        default:
-          throw UnimplementedError('Type not supported');
-      }
-    });
+    if (value == null) {
+      ref.read(sharedPref.future).then((pref) => pref.remove(prefKey));
+    } else {
+      ref.read(sharedPref.future).then((pref) {
+        switch (T) {
+          case const (int):
+            pref.setInt(prefKey, value as int);
+            break;
+          case const (bool):
+            pref.setBool(prefKey, value as bool);
+            break;
+          case const (String):
+            pref.setString(prefKey, value as String);
+            break;
+          case const (double):
+            pref.setDouble(prefKey, value as double);
+            break;
+          default:
+            throw UnimplementedError('Type not supported');
+        }
+      });
+    }
     return true;
   }
 
   @override
-  Future<T> build() async {
+  Future<T?> build() async {
     var pref = await ref.watch(sharedPref.future);
     return pref.get(prefKey) as T? ?? defaultValue;
   }
 }
 
 final significantFiguresProvider =
-    AsyncNotifierProvider<SettingsNotifier<int>, int>(() {
-  return SettingsNotifier<int>()
+    AsyncNotifierProvider<SettingsNotifier<int?>, int?>(() {
+  return SettingsNotifier<int?>()
     ..prefKey = 'significant_figures'
     ..defaultValue = 10
-    ..validate = (val) => val > 0 && val <= 16;
+    ..validate = (val) => val != null && val > 0 && val <= 16;
 });
 
 final removeTrailingZerosProvider =
-    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+    AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
   return SettingsNotifier<bool>()
     ..prefKey = 'remove_trailing_zeros'
     ..defaultValue = true
-    ..validate = (val) => true;
+    ..validate = (val) => val != null;
 });
 
 final isPureDarkProvider =
-    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+    AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
   return SettingsNotifier<bool>()
     ..prefKey = 'isDarkAmoled'
     ..defaultValue = false
-    ..validate = (val) => true;
+    ..validate = (val) => val != null;
 });
 
 final propertySelectionOnStartupProvider =
-    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+    AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
   return SettingsNotifier<bool>()
     ..prefKey = 'propertySelectionOnStartup'
     ..defaultValue = true
-    ..validate = (val) => true;
+    ..validate = (val) => val != null;
 });
 
 final revokeInternetProvider =
-    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+    AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
   return SettingsNotifier<bool>()
     ..prefKey = 'revokeInternet'
     ..defaultValue = false
-    ..validate = (val) => true;
+    ..validate = (val) => val != null;
 });
 
 final useDeviceColorProvider =
-    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+    AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
   return SettingsNotifier<bool>()
     ..prefKey = 'useDeviceColor'
     // Here we set default theme to fallbackColorTheme (it is easier to support
     // device that does not have a color accent)
     ..defaultValue = false
-    ..validate = (val) => true;
+    ..validate = (val) => val != null;
 });
 
 final colorThemeProvider =
-    AsyncNotifierProvider<SettingsNotifier<int>, int>(() {
+    AsyncNotifierProvider<SettingsNotifier<int?>, int?>(() {
   return SettingsNotifier<int>()
     ..prefKey = 'colorTheme'
     ..defaultValue = fallbackColorTheme.toARGB32()
-    ..validate = (val) => val > 0 && val <= 0xFFFFFFFF;
+    ..validate = (val) => val != null && val > 0 && val <= 0xFFFFFFFF;
 });
 
 /// `null` means no accent color
@@ -144,40 +148,34 @@ final actualColorThemeProvider = Provider<Color>((ref) {
           : fallbackColorTheme;
 });
 
-final themeModeProvider = AsyncNotifierProvider<SettingsNotifier<int>, int>(() {
+final themeModeProvider =
+    AsyncNotifierProvider<SettingsNotifier<int?>, int?>(() {
   return SettingsNotifier<int>()
     ..prefKey = 'currentThemeMode'
     ..defaultValue = ThemeMode.system.index
-    ..validate = (val) => val >= 0 && val < ThemeMode.values.length;
+    ..validate =
+        (val) => val != null && val >= 0 && val < ThemeMode.values.length;
 });
 
 final languageTagProvider =
-    AsyncNotifierProvider<SettingsNotifier<String>, String>(() {
+    AsyncNotifierProvider<SettingsNotifier<String?>, String?>(() {
   return SettingsNotifier<String>()
     ..prefKey = 'locale'
-    ..defaultValue = fallbackLocale.toLanguageTag()
-    ..validate = (val) => mapLocale.keys.any((e) => e.toLanguageTag() == val);
-});
-
-final useDeviceLocaleProvider =
-    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
-  return SettingsNotifier<bool>()
-    ..prefKey = 'useDeviceLocale'
-    ..defaultValue = true
-    ..validate = (val) => true;
+    ..defaultValue = null
+    ..validate = (val) =>
+        val == null || mapLocale.keys.any((e) => e.toLanguageTag() == val);
 });
 
 final actualLocaleProvider = Provider<Locale?>((ref) {
-  final useDeviceLocale = ref.watch(useDeviceLocaleProvider).value ?? true;
-  final locale = ref.watch(languageTagProvider).value;
+  final languageTag = ref.watch(languageTagProvider).value;
 
-  if (useDeviceLocale) {
-    final deviceLocale = PlatformDispatcher.instance.locale.languageCode;
+  if (languageTag == null) {
+    final deviceLocaleTag = PlatformDispatcher.instance.locale.toLanguageTag();
     final isSupported =
-        mapLocale.keys.any((l) => l.toLanguageTag() == deviceLocale);
-    return isSupported ? Locale(deviceLocale) : fallbackLocale;
+        mapLocale.keys.any((l) => l.toLanguageTag() == deviceLocaleTag);
+    return isSupported ? Locale(deviceLocaleTag) : fallbackLocale;
   }
-  return locale != null ? languageTagToLocale(locale) : fallbackLocale;
+  return languageTagToLocale(languageTag);
 });
 
 Locale languageTagToLocale(String languageTag) {

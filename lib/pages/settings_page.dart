@@ -36,8 +36,7 @@ class SettingsPage extends ConsumerWidget {
         icon: Icons.light_mode_outlined
       ),
     };
-    final useDeviceLocale = ref.watch(useDeviceLocaleProvider).value!;
-    final languageTag = ref.watch(languageTagProvider).value!;
+    final languageTag = ref.watch(languageTagProvider).value;
 
     final iconColor = getIconColor(Theme.of(context));
     final titlesStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -74,24 +73,20 @@ class SettingsPage extends ConsumerWidget {
                   leading: Icon(Icons.language, color: iconColor),
                   title: l10n.language,
                   items: [l10n.system, ...mapLocale.values],
-                  value: useDeviceLocale
+                  value: languageTag == null
                       ? l10n.system
                       : mapLocale[languageTagToLocale(languageTag)]!,
                   onChanged: (String? string) {
-                    if (string != null) {
-                      if (string == l10n.system) {
-                        ref.read(useDeviceLocaleProvider.notifier).set(true);
-                      } else {
-                        ref.read(useDeviceLocaleProvider.notifier).set(false);
-                        ref
-                            .read(languageTagProvider.notifier)
-                            .set(mapLocale.keys
+                    if (string == null) return;
+                    ref
+                        .read(languageTagProvider.notifier)
+                        .set(string == l10n.system
+                            ? null
+                            : mapLocale.keys
                                 .firstWhere(
                                   (element) => mapLocale[element] == string,
                                 )
                                 .toLanguageTag());
-                      }
-                    }
                   },
                 ),
                 ListTile(

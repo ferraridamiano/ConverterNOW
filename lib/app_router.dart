@@ -30,7 +30,6 @@ final isEverythingLoadedProvider = Provider<bool>((ref) =>
     ref.watch(revokeInternetProvider).hasValue &&
     ref.watch(themeModeProvider).hasValue &&
     ref.watch(languageTagProvider).hasValue &&
-    ref.watch(useDeviceLocaleProvider).hasValue &&
     ref.watch(PropertiesOrderNotifier.provider).hasValue &&
     ref.watch(UnitsOrderNotifier.provider).hasValue &&
     ref.watch(ConversionsNotifier.provider).hasValue &&
