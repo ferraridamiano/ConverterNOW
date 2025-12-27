@@ -1,15 +1,20 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:converterpro/models/currencies.dart';
+import 'package:converterpro/models/import_export.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/palette.dart';
-import 'package:converterpro/utils/utils_widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:translations/app_localizations.dart';
 import 'package:converterpro/utils/utils.dart';
+import 'package:converterpro/utils/utils_widgets.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:translations/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
@@ -292,6 +297,109 @@ class SettingsPage extends ConsumerWidget {
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+                  child: Text(
+                    l10n.backup,
+                    style: titlesStyle,
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(Icons.upload_file, color: iconColor),
+                  title: Text(l10n.exportSettings),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: borderRadius,
+                  ),
+                  onTap: () async {
+                    final jsonString = await ref
+                        .read(ImportExportNotifier.provider.notifier)
+                        .exportSettings();
+                    if (kIsWeb) {
+                      // Web: Trigger download
+                      final bytes = utf8.encode(jsonString);
+                      await FilePicker.platform.saveFile(
+                        dialogTitle: l10n.exportSettings,
+                        fileName: 'settings.json',
+                        bytes: Uint8List.fromList(bytes),
+                      );
+                    } else if (Platform.isAndroid || Platform.isIOS) {
+                      // Mobile: Share
+                      final directory = await getTemporaryDirectory();
+                      final file = File('${directory.path}/settings.json');
+                      await file.writeAsString(jsonString);
+                      await SharePlus.instance.share(
+                        ShareParams(
+                          files: [XFile(file.path)],
+                          subject: 'ConverterNOW Settings',
+                        ),
+                      );
+                    } else {
+                      // Desktop: Save file
+                      final outputFile = await FilePicker.platform.saveFile(
+                        dialogTitle: l10n.exportSettings,
+                        fileName: 'settings.json',
+                      );
+                      if (outputFile != null) {
+                        final file = File(outputFile);
+                        await file.writeAsString(jsonString);
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(l10n.exportSuccess)),
+                          );
+                        }
+                      }
+                    }
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.download, color: iconColor),
+                  title: Text(l10n.importSettings),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: borderRadius,
+                  ),
+                  onTap: () async {
+                    try {
+                      FilePickerResult? result =
+                          await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['json'],
+                      );
+
+                      if (result != null) {
+                        String content;
+                        if (kIsWeb) {
+                          final bytes = result.files.first.bytes;
+                          if (bytes == null) return;
+                          content = utf8.decode(bytes);
+                        } else {
+                          final path = result.files.single.path;
+                          if (path == null) return;
+                          content = await File(path).readAsString();
+                        }
+
+                        final success = await ref
+                            .read(ImportExportNotifier.provider.notifier)
+                            .importSettings(content);
+
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                success ? l10n.importSuccess : l10n.error,
+                              ),
+                            ),
+                          );
+                        }
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(l10n.error)),
+                        );
+                      }
+                    }
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 16, top: 16),

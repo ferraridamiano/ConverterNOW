@@ -16,7 +16,7 @@ class HiddenUnitsNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
     final Map<PROPERTYX, List> newState = {};
 
     for (final property in defaultPropertiesOrder) {
-      final storedList = prefs.getStringList(_storeKey(property));
+      final storedList = prefs.getStringList(storeKey(property));
       final allUnits = defaultUnitsOrder[property]!;
       if (storedList == null) {
         newState[property] = []; // Default to no hidden units
@@ -56,15 +56,15 @@ class HiddenUnitsNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
       if (hiddenUnits.isEmpty) {
         // if there aren't hidden units (all visible), just delete the
         // corresponding value from storage
-        prefs.remove(_storeKey(property));
+        prefs.remove(storeKey(property));
       } else {
         prefs.setStringList(
-            _storeKey(property), hiddenUnits.map((e) => e.toString()).toList());
+            storeKey(property), hiddenUnits.map((e) => e.toString()).toList());
       }
     });
     return true;
   }
 
-  String _storeKey(PROPERTYX property) =>
+  String storeKey(PROPERTYX property) =>
       'hiddenUnits_${property.toString().substring('PROPERTYX.'.length)}';
 }

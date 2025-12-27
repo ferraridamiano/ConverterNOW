@@ -83,7 +83,7 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
     final Map<PROPERTYX, List> newState = {};
 
     for (final property in defaultPropertiesOrder) {
-      final storedList = prefs.getStringList(_storeKey(property));
+      final storedList = prefs.getStringList(storeKey(property));
       final defaultOrder = defaultUnitsOrder[property]!;
       if (storedList == null) {
         newState[property] = defaultOrder;
@@ -102,7 +102,7 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
           storedOrder
               .addAll(defaultOrder.toSet().difference(storedOrder.toSet()));
           (await ref.read(sharedPref.future)).setStringList(
-              _storeKey(property), _toStorableString(storedOrder));
+              storeKey(property), _toStorableString(storedOrder));
         }
         newState[property] = storedOrder;
       }
@@ -133,12 +133,12 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
     state = AsyncData(newState);
     // Store the new values
     ref.read(sharedPref.future).then((prefs) {
-      prefs.setStringList(_storeKey(property), _toStorableString(unitsOrder));
+      prefs.setStringList(storeKey(property), _toStorableString(unitsOrder));
     });
     return true;
   }
 
-  String _storeKey(PROPERTYX property) =>
+  String storeKey(PROPERTYX property) =>
       'unitsOrder_${property.toString().substring('PROPERTYX.'.length)}';
 
   List<String> _toStorableString(List listToConvert) =>
