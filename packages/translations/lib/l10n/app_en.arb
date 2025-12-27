@@ -83,7 +83,7 @@
   "clearSettings": "Clear all settings",
   "exportSuccess": "Settings exported successfully",
   "importSuccess": "Settings imported successfully",
-  "problemImportFile": "There was a problem importing the file.",
+  "problemImportFile": "There was a problem importing the file",
   "relatedSettings": "Related settings",
   "reason": "Reason",
   "importError": "Import Error",

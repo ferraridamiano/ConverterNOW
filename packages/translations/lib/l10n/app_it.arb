@@ -83,7 +83,7 @@
   "clearSettings": "Cancella tutte le impostazioni",
   "exportSuccess": "Impostazioni esportate con successo",
   "importSuccess": "Impostazioni importate con successo",
-  "problemImportFile": "Si è verificato un problema durante l'importazione del file.",
+  "problemImportFile": "Si è verificato un problema durante l'importazione del file",
   "relatedSettings": "Impostazioni correlate",
   "reason": "Motivo",
   "importError": "Errore di importazione",

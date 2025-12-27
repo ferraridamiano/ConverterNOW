@@ -95,7 +95,11 @@ class ImportExportNotifier extends Notifier<void> {
           // Determine the expected type from the notifier's T
           // Since we are using dynamic, we rely on the runtime check of set(T? value)
           // and proper JSON types.
-          if (!notifier.set(value)) {
+          try {
+            if (!notifier.set(value)) {
+              keysError.add(key);
+            }
+          } catch (e) {
             keysError.add(key);
           }
         }
@@ -120,10 +124,13 @@ class ImportExportNotifier extends Notifier<void> {
             }
             newIndices.add(index);
           }
-          if (possible &&
-              !ref
-                  .read(PropertiesOrderNotifier.provider.notifier)
-                  .set(newIndices)) {
+          if (possible) {
+            if (!ref
+                .read(PropertiesOrderNotifier.provider.notifier)
+                .set(newIndices)) {
+              keysError.add(PropertiesOrderNotifier.storeKey);
+            }
+          } else {
             keysError.add(PropertiesOrderNotifier.storeKey);
           }
         }
@@ -174,10 +181,13 @@ class ImportExportNotifier extends Notifier<void> {
               }
               newIndices.add(index);
             }
-            if (possible &&
-                !ref
-                    .read(UnitsOrderNotifier.provider.notifier)
-                    .set(newIndices, property)) {
+            if (possible) {
+              if (!ref
+                  .read(UnitsOrderNotifier.provider.notifier)
+                  .set(newIndices, property)) {
+                keysError.add(unitsOrderKey);
+              }
+            } else {
               keysError.add(unitsOrderKey);
             }
           }

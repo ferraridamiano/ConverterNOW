@@ -159,7 +159,7 @@
   "@importSuccess": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "problemImportFile": "There was a problem importing the file.",
+  "problemImportFile": "There was a problem importing the file",
   "@problemImportFile": {
     "description": "Not yet translated. Once done, remove this comment"
   },
