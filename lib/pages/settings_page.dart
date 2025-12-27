@@ -302,7 +302,7 @@ class SettingsPage extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
                   child: Text(
-                    l10n.backup,
+                    l10n.backupAndRestore,
                     style: titlesStyle,
                   ),
                 ),
@@ -394,17 +394,18 @@ class SettingsPage extends ConsumerWidget {
                               context: context,
                               builder: (context) {
                                 String errorString =
-                                    'There was a problem importing the file.\n';
+                                    '${l10n.problemImportFile}.\n';
                                 if (keysError.isNotEmpty) {
                                   errorString +=
-                                      "Related keys:\n• ${keysError.join('\n• ')}\n";
+                                      "${l10n.relatedSettings}:\n• ${keysError.join('\n• ')}\n";
                                 }
                                 if (importError != null) {
-                                  errorString += 'Reason:\n $importError';
+                                  errorString +=
+                                      '${l10n.reason}:\n $importError';
                                 }
 
                                 return AlertDialog(
-                                  title: const Text("Import error"),
+                                  title: Text(l10n.importError),
                                   content: Text(errorString),
                                   actions: [
                                     TextButton(
@@ -420,18 +421,14 @@ class SettingsPage extends ConsumerWidget {
                         }
                       }
                     } catch (e) {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(l10n.error)),
-                        );
-                      }
+                      dPrint(() => e.toString());
                     }
                   },
                 ),
                 ListTile(
                   leading:
                       Icon(Icons.delete_forever_outlined, color: iconColor),
-                  title: const Text('Clear all settings'),
+                  title: Text(l10n.clearSettings),
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
                   ),
@@ -439,17 +436,16 @@ class SettingsPage extends ConsumerWidget {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: const Text("Confirm deletion"),
-                        content: const Text(
-                            "Are you sure you want to clear all settings? This action cannot be undone."),
+                        title: Text(l10n.clearSettings),
+                        content: Text(l10n.confirmationClear),
                         actions: [
                           TextButton(
-                            child: const Text('Cancel'),
+                            child: Text(l10n.cancel),
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                           TextButton(
                             child: Text(
-                              "Clear all",
+                              l10n.clearAll,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.error,
                                 fontWeight: FontWeight.bold,
