@@ -365,5 +365,12 @@
   "femto": "Femto-",
   "atto": "Atto-",
   "zepto": "Zepto-",
-  "yocto": "Yocto-"
+  "yocto": "Yocto-",
+
+  "backup": "Backup & Restore",
+  "exportSettings": "Export settings",
+  "importSettings": "Import settings",
+  "exportSuccess": "Settings exported successfully",
+  "importSuccess": "Settings imported successfully",
+  "error": "Error"
 }

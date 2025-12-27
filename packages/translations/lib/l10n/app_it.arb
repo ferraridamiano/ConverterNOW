@@ -337,5 +337,12 @@
   "femto": "Femto-",
   "atto": "Atto-",
   "zepto": "Zepto-",
-  "yocto": "Yocto-"
+  "yocto": "Yocto-",
+
+  "backup": "Backup & Ripristino",
+  "exportSettings": "Esporta impostazioni",
+  "importSettings": "Importa impostazioni",
+  "exportSuccess": "Impostazioni esportate con successo",
+  "importSuccess": "Impostazioni importate con successo",
+  "error": "Errore"
 }
