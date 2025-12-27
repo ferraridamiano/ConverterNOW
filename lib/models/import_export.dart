@@ -92,9 +92,6 @@ class ImportExportNotifier extends Notifier<void> {
 
         if (importData.containsKey(key)) {
           final value = importData[key];
-          // Determine the expected type from the notifier's T
-          // Since we are using dynamic, we rely on the runtime check of set(T? value)
-          // and proper JSON types.
           try {
             if (!notifier.set(value)) {
               keysError.add(key);
