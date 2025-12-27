@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:converterpro/data/default_order.dart';
+import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/models/hide_units.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/models/settings.dart';
@@ -178,5 +179,18 @@ class ImportExportNotifier extends Notifier<void> {
     } catch (e) {
       return false;
     }
+  }
+
+  void deleteSettings() {
+    ref.read(sharedPref.future).then((pref) async {
+      await pref.clear();
+      for (final provider in _simpleSettingsProviders) {
+        ref.invalidate(provider);
+      }
+      ref.invalidate(PropertiesOrderNotifier.provider);
+      ref.invalidate(UnitsOrderNotifier.provider);
+      ref.invalidate(HiddenUnitsNotifier.provider);
+      ref.invalidate(CurrenciesNotifier.provider);
+    });
   }
 }

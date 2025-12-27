@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:translations/app_localizations.dart';
@@ -306,7 +307,7 @@ class SettingsPage extends ConsumerWidget {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.upload_file, color: iconColor),
+                  leading: Icon(Icons.file_upload_outlined, color: iconColor),
                   title: Text(l10n.exportSettings),
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
@@ -315,30 +316,32 @@ class SettingsPage extends ConsumerWidget {
                     final jsonString = await ref
                         .read(ImportExportNotifier.provider.notifier)
                         .exportSettings();
+                    final filename =
+                        '${DateFormat('yyyyMMdd').format(DateTime.now())}_converternow.json';
                     if (kIsWeb) {
                       // Web: Trigger download
                       final bytes = utf8.encode(jsonString);
                       await FilePicker.platform.saveFile(
                         dialogTitle: l10n.exportSettings,
-                        fileName: 'settings.json',
+                        fileName: filename,
                         bytes: Uint8List.fromList(bytes),
                       );
                     } else if (Platform.isAndroid || Platform.isIOS) {
                       // Mobile: Share
                       final directory = await getTemporaryDirectory();
-                      final file = File('${directory.path}/settings.json');
+                      final file = File('${directory.path}/$filename');
                       await file.writeAsString(jsonString);
                       await SharePlus.instance.share(
                         ShareParams(
                           files: [XFile(file.path)],
-                          subject: 'ConverterNOW Settings',
+                          subject: 'Converter NOW Backup',
                         ),
                       );
                     } else {
                       // Desktop: Save file
                       final outputFile = await FilePicker.platform.saveFile(
                         dialogTitle: l10n.exportSettings,
-                        fileName: 'settings.json',
+                        fileName: filename,
                       );
                       if (outputFile != null) {
                         final file = File(outputFile);
@@ -353,7 +356,7 @@ class SettingsPage extends ConsumerWidget {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.download, color: iconColor),
+                  leading: Icon(Icons.file_download_outlined, color: iconColor),
                   title: Text(l10n.importSettings),
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
@@ -399,6 +402,45 @@ class SettingsPage extends ConsumerWidget {
                         );
                       }
                     }
+                  },
+                ),
+                ListTile(
+                  leading:
+                      Icon(Icons.delete_forever_outlined, color: iconColor),
+                  title: const Text('Clear all settings'),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: borderRadius,
+                  ),
+                  onTap: () async {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text("Confirm deletion"),
+                        content: const Text(
+                            "Are you sure you want to clear all settings? This action cannot be undone."),
+                        actions: [
+                          TextButton(
+                            child: const Text('Cancel'),
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                          TextButton(
+                            child: Text(
+                              "Clear all",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.error,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: () {
+                              ref
+                                  .read(ImportExportNotifier.provider.notifier)
+                                  .deleteSettings();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      ),
+                    );
                   },
                 ),
                 Padding(

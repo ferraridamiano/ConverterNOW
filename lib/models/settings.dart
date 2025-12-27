@@ -47,21 +47,16 @@ class SettingsNotifier<T> extends AsyncNotifier<T?> {
       ref.read(sharedPref.future).then((pref) => pref.remove(prefKey));
     } else {
       ref.read(sharedPref.future).then((pref) {
-        switch (T) {
-          case const (int):
-            pref.setInt(prefKey, value as int);
-            break;
-          case const (bool):
-            pref.setBool(prefKey, value as bool);
-            break;
-          case const (String):
-            pref.setString(prefKey, value as String);
-            break;
-          case const (double):
-            pref.setDouble(prefKey, value as double);
-            break;
-          default:
-            throw UnimplementedError('Type not supported');
+        if (value is int) {
+          pref.setInt(prefKey, value);
+        } else if (value is bool) {
+          pref.setBool(prefKey, value);
+        } else if (value is String) {
+          pref.setString(prefKey, value);
+        } else if (value is double) {
+          pref.setDouble(prefKey, value);
+        } else {
+          throw UnimplementedError('Type ${T.toString()} not supported');
         }
       });
     }
