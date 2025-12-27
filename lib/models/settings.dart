@@ -43,7 +43,7 @@ class SettingsNotifier<T> extends AsyncNotifier<T?> {
       return false;
     }
     state = AsyncData(value);
-    if (value == null) {
+    if (value == null || value == defaultValue) {
       ref.read(sharedPref.future).then((pref) => pref.remove(prefKey));
     } else {
       ref.read(sharedPref.future).then((pref) {
