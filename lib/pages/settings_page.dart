@@ -335,6 +335,7 @@ class SettingsPage extends ConsumerWidget {
                           subject: 'Converter NOW Backup',
                         ),
                       );
+                      await file.delete(); // Clean up
                     } else {
                       // Desktop: Save file
                       final outputFile = await FilePicker.platform.saveFile(
@@ -379,18 +380,43 @@ class SettingsPage extends ConsumerWidget {
                           content = await File(path).readAsString();
                         }
 
-                        final success = await ref
+                        final (importError, keysError) = await ref
                             .read(ImportExportNotifier.provider.notifier)
                             .importSettings(content);
 
                         if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                success ? l10n.importSuccess : l10n.error,
-                              ),
-                            ),
-                          );
+                          if (importError == null && keysError.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(l10n.importSuccess)),
+                            );
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                String errorString =
+                                    'There was a problem importing the file.\n';
+                                if (keysError.isNotEmpty) {
+                                  errorString +=
+                                      "Related keys:\n• ${keysError.join('\n• ')}\n";
+                                }
+                                if (importError != null) {
+                                  errorString += 'Reason:\n $importError';
+                                }
+
+                                return AlertDialog(
+                                  title: const Text("Import error"),
+                                  content: Text(errorString),
+                                  actions: [
+                                    TextButton(
+                                      child: Text(l10n.ok),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
                         }
                       }
                     } catch (e) {

@@ -79,7 +79,9 @@ class ImportExportNotifier extends Notifier<void> {
 
   /// Imports settings from a JSON string
   /// Returns true if successful, false otherwise
-  Future<bool> importSettings(String jsonString) async {
+  Future<(String?, List<String>)> importSettings(String jsonString) async {
+    String? importError;
+    List<String> keysError = [];
     try {
       final Map<String, dynamic> importData = jsonDecode(jsonString);
 
@@ -93,7 +95,9 @@ class ImportExportNotifier extends Notifier<void> {
           // Determine the expected type from the notifier's T
           // Since we are using dynamic, we rely on the runtime check of set(T? value)
           // and proper JSON types.
-          notifier.set(value);
+          if (!notifier.set(value)) {
+            keysError.add(key);
+          }
         }
       }
 
@@ -116,8 +120,11 @@ class ImportExportNotifier extends Notifier<void> {
             }
             newIndices.add(index);
           }
-          if (possible) {
-            ref.read(PropertiesOrderNotifier.provider.notifier).set(newIndices);
+          if (possible &&
+              !ref
+                  .read(PropertiesOrderNotifier.provider.notifier)
+                  .set(newIndices)) {
+            keysError.add(PropertiesOrderNotifier.storeKey);
           }
         }
       }
@@ -140,10 +147,11 @@ class ImportExportNotifier extends Notifier<void> {
               })
               .nonNulls
               .toList();
-
-          ref
+          if (!ref
               .read(HiddenUnitsNotifier.provider.notifier)
-              .set(newHiddenList, property);
+              .set(newHiddenList, property)) {
+            keysError.add(hiddenUnitsKey);
+          }
         }
 
         // Units Order
@@ -166,19 +174,19 @@ class ImportExportNotifier extends Notifier<void> {
               }
               newIndices.add(index);
             }
-            if (possible) {
-              ref
-                  .read(UnitsOrderNotifier.provider.notifier)
-                  .set(newIndices, property);
+            if (possible &&
+                !ref
+                    .read(UnitsOrderNotifier.provider.notifier)
+                    .set(newIndices, property)) {
+              keysError.add(unitsOrderKey);
             }
           }
         }
       }
-
-      return true;
     } catch (e) {
-      return false;
+      importError = e.toString();
     }
+    return (importError, keysError);
   }
 
   void deleteSettings() {
