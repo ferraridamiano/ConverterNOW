@@ -313,24 +313,22 @@ class SettingsPage extends ConsumerWidget {
                     borderRadius: borderRadius,
                   ),
                   onTap: () async {
-                    final jsonString = await ref
+                    final jsonBytes = utf8.encode(await ref
                         .read(ImportExportNotifier.provider.notifier)
-                        .exportSettings();
+                        .exportSettings());
                     final filename =
                         '${DateFormat('yyyyMMdd').format(DateTime.now())}_converternow.json';
                     if (kIsWeb) {
-                      // Web: Trigger download
-                      final bytes = utf8.encode(jsonString);
                       await FilePicker.platform.saveFile(
                         dialogTitle: l10n.exportSettings,
                         fileName: filename,
-                        bytes: Uint8List.fromList(bytes),
+                        bytes: jsonBytes,
                       );
                     } else if (Platform.isAndroid || Platform.isIOS) {
                       // Mobile: Share
-                      final directory = await getTemporaryDirectory();
-                      final file = File('${directory.path}/$filename');
-                      await file.writeAsString(jsonString);
+                      final file = File(
+                          '${(await getTemporaryDirectory()).path}/$filename');
+                      await file.writeAsBytes(jsonBytes);
                       await SharePlus.instance.share(
                         ShareParams(
                           files: [XFile(file.path)],
@@ -345,7 +343,7 @@ class SettingsPage extends ConsumerWidget {
                       );
                       if (outputFile != null) {
                         final file = File(outputFile);
-                        await file.writeAsString(jsonString);
+                        await file.writeAsBytes(jsonBytes);
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(l10n.exportSuccess)),
