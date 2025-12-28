@@ -165,10 +165,10 @@ final actualLocaleProvider = Provider<Locale?>((ref) {
   final languageTag = ref.watch(languageTagProvider).value;
 
   if (languageTag == null) {
-    final deviceLocaleTag = PlatformDispatcher.instance.locale.toLanguageTag();
+    final deviceLocale = PlatformDispatcher.instance.locale;
     final isSupported =
-        mapLocale.keys.any((l) => l.toLanguageTag() == deviceLocaleTag);
-    return isSupported ? Locale(deviceLocaleTag) : fallbackLocale;
+        mapLocale.keys.any((l) => l.languageCode == deviceLocale.languageCode);
+    return isSupported ? deviceLocale : fallbackLocale;
   }
   return languageTagToLocale(languageTag);
 });

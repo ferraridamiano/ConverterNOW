@@ -21,6 +21,8 @@ dependencies:
   collection: ^1.19.1
   # App dynamic color theme
   dynamic_color: ^1.8.1
+  # Required for import/export
+  file_picker: ^10.3.8
   # State management
   flutter_riverpod: ^3.0.3
   # For svg icons
@@ -31,8 +33,12 @@ dependencies:
   http: ^1.6.0
   # Translations
   intl: ^0.20.2
+  # Required for import/export
+  path_provider: ^2.1.5
   # Android app shortcuts
   quick_actions: ^1.1.0
+  # Required for import/export
+  share_plus: ^12.0.1
   # Store the customizations and the latest currencies conversions
   shared_preferences: ^2.5.3
   # Unit conversion
@@ -55,9 +61,6 @@ dependencies:
   # App translations
   translations:
     path: packages/translations
-  file_picker: ^10.3.8
-  path_provider: ^2.1.5
-  share_plus: ^12.0.1
 
 dev_dependencies:
   flutter_lints: ^6.0.0
