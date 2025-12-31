@@ -63,6 +63,7 @@ class ConversionPage extends ConsumerWidget {
           tffKey: unitData.unit.name.toString(),
           unitName: unitMap[unitData.unit.name]!,
           unitSymbol: unitData.unit.symbol,
+          symbolContainsIcon: unitData.property == PROPERTYX.currencies,
           keyboardType: unitData.textInputType,
           controller: unitData.tec,
           validator: (String? input) {

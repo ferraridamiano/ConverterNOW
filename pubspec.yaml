@@ -88,6 +88,7 @@ melos:
       steps:
         - dart run vector_graphics_compiler --input-dir assets/app_icons --out-dir assets/app_icons_opti
         - dart run vector_graphics_compiler --input-dir assets/property_icons --out-dir assets/property_icons_opti
+        - dart run vector_graphics_compiler --input-dir assets/flags --out-dir assets/flags_opti
       description: Optimizes the svg icons.
     generate_translations:
       run: cd packages/translations && flutter gen-l10n
@@ -114,7 +115,14 @@ flutter:
         - asset: assets/fonts/JosefinSans-Light.ttf
           weight: 300
   assets:
-    - assets/fonts/OFL.txt
-    - assets/logo.png
     - assets/app_icons_opti/
+    - assets/fonts/OFL.txt
     - assets/property_icons_opti/
+    - assets/flags_opti/
+    - assets/flags/br.png
+    - assets/flags/eu.png
+    - assets/flags/in.png
+    - assets/flags/mx.png
+    - assets/flags/nz.png
+    - assets/flags/us.png
+    - assets/logo.png
