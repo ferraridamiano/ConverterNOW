@@ -45,7 +45,7 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Długość"
+        "example": "Length"
       }
     }
   },
@@ -179,6 +179,23 @@
   "are": "Ary",
   "squareFeetUsSurvey": "Stopy kwadratowe (US survey)",
 
+  "gramsPerCubicCentimeter": "Gram na centymetr sześcienny",
+  "gramsPerLiter": "Gram na litr",
+  "gramsPerMilliliter": "Gram na mililitr",
+  "gramsPerDeciliter": "Gram na decylitr",
+  "kilogramsPerLiter": "Kilogram na litr",
+  "kilogramsPerCubicMeter": "Kilogram na meter sześcienny",
+  "milligramsPerLiter": "Miligram na litr",
+  "milligramsPerDeciliter": "Miligram na decylitr",
+  "milligramsPerMilliliter": "Miligram na mililitr",
+  "milligramsPerCubicMeter": "Miligram na metr sześcienny",
+  "milligramsPerCubicCentimeter": "Miligram na centymetr sześcienny",
+  "microgramsPerLiter": "Mikrogram na litr",
+  "microgramsPerDeciliter": "Mikrogram na decylitr",
+  "microgramsPerMilliliter": "Mikrogram na mililitr",
+  "poundsPerCubicInches": "Funt na cal sześcienny",
+  "poundsPerCubicFeet": "Funt na stopę sześcienną",
+
   "cubicMeters": "Metry sześcienne",
   "liters": "Litry",
   "imperialGallons": "Galony angielskie",
@@ -260,23 +277,6 @@
   "ksi": "Kilofunt na cal kwadratowy",
   "megaPascal": "Megapaskal",
   "gigaPascal": "Gigapaskal",
-
-  "gramsPerCubicCentimeter": "Gram na centymetr sześcienny",
-  "gramsPerLiter": "Gram na litr",
-  "gramsPerMilliliter": "Gram na mililitr",
-  "gramsPerDeciliter": "Gram na decylitr",
-  "kilogramsPerLiter": "Kilogram na litr",
-  "kilogramsPerCubicMeter": "Kilogram na meter sześcienny",
-  "milligramsPerLiter": "Miligram na litr",
-  "milligramsPerDeciliter": "Miligram na decylitr",
-  "milligramsPerMilliliter": "Miligram na mililitr",
-  "milligramsPerCubicMeter": "Miligram na metr sześcienny",
-  "milligramsPerCubicCentimeter": "Miligram na centymetr sześcienny",
-  "microgramsPerLiter": "Mikrogram na litr",
-  "microgramsPerDeciliter": "Mikrogram na decylitr",
-  "microgramsPerMilliliter": "Mikrogram na mililitr",
-  "poundsPerCubicInches": "Funt na cal sześcienny",
-  "poundsPerCubicFeet": "Funt na stopę sześcienną",
 
   "joule": "Dżule",
   "calories": "Kalorie",

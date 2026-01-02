@@ -45,7 +45,7 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Длина"
+        "example": "Length"
       }
     }
   },
@@ -70,7 +70,7 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Длина"
+        "example": "Length"
       }
     }
   },
@@ -179,6 +179,23 @@
   "are": "Ары",
   "squareFeetUsSurvey": "Квадратные футы (США)",
 
+  "gramsPerCubicCentimeter": "Граммы на кубический сантиметр",
+  "gramsPerLiter": "Граммы на литр",
+  "gramsPerMilliliter": "Граммы на миллилитр",
+  "gramsPerDeciliter": "Граммы на децилитр",
+  "kilogramsPerLiter": "Килограммы на литр",
+  "kilogramsPerCubicMeter": "Килограммы на кубический метр",
+  "milligramsPerLiter": "Миллиграммы на литр",
+  "milligramsPerDeciliter": "Миллиграммы на децилитр",
+  "milligramsPerMilliliter": "Миллиграммы на миллилитр",
+  "milligramsPerCubicMeter": "Миллиграммы на кубический метр",
+  "milligramsPerCubicCentimeter": "Миллиграммы на кубический сантиметр",
+  "microgramsPerLiter": "Микрограммы на литр",
+  "microgramsPerDeciliter": "Микрограммы на децилитр",
+  "microgramsPerMilliliter": "Микрограммы на миллилитр",
+  "poundsPerCubicInches": "Фунты на кубический дюйм",
+  "poundsPerCubicFeet": "Фунты на кубический фут",
+
   "cubicMeters": "Кубические метры",
   "liters": "Литры",
   "imperialGallons": "Британские галлоны",
@@ -260,22 +277,6 @@
   "ksi": "Килофунты на квадратный дюйм",
   "megaPascal": "Мегапаскали",
   "gigaPascal": "Гигапаскали",
-  "gramsPerCubicCentimeter": "Граммы на кубический сантиметр",
-  "gramsPerLiter": "Граммы на литр",
-  "gramsPerMilliliter": "Граммы на миллилитр",
-  "gramsPerDeciliter": "Граммы на децилитр",
-  "kilogramsPerLiter": "Килограммы на литр",
-  "kilogramsPerCubicMeter": "Килограммы на кубический метр",
-  "milligramsPerLiter": "Миллиграммы на литр",
-  "milligramsPerDeciliter": "Миллиграммы на децилитр",
-  "milligramsPerMilliliter": "Миллиграммы на миллилитр",
-  "milligramsPerCubicMeter": "Миллиграммы на кубический метр",
-  "milligramsPerCubicCentimeter": "Миллиграммы на кубический сантиметр",
-  "microgramsPerLiter": "Микрограммы на литр",
-  "microgramsPerDeciliter": "Микрограммы на децилитр",
-  "microgramsPerMilliliter": "Микрограммы на миллилитр",
-  "poundsPerCubicInches": "Фунты на кубический дюйм",
-  "poundsPerCubicFeet": "Фунты на кубический фут",
 
   "joule": "Джоули",
   "calories": "Калории",
