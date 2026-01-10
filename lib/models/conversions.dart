@@ -78,8 +78,7 @@ class ConversionsNotifier
     final propertiesMap = await ref.read(propertiesMapProvider.future);
     for (UnitData currentUnitData in currentUnitDataList) {
       final currentProperty = propertiesMap[property]!;
-      currentUnitData.unit =
-          currentProperty.getUnit(currentUnitData.unit.name);
+      currentUnitData.unit = currentProperty.getUnit(currentUnitData.unit.name);
       if (currentUnitData != _selectedUnit) {
         if (currentUnitData.unit.stringValue == null) {
           currentUnitData.tec.value = TextEditingValue.empty;

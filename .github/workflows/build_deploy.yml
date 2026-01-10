@@ -57,7 +57,7 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
 
     - name: Upload compiled icons
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: assets
         path: assets
@@ -102,7 +102,7 @@ jobs:
       run: rm -rf assets
 
     - name: Download compiled assets
-      uses: actions/download-artifact@v6
+      uses: actions/download-artifact@v7
       with:
         name: assets
         path: assets

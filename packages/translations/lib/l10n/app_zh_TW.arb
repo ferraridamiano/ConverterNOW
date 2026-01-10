@@ -51,7 +51,7 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "長度"
+        "example": "Length"
       }
     }
   },
@@ -76,13 +76,61 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "長度"
+        "example": "Length"
       }
     }
   },
   "hiddenUnits": "隱藏的單位",
   "selectAll": "選擇所有",
   "unselectAll": "取消選擇",
+  "backupAndRestore": "Backup & Restore",
+  "@backupAndRestore": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "exportSettings": "Export settings",
+  "@exportSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importSettings": "Import settings",
+  "@importSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "clearSettings": "Clear all settings",
+  "@clearSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "exportSuccess": "Settings exported successfully",
+  "@exportSuccess": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importSuccess": "Settings imported successfully",
+  "@importSuccess": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "problemImportFile": "There was a problem importing the file",
+  "@problemImportFile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "relatedSettings": "Related settings",
+  "@relatedSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "reason": "Reason",
+  "@reason": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importError": "Import Error",
+  "@importError": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "confirmationClear": "Are you sure you want to clear all settings? This action cannot be undone.",
+  "@confirmationClear": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "長度",
   "area": "面積",
@@ -136,6 +184,23 @@
   "acres": "英畝",
   "are": "公畝",
   "squareFeetUsSurvey": "平方英尺 (美國)",
+
+  "gramsPerCubicCentimeter": "公克每立方公分",
+  "gramsPerLiter": "公克每公升",
+  "gramsPerMilliliter": "公克每毫升；公克每公撮",
+  "gramsPerDeciliter": "公克每分升；公克每公合",
+  "kilogramsPerLiter": "公斤每公升",
+  "kilogramsPerCubicMeter": "公斤每立方公尺；公斤每立方米",
+  "milligramsPerLiter": "毫克每公升",
+  "milligramsPerDeciliter": "毫克每分升；毫克每公合",
+  "milligramsPerMilliliter": "毫克每毫升；毫克每公撮",
+  "milligramsPerCubicMeter": "毫克每立方公尺；毫克每立方米",
+  "milligramsPerCubicCentimeter": "毫克每立方公分",
+  "microgramsPerLiter": "微克每公升",
+  "microgramsPerDeciliter": "微克每分升；微克每公合",
+  "microgramsPerMilliliter": "微克每毫升；微克每公撮",
+  "poundsPerCubicInches": "磅每立方英寸",
+  "poundsPerCubicFeet": "磅每立方英尺",
 
   "cubicMeters": "立方公尺；立方米",
   "liters": "公升",
@@ -218,22 +283,6 @@
   "ksi": "千磅每平方英寸",
   "megaPascal": "百萬帕[斯卡]",
   "gigaPascal": "吉帕[斯卡]",
-  "gramsPerCubicCentimeter": "公克每立方公分",
-  "gramsPerLiter": "公克每公升",
-  "gramsPerMilliliter": "公克每毫升；公克每公撮",
-  "gramsPerDeciliter": "公克每分升；公克每公合",
-  "kilogramsPerLiter": "公斤每公升",
-  "kilogramsPerCubicMeter": "公斤每立方公尺；公斤每立方米",
-  "milligramsPerLiter": "毫克每公升",
-  "milligramsPerDeciliter": "毫克每分升；毫克每公合",
-  "milligramsPerMilliliter": "毫克每毫升；毫克每公撮",
-  "milligramsPerCubicMeter": "毫克每立方公尺；毫克每立方米",
-  "milligramsPerCubicCentimeter": "毫克每立方公分",
-  "microgramsPerLiter": "微克每公升",
-  "microgramsPerDeciliter": "微克每分升；微克每公合",
-  "microgramsPerMilliliter": "微克每毫升；微克每公撮",
-  "poundsPerCubicInches": "磅每立方英寸",
-  "poundsPerCubicFeet": "磅每立方英尺",
 
   "joule": "焦耳",
   "calories": "卡[路里]",

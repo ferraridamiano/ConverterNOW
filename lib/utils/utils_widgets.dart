@@ -13,6 +13,7 @@ class UnitWidget extends StatefulWidget {
   final String? Function(String?)? validator;
   final String unitName;
   final String? unitSymbol;
+  final bool symbolContainsIcon;
   final void Function(String) onChanged;
 
   const UnitWidget({
@@ -23,6 +24,7 @@ class UnitWidget extends StatefulWidget {
     this.validator,
     required this.unitName,
     this.unitSymbol,
+    required this.symbolContainsIcon,
     required this.onChanged,
   });
 
@@ -70,7 +72,28 @@ class _UnitWidgetState extends State<UnitWidget> {
                   ? null
                   : Padding(
                       padding: const EdgeInsetsDirectional.only(end: 10),
-                      child: Text(widget.unitSymbol!),
+                      child: widget.symbolContainsIcon
+                          ? () {
+                              final symbolSplitted =
+                                  widget.unitSymbol!.split(' ');
+                              final iconPath = symbolSplitted.removeLast();
+                              final symbol = symbolSplitted.join(' ');
+
+                              return Row(
+                                mainAxisSize: MainAxisSize.min,
+                                spacing: 8,
+                                children: [
+                                  Text(symbol),
+                                  iconPath.endsWith('.svg.vec')
+                                      ? SvgPicture(
+                                          AssetBytesLoader(iconPath),
+                                          height: 16,
+                                        )
+                                      : Image.asset(iconPath, height: 16),
+                                ],
+                              );
+                            }()
+                          : Text(widget.unitSymbol!),
                     ),
           // Workaround to make suffixIcon always visible
           // See: https://stackoverflow.com/questions/58819979

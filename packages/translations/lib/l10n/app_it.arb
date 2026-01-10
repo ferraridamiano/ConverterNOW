@@ -45,7 +45,7 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Lunghezza"
+        "example": "Length"
       }
     }
   },
@@ -70,13 +70,25 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Lunghezza"
+        "example": "Length"
       }
     }
   },
   "hiddenUnits": "Unità nascoste",
   "selectAll": "Seleziona tutto",
   "unselectAll": "Deseleziona tutto",
+  "backupAndRestore": "Backup e ripristino",
+  "exportSettings": "Esporta impostazioni",
+  "importSettings": "Importa impostazioni",
+  "clearSettings": "Cancella tutte le impostazioni",
+  "exportSuccess": "Impostazioni esportate con successo",
+  "importSuccess": "Impostazioni importate con successo",
+  "problemImportFile": "Si è verificato un problema durante l'importazione del file",
+  "relatedSettings": "Impostazioni correlate",
+  "reason": "Motivo",
+  "importError": "Errore di importazione",
+  "confirmationClear": "Sei sicuro di voler cancellare tutte le impostazioni? Questa azione non può essere annullata.",
+  "cancel": "Annulla",
 
   "length": "Lunghezza",
   "area": "Superficie",
@@ -130,6 +142,23 @@
   "acres": "Acri",
   "are": "Are",
   "squareFeetUsSurvey": "Piedi Quadrati (US survey)",
+
+  "gramsPerCubicCentimeter": "Grammi per centimetro cubo",
+  "gramsPerLiter": "Grammi per litro",
+  "gramsPerMilliliter": "Grammi per millilitro",
+  "gramsPerDeciliter": "Grammi per decilitro",
+  "kilogramsPerLiter": "Chilogrammi per litro",
+  "kilogramsPerCubicMeter": "Chilogrammi per metro cubo",
+  "milligramsPerLiter": "Milligrammi per litro",
+  "milligramsPerDeciliter": "Milligrammi per decilitro",
+  "milligramsPerMilliliter": "Milligrammi per millilitro",
+  "milligramsPerCubicMeter": "Milligrammi per metro cubo",
+  "milligramsPerCubicCentimeter": "Milligrammi per centimetro cubo",
+  "microgramsPerLiter": "Microgrammi per litro",
+  "microgramsPerDeciliter": "Microgrammi per decilitro",
+  "microgramsPerMilliliter": "Microgrammi per millilitro",
+  "poundsPerCubicInches": "Libbre per pollice cubo",
+  "poundsPerCubicFeet": "Libbre per piede cubo",
 
   "cubicMeters": "Metri Cubi",
   "liters": "Litri",
@@ -212,23 +241,6 @@
   "ksi": "Chilolibbre per pollice quadrato",
   "megaPascal": "Megapascal",
   "gigaPascal": "Gigapascal",
-
-  "gramsPerCubicCentimeter": "Grammi per centimetro cubo",
-  "gramsPerLiter": "Grammi per litro",
-  "gramsPerMilliliter": "Grammi per millilitro",
-  "gramsPerDeciliter": "Grammi per decilitro",
-  "kilogramsPerLiter": "Chilogrammi per litro",
-  "kilogramsPerCubicMeter": "Chilogrammi per metro cubo",
-  "milligramsPerLiter": "Milligrammi per litro",
-  "milligramsPerDeciliter": "Milligrammi per decilitro",
-  "milligramsPerMilliliter": "Milligrammi per millilitro",
-  "milligramsPerCubicMeter": "Milligrammi per metro cubo",
-  "milligramsPerCubicCentimeter": "Milligrammi per centimetro cubo",
-  "microgramsPerLiter": "Microgrammi per litro",
-  "microgramsPerDeciliter": "Microgrammi per decilitro",
-  "microgramsPerMilliliter": "Microgrammi per millilitro",
-  "poundsPerCubicInches": "Libbre per pollice cubo",
-  "poundsPerCubicFeet": "Libbre per piede cubo",
 
   "joule": "Joule",
   "calories": "Calorie",
@@ -316,6 +328,34 @@
   "hexadecimal": "Esadecimale",
   "octal": "Ottale",
   "binary": "Binario",
+
+  "bit": "Bit",
+  "nibble": "Nibble",
+  "kilobit": "Kilobit",
+  "megabit": "Megabit",
+  "gigabit": "Gigabit",
+  "terabit": "Terait",
+  "petabit": "Petabit",
+  "exabit": "Exabit",
+  "kibibit": "Kibibit",
+  "mebibit": "Mebibit",
+  "gibibit": "GibiBit",
+  "tebibit": "Tebibit",
+  "pebibit": "Pebibit",
+  "exbibit": "Exbibit",
+  "byte": "Byte",
+  "kilobyte": "Kilobyte",
+  "megabyte": "Megabyte",
+  "gigabyte": "Gigabyte",
+  "terabyte": "Terabyte",
+  "petabyte": "Petabyte",
+  "exabyte": "Exabyte",
+  "kibibyte": "Kibibyte",
+  "mebibyte": "Mebibyte",
+  "gibibyte": "Gibibyte",
+  "tebibyte": "Tebibyte",
+  "pebibyte": "Pebibyte",
+  "exbibyte": "Exbibyte",
 
   "base": "Base",
   "deca": "Deca-",

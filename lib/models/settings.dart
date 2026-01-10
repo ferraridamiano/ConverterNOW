@@ -1,5 +1,5 @@
+import 'dart:ui';
 import 'package:converterpro/styles/consts.dart';
-import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -32,161 +32,150 @@ final sharedPref = FutureProvider<SharedPreferencesWithCache>((_) async =>
     await SharedPreferencesWithCache.create(
         cacheOptions: const SharedPreferencesWithCacheOptions()));
 
-class SettingsNotifier<T> extends AsyncNotifier<T> {
+class SettingsNotifier<T> extends AsyncNotifier<T?> {
   late final String prefKey;
-  late final T defaultValue;
+  late final T? defaultValue;
+  late final bool Function(T?) validate;
 
-  void set(T value) {
+  // Returns true if the validation succeded, false otherwise
+  bool set(T? value) {
+    if (!validate(value)) {
+      return false;
+    }
     state = AsyncData(value);
-    ref.read(sharedPref.future).then((pref) {
-      switch (T) {
-        case const (int):
-          pref.setInt(prefKey, value as int);
-          break;
-        case const (bool):
-          pref.setBool(prefKey, value as bool);
-          break;
-        case const (String):
-          pref.setString(prefKey, value as String);
-          break;
-        case const (double):
-          pref.setDouble(prefKey, value as double);
-          break;
-        default:
-          throw UnimplementedError('Type not supported');
-      }
-    });
+    if (value == null || value == defaultValue) {
+      ref.read(sharedPref.future).then((pref) => pref.remove(prefKey));
+    } else {
+      ref.read(sharedPref.future).then((pref) {
+        if (value is int) {
+          pref.setInt(prefKey, value);
+        } else if (value is bool) {
+          pref.setBool(prefKey, value);
+        } else if (value is String) {
+          pref.setString(prefKey, value);
+        } else if (value is double) {
+          pref.setDouble(prefKey, value);
+        } else {
+          throw UnimplementedError('Type ${T.toString()} not supported');
+        }
+      });
+    }
+    return true;
   }
 
   @override
-  Future<T> build() async {
+  Future<T?> build() async {
     var pref = await ref.watch(sharedPref.future);
     return pref.get(prefKey) as T? ?? defaultValue;
   }
 }
 
 final significantFiguresProvider =
-    AsyncNotifierProvider<SettingsNotifier<int>, int>(() {
-  return SettingsNotifier<int>()
+    AsyncNotifierProvider<SettingsNotifier<int?>, int?>(() {
+  return SettingsNotifier<int?>()
     ..prefKey = 'significant_figures'
-    ..defaultValue = 10;
+    ..defaultValue = 10
+    ..validate = (val) => val != null && val > 0 && val <= 16;
 });
 
 final removeTrailingZerosProvider =
-    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+    AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
   return SettingsNotifier<bool>()
     ..prefKey = 'remove_trailing_zeros'
-    ..defaultValue = true;
+    ..defaultValue = true
+    ..validate = (val) => val != null;
 });
 
 final isPureDarkProvider =
-    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+    AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
   return SettingsNotifier<bool>()
     ..prefKey = 'isDarkAmoled'
-    ..defaultValue = false;
+    ..defaultValue = false
+    ..validate = (val) => val != null;
 });
 
 final propertySelectionOnStartupProvider =
-    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+    AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
   return SettingsNotifier<bool>()
     ..prefKey = 'propertySelectionOnStartup'
-    ..defaultValue = true;
+    ..defaultValue = true
+    ..validate = (val) => val != null;
 });
 
 final revokeInternetProvider =
-    AsyncNotifierProvider<SettingsNotifier<bool>, bool>(() {
+    AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
   return SettingsNotifier<bool>()
     ..prefKey = 'revokeInternet'
-    ..defaultValue = false;
+    ..defaultValue = false
+    ..validate = (val) => val != null;
+});
+
+final useDeviceColorProvider =
+    AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
+  return SettingsNotifier<bool>()
+    ..prefKey = 'useDeviceColor'
+    // Here we set default theme to fallbackColorTheme (it is easier to support
+    // device that does not have a color accent)
+    ..defaultValue = false
+    ..validate = (val) => val != null;
+});
+
+final colorThemeProvider =
+    AsyncNotifierProvider<SettingsNotifier<int?>, int?>(() {
+  return SettingsNotifier<int>()
+    ..prefKey = 'colorTheme'
+    ..defaultValue = fallbackColorTheme.toARGB32()
+    ..validate = (val) => val != null && val > 0 && val <= 0xFFFFFFFF;
 });
 
 /// `null` means no accent color
 final deviceAccentColorProvider = StateProvider<Color?>((ref) => null);
 
-class ThemeColorNotifier
-    extends AsyncNotifier<({bool useDeviceColor, Color colorTheme})> {
-  static const _prefKeyDefault = 'useDeviceColor';
-  static const _prefKeyColor = 'colorTheme';
-  // Here we set default theme to fallbackColorTheme (it is easier to support
-  // device that does not have a color accent)
-  static const deafultUseDeviceColor = false;
+final actualColorThemeProvider = Provider<Color>((ref) {
+  final useDeviceColor = ref.watch(useDeviceColorProvider).value ?? false;
+  final colorTheme = ref.watch(colorThemeProvider).value;
+  final deviceAccentColor = ref.watch(deviceAccentColorProvider);
 
-  static final provider = AsyncNotifierProvider<ThemeColorNotifier,
-      ({bool useDeviceColor, Color colorTheme})>(ThemeColorNotifier.new);
+  return useDeviceColor
+      ? deviceAccentColor ?? fallbackColorTheme
+      : colorTheme != null
+          ? Color(colorTheme)
+          : fallbackColorTheme;
+});
 
-  @override
-  Future<({bool useDeviceColor, Color colorTheme})> build() async {
-    var pref = await ref.watch(sharedPref.future);
-    final prefColor = pref.getInt(_prefKeyColor);
-    return (
-      useDeviceColor: pref.getBool(_prefKeyDefault) ?? deafultUseDeviceColor,
-      colorTheme: prefColor != null ? Color(prefColor) : fallbackColorTheme,
-    );
+final themeModeProvider =
+    AsyncNotifierProvider<SettingsNotifier<int?>, int?>(() {
+  return SettingsNotifier<int>()
+    ..prefKey = 'currentThemeMode'
+    ..defaultValue = ThemeMode.system.index
+    ..validate =
+        (val) => val != null && val >= 0 && val < ThemeMode.values.length;
+});
+
+final languageTagProvider =
+    AsyncNotifierProvider<SettingsNotifier<String?>, String?>(() {
+  return SettingsNotifier<String>()
+    ..prefKey = 'locale'
+    ..defaultValue = null
+    ..validate = (val) =>
+        val == null || mapLocale.keys.any((e) => e.toLanguageTag() == val);
+});
+
+final actualLocaleProvider = Provider<Locale?>((ref) {
+  final languageTag = ref.watch(languageTagProvider).value;
+
+  if (languageTag == null) {
+    final deviceLocale = PlatformDispatcher.instance.locale;
+    final isSupported =
+        mapLocale.keys.any((l) => l.languageCode == deviceLocale.languageCode);
+    return isSupported ? deviceLocale : fallbackLocale;
   }
+  return languageTagToLocale(languageTag);
+});
 
-  void setDefaultTheme(bool value) {
-    state = AsyncData((
-      useDeviceColor: value,
-      colorTheme: state.value?.colorTheme ?? fallbackColorTheme
-    ));
-    ref
-        .read(sharedPref.future)
-        .then((pref) => pref.setBool(_prefKeyDefault, value));
-  }
-
-  void setColorTheme(Color color) {
-    state = AsyncData((
-      useDeviceColor: state.value?.useDeviceColor ?? deafultUseDeviceColor,
-      colorTheme: color
-    ));
-    ref
-        .read(sharedPref.future)
-        .then((pref) => pref.setInt(_prefKeyColor, color2Int(color)));
-  }
-}
-
-class CurrentThemeMode extends AsyncNotifier<ThemeMode> {
-  static const _prefKey = 'currentThemeMode';
-  static final provider =
-      AsyncNotifierProvider<CurrentThemeMode, ThemeMode>(CurrentThemeMode.new);
-
-  @override
-  Future<ThemeMode> build() async {
-    var pref = await ref.watch(sharedPref.future);
-    return ThemeMode.values[pref.getInt(_prefKey) ?? 0];
-  }
-
-  void set(ThemeMode value) {
-    state = AsyncData(value);
-    ref
-        .read(sharedPref.future)
-        .then((pref) => pref.setInt(_prefKey, ThemeMode.values.indexOf(value)));
-  }
-}
-
-class CurrentLocale extends AsyncNotifier<Locale?> {
-  static const _prefKey = 'locale';
-  static final provider =
-      AsyncNotifierProvider<CurrentLocale, Locale?>(CurrentLocale.new);
-
-  @override
-  Future<Locale?> build() async {
-    var pref = await ref.watch(sharedPref.future);
-
-    var savedLanguageCode = pref.getString(_prefKey);
-    if (savedLanguageCode == null) {
-      return null;
-    }
-    return mapLocale.keys.firstWhere(
-      (element) => element.toLanguageTag() == savedLanguageCode,
-      orElse: () => const Locale('en'),
-    );
-  }
-
-  void set(Locale? value) {
-    state = AsyncData(value);
-    ref.read(sharedPref.future).then((pref) => value == null
-        ? pref.remove(_prefKey)
-        : pref.setString(_prefKey, value.toLanguageTag()));
-  }
+Locale languageTagToLocale(String languageTag) {
+  return mapLocale.keys.firstWhere(
+    (e) => e.toLanguageTag() == languageTag,
+    orElse: () => fallbackLocale,
+  );
 }

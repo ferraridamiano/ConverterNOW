@@ -31,14 +31,8 @@
   "light": "Светлая",
   "system": "Как в системе",
   "pureBlackTheme": "Чёрная тема",
-  "propertySelectionOnStartup": "Property selection on startup",
-  "@propertySelectionOnStartup": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "propertySelectionOnStartupSubtitle": "Show the property selection page on startup on small screen devices",
-  "@propertySelectionOnStartupSubtitle": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "propertySelectionOnStartup": "Выбор категории при запуске",
+  "propertySelectionOnStartupSubtitle": "Открывать страницу выбора категории при запуске на устройствах с маленьким экраном",
   "copy": "Копировать",
   "paste": "Вставить",
   "more": "Ещё",
@@ -51,7 +45,7 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Длина"
+        "example": "Length"
       }
     }
   },
@@ -76,13 +70,61 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "Длина"
+        "example": "Length"
       }
     }
   },
   "hiddenUnits": "Скрытые единицы измерения",
   "selectAll": "Выбрать все",
   "unselectAll": "Снять выбор",
+  "backupAndRestore": "Backup & Restore",
+  "@backupAndRestore": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "exportSettings": "Export settings",
+  "@exportSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importSettings": "Import settings",
+  "@importSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "clearSettings": "Clear all settings",
+  "@clearSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "exportSuccess": "Settings exported successfully",
+  "@exportSuccess": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importSuccess": "Settings imported successfully",
+  "@importSuccess": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "problemImportFile": "There was a problem importing the file",
+  "@problemImportFile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "relatedSettings": "Related settings",
+  "@relatedSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "reason": "Reason",
+  "@reason": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importError": "Import Error",
+  "@importError": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "confirmationClear": "Are you sure you want to clear all settings? This action cannot be undone.",
+  "@confirmationClear": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "Длина",
   "area": "Площадь",
@@ -136,6 +178,23 @@
   "acres": "Акры",
   "are": "Ары",
   "squareFeetUsSurvey": "Квадратные футы (США)",
+
+  "gramsPerCubicCentimeter": "Граммы на кубический сантиметр",
+  "gramsPerLiter": "Граммы на литр",
+  "gramsPerMilliliter": "Граммы на миллилитр",
+  "gramsPerDeciliter": "Граммы на децилитр",
+  "kilogramsPerLiter": "Килограммы на литр",
+  "kilogramsPerCubicMeter": "Килограммы на кубический метр",
+  "milligramsPerLiter": "Миллиграммы на литр",
+  "milligramsPerDeciliter": "Миллиграммы на децилитр",
+  "milligramsPerMilliliter": "Миллиграммы на миллилитр",
+  "milligramsPerCubicMeter": "Миллиграммы на кубический метр",
+  "milligramsPerCubicCentimeter": "Миллиграммы на кубический сантиметр",
+  "microgramsPerLiter": "Микрограммы на литр",
+  "microgramsPerDeciliter": "Микрограммы на децилитр",
+  "microgramsPerMilliliter": "Микрограммы на миллилитр",
+  "poundsPerCubicInches": "Фунты на кубический дюйм",
+  "poundsPerCubicFeet": "Фунты на кубический фут",
 
   "cubicMeters": "Кубические метры",
   "liters": "Литры",
@@ -218,22 +277,6 @@
   "ksi": "Килофунты на квадратный дюйм",
   "megaPascal": "Мегапаскали",
   "gigaPascal": "Гигапаскали",
-  "gramsPerCubicCentimeter": "Граммы на кубический сантиметр",
-  "gramsPerLiter": "Граммы на литр",
-  "gramsPerMilliliter": "Граммы на миллилитр",
-  "gramsPerDeciliter": "Граммы на децилитр",
-  "kilogramsPerLiter": "Килограммы на литр",
-  "kilogramsPerCubicMeter": "Килограммы на кубический метр",
-  "milligramsPerLiter": "Миллиграммы на литр",
-  "milligramsPerDeciliter": "Миллиграммы на децилитр",
-  "milligramsPerMilliliter": "Миллиграммы на миллилитр",
-  "milligramsPerCubicMeter": "Миллиграммы на кубический метр",
-  "milligramsPerCubicCentimeter": "Миллиграммы на кубический сантиметр",
-  "microgramsPerLiter": "Микрограммы на литр",
-  "microgramsPerDeciliter": "Микрограммы на децилитр",
-  "microgramsPerMilliliter": "Микрограммы на миллилитр",
-  "poundsPerCubicInches": "Фунты на кубический дюйм",
-  "poundsPerCubicFeet": "Фунты на кубический фут",
 
   "joule": "Джоули",
   "calories": "Калории",

@@ -57,7 +57,7 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "長さ"
+        "example": "Length"
       }
     }
   },
@@ -129,6 +129,54 @@
   "@unselectAll": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "backupAndRestore": "Backup & Restore",
+  "@backupAndRestore": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "exportSettings": "Export settings",
+  "@exportSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importSettings": "Import settings",
+  "@importSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "clearSettings": "Clear all settings",
+  "@clearSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "exportSuccess": "Settings exported successfully",
+  "@exportSuccess": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importSuccess": "Settings imported successfully",
+  "@importSuccess": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "problemImportFile": "There was a problem importing the file",
+  "@problemImportFile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "relatedSettings": "Related settings",
+  "@relatedSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "reason": "Reason",
+  "@reason": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importError": "Import Error",
+  "@importError": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "confirmationClear": "Are you sure you want to clear all settings? This action cannot be undone.",
+  "@confirmationClear": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "長さ",
   "area": "面積",
@@ -185,6 +233,71 @@
   "acres": "エーカー",
   "are": "アール",
   "squareFeetUsSurvey": "平方フィート(アメリカ)",
+
+  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
+  "@gramsPerCubicCentimeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerLiter": "Grams per Liter",
+  "@gramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerMilliliter": "Grams per Milliliter",
+  "@gramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerDeciliter": "Grams per Deciliter",
+  "@gramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilogramsPerLiter": "Kilograms per Liter",
+  "@kilogramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
+  "@kilogramsPerCubicMeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerLiter": "Milligrams per Liter",
+  "@milligramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerDeciliter": "Milligrams per Deciliter",
+  "@milligramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerMilliliter": "Milligrams per Milliliter",
+  "@milligramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
+  "@milligramsPerCubicMeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
+  "@milligramsPerCubicCentimeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerLiter": "Micrograms per Liter",
+  "@microgramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerDeciliter": "Micrograms per Deciliter",
+  "@microgramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerMilliliter": "Micrograms per Milliliter",
+  "@microgramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "poundsPerCubicInches": "Pounds per Cubic Inches",
+  "@poundsPerCubicInches": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "poundsPerCubicFeet": "Pounds per Cubic Feet",
+  "@poundsPerCubicFeet": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "cubicMeters": "立方メートル",
   "liters": "リットル",
@@ -289,71 +402,6 @@
   },
   "gigaPascal": "Gigapascal",
   "@gigaPascal": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-
-  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
-  "@gramsPerCubicCentimeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerLiter": "Grams per Liter",
-  "@gramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerMilliliter": "Grams per Milliliter",
-  "@gramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerDeciliter": "Grams per Deciliter",
-  "@gramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "kilogramsPerLiter": "Kilograms per Liter",
-  "@kilogramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
-  "@kilogramsPerCubicMeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerLiter": "Milligrams per Liter",
-  "@milligramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerDeciliter": "Milligrams per Deciliter",
-  "@milligramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerMilliliter": "Milligrams per Milliliter",
-  "@milligramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
-  "@milligramsPerCubicMeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
-  "@milligramsPerCubicCentimeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerLiter": "Micrograms per Liter",
-  "@microgramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerDeciliter": "Micrograms per Deciliter",
-  "@microgramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerMilliliter": "Micrograms per Milliliter",
-  "@microgramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "poundsPerCubicInches": "Pounds per Cubic Inches",
-  "@poundsPerCubicInches": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "poundsPerCubicFeet": "Pounds per Cubic Feet",
-  "@poundsPerCubicFeet": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
