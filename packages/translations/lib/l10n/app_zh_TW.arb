@@ -374,11 +374,29 @@
   "bit": "位元",
   "nibble": "半位元組",
   "kilobit": "千位元",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "megabit": "百萬位元",
+  "@megabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "gigabit": "吉位元",
+  "@gigabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "terabit": "兆位元",
+  "@terabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "petabit": "拍位元",
+  "@petabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "exabit": "艾位元",
+  "@exabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "kibibit": "千位元（二進）",
   "mebibit": "百萬位元（二進）",
   "gibibit": "吉位元（二進）",
@@ -387,11 +405,29 @@
   "exbibit": "艾位元（二進）",
   "byte": "位元組",
   "kilobyte": "千位元組",
+  "@kilobyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "megabyte": "百萬位元組",
+  "@megabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "gigabyte": "吉位元組",
+  "@gigabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "terabyte": "兆位元組",
+  "@terabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "petabyte": "拍位元組",
+  "@petabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "exabyte": "艾位元組",
+  "@exabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "kibibyte": "千位元組",
   "mebibyte": "百萬位元組",
   "gibibyte": "吉位元組",

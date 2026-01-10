@@ -440,11 +440,29 @@
   "bit": "বিট",
   "nibble": "নিবল",
   "kilobit": "কিলোবিট",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "megabit": "মেগাবিট",
+  "@megabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "gigabit": "গিগাবিট",
+  "@gigabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "terabit": "টেরাবিট",
+  "@terabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "petabit": "পেটাবিট",
+  "@petabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "exabit": "এক্সাবিট",
+  "@exabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "kibibit": "কিবিবিট",
   "mebibit": "মেবিবিট",
   "gibibit": "গিবিবিট",
@@ -453,11 +471,29 @@
   "exbibit": "এক্সবিবিট",
   "byte": "বাইট",
   "kilobyte": "কিলোবাইট",
+  "@kilobyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "megabyte": "মেগাবাইট",
+  "@megabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "gigabyte": "গিগাবাইট",
+  "@gigabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "terabyte": "টেরাবাইট",
+  "@terabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "petabyte": "পেটাবাইট",
+  "@petabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "exabyte": "এক্সাবাইট",
+  "@exabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "kibibyte": "কিবিবাইট",
   "mebibyte": "মেবিবাইট",
   "gibibyte": "গিবিবাইট",

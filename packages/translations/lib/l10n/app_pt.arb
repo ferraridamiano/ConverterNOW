@@ -523,28 +523,64 @@
 
   "bit": "Bit",
   "nibble": "Nibble",
-  "kilobit": "KiloBit",
-  "megabit": "MegaBit",
-  "gigabit": "GigaBit",
-  "terabit": "TeraBit",
-  "petabit": "PetaBit",
-  "exabit": "ExaBit",
+  "kilobit": "Kilobit",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
+  "megabit": "Megabit",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
+  "gigabit": "Gigabit",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
+  "terabit": "Terabit",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
+  "petabit": "Petabit",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
+  "exabit": "Exabit",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "kibibit": "Kibibit",
   "mebibit": "Mebibit",
-  "gibibit": "GibiBit",
+  "gibibit": "Gibibit",
   "tebibit": "Tebibit",
   "pebibit": "Pebibit",
   "exbibit": "Exbibit",
   "byte": "Byte",
-  "kilobyte": "KiloByte",
-  "megabyte": "MegaByte",
-  "gigabyte": "GigaByte",
-  "terabyte": "TeraByte",
-  "petabyte": "PetaByte",
-  "exabyte": "ExaByte",
+  "kilobyte": "Kilobyte",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
+  "megabyte": "Megabyte",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
+  "gigabyte": "Gigabyte",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
+  "terabyte": "Terabyte",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
+  "petabyte": "Petabyte",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
+  "exabyte": "Exabyte",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "kibibyte": "Kibibyte",
   "mebibyte": "Mebibyte",
-  "gibibyte": "GibiByte",
+  "gibibyte": "Gibibyte",
   "tebibyte": "Tebibyte",
   "pebibyte": "Pebibyte",
   "exbibyte": "Exbibyte",

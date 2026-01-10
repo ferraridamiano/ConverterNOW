@@ -471,11 +471,29 @@
   "bit": "Μπιτ",
   "nibble": "Νίμπλ",
   "kilobit": "Κιλομπίτ",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "megabit": "Μεγαμπίτ",
+  "@megabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "gigabit": "Γιγαμπίτ",
+  "@gigabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "terabit": "Τεραμπίτ",
+  "@terabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "petabit": "Πεταμπίτ",
+  "@petabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "exabit": "Έξαμπίτ",
+  "@exabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "kibibit": "Κιμπιμπίτ",
   "mebibit": "Μεμπιμπίτ",
   "gibibit": "Γκιμπιμπίτ",
@@ -484,11 +502,29 @@
   "exbibit": "Εξμπιμπίτ",
   "byte": "Μπάιτ",
   "kilobyte": "Κιλομπάιτ",
+  "@kilobyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "megabyte": "Μεγκαμπάιτ",
+  "@megabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "gigabyte": "Γκιγκαμπάιτ",
+  "@gigabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "terabyte": "Τεραμπάιτ",
+  "@terabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "petabyte": "Πεταμπάιτ",
+  "@petabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "exabyte": "Εξαμπάιτ",
+  "@exabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "kibibyte": "Κιμπιμπάιτ",
   "mebibyte": "Μεμπιμπάιτ",
   "gibibyte": "Γκιμπιμπάιτ",
