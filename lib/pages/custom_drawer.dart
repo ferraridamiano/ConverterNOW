@@ -56,12 +56,16 @@ class CustomDrawer extends ConsumerWidget {
         ),
       ),
     );
-    headerDrawer.add(isDrawerFixed
-        ? InkWell(
-            onTap: () => context.go('/'),
-            child: title,
-          )
-        : title);
+    headerDrawer.add(
+      ExcludeSemantics(
+        child: isDrawerFixed
+            ? InkWell(
+                onTap: () => context.go('/'),
+                child: title,
+              )
+            : title,
+      ),
+    );
 
     if (isDrawerFixed) {
       final keyDecoration = BoxDecoration(
