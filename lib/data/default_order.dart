@@ -123,7 +123,6 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
     'CZK',
     'HUF',
     'RON',
-    'BGN',
     'IDR',
     'THB',
     'PHP',

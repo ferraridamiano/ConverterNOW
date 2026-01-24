@@ -10,7 +10,6 @@ class Currencies {
   static const defaultExchangeRates = {
     'EUR': 1.0,
     'AUD': 1.6514,
-    'BGN': 1.9558,
     'BRL': 6.0127,
     'CAD': 1.4856,
     'CHF': 0.9442,

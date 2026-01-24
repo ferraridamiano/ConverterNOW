@@ -34,7 +34,6 @@ const Map<String, String> _currenciesSymbols = {
   'GBP': '£ assets/flags_opti/gb.svg.vec',
   'KRW': '₩ assets/flags_opti/kr.svg.vec',
   'PLN': 'zł assets/flags_opti/pl.svg.vec',
-  'BGN': 'лв assets/flags_opti/bg.svg.vec',
   'ISK': 'kr assets/flags_opti/is.svg.vec',
 };
 

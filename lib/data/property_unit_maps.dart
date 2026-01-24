@@ -145,7 +145,6 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       'CZK': l10n.czk,
       'HUF': l10n.huf,
       'RON': l10n.ron,
-      'BGN': l10n.bgn,
       'IDR': l10n.idr,
       'THB': l10n.thb,
       'PHP': l10n.php,
