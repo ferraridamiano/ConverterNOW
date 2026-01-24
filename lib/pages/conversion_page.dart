@@ -5,11 +5,13 @@ import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/models/hide_units.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:intl/intl.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 
 class ConversionPage extends ConsumerWidget {
   final PROPERTYX property;
@@ -63,6 +65,7 @@ class ConversionPage extends ConsumerWidget {
           tffKey: unitData.unit.name.toString(),
           unitName: unitMap[unitData.unit.name]!,
           unitSymbol: unitData.unit.symbol,
+          symbolContainsIcon: unitData.property == PROPERTYX.currencies,
           keyboardType: unitData.textInputType,
           controller: unitData.tec,
           validator: (String? input) {
@@ -114,7 +117,20 @@ class ConversionPage extends ConsumerWidget {
       final int numCols = responsiveNumCols(constraint.maxWidth);
       return CustomScrollView(slivers: <Widget>[
         SliverAppBar.large(
-          title: Text(propertyUiMap[property]!.name),
+          title: Row(
+            spacing: 12,
+            children: [
+              SvgPicture(
+                AssetBytesLoader(propertyUiMap[property]!.selectedIcon),
+                width: 24,
+                colorFilter: ColorFilter.mode(
+                  Theme.of(context).textTheme.titleLarge!.color!,
+                  BlendMode.srcIn,
+                ),
+              ),
+              Text(propertyUiMap[property]!.name),
+            ],
+          ),
         ),
         if (subtitleWidget != null)
           SliverToBoxAdapter(

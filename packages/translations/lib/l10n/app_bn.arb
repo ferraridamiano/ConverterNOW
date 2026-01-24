@@ -57,7 +57,7 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "দৈর্ঘ্য"
+        "example": "Length"
       }
     }
   },
@@ -74,7 +74,7 @@
   "pickColor": "একটি রঙ নির্বাচন করুন",
   "themeColor": "থিম কালার",
   "appearance": "চেহারা",
-  "conversions": "কনভার্শন", 
+  "conversions": "কনভার্শন",
   "findOutMore": "আরও জানুন",
   "hideUnits": "একক গোপন করুন",
   "visibleUnits": "{property}, দৃশ্যমান একক",
@@ -82,13 +82,61 @@
     "placeholders": {
       "property": {
         "type": "String",
-        "example": "দৈর্ঘ্য"
+        "example": "Length"
       }
     }
   },
   "hiddenUnits": "গোপন একক",
   "selectAll": "সব নির্বাচন করুন",
   "unselectAll": "সব আনচেক করুন",
+  "backupAndRestore": "Backup & Restore",
+  "@backupAndRestore": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "exportSettings": "Export settings",
+  "@exportSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importSettings": "Import settings",
+  "@importSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "clearSettings": "Clear all settings",
+  "@clearSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "exportSuccess": "Settings exported successfully",
+  "@exportSuccess": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importSuccess": "Settings imported successfully",
+  "@importSuccess": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "problemImportFile": "There was a problem importing the file",
+  "@problemImportFile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "relatedSettings": "Related settings",
+  "@relatedSettings": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "reason": "Reason",
+  "@reason": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "importError": "Import Error",
+  "@importError": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "confirmationClear": "Are you sure you want to clear all settings? This action cannot be undone.",
+  "@confirmationClear": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "length": "দৈর্ঘ্য",
   "area": "ক্ষেত্রফল",
@@ -119,7 +167,7 @@
   "inches": "ইঞ্চি",
   "feet": "ফুট",
   "nauticalMiles": "নটিক্যাল মাইল",
-  "yards": "গজ", 
+  "yards": "গজ",
   "miles": "মাইল",
   "millimeters": "মিলিমিটার",
   "micrometers": "মাইক্রোমিটার",
@@ -145,6 +193,71 @@
   "acres": "একর",
   "are": "আর",
   "squareFeetUsSurvey": "বর্গ ফুট (মার্কিন জরিপ)",
+
+  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
+  "@gramsPerCubicCentimeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerLiter": "Grams per Liter",
+  "@gramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerMilliliter": "Grams per Milliliter",
+  "@gramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "gramsPerDeciliter": "Grams per Deciliter",
+  "@gramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilogramsPerLiter": "Kilograms per Liter",
+  "@kilogramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
+  "@kilogramsPerCubicMeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerLiter": "Milligrams per Liter",
+  "@milligramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerDeciliter": "Milligrams per Deciliter",
+  "@milligramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerMilliliter": "Milligrams per Milliliter",
+  "@milligramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
+  "@milligramsPerCubicMeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
+  "@milligramsPerCubicCentimeter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerLiter": "Micrograms per Liter",
+  "@microgramsPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerDeciliter": "Micrograms per Deciliter",
+  "@microgramsPerDeciliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "microgramsPerMilliliter": "Micrograms per Milliliter",
+  "@microgramsPerMilliliter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "poundsPerCubicInches": "Pounds per Cubic Inches",
+  "@poundsPerCubicInches": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "poundsPerCubicFeet": "Pounds per Cubic Feet",
+  "@poundsPerCubicFeet": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "cubicMeters": "ঘন মিটার",
   "liters": "লিটার",
@@ -237,71 +350,6 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
-  "@gramsPerCubicCentimeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerLiter": "Grams per Liter",
-  "@gramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerMilliliter": "Grams per Milliliter",
-  "@gramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "gramsPerDeciliter": "Grams per Deciliter",
-  "@gramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "kilogramsPerLiter": "Kilograms per Liter",
-  "@kilogramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
-  "@kilogramsPerCubicMeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerLiter": "Milligrams per Liter",
-  "@milligramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerDeciliter": "Milligrams per Deciliter",
-  "@milligramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerMilliliter": "Milligrams per Milliliter",
-  "@milligramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
-  "@milligramsPerCubicMeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
-  "@milligramsPerCubicCentimeter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerLiter": "Micrograms per Liter",
-  "@microgramsPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerDeciliter": "Micrograms per Deciliter",
-  "@microgramsPerDeciliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "microgramsPerMilliliter": "Micrograms per Milliliter",
-  "@microgramsPerMilliliter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "poundsPerCubicInches": "Pounds per Cubic Inches",
-  "@poundsPerCubicInches": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "poundsPerCubicFeet": "Pounds per Cubic Feet",
-  "@poundsPerCubicFeet": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-
   "joule": "জুল",
   "calories": "ক্যালোরি",
   "kilowattHour": "কিলোওয়াট ঘণ্টা",
@@ -333,7 +381,7 @@
   "mxn": "মেক্সিকান পেসো",
   "sgd": "সিঙ্গাপুর ডলার",
   "nok": "নরওয়েজিয়ান ক্রোন",
-  "try": "তুর্কি লিরা",
+  "trY": "তুর্কি লিরা",
   "zar": "দক্ষিণ আফ্রিকান র্যান্ড",
   "dkk": "ড্যানিশ ক্রোন",
   "pln": "পোলিশ জ্লোটি",
@@ -392,11 +440,29 @@
   "bit": "বিট",
   "nibble": "নিবল",
   "kilobit": "কিলোবিট",
+  "@kilobit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "megabit": "মেগাবিট",
+  "@megabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "gigabit": "গিগাবিট",
+  "@gigabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "terabit": "টেরাবিট",
+  "@terabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "petabit": "পেটাবিট",
+  "@petabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "exabit": "এক্সাবিট",
+  "@exabit": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "kibibit": "কিবিবিট",
   "mebibit": "মেবিবিট",
   "gibibit": "গিবিবিট",
@@ -405,11 +471,29 @@
   "exbibit": "এক্সবিবিট",
   "byte": "বাইট",
   "kilobyte": "কিলোবাইট",
+  "@kilobyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "megabyte": "মেগাবাইট",
+  "@megabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "gigabyte": "গিগাবাইট",
+  "@gigabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "terabyte": "টেরাবাইট",
+  "@terabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "petabyte": "পেটাবাইট",
+  "@petabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "exabyte": "এক্সাবাইট",
+  "@exabyte": {
+    "description": "Revise this translation to also include the 'decimal' part"
+  },
   "kibibyte": "কিবিবাইট",
   "mebibyte": "মেবিবাইট",
   "gibibyte": "গিবিবাইট",

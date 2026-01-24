@@ -5,45 +5,45 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:units_converter/units_converter.dart';
 
 const Map<String, String> _currenciesSymbols = {
-  'EUR': '€ 🇪🇺',
-  'CAD': '\$ 🇨🇦',
-  'HKD': 'HK\$ 🇭🇰',
-  'PHP': '₱ 🇵🇭',
-  'DKK': 'kr 🇩🇰',
-  'NZD': 'NZ\$ 🇳🇿',
-  'CNY': '¥ 🇨🇳',
-  'AUD': 'A\$ 🇦🇺',
-  'RON': 'L 🇷🇴',
-  'SEK': 'kr 🇸🇪',
-  'IDR': 'Rp 🇮🇩',
-  'INR': '₹ 🇮🇳',
-  'BRL': 'R\$ 🇧🇷',
-  'USD': '\$ 🇺🇸',
-  'ILS': '₪ 🇮🇱',
-  'JPY': '¥ 🇯🇵',
-  'THB': '฿ 🇹🇭',
-  'CHF': 'Fr. 🇨🇭',
-  'CZK': 'Kč 🇨🇿',
-  'MYR': 'RM 🇲🇾',
-  'TRY': '₺ 🇹🇷',
-  'MXN': '\$ 🇲🇽',
-  'NOK': 'kr 🇳🇴',
-  'HUF': 'Ft 🇭🇺',
-  'ZAR': 'R 🇿🇦',
-  'SGD': 'S\$ 🇸🇬',
-  'GBP': '£ 🇬🇧',
-  'KRW': '₩ 🇰🇷',
-  'PLN': 'zł 🇵🇱',
-  'BGN': 'лв 🇧🇬',
-  'ISK': 'kr 🇮🇸',
+  'EUR': '€ assets/flags/eu.png',
+  'CAD': '\$ assets/flags_opti/ca.svg.vec',
+  'HKD': 'HK\$ assets/flags_opti/hk.svg.vec',
+  'PHP': '₱ assets/flags_opti/ph.svg.vec',
+  'DKK': 'kr assets/flags_opti/dk.svg.vec',
+  'NZD': 'NZ\$ assets/flags/nz.png',
+  'CNY': '¥ assets/flags_opti/cn.svg.vec',
+  'AUD': 'A\$ assets/flags_opti/au.svg.vec',
+  'RON': 'L assets/flags_opti/ro.svg.vec',
+  'SEK': 'kr assets/flags_opti/se.svg.vec',
+  'IDR': 'Rp assets/flags_opti/id.svg.vec',
+  'INR': '₹ assets/flags/in.png',
+  'BRL': 'R\$ assets/flags/br.png',
+  'USD': '\$ assets/flags/us.png',
+  'ILS': '₪ assets/flags_opti/il.svg.vec',
+  'JPY': '¥ assets/flags_opti/jp.svg.vec',
+  'THB': '฿ assets/flags_opti/th.svg.vec',
+  'CHF': 'Fr. assets/flags_opti/ch.svg.vec',
+  'CZK': 'Kč assets/flags_opti/cz.svg.vec',
+  'MYR': 'RM assets/flags_opti/my.svg.vec',
+  'TRY': '₺ assets/flags_opti/tr.svg.vec',
+  'MXN': '\$ assets/flags/mx.png',
+  'NOK': 'kr assets/flags_opti/no.svg.vec',
+  'HUF': 'Ft assets/flags_opti/hu.svg.vec',
+  'ZAR': 'R assets/flags_opti/za.svg.vec',
+  'SGD': 'S\$ assets/flags_opti/sg.svg.vec',
+  'GBP': '£ assets/flags_opti/gb.svg.vec',
+  'KRW': '₩ assets/flags_opti/kr.svg.vec',
+  'PLN': 'zł assets/flags_opti/pl.svg.vec',
+  'BGN': 'лв assets/flags_opti/bg.svg.vec',
+  'ISK': 'kr assets/flags_opti/is.svg.vec',
 };
 
 final propertiesMapProvider =
     FutureProvider<Map<PROPERTYX, Property>>((ref) async {
   final removeTrailingZeros =
-      await ref.watch(RemoveTrailingZeros.provider.future);
+      (await ref.watch(removeTrailingZerosProvider.future))!;
   final significantFigures =
-      await ref.watch(SignificantFigures.provider.future);
+      (await ref.watch(significantFiguresProvider.future))!;
   return {
     PROPERTYX.length: Length(
       significantFigures: significantFigures,

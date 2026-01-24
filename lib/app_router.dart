@@ -21,14 +21,15 @@ import 'package:translations/app_localizations.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
 final isEverythingLoadedProvider = Provider<bool>((ref) =>
-    ref.watch(SignificantFigures.provider).hasValue &&
-    ref.watch(RemoveTrailingZeros.provider).hasValue &&
-    ref.watch(IsPureDark.provider).hasValue &&
-    ref.watch(PropertySelectionOnStartup.provider).hasValue &&
-    ref.watch(ThemeColorNotifier.provider).hasValue &&
-    ref.watch(RevokeInternetNotifier.provider).hasValue &&
-    ref.watch(CurrentThemeMode.provider).hasValue &&
-    ref.watch(CurrentLocale.provider).hasValue &&
+    ref.watch(significantFiguresProvider).hasValue &&
+    ref.watch(removeTrailingZerosProvider).hasValue &&
+    ref.watch(isPureDarkProvider).hasValue &&
+    ref.watch(propertySelectionOnStartupProvider).hasValue &&
+    ref.watch(useDeviceColorProvider).hasValue &&
+    ref.watch(colorThemeProvider).hasValue &&
+    ref.watch(revokeInternetProvider).hasValue &&
+    ref.watch(themeModeProvider).hasValue &&
+    ref.watch(languageTagProvider).hasValue &&
     ref.watch(PropertiesOrderNotifier.provider).hasValue &&
     ref.watch(UnitsOrderNotifier.provider).hasValue &&
     ref.watch(ConversionsNotifier.provider).hasValue &&

@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:converterpro/app_router.dart';
-import 'package:converterpro/styles/consts.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:converterpro/models/settings.dart';
@@ -45,38 +43,25 @@ class MyApp extends ConsumerWidget {
 
         return Consumer(
           builder: (context, ref, child) {
-            final settingsLocale = ref.watch(CurrentLocale.provider).value;
-            final themeColor = ref.watch(ThemeColorNotifier.provider).value ??
-                (useDeviceColor: false, colorTheme: fallbackColorTheme);
-
-            ThemeData lightTheme, darkTheme;
-            // Use device accent color
-            if (ref.watch(deviceAccentColorProvider) != null &&
-                themeColor.useDeviceColor) {
-              lightTheme = ThemeData(
-                colorScheme: lightDynamic!.harmonized(),
-              );
-              darkTheme = ThemeData(
+            final colorTheme = ref.watch(actualColorThemeProvider);
+            ThemeData lightTheme = ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: colorTheme,
+              ),
+            );
+            ThemeData darkTheme = ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: colorTheme,
                 brightness: Brightness.dark,
-                colorScheme: darkDynamic!.harmonized(),
-              );
-            } else {
-              lightTheme = ThemeData(
-                colorScheme: ColorScheme.fromSeed(
-                  seedColor: themeColor.colorTheme,
-                ),
-              );
-              darkTheme = ThemeData(
-                colorScheme: ColorScheme.fromSeed(
-                  seedColor: themeColor.colorTheme,
-                  brightness: Brightness.dark,
-                ),
-                brightness: Brightness.dark,
-              );
-            }
+              ),
+              brightness: Brightness.dark,
+            );
             ThemeData amoledTheme = darkTheme.copyWith(
               scaffoldBackgroundColor: Colors.black,
               drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
+              appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
+              bottomAppBarTheme:
+                  const BottomAppBarThemeData(color: Colors.black),
             );
 
             final pageTransitionsTheme = PageTransitionsTheme(
@@ -97,24 +82,9 @@ class MyApp extends ConsumerWidget {
             amoledTheme = amoledTheme.copyWith(
               pageTransitionsTheme: pageTransitionsTheme,
             );
-            final themeMode =
-                ref.watch(CurrentThemeMode.provider).value ?? ThemeMode.system;
-
-            // Workaround until https://github.com/flutter/flutter/issues/39998 got
-            // resolved
-            String deviceLocaleLanguageCode =
-                kIsWeb ? 'en' : Platform.localeName.split('_')[0];
-            Locale appLocale;
-            if (settingsLocale != null) {
-              appLocale = settingsLocale;
-            } else if (mapLocale.keys
-                .map((Locale locale) => locale.languageCode)
-                .contains(deviceLocaleLanguageCode)) {
-              appLocale = Locale(deviceLocaleLanguageCode);
-            } else {
-              appLocale = const Locale('en');
-            }
-
+            final ThemeMode themeMode = ThemeMode.values[
+                ref.watch(themeModeProvider).value ?? ThemeMode.system.index];
+            final appLocale = ref.watch(actualLocaleProvider);
             final appRouter = ref.read(routerProvider);
 
             return MaterialApp.router(
@@ -125,7 +95,7 @@ class MyApp extends ConsumerWidget {
               title: 'Converter NOW',
               themeMode: themeMode,
               theme: lightTheme,
-              darkTheme: (ref.watch(IsPureDark.provider).value ?? false)
+              darkTheme: (ref.watch(isPureDarkProvider).value ?? false)
                   ? amoledTheme
                   : darkTheme,
               supportedLocales: mapLocale.keys,

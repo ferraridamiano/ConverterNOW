@@ -1,15 +1,21 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:converterpro/models/currencies.dart';
+import 'package:converterpro/models/import_export.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/palette.dart';
-import 'package:converterpro/utils/utils_widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:translations/app_localizations.dart';
 import 'package:converterpro/utils/utils.dart';
+import 'package:converterpro/utils/utils_widgets.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:translations/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
@@ -26,15 +32,18 @@ class SettingsPage extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
 
     final mapTheme = {
-      ThemeMode.system: (
+      ThemeMode.system.index: (
         title: l10n.system,
         icon: Icons.brightness_auto_outlined,
       ),
-      ThemeMode.dark: (title: l10n.dark, icon: Icons.dark_mode_outlined),
-      ThemeMode.light: (title: l10n.light, icon: Icons.light_mode_outlined),
+      ThemeMode.dark.index: (title: l10n.dark, icon: Icons.dark_mode_outlined),
+      ThemeMode.light.index: (
+        title: l10n.light,
+        icon: Icons.light_mode_outlined
+      ),
     };
+    final languageTag = ref.watch(languageTagProvider).value;
 
-    final themeColor = ref.watch(ThemeColorNotifier.provider).value!;
     final iconColor = getIconColor(Theme.of(context));
     final titlesStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
           color: switch (Theme.brightnessOf(context)) {
@@ -70,18 +79,20 @@ class SettingsPage extends ConsumerWidget {
                   leading: Icon(Icons.language, color: iconColor),
                   title: l10n.language,
                   items: [l10n.system, ...mapLocale.values],
-                  value: mapLocale[ref.watch(CurrentLocale.provider).value] ??
-                      l10n.system,
+                  value: languageTag == null
+                      ? l10n.system
+                      : mapLocale[languageTagToLocale(languageTag)]!,
                   onChanged: (String? string) {
-                    if (string != null) {
-                      ref.read(CurrentLocale.provider.notifier).set(
-                            string == l10n.system
-                                ? null
-                                : mapLocale.keys.firstWhere(
-                                    (element) => mapLocale[element] == string,
-                                  ),
-                          );
-                    }
+                    if (string == null) return;
+                    ref
+                        .read(languageTagProvider.notifier)
+                        .set(string == l10n.system
+                            ? null
+                            : mapLocale.keys
+                                .firstWhere(
+                                  (element) => mapLocale[element] == string,
+                                )
+                                .toLanguageTag());
                   },
                 ),
                 ListTile(
@@ -97,9 +108,7 @@ class SettingsPage extends ConsumerWidget {
                       height: 24,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24 / 2),
-                        color: themeColor.useDeviceColor
-                            ? ref.watch(deviceAccentColorProvider)!
-                            : themeColor.colorTheme,
+                        color: ref.watch(actualColorThemeProvider),
                       ),
                     ),
                   ),
@@ -113,11 +122,10 @@ class SettingsPage extends ConsumerWidget {
                   title: l10n.theme,
                   items: mapTheme.values.toList(),
                   value:
-                      mapTheme[ref.watch(CurrentThemeMode.provider).value ?? 0]!
-                          .title,
+                      mapTheme[ref.watch(themeModeProvider).value ?? 0]!.title,
                   onChanged: (String? string) {
                     if (string != null) {
-                      ref.read(CurrentThemeMode.provider.notifier).set(
+                      ref.read(themeModeProvider.notifier).set(
                             mapTheme.keys
                                 .where((key) => mapTheme[key]?.title == string)
                                 .single,
@@ -128,9 +136,9 @@ class SettingsPage extends ConsumerWidget {
                 SwitchListTile(
                   secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
                   title: Text(l10n.pureBlackTheme),
-                  value: ref.watch(IsPureDark.provider).value ?? false,
+                  value: ref.watch(isPureDarkProvider).value ?? false,
                   onChanged: (bool val) {
-                    ref.read(IsPureDark.provider.notifier).set(val);
+                    ref.read(isPureDarkProvider.notifier).set(val);
                   },
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
@@ -140,11 +148,11 @@ class SettingsPage extends ConsumerWidget {
                   secondary: Icon(Icons.apps_rounded, color: iconColor),
                   title: Text(l10n.propertySelectionOnStartup),
                   subtitle: Text(l10n.propertySelectionOnStartupSubtitle),
-                  value: ref.watch(PropertySelectionOnStartup.provider).value ??
+                  value: ref.watch(propertySelectionOnStartupProvider).value ??
                       true,
                   onChanged: (bool val) {
                     ref
-                        .read(PropertySelectionOnStartup.provider.notifier)
+                        .read(propertySelectionOnStartupProvider.notifier)
                         .set(val);
                   },
                   shape: const RoundedRectangleBorder(
@@ -162,8 +170,7 @@ class SettingsPage extends ConsumerWidget {
                   SwitchListTile(
                     secondary: Icon(Icons.public_off, color: iconColor),
                     title: Text(l10n.revokeInternetAccess),
-                    value: ref.watch(RevokeInternetNotifier.provider).value ??
-                        false,
+                    value: ref.watch(revokeInternetProvider).value ?? false,
                     onChanged: (bool val) {
                       if (val) {
                         showDialog(
@@ -190,8 +197,7 @@ class SettingsPage extends ConsumerWidget {
                                       const Duration(milliseconds: 200),
                                       () => ref
                                           .read(
-                                            RevokeInternetNotifier
-                                                .provider.notifier,
+                                            revokeInternetProvider.notifier,
                                           )
                                           .set(val),
                                     );
@@ -203,9 +209,7 @@ class SettingsPage extends ConsumerWidget {
                           },
                         );
                       } else {
-                        ref
-                            .read(RevokeInternetNotifier.provider.notifier)
-                            .set(val);
+                        ref.read(revokeInternetProvider.notifier).set(val);
                         ref
                             .read(CurrenciesNotifier.provider.notifier)
                             .forceCurrenciesDownload();
@@ -224,9 +228,9 @@ class SettingsPage extends ConsumerWidget {
                     colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                   ),
                   title: Text(l10n.removeTrailingZeros),
-                  value: ref.watch(RemoveTrailingZeros.provider).value ?? true,
+                  value: ref.watch(removeTrailingZerosProvider).value ?? true,
                   onChanged: (bool val) {
-                    ref.read(RemoveTrailingZeros.provider.notifier).set(val);
+                    ref.read(removeTrailingZerosProvider.notifier).set(val);
                   },
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
@@ -243,12 +247,12 @@ class SettingsPage extends ConsumerWidget {
                   title: l10n.significantFigures,
                   items:
                       significantFiguresList.map((e) => e.toString()).toList(),
-                  value: (ref.watch(SignificantFigures.provider).value ?? 10)
+                  value: (ref.watch(significantFiguresProvider).value ?? 10)
                       .toString(),
                   onChanged: (String? string) {
                     if (string != null) {
                       ref
-                          .read(SignificantFigures.provider.notifier)
+                          .read(significantFiguresProvider.notifier)
                           .set(int.parse(string));
                     }
                   },
@@ -294,6 +298,170 @@ class SettingsPage extends ConsumerWidget {
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+                  child: Text(
+                    l10n.backupAndRestore,
+                    style: titlesStyle,
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(Icons.file_upload_outlined, color: iconColor),
+                  title: Text(l10n.exportSettings),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: borderRadius,
+                  ),
+                  onTap: () async {
+                    final jsonBytes = utf8.encode(await ref
+                        .read(ImportExportNotifier.provider.notifier)
+                        .exportSettings());
+                    final filename =
+                        '${DateFormat('yyyyMMdd').format(DateTime.now())}_converternow.json';
+                    if (kIsWeb) {
+                      await FilePicker.platform.saveFile(
+                        dialogTitle: l10n.exportSettings,
+                        fileName: filename,
+                        bytes: jsonBytes,
+                      );
+                    } else if (Platform.isAndroid || Platform.isIOS) {
+                      // Mobile: Share
+                      final file = File(
+                          '${(await getTemporaryDirectory()).path}/$filename');
+                      await file.writeAsBytes(jsonBytes);
+                      await SharePlus.instance.share(
+                        ShareParams(
+                          files: [XFile(file.path)],
+                          subject: 'Converter NOW Backup',
+                        ),
+                      );
+                      await file.delete(); // Clean up
+                    } else {
+                      // Desktop: Save file
+                      final outputFile = await FilePicker.platform.saveFile(
+                        dialogTitle: l10n.exportSettings,
+                        fileName: filename,
+                      );
+                      if (outputFile != null) {
+                        final file = File(outputFile);
+                        await file.writeAsBytes(jsonBytes);
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(l10n.exportSuccess)),
+                          );
+                        }
+                      }
+                    }
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.file_download_outlined, color: iconColor),
+                  title: Text(l10n.importSettings),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: borderRadius,
+                  ),
+                  onTap: () async {
+                    try {
+                      FilePickerResult? result =
+                          await FilePicker.platform.pickFiles(
+                        type: FileType.custom,
+                        allowedExtensions: ['json'],
+                      );
+
+                      if (result != null) {
+                        String content;
+                        if (kIsWeb) {
+                          final bytes = result.files.first.bytes;
+                          if (bytes == null) return;
+                          content = utf8.decode(bytes);
+                        } else {
+                          final path = result.files.single.path;
+                          if (path == null) return;
+                          content = await File(path).readAsString();
+                        }
+
+                        final (importError, keysError) = await ref
+                            .read(ImportExportNotifier.provider.notifier)
+                            .importSettings(content);
+
+                        if (context.mounted) {
+                          if (importError == null && keysError.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(l10n.importSuccess)),
+                            );
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                String errorString =
+                                    '${l10n.problemImportFile}.\n';
+                                if (keysError.isNotEmpty) {
+                                  errorString +=
+                                      "${l10n.relatedSettings}:\n• ${keysError.join('\n• ')}\n";
+                                }
+                                if (importError != null) {
+                                  errorString +=
+                                      '${l10n.reason}:\n $importError';
+                                }
+
+                                return AlertDialog(
+                                  title: Text(l10n.importError),
+                                  content: Text(errorString),
+                                  actions: [
+                                    TextButton(
+                                      child: Text(l10n.ok),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        }
+                      }
+                    } catch (e) {
+                      dPrint(() => e.toString());
+                    }
+                  },
+                ),
+                ListTile(
+                  leading:
+                      Icon(Icons.delete_forever_outlined, color: iconColor),
+                  title: Text(l10n.clearSettings),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: borderRadius,
+                  ),
+                  onTap: () async {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text(l10n.clearSettings),
+                        content: Text(l10n.confirmationClear),
+                        actions: [
+                          TextButton(
+                            child: Text(l10n.cancel),
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                          TextButton(
+                            child: Text(
+                              l10n.clearAll,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.error,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: () {
+                              ref
+                                  .read(ImportExportNotifier.provider.notifier)
+                                  .deleteSettings();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
@@ -490,8 +658,9 @@ class ColorPickerDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final themeColor = ref.watch(ThemeColorNotifier.provider).value!;
     final deviceAccentColor = ref.watch(deviceAccentColorProvider);
+    final colorTheme = Color(ref.watch(colorThemeProvider).value!);
+    final useDeviceColor = ref.watch(useDeviceColorProvider).value!;
 
     return AlertDialog(
       title: Text(l10n.themeColor),
@@ -503,28 +672,24 @@ class ColorPickerDialog extends ConsumerWidget {
           children: [
             if (deviceAccentColor != null) ...[
               SwitchListTile(
-                value: themeColor.useDeviceColor,
-                onChanged: (val) {
-                  ref
-                      .read(ThemeColorNotifier.provider.notifier)
-                      .setDefaultTheme(val);
-                },
+                value: useDeviceColor,
+                onChanged: (val) =>
+                    ref.read(useDeviceColorProvider.notifier).set(val),
                 title: Text(l10n.useDeviceColor),
               ),
               const SizedBox(height: 8),
             ],
             Text(
-              !themeColor.useDeviceColor ? l10n.pickColor : '',
+              !useDeviceColor ? l10n.pickColor : '',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             const SizedBox(height: 4),
             Center(
               child: Palette(
-                initial: themeColor.colorTheme,
-                enabled: !themeColor.useDeviceColor,
-                onSelected: (color) => ref
-                    .read(ThemeColorNotifier.provider.notifier)
-                    .setColorTheme(color),
+                initial: colorTheme,
+                enabled: !useDeviceColor,
+                onSelected: (color) =>
+                    ref.read(colorThemeProvider.notifier).set(color.toARGB32()),
               ),
             ),
           ],

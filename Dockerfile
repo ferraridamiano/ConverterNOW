@@ -40,7 +40,7 @@ RUN flutter pub global activate melos && \
     melos bootstrap && \
     flutter build web --release --wasm --no-web-resources-cdn
 
-FROM nginx:1.29-alpine3.22-slim
+FROM nginx:alpine-slim
 
 COPY --from=builder /app/build/web /usr/share/nginx/html
 

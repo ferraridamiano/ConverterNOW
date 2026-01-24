@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:converterpro/data/default_order.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
@@ -38,14 +39,32 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
     return defaultPropertiesOrder;
   }
 
-  void set(List<int> newOrder) async {
-    final currentOrdering = state.value!;
+  bool set(List<int> newOrder) {
+    final currentOrdering = state.value;
+    if (currentOrdering == null) {
+      return false;
+    }
+    // Check if newOrder contains all numbers from 0 to length - 1
+    final Set<int> expectedSet =
+        List.generate(currentOrdering.length, (i) => i).toSet();
+    if (newOrder.length != currentOrdering.length ||
+        !newOrder.toSet().containsAll(expectedSet)) {
+      return false;
+    }
+
     final propertiesOrder = newOrder.map((e) => currentOrdering[e]).toList();
     // Update the state
     state = AsyncData(propertiesOrder);
     // Store the new values
-    (await ref.read(sharedPref.future))
-        .setStringList(storeKey, _toStorableString(propertiesOrder));
+    ref.read(sharedPref.future).then((prefs) {
+      // If it is the default order, do not save it
+      if (listEquals(propertiesOrder, defaultPropertiesOrder)) {
+        prefs.remove(storeKey);
+      } else {
+        prefs.setStringList(storeKey, _toStorableString(propertiesOrder));
+      }
+    });
+    return true;
   }
 
   List<String> _toStorableString(List<PROPERTYX> listToConvert) => listToConvert
@@ -70,7 +89,7 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
     final Map<PROPERTYX, List> newState = {};
 
     for (final property in defaultPropertiesOrder) {
-      final storedList = prefs.getStringList(_storeKey(property));
+      final storedList = prefs.getStringList(storeKey(property));
       final defaultOrder = defaultUnitsOrder[property]!;
       if (storedList == null) {
         newState[property] = defaultOrder;
@@ -89,7 +108,7 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
           storedOrder
               .addAll(defaultOrder.toSet().difference(storedOrder.toSet()));
           (await ref.read(sharedPref.future)).setStringList(
-              _storeKey(property), _toStorableString(storedOrder));
+              storeKey(property), _toStorableString(storedOrder));
         }
         newState[property] = storedOrder;
       }
@@ -97,27 +116,40 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
     return newState;
   }
 
-  void set(List<int>? newOrder, PROPERTYX property) async {
-    assert(
-      newOrder!.length == state.value![property]!.length,
-      'The size of the order list is not correct',
-    );
-    // if there aren't any changes, do nothing
-    if (newOrder != null) {
-      final currentUnitsOrderProperty = state.value![property]!;
-      final unitsOrder =
-          newOrder.map((e) => currentUnitsOrderProperty[e]).toList();
-      // Update the state
-      final newState = {...state.value!};
-      newState[property] = unitsOrder;
-      state = AsyncData(newState);
-      // Store the new values
-      (await ref.read(sharedPref.future))
-          .setStringList(_storeKey(property), _toStorableString(unitsOrder));
+  bool set(List<int>? newOrder, PROPERTYX property) {
+    final currentState = state.value;
+    if (newOrder == null || currentState == null) {
+      return false;
     }
+    final currentUnitsProperty = currentState[property];
+    if (currentUnitsProperty == null) return false;
+
+    // Check if newOrder contains all numbers from 0 to length - 1
+    final Set<int> expectedSet =
+        List.generate(currentUnitsProperty.length, (i) => i).toSet();
+    if (newOrder.length != currentUnitsProperty.length ||
+        !newOrder.toSet().containsAll(expectedSet)) {
+      return false;
+    }
+
+    final unitsOrder = newOrder.map((e) => currentUnitsProperty[e]).toList();
+    // Update the state
+    final newState = {...currentState};
+    newState[property] = unitsOrder;
+    state = AsyncData(newState);
+    // Store the new values
+    ref.read(sharedPref.future).then((prefs) {
+      // If it is the default order, do not save it
+      if (listEquals(unitsOrder, defaultUnitsOrder[property])) {
+        prefs.remove(storeKey(property));
+      } else {
+        prefs.setStringList(storeKey(property), _toStorableString(unitsOrder));
+      }
+    });
+    return true;
   }
 
-  String _storeKey(PROPERTYX property) =>
+  String storeKey(PROPERTYX property) =>
       'unitsOrder_${property.toString().substring('PROPERTYX.'.length)}';
 
   List<String> _toStorableString(List listToConvert) =>
