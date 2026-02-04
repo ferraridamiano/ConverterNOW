@@ -77,54 +77,18 @@
   "hiddenUnits": "Скрытые единицы измерения",
   "selectAll": "Выбрать все",
   "unselectAll": "Снять выбор",
-  "backupAndRestore": "Backup & Restore",
-  "@backupAndRestore": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "exportSettings": "Export settings",
-  "@exportSettings": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "importSettings": "Import settings",
-  "@importSettings": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "clearSettings": "Clear all settings",
-  "@clearSettings": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "exportSuccess": "Settings exported successfully",
-  "@exportSuccess": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "importSuccess": "Settings imported successfully",
-  "@importSuccess": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "problemImportFile": "There was a problem importing the file",
-  "@problemImportFile": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "relatedSettings": "Related settings",
-  "@relatedSettings": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "reason": "Reason",
-  "@reason": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "importError": "Import Error",
-  "@importError": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "confirmationClear": "Are you sure you want to clear all settings? This action cannot be undone.",
-  "@confirmationClear": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "cancel": "Cancel",
-  "@cancel": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "backupAndRestore": "Резервное копирование",
+  "exportSettings": "Экспорт настроек",
+  "importSettings": "Импорт настроек",
+  "clearSettings": "Очистить все настройки",
+  "exportSuccess": "Настройки успешно экспортированы",
+  "importSuccess": "Настройки успешно импортированы",
+  "problemImportFile": "При импорте файла возникла проблема",
+  "relatedSettings": "Связанные настройки",
+  "reason": "Причина",
+  "importError": "Ошибка импорта",
+  "confirmationClear": "Очистить все настройки? Это действие невозможно отменить.",
+  "cancel": "Отмена",
 
   "length": "Длина",
   "area": "Площадь",
@@ -366,30 +330,12 @@
 
   "bit": "Биты",
   "nibble": "Полубайты",
-  "kilobit": "Килобиты",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "megabit": "Мегабиты",
-  "@megabit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "gigabit": "Гигабиты",
-  "@gigabit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "terabit": "Терабиты",
-  "@terabit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "petabit": "Петабиты",
-  "@petabit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "exabit": "Эксабиты",
-  "@exabit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
+  "kilobit": "Килобиты (десятичные)",
+  "megabit": "Мегабиты (десятичные)",
+  "gigabit": "Гигабиты (десятичные)",
+  "terabit": "Терабиты (десятичные)",
+  "petabit": "Петабиты (десятичные)",
+  "exabit": "Эксабиты (десятичные)",
   "kibibit": "Кибибиты",
   "mebibit": "Мебибиты",
   "gibibit": "Гибибиты",
@@ -397,30 +343,12 @@
   "pebibit": "Пебибиты",
   "exbibit": "Эксабибиты",
   "byte": "Байты",
-  "kilobyte": "Килобайты",
-  "@kilobyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "megabyte": "Мегабайты",
-  "@megabyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "gigabyte": "Гигабайты",
-  "@gigabyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "terabyte": "Терабайты",
-  "@terabyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "petabyte": "Петабайты",
-  "@petabyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "exabyte": "Эксабайты",
-  "@exabyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
+  "kilobyte": "Килобайты (десятичные)",
+  "megabyte": "Мегабайты (десятичные)",
+  "gigabyte": "Гигабайты (десятичные)",
+  "terabyte": "Терабайты (десятичные)",
+  "petabyte": "Петабайты (десятичные)",
+  "exabyte": "Эксабайты (десятичные)",
   "kibibyte": "Кибибайты",
   "mebibyte": "Мебибайты",
   "gibibyte": "Гибибайты",
