@@ -182,6 +182,8 @@
   "microliters": "Microliters",
   "deciliters": "Deciliters",
   "centiliters": "Centiliters",
+  "teaspoonsUs": "Teaspoons US",
+  "teaspoonsMetric": "Metric teaspoons",
 
   "seconds": "Seconds",
   "deciseconds": "Deciseconds",
@@ -213,6 +215,8 @@
   "knots": "Knots",
   "feetSecond": "Feet per Second",
   "minutesPerKilometer": "Minutes per Kilometer",
+  "minutesPerMile": "Minutes per mile",
+  "speedOfLight": "Speed of light",
 
   "grams": "Grams",
   "ettograms": "Ettograms",
@@ -249,6 +253,8 @@
   "footPound": "Foot pound",
   "kilocalories": "Kilocalories",
   "kilojoules": "Kilojoules",
+  "watthour": "Watt hour",
+  "britishThermalUnit": "British thermal unit",
 
   "degree": "Degree",
   "minutesDegree": "Minutes",
@@ -317,6 +323,7 @@
   "poundForceFeet": "Pound-force feet",
   "kilogramForceMeter": "Kilogram-force meter",
   "poundalMeter": "Poundal meter",
+  "poundForceInch": "Pound-force inch",
 
   "kilometersLiter": "Kilometers per liter",
   "liters100km": "Liters per 100 km",

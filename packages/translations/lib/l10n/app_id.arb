@@ -336,6 +336,14 @@
   "@centiliters": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "teaspoonsUs": "Teaspoons US",
+  "@teaspoonsUs": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "teaspoonsMetric": "Metric teaspoons",
+  "@teaspoonsMetric": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Detik",
   "deciseconds": "Desidetik",
@@ -367,6 +375,14 @@
   "knots": "Knot",
   "feetSecond": "Kaki per Detik",
   "minutesPerKilometer": "Menit per Kilometer",
+  "minutesPerMile": "Minutes per mile",
+  "@minutesPerMile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "speedOfLight": "Speed of light",
+  "@speedOfLight": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "grams": "Gram",
   "ettograms": "Ettogram",
@@ -416,6 +432,14 @@
   "kilocalories": "Kilokalori",
   "kilojoules": "Kilojoules",
   "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "watthour": "Watt hour",
+  "@watthour": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishThermalUnit": "British thermal unit",
+  "@britishThermalUnit": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
@@ -486,6 +510,10 @@
   "poundForceFeet": "Pon-Gaya Kaki",
   "kilogramForceMeter": "Kilogram-Gaya Meter",
   "poundalMeter": "Pondal Meter",
+  "poundForceInch": "Pound-force inch",
+  "@poundForceInch": {
+    "description": "Not yet translated. Once done, remove this comment."
+  },
 
   "kilometersLiter": "Kilometer per Liter",
   "liters100km": "Liter per 100 km",

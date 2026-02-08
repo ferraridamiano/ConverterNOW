@@ -224,6 +224,14 @@
   "microliters": "微升",
   "deciliters": "公合；分升",
   "centiliters": "公勺；厘升",
+  "teaspoonsUs": "Teaspoons US",
+  "@teaspoonsUs": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "teaspoonsMetric": "Metric teaspoons",
+  "@teaspoonsMetric": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "秒",
   "deciseconds": "分秒",
@@ -255,6 +263,14 @@
   "knots": "節",
   "feetSecond": "英尺每秒",
   "minutesPerKilometer": "分鐘每公里",
+  "minutesPerMile": "Minutes per mile",
+  "@minutesPerMile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "speedOfLight": "Speed of light",
+  "@speedOfLight": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "grams": "公克",
   "ettograms": "百克",
@@ -291,6 +307,14 @@
   "footPound": "英尺磅",
   "kilocalories": "大卡",
   "kilojoules": "千焦耳",
+  "watthour": "Watt hour",
+  "@watthour": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishThermalUnit": "British thermal unit",
+  "@britishThermalUnit": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "度",
   "minutesDegree": "分",
@@ -359,6 +383,10 @@
   "poundForceFeet": "磅力英尺",
   "kilogramForceMeter": "公斤力公尺",
   "poundalMeter": "磅達公尺；磅達米",
+  "poundForceInch": "Pound-force inch",
+  "@poundForceInch": {
+    "description": "Not yet translated. Once done, remove this comment."
+  },
 
   "kilometersLiter": "公里每公升",
   "liters100km": "公升每百公里",

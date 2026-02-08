@@ -281,6 +281,14 @@
   "microliters": "মাইক্রোলিটার",
   "deciliters": "ডেসিলিটার",
   "centiliters": "সেন্টিলিটার",
+  "teaspoonsUs": "Teaspoons US",
+  "@teaspoonsUs": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "teaspoonsMetric": "Metric teaspoons",
+  "@teaspoonsMetric": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "সেকেন্ড",
   "deciseconds": "ডেসিসেকেন্ড",
@@ -312,6 +320,14 @@
   "knots": "নট",
   "feetSecond": "ফুট/সেকেন্ড",
   "minutesPerKilometer": "মিনিট/কিলোমিটার",
+  "minutesPerMile": "Minutes per mile",
+  "@minutesPerMile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "speedOfLight": "Speed of light",
+  "@speedOfLight": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "grams": "গ্রাম",
   "ettograms": "এটোগ্রাম",
@@ -357,6 +373,14 @@
   "footPound": "ফুট-পাউন্ড",
   "kilocalories": "কিলোক্যালোরি",
   "kilojoules": "কিলোজুল",
+  "watthour": "Watt hour",
+  "@watthour": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishThermalUnit": "British thermal unit",
+  "@britishThermalUnit": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "ডিগ্রি",
   "minutesDegree": "মিনিট",
@@ -425,6 +449,10 @@
   "poundForceFeet": "পাউন্ড-ফোর্স ফুট",
   "kilogramForceMeter": "কিলোগ্রাম-ফোর্স মিটার",
   "poundalMeter": "পাউন্ডাল মিটার",
+  "poundForceInch": "Pound-force inch",
+  "@poundForceInch": {
+    "description": "Not yet translated. Once done, remove this comment."
+  },
 
   "kilometersLiter": "কিলোমিটার পার লিটার",
   "liters100km": "শতকিলোমিটার পার লিটার",

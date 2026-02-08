@@ -15,7 +15,6 @@ android/key.properties
 .metadata
 .idea/
 ios/Flutter/flutter_export_environment.sh
-.vscode/
 debug.log
 .snap
 packages/translations/lib/app_localizations*.dart

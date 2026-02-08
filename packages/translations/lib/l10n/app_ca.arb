@@ -324,6 +324,14 @@
   "@centiliters": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "teaspoonsUs": "Teaspoons US",
+  "@teaspoonsUs": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "teaspoonsMetric": "Metric teaspoons",
+  "@teaspoonsMetric": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Segons",
   "deciseconds": "Decisegons",
@@ -355,6 +363,14 @@
   "knots": "Nusos",
   "feetSecond": "Peus per segon",
   "minutesPerKilometer": "Minuts per quilòmetre",
+  "minutesPerMile": "Minutes per mile",
+  "@minutesPerMile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "speedOfLight": "Speed of light",
+  "@speedOfLight": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "grams": "Grams",
   "ettograms": "Ettograms",
@@ -404,6 +420,14 @@
   "kilocalories": "Quilocalories",
   "kilojoules": "Kilojoules",
   "@kilojoules": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "watthour": "Watt hour",
+  "@watthour": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishThermalUnit": "British thermal unit",
+  "@britishThermalUnit": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
@@ -474,6 +498,10 @@
   "poundForceFeet": "Peu-lliura força",
   "kilogramForceMeter": "Quilogram-força metre",
   "poundalMeter": "Poundal metre",
+  "poundForceInch": "Pound-force inch",
+  "@poundForceInch": {
+    "description": "Not yet translated. Once done, remove this comment."
+  },
 
   "kilometersLiter": "Quilòmetres per litre",
   "liters100km": "Litres per 100 km",

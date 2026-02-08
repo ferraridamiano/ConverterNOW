@@ -91,6 +91,8 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
     VOLUME.microliters,
     VOLUME.tablespoonsUs,
     VOLUME.australianTablespoons,
+    VOLUME.teaspoonsUs,
+    VOLUME.teaspoonsMetric,
     VOLUME.cups,
     VOLUME.cubicMillimeters,
     VOLUME.cubicCentimeters,
@@ -166,6 +168,8 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
     SPEED.feetsPerSecond,
     SPEED.knots,
     SPEED.minutesPerKilometer,
+    SPEED.minutesPerMile,
+    SPEED.speedOfLight,
   ],
   PROPERTYX.mass: [
     MASS.kilograms,
@@ -218,12 +222,14 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
   ],
   PROPERTYX.energy: [
     ENERGY.kilowattHours,
+    ENERGY.wattHours,
     ENERGY.kilocalories,
     ENERGY.calories,
     ENERGY.joules,
     ENERGY.kilojoules,
     ENERGY.electronvolts,
     ENERGY.energyFootPound,
+    ENERGY.britishThermalUnit,
   ],
   PROPERTYX.power: [
     POWER.kilowatt,
@@ -309,6 +315,7 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
     TORQUE.kilogramForceMeter,
     TORQUE.dyneMeter,
     TORQUE.poundForceFeet,
+    TORQUE.poundForceInch,
     TORQUE.poundalMeter,
   ]
 };

@@ -217,6 +217,14 @@
   "microliters": "Mikrolitar",
   "deciliters": "Decilitar",
   "centiliters": "Centilitar",
+  "teaspoonsUs": "Teaspoons US",
+  "@teaspoonsUs": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "teaspoonsMetric": "Metric teaspoons",
+  "@teaspoonsMetric": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Sekunda",
   "deciseconds": "Desetinka sekunde",
@@ -248,6 +256,14 @@
   "knots": "Čvor",
   "feetSecond": "Stopa u sekundi",
   "minutesPerKilometer": "Minuta po kilometru",
+  "minutesPerMile": "Minutes per mile",
+  "@minutesPerMile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "speedOfLight": "Speed of light",
+  "@speedOfLight": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "grams": "Gram",
   "ettograms": "Etogram",
@@ -284,6 +300,14 @@
   "footPound": "Funta po stopi",
   "kilocalories": "Kilokalorija",
   "kilojoules": "Kilodžul",
+  "watthour": "Watt hour",
+  "@watthour": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishThermalUnit": "British thermal unit",
+  "@britishThermalUnit": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Stupanj",
   "minutesDegree": "Minuta",
@@ -352,6 +376,10 @@
   "poundForceFeet": "Funta-sila stopa",
   "kilogramForceMeter": "Kilogram-sila metar",
   "poundalMeter": "Poundal metar",
+  "poundForceInch": "Pound-force inch",
+  "@poundForceInch": {
+    "description": "Not yet translated. Once done, remove this comment."
+  },
 
   "kilometersLiter": "Kilometar na litru",
   "liters100km": "Litra na 100 km",
