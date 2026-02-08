@@ -171,7 +171,7 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
     MASS.kilograms,
     MASS.pounds,
     MASS.ounces,
-    MASS.tons,
+    MASS.tonnes,
     MASS.grams,
     MASS.ettograms,
     MASS.centigrams,

@@ -193,7 +193,7 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       MASS.kilograms: l10n.kilograms,
       MASS.pounds: l10n.pounds,
       MASS.ounces: l10n.ounces,
-      MASS.tons: l10n.tons,
+      MASS.tonnes: l10n.tonnes,
       MASS.grams: l10n.grams,
       MASS.ettograms: l10n.ettograms,
       MASS.centigrams: l10n.centigrams,
