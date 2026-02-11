@@ -128,7 +128,7 @@
   "lightYears": "Световые года",
   "parsec": "Парсеки",
   "mils": "Тысячные доли дюйма",
-  "feetUsSurvey": "Футы (США)",
+  "feetUsSurvey": "Футы США",
 
   "squareMeters": "Квадратные метры",
   "squareCentimeters": "Квадратные сантиметры",
@@ -141,7 +141,7 @@
   "hectares": "Гектары",
   "acres": "Акры",
   "are": "Ары",
-  "squareFeetUsSurvey": "Квадратные футы (США)",
+  "squareFeetUsSurvey": "Квадратные футы США",
 
   "gramsPerCubicCentimeter": "Граммы на кубический сантиметр",
   "gramsPerLiter": "Граммы на литр",
@@ -182,14 +182,8 @@
   "microliters": "Микролитры",
   "deciliters": "Децилитры",
   "centiliters": "Сантилитры",
-  "teaspoonsUs": "Teaspoons US",
-  "@teaspoonsUs": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "teaspoonsMetric": "Metric teaspoons",
-  "@teaspoonsMetric": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "teaspoonsUs": "Чайные ложки США",
+  "teaspoonsMetric": "Метрические чайные ложки",
 
   "seconds": "Секунды",
   "deciseconds": "Десятые доли секунды",
@@ -221,14 +215,8 @@
   "knots": "Узлы",
   "feetSecond": "Футы в секунду",
   "minutesPerKilometer": "Минуты на километр",
-  "minutesPerMile": "Minutes per mile",
-  "@minutesPerMile": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "speedOfLight": "Speed of light",
-  "@speedOfLight": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "minutesPerMile": "Минуты на милю",
+  "speedOfLight": "Скорость света",
 
   "grams": "Граммы",
   "ettograms": "Этограммы",
@@ -265,14 +253,8 @@
   "footPound": "Фут-фунты",
   "kilocalories": "Килокалории",
   "kilojoules": "Килоджоули",
-  "watthour": "Watt hour",
-  "@watthour": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "britishThermalUnit": "British thermal unit",
-  "@britishThermalUnit": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "watthour": "Ватт-часы",
+  "britishThermalUnit": "Британские тепловые единицы",
 
   "degree": "Градусы",
   "minutesDegree": "Минуты",
@@ -336,15 +318,12 @@
   "kilogramForce": "Килограмм-силы",
   "poundal": "Фунталы",
 
-  "newtonMeter": "Ньютон-метры",
+  "newtonMeter": "Ньютоны-метр",
   "dyneMeter": "Динамометры",
   "poundForceFeet": "Фунт-сила-футы",
   "kilogramForceMeter": "Килограмм-сила-метры",
   "poundalMeter": "Фунтал-метры",
-  "poundForceInch": "Pound-force inch",
-  "@poundForceInch": {
-    "description": "Not yet translated. Once done, remove this comment."
-  },
+  "poundForceInch": "Фунт-сила-дюймы",
 
   "kilometersLiter": "Километры на литр",
   "liters100km": "Литры на 100 км",
