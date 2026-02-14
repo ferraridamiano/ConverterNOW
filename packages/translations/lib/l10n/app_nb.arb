@@ -185,14 +185,8 @@
   "microliters": "Mikroliter",
   "deciliters": "Desiliter",
   "centiliters": "Centiliter",
-  "teaspoonsUs": "Teaspoons US",
-  "@teaspoonsUs": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "teaspoonsMetric": "Metric teaspoons",
-  "@teaspoonsMetric": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "teaspoonsUs": "Teskje US",
+  "teaspoonsMetric": "Teskje metrisk",
 
   "seconds": "Sekund",
   "deciseconds": "Desisekund",
@@ -224,14 +218,8 @@
   "knots": "Knop",
   "feetSecond": "Fot per sekund",
   "minutesPerKilometer": "Minutter per kilometer",
-  "minutesPerMile": "Minutes per mile",
-  "@minutesPerMile": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "speedOfLight": "Speed of light",
-  "@speedOfLight": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "minutesPerMile": "Minutter per eng. mil",
+  "speedOfLight": "Lysets hastighet",
 
   "grams": "Gram",
   "ettograms": "Ettogram",
@@ -268,14 +256,8 @@
   "footPound": "Foot-pound",
   "kilocalories": "Kilokalori",
   "kilojoules": "Kilojoule",
-  "watthour": "Watt hour",
-  "@watthour": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "britishThermalUnit": "British thermal unit",
-  "@britishThermalUnit": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "watthour": "Watt-time",
+  "britishThermalUnit": "Britisk varmeenhet",
 
   "degree": "Grad",
   "minutesDegree": "Bueminutt",
@@ -344,10 +326,7 @@
   "poundForceFeet": "Pound-foot",
   "kilogramForceMeter": "Kilogramkraftmeter",
   "poundalMeter": "Poundal meter",
-  "poundForceInch": "Pound-force inch",
-  "@poundForceInch": {
-    "description": "Not yet translated. Once done, remove this comment."
-  },
+  "poundForceInch": "Pund-kraft tomme",
 
   "kilometersLiter": "Kilometer per liter",
   "liters100km": "Liter per 100 km",
@@ -361,30 +340,12 @@
 
   "bit": "Bit",
   "nibble": "Nibble",
-  "kilobit": "Kilobit",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "megabit": "Megabit",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "gigabit": "Gigabit",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "terabit": "Terabit",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "petabit": "Petabit",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "exabit": "Exabit",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
+  "kilobit": "Kilobit (desimal)",
+  "megabit": "Megabit (desimal)",
+  "gigabit": "Gigabit (desimal)",
+  "terabit": "Terabit (desimal)",
+  "petabit": "Petabit (desimal)",
+  "exabit": "Exabit (desimal)",
   "kibibit": "Kibibit",
   "mebibit": "Mebibit",
   "gibibit": "Gibibit",
@@ -392,30 +353,12 @@
   "pebibit": "Pebibit",
   "exbibit": "Exbibit",
   "byte": "Byte",
-  "kilobyte": "Kilobyte",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "megabyte": "Megabyte",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "gigabyte": "Gigabyte",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "terabyte": "Terabyte",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "petabyte": "Petabyte",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
-  "exabyte": "Exabyte",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
+  "kilobyte": "Kilobyte (desimal)",
+  "megabyte": "Megabyte (desimal)",
+  "gigabyte": "Gigabyte (desimal)",
+  "terabyte": "Terabyte (desimal)",
+  "petabyte": "Petabyte (desimal)",
+  "exabyte": "Exabyte (desimal)",
   "kibibyte": "Kibibyte",
   "mebibyte": "Mebibyte",
   "gibibyte": "Gibibyte",
