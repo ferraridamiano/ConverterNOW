@@ -4,7 +4,9 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
+  screen_retriever_linux
   url_launcher_linux
+  window_manager
   window_size
 )
 
