@@ -5,7 +5,7 @@ publish_to: none
 version: 4.5.0+51
 
 environment:
-  sdk: ">=3.6.0 <4.0.0"
+  sdk: ">=3.11.0 <4.0.0"
   flutter: ">=3.35.1 <4.0.0"
 
 workspace:
@@ -125,4 +125,5 @@ flutter:
     - assets/flags/mx.png
     - assets/flags/nz.png
     - assets/flags/us.png
-    - assets/logo.png
+    - path: assets/logo.png
+      platforms: [windows]
