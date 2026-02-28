@@ -85,6 +85,17 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.6.0" date="2026-02-28">
+      <description>
+        <ul>
+          <li>📤 Import / export / delete the app settings</li>
+          <li>🔢 Added several units of measurement</li>
+          <li>🌍 Translation improvements. Thanks to @rehork, @solokot, @milotype, @FTno</li>
+          <li>🐞 Bug fixes and general improvements! We've worked hard to give you an even better experience</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
     <release version="4.5.0" date="2025-11-23">
       <description>
         <ul>

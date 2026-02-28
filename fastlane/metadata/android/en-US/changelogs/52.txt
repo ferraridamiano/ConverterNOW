@@ -1,0 +1,6 @@
+📤 <b>Import / export / delete</b> the app settings
+🔢 <b>Added several units of measurement</b>
+🌍 <b>Translation improvements</b>. Thanks to @rehork, @solokot, @milotype, @FTno
+🐞 <b>Bug fixes and general improvements!</b> We've worked hard to give you an even better experience
+
+<b>Do you like Converter NOW?</b> Leave a review and let us know what you think! ✔️
