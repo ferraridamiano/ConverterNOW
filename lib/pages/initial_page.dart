@@ -1,3 +1,4 @@
+import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
@@ -34,13 +35,17 @@ class InitialPage extends ConsumerWidget {
             maxCrossAxisExtent: 180,
             children: getPropertyGridTiles(
               (PROPERTYX e) {
+                Future.delayed(const Duration(milliseconds: 300), () {
+                  ref.read(conversionPageHeroEnabledProvider.notifier).state =
+                      false;
+                });
                 HapticFeedback.selectionClick();
                 context.go('/conversions/${e.toKebabCase()}');
               },
               context,
               ref.read(PropertiesOrderNotifier.provider).value!,
             ),
-          )
+          ),
         ],
       ),
     );

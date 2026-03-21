@@ -69,32 +69,31 @@ class _UnitWidgetState extends State<UnitWidget> {
                   },
                 )
               : widget.unitSymbol == null
-                  ? null
-                  : Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 10),
-                      child: widget.symbolContainsIcon
-                          ? () {
-                              final symbolSplitted =
-                                  widget.unitSymbol!.split(' ');
-                              final iconPath = symbolSplitted.removeLast();
-                              final symbol = symbolSplitted.join(' ');
+              ? null
+              : Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 10),
+                  child: widget.symbolContainsIcon
+                      ? () {
+                          final symbolSplitted = widget.unitSymbol!.split(' ');
+                          final iconPath = symbolSplitted.removeLast();
+                          final symbol = symbolSplitted.join(' ');
 
-                              return Row(
-                                mainAxisSize: MainAxisSize.min,
-                                spacing: 8,
-                                children: [
-                                  Text(symbol),
-                                  iconPath.endsWith('.svg.vec')
-                                      ? SvgPicture(
-                                          AssetBytesLoader(iconPath),
-                                          height: 16,
-                                        )
-                                      : Image.asset(iconPath, height: 16),
-                                ],
-                              );
-                            }()
-                          : Text(widget.unitSymbol!),
-                    ),
+                          return Row(
+                            mainAxisSize: MainAxisSize.min,
+                            spacing: 8,
+                            children: [
+                              Text(symbol),
+                              iconPath.endsWith('.svg.vec')
+                                  ? SvgPicture(
+                                      AssetBytesLoader(iconPath),
+                                      height: 16,
+                                    )
+                                  : Image.asset(iconPath, height: 16),
+                            ],
+                          );
+                        }()
+                      : Text(widget.unitSymbol!),
+                ),
           // Workaround to make suffixIcon always visible
           // See: https://stackoverflow.com/questions/58819979
           suffixIconConstraints: const BoxConstraints(
@@ -133,8 +132,11 @@ class SearchUnit {
   String iconAsset;
   String unitName;
   GestureTapCallback onTap;
-  SearchUnit(
-      {required this.iconAsset, required this.unitName, required this.onTap});
+  SearchUnit({
+    required this.iconAsset,
+    required this.unitName,
+    required this.onTap,
+  });
 }
 
 class SearchUnitTile extends StatelessWidget {
@@ -167,7 +169,7 @@ class SuggestionList extends StatelessWidget {
     return ListView(
       children: <Widget>[
         for (int i = 0; i < suggestions.length; i++)
-          SearchUnitTile(suggestions[i])
+          SearchUnitTile(suggestions[i]),
       ],
     );
   }
@@ -177,10 +179,12 @@ class PropertyGridTile extends StatelessWidget {
   final String iconAsset;
   final String footer;
   final GestureTapCallback onTap;
+  final String heroTag;
   const PropertyGridTile({
     required this.iconAsset,
     required this.footer,
     required this.onTap,
+    required this.heroTag,
     super.key,
   });
 
@@ -198,24 +202,30 @@ class PropertyGridTile extends StatelessWidget {
             flex: 6,
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: SvgPicture(
-                AssetBytesLoader(iconAsset),
-                height: 55,
-                colorFilter: ColorFilter.mode(
-                  Theme.of(context).colorScheme.secondary,
-                  BlendMode.srcIn,
+              child: Hero(
+                tag: 'icon-$heroTag',
+                child: SvgPicture(
+                  AssetBytesLoader(iconAsset),
+                  height: 55,
+                  colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.secondary,
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
             ),
           ),
           Expanded(
             flex: 4,
-            child: Text(
-              footer,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 18, height: 1.1),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+            child: Hero(
+              tag: 'text-$heroTag',
+              child: Text(
+                footer,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 18, height: 1.1),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
         ],
@@ -242,59 +252,54 @@ class DropdownListTile extends StatelessWidget {
     ValueKey? key,
   }) : super(key: key);
 
-  static const BorderRadiusGeometry borderRadius =
-      BorderRadius.all(Radius.circular(30));
+  static const BorderRadiusGeometry borderRadius = BorderRadius.all(
+    Radius.circular(30),
+  );
 
   @override
   Widget build(BuildContext context) {
     return switch (Theme.of(context).platform) {
       TargetPlatform.android ||
       TargetPlatform.iOS ||
-      TargetPlatform.fuchsia =>
-        ListTile(
-          leading: leading,
-          title: Text(
-            title,
-          ),
-          subtitle: Text(value),
-          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-          onTap: () async => onChanged(
-            await showModalBottomRadioList(
-              context: context,
-              title: title,
-              items: items,
-              value: value,
-            ),
+      TargetPlatform.fuchsia => ListTile(
+        leading: leading,
+        title: Text(title),
+        subtitle: Text(value),
+        shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+        onTap: () async => onChanged(
+          await showModalBottomRadioList(
+            context: context,
+            title: title,
+            items: items,
+            value: value,
           ),
         ),
+      ),
       TargetPlatform.linux ||
       TargetPlatform.windows ||
-      TargetPlatform.macOS =>
-        ListTile(
-          leading: leading,
-          title: Text(
-            title,
+      TargetPlatform.macOS => ListTile(
+        leading: leading,
+        title: Text(title),
+        shape: const RoundedRectangleBorder(borderRadius: borderRadius),
+        trailing: DropdownMenu<String>(
+          key: key != null
+              ? ValueKey('${(key as ValueKey).value}-dropdown')
+              : null,
+          initialSelection: value,
+          onSelected: onChanged,
+          requestFocusOnTap: false,
+          width: 170,
+          inputDecorationTheme: const InputDecorationTheme(
+            outlineBorder: BorderSide.none,
           ),
-          shape: const RoundedRectangleBorder(borderRadius: borderRadius),
-          trailing: DropdownMenu<String>(
-            key: key != null
-                ? ValueKey('${(key as ValueKey).value}-dropdown')
-                : null,
-            initialSelection: value,
-            onSelected: onChanged,
-            requestFocusOnTap: false,
-            width: 170,
-            inputDecorationTheme: const InputDecorationTheme(
-              outlineBorder: BorderSide.none,
-            ),
-            dropdownMenuEntries: items.map((String item) {
-              return DropdownMenuEntry<String>(
-                value: item,
-                label: item.toString(),
-              );
-            }).toList(),
-          ),
-        )
+          dropdownMenuEntries: items.map((String item) {
+            return DropdownMenuEntry<String>(
+              value: item,
+              label: item.toString(),
+            );
+          }).toList(),
+        ),
+      ),
     };
   }
 }
@@ -317,8 +322,9 @@ class SegmentedButtonListTile extends StatelessWidget {
     ValueKey? key,
   }) : super(key: key);
 
-  static const BorderRadiusGeometry borderRadius =
-      BorderRadius.all(Radius.circular(30));
+  static const BorderRadiusGeometry borderRadius = BorderRadius.all(
+    Radius.circular(30),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -330,11 +336,13 @@ class SegmentedButtonListTile extends StatelessWidget {
               shape: const RoundedRectangleBorder(borderRadius: borderRadius),
               trailing: SegmentedButton<String>(
                 segments: items
-                    .map((e) => ButtonSegment<String>(
-                          icon: Icon(e.icon),
-                          value: e.title,
-                          tooltip: e.title,
-                        ))
+                    .map(
+                      (e) => ButtonSegment<String>(
+                        icon: Icon(e.icon),
+                        value: e.title,
+                        tooltip: e.title,
+                      ),
+                    )
                     .toList(),
                 selected: {value},
                 onSelectionChanged: (val) => onChanged(val.first),
@@ -373,10 +381,7 @@ Future<String?> showModalBottomRadioList({
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            child: Text(title, style: Theme.of(context).textTheme.titleLarge),
           ),
           const SizedBox(height: 15),
           RadioGroup(
@@ -384,10 +389,7 @@ Future<String?> showModalBottomRadioList({
             onChanged: (value) => Navigator.pop(context, value),
             child: Column(
               children: items
-                  .map((item) => RadioListTile(
-                        value: item,
-                        title: Text(item),
-                      ))
+                  .map((item) => RadioListTile(value: item, title: Text(item)))
                   .toList(),
             ),
           ),
@@ -433,13 +435,17 @@ class ConstrainedContainer extends StatelessWidget {
 
 /// This method will return a List of [PropertyGridTile], needed in order to
 /// display the gridtiles in the search
-List<PropertyGridTile> getPropertyGridTiles(void Function(PROPERTYX) onTap,
-    BuildContext context, List<PROPERTYX> orderList) {
+List<PropertyGridTile> getPropertyGridTiles(
+  void Function(PROPERTYX) onTap,
+  BuildContext context,
+  List<PROPERTYX> orderList,
+) {
   final propertyUiMap = getPropertyUiMap(context);
   return orderList.indexed.map((e) {
     final propertyUi = propertyUiMap[e.$2]!;
     return PropertyGridTile(
       key: ValueKey('gridtile-${e.$1}'),
+      heroTag: e.$2.toString(),
       iconAsset: propertyUi.icon,
       footer: propertyUi.name,
       onTap: () => onTap(e.$2),

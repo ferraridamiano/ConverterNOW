@@ -28,16 +28,22 @@ class ConversionPage extends ConsumerWidget {
 
     final l10n = AppLocalizations.of(context)!;
 
-    final unitDataList =
-        ref.watch(ConversionsNotifier.provider).value![property]!;
+    final heroEnabled = ref.watch(conversionPageHeroEnabledProvider);
+
+    final unitDataList = ref
+        .watch(ConversionsNotifier.provider)
+        .value![property]!;
     final propertyUiMap = getPropertyUiMap(context);
     final unitMap = getUnitUiMap(context)[property]!;
-    final hiddenUnits =
-        ref.watch(HiddenUnitsNotifier.provider).value![property]!;
-    final hiddenUnitData =
-        unitDataList.where((e) => hiddenUnits.contains(e.unit.name));
-    final unhiddenUnitData =
-        unitDataList.where((e) => !hiddenUnits.contains(e.unit.name));
+    final hiddenUnits = ref
+        .watch(HiddenUnitsNotifier.provider)
+        .value![property]!;
+    final hiddenUnitData = unitDataList.where(
+      (e) => hiddenUnits.contains(e.unit.name),
+    );
+    final unhiddenUnitData = unitDataList.where(
+      (e) => !hiddenUnits.contains(e.unit.name),
+    );
 
     Widget? subtitleWidget;
     if (property == PROPERTYX.currencies) {
@@ -62,124 +68,162 @@ class ConversionPage extends ConsumerWidget {
     }
 
     UnitWidget unitWidgetBuilder(UnitData unitData) => UnitWidget(
-          tffKey: unitData.unit.name.toString(),
-          unitName: unitMap[unitData.unit.name]!,
-          unitSymbol: unitData.unit.symbol,
-          symbolContainsIcon: unitData.property == PROPERTYX.currencies,
-          keyboardType: unitData.textInputType,
-          controller: unitData.tec,
-          validator: (String? input) {
-            if (input != null) {
-              if (input != '' && !unitData.getValidator().hasMatch(input)) {
-                return l10n.invalidCharacters;
-              }
-            }
-            return null;
-          },
-          onChanged: (String txt) {
-            String newTxt = txt;
-            bool changed = false;
-            if (newTxt.contains(',')) {
-              newTxt = newTxt.replaceAll(',', '.');
-              changed = true;
-            }
-            if (newTxt.startsWith('.')) {
-              newTxt = '0$newTxt';
-              changed = true;
-            }
-            if (changed) {
-              unitData.tec.value = TextEditingValue(
-                text: newTxt,
-                selection: TextSelection.collapsed(offset: newTxt.length),
-              );
-            }
-            if (txt == '' || unitData.getValidator().hasMatch(txt)) {
-              var conversions = ref.read(ConversionsNotifier.provider.notifier);
-              //just numeral system uses a string for conversion
-              if (unitData.property == PROPERTYX.numeralSystems) {
-                conversions.convert(unitData, txt == "" ? null : txt, property);
-              } else {
-                conversions.convert(
-                  unitData,
-                  txt == "" ? null : double.parse(txt),
-                  property,
-                );
-              }
-            }
-          },
-        );
+      tffKey: unitData.unit.name.toString(),
+      unitName: unitMap[unitData.unit.name]!,
+      unitSymbol: unitData.unit.symbol,
+      symbolContainsIcon: unitData.property == PROPERTYX.currencies,
+      keyboardType: unitData.textInputType,
+      controller: unitData.tec,
+      validator: (String? input) {
+        if (input != null) {
+          if (input != '' && !unitData.getValidator().hasMatch(input)) {
+            return l10n.invalidCharacters;
+          }
+        }
+        return null;
+      },
+      onChanged: (String txt) {
+        String newTxt = txt;
+        bool changed = false;
+        if (newTxt.contains(',')) {
+          newTxt = newTxt.replaceAll(',', '.');
+          changed = true;
+        }
+        if (newTxt.startsWith('.')) {
+          newTxt = '0$newTxt';
+          changed = true;
+        }
+        if (changed) {
+          unitData.tec.value = TextEditingValue(
+            text: newTxt,
+            selection: TextSelection.collapsed(offset: newTxt.length),
+          );
+        }
+        if (txt == '' || unitData.getValidator().hasMatch(txt)) {
+          var conversions = ref.read(ConversionsNotifier.provider.notifier);
+          //just numeral system uses a string for conversion
+          if (unitData.property == PROPERTYX.numeralSystems) {
+            conversions.convert(unitData, txt == "" ? null : txt, property);
+          } else {
+            conversions.convert(
+              unitData,
+              txt == "" ? null : double.parse(txt),
+              property,
+            );
+          }
+        }
+      },
+    );
 
     final unhiddenGridTiles = unhiddenUnitData.map(unitWidgetBuilder).toList();
     final hiddenGridTiles = hiddenUnitData.map(unitWidgetBuilder).toList();
 
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraint) {
-      final int numCols = responsiveNumCols(constraint.maxWidth);
-      return CustomScrollView(slivers: <Widget>[
-        SliverAppBar.large(
-          title: Row(
-            spacing: 12,
-            children: [
-              SvgPicture(
-                AssetBytesLoader(propertyUiMap[property]!.selectedIcon),
-                width: 24,
-                colorFilter: ColorFilter.mode(
-                  Theme.of(context).textTheme.titleLarge!.color!,
-                  BlendMode.srcIn,
+      builder: (BuildContext context, BoxConstraints constraint) {
+        final int numCols = responsiveNumCols(constraint.maxWidth);
+        return CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar.large(
+              title: Builder(
+                builder: (context) {
+                  final isExpanded =
+                      (DefaultTextStyle.of(context).style.fontSize ?? 22.0) >
+                      24.0;
+                  final iconWidget = SvgPicture(
+                    AssetBytesLoader(propertyUiMap[property]!.selectedIcon),
+                    width: 24,
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).textTheme.titleLarge!.color!,
+                      BlendMode.srcIn,
+                    ),
+                  );
+                  final textWidget = Material(
+                    type: MaterialType.transparency,
+                    child: Text(
+                      propertyUiMap[property]!.name,
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  );
+                  return Row(
+                    spacing: 12,
+                    children: [
+                      isExpanded
+                          ? HeroMode(
+                              enabled: heroEnabled,
+                              child: Hero(
+                                tag: 'icon-${property.toString()}',
+                                child: iconWidget,
+                              ),
+                            )
+                          : iconWidget,
+                      isExpanded
+                          ? HeroMode(
+                              enabled: heroEnabled,
+                              child: Hero(
+                                tag: 'text-${property.toString()}',
+                                child: textWidget,
+                              ),
+                            )
+                          : textWidget,
+                    ],
+                  );
+                },
+              ),
+            ),
+            if (subtitleWidget != null)
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [subtitleWidget],
+                  ),
                 ),
               ),
-              Text(propertyUiMap[property]!.name),
-            ],
-          ),
-        ),
-        if (subtitleWidget != null)
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [subtitleWidget],
-              ),
-            ),
-          ),
-        SliverPadding(
-          padding: const EdgeInsets.only(top: 10),
-          sliver: SliverGrid.count(
-            crossAxisCount: numCols,
-            childAspectRatio: responsiveChildAspectRatio(
-              constraint.maxWidth,
-              numCols,
-            ),
-            children: unhiddenGridTiles,
-          ),
-        ),
-        if (hiddenUnitData.isNotEmpty)
-          SliverToBoxAdapter(
-            child: ExpansionTile(
-              leading: const Icon(Icons.visibility_off_outlined),
-              title: Text(
-                l10n.hiddenUnits,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              children: [
-                GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: numCols,
-                  childAspectRatio:
-                      responsiveChildAspectRatio(constraint.maxWidth, numCols),
-                  children: hiddenGridTiles,
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 10),
+              sliver: SliverGrid.count(
+                crossAxisCount: numCols,
+                childAspectRatio: responsiveChildAspectRatio(
+                  constraint.maxWidth,
+                  numCols,
                 ),
-              ],
+                children: unhiddenGridTiles,
+              ),
             ),
-          ),
-        if (isDrawerFixed(MediaQuery.sizeOf(context).width))
-          // Space for FAB + navigation bar (android)
-          SliverToBoxAdapter(
-            child: SizedBox(height: 60 + MediaQuery.paddingOf(context).bottom),
-          ),
-      ]);
-    });
+            if (hiddenUnitData.isNotEmpty)
+              SliverToBoxAdapter(
+                child: ExpansionTile(
+                  leading: const Icon(Icons.visibility_off_outlined),
+                  title: Text(
+                    l10n.hiddenUnits,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  children: [
+                    GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: numCols,
+                      childAspectRatio: responsiveChildAspectRatio(
+                        constraint.maxWidth,
+                        numCols,
+                      ),
+                      children: hiddenGridTiles,
+                    ),
+                  ],
+                ),
+              ),
+            if (isDrawerFixed(MediaQuery.sizeOf(context).width))
+              // Space for FAB + navigation bar (android)
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 60 + MediaQuery.paddingOf(context).bottom,
+                ),
+              ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -193,6 +237,7 @@ String _getLastUpdateString(BuildContext context, String lastUpdate) {
     return l10n.lastCurrenciesUpdate + l10n.today;
   }
   return l10n.lastCurrenciesUpdate +
-      DateFormat.yMd(Localizations.localeOf(context).languageCode)
-          .format(lastUpdateCurrencies);
+      DateFormat.yMd(
+        Localizations.localeOf(context).languageCode,
+      ).format(lastUpdateCurrencies);
 }
