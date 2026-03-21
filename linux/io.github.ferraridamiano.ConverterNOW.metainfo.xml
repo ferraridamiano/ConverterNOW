@@ -20,6 +20,10 @@
     <control>touch</control>
   </supports>
 
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+
   <description>
     <p>
       Converter NOW is an effective unit and currencies converter
