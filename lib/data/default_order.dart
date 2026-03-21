@@ -240,12 +240,7 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
     POWER.gigawatt,
     POWER.milliwatt,
   ],
-  PROPERTYX.angle: [
-    ANGLE.degree,
-    ANGLE.radians,
-    ANGLE.minutes,
-    ANGLE.seconds,
-  ],
+  PROPERTYX.angle: [ANGLE.degree, ANGLE.radians, ANGLE.minutes, ANGLE.seconds],
   PROPERTYX.shoeSize: [
     SHOE_SIZE.centimeters,
     SHOE_SIZE.inches,
@@ -317,5 +312,5 @@ const Map<PROPERTYX, List<dynamic>> defaultUnitsOrder = {
     TORQUE.poundForceFeet,
     TORQUE.poundForceInch,
     TORQUE.poundalMeter,
-  ]
+  ],
 };

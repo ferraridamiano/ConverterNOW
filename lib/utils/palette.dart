@@ -2,11 +2,12 @@ import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class Palette extends StatefulWidget {
-  const Palette(
-      {super.key,
-      required this.onSelected,
-      required this.initial,
-      this.enabled = true});
+  const Palette({
+    super.key,
+    required this.onSelected,
+    required this.initial,
+    this.enabled = true,
+  });
 
   final Function(Color color) onSelected;
   final Color initial;
@@ -35,80 +36,79 @@ class _PaletteState extends State<Palette> {
     final palette = Wrap(
       spacing: 4,
       runSpacing: 4,
-      children: [
-        Colors.red,
-        Colors.pink,
-        Colors.purple,
-        Colors.deepPurple,
-        Colors.indigo,
-        Colors.blue,
-        Colors.lightBlue,
-        Colors.cyan,
-        Colors.teal,
-        Colors.green,
-        Colors.lightGreen,
-        Colors.lime,
-        Colors.yellow,
-        Colors.amber,
-        Colors.orange,
-        Colors.deepOrange,
-        Colors.brown,
-        Colors.blueGrey,
-      ].map(
-        (e) {
-          final isHovered = hoveredColor == e;
-          return MouseRegion(
-            onEnter: (_) {
-              setState(() => hoveredColor = e);
-            },
-            onExit: (_) {
-              setState(() => hoveredColor = null);
-            },
-            child: InkWell(
-              onTap: () {
-                setState(() => selectedColor = e);
-                widget.onSelected(e);
+      children:
+          [
+            Colors.red,
+            Colors.pink,
+            Colors.purple,
+            Colors.deepPurple,
+            Colors.indigo,
+            Colors.blue,
+            Colors.lightBlue,
+            Colors.cyan,
+            Colors.teal,
+            Colors.green,
+            Colors.lightGreen,
+            Colors.lime,
+            Colors.yellow,
+            Colors.amber,
+            Colors.orange,
+            Colors.deepOrange,
+            Colors.brown,
+            Colors.blueGrey,
+          ].map((e) {
+            final isHovered = hoveredColor == e;
+            return MouseRegion(
+              onEnter: (_) {
+                setState(() => hoveredColor = e);
               },
-              borderRadius: BorderRadius.circular(squareSize / 2),
-              child: Stack(
-                children: [
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    width: squareSize,
-                    height: squareSize,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        isHovered ? squareSize / 2 : squareSize / 4,
-                      ),
-                      color: Color.lerp(
-                        widget.enabled
-                            ? e
-                            : HSVColor.fromColor(e)
-                                .withSaturation(0.02)
-                                .toColor(),
-                        Colors.white,
-                        isHovered ? 0.5 : 0,
+              onExit: (_) {
+                setState(() => hoveredColor = null);
+              },
+              child: InkWell(
+                onTap: () {
+                  setState(() => selectedColor = e);
+                  widget.onSelected(e);
+                },
+                borderRadius: BorderRadius.circular(squareSize / 2),
+                child: Stack(
+                  children: [
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      width: squareSize,
+                      height: squareSize,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          isHovered ? squareSize / 2 : squareSize / 4,
+                        ),
+                        color: Color.lerp(
+                          widget.enabled
+                              ? e
+                              : HSVColor.fromColor(
+                                  e,
+                                ).withSaturation(0.02).toColor(),
+                          Colors.white,
+                          isHovered ? 0.5 : 0,
+                        ),
                       ),
                     ),
-                  ),
-                  if (widget.enabled && selectedColorValue == color2Int(e))
-                    Positioned(
-                      top: (squareSize - checkSize) / 2,
-                      left: (squareSize - checkSize) / 2,
-                      child: Icon(
-                        Icons.check,
-                        size: checkSize,
-                        color: e.computeLuminance() < 0.5
-                            ? Colors.white
-                            : Colors.black,
+                    if (widget.enabled && selectedColorValue == color2Int(e))
+                      Positioned(
+                        top: (squareSize - checkSize) / 2,
+                        left: (squareSize - checkSize) / 2,
+                        child: Icon(
+                          Icons.check,
+                          size: checkSize,
+                          color: e.computeLuminance() < 0.5
+                              ? Colors.white
+                              : Colors.black,
+                        ),
                       ),
-                    )
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-      ).toList(),
+            );
+          }).toList(),
     );
     return widget.enabled
         ? palette

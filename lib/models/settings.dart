@@ -28,9 +28,11 @@ final Map<Locale, String> mapLocale = {
   const Locale('zh', 'TW'): '中文 (台灣)',
 };
 
-final sharedPref = FutureProvider<SharedPreferencesWithCache>((_) async =>
-    await SharedPreferencesWithCache.create(
-        cacheOptions: const SharedPreferencesWithCacheOptions()));
+final sharedPref = FutureProvider<SharedPreferencesWithCache>(
+  (_) async => await SharedPreferencesWithCache.create(
+    cacheOptions: const SharedPreferencesWithCacheOptions(),
+  ),
+);
 
 class SettingsNotifier<T> extends AsyncNotifier<T?> {
   late final String prefKey;
@@ -72,61 +74,62 @@ class SettingsNotifier<T> extends AsyncNotifier<T?> {
 
 final significantFiguresProvider =
     AsyncNotifierProvider<SettingsNotifier<int?>, int?>(() {
-  return SettingsNotifier<int?>()
-    ..prefKey = 'significant_figures'
-    ..defaultValue = 10
-    ..validate = (val) => val != null && val > 0 && val <= 16;
-});
+      return SettingsNotifier<int?>()
+        ..prefKey = 'significant_figures'
+        ..defaultValue = 10
+        ..validate = (val) => val != null && val > 0 && val <= 16;
+    });
 
 final removeTrailingZerosProvider =
     AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
-  return SettingsNotifier<bool>()
-    ..prefKey = 'remove_trailing_zeros'
-    ..defaultValue = true
-    ..validate = (val) => val != null;
-});
+      return SettingsNotifier<bool>()
+        ..prefKey = 'remove_trailing_zeros'
+        ..defaultValue = true
+        ..validate = (val) => val != null;
+    });
 
 final isPureDarkProvider =
     AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
-  return SettingsNotifier<bool>()
-    ..prefKey = 'isDarkAmoled'
-    ..defaultValue = false
-    ..validate = (val) => val != null;
-});
+      return SettingsNotifier<bool>()
+        ..prefKey = 'isDarkAmoled'
+        ..defaultValue = false
+        ..validate = (val) => val != null;
+    });
 
 final propertySelectionOnStartupProvider =
     AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
-  return SettingsNotifier<bool>()
-    ..prefKey = 'propertySelectionOnStartup'
-    ..defaultValue = true
-    ..validate = (val) => val != null;
-});
+      return SettingsNotifier<bool>()
+        ..prefKey = 'propertySelectionOnStartup'
+        ..defaultValue = true
+        ..validate = (val) => val != null;
+    });
 
 final revokeInternetProvider =
     AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
-  return SettingsNotifier<bool>()
-    ..prefKey = 'revokeInternet'
-    ..defaultValue = false
-    ..validate = (val) => val != null;
-});
+      return SettingsNotifier<bool>()
+        ..prefKey = 'revokeInternet'
+        ..defaultValue = false
+        ..validate = (val) => val != null;
+    });
 
 final useDeviceColorProvider =
     AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
-  return SettingsNotifier<bool>()
-    ..prefKey = 'useDeviceColor'
-    // Here we set default theme to fallbackColorTheme (it is easier to support
-    // device that does not have a color accent)
-    ..defaultValue = false
-    ..validate = (val) => val != null;
-});
+      return SettingsNotifier<bool>()
+        ..prefKey = 'useDeviceColor'
+        // Here we set default theme to fallbackColorTheme (it is easier to support
+        // device that does not have a color accent)
+        ..defaultValue = false
+        ..validate = (val) => val != null;
+    });
 
-final colorThemeProvider =
-    AsyncNotifierProvider<SettingsNotifier<int?>, int?>(() {
-  return SettingsNotifier<int>()
-    ..prefKey = 'colorTheme'
-    ..defaultValue = fallbackColorTheme.toARGB32()
-    ..validate = (val) => val != null && val > 0 && val <= 0xFFFFFFFF;
-});
+final colorThemeProvider = AsyncNotifierProvider<SettingsNotifier<int?>, int?>(
+  () {
+    return SettingsNotifier<int>()
+      ..prefKey = 'colorTheme'
+      ..defaultValue = fallbackColorTheme.toARGB32()
+      ..validate = (val) => val != null && val > 0 && val <= 0xFFFFFFFF;
+  },
+);
 
 /// `null` means no accent color
 final deviceAccentColorProvider = StateProvider<Color?>((ref) => null);
@@ -139,35 +142,37 @@ final actualColorThemeProvider = Provider<Color>((ref) {
   return useDeviceColor
       ? deviceAccentColor ?? fallbackColorTheme
       : colorTheme != null
-          ? Color(colorTheme)
-          : fallbackColorTheme;
+      ? Color(colorTheme)
+      : fallbackColorTheme;
 });
 
-final themeModeProvider =
-    AsyncNotifierProvider<SettingsNotifier<int?>, int?>(() {
-  return SettingsNotifier<int>()
-    ..prefKey = 'currentThemeMode'
-    ..defaultValue = ThemeMode.system.index
-    ..validate =
-        (val) => val != null && val >= 0 && val < ThemeMode.values.length;
-});
+final themeModeProvider = AsyncNotifierProvider<SettingsNotifier<int?>, int?>(
+  () {
+    return SettingsNotifier<int>()
+      ..prefKey = 'currentThemeMode'
+      ..defaultValue = ThemeMode.system.index
+      ..validate = (val) =>
+          val != null && val >= 0 && val < ThemeMode.values.length;
+  },
+);
 
 final languageTagProvider =
     AsyncNotifierProvider<SettingsNotifier<String?>, String?>(() {
-  return SettingsNotifier<String>()
-    ..prefKey = 'locale'
-    ..defaultValue = null
-    ..validate = (val) =>
-        val == null || mapLocale.keys.any((e) => e.toLanguageTag() == val);
-});
+      return SettingsNotifier<String>()
+        ..prefKey = 'locale'
+        ..defaultValue = null
+        ..validate = (val) =>
+            val == null || mapLocale.keys.any((e) => e.toLanguageTag() == val);
+    });
 
 final actualLocaleProvider = Provider<Locale?>((ref) {
   final languageTag = ref.watch(languageTagProvider).value;
 
   if (languageTag == null) {
     final deviceLocale = PlatformDispatcher.instance.locale;
-    final isSupported =
-        mapLocale.keys.any((l) => l.languageCode == deviceLocale.languageCode);
+    final isSupported = mapLocale.keys.any(
+      (l) => l.languageCode == deviceLocale.languageCode,
+    );
     return isSupported ? deviceLocale : fallbackLocale;
   }
   return languageTagToLocale(languageTag);

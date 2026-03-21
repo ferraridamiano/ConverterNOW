@@ -34,8 +34,9 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
   }
 
   void initProvider() {
-    unselectedUnits =
-        ref.read(HiddenUnitsNotifier.provider).value![widget.selectedProperty]!;
+    unselectedUnits = ref
+        .read(HiddenUnitsNotifier.provider)
+        .value![widget.selectedProperty]!;
   }
 
   @override
@@ -43,8 +44,9 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
     final l10n = AppLocalizations.of(context)!;
 
     final unitsNames = getUnitUiMap(context)[widget.selectedProperty]!;
-    final conversionOrderUnits =
-        ref.watch(UnitsOrderNotifier.provider).value![widget.selectedProperty]!;
+    final conversionOrderUnits = ref
+        .watch(UnitsOrderNotifier.provider)
+        .value![widget.selectedProperty]!;
     final areAllSelected = unselectedUnits.isEmpty;
 
     return Scaffold(
@@ -59,65 +61,70 @@ class _SelectUnitsPageState extends ConsumerState<SelectUnitsPage> {
           context.goNamed('hide-units');
         },
       ),
-      body: CustomScrollView(slivers: <Widget>[
-        SliverAppBar.large(
-          title: Text(
-            l10n.visibleUnits(
-                getPropertyUiMap(context)[widget.selectedProperty]!.name),
-          ),
-          actions: [
-            TextButton.icon(
-              label: Text(areAllSelected ? l10n.unselectAll : l10n.selectAll),
-              onPressed: () {
-                setState(() {
-                  unselectedUnits = areAllSelected
-                      ? defaultUnitsOrder[widget.selectedProperty]!
-                          .toList(growable: true)
-                      : [];
-                });
-              },
-              icon: Icon(
-                areAllSelected
-                    ? Icons.check_box_outline_blank
-                    : Icons.check_box,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar.large(
+            title: Text(
+              l10n.visibleUnits(
+                getPropertyUiMap(context)[widget.selectedProperty]!.name,
               ),
-            )
-          ],
-        ),
-        SliverPadding(
-          // Space for FAB + navigation bar (android)
-          padding: EdgeInsets.only(
-            bottom: 60 + MediaQuery.paddingOf(context).bottom,
+            ),
+            actions: [
+              TextButton.icon(
+                label: Text(areAllSelected ? l10n.unselectAll : l10n.selectAll),
+                onPressed: () {
+                  setState(() {
+                    unselectedUnits = areAllSelected
+                        ? defaultUnitsOrder[widget.selectedProperty]!.toList(
+                            growable: true,
+                          )
+                        : [];
+                  });
+                },
+                icon: Icon(
+                  areAllSelected
+                      ? Icons.check_box_outline_blank
+                      : Icons.check_box,
+                ),
+              ),
+            ],
           ),
-          sliver: SliverList(
-            delegate: SliverChildBuilderDelegate(
-              childCount: conversionOrderUnits.length,
-              (context, index) {
-                final unitCodeName = conversionOrderUnits[index];
-                return CheckboxListTile(
-                  value: !unselectedUnits.contains(unitCodeName),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30))),
-                  onChanged: (selected) {
-                    if (selected == null) {
-                      return;
-                    }
-                    setState(() {
-                      if (selected) {
-                        unselectedUnits.remove(unitCodeName);
-                      } else {
-                        unselectedUnits.add(unitCodeName);
+          SliverPadding(
+            // Space for FAB + navigation bar (android)
+            padding: EdgeInsets.only(
+              bottom: 60 + MediaQuery.paddingOf(context).bottom,
+            ),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                childCount: conversionOrderUnits.length,
+                (context, index) {
+                  final unitCodeName = conversionOrderUnits[index];
+                  return CheckboxListTile(
+                    value: !unselectedUnits.contains(unitCodeName),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                    ),
+                    onChanged: (selected) {
+                      if (selected == null) {
+                        return;
                       }
-                    });
-                  },
-                  title: Text(unitsNames[unitCodeName]!),
-                );
-              },
+                      setState(() {
+                        if (selected) {
+                          unselectedUnits.remove(unitCodeName);
+                        } else {
+                          unselectedUnits.add(unitCodeName);
+                        }
+                      });
+                    },
+                    title: Text(unitsNames[unitCodeName]!),
+                  );
+                },
+              ),
             ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }

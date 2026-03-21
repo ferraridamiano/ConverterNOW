@@ -27,8 +27,9 @@ class HideUnitsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Read the order of the properties in the drawer
-    final conversionsOrderDrawer =
-        ref.watch(PropertiesOrderNotifier.provider).value;
+    final conversionsOrderDrawer = ref
+        .watch(PropertiesOrderNotifier.provider)
+        .value;
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();
@@ -46,44 +47,44 @@ class HideUnitsPage extends ConsumerWidget {
 
     final choosePropertyPage = ChoosePropertyPage(
       selectedProperty: selectedProperty,
-      onSelectedProperty: (property) => context.go(
-        '/settings/hide-units/${property.toKebabCase()}',
-      ),
+      onSelectedProperty: (property) =>
+          context.go('/settings/hide-units/${property.toKebabCase()}'),
     );
 
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      // Enough space for two sided pages
-      if (constraints.maxWidth > twoSidedReorderScreen) {
-        return Row(
-          children: [
-            Expanded(child: choosePropertyPage),
-            if (selectedProperty != null)
-              Expanded(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    final offsetAnimation = Tween<Offset>(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        // Enough space for two sided pages
+        if (constraints.maxWidth > twoSidedReorderScreen) {
+          return Row(
+            children: [
+              Expanded(child: choosePropertyPage),
+              if (selectedProperty != null)
+                Expanded(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                          final offsetAnimation = Tween<Offset>(
                             begin: const Offset(1.0, 0.0),
-                            end: const Offset(0.0, 0.0))
-                        .animate(animation);
-                    return SlideTransition(
-                      position: offsetAnimation,
-                      child: child,
-                    );
-                  },
-                  child: hideUnitsPage,
+                            end: const Offset(0.0, 0.0),
+                          ).animate(animation);
+                          return SlideTransition(
+                            position: offsetAnimation,
+                            child: child,
+                          );
+                        },
+                    child: hideUnitsPage,
+                  ),
                 ),
-              ),
-          ],
-        );
-      }
-      // One page at a time
-      if (!isPropertySelected) {
-        return choosePropertyPage;
-      }
-      return hideUnitsPage!;
-    });
+            ],
+          );
+        }
+        // One page at a time
+        if (!isPropertySelected) {
+          return choosePropertyPage;
+        }
+        return hideUnitsPage!;
+      },
+    );
   }
 }

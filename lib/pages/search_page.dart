@@ -36,8 +36,10 @@ class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
       orderList,
     );
 
-    final Iterable<SearchUnit> suggestions = dataSearch.where((searchUnit) =>
-        searchUnit.unitName.toLowerCase().contains(query.toLowerCase()));
+    final Iterable<SearchUnit> suggestions = dataSearch.where(
+      (searchUnit) =>
+          searchUnit.unitName.toLowerCase().contains(query.toLowerCase()),
+    );
     //.toLowercase in order to be case insesitive
 
     return query.isNotEmpty
@@ -73,7 +75,9 @@ class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
 
 /// This method will return a List of [SearchUnit], needed in order to display the tiles in the search
 List<SearchUnit> getSearchUnitsList(
-    void Function(PROPERTYX) onTap, BuildContext context) {
+  void Function(PROPERTYX) onTap,
+  BuildContext context,
+) {
   List<SearchUnit> searchUnitsList = [];
   final propertyUiMap = getPropertyUiMap(context);
   final unitUiMap = getUnitUiMap(context);
@@ -83,20 +87,22 @@ List<SearchUnit> getSearchUnitsList(
     final propertyUi = property.value;
     final propertyImagePath = property.value.icon;
     // Add properties in search
-    searchUnitsList.add(SearchUnit(
-      iconAsset: propertyImagePath,
-      unitName: propertyUi.name,
-      onTap: () => onTap(property.key),
-    ));
+    searchUnitsList.add(
+      SearchUnit(
+        iconAsset: propertyImagePath,
+        unitName: propertyUi.name,
+        onTap: () => onTap(property.key),
+      ),
+    );
     // Add units in search
     searchUnitsList.addAll(
       unitUiMap[propertyx]!.values.map(
-            (e) => SearchUnit(
-              iconAsset: propertyImagePath,
-              unitName: e,
-              onTap: () => onTap(propertyx),
-            ),
-          ),
+        (e) => SearchUnit(
+          iconAsset: propertyImagePath,
+          unitName: e,
+          onTap: () => onTap(propertyx),
+        ),
+      ),
     );
   }
 

@@ -78,7 +78,8 @@ class Currencies {
 
 class CurrenciesNotifier extends AsyncNotifier<Currencies> {
   static final provider = AsyncNotifierProvider<CurrenciesNotifier, Currencies>(
-      CurrenciesNotifier.new);
+    CurrenciesNotifier.new,
+  );
   late SharedPreferencesWithCache pref;
 
   @override
@@ -107,8 +108,9 @@ class CurrenciesNotifier extends AsyncNotifier<Currencies> {
     String? lastUpdate = pref.getString('lastUpdateCurrencies');
     String? currenciesRead = pref.getString('currenciesRates');
     if (currenciesRead != null) {
-      return Currencies.fromJson(currenciesRead)
-          .copyWith(lastUpdate: lastUpdate);
+      return Currencies.fromJson(
+        currenciesRead,
+      ).copyWith(lastUpdate: lastUpdate);
     }
     return Currencies();
   }
@@ -116,8 +118,9 @@ class CurrenciesNotifier extends AsyncNotifier<Currencies> {
   /// Updates the currencies exchange rates with the latest values. It will also
   /// update the status at the end (updated or error)
   Future<Currencies> _downloadCurrencies() async {
-    final stringRequest =
-        Currencies.defaultExchangeRates.keys.where((e) => e != 'EUR').join('+');
+    final stringRequest = Currencies.defaultExchangeRates.keys
+        .where((e) => e != 'EUR')
+        .join('+');
     try {
       var response = await http.get(
         Uri.https(
@@ -144,10 +147,7 @@ class CurrenciesNotifier extends AsyncNotifier<Currencies> {
         }
         pref.setString('currenciesRates', jsonEncode(exchangeRates));
         pref.setString('lastUpdateCurrencies', lastUpdate);
-        return Currencies(
-          exchangeRates: exchangeRates,
-          lastUpdate: lastUpdate,
-        );
+        return Currencies(exchangeRates: exchangeRates, lastUpdate: lastUpdate);
       }
     } catch (e) {
       dPrint(e.toString);

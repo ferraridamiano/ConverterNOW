@@ -27,11 +27,14 @@ AppPage computeSelectedSection(BuildContext context) {
 }
 
 int? computeSelectedConversionPage(
-    BuildContext context, Map<PROPERTYX, int> inversePropertiesOrdering) {
+  BuildContext context,
+  Map<PROPERTYX, int> inversePropertiesOrdering,
+) {
   final location = GoRouterState.of(context).uri.toString();
   if (location.startsWith('/conversions')) {
-    return inversePropertiesOrdering[
-        kebabStringToPropertyX(location.split('/').last)];
+    return inversePropertiesOrdering[kebabStringToPropertyX(
+      location.split('/').last,
+    )];
   }
   return null;
 }

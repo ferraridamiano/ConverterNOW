@@ -37,12 +37,15 @@ const Map<String, String> _currenciesSymbols = {
   'ISK': 'kr assets/flags_opti/is.svg.vec',
 };
 
-final propertiesMapProvider =
-    FutureProvider<Map<PROPERTYX, Property>>((ref) async {
-  final removeTrailingZeros =
-      (await ref.watch(removeTrailingZerosProvider.future))!;
-  final significantFigures =
-      (await ref.watch(significantFiguresProvider.future))!;
+final propertiesMapProvider = FutureProvider<Map<PROPERTYX, Property>>((
+  ref,
+) async {
+  final removeTrailingZeros = (await ref.watch(
+    removeTrailingZerosProvider.future,
+  ))!;
+  final significantFigures = (await ref.watch(
+    significantFiguresProvider.future,
+  ))!;
   return {
     PROPERTYX.length: Length(
       significantFigures: significantFigures,
@@ -65,10 +68,13 @@ final propertiesMapProvider =
       name: PROPERTYX.volume,
     ),
     PROPERTYX.currencies: SimpleCustomProperty(
-      ref.watch(CurrenciesNotifier.provider).when(
-          data: (currencies) => currencies.exchangeRates,
-          error: (_, trace) => Currencies.defaultExchangeRates,
-          loading: () => Currencies.defaultExchangeRates),
+      ref
+          .watch(CurrenciesNotifier.provider)
+          .when(
+            data: (currencies) => currencies.exchangeRates,
+            error: (_, trace) => Currencies.defaultExchangeRates,
+            loading: () => Currencies.defaultExchangeRates,
+          ),
       mapSymbols: _currenciesSymbols,
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,

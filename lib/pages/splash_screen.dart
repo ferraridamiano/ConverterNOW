@@ -17,27 +17,30 @@ class SplashScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (ref.watch(isEverythingLoadedProvider)) {
-      final conversionsOrderDrawer =
-          ref.read(PropertiesOrderNotifier.provider).value!;
+      final conversionsOrderDrawer = ref
+          .read(PropertiesOrderNotifier.provider)
+          .value!;
       initializeQuickAction(
         conversionsOrderDrawer: conversionsOrderDrawer,
         propertyUiMap: getPropertyUiMap(context),
         onActionSelection: (String shortcut) {
-          final selectedProperty = defaultPropertiesOrder
-              .firstWhereOrNull((e) => e.toString() == shortcut);
+          final selectedProperty = defaultPropertiesOrder.firstWhereOrNull(
+            (e) => e.toString() == shortcut,
+          );
           if (selectedProperty != null) {
             context.go('/conversions/${selectedProperty.toKebabCase()}');
           }
         },
       );
 
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => GoRouter.of(context).go(
-                MediaQuery.sizeOf(context).width > pixelFixedDrawer ||
-                        !ref.read(propertySelectionOnStartupProvider).value!
-                    ? '/conversions/${conversionsOrderDrawer[0].toKebabCase()}'
-                    : '/conversions',
-              ));
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => GoRouter.of(context).go(
+          MediaQuery.sizeOf(context).width > pixelFixedDrawer ||
+                  !ref.read(propertySelectionOnStartupProvider).value!
+              ? '/conversions/${conversionsOrderDrawer[0].toKebabCase()}'
+              : '/conversions',
+        ),
+      );
     }
 
     return const SplashScreenWidget();

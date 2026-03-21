@@ -39,20 +39,20 @@ class SettingsPage extends ConsumerWidget {
       ThemeMode.dark.index: (title: l10n.dark, icon: Icons.dark_mode_outlined),
       ThemeMode.light.index: (
         title: l10n.light,
-        icon: Icons.light_mode_outlined
+        icon: Icons.light_mode_outlined,
       ),
     };
     final languageTag = ref.watch(languageTagProvider).value;
 
     final iconColor = getIconColor(Theme.of(context));
     final titlesStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
-          color: switch (Theme.brightnessOf(context)) {
-            Brightness.light => Theme.of(context).primaryColor,
-            Brightness.dark => HSLColor.fromColor(
-                Theme.of(context).primaryColor,
-              ).withLightness(0.7).toColor(),
-          },
-        );
+      color: switch (Theme.brightnessOf(context)) {
+        Brightness.light => Theme.of(context).primaryColor,
+        Brightness.dark => HSLColor.fromColor(
+          Theme.of(context).primaryColor,
+        ).withLightness(0.7).toColor(),
+      },
+    );
 
     return PopScope(
       canPop: false,
@@ -69,10 +69,7 @@ class SettingsPage extends ConsumerWidget {
               [
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 16),
-                  child: Text(
-                    l10n.appearance,
-                    style: titlesStyle,
-                  ),
+                  child: Text(l10n.appearance, style: titlesStyle),
                 ),
                 DropdownListTile(
                   key: const ValueKey('language'),
@@ -86,13 +83,15 @@ class SettingsPage extends ConsumerWidget {
                     if (string == null) return;
                     ref
                         .read(languageTagProvider.notifier)
-                        .set(string == l10n.system
-                            ? null
-                            : mapLocale.keys
-                                .firstWhere(
-                                  (element) => mapLocale[element] == string,
-                                )
-                                .toLanguageTag());
+                        .set(
+                          string == l10n.system
+                              ? null
+                              : mapLocale.keys
+                                    .firstWhere(
+                                      (element) => mapLocale[element] == string,
+                                    )
+                                    .toLanguageTag(),
+                        );
                   },
                 ),
                 ListTile(
@@ -125,7 +124,9 @@ class SettingsPage extends ConsumerWidget {
                       mapTheme[ref.watch(themeModeProvider).value ?? 0]!.title,
                   onChanged: (String? string) {
                     if (string != null) {
-                      ref.read(themeModeProvider.notifier).set(
+                      ref
+                          .read(themeModeProvider.notifier)
+                          .set(
                             mapTheme.keys
                                 .where((key) => mapTheme[key]?.title == string)
                                 .single,
@@ -148,7 +149,8 @@ class SettingsPage extends ConsumerWidget {
                   secondary: Icon(Icons.apps_rounded, color: iconColor),
                   title: Text(l10n.propertySelectionOnStartup),
                   subtitle: Text(l10n.propertySelectionOnStartupSubtitle),
-                  value: ref.watch(propertySelectionOnStartupProvider).value ??
+                  value:
+                      ref.watch(propertySelectionOnStartupProvider).value ??
                       true,
                   onChanged: (bool val) {
                     ref
@@ -161,10 +163,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
-                  child: Text(
-                    l10n.conversions,
-                    style: titlesStyle,
-                  ),
+                  child: Text(l10n.conversions, style: titlesStyle),
                 ),
                 if (!kIsWeb)
                   SwitchListTile(
@@ -177,9 +176,7 @@ class SettingsPage extends ConsumerWidget {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text(
-                                l10n.revokeInternetAccess,
-                              ),
+                              title: Text(l10n.revokeInternetAccess),
                               content: SizedBox(
                                 width: 500,
                                 child: Text(
@@ -196,9 +193,7 @@ class SettingsPage extends ConsumerWidget {
                                     Future.delayed(
                                       const Duration(milliseconds: 200),
                                       () => ref
-                                          .read(
-                                            revokeInternetProvider.notifier,
-                                          )
+                                          .read(revokeInternetProvider.notifier)
                                           .set(val),
                                     );
                                   },
@@ -245,8 +240,9 @@ class SettingsPage extends ConsumerWidget {
                     colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                   ),
                   title: l10n.significantFigures,
-                  items:
-                      significantFiguresList.map((e) => e.toString()).toList(),
+                  items: significantFiguresList
+                      .map((e) => e.toString())
+                      .toList(),
                   value: (ref.watch(significantFiguresProvider).value ?? 10)
                       .toString(),
                   onChanged: (String? string) {
@@ -301,10 +297,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
-                  child: Text(
-                    l10n.backupAndRestore,
-                    style: titlesStyle,
-                  ),
+                  child: Text(l10n.backupAndRestore, style: titlesStyle),
                 ),
                 ListTile(
                   leading: Icon(Icons.file_upload_outlined, color: iconColor),
@@ -313,9 +306,11 @@ class SettingsPage extends ConsumerWidget {
                     borderRadius: borderRadius,
                   ),
                   onTap: () async {
-                    final jsonBytes = utf8.encode(await ref
-                        .read(ImportExportNotifier.provider.notifier)
-                        .exportSettings());
+                    final jsonBytes = utf8.encode(
+                      await ref
+                          .read(ImportExportNotifier.provider.notifier)
+                          .exportSettings(),
+                    );
                     final filename =
                         '${DateFormat('yyyyMMdd').format(DateTime.now())}_converternow.json';
                     if (kIsWeb) {
@@ -327,7 +322,8 @@ class SettingsPage extends ConsumerWidget {
                     } else if (Platform.isAndroid || Platform.isIOS) {
                       // Mobile: Share
                       final file = File(
-                          '${(await getTemporaryDirectory()).path}/$filename');
+                        '${(await getTemporaryDirectory()).path}/$filename',
+                      );
                       await file.writeAsBytes(jsonBytes);
                       await SharePlus.instance.share(
                         ShareParams(
@@ -362,11 +358,11 @@ class SettingsPage extends ConsumerWidget {
                   ),
                   onTap: () async {
                     try {
-                      FilePickerResult? result =
-                          await FilePicker.platform.pickFiles(
-                        type: FileType.custom,
-                        allowedExtensions: ['json'],
-                      );
+                      FilePickerResult? result = await FilePicker.platform
+                          .pickFiles(
+                            type: FileType.custom,
+                            allowedExtensions: ['json'],
+                          );
 
                       if (result != null) {
                         String content;
@@ -426,8 +422,10 @@ class SettingsPage extends ConsumerWidget {
                   },
                 ),
                 ListTile(
-                  leading:
-                      Icon(Icons.delete_forever_outlined, color: iconColor),
+                  leading: Icon(
+                    Icons.delete_forever_outlined,
+                    color: iconColor,
+                  ),
                   title: Text(l10n.clearSettings),
                   shape: const RoundedRectangleBorder(
                     borderRadius: borderRadius,
@@ -465,10 +463,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
-                  child: Text(
-                    l10n.findOutMore,
-                    style: titlesStyle,
-                  ),
+                  child: Text(l10n.findOutMore, style: titlesStyle),
                 ),
                 ListTile(
                   leading: Icon(Icons.computer, color: iconColor),

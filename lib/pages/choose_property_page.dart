@@ -15,19 +15,19 @@ class ChoosePropertyPage extends ConsumerWidget {
   final PROPERTYX? selectedProperty;
   final void Function(PROPERTYX property)? onSelectedProperty;
 
-  static const BorderRadius borderRadius =
-      BorderRadius.all(Radius.circular(30));
+  static const BorderRadius borderRadius = BorderRadius.all(
+    Radius.circular(30),
+  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final propertiesOrder = ref.watch(PropertiesOrderNotifier.provider).value!;
     final propertyUiMap = getPropertyUiMap(context);
-    final propertiesStringOrdered =
-        propertiesOrder.map((e) => propertyUiMap[e]!.name).toList();
+    final propertiesStringOrdered = propertiesOrder
+        .map((e) => propertyUiMap[e]!.name)
+        .toList();
 
-    Color selectedListTileColor = Theme.of(context)
-        .colorScheme
-        .primaryContainer
+    Color selectedListTileColor = Theme.of(context).colorScheme.primaryContainer
         .withValues(
           alpha: Theme.brightnessOf(context) == Brightness.light ? 0.5 : 0.8,
         );
@@ -55,15 +55,16 @@ class ChoosePropertyPage extends ConsumerWidget {
                       transitionBuilder:
                           (Widget child, Animation<double> animation) =>
                               SlideTransition(
-                        position: Tween<Offset>(
-                          begin: const Offset(-1.0, 0.0),
-                          end: const Offset(0.0, 0.0),
-                        ).animate(animation),
-                        child: child,
-                      ),
+                                position: Tween<Offset>(
+                                  begin: const Offset(-1.0, 0.0),
+                                  end: const Offset(0.0, 0.0),
+                                ).animate(animation),
+                                child: child,
+                              ),
                       child: Padding(
                         key: Key(
-                            '${propertiesStringOrdered[index]}-$isSelectedProperty'),
+                          '${propertiesStringOrdered[index]}-$isSelectedProperty',
+                        ),
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Container(
                           constraints: const BoxConstraints(maxWidth: 400),
@@ -83,23 +84,25 @@ class ChoosePropertyPage extends ConsumerWidget {
                         constraints: const BoxConstraints(maxWidth: 400),
                         child: ListTile(
                           key: ValueKey(
-                              'chooseProperty-${propertiesOrder[index]}'),
+                            'chooseProperty-${propertiesOrder[index]}',
+                          ),
                           title: Text(
                             propertiesStringOrdered[index],
                             style: TextStyle(
                               color: isSelectedProperty
-                                  ? Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryContainer
+                                  ? Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimaryContainer
                                   : null,
                             ),
                           ),
                           shape: const RoundedRectangleBorder(
-                              borderRadius: borderRadius),
+                            borderRadius: borderRadius,
+                          ),
                           onTap: onSelectedProperty == null
                               ? null
                               : () =>
-                                  onSelectedProperty!(propertiesOrder[index]),
+                                    onSelectedProperty!(propertiesOrder[index]),
                         ),
                       ),
                     ),

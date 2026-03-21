@@ -15,15 +15,17 @@ class ReorderPropertiesPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Read the order of the properties in the drawer
-    final conversionsOrderDrawer =
-        ref.watch(PropertiesOrderNotifier.provider).value;
+    final conversionsOrderDrawer = ref
+        .watch(PropertiesOrderNotifier.provider)
+        .value;
     final propertyUiMap = getPropertyUiMap(context);
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();
     }
-    final orderedProperties =
-        conversionsOrderDrawer.map((e) => propertyUiMap[e]!).toList();
+    final orderedProperties = conversionsOrderDrawer
+        .map((e) => propertyUiMap[e]!)
+        .toList();
 
     return ReorderPage(
       title: AppLocalizations.of(context)!.reorderProperties,
@@ -34,13 +36,15 @@ class ReorderPropertiesPage extends ConsumerWidget {
           ref.read(PropertiesOrderNotifier.provider.notifier).set(orderList);
           // Update the quick actions
           initializeQuickAction(
-            conversionsOrderDrawer:
-                ref.read(PropertiesOrderNotifier.provider).value!,
+            conversionsOrderDrawer: ref
+                .read(PropertiesOrderNotifier.provider)
+                .value!,
             propertyUiMap: propertyUiMap,
             onActionSelection: (String shortcutType) {
               final int index = int.parse(shortcutType);
               context.go(
-                  '/conversions/${defaultPropertiesOrder[index].toKebabCase()}');
+                '/conversions/${defaultPropertiesOrder[index].toKebabCase()}',
+              );
             },
           );
         }

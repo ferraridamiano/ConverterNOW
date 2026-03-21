@@ -31,14 +31,11 @@ Map<PROPERTYX, PropertyUi> getPropertyUiMap(BuildContext context) {
     PROPERTYX.siPrefixes: l10n.siPrefixes,
     PROPERTYX.torque: l10n.torque,
   }.map(
-    (key, value) => MapEntry(
-      key,
-      (
-        name: value,
-        icon: '$basePath/${key.name}.svg.vec',
-        selectedIcon: '$basePath/${key.name}_filled.svg.vec',
-      ),
-    ),
+    (key, value) => MapEntry(key, (
+      name: value,
+      icon: '$basePath/${key.name}.svg.vec',
+      selectedIcon: '$basePath/${key.name}_filled.svg.vec',
+    )),
   );
 }
 
@@ -339,6 +336,6 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       TORQUE.poundForceFeet: l10n.poundForceFeet,
       TORQUE.poundForceInch: l10n.poundForceInch,
       TORQUE.poundalMeter: l10n.poundalMeter,
-    }
+    },
   };
 }

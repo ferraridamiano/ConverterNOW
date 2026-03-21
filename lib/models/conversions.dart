@@ -7,13 +7,17 @@ import 'package:units_converter/units_converter.dart';
 
 class ConversionsNotifier
     extends AsyncNotifier<Map<PROPERTYX, List<UnitData>>> {
-  static final provider = AsyncNotifierProvider<ConversionsNotifier,
-      Map<PROPERTYX, List<UnitData>>>(ConversionsNotifier.new);
+  static final provider =
+      AsyncNotifierProvider<
+        ConversionsNotifier,
+        Map<PROPERTYX, List<UnitData>>
+      >(ConversionsNotifier.new);
 
   @override
   Future<Map<PROPERTYX, List<UnitData>>> build() async {
-    final conversionsOrder =
-        (await ref.watch(UnitsOrderNotifier.provider.future));
+    final conversionsOrder = (await ref.watch(
+      UnitsOrderNotifier.provider.future,
+    ));
     final propertiesMap = await ref.watch(propertiesMapProvider.future);
 
     return conversionsOrder.map(
@@ -30,25 +34,29 @@ class ConversionsNotifier
                   TEMPERATURE.fahrenheit ||
                   TEMPERATURE.delisle ||
                   TEMPERATURE.reamur ||
-                  TEMPERATURE.romer =>
-                    const TextInputType.numberWithOptions(
-                        decimal: true, signed: true),
+                  TEMPERATURE.romer => const TextInputType.numberWithOptions(
+                    decimal: true,
+                    signed: true,
+                  ),
                   NUMERAL_SYSTEMS.binary ||
                   NUMERAL_SYSTEMS.octal ||
                   NUMERAL_SYSTEMS.decimal =>
                     const TextInputType.numberWithOptions(
-                        decimal: false, signed: false),
+                      decimal: false,
+                      signed: false,
+                    ),
                   NUMERAL_SYSTEMS.hexadecimal => TextInputType.text,
                   _ => const TextInputType.numberWithOptions(
-                      decimal: true, signed: false),
+                    decimal: true,
+                    signed: false,
+                  ),
                 },
                 validator: switch (e) {
                   TEMPERATURE.celsius ||
                   TEMPERATURE.fahrenheit ||
                   TEMPERATURE.delisle ||
                   TEMPERATURE.reamur ||
-                  TEMPERATURE.romer =>
-                    VALIDATOR.rational,
+                  TEMPERATURE.romer => VALIDATOR.rational,
                   NUMERAL_SYSTEMS.binary => VALIDATOR.binary,
                   NUMERAL_SYSTEMS.octal => VALIDATOR.octal,
                   NUMERAL_SYSTEMS.decimal => VALIDATOR.decimal,
@@ -83,8 +91,9 @@ class ConversionsNotifier
         if (currentUnitData.unit.stringValue == null) {
           currentUnitData.tec.value = TextEditingValue.empty;
         } else {
-          currentUnitData.tec.value =
-              TextEditingValue(text: currentUnitData.unit.stringValue!);
+          currentUnitData.tec.value = TextEditingValue(
+            text: currentUnitData.unit.stringValue!,
+          );
         }
       }
     }
@@ -109,11 +118,11 @@ class ConversionsNotifier
     List<UnitData> currentUnitDataList = state.value![property]!;
     if (currentUnitDataList[0].property == PROPERTYX.numeralSystems) {
       _savedUnitDataList = [
-        ...currentUnitDataList.map((unitData) => unitData.unit.stringValue)
+        ...currentUnitDataList.map((unitData) => unitData.unit.stringValue),
       ];
     } else {
       _savedUnitDataList = [
-        ...currentUnitDataList.map((unitData) => unitData.unit.value)
+        ...currentUnitDataList.map((unitData) => unitData.unit.value),
       ];
     }
     _savedProperty = property;
@@ -130,8 +139,9 @@ class ConversionsNotifier
         for (int i = 0; i < listToUndo.length; i++) {
           listToUndo[i]
             ..unit.value = _savedUnitDataList![i]
-            ..tec.value =
-                TextEditingValue(text: _savedUnitDataList![i].toString());
+            ..tec.value = TextEditingValue(
+              text: _savedUnitDataList![i].toString(),
+            );
         }
       } else if (_savedUnitDataList![0] is String) {
         for (int i = 0; i < listToUndo.length; i++) {
