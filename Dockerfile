@@ -1,4 +1,4 @@
-FROM debian:13-slim AS builder
+FROM --platform=linux/amd64 debian:13-slim AS builder
 
 USER root
 
@@ -45,7 +45,7 @@ FROM nginx:alpine-slim
 COPY --from=builder /app/build/web /usr/share/nginx/html
 
 # Workaround, remove once https://github.com/nginx/nginx/pull/448 has been merged
-RUN sed -i 's|application/javascript[[:space:]]\+js;|application/javascript       js mjs;|' /etc/nginx/mime.types
+RUN sed -i -E 's|application/javascript\s+js;|application/javascript       js mjs;|' /etc/nginx/mime.types
 
 EXPOSE 80
 
