@@ -407,7 +407,7 @@ class SplashScreenWidget extends StatelessWidget {
       body: Center(
         child: SvgPicture(
           AssetBytesLoader('assets/app_icons_opti/logo.svg.vec'),
-          width: 150,
+          width: 160,
         ),
       ),
     );

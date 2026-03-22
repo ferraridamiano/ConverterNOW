@@ -24,8 +24,8 @@ class InitialPage extends ConsumerWidget {
               children: [
                 const SvgPicture(
                   AssetBytesLoader('assets/app_icons_opti/logo.svg.vec'),
-                  width: 36,
-                  height: 36,
+                  width: 39,
+                  height: 39,
                 ),
                 Text(AppLocalizations.of(context)!.appName),
               ],

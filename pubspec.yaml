@@ -29,6 +29,8 @@ dependencies:
   flutter_svg: ^2.2.3
   # Navigation
   go_router: ^17.1.0
+  # Rounded corner window on linux
+  handy_window: ^0.4.2
   # Downloading the exchange rates
   http: ^1.6.0
   # Translations

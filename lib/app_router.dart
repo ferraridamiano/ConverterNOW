@@ -118,7 +118,7 @@ final routerProvider = Provider<GoRouter>(
                   applicationName: AppLocalizations.of(context)!.appName,
                   applicationIcon: const SvgPicture(
                     AssetBytesLoader('assets/app_icons_opti/logo.svg.vec'),
-                    width: 50,
+                    width: 54,
                   ),
                 ),
               ),
