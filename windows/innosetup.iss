@@ -2,9 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Converter NOW"
-#ifndef MyAppVersion
 #define MyAppVersion "4.6.0"
-#endif
 #define MyAppPublisher "Damiano Ferrari"
 #define MyAppURL "https://github.com/ferraridamiano/ConverterNOW"
 #define MyAppExeName "converternow.exe"
@@ -13,29 +11,52 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{5986D941-E8A6-4B8D-A618-2B1D3691456A}
+AppId={{B569A7ED-8CA0-402C-A04D-0BF6F634FF17}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-AppVerName={#MyAppName} {#MyAppVersion}
+;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-VersionInfoDescription={#MyAppDescription}
 DefaultDirName={autopf}\{#MyAppName}
+UninstallDisplayIcon={app}\{#MyAppExeName}
+; "ArchitecturesAllowed=x64compatible" specifies that Setup cannot run
+; on anything but x64 and Windows 11 on Arm.
+ArchitecturesAllowed=x64compatible
+; "ArchitecturesInstallIn64BitMode=x64compatible" requests that the
+; install be done in "64-bit mode" on x64 or Windows 11 on Arm,
+; meaning it should use the native 64-bit Program Files directory and
+; the 64-bit view of the registry.
+ArchitecturesInstallIn64BitMode=x64compatible
 DisableProgramGroupPage=yes
-; Uncomment the following line to run in non administrative install mode (install for current user only.)
-;PrivilegesRequired=lowest
+; Remove the following line to run in administrative install mode (install for all users).
+PrivilegesRequired=lowest
 OutputDir=.
 OutputBaseFilename=converternow-windows-setup
 SetupIconFile=windows\runner\resources\app_icon.ico
-Compression=lzma
+PrivilegesRequiredOverridesAllowed=dialog
 SolidCompression=yes
 WizardStyle=modern
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "arabic"; MessagesFile: "compiler:Languages\Arabic.isl"
+Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
+Name: "catalan"; MessagesFile: "compiler:Languages\Catalan.isl"
+Name: "danish"; MessagesFile: "compiler:Languages\Danish.isl"
+Name: "dutch"; MessagesFile: "compiler:Languages\Dutch.isl"
+Name: "french"; MessagesFile: "compiler:Languages\French.isl"
+Name: "german"; MessagesFile: "compiler:Languages\German.isl"
+Name: "hungarian"; MessagesFile: "compiler:Languages\Hungarian.isl"
 Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
+Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
+Name: "norwegian"; MessagesFile: "compiler:Languages\Norwegian.isl"
+Name: "polish"; MessagesFile: "compiler:Languages\Polish.isl"
+Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
+Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
+Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
+Name: "thai"; MessagesFile: "compiler:Languages\Thai.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked

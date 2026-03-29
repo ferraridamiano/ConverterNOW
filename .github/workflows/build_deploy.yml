@@ -253,7 +253,7 @@ jobs:
       shell: pwsh
       run: |
         $version = (Select-String -Path pubspec.yaml -Pattern "^version:\s*(.+)").Matches[0].Groups[1].Value.Split("+")[0]
-        iscc /DMyAppVersion=$version innosetup.iss
+        iscc /DMyAppVersion=$version windows\innosetup.iss
 
   #   - name: Release to GitHub
   #     uses: softprops/action-gh-release@v2
