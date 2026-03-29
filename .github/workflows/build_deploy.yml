@@ -267,7 +267,7 @@ jobs:
       uses: actions/upload-artifact@v7
       with:
         name: converternow.exe
-        path: converternow-windows-setup.exe
+        path: windows/converternow-windows-setup.exe
       
 
   # build_docker:
