@@ -34,7 +34,7 @@ DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 OutputDir=.
 OutputBaseFilename=converternow-windows-setup
-SetupIconFile=windows\runner\resources\app_icon.ico
+SetupIconFile=runner\resources\app_icon.ico
 PrivilegesRequiredOverridesAllowed=dialog
 SolidCompression=yes
 WizardStyle=modern
@@ -62,7 +62,7 @@ Name: "thai"; MessagesFile: "compiler:Languages\Thai.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "build\windows\x64\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "*.msix"
+Source: "..\build\windows\x64\runner\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "*.msix"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
