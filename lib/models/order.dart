@@ -8,14 +8,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
   static final provider =
       AsyncNotifierProvider<PropertiesOrderNotifier, List<PROPERTYX>>(
-          PropertiesOrderNotifier.new);
+        PropertiesOrderNotifier.new,
+      );
 
   static const storeKey = 'propertiesOrder';
 
   @override
   Future<List<PROPERTYX>> build() async {
-    List<String>? storedList =
-        (await ref.read(sharedPref.future)).getStringList(storeKey);
+    List<String>? storedList = (await ref.read(
+      sharedPref.future,
+    )).getStringList(storeKey);
     if (storedList != null) {
       final newState = storedList
           .map(
@@ -30,9 +32,11 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
       // If there are different properties in the two lists
       if (newState.length != defaultPropertiesOrder.length) {
         newState.addAll(
-            defaultPropertiesOrder.toSet().difference(newState.toSet()));
-        (await ref.read(sharedPref.future))
-            .setStringList(storeKey, _toStorableString(newState));
+          defaultPropertiesOrder.toSet().difference(newState.toSet()),
+        );
+        (await ref.read(
+          sharedPref.future,
+        )).setStringList(storeKey, _toStorableString(newState));
       }
       return newState;
     }
@@ -45,8 +49,10 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
       return false;
     }
     // Check if newOrder contains all numbers from 0 to length - 1
-    final Set<int> expectedSet =
-        List.generate(currentOrdering.length, (i) => i).toSet();
+    final Set<int> expectedSet = List.generate(
+      currentOrdering.length,
+      (i) => i,
+    ).toSet();
     if (newOrder.length != currentOrdering.length ||
         !newOrder.toSet().containsAll(expectedSet)) {
       return false;
@@ -80,7 +86,8 @@ extension ReversedPropertiesOrdering on List<PROPERTYX> {
 class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
   static final provider =
       AsyncNotifierProvider<UnitsOrderNotifier, Map<PROPERTYX, List>>(
-          UnitsOrderNotifier.new);
+        UnitsOrderNotifier.new,
+      );
 
   @override
   Future<Map<PROPERTYX, List>> build() async {
@@ -105,10 +112,12 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
             .toList();
         // Add missing units
         if (storedOrder.length != defaultOrder.length) {
-          storedOrder
-              .addAll(defaultOrder.toSet().difference(storedOrder.toSet()));
-          (await ref.read(sharedPref.future)).setStringList(
-              storeKey(property), _toStorableString(storedOrder));
+          storedOrder.addAll(
+            defaultOrder.toSet().difference(storedOrder.toSet()),
+          );
+          (await ref.read(
+            sharedPref.future,
+          )).setStringList(storeKey(property), _toStorableString(storedOrder));
         }
         newState[property] = storedOrder;
       }
@@ -125,8 +134,10 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
     if (currentUnitsProperty == null) return false;
 
     // Check if newOrder contains all numbers from 0 to length - 1
-    final Set<int> expectedSet =
-        List.generate(currentUnitsProperty.length, (i) => i).toSet();
+    final Set<int> expectedSet = List.generate(
+      currentUnitsProperty.length,
+      (i) => i,
+    ).toSet();
     if (newOrder.length != currentUnitsProperty.length ||
         !newOrder.toSet().containsAll(expectedSet)) {
       return false;

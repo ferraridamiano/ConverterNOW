@@ -15,38 +15,44 @@ import 'package:converterpro/pages/app_scaffold.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
-final isEverythingLoadedProvider = Provider<bool>((ref) =>
-    ref.watch(significantFiguresProvider).hasValue &&
-    ref.watch(removeTrailingZerosProvider).hasValue &&
-    ref.watch(isPureDarkProvider).hasValue &&
-    ref.watch(propertySelectionOnStartupProvider).hasValue &&
-    ref.watch(useDeviceColorProvider).hasValue &&
-    ref.watch(colorThemeProvider).hasValue &&
-    ref.watch(revokeInternetProvider).hasValue &&
-    ref.watch(themeModeProvider).hasValue &&
-    ref.watch(languageTagProvider).hasValue &&
-    ref.watch(PropertiesOrderNotifier.provider).hasValue &&
-    ref.watch(UnitsOrderNotifier.provider).hasValue &&
-    ref.watch(ConversionsNotifier.provider).hasValue &&
-    ref.watch(HiddenUnitsNotifier.provider).hasValue &&
-    ref.watch(propertiesMapProvider).hasValue);
+final isEverythingLoadedProvider = Provider<bool>(
+  (ref) =>
+      ref.watch(significantFiguresProvider).hasValue &&
+      ref.watch(removeTrailingZerosProvider).hasValue &&
+      ref.watch(isPureDarkProvider).hasValue &&
+      ref.watch(propertySelectionOnStartupProvider).hasValue &&
+      ref.watch(useDeviceColorProvider).hasValue &&
+      ref.watch(colorThemeProvider).hasValue &&
+      ref.watch(revokeInternetProvider).hasValue &&
+      ref.watch(themeModeProvider).hasValue &&
+      ref.watch(languageTagProvider).hasValue &&
+      ref.watch(PropertiesOrderNotifier.provider).hasValue &&
+      ref.watch(UnitsOrderNotifier.provider).hasValue &&
+      ref.watch(ConversionsNotifier.provider).hasValue &&
+      ref.watch(HiddenUnitsNotifier.provider).hasValue &&
+      ref.watch(propertiesMapProvider).hasValue,
+);
+
+final conversionPageHeroEnabledProvider = StateProvider<bool>((ref) => false);
 
 final routerProvider = Provider<GoRouter>(
   (ref) => GoRouter(
     routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, _) => const SplashScreen(),
-      ),
+      GoRoute(path: '/', builder: (context, _) => const SplashScreen()),
       GoRoute(
         path: '/conversions',
         name: 'conversions',
         builder: (context, state) => const InitialPage(),
+        redirect: (context, state) {
+          ref.read(conversionPageHeroEnabledProvider.notifier).state = true;
+          return null;
+        },
       ),
       ShellRoute(
         builder: (context, state, child) => AppScaffold(child: child),
@@ -112,7 +118,7 @@ final routerProvider = Provider<GoRouter>(
                   applicationName: AppLocalizations.of(context)!.appName,
                   applicationIcon: const SvgPicture(
                     AssetBytesLoader('assets/app_icons_opti/logo.svg.vec'),
-                    width: 50,
+                    width: 54,
                   ),
                 ),
               ),
@@ -125,8 +131,9 @@ final routerProvider = Provider<GoRouter>(
       // Bypass splashscreen if variables are already loaded
       if (state.uri.toString() == '/') {
         if (ref.read(isEverythingLoadedProvider)) {
-          final conversionsOrderDrawer =
-              ref.read(PropertiesOrderNotifier.provider).value!;
+          final conversionsOrderDrawer = ref
+              .read(PropertiesOrderNotifier.provider)
+              .value!;
           return '/conversions/${conversionsOrderDrawer[0].toKebabCase()}';
         }
       }

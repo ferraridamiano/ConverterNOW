@@ -25,8 +25,9 @@ class _ReorderPageState extends State<ReorderPage> {
 
   @override
   Widget build(BuildContext context) {
-    _itemsList =
-        widget.itemsList.indexed.map((e) => (id: e.$1, title: e.$2)).toList();
+    _itemsList = widget.itemsList.indexed
+        .map((e) => (id: e.$1, title: e.$2))
+        .toList();
 
     return Scaffold(
       key: _scaffoldKey,

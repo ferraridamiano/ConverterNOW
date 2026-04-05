@@ -29,8 +29,9 @@ class ReorderUnitsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Read the order of the properties in the drawer
-    final conversionsOrderDrawer =
-        ref.watch(PropertiesOrderNotifier.provider).value;
+    final conversionsOrderDrawer = ref
+        .watch(PropertiesOrderNotifier.provider)
+        .value;
 
     if (conversionsOrderDrawer == null) {
       return const SplashScreen();
@@ -41,8 +42,9 @@ class ReorderUnitsPage extends ConsumerWidget {
     Widget? reorderPage;
     if (selectedProperty != null) {
       final unitUiMap = getUnitUiMap(context);
-      final conversionOrderUnits =
-          ref.watch(UnitsOrderNotifier.provider).value![selectedProperty]!;
+      final conversionOrderUnits = ref
+          .watch(UnitsOrderNotifier.provider)
+          .value![selectedProperty]!;
       // if we remove the following check, if you enter the site directly to
       // '/conversions/:property' an error will occur
       if (!ref.watch(isEverythingLoadedProvider)) {
@@ -54,57 +56,57 @@ class ReorderUnitsPage extends ConsumerWidget {
             .map((e) => unitUiMap[selectedProperty]![e]!)
             .toList(),
         onSave: (List<int>? orderList) {
-          ref.read(UnitsOrderNotifier.provider.notifier).set(
-                orderList,
-                selectedProperty!,
-              );
+          ref
+              .read(UnitsOrderNotifier.provider.notifier)
+              .set(orderList, selectedProperty!);
           context.goNamed('reorder-units');
         },
-        title: AppLocalizations.of(context)!
-            .reorderProperty(propertyUiMap[selectedProperty]!.name),
+        title: AppLocalizations.of(
+          context,
+        )!.reorderProperty(propertyUiMap[selectedProperty]!.name),
       );
     }
 
     final choosePropertyPage = ChoosePropertyPage(
       selectedProperty: selectedProperty,
-      onSelectedProperty: (property) => context.go(
-        '/settings/reorder-units/${property.toKebabCase()}',
-      ),
+      onSelectedProperty: (property) =>
+          context.go('/settings/reorder-units/${property.toKebabCase()}'),
     );
 
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      // Enough space for two sided pages
-      if (constraints.maxWidth > twoSidedReorderScreen) {
-        return Row(
-          children: [
-            Expanded(child: choosePropertyPage),
-            if (selectedProperty != null)
-              Expanded(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  transitionBuilder:
-                      (Widget child, Animation<double> animation) {
-                    final offsetAnimation = Tween<Offset>(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        // Enough space for two sided pages
+        if (constraints.maxWidth > twoSidedReorderScreen) {
+          return Row(
+            children: [
+              Expanded(child: choosePropertyPage),
+              if (selectedProperty != null)
+                Expanded(
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder:
+                        (Widget child, Animation<double> animation) {
+                          final offsetAnimation = Tween<Offset>(
                             begin: const Offset(1.0, 0.0),
-                            end: const Offset(0.0, 0.0))
-                        .animate(animation);
-                    return SlideTransition(
-                      position: offsetAnimation,
-                      child: child,
-                    );
-                  },
-                  child: reorderPage,
+                            end: const Offset(0.0, 0.0),
+                          ).animate(animation);
+                          return SlideTransition(
+                            position: offsetAnimation,
+                            child: child,
+                          );
+                        },
+                    child: reorderPage,
+                  ),
                 ),
-              ),
-          ],
-        );
-      }
-      // One page at a time
-      if (!isPropertySelected) {
-        return choosePropertyPage;
-      }
-      return reorderPage!;
-    });
+            ],
+          );
+        }
+        // One page at a time
+        if (!isPropertySelected) {
+          return choosePropertyPage;
+        }
+        return reorderPage!;
+      },
+    );
   }
 }

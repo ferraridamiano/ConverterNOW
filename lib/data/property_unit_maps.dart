@@ -31,14 +31,11 @@ Map<PROPERTYX, PropertyUi> getPropertyUiMap(BuildContext context) {
     PROPERTYX.siPrefixes: l10n.siPrefixes,
     PROPERTYX.torque: l10n.torque,
   }.map(
-    (key, value) => MapEntry(
-      key,
-      (
-        name: value,
-        icon: '$basePath/${key.name}.svg.vec',
-        selectedIcon: '$basePath/${key.name}_filled.svg.vec',
-      ),
-    ),
+    (key, value) => MapEntry(key, (
+      name: value,
+      icon: '$basePath/${key.name}.svg.vec',
+      selectedIcon: '$basePath/${key.name}_filled.svg.vec',
+    )),
   );
 }
 
@@ -113,6 +110,8 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       VOLUME.microliters: l10n.microliters,
       VOLUME.tablespoonsUs: l10n.tablespoonUs,
       VOLUME.australianTablespoons: l10n.tablespoonAustralian,
+      VOLUME.teaspoonsUs: l10n.teaspoonsUs,
+      VOLUME.teaspoonsMetric: l10n.teaspoonsMetric,
       VOLUME.cups: l10n.cups,
       VOLUME.cubicMillimeters: l10n.cubicMillimeters,
       VOLUME.cubicCentimeters: l10n.cubicCentimeters,
@@ -145,7 +144,6 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       'CZK': l10n.czk,
       'HUF': l10n.huf,
       'RON': l10n.ron,
-      'BGN': l10n.bgn,
       'IDR': l10n.idr,
       'THB': l10n.thb,
       'PHP': l10n.php,
@@ -189,12 +187,14 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       SPEED.feetsPerSecond: l10n.feetSecond,
       SPEED.knots: l10n.knots,
       SPEED.minutesPerKilometer: l10n.minutesPerKilometer,
+      SPEED.minutesPerMile: l10n.minutesPerMile,
+      SPEED.speedOfLight: l10n.speedOfLight,
     },
     PROPERTYX.mass: {
       MASS.kilograms: l10n.kilograms,
       MASS.pounds: l10n.pounds,
       MASS.ounces: l10n.ounces,
-      MASS.tons: l10n.tons,
+      MASS.tonnes: l10n.tonnes,
       MASS.grams: l10n.grams,
       MASS.ettograms: l10n.ettograms,
       MASS.centigrams: l10n.centigrams,
@@ -241,12 +241,14 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
     },
     PROPERTYX.energy: {
       ENERGY.kilowattHours: l10n.kilowattHour,
+      ENERGY.wattHours: l10n.watthour,
       ENERGY.kilocalories: l10n.kilocalories,
       ENERGY.calories: l10n.calories,
       ENERGY.joules: l10n.joule,
       ENERGY.kilojoules: l10n.kilojoules,
       ENERGY.electronvolts: l10n.electronvolt,
       ENERGY.energyFootPound: l10n.footPound,
+      ENERGY.britishThermalUnit: l10n.britishThermalUnit,
     },
     PROPERTYX.power: {
       POWER.kilowatt: l10n.kilowatt,
@@ -332,7 +334,8 @@ Map<PROPERTYX, Map<dynamic, String>> getUnitUiMap(BuildContext context) {
       TORQUE.kilogramForceMeter: l10n.kilogramForceMeter,
       TORQUE.dyneMeter: l10n.dyneMeter,
       TORQUE.poundForceFeet: l10n.poundForceFeet,
+      TORQUE.poundForceInch: l10n.poundForceInch,
       TORQUE.poundalMeter: l10n.poundalMeter,
-    }
+    },
   };
 }

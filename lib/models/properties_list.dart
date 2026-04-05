@@ -34,16 +34,18 @@ const Map<String, String> _currenciesSymbols = {
   'GBP': '£ assets/flags_opti/gb.svg.vec',
   'KRW': '₩ assets/flags_opti/kr.svg.vec',
   'PLN': 'zł assets/flags_opti/pl.svg.vec',
-  'BGN': 'лв assets/flags_opti/bg.svg.vec',
   'ISK': 'kr assets/flags_opti/is.svg.vec',
 };
 
-final propertiesMapProvider =
-    FutureProvider<Map<PROPERTYX, Property>>((ref) async {
-  final removeTrailingZeros =
-      (await ref.watch(removeTrailingZerosProvider.future))!;
-  final significantFigures =
-      (await ref.watch(significantFiguresProvider.future))!;
+final propertiesMapProvider = FutureProvider<Map<PROPERTYX, Property>>((
+  ref,
+) async {
+  final removeTrailingZeros = (await ref.watch(
+    removeTrailingZerosProvider.future,
+  ))!;
+  final significantFigures = (await ref.watch(
+    significantFiguresProvider.future,
+  ))!;
   return {
     PROPERTYX.length: Length(
       significantFigures: significantFigures,
@@ -66,10 +68,13 @@ final propertiesMapProvider =
       name: PROPERTYX.volume,
     ),
     PROPERTYX.currencies: SimpleCustomProperty(
-      ref.watch(CurrenciesNotifier.provider).when(
-          data: (currencies) => currencies.exchangeRates,
-          error: (_, trace) => Currencies.defaultExchangeRates,
-          loading: () => Currencies.defaultExchangeRates),
+      ref
+          .watch(CurrenciesNotifier.provider)
+          .when(
+            data: (currencies) => currencies.exchangeRates,
+            error: (_, trace) => Currencies.defaultExchangeRates,
+            loading: () => Currencies.defaultExchangeRates,
+          ),
       mapSymbols: _currenciesSymbols,
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,

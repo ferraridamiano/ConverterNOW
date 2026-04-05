@@ -333,6 +333,14 @@
   "@centiliters": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "teaspoonsUs": "Teaspoons US",
+  "@teaspoonsUs": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "teaspoonsMetric": "Metric teaspoons",
+  "@teaspoonsMetric": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "秒",
   "deciseconds": "デシ秒",
@@ -364,6 +372,14 @@
   "knots": "ノット",
   "feetSecond": "フィート毎秒",
   "minutesPerKilometer": "分毎キロ",
+  "minutesPerMile": "Minutes per mile",
+  "@minutesPerMile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "speedOfLight": "Speed of light",
+  "@speedOfLight": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "grams": "グラム",
   "ettograms": "エット",
@@ -371,7 +387,7 @@
   "pounds": "ポンド",
   "ounces": "オンス",
   "quintals": "キンタル",
-  "tons": "トン",
+  "tonnes": "トン",
   "milligrams": "ミリグラム",
   "uma": "原子質量単位",
   "carats": "カラット",
@@ -415,6 +431,14 @@
   "@kilojoules": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "watthour": "Watt hour",
+  "@watthour": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishThermalUnit": "British thermal unit",
+  "@britishThermalUnit": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "角度",
   "minutesDegree": "分",
@@ -451,7 +475,6 @@
   "idr": "ルピア",
   "php": "フィリピンペソ",
   "ron": "ルーマニアレウ",
-  "bgn": "レフ",
   "isk": "アイスランドクローナ",
   "twd": "新台湾ドル",
   "mad": "モロッコディルハム",
@@ -484,6 +507,10 @@
   "poundForceFeet": "フィート重量ポンド",
   "kilogramForceMeter": "重量キログラムメートル",
   "poundalMeter": "パウンダルメートル",
+  "poundForceInch": "Pound-force inch",
+  "@poundForceInch": {
+    "description": "Not yet translated. Once done, remove this comment."
+  },
 
   "kilometersLiter": "キロメートル毎リットル",
   "liters100km": "100キロメートル毎リットル",

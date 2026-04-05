@@ -7,7 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class HiddenUnitsNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
   static final provider =
       AsyncNotifierProvider<HiddenUnitsNotifier, Map<PROPERTYX, List>>(
-          HiddenUnitsNotifier.new);
+        HiddenUnitsNotifier.new,
+      );
 
   @override
   Future<Map<PROPERTYX, List>> build() async {
@@ -59,7 +60,9 @@ class HiddenUnitsNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
         prefs.remove(storeKey(property));
       } else {
         prefs.setStringList(
-            storeKey(property), hiddenUnits.map((e) => e.toString()).toList());
+          storeKey(property),
+          hiddenUnits.map((e) => e.toString()).toList(),
+        );
       }
     });
     return true;

@@ -9,8 +9,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ImportExportNotifier extends Notifier<void> {
-  static final provider =
-      NotifierProvider<ImportExportNotifier, void>(ImportExportNotifier.new);
+  static final provider = NotifierProvider<ImportExportNotifier, void>(
+    ImportExportNotifier.new,
+  );
 
   // List of simple settings providers to iterate over.
   // Using dynamic to allow mixed generic types.
@@ -44,8 +45,9 @@ class ImportExportNotifier extends Notifier<void> {
     }
 
     // 2. Properties Order
-    final propertiesOrder =
-        await ref.read(PropertiesOrderNotifier.provider.future);
+    final propertiesOrder = await ref.read(
+      PropertiesOrderNotifier.provider.future,
+    );
     if (!listEquals(propertiesOrder, defaultPropertiesOrder)) {
       exportData[PropertiesOrderNotifier.storeKey] = propertiesOrder
           .map((e) => e.toString().substring('PROPERTYX.'.length))
@@ -59,18 +61,22 @@ class ImportExportNotifier extends Notifier<void> {
     for (final property in defaultPropertiesOrder) {
       // Units Order
       if (!listEquals(unitsOrderMap[property], defaultUnitsOrder[property])) {
-        final key =
-            ref.read(UnitsOrderNotifier.provider.notifier).storeKey(property);
-        exportData[key] =
-            unitsOrderMap[property]!.map((e) => e.toString()).toList();
+        final key = ref
+            .read(UnitsOrderNotifier.provider.notifier)
+            .storeKey(property);
+        exportData[key] = unitsOrderMap[property]!
+            .map((e) => e.toString())
+            .toList();
       }
 
       // Hidden Units
       if (hiddenUnitsMap[property]!.isNotEmpty) {
-        final key =
-            ref.read(HiddenUnitsNotifier.provider.notifier).storeKey(property);
-        exportData[key] =
-            hiddenUnitsMap[property]!.map((e) => e.toString()).toList();
+        final key = ref
+            .read(HiddenUnitsNotifier.provider.notifier)
+            .storeKey(property);
+        exportData[key] = hiddenUnitsMap[property]!
+            .map((e) => e.toString())
+            .toList();
       }
     }
 
@@ -104,17 +110,20 @@ class ImportExportNotifier extends Notifier<void> {
 
       // 2. Properties Order
       if (importData.containsKey(PropertiesOrderNotifier.storeKey)) {
-        final List<String> loadedList =
-            List<String>.from(importData[PropertiesOrderNotifier.storeKey]);
-        final currentOrder =
-            await ref.read(PropertiesOrderNotifier.provider.future);
+        final List<String> loadedList = List<String>.from(
+          importData[PropertiesOrderNotifier.storeKey],
+        );
+        final currentOrder = await ref.read(
+          PropertiesOrderNotifier.provider.future,
+        );
 
         if (currentOrder.length == loadedList.length) {
           final List<int> newIndices = [];
           bool possible = true;
           for (var s in loadedList) {
             final index = currentOrder.indexWhere(
-                (p) => p.toString().substring('PROPERTYX.'.length) == s);
+              (p) => p.toString().substring('PROPERTYX.'.length) == s,
+            );
             if (index == -1) {
               possible = false;
               break;
@@ -138,11 +147,13 @@ class ImportExportNotifier extends Notifier<void> {
 
       for (final property in defaultPropertiesOrder) {
         // Hidden Units
-        final hiddenUnitsKey =
-            ref.read(HiddenUnitsNotifier.provider.notifier).storeKey(property);
+        final hiddenUnitsKey = ref
+            .read(HiddenUnitsNotifier.provider.notifier)
+            .storeKey(property);
         if (importData.containsKey(hiddenUnitsKey)) {
-          final List<String> loadedList =
-              List<String>.from(importData[hiddenUnitsKey]);
+          final List<String> loadedList = List<String>.from(
+            importData[hiddenUnitsKey],
+          );
 
           final allUnits = defaultUnitsOrder[property]!;
           final List<dynamic> newHiddenList = loadedList
@@ -159,11 +170,13 @@ class ImportExportNotifier extends Notifier<void> {
         }
 
         // Units Order
-        final unitsOrderKey =
-            ref.read(UnitsOrderNotifier.provider.notifier).storeKey(property);
+        final unitsOrderKey = ref
+            .read(UnitsOrderNotifier.provider.notifier)
+            .storeKey(property);
         if (importData.containsKey(unitsOrderKey)) {
-          final List<String> loadedList =
-              List<String>.from(importData[unitsOrderKey]);
+          final List<String> loadedList = List<String>.from(
+            importData[unitsOrderKey],
+          );
           final currentUnits = unitsOrderMap[property];
 
           if (currentUnits != null &&

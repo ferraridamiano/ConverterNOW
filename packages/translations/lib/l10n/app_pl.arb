@@ -77,55 +77,18 @@
   "hiddenUnits": "Ukryte jednostki",
   "selectAll": "Zaznacz wszystkie",
   "unselectAll": "Odznacz wszystkie",
-  "backupAndRestore": "Backup & Restore",
-  "@backupAndRestore": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "exportSettings": "Export settings",
-  "@exportSettings": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "importSettings": "Import settings",
-  "@importSettings": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "clearSettings": "Clear all settings",
-  "@clearSettings": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "exportSuccess": "Settings exported successfully",
-  "@exportSuccess": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "importSuccess": "Settings imported successfully",
-  "@importSuccess": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "problemImportFile": "There was a problem importing the file",
-  "@problemImportFile": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "relatedSettings": "Related settings",
-  "@relatedSettings": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "reason": "Reason",
-  "@reason": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "importError": "Import Error",
-  "@importError": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "confirmationClear": "Are you sure you want to clear all settings? This action cannot be undone.",
-  "@confirmationClear": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "cancel": "Cancel",
-  "@cancel": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-
+  "backupAndRestore": "Kopie zapasowe oraz przywracanie danych",
+  "exportSettings": "Wyeksportuj ustawienia",
+  "importSettings": "Zaimportuj ustawienia",
+  "clearSettings": "Wyczyść wszystkie ustawienia",
+  "exportSuccess": "Ustawienia zostały pomyślnie wyeksportowane",
+  "importSuccess": "Ustawienia zostały pomyślnie zaimportowane",
+  "problemImportFile": "Wystąpił problem podczas importowania pliku",
+  "relatedSettings": "Powiązane ustawienia",
+  "reason": "Powód",
+  "importError": "Błąd podczas importowania",
+  "confirmationClear": "Czy na pewno chcesz skasować wszystkie ustawienia? Tego działania nie można cofnąć.",
+  "cancel": "Anuluj",
   "length": "Długość",
   "area": "Powierzchnia",
   "volume": "Objętość",
@@ -218,6 +181,8 @@
   "microliters": "Mikrolitry",
   "deciliters": "Decylitry",
   "centiliters": "Centylitry",
+  "teaspoonsUs": "Łyżeczki (amerykańskie)",
+  "teaspoonsMetric": "Łyżeczki (miara metryczna)",
 
   "seconds": "Sekundy",
   "deciseconds": "Decysekundy",
@@ -249,6 +214,8 @@
   "knots": "Węzły",
   "feetSecond": "Stopy na sekundę",
   "minutesPerKilometer": "Minuty na kilometr",
+  "minutesPerMile": "Minuty na milę",
+  "speedOfLight": "Prędkość światła",
 
   "grams": "Gramy",
   "ettograms": "Ettogramy",
@@ -256,7 +223,7 @@
   "pounds": "Funty",
   "ounces": "Uncje",
   "quintals": "Kwintale",
-  "tons": "Tony",
+  "tonnes": "Tony",
   "milligrams": "Miligramy",
   "uma": "Zunifikowana jednostka masy atomowej",
   "carats": "Karaty",
@@ -285,6 +252,8 @@
   "footPound": "Stopa funta",
   "kilocalories": "Kilokalorie",
   "kilojoules": "Kilodżule",
+  "watthour": "Watogodzina",
+  "britishThermalUnit": "Brytyjska jednostka cieplna",
 
   "degree": "Stopnie",
   "minutesDegree": "Minuty",
@@ -321,7 +290,6 @@
   "idr": "Indonezyjska rupia",
   "php": "Filipińskie peso",
   "ron": "Rumuński lej",
-  "bgn": "Bułgarski lew",
   "isk": "Islandzka korona",
   "twd": "Tajwański nowy dolar",
   "mad": "Marokański dirham",
@@ -354,6 +322,7 @@
   "poundForceFeet": "Funt na stopę",
   "kilogramForceMeter": "Kilogramometr",
   "poundalMeter": "Poundalometr",
+  "poundForceInch": "Funt-siła na cal",
 
   "kilometersLiter": "Kilometry z litra",
   "liters100km": "Litry na 100 km",

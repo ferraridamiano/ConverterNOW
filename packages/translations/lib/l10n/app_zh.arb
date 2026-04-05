@@ -306,6 +306,14 @@
   "@centiliters": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "teaspoonsUs": "Teaspoons US",
+  "@teaspoonsUs": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "teaspoonsMetric": "Metric teaspoons",
+  "@teaspoonsMetric": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "秒",
   "deciseconds": "分秒",
@@ -337,6 +345,14 @@
   "knots": "节(海里/小时)",
   "feetSecond": "英尺/秒",
   "minutesPerKilometer": "公里/分",
+  "minutesPerMile": "Minutes per mile",
+  "@minutesPerMile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "speedOfLight": "Speed of light",
+  "@speedOfLight": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "grams": "克",
   "ettograms": "百克",
@@ -344,7 +360,7 @@
   "pounds": "磅",
   "ounces": "盎司",
   "quintals": "公担",
-  "tons": "吨",
+  "tonnes": "吨",
   "milligrams": "毫克",
   "uma": "原子质量单位",
   "carats": "克拉",
@@ -388,6 +404,14 @@
   "@kilojoules": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "watthour": "Watt hour",
+  "@watthour": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishThermalUnit": "British thermal unit",
+  "@britishThermalUnit": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "度",
   "minutesDegree": "分",
@@ -424,7 +448,6 @@
   "idr": "印尼卢比",
   "php": "菲律宾比索",
   "ron": "罗马尼亚列伊",
-  "bgn": "保加利亚列弗",
   "isk": "冰岛克朗",
   "twd": "新台币",
   "mad": "摩洛哥道拉姆",
@@ -457,6 +480,10 @@
   "poundForceFeet": "磅力英尺",
   "kilogramForceMeter": "千克力米",
   "poundalMeter": "磅达米",
+  "poundForceInch": "Pound-force inch",
+  "@poundForceInch": {
+    "description": "Not yet translated. Once done, remove this comment."
+  },
 
   "kilometersLiter": "公里/升",
   "liters100km": "百公里/升",

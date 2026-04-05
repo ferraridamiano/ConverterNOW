@@ -2,9 +2,10 @@
 <component type="desktop-application">
   <id>io.github.ferraridamiano.ConverterNOW</id>
 
-  <name>Converter NOW: Unit Converter</name>
-  <summary>A simple, immediate and fast unit converter!</summary>
+  <name>Converter NOW</name>
+  <summary>Simple unit and currency converter</summary>
   <url type="homepage">https://github.com/ferraridamiano/ConverterNOW</url>
+  <url type="vcs-browser">https://github.com/ferraridamiano/ConverterNOW</url>
   <url type="bugtracker">https://github.com/ferraridamiano/ConverterNOW/issues</url>
   <url type="donation">https://www.paypal.me/DemApps</url>
   <url type="translate">https://github.com/ferraridamiano/ConverterNOW/wiki/Translations</url>
@@ -18,6 +19,15 @@
     <control>keyboard</control>
     <control>touch</control>
   </supports>
+
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+
+  <branding>
+    <color type="primary" scheme_preference="light">#95ef53</color>
+    <color type="primary" scheme_preference="dark">#4e7c2b</color>
+  </branding>
 
   <description>
     <p>
@@ -67,31 +77,41 @@
   <launchable type="desktop-id">io.github.ferraridamiano.ConverterNOW.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <caption>Easily convert units. It's reliable, customizable, open source.</caption>
+      <caption>Simply start typing and it will convert to all the other units in real time</caption>
       <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/promotional/screenshots/1.png</image>
     </screenshot>
     <screenshot>
-      <caption>A settings page to customize every aspect of the app</caption>
+      <caption>A settings page that allows you to customize every aspect of the app</caption>
       <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/promotional/screenshots/2.png</image>
     </screenshot>
     <screenshot>
-      <caption>With an integrated calculator</caption>
+      <caption>The app features an integrated calculator</caption>
       <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/promotional/screenshots/3.png</image>
     </screenshot>
     <screenshot>
-      <caption>And an integrated search box</caption>
+      <caption>The app features an integrated search bar</caption>
       <image>https://raw.githubusercontent.com/ferraridamiano/ConverterNOW/master/promotional/screenshots/4.png</image>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.6.0" date="2026-02-28">
+      <description>
+        <ul>
+          <li>📤 Import / export / delete the app settings</li>
+          <li>🔢 Added several units of measurement</li>
+          <li>🌍 Translation improvements. Thanks to @rehork, @solokot, @milotype, @FTno</li>
+          <li>🐞 Bug fixes and general improvements! We've worked hard to give you an even better experience</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
     <release version="4.5.0" date="2025-11-23">
       <description>
         <ul>
           <li>🔢 View the result preview in the calculator (Thanks to Bisher Asil)</li>
           <li>⚙️ Choose the property to convert on startup (mobile only)</li>
           <li>🌍 Translation improvements</li>
-          <li>🐞 Bug fixes and general improvements! We've worked hard to give you an ever-better experience</li>
         </ul>
         <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
       </description>
@@ -102,7 +122,6 @@
           <li>🎨 New logo! Thanks to Giovanni Spitti for the suggestions</li>
           <li>🖌️ Improved icons in the app</li>
           <li>🌍 Translation improvements: thanks to @solokot</li>
-          <li>🐞 Bug fixes and general improvements! We've worked hard to give you an ever-better experience</li>
         </ul>
         <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
       </description>
@@ -120,7 +139,6 @@
         <ul>
           <li>⚙️ New units of measure: added density and new pressure units. Thanks to @Kheirlb</li>
           <li>🌍 Translation improvements: added Bengali and updated existing translations. Thanks to @aazmii, @rehork, @solokot</li>
-          <li>🐞 Bug fixes and general improvements! We've worked hard to give you an ever-better experience</li>
         </ul>
         <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
       </description>
@@ -138,7 +156,6 @@
         <ul>
           <li>⚙️ New features: hide unused units, improved default unit sorting, more units, improved conversion speed</li>
           <li>🌍 Updated translations. Thanks to @albanobattistella, @plum7x, @solokot</li>
-          <li>🐞 Bug Fixes and General Improvements! We've worked hard to provide you with an even better experience</li>
         </ul>
         <p>This version may break your unit sorting. We've made improvements so that this will no longer happen. We apologize for the inconvenience.</p>
         <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
@@ -149,7 +166,6 @@
         <ul>
           <li>⚙️ New features: use comma as decimal separator, paste number into the calculator, search with ctrl+K</li>
           <li>🌍 Updated translations. Thanks to @solokot, @makishart, @HectorAE</li>
-          <li>🐞 Bug Fixes and General Improvements! We've worked hard to provide you with an even better experience</li>
         </ul>
         <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
       </description>
@@ -159,7 +175,6 @@
         <ul>
           <li>🎨 Graphic Enhancements for big screens</li>
           <li>🌍 Updated translations Thanks to @rehork, @MajoranaOedipus, @FTno</li>
-          <li>🐞 Bug Fixes and General Improvements! We've worked hard to provide you with an even better experience</li>
         </ul>
         <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
       </description>
@@ -171,7 +186,6 @@
           <li>⚙️ Optimized Settings Page! Now even simpler and more intuitive to use.</li>
           <li>✨ Graphic Enhancements! Small improvements that make the app even more beautiful and enjoyable to use.</li>
           <li>🌍 Improved Translations! Thanks to @rehork and @pereorga, the Polish and Catalan versions are more accurate than ever.</li>
-          <li>🐞 Bug Fixes and General Improvements! We've worked hard to provide you with an even better experience.</li>
         </ul>
         <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
       </description>
@@ -183,7 +197,6 @@
           <li>Improved the license page</li>
           <li>Improved the russian translation (@Atrafon)</li>
           <li>Added catalan translation (@pereorga)</li>
-          <li>Bugfix and general improvements</li>
         </ul>
         <p>What do you think about Converter NOW? Rate the app! ✔️</p>
       </description>
@@ -193,8 +206,6 @@
         <ul>
           <li>UI improvements</li>
           <li>Improved french translation (credits: @Vsnmrn)</li>
-          <li>General improvements</li>
-          <li>Bugfix</li>
         </ul>
         <p>What do you think about Converter NOW? Rate the app! ✔️</p>
       </description>
@@ -207,7 +218,6 @@
           <li>Added dutch, chinese and traditional chinese translations</li>
           <li>Improvements to other translations</li>
           <li>Icons tweaks</li>
-          <li>General improvements</li>
         </ul>
         <p>Thanks to @David-git-code, @syu-pf-ssy, @plum7x, @HarshMakwana27 for your contributions!</p>
         <p>What do you think about Converter NOW? Rate the app! ✔️</p>
@@ -229,7 +239,6 @@
           <li>Dynamic theming support on supported desktop environments</li>
           <li>New icons</li>
           <li>Translations updates</li>
-          <li>Bug fixes and general improvements</li>
         </ul>
       </description>
     </release>
@@ -247,7 +256,6 @@
           <li>Migration to Material You</li>
           <li>Added window icon</li>
           <li>Added Polish translation</li>
-          <li>Bugfixes</li>
         </ul>
         <p>Thanks to @rehork for your contributions!</p>
       </description>

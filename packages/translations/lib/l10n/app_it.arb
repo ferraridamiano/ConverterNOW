@@ -182,6 +182,8 @@
   "microliters": "Microlitri",
   "deciliters": "Decilitri",
   "centiliters": "Centilitri",
+  "teaspoonsUs": "Cucchiaini US",
+  "teaspoonsMetric": "Cucchiaini metrici",
 
   "seconds": "Secondi",
   "deciseconds": "Decimi di Secondo",
@@ -213,6 +215,8 @@
   "knots": "Nodi",
   "feetSecond": "Piedi al secondo",
   "minutesPerKilometer": "Minuti al chilometro",
+  "minutesPerMile": "Minuti al miglio",
+  "speedOfLight": "Velocità della luce",
 
   "grams": "Grammi",
   "ettograms": "Ettogrammi",
@@ -220,7 +224,7 @@
   "pounds": "Libbre",
   "ounces": "Once",
   "quintals": "Quintali",
-  "tons": "Tonnellate",
+  "tonnes": "Tonnellate",
   "milligrams": "Milligrammi",
   "uma": "Unità di Massa Atomica",
   "carats": "Carati",
@@ -249,6 +253,8 @@
   "footPound": "Piede per libbra forza",
   "kilocalories": "Chilocalorie",
   "kilojoules": "Chilojoules",
+  "watthour": "Wattora",
+  "britishThermalUnit": "British thermal unit",
 
   "degree": "Gradi",
   "minutesDegree": "Primi",
@@ -285,7 +291,6 @@
   "idr": "Rupia indonesiana",
   "php": "Peso filippino",
   "ron": "Leu rumeno",
-  "bgn": "Lev bulgaro",
   "isk": "Corona islandese",
   "twd": "Nuovo dollaro taiwanese",
   "mad": "Dirham marocchino",
@@ -318,6 +323,7 @@
   "poundForceFeet": "Libbre-forza piede",
   "kilogramForceMeter": "Chilogrammmi-forza metro",
   "poundalMeter": "Poundal metro",
+  "poundForceInch": "Libbre-forza pollice",
 
   "kilometersLiter": "Chilometri con un litro",
   "liters100km": "Litri ogni 100 km",

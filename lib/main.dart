@@ -12,10 +12,9 @@ import 'helpers/app_window_manager.dart';
 
 void main() async {
   LicenseRegistry.addLicense(() async* {
-    yield LicenseEntryWithLineBreaks(
-      ['Josefin Sans'],
-      await rootBundle.loadString('assets/fonts/OFL.txt'),
-    );
+    yield LicenseEntryWithLineBreaks([
+      'Josefin Sans',
+    ], await rootBundle.loadString('assets/fonts/OFL.txt'));
   });
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,9 +45,7 @@ class MyApp extends ConsumerWidget {
           builder: (context, ref, child) {
             final colorTheme = ref.watch(actualColorThemeProvider);
             ThemeData lightTheme = ThemeData(
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: colorTheme,
-              ),
+              colorScheme: ColorScheme.fromSeed(seedColor: colorTheme),
             );
             ThemeData darkTheme = ThemeData(
               colorScheme: ColorScheme.fromSeed(
@@ -61,18 +58,19 @@ class MyApp extends ConsumerWidget {
               scaffoldBackgroundColor: Colors.black,
               drawerTheme: const DrawerThemeData(backgroundColor: Colors.black),
               appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
-              bottomAppBarTheme:
-                  const BottomAppBarThemeData(color: Colors.black),
+              bottomAppBarTheme: const BottomAppBarThemeData(
+                color: Colors.black,
+              ),
             );
 
             final pageTransitionsTheme = PageTransitionsTheme(
               builders:
                   Map<TargetPlatform, PageTransitionsBuilder>.fromIterable(
-                TargetPlatform.values,
-                value: (e) => e == TargetPlatform.android
-                    ? const PredictiveBackFullscreenPageTransitionsBuilder()
-                    : const FadeForwardsPageTransitionsBuilder(),
-              ),
+                    TargetPlatform.values,
+                    value: (e) => e == TargetPlatform.android
+                        ? const PredictiveBackFullscreenPageTransitionsBuilder()
+                        : const FadeForwardsPageTransitionsBuilder(),
+                  ),
             );
             lightTheme = lightTheme.copyWith(
               pageTransitionsTheme: pageTransitionsTheme,
@@ -83,8 +81,9 @@ class MyApp extends ConsumerWidget {
             amoledTheme = amoledTheme.copyWith(
               pageTransitionsTheme: pageTransitionsTheme,
             );
-            final ThemeMode themeMode = ThemeMode.values[
-                ref.watch(themeModeProvider).value ?? ThemeMode.system.index];
+            final ThemeMode themeMode =
+                ThemeMode.values[ref.watch(themeModeProvider).value ??
+                    ThemeMode.system.index];
             final appLocale = ref.watch(actualLocaleProvider);
             final appRouter = ref.read(routerProvider);
 

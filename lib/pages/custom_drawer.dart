@@ -59,10 +59,7 @@ class CustomDrawer extends ConsumerWidget {
     headerDrawer.add(
       ExcludeSemantics(
         child: isDrawerFixed
-            ? InkWell(
-                onTap: () => context.go('/'),
-                child: title,
-              )
+            ? InkWell(onTap: () => context.go('/'), child: title)
             : title,
       ),
     );
@@ -84,10 +81,7 @@ class CustomDrawer extends ConsumerWidget {
               const SizedBox(width: 16),
               Container(
                 decoration: keyDecoration,
-                child: const Padding(
-                  padding: keyPadding,
-                  child: Text('Ctrl'),
-                ),
+                child: const Padding(padding: keyPadding, child: Text('Ctrl')),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 2),
@@ -95,10 +89,7 @@ class CustomDrawer extends ConsumerWidget {
               ),
               Container(
                 decoration: keyDecoration,
-                child: const Padding(
-                  padding: keyPadding,
-                  child: Text('K'),
-                ),
+                child: const Padding(padding: keyPadding, child: Text('K')),
               ),
             ],
           ),
@@ -112,12 +103,14 @@ class CustomDrawer extends ConsumerWidget {
         ),
       );
     }
-    headerDrawer.add(NavigationDrawerDestination(
-      key: const ValueKey('drawerItem_settings'),
-      icon: Icon(Icons.settings_outlined, color: iconColor),
-      selectedIcon: Icon(Icons.settings, color: iconColor),
-      label: Text(l10n.settings),
-    ));
+    headerDrawer.add(
+      NavigationDrawerDestination(
+        key: const ValueKey('drawerItem_settings'),
+        icon: Icon(Icons.settings_outlined, color: iconColor),
+        selectedIcon: Icon(Icons.settings, color: iconColor),
+        label: Text(l10n.settings),
+      ),
+    );
     headerDrawer.add(
       const Padding(
         padding: EdgeInsets.symmetric(horizontal: 25.0),
@@ -125,8 +118,9 @@ class CustomDrawer extends ConsumerWidget {
       ),
     );
 
-    List<PROPERTYX>? propertiesOrdering =
-        ref.watch(PropertiesOrderNotifier.provider).value;
+    List<PROPERTYX>? propertiesOrdering = ref
+        .watch(PropertiesOrderNotifier.provider)
+        .value;
 
     if (propertiesOrdering == null) {
       return const SizedBox();
@@ -154,8 +148,10 @@ class CustomDrawer extends ConsumerWidget {
     });
 
     // How many NavigationDrawerDestination elements are there in the drawer
-    int headerElements =
-        headerDrawer.whereType<NavigationDrawerDestination>().toList().length;
+    int headerElements = headerDrawer
+        .whereType<NavigationDrawerDestination>()
+        .toList()
+        .length;
 
     return NavigationDrawer(
       selectedIndex: pathToNavigationIndex(
@@ -166,7 +162,8 @@ class CustomDrawer extends ConsumerWidget {
       onDestinationSelected: (int selectedPage) {
         if (selectedPage >= headerElements) {
           context.go(
-              '/conversions/${propertiesOrdering[selectedPage - headerElements].toKebabCase()}');
+            '/conversions/${propertiesOrdering[selectedPage - headerElements].toKebabCase()}',
+          );
           if (!isDrawerFixed) {
             Navigator.of(context).pop();
           }
@@ -189,23 +186,25 @@ class CustomDrawer extends ConsumerWidget {
           context.goNamed('settings');
         }
       },
-      children: <Widget>[
-        ...headerDrawer,
-        ...propertiesDrawer,
-      ],
+      children: <Widget>[...headerDrawer, ...propertiesDrawer],
     );
   }
 }
 
-int pathToNavigationIndex(BuildContext context, bool isDrawerFixed,
-    Map<PROPERTYX, int> inversePropertiesOrdering) {
+int pathToNavigationIndex(
+  BuildContext context,
+  bool isDrawerFixed,
+  Map<PROPERTYX, int> inversePropertiesOrdering,
+) {
   final String location = GoRouterState.of(context).uri.toString();
 
   // 3 elements in the header
   if (isDrawerFixed) {
     if (location.startsWith('/conversions/')) {
       return computeSelectedConversionPage(
-              context, inversePropertiesOrdering)! +
+            context,
+            inversePropertiesOrdering,
+          )! +
           3;
     } else {
       return 2; // Settings
@@ -215,7 +214,9 @@ int pathToNavigationIndex(BuildContext context, bool isDrawerFixed,
   else {
     if (location.startsWith('/conversions/')) {
       return computeSelectedConversionPage(
-              context, inversePropertiesOrdering)! +
+            context,
+            inversePropertiesOrdering,
+          )! +
           1;
     } else {
       return 0; // Settings

@@ -333,6 +333,14 @@
   "@centiliters": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "teaspoonsUs": "Teaspoons US",
+  "@teaspoonsUs": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "teaspoonsMetric": "Metric teaspoons",
+  "@teaspoonsMetric": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "seconds": "Sekunden",
   "deciseconds": "Dezisekunden",
@@ -364,6 +372,14 @@
   "knots": "Knoten",
   "feetSecond": "Fuß pro Sekunde",
   "minutesPerKilometer": "Minuten pro Kilometer",
+  "minutesPerMile": "Minutes per mile",
+  "@minutesPerMile": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "speedOfLight": "Speed of light",
+  "@speedOfLight": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "grams": "Gramm",
   "ettograms": "Hektogramm",
@@ -371,7 +387,7 @@
   "pounds": "Pfund (imperial)",
   "ounces": "Unzen (imperial)",
   "quintals": "Zentner / Quintal (100 kg)",
-  "tons": "Tonnen",
+  "tonnes": "Tonnen",
   "milligrams": "Milligramm",
   "uma": "Atomare Masseneinheiten",
   "carats": "Metrisches Karat",
@@ -415,6 +431,14 @@
   "@kilojoules": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "watthour": "Watt hour",
+  "@watthour": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishThermalUnit": "British thermal unit",
+  "@britishThermalUnit": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "degree": "Grad",
   "minutesDegree": "Minuten",
@@ -451,7 +475,6 @@
   "idr": "Indonesische Rupiah",
   "php": "Philippinischer Peso",
   "ron": "Rumänischer Leu",
-  "bgn": "Bulgarischer Lew",
   "isk": "Isländische Krone",
   "twd": "Neuer Taiwan-Dollar",
   "mad": "Marokkanischer Dirham",
@@ -484,6 +507,10 @@
   "poundForceFeet": "Pound-Force-Feet",
   "kilogramForceMeter": "Kilopondmeter",
   "poundalMeter": "Poundalmeter",
+  "poundForceInch": "Pound-force inch",
+  "@poundForceInch": {
+    "description": "Not yet translated. Once done, remove this comment."
+  },
 
   "kilometersLiter": "Kilometer pro Liter",
   "liters100km": "Liter pro 100 km",
