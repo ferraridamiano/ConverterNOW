@@ -243,16 +243,25 @@ jobs:
         dart pub global activate melos
         melos bootstrap
 
+    - name: Build Windows
+      run: flutter build windows --release
+
     - name: Build and create the .msix installer
       run: dart run msix:create --store
+
+    - name: Create the .exe installer
+      shell: pwsh
+      run: |
+        $version = (Select-String -Path pubspec.yaml -Pattern "^version:\s*(.+)").Matches[0].Groups[1].Value.Split("+")[0]
+        iscc /DMyAppVersion=$version windows\innosetup.iss
 
     - name: Release to GitHub
       uses: softprops/action-gh-release@v2
       with:
         files: |
           build/windows/x64/runner/Release/converternow-windows.msix
+          windows/converternow-windows-setup.exe
         token: ${{ secrets.GH_TOKEN }}
-      
 
   build_docker:
     needs: build_windows
