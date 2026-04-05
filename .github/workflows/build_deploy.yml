@@ -2,7 +2,7 @@ name: "Build & deploy for Android, Linux, Web and Windows"
 
 on:
   push:
-   tags: ['v*']
+    tags: ['v*']
 
 jobs:
 
@@ -261,7 +261,7 @@ jobs:
         files: |
           build/windows/x64/runner/Release/converternow-windows.msix
           windows/converternow-windows-setup.exe
-        token: ${{ secrets.GH_TOKEN }}   
+        token: ${{ secrets.GH_TOKEN }}
 
   build_docker:
     needs: build_windows
