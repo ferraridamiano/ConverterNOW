@@ -49,7 +49,7 @@ jobs:
         ./.github/workflows/scripts/build_appimage.sh
 
     - name: Release to GitHub
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         files: |
           converternow-linux-x86_64.tar.gz
@@ -121,7 +121,7 @@ jobs:
         ./.github/workflows/scripts/build_appimage.sh
 
     - name: Release to GitHub
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         files: |
           converternow-linux-aarch64.tar.gz
@@ -178,7 +178,7 @@ jobs:
       run: flutter build apk --release --split-per-abi --obfuscate --split-debug-info=/tmp
 
     - name: Release to GitHub
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         files: |
           build/app/outputs/flutter-apk/app-*-release.apk
@@ -256,7 +256,7 @@ jobs:
         iscc /DMyAppVersion=$version windows\innosetup.iss
 
     - name: Release to GitHub
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         files: |
           build/windows/x64/runner/Release/converternow-windows.msix
@@ -339,6 +339,6 @@ jobs:
           args: --latest
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           body: ${{ steps.git-cliff.outputs.content }}
