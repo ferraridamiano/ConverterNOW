@@ -18,6 +18,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
@@ -114,11 +115,17 @@ final routerProvider = Provider<GoRouter>(
               GoRoute(
                 path: 'about',
                 name: 'about',
-                builder: (context, state) => LicensePage(
-                  applicationName: AppLocalizations.of(context)!.appName,
-                  applicationIcon: const SvgPicture(
-                    AssetBytesLoader('assets/app_icons_opti/logo.svg.vec'),
-                    width: 54,
+                builder: (context, state) => FutureBuilder<PackageInfo>(
+                  future: PackageInfo.fromPlatform(),
+                  builder: (context, snapshot) => LicensePage(
+                    applicationName: AppLocalizations.of(context)!.appName,
+                    applicationVersion: snapshot.hasData
+                        ? snapshot.data!.version
+                        : '',
+                    applicationIcon: const SvgPicture(
+                      AssetBytesLoader('assets/app_icons_opti/logo.svg.vec'),
+                      width: 54,
+                    ),
                   ),
                 ),
               ),
