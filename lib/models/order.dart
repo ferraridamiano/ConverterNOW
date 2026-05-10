@@ -101,7 +101,7 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
       if (storedList == null) {
         newState[property] = defaultOrder;
       } else {
-        final storedOrder = storedList
+        var storedOrder = storedList
             .map(
               (storedString) => defaultOrder.firstWhereOrNull(
                 (unit) => storedString == unit.toString(),
@@ -110,11 +110,10 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
             .nonNulls
             .cast()
             .toList();
-        // Add missing units
-        if (storedOrder.length != defaultOrder.length) {
-          storedOrder.addAll(
-            defaultOrder.toSet().difference(storedOrder.toSet()),
-          );
+        // Reset to default order when units are missing or out of order
+        if (storedOrder.length != defaultOrder.length ||
+            !listEquals(storedOrder, defaultOrder)) {
+          storedOrder = defaultOrder.toList();
           (await ref.read(
             sharedPref.future,
           )).setStringList(storeKey(property), _toStorableString(storedOrder));
