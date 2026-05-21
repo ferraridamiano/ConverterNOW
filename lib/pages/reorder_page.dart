@@ -58,7 +58,7 @@ class _ReorderPageState extends State<ReorderPage> {
                 bottom: 60 + MediaQuery.paddingOf(context).bottom,
               ),
               sliver: SliverReorderableList(
-                onReorder: (int oldIndex, int newIndex) =>
+                onReorderItem: (int oldIndex, int newIndex) =>
                     setState(() => _updateItemsOrder(oldIndex, newIndex)),
                 itemCount: widget.itemsList.length,
                 itemBuilder: (context, index) => Stack(
@@ -95,10 +95,6 @@ class _ReorderPageState extends State<ReorderPage> {
   }
 
   void _updateItemsOrder(int oldIndex, int newIndex) {
-    if (newIndex > oldIndex) {
-      newIndex -= 1;
-    }
-    final item = _itemsList.removeAt(oldIndex);
-    _itemsList.insert(newIndex, item);
+    _itemsList.insert(newIndex, _itemsList.removeAt(oldIndex));
   }
 }
