@@ -263,6 +263,14 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
       await tester.pumpAndSettle();
 
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('reorder-properties')),
+        300,
+        scrollable: find.byType(Scrollable).at(1),
+        maxScrolls: 2,
+      );
+      await tester.pumpAndSettle();
+
       await tester.tap(find.byKey(const ValueKey('reorder-properties')));
       await tester.pumpAndSettle();
 
@@ -352,6 +360,14 @@ void main() {
       await testInit(tester);
 
       await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
+      await tester.pumpAndSettle();
+
+      await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('reorder-properties')),
+        300,
+        scrollable: find.byType(Scrollable).at(1),
+        maxScrolls: 2,
+      );
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const ValueKey('reorder-properties')));

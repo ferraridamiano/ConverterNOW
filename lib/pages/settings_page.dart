@@ -54,594 +54,597 @@ class SettingsPage extends ConsumerWidget {
       },
     );
 
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, result) {
-        if (!didPop) {
-          context.go('/');
-        }
-      },
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar.large(title: Text(l10n.settings)),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 16),
-                  child: Text(l10n.appearance, style: titlesStyle),
-                ),
-                DropdownListTile(
-                  key: const ValueKey('language'),
-                  leading: Icon(Icons.language, color: iconColor),
-                  title: l10n.language,
-                  items: [l10n.system, ...mapLocale.values],
-                  value: languageTag == null
-                      ? l10n.system
-                      : mapLocale[languageTagToLocale(languageTag)]!,
-                  onChanged: (String? string) {
-                    if (string == null) return;
-                    ref
-                        .read(languageTagProvider.notifier)
-                        .set(
-                          string == l10n.system
-                              ? null
-                              : mapLocale.keys
-                                    .firstWhere(
-                                      (element) => mapLocale[element] == string,
-                                    )
-                                    .toLanguageTag(),
-                        );
-                  },
-                ),
-                ListTile(
-                  title: Text(l10n.themeColor),
-                  leading: Icon(Icons.palette_outlined, color: iconColor),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
+    return Material(
+      type: MaterialType.transparency,
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) {
+          if (!didPop) {
+            context.go('/');
+          }
+        },
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar.large(title: Text(l10n.settings)),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(start: 16),
+                    child: Text(l10n.appearance, style: titlesStyle),
                   ),
-                  trailing: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18),
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24 / 2),
-                        color: ref.watch(actualColorThemeProvider),
+                  DropdownListTile(
+                    key: const ValueKey('language'),
+                    leading: Icon(Icons.language, color: iconColor),
+                    title: l10n.language,
+                    items: [l10n.system, ...mapLocale.values],
+                    value: languageTag == null
+                        ? l10n.system
+                        : mapLocale[languageTagToLocale(languageTag)]!,
+                    onChanged: (String? string) {
+                      if (string == null) return;
+                      ref
+                          .read(languageTagProvider.notifier)
+                          .set(
+                            string == l10n.system
+                                ? null
+                                : mapLocale.keys
+                                      .firstWhere(
+                                      (element) => mapLocale[element] == string,
+                                      )
+                                      .toLanguageTag(),
+                          );
+                    },
+                  ),
+                  ListTile(
+                    title: Text(l10n.themeColor),
+                    leading: Icon(Icons.palette_outlined, color: iconColor),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                    trailing: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      child: Container(
+                        width: 24,
+                        height: 24,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(24 / 2),
+                          color: ref.watch(actualColorThemeProvider),
+                        ),
                       ),
                     ),
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (context) => const ColorPickerDialog(),
+                    ),
                   ),
-                  onTap: () => showDialog(
-                    context: context,
-                    builder: (context) => const ColorPickerDialog(),
-                  ),
-                ),
-                SegmentedButtonListTile(
-                  leading: Icon(Icons.contrast, color: iconColor),
-                  title: l10n.theme,
-                  items: mapTheme.values.toList(),
+                  SegmentedButtonListTile(
+                    leading: Icon(Icons.contrast, color: iconColor),
+                    title: l10n.theme,
+                    items: mapTheme.values.toList(),
                   value:
                       mapTheme[ref.watch(themeModeProvider).value ?? 0]!.title,
-                  onChanged: (String? string) {
-                    if (string != null) {
-                      ref
-                          .read(themeModeProvider.notifier)
-                          .set(
-                            mapTheme.keys
+                    onChanged: (String? string) {
+                      if (string != null) {
+                        ref
+                            .read(themeModeProvider.notifier)
+                            .set(
+                              mapTheme.keys
                                 .where((key) => mapTheme[key]?.title == string)
-                                .single,
-                          );
-                    }
-                  },
-                ),
-                SwitchListTile(
-                  secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
-                  title: Text(l10n.pureBlackTheme),
-                  value: ref.watch(isPureDarkProvider).value ?? false,
-                  onChanged: (bool val) {
-                    ref.read(isPureDarkProvider.notifier).set(val);
-                  },
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
+                                  .single,
+                            );
+                      }
+                    },
                   ),
-                ),
-                SwitchListTile(
-                  secondary: Icon(Icons.apps_rounded, color: iconColor),
-                  title: Text(l10n.propertySelectionOnStartup),
-                  subtitle: Text(l10n.propertySelectionOnStartupSubtitle),
-                  value:
-                      ref.watch(propertySelectionOnStartupProvider).value ??
-                      true,
-                  onChanged: (bool val) {
-                    ref
-                        .read(propertySelectionOnStartupProvider.notifier)
-                        .set(val);
-                  },
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
-                  child: Text(l10n.conversions, style: titlesStyle),
-                ),
-                if (!kIsWeb)
                   SwitchListTile(
-                    secondary: Icon(Icons.public_off, color: iconColor),
-                    title: Text(l10n.revokeInternetAccess),
-                    value: ref.watch(revokeInternetProvider).value ?? false,
+                    secondary: Icon(Icons.dark_mode_outlined, color: iconColor),
+                    title: Text(l10n.pureBlackTheme),
+                    value: ref.watch(isPureDarkProvider).value ?? false,
                     onChanged: (bool val) {
-                      if (val) {
-                        showDialog(
+                      ref.read(isPureDarkProvider.notifier).set(val);
+                    },
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                  ),
+                  SwitchListTile(
+                    secondary: Icon(Icons.apps_rounded, color: iconColor),
+                    title: Text(l10n.propertySelectionOnStartup),
+                    subtitle: Text(l10n.propertySelectionOnStartupSubtitle),
+                    value:
+                        ref.watch(propertySelectionOnStartupProvider).value ??
+                        true,
+                    onChanged: (bool val) {
+                      ref
+                          .read(propertySelectionOnStartupProvider.notifier)
+                          .set(val);
+                    },
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                  ),
+                  Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+                    child: Text(l10n.conversions, style: titlesStyle),
+                  ),
+                  if (!kIsWeb)
+                    SwitchListTile(
+                      secondary: Icon(Icons.public_off, color: iconColor),
+                      title: Text(l10n.revokeInternetAccess),
+                      value: ref.watch(revokeInternetProvider).value ?? false,
+                      onChanged: (bool val) {
+                        if (val) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text(l10n.revokeInternetAccess),
+                                content: SizedBox(
+                                  width: 500,
+                                  child: Text(
+                                    l10n.revokeInternetExplanation,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      // Introduce a tiny delay to let the user see the
+                                      // switch to turn on
+                                      Future.delayed(
+                                        const Duration(milliseconds: 200),
+                                        () => ref
+                                          .read(revokeInternetProvider.notifier)
+                                            .set(val),
+                                      );
+                                    },
+                                    child: Text(l10n.ok),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        } else {
+                          ref.read(revokeInternetProvider.notifier).set(val);
+                          ref
+                              .read(CurrenciesNotifier.provider.notifier)
+                              .forceCurrenciesDownload();
+                        }
+                      },
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: borderRadius,
+                      ),
+                    ),
+                  SwitchListTile(
+                    secondary: SvgPicture(
+                      const AssetBytesLoader(
+                        'assets/app_icons_opti/remove_trailing_zeros.svg.vec',
+                      ),
+                      width: 25,
+                      colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+                    ),
+                    title: Text(l10n.removeTrailingZeros),
+                    value: ref.watch(removeTrailingZerosProvider).value ?? true,
+                    onChanged: (bool val) {
+                      ref.read(removeTrailingZerosProvider.notifier).set(val);
+                    },
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                  ),
+                  DropdownListTile(
+                    leading: SvgPicture(
+                      const AssetBytesLoader(
+                        'assets/app_icons_opti/significant_figures.svg.vec',
+                      ),
+                      width: 25,
+                      colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+                    ),
+                    title: l10n.significantFigures,
+                    items: significantFiguresList
+                        .map((e) => e.toString())
+                        .toList(),
+                    value: (ref.watch(significantFiguresProvider).value ?? 10)
+                        .toString(),
+                    onChanged: (String? string) {
+                      if (string != null) {
+                        ref
+                            .read(significantFiguresProvider.notifier)
+                            .set(int.parse(string));
+                      }
+                    },
+                  ),
+                  ListTile(
+                    key: const ValueKey('reorder-properties'),
+                    leading: SvgPicture(
+                      const AssetBytesLoader(
+                        'assets/app_icons_opti/reorder_properties.svg.vec',
+                      ),
+                      width: 25,
+                      colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+                    ),
+                    title: Text(l10n.reorderProperties),
+                    onTap: () => context.goNamed('reorder-properties'),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                  ),
+                  ListTile(
+                    key: const ValueKey('reorder-units'),
+                    leading: SvgPicture(
+                      const AssetBytesLoader(
+                        'assets/app_icons_opti/reorder_units.svg.vec',
+                      ),
+                      width: 25,
+                      colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+                    ),
+                    title: Text(l10n.reorderUnits),
+                    onTap: () => context.goNamed('reorder-units'),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                  ),
+                  ListTile(
+                    key: const ValueKey('hide-units'),
+                    leading: Icon(
+                      Icons.visibility_off_outlined,
+                      color: iconColor,
+                    ),
+                    title: Text(l10n.hideUnits),
+                    onTap: () => context.goNamed('hide-units'),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                  ),
+                  Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+                    child: Text(l10n.backupAndRestore, style: titlesStyle),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.file_upload_outlined, color: iconColor),
+                    title: Text(l10n.exportSettings),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                    onTap: () async {
+                      final jsonBytes = utf8.encode(
+                        await ref
+                            .read(ImportExportNotifier.provider.notifier)
+                            .exportSettings(),
+                      );
+                      final filename =
+                          '${DateFormat('yyyyMMdd').format(DateTime.now())}_converternow.json';
+                      if (kIsWeb) {
+                        await FilePicker.platform.saveFile(
+                          dialogTitle: l10n.exportSettings,
+                          fileName: filename,
+                          bytes: jsonBytes,
+                        );
+                      } else if (Platform.isAndroid || Platform.isIOS) {
+                        // Mobile: Share
+                        final file = File(
+                          '${(await getTemporaryDirectory()).path}/$filename',
+                        );
+                        await file.writeAsBytes(jsonBytes);
+                        await SharePlus.instance.share(
+                          ShareParams(
+                            files: [XFile(file.path)],
+                            subject: 'Converter NOW Backup',
+                          ),
+                        );
+                        await file.delete(); // Clean up
+                      } else {
+                        // Desktop: Save file
+                        final outputFile = await FilePicker.platform.saveFile(
+                          dialogTitle: l10n.exportSettings,
+                          fileName: filename,
+                        );
+                        if (outputFile != null) {
+                          final file = File(outputFile);
+                          await file.writeAsBytes(jsonBytes);
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(l10n.exportSuccess)),
+                            );
+                          }
+                        }
+                      }
+                    },
+                  ),
+                  ListTile(
+                  leading: Icon(Icons.file_download_outlined, color: iconColor),
+                    title: Text(l10n.importSettings),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                    onTap: () async {
+                      try {
+                        FilePickerResult? result = await FilePicker.platform
+                            .pickFiles(
+                              type: FileType.custom,
+                              allowedExtensions: ['json'],
+                            );
+
+                        if (result != null) {
+                          String content;
+                          if (kIsWeb) {
+                            final bytes = result.files.first.bytes;
+                            if (bytes == null) return;
+                            content = utf8.decode(bytes);
+                          } else {
+                            final path = result.files.single.path;
+                            if (path == null) return;
+                            content = await File(path).readAsString();
+                          }
+
+                          final (importError, keysError) = await ref
+                              .read(ImportExportNotifier.provider.notifier)
+                              .importSettings(content);
+
+                          if (context.mounted) {
+                            if (importError == null && keysError.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(l10n.importSuccess)),
+                              );
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  String errorString =
+                                      '${l10n.problemImportFile}.\n';
+                                  if (keysError.isNotEmpty) {
+                                    errorString +=
+                                        "${l10n.relatedSettings}:\n• ${keysError.join('\n• ')}\n";
+                                  }
+                                  if (importError != null) {
+                                    errorString +=
+                                        '${l10n.reason}:\n $importError';
+                                  }
+
+                                  return AlertDialog(
+                                    title: Text(l10n.importError),
+                                    content: Text(errorString),
+                                    actions: [
+                                      TextButton(
+                                        child: Text(l10n.ok),
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                          }
+                        }
+                      } catch (e) {
+                        dPrint(() => e.toString());
+                      }
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.delete_forever_outlined,
+                      color: iconColor,
+                    ),
+                    title: Text(l10n.clearSettings),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                    onTap: () async {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text(l10n.clearSettings),
+                          content: Text(l10n.confirmationClear),
+                          actions: [
+                            TextButton(
+                              child: Text(l10n.cancel),
+                              onPressed: () => Navigator.of(context).pop(),
+                            ),
+                            TextButton(
+                              child: Text(
+                                l10n.clearAll,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.error,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onPressed: () {
+                                ref
+                                  .read(ImportExportNotifier.provider.notifier)
+                                    .deleteSettings();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  Padding(
+                  padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+                    child: Text(l10n.findOutMore, style: titlesStyle),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.computer, color: iconColor),
+                    title: Text(l10n.otherPlatforms),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                    onTap: () => showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return SimpleDialog(
+                          title: Text(l10n.otherPlatforms),
+                          children: [
+                            if (!kIsWeb)
+                              ListTile(
+                                title: const Text('Web'),
+                                leading: const Icon(Icons.public_outlined),
+                                onTap: () => launchURL(
+                                  Uri(
+                                    scheme: 'https',
+                                    host: 'converter-now.web.app',
+                                  ),
+                                  mode: LaunchMode.externalApplication,
+                                ),
+                              ),
+                          if (kIsWeb || Platform.isWindows || Platform.isLinux)
+                              ListTile(
+                                title: const Text('Android'),
+                                leading: const Icon(Icons.android_outlined),
+                                onTap: () => launchURL(
+                                  Uri(
+                                    scheme: 'https',
+                                    host: 'play.google.com',
+                                    path: '/store/apps/details',
+                                    queryParameters: {
+                                      'id': 'com.ferrarid.converterpro',
+                                    },
+                                  ),
+                                ),
+                              ),
+                          if (kIsWeb || Platform.isAndroid || Platform.isLinux)
+                              ListTile(
+                                title: const Text('Windows'),
+                                leading: const Icon(Icons.laptop),
+                                onTap: () => launchURL(
+                                  Uri(
+                                    scheme: 'https',
+                                    host: 'apps.microsoft.com',
+                                    path: '/detail/9p0q79hwjh72',
+                                  ),
+                                  mode: LaunchMode.externalApplication,
+                                ),
+                              ),
+                            ListTile(
+                              title: const Text('Linux (Flatpak)'),
+                            leading: const Icon(Icons.desktop_windows_outlined),
+                              onTap: () => launchURL(
+                                Uri(
+                                  scheme: 'https',
+                                  host: 'flathub.org',
+                                  path:
+                                      '/apps/details/io.github.ferraridamiano.ConverterNOW',
+                                ),
+                                mode: LaunchMode.externalApplication,
+                              ),
+                            ),
+                            ListTile(
+                              title: const Text('Linux (AppImage)'),
+                            leading: const Icon(Icons.desktop_windows_outlined),
+                              onTap: () => launchURL(
+                                Uri(
+                                  scheme: 'https',
+                                  host: 'github.com',
+                                  path:
+                                      '/ferraridamiano/ConverterNOW/releases/latest',
+                                ),
+                                mode: LaunchMode.externalApplication,
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(l10n.sourceCode),
+                              leading: const Icon(Icons.code),
+                              onTap: () => launchURL(
+                                Uri(
+                                  scheme: 'https',
+                                  host: 'github.com',
+                                  path: '/ferraridamiano/ConverterNOW',
+                                ),
+                                mode: LaunchMode.externalApplication,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.translate, color: iconColor),
+                    title: Text(l10n.contributeTranslating),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                    onTap: () {
+                      launchURL(
+                        Uri(
+                          scheme: 'https',
+                          host: 'github.com',
+                          path: '/ferraridamiano/ConverterNOW/issues/2',
+                        ),
+                        mode: LaunchMode.externalApplication,
+                      );
+                    },
+                  ),
+                  if (!const bool.fromEnvironment(
+                    'IS_PLAYSTORE',
+                    defaultValue: false,
+                  ))
+                    ListTile(
+                      leading: Icon(Icons.coffee_outlined, color: iconColor),
+                      title: Text(l10n.buyMeACoffee),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: borderRadius,
+                      ),
+                      onTap: () {
+                        showDialog<void>(
                           context: context,
-                          builder: (context) {
+                          barrierDismissible: true,
+                          builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text(l10n.revokeInternetAccess),
+                              title: Text(l10n.buyMeACoffee),
                               content: SizedBox(
                                 width: 500,
                                 child: Text(
-                                  l10n.revokeInternetExplanation,
+                                  l10n.donationDialog,
                                   style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ),
-                              actions: [
+                              actions: <Widget>[
                                 TextButton(
+                                  child: Text(
+                                    l10n.buyMeACoffee,
+                                    style: TextStyle(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.secondary,
+                                    ),
+                                  ),
                                   onPressed: () {
                                     Navigator.of(context).pop();
-                                    // Introduce a tiny delay to let the user see the
-                                    // switch to turn on
-                                    Future.delayed(
-                                      const Duration(milliseconds: 200),
-                                      () => ref
-                                          .read(revokeInternetProvider.notifier)
-                                          .set(val),
+                                    launchURL(
+                                      Uri(
+                                        scheme: 'https',
+                                        host: 'paypal.me',
+                                        path: '/DemApps',
+                                      ),
                                     );
                                   },
-                                  child: Text(l10n.ok),
                                 ),
                               ],
                             );
                           },
                         );
-                      } else {
-                        ref.read(revokeInternetProvider.notifier).set(val);
-                        ref
-                            .read(CurrenciesNotifier.provider.notifier)
-                            .forceCurrenciesDownload();
-                      }
-                    },
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: borderRadius,
+                      },
                     ),
-                  ),
-                SwitchListTile(
-                  secondary: SvgPicture(
-                    const AssetBytesLoader(
-                      'assets/app_icons_opti/remove_trailing_zeros.svg.vec',
-                    ),
-                    width: 25,
-                    colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-                  ),
-                  title: Text(l10n.removeTrailingZeros),
-                  value: ref.watch(removeTrailingZerosProvider).value ?? true,
-                  onChanged: (bool val) {
-                    ref.read(removeTrailingZerosProvider.notifier).set(val);
-                  },
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                ),
-                DropdownListTile(
-                  leading: SvgPicture(
-                    const AssetBytesLoader(
-                      'assets/app_icons_opti/significant_figures.svg.vec',
-                    ),
-                    width: 25,
-                    colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-                  ),
-                  title: l10n.significantFigures,
-                  items: significantFiguresList
-                      .map((e) => e.toString())
-                      .toList(),
-                  value: (ref.watch(significantFiguresProvider).value ?? 10)
-                      .toString(),
-                  onChanged: (String? string) {
-                    if (string != null) {
-                      ref
-                          .read(significantFiguresProvider.notifier)
-                          .set(int.parse(string));
-                    }
-                  },
-                ),
-                ListTile(
-                  key: const ValueKey('reorder-properties'),
-                  leading: SvgPicture(
-                    const AssetBytesLoader(
-                      'assets/app_icons_opti/reorder_properties.svg.vec',
-                    ),
-                    width: 25,
-                    colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-                  ),
-                  title: Text(l10n.reorderProperties),
-                  onTap: () => context.goNamed('reorder-properties'),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                ),
-                ListTile(
-                  key: const ValueKey('reorder-units'),
-                  leading: SvgPicture(
-                    const AssetBytesLoader(
-                      'assets/app_icons_opti/reorder_units.svg.vec',
-                    ),
-                    width: 25,
-                    colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-                  ),
-                  title: Text(l10n.reorderUnits),
-                  onTap: () => context.goNamed('reorder-units'),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                ),
-                ListTile(
-                  key: const ValueKey('hide-units'),
-                  leading: Icon(
-                    Icons.visibility_off_outlined,
-                    color: iconColor,
-                  ),
-                  title: Text(l10n.hideUnits),
-                  onTap: () => context.goNamed('hide-units'),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
-                  child: Text(l10n.backupAndRestore, style: titlesStyle),
-                ),
-                ListTile(
-                  leading: Icon(Icons.file_upload_outlined, color: iconColor),
-                  title: Text(l10n.exportSettings),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                  onTap: () async {
-                    final jsonBytes = utf8.encode(
-                      await ref
-                          .read(ImportExportNotifier.provider.notifier)
-                          .exportSettings(),
-                    );
-                    final filename =
-                        '${DateFormat('yyyyMMdd').format(DateTime.now())}_converternow.json';
-                    if (kIsWeb) {
-                      await FilePicker.platform.saveFile(
-                        dialogTitle: l10n.exportSettings,
-                        fileName: filename,
-                        bytes: jsonBytes,
-                      );
-                    } else if (Platform.isAndroid || Platform.isIOS) {
-                      // Mobile: Share
-                      final file = File(
-                        '${(await getTemporaryDirectory()).path}/$filename',
-                      );
-                      await file.writeAsBytes(jsonBytes);
-                      await SharePlus.instance.share(
-                        ShareParams(
-                          files: [XFile(file.path)],
-                          subject: 'Converter NOW Backup',
-                        ),
-                      );
-                      await file.delete(); // Clean up
-                    } else {
-                      // Desktop: Save file
-                      final outputFile = await FilePicker.platform.saveFile(
-                        dialogTitle: l10n.exportSettings,
-                        fileName: filename,
-                      );
-                      if (outputFile != null) {
-                        final file = File(outputFile);
-                        await file.writeAsBytes(jsonBytes);
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(l10n.exportSuccess)),
-                          );
-                        }
-                      }
-                    }
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.file_download_outlined, color: iconColor),
-                  title: Text(l10n.importSettings),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                  onTap: () async {
-                    try {
-                      FilePickerResult? result = await FilePicker.platform
-                          .pickFiles(
-                            type: FileType.custom,
-                            allowedExtensions: ['json'],
-                          );
-
-                      if (result != null) {
-                        String content;
-                        if (kIsWeb) {
-                          final bytes = result.files.first.bytes;
-                          if (bytes == null) return;
-                          content = utf8.decode(bytes);
-                        } else {
-                          final path = result.files.single.path;
-                          if (path == null) return;
-                          content = await File(path).readAsString();
-                        }
-
-                        final (importError, keysError) = await ref
-                            .read(ImportExportNotifier.provider.notifier)
-                            .importSettings(content);
-
-                        if (context.mounted) {
-                          if (importError == null && keysError.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(l10n.importSuccess)),
-                            );
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                String errorString =
-                                    '${l10n.problemImportFile}.\n';
-                                if (keysError.isNotEmpty) {
-                                  errorString +=
-                                      "${l10n.relatedSettings}:\n• ${keysError.join('\n• ')}\n";
-                                }
-                                if (importError != null) {
-                                  errorString +=
-                                      '${l10n.reason}:\n $importError';
-                                }
-
-                                return AlertDialog(
-                                  title: Text(l10n.importError),
-                                  content: Text(errorString),
-                                  actions: [
-                                    TextButton(
-                                      child: Text(l10n.ok),
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                        }
-                      }
-                    } catch (e) {
-                      dPrint(() => e.toString());
-                    }
-                  },
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.delete_forever_outlined,
-                    color: iconColor,
-                  ),
-                  title: Text(l10n.clearSettings),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                  onTap: () async {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text(l10n.clearSettings),
-                        content: Text(l10n.confirmationClear),
-                        actions: [
-                          TextButton(
-                            child: Text(l10n.cancel),
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                          TextButton(
-                            child: Text(
-                              l10n.clearAll,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.error,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onPressed: () {
-                              ref
-                                  .read(ImportExportNotifier.provider.notifier)
-                                  .deleteSettings();
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
-                  child: Text(l10n.findOutMore, style: titlesStyle),
-                ),
-                ListTile(
-                  leading: Icon(Icons.computer, color: iconColor),
-                  title: Text(l10n.otherPlatforms),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                  onTap: () => showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return SimpleDialog(
-                        title: Text(l10n.otherPlatforms),
-                        children: [
-                          if (!kIsWeb)
-                            ListTile(
-                              title: const Text('Web'),
-                              leading: const Icon(Icons.public_outlined),
-                              onTap: () => launchURL(
-                                Uri(
-                                  scheme: 'https',
-                                  host: 'converter-now.web.app',
-                                ),
-                                mode: LaunchMode.externalApplication,
-                              ),
-                            ),
-                          if (kIsWeb || Platform.isWindows || Platform.isLinux)
-                            ListTile(
-                              title: const Text('Android'),
-                              leading: const Icon(Icons.android_outlined),
-                              onTap: () => launchURL(
-                                Uri(
-                                  scheme: 'https',
-                                  host: 'play.google.com',
-                                  path: '/store/apps/details',
-                                  queryParameters: {
-                                    'id': 'com.ferrarid.converterpro',
-                                  },
-                                ),
-                              ),
-                            ),
-                          if (kIsWeb || Platform.isAndroid || Platform.isLinux)
-                            ListTile(
-                              title: const Text('Windows'),
-                              leading: const Icon(Icons.laptop),
-                              onTap: () => launchURL(
-                                Uri(
-                                  scheme: 'https',
-                                  host: 'apps.microsoft.com',
-                                  path: '/detail/9p0q79hwjh72',
-                                ),
-                                mode: LaunchMode.externalApplication,
-                              ),
-                            ),
-                          ListTile(
-                            title: const Text('Linux (Flatpak)'),
-                            leading: const Icon(Icons.desktop_windows_outlined),
-                            onTap: () => launchURL(
-                              Uri(
-                                scheme: 'https',
-                                host: 'flathub.org',
-                                path:
-                                    '/apps/details/io.github.ferraridamiano.ConverterNOW',
-                              ),
-                              mode: LaunchMode.externalApplication,
-                            ),
-                          ),
-                          ListTile(
-                            title: const Text('Linux (AppImage)'),
-                            leading: const Icon(Icons.desktop_windows_outlined),
-                            onTap: () => launchURL(
-                              Uri(
-                                scheme: 'https',
-                                host: 'github.com',
-                                path:
-                                    '/ferraridamiano/ConverterNOW/releases/latest',
-                              ),
-                              mode: LaunchMode.externalApplication,
-                            ),
-                          ),
-                          ListTile(
-                            title: Text(l10n.sourceCode),
-                            leading: const Icon(Icons.code),
-                            onTap: () => launchURL(
-                              Uri(
-                                scheme: 'https',
-                                host: 'github.com',
-                                path: '/ferraridamiano/ConverterNOW',
-                              ),
-                              mode: LaunchMode.externalApplication,
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(Icons.translate, color: iconColor),
-                  title: Text(l10n.contributeTranslating),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                  onTap: () {
-                    launchURL(
-                      Uri(
-                        scheme: 'https',
-                        host: 'github.com',
-                        path: '/ferraridamiano/ConverterNOW/issues/2',
-                      ),
-                      mode: LaunchMode.externalApplication,
-                    );
-                  },
-                ),
-                if (!const bool.fromEnvironment(
-                  'IS_PLAYSTORE',
-                  defaultValue: false,
-                ))
                   ListTile(
-                    leading: Icon(Icons.coffee_outlined, color: iconColor),
-                    title: Text(l10n.buyMeACoffee),
+                    leading: Icon(Icons.info_outline, color: iconColor),
+                    title: Text(l10n.about),
                     shape: const RoundedRectangleBorder(
                       borderRadius: borderRadius,
                     ),
-                    onTap: () {
-                      showDialog<void>(
-                        context: context,
-                        barrierDismissible: true,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(l10n.buyMeACoffee),
-                            content: SizedBox(
-                              width: 500,
-                              child: Text(
-                                l10n.donationDialog,
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text(
-                                  l10n.buyMeACoffee,
-                                  style: TextStyle(
-                                    color: Theme.of(
-                                      context,
-                                    ).colorScheme.secondary,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  launchURL(
-                                    Uri(
-                                      scheme: 'https',
-                                      host: 'paypal.me',
-                                      path: '/DemApps',
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
+                    onTap: () => context.goNamed('about'),
                   ),
-                ListTile(
-                  leading: Icon(Icons.info_outline, color: iconColor),
-                  title: Text(l10n.about),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: borderRadius,
-                  ),
-                  onTap: () => context.goNamed('about'),
-                ),
-                // Space for the navigation bar (android)
-                SizedBox(height: MediaQuery.paddingOf(context).bottom),
-              ].map(ConstrainedContainer.new).toList(),
+                  // Space for the navigation bar (android)
+                  SizedBox(height: MediaQuery.paddingOf(context).bottom),
+                ].map(ConstrainedContainer.new).toList(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

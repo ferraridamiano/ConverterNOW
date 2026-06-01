@@ -185,6 +185,9 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
       await tester.pumpAndSettle();
 
+      await tester.drag(find.byType(CustomScrollView), const Offset(0, -300));
+      await tester.pumpAndSettle();
+
       await tester.tap(find.byKey(const ValueKey('reorder-units')));
       await tester.pumpAndSettle();
 
@@ -280,6 +283,9 @@ void main() {
       );
 
       await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
+      await tester.pumpAndSettle();
+
+      await tester.drag(find.byType(CustomScrollView), const Offset(0, -300));
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const ValueKey('reorder-properties')));
@@ -381,6 +387,9 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
       await tester.pumpAndSettle();
 
+      await tester.drag(find.byType(CustomScrollView), const Offset(0, -300));
+      await tester.pumpAndSettle();
+
       await tester.tap(find.byKey(const ValueKey('reorder-properties')));
       await tester.pumpAndSettle();
 
@@ -415,6 +424,9 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const ValueKey('confirm')));
+      await tester.pumpAndSettle();
+
+      await tester.drag(find.byType(CustomScrollView), const Offset(0, -300));
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const ValueKey('reorder-units')));

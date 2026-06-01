@@ -66,15 +66,13 @@ class ChoosePropertyPage extends ConsumerWidget {
                           '${propertiesStringOrdered[index]}-$isSelectedProperty',
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: Container(
-                          constraints: const BoxConstraints(maxWidth: 400),
-                          decoration: isSelectedProperty
-                              ? BoxDecoration(
-                                  color: selectedListTileColor,
-                                  borderRadius: borderRadius,
-                                )
+                        child: ListTile(
+                          tileColor: isSelectedProperty
+                              ? selectedListTileColor
                               : null,
-                          child: const ListTile(),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: borderRadius,
+                          ),
                         ),
                       ),
                     ),

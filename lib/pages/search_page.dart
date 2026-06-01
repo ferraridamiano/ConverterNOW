@@ -53,9 +53,7 @@ class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
   }
 
   @override
-  Widget buildResults(BuildContext context) {
-    return Container();
-  }
+  Widget buildResults(BuildContext context) => const SizedBox();
 
   @override
   List<Widget> buildActions(BuildContext context) {
