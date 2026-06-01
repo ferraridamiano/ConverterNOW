@@ -6,13 +6,13 @@
   "myOrdering": "Ordenació personal",
   "about": "Quant a",
   "lastCurrenciesUpdate": "Última actualització: ",
-  "today": "avui",
+  "today": "Avui",
   "enableDarkTheme": "Activa el tema fosc",
   "settings": "Configuració",
   "menu": "Menú",
   "donation": "Feu una donació",
   "buyMeACoffee": "Convideu-me a un cafè",
-  "donationDialog": "Déu lo guard. Com deu saber aquesta aplicació és gratuïta i de codi obert. Això significa que podeu utilitzar-la gratuïtament i copiar-ne i editar-ne el codi font. El desenvolupador no hi guanya res. Però si creieu en aquest projecte i us agradaria veure funcionalitats noves, em podeu pagar un cafè.",
+  "donationDialog": "Déu lo guard. Com deu saber aquesta aplicació és gratuïta i de codi obert. Això significa que podeu utilitzar-la gratuïtament i copiar-ne i editar-ne el codi font. El desenvolupador no hi guanya res. Però SI creieu en aquest projecte i US agradaria veure funcionalitats noves, em podeu pagar un cafè.",
   "drawerLogo": "Logo del menú",
   "rateApp": "Valoreu l'aplicació",
   "repoGithub": "Obre el repositori a GitHub",
@@ -69,7 +69,7 @@
   "routeError2": "Torna a la primera pàgina",
   "ok": "Accepta",
   "revokeInternetAccess": "Revoca l'accés a internet",
-  "revokeInternetExplanation": "Aquesta aplicació utilitza internet per actualitzar els tipus de canvi de divises una vegada al dia (quan està oberta). Són només uns quants kilobytes de descàrrega, però si no necessiteu aquesta funció podeu impedir que l'aplicació accedeixi a internet activant aquesta opció.",
+  "revokeInternetExplanation": "Aquesta aplicació utilitza internet per actualitzar els tipus de canvi de divises una vegada al dia (quan està oberta). Són només uns quants kilobytes de descàrrega, però SI no necessiteu aquesta funció podeu impedir que l'aplicació accedeixi a internet activant aquesta opció.",
   "useDeviceColor": "Use device color",
   "@useDeviceColor": {
     "description": "Not yet translated. Once done, remove this comment"
@@ -120,7 +120,7 @@
   "@unselectAll": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "backupAndRestore": "Backup & Restore",
+  "backupAndRestore": "Backup & restore",
   "@backupAndRestore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -156,7 +156,7 @@
   "@reason": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "importError": "Import Error",
+  "importError": "Import error",
   "@importError": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -225,67 +225,67 @@
   "are": "Àrees",
   "squareFeetUsSurvey": "Peus quadrats (mesura dels Estats Units)",
 
-  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
+  "gramsPerCubicCentimeter": "Grams per cubic centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerLiter": "Grams per Liter",
+  "gramsPerLiter": "Grams per liter",
   "@gramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerMilliliter": "Grams per Milliliter",
+  "gramsPerMilliliter": "Grams per milliliter",
   "@gramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerDeciliter": "Grams per Deciliter",
+  "gramsPerDeciliter": "Grams per deciliter",
   "@gramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerLiter": "Kilograms per Liter",
+  "kilogramsPerLiter": "Kilograms per liter",
   "@kilogramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
+  "kilogramsPerCubicMeter": "Kilograms per cubic meter",
   "@kilogramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerLiter": "Milligrams per Liter",
+  "milligramsPerLiter": "Milligrams per liter",
   "@milligramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerDeciliter": "Milligrams per Deciliter",
+  "milligramsPerDeciliter": "Milligrams per deciliter",
   "@milligramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerMilliliter": "Milligrams per Milliliter",
+  "milligramsPerMilliliter": "Milligrams per milliliter",
   "@milligramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
+  "milligramsPerCubicMeter": "Milligrams per cubic meter",
   "@milligramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
+  "milligramsPerCubicCentimeter": "Milligrams per cubic centimeter",
   "@milligramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerLiter": "Micrograms per Liter",
+  "microgramsPerLiter": "Micrograms per liter",
   "@microgramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerDeciliter": "Micrograms per Deciliter",
+  "microgramsPerDeciliter": "Micrograms per deciliter",
   "@microgramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerMilliliter": "Micrograms per Milliliter",
+  "microgramsPerMilliliter": "Micrograms per milliliter",
   "@microgramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicInches": "Pounds per Cubic Inches",
+  "poundsPerCubicInches": "Pounds per cubic inches",
   "@poundsPerCubicInches": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicFeet": "Pounds per Cubic Feet",
+  "poundsPerCubicFeet": "Pounds per cubic feet",
   "@poundsPerCubicFeet": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -308,7 +308,7 @@
   "usFluidOunces": "Unces líquides dels Estats Units",
   "imperialGill": "Gill imperial",
   "usGill": "Gill dels Estats Units",
-  "usQuarts": "US Quarts",
+  "usQuarts": "US quarts",
   "@usQuarts": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -439,7 +439,7 @@
   "usd": "Dòlar dels Estats Units",
   "eur": "Euro",
   "gbp": "Lliura esterlina",
-  "inr": "Rupia índia",
+  "inr": "Rupia Índia",
   "cny": "Iuan xinès",
   "jpy": "Ien japonès",
   "chf": "Franc suís",
@@ -452,7 +452,7 @@
   "aud": "Dòlar australià",
   "nzd": "Dòlar neozelandès",
   "mxn": "Peso mexicà",
-  "sgd": "Dòlar de Singapur",
+  "sgd": "Dòlar de singapur",
   "nok": "Corona noruega",
   "trY": "Lira turca",
   "zar": "Rand sud-africà",
@@ -471,12 +471,12 @@
   "mad": "Dírham marroquí",
 
   "euChina": "UE i Xina",
-  "ukIndiaChild": "Regne Unit i Índia - Infantil",
-  "ukIndiaMan": "Regne Unit i Índia - Home",
-  "ukIndiaWoman": "Regne Unit i Índia - Dona",
-  "usaCanadaChild": "Estats Units i Canadà - Infantil",
-  "usaCanadaMan": "Estats Units i Canadà - Home",
-  "usaCanadaWoman": "Estats Units i Canadà - Dona",
+  "ukIndiaChild": "Regne Unit i Índia - infantil",
+  "ukIndiaMan": "Regne Unit i Índia - home",
+  "ukIndiaWoman": "Regne Unit i Índia - dona",
+  "usaCanadaChild": "Estats Units i Canadà - infantil",
+  "usaCanadaMan": "Estats Units i Canadà - home",
+  "usaCanadaWoman": "Estats Units i Canadà - dona",
   "japan": "Japó",
 
   "watt": "Watt",

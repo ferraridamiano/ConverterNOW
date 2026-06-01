@@ -6,7 +6,7 @@
   "myOrdering": "Mijn ordening",
   "about": "Over",
   "lastCurrenciesUpdate": "Laatste update: ",
-  "today": "vandaag",
+  "today": "Vandaag",
   "enableDarkTheme": "Schakel naar donker thema",
   "settings": "Instellingen",
   "menu": "Menu",
@@ -30,7 +30,7 @@
   "dark": "Donker",
   "light": "Licht",
   "system": "Systeem standaard",
-  "pureBlackTheme": "AMOLED donker thema",
+  "pureBlackTheme": "Amoled donker thema",
   "@pureBlackTheme": {
     "description": "Revise this translation"
   },
@@ -129,7 +129,7 @@
   "@unselectAll": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "backupAndRestore": "Backup & Restore",
+  "backupAndRestore": "Backup & restore",
   "@backupAndRestore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -165,7 +165,7 @@
   "@reason": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "importError": "Import Error",
+  "importError": "Import error",
   "@importError": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -184,7 +184,7 @@
   "time": "Tijd",
   "temperature": "Temperatuur",
   "speed": "Snelheid",
-  "siPrefixes": "SI Eenheden",
+  "siPrefixes": "SI eenheden",
   "mass": "Massa",
   "pressure": "Druk",
   "energy": "Energie",
@@ -215,109 +215,109 @@
   "angstroms": "Ångström",
   "picometers": "Picometer",
   "kilometers": "Kilometer",
-  "astronomicalUnits": "Astronomische Eenheden",
+  "astronomicalUnits": "Astronomische eenheden",
   "lightYears": "Lichtjaar",
   "parsec": "Parsec",
   "mils": "Mils",
-  "feetUsSurvey": "Voet (Amerikaans)",
+  "feetUsSurvey": "Voet (amerikaans)",
 
-  "squareMeters": "Vierkante Meter",
-  "squareCentimeters": "Vierkante Centimeter",
-  "squareInches": "Vierkante Inch",
-  "squareFeet": "Vierkante Voet",
-  "squareMiles": "Vierkante Mijl",
-  "squareYard": "Vierkante Yard",
-  "squareMillimeters": "Vierkante Millimeter",
-  "squareKilometers": "Vierkante Kilometer",
+  "squareMeters": "Vierkante meter",
+  "squareCentimeters": "Vierkante centimeter",
+  "squareInches": "Vierkante inch",
+  "squareFeet": "Vierkante voet",
+  "squareMiles": "Vierkante mijl",
+  "squareYard": "Vierkante yard",
+  "squareMillimeters": "Vierkante millimeter",
+  "squareKilometers": "Vierkante kilometer",
   "hectares": "Hectare",
   "acres": "Acre",
   "are": "Are",
-  "squareFeetUsSurvey": "Vierkante Voet (Amerikaans)",
+  "squareFeetUsSurvey": "Vierkante voet (amerikaans)",
 
-  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
+  "gramsPerCubicCentimeter": "Grams per cubic centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerLiter": "Grams per Liter",
+  "gramsPerLiter": "Grams per liter",
   "@gramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerMilliliter": "Grams per Milliliter",
+  "gramsPerMilliliter": "Grams per milliliter",
   "@gramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerDeciliter": "Grams per Deciliter",
+  "gramsPerDeciliter": "Grams per deciliter",
   "@gramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerLiter": "Kilograms per Liter",
+  "kilogramsPerLiter": "Kilograms per liter",
   "@kilogramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
+  "kilogramsPerCubicMeter": "Kilograms per cubic meter",
   "@kilogramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerLiter": "Milligrams per Liter",
+  "milligramsPerLiter": "Milligrams per liter",
   "@milligramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerDeciliter": "Milligrams per Deciliter",
+  "milligramsPerDeciliter": "Milligrams per deciliter",
   "@milligramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerMilliliter": "Milligrams per Milliliter",
+  "milligramsPerMilliliter": "Milligrams per milliliter",
   "@milligramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
+  "milligramsPerCubicMeter": "Milligrams per cubic meter",
   "@milligramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
+  "milligramsPerCubicCentimeter": "Milligrams per cubic centimeter",
   "@milligramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerLiter": "Micrograms per Liter",
+  "microgramsPerLiter": "Micrograms per liter",
   "@microgramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerDeciliter": "Micrograms per Deciliter",
+  "microgramsPerDeciliter": "Micrograms per deciliter",
   "@microgramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerMilliliter": "Micrograms per Milliliter",
+  "microgramsPerMilliliter": "Micrograms per milliliter",
   "@microgramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicInches": "Pounds per Cubic Inches",
+  "poundsPerCubicInches": "Pounds per cubic inches",
   "@poundsPerCubicInches": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicFeet": "Pounds per Cubic Feet",
+  "poundsPerCubicFeet": "Pounds per cubic feet",
   "@poundsPerCubicFeet": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "cubicMeters": "Kubieke Meter",
+  "cubicMeters": "Kubieke meter",
   "liters": "Liters",
-  "imperialGallons": "Britse Gallon",
-  "usGallons": "Amerikaanse Gallon",
-  "imperialPints": "Britse Pint",
-  "usPints": "Amerikaanse Pint",
+  "imperialGallons": "Britse gallon",
+  "usGallons": "Amerikaanse gallon",
+  "imperialPints": "Britse pint",
+  "usPints": "Amerikaanse pint",
   "milliliters": "Milliliter",
   "tablespoonUs": "Eetlepel",
-  "tablespoonAustralian": "Australische Eetlepel",
-  "cups": "Kopjes (Cups)",
-  "cubicCentimeters": "Kubieke Centimeter",
-  "cubicFeet": "Kubieke Voet",
-  "cubicInches": "Kubieke Inch",
-  "cubicMillimeters": "Kubieke Millimeter",
-  "imperialFluidOunces": "Britse Vloeibare Ounce",
-  "usFluidOunces": "Amerikaanse Vloeibare Ounce",
-  "imperialGill": "Britse Gill (kwart pint)",
-  "usGill": "Amerikaanse Gill (kwart pint)",
-  "usQuarts": "US Quarts",
+  "tablespoonAustralian": "Australische eetlepel",
+  "cups": "Kopjes (cups)",
+  "cubicCentimeters": "Kubieke centimeter",
+  "cubicFeet": "Kubieke voet",
+  "cubicInches": "Kubieke inch",
+  "cubicMillimeters": "Kubieke millimeter",
+  "imperialFluidOunces": "Britse vloeibare ounce",
+  "usFluidOunces": "Amerikaanse vloeibare ounce",
+  "imperialGill": "Britse gill (kwart pint)",
+  "usGill": "Amerikaanse gill (kwart pint)",
+  "usQuarts": "US quarts",
   "@usQuarts": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -359,19 +359,19 @@
   "millennium": "Millennia",
 
   "fahrenheit": "Fahrenheit",
-  "celsius": "Celsius (Centigrade)",
+  "celsius": "Celsius (centigrade)",
   "kelvin": "Kelvin",
   "reamur": "Reamur",
   "romer": "Rømer",
   "delisle": "Delisle",
   "rankine": "Rankine",
 
-  "metersSecond": "Meters per Seconde",
-  "kilometersHour": "Kilometers per Uur",
-  "milesHour": "Mijl per Uur",
+  "metersSecond": "Meters per seconde",
+  "kilometersHour": "Kilometers per uur",
+  "milesHour": "Mijl per uur",
   "knots": "Knopen",
-  "feetSecond": "Voet per Seconde",
-  "minutesPerKilometer": "Minuten per Kilometer",
+  "feetSecond": "Voet per seconde",
+  "minutesPerKilometer": "Minuten per kilometer",
   "minutesPerMile": "Minutes per mile",
   "@minutesPerMile": {
     "description": "Not yet translated. Once done, remove this comment"
@@ -400,10 +400,10 @@
   "atmosphere": "Atmosfeer",
   "bar": "Bar",
   "millibar": "Millibar",
-  "psi": "Pond per Vierkante Inch",
+  "psi": "Pond per vierkante inch",
   "torr": "Torricelli",
   "hectoPascal": "Hectopascal",
-  "inchesOfMercury": "Inch-Kwikdruk",
+  "inchesOfMercury": "Inch-kwikdruk",
   "kiloPascal": "Kilopascal",
   "@kiloPascal": {
     "description": "Not yet translated. Once done, remove this comment"
@@ -445,47 +445,47 @@
   "secondsDegree": "Seconden",
   "radiansDegree": "Radialen",
 
-  "usd": "Amerikaanse Dollar",
+  "usd": "Amerikaanse dollar",
   "eur": "Euro",
-  "gbp": "Britse Pound",
-  "inr": "Indiase Rupee",
-  "cny": "Chinese Yuan",
-  "jpy": "Japanese Yen",
-  "chf": "Zwitserse Franc",
-  "sek": "Zweedse Krona",
-  "rub": "Russische Roebel",
-  "cad": "Canadese Dollar",
-  "krw": "Zuid-Koreaanse Won",
-  "brl": "Braziliaanse Real",
-  "hkd": "Hong Kong Dollar",
-  "aud": "Australische Dollar",
-  "nzd": "Nieuw-Zeelandse Dollar",
-  "mxn": "Mexicaanse Peso",
-  "sgd": "Singaporese Dollar",
-  "nok": "Norweegse Krone",
-  "trY": "Turkse Lira",
-  "zar": "Zuid-Afrikaanse Rand",
-  "dkk": "Deense Krone",
-  "pln": "Poolse Złoty",
-  "thb": "Thaise Baht",
-  "myr": "Malaysische Ringgit",
-  "huf": "Hongaarse Forint",
-  "czk": "Tjechische Koruna",
-  "ils": "Israelische Shekel",
-  "idr": "Indonesische Rupiah",
-  "php": "Filipijnse Peso",
-  "ron": "Roemeense Leu",
-  "isk": "Icelandse Króna",
-  "twd": "Nieuw-Taiwanese Dollar",
-  "mad": "Morokaanse Dirham",
+  "gbp": "Britse pound",
+  "inr": "Indiase rupee",
+  "cny": "Chinese yuan",
+  "jpy": "Japanese yen",
+  "chf": "Zwitserse franc",
+  "sek": "Zweedse krona",
+  "rub": "Russische roebel",
+  "cad": "Canadese dollar",
+  "krw": "Zuid-koreaanse won",
+  "brl": "Braziliaanse real",
+  "hkd": "Hong Kong dollar",
+  "aud": "Australische dollar",
+  "nzd": "Nieuw-zeelandse dollar",
+  "mxn": "Mexicaanse peso",
+  "sgd": "Singaporese dollar",
+  "nok": "Norweegse krone",
+  "trY": "Turkse lira",
+  "zar": "Zuid-afrikaanse rand",
+  "dkk": "Deense krone",
+  "pln": "Poolse złoty",
+  "thb": "Thaise baht",
+  "myr": "Malaysische ringgit",
+  "huf": "Hongaarse forint",
+  "czk": "Tjechische koruna",
+  "ils": "Israelische shekel",
+  "idr": "Indonesische rupiah",
+  "php": "Filipijnse peso",
+  "ron": "Roemeense leu",
+  "isk": "Icelandse króna",
+  "twd": "Nieuw-taiwanese dollar",
+  "mad": "Morokaanse dirham",
 
   "euChina": "EU & China",
-  "ukIndiaChild": "Groot Brittannië & India - Kind",
-  "ukIndiaMan": "Groot Brittanië & India - Man",
-  "ukIndiaWoman": "Groot Brittannië & India - Vrouw",
-  "usaCanadaChild": "Verenigde Staten & Canada - Kind",
-  "usaCanadaMan": "Verenigde Staten & Canada - Man",
-  "usaCanadaWoman": "Verenigde Staten & Canada - Vrouw",
+  "ukIndiaChild": "Groot brittannië & India - kind",
+  "ukIndiaMan": "Groot brittanië & India - man",
+  "ukIndiaWoman": "Groot brittannië & India - vrouw",
+  "usaCanadaChild": "Verenigde staten & Canada - kind",
+  "usaCanadaMan": "Verenigde staten & Canada - man",
+  "usaCanadaWoman": "Verenigde staten & Canada - vrouw",
   "japan": "Japan",
 
   "watt": "Watt",
@@ -493,8 +493,8 @@
   "kilowatt": "Kilowatt",
   "megawatt": "Megawatt",
   "gigawatt": "GigaWatt",
-  "europeanHorsePower": "Europese Paardenkracht",
-  "imperialHorsePower": "Metrische Paardenkracht",
+  "europeanHorsePower": "Europese paardenkracht",
+  "imperialHorsePower": "Metrische paardenkracht",
 
   "newton": "Newton",
   "dyne": "Dyne",
@@ -514,8 +514,8 @@
 
   "kilometersLiter": "Kilometer per liter",
   "liters100km": "Liter per 100 km",
-  "milesUsGallon": "Mijl per Amerikaanse Gallon",
-  "milesImperialGallon": "Mijl per Britse Gallon",
+  "milesUsGallon": "Mijl per amerikaanse gallon",
+  "milesImperialGallon": "Mijl per britse gallon",
 
   "decimal": "Decimaal",
   "hexadecimal": "Hexadecimaal",

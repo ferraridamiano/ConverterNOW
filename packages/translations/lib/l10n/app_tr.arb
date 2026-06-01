@@ -6,7 +6,7 @@
   "myOrdering": "Düzenim",
   "about": "Hakkında",
   "lastCurrenciesUpdate": "Son güncelleme: ",
-  "today": "bugün",
+  "today": "Bugün",
   "enableDarkTheme": "Koyu temayı etkinleştir",
   "settings": "Ayarlar",
   "menu": "Menü",
@@ -30,7 +30,7 @@
   "dark": "Koyu",
   "light": "Açık",
   "system": "Sistem varsayılanı",
-  "pureBlackTheme": "AMOLED koyu teması",
+  "pureBlackTheme": "Amoled koyu teması",
   "@pureBlackTheme": {
     "description": "Revise this translation"
   },
@@ -129,7 +129,7 @@
   "@unselectAll": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "backupAndRestore": "Backup & Restore",
+  "backupAndRestore": "Backup & restore",
   "@backupAndRestore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -165,7 +165,7 @@
   "@reason": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "importError": "Import Error",
+  "importError": "Import error",
   "@importError": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -184,7 +184,7 @@
   "time": "Zaman",
   "temperature": "Sıcaklık",
   "speed": "Hız",
-  "siPrefixes": "SI Ön Ekleri",
+  "siPrefixes": "SI ön ekleri",
   "mass": "Kütle",
   "pressure": "Basınç",
   "energy": "Enerji",
@@ -235,95 +235,95 @@
   "hectares": "Hektar",
   "acres": "Dönüm",
   "are": "Ar",
-  "squareFeetUsSurvey": "Square Feet (US survey)",
+  "squareFeetUsSurvey": "Square feet (US survey)",
   "@squareFeetUsSurvey": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
+  "gramsPerCubicCentimeter": "Grams per cubic centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerLiter": "Grams per Liter",
+  "gramsPerLiter": "Grams per liter",
   "@gramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerMilliliter": "Grams per Milliliter",
+  "gramsPerMilliliter": "Grams per milliliter",
   "@gramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerDeciliter": "Grams per Deciliter",
+  "gramsPerDeciliter": "Grams per deciliter",
   "@gramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerLiter": "Kilograms per Liter",
+  "kilogramsPerLiter": "Kilograms per liter",
   "@kilogramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
+  "kilogramsPerCubicMeter": "Kilograms per cubic meter",
   "@kilogramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerLiter": "Milligrams per Liter",
+  "milligramsPerLiter": "Milligrams per liter",
   "@milligramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerDeciliter": "Milligrams per Deciliter",
+  "milligramsPerDeciliter": "Milligrams per deciliter",
   "@milligramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerMilliliter": "Milligrams per Milliliter",
+  "milligramsPerMilliliter": "Milligrams per milliliter",
   "@milligramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
+  "milligramsPerCubicMeter": "Milligrams per cubic meter",
   "@milligramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
+  "milligramsPerCubicCentimeter": "Milligrams per cubic centimeter",
   "@milligramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerLiter": "Micrograms per Liter",
+  "microgramsPerLiter": "Micrograms per liter",
   "@microgramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerDeciliter": "Micrograms per Deciliter",
+  "microgramsPerDeciliter": "Micrograms per deciliter",
   "@microgramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerMilliliter": "Micrograms per Milliliter",
+  "microgramsPerMilliliter": "Micrograms per milliliter",
   "@microgramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicInches": "Pounds per Cubic Inches",
+  "poundsPerCubicInches": "Pounds per cubic inches",
   "@poundsPerCubicInches": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicFeet": "Pounds per Cubic Feet",
+  "poundsPerCubicFeet": "Pounds per cubic feet",
   "@poundsPerCubicFeet": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
   "cubicMeters": "Metreküp",
   "liters": "Litre",
-  "imperialGallons": "Galon (İngiliz)",
-  "usGallons": "Galon (Amerikan)",
-  "imperialPints": "Pint (İngiliz)",
-  "usPints": "Pint (Amerikan)",
+  "imperialGallons": "Galon (i̇ngiliz)",
+  "usGallons": "Galon (amerikan)",
+  "imperialPints": "Pint (i̇ngiliz)",
+  "usPints": "Pint (amerikan)",
   "milliliters": "Mililitre",
-  "tablespoonUs": "Yemek kaşığı (Amerikan)",
+  "tablespoonUs": "Yemek kaşığı (amerikan)",
   "tablespoonAustralian": "Yemek kaşığı (Avustralya)",
   "cups": "Fincan",
   "cubicCentimeters": "Santimetreküp",
   "cubicFeet": "Fitküp",
   "cubicInches": "İnçküp",
   "cubicMillimeters": "Milimetreküp",
-  "imperialFluidOunces": "Sıvı ons (İngiliz)",
-  "usFluidOunces": "Sıvı ons (Amerikan)",
-  "imperialGill": "Çay fincanı (İngiliz)",
-  "usGill": "Çay fincanı (Amerikan)",
-  "usQuarts": "US Quarts",
+  "imperialFluidOunces": "Sıvı ons (i̇ngiliz)",
+  "usFluidOunces": "Sıvı ons (amerikan)",
+  "imperialGill": "Çay fincanı (i̇ngiliz)",
+  "usGill": "Çay fincanı (amerikan)",
+  "usQuarts": "US quarts",
   "@usQuarts": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -464,16 +464,16 @@
   "sek": "İsveç kronu",
   "rub": "Rus rublesi",
   "cad": "Kanada doları",
-  "krw": "Güney Kore wonu",
+  "krw": "Güney kore wonu",
   "brl": "Brezilya reali",
   "hkd": "Hong Kong doları",
   "aud": "Avustralya doları",
-  "nzd": "Yeni Zelanda doları",
+  "nzd": "Yeni zelanda doları",
   "mxn": "Meksika pesosu",
   "sgd": "Singapur doları",
   "nok": "Norveç kronu",
   "trY": "Türk lirası",
-  "zar": "Güney Afrika randı",
+  "zar": "Güney afrika randı",
   "dkk": "Danimarka kronu",
   "pln": "Polonya zlotisi",
   "thb": "Tayland bahtı",
@@ -485,16 +485,16 @@
   "php": "Filipin pezosu",
   "ron": "Rumen leyi",
   "isk": "İzlanda kronu",
-  "twd": "Yeni Tayvan doları",
+  "twd": "Yeni tayvan doları",
   "mad": "Fas dirhemi",
 
   "euChina": "AB ve Çin",
-  "ukIndiaChild": "İngiltere ve Hindistan - Çocuk",
-  "ukIndiaMan": "İngiltere ve Hindistan - Erkek",
-  "ukIndiaWoman": "İngiltere ve Hindistan - Kadın",
-  "usaCanadaChild": "ABD ve Kanada - Çocuk",
-  "usaCanadaMan": "ABD ve Kanada - Erkek",
-  "usaCanadaWoman": "ABD ve Kanada - Kadın",
+  "ukIndiaChild": "İngiltere ve Hindistan - çocuk",
+  "ukIndiaMan": "İngiltere ve Hindistan - erkek",
+  "ukIndiaWoman": "İngiltere ve Hindistan - kadın",
+  "usaCanadaChild": "ABD ve Kanada - çocuk",
+  "usaCanadaMan": "ABD ve Kanada - erkek",
+  "usaCanadaWoman": "ABD ve Kanada - kadın",
   "japan": "Japonya",
 
   "watt": "Watt",

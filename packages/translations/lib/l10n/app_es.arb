@@ -6,13 +6,13 @@
   "myOrdering": "Mi ordenamiento",
   "about": "Acerca de",
   "lastCurrenciesUpdate": "Última actualización: ",
-  "today": "hoy",
+  "today": "Hoy",
   "enableDarkTheme": "Activar tema oscuro",
   "settings": "Ajustes",
   "menu": "Menú",
   "donation": "Haga una donación",
   "buyMeACoffee": "Cómpreme un café",
-  "donationDialog": "Hola, como usted sabrá esta aplicación es gratuita y de código abierto. Eso significa que puede usarla sin costo y copiar o editar su código fuente. El desarrollador no ganará nada por ella. Pero si cree en este proyecto y le gustaría ver nuevas características, por favor considere comprarme un café.",
+  "donationDialog": "Hola, como usted sabrá esta aplicación es gratuita y de código abierto. Eso significa que puede usarla sin costo y copiar o editar su código fuente. El desarrollador no ganará nada por ella. Pero SI cree en este proyecto y le gustaría ver nuevas características, por favor considere comprarme un café.",
   "drawerLogo": "Logo en el cajón",
   "rateApp": "Calificar la aplicación",
   "repoGithub": "Abrir repositorio en GitHub",
@@ -63,7 +63,7 @@
   },
   "otherPlatforms": "Converter NOW para otras plataformas",
   "sourceCode": "Código fuente",
-  "undoClearAllMessage": "Todo despejado. ¿Desea deshacer?",
+  "undoClearAllMessage": "Todo despejado. ¿desea deshacer?",
   "undo": "Deshacer",
   "routeError1": "This page doesn't exist",
   "@routeError1": {
@@ -134,7 +134,7 @@
   "@unselectAll": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "backupAndRestore": "Backup & Restore",
+  "backupAndRestore": "Backup & restore",
   "@backupAndRestore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -170,7 +170,7 @@
   "@reason": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "importError": "Import Error",
+  "importError": "Import error",
   "@importError": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -240,72 +240,72 @@
   "hectares": "Hectáreas",
   "acres": "Acres",
   "are": "Decámetros cuadrados",
-  "squareFeetUsSurvey": "Square Feet (US survey)",
+  "squareFeetUsSurvey": "Square feet (US survey)",
   "@squareFeetUsSurvey": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
+  "gramsPerCubicCentimeter": "Grams per cubic centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerLiter": "Grams per Liter",
+  "gramsPerLiter": "Grams per liter",
   "@gramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerMilliliter": "Grams per Milliliter",
+  "gramsPerMilliliter": "Grams per milliliter",
   "@gramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerDeciliter": "Grams per Deciliter",
+  "gramsPerDeciliter": "Grams per deciliter",
   "@gramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerLiter": "Kilograms per Liter",
+  "kilogramsPerLiter": "Kilograms per liter",
   "@kilogramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
+  "kilogramsPerCubicMeter": "Kilograms per cubic meter",
   "@kilogramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerLiter": "Milligrams per Liter",
+  "milligramsPerLiter": "Milligrams per liter",
   "@milligramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerDeciliter": "Milligrams per Deciliter",
+  "milligramsPerDeciliter": "Milligrams per deciliter",
   "@milligramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerMilliliter": "Milligrams per Milliliter",
+  "milligramsPerMilliliter": "Milligrams per milliliter",
   "@milligramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
+  "milligramsPerCubicMeter": "Milligrams per cubic meter",
   "@milligramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
+  "milligramsPerCubicCentimeter": "Milligrams per cubic centimeter",
   "@milligramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerLiter": "Micrograms per Liter",
+  "microgramsPerLiter": "Micrograms per liter",
   "@microgramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerDeciliter": "Micrograms per Deciliter",
+  "microgramsPerDeciliter": "Micrograms per deciliter",
   "@microgramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerMilliliter": "Micrograms per Milliliter",
+  "microgramsPerMilliliter": "Micrograms per milliliter",
   "@microgramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicInches": "Pounds per Cubic Inches",
+  "poundsPerCubicInches": "Pounds per cubic inches",
   "@poundsPerCubicInches": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicFeet": "Pounds per Cubic Feet",
+  "poundsPerCubicFeet": "Pounds per cubic feet",
   "@poundsPerCubicFeet": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -328,7 +328,7 @@
   "usFluidOunces": "Onzas líquidas estadounidenses",
   "imperialGill": "Gill imperial",
   "usGill": "Gill estadounidense",
-  "usQuarts": "US Quarts",
+  "usQuarts": "US quarts",
   "@usQuarts": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -370,7 +370,7 @@
   "millennium": "Milenios",
 
   "fahrenheit": "Fahrenheit",
-  "celsius": "Celsius (Centígrados)",
+  "celsius": "Celsius (centígrados)",
   "kelvin": "Kelvin",
   "reamur": "Réaumur",
   "romer": "Rømer",
@@ -462,7 +462,7 @@
   "usd": "Dólar estadounidense",
   "eur": "Euro",
   "gbp": "Libra esterlina",
-  "inr": "Rupia india",
+  "inr": "Rupia India",
   "cny": "Yuan chino",
   "jpy": "Yen japonés",
   "chf": "Franco suizo",
@@ -493,13 +493,13 @@
   "twd": "Nuevo dólar taiwanés",
   "mad": "Dírham marroquí",
 
-  "euChina": "EE. UU. y China",
-  "ukIndiaChild": "RU e India - Niño",
-  "ukIndiaMan": "RU e India - Varón",
-  "ukIndiaWoman": "RU e India - Mujer",
-  "usaCanadaChild": "EE. UU. y Canadá - Niño",
-  "usaCanadaMan": "EE. UU. y Canadá - Varón",
-  "usaCanadaWoman": "EE. UU. y Canadá - Mujer",
+  "euChina": "EE. UU. Y China",
+  "ukIndiaChild": "RU e India - niño",
+  "ukIndiaMan": "RU e India - varón",
+  "ukIndiaWoman": "RU e India - mujer",
+  "usaCanadaChild": "EE. UU. Y Canadá - niño",
+  "usaCanadaMan": "EE. UU. Y Canadá - varón",
+  "usaCanadaWoman": "EE. UU. Y Canadá - mujer",
   "japan": "Japón",
 
   "watt": "Vatio",

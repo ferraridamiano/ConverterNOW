@@ -6,7 +6,7 @@
   "myOrdering": "Η διάταξή μου",
   "about": "Σχετικά",
   "lastCurrenciesUpdate": "Τελευταία ενημέρωση: ",
-  "today": "σήμερα",
+  "today": "Σήμερα",
   "enableDarkTheme": "Ενεργοποίηση σκοτεινού θέματος",
   "settings": "Ρυθμίσεις",
   "menu": "Μενού",
@@ -30,7 +30,7 @@
   "dark": "Σκοτεινό",
   "light": "Φωτεινό",
   "system": "Προεπιλογή συστήματος",
-  "pureBlackTheme": "AMOLED σκοτεινό θέμα",
+  "pureBlackTheme": "Amoled σκοτεινό θέμα",
   "@pureBlackTheme": {
     "description": "Revise this translation"
   },
@@ -102,7 +102,7 @@
   "@unselectAll": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "backupAndRestore": "Backup & Restore",
+  "backupAndRestore": "Backup & restore",
   "@backupAndRestore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -138,7 +138,7 @@
   "@reason": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "importError": "Import Error",
+  "importError": "Import error",
   "@importError": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -188,109 +188,109 @@
   "angstroms": "Άνγκστρεμ",
   "picometers": "Πικόμετρα",
   "kilometers": "Χιλιόμετρα",
-  "astronomicalUnits": "Αστρονομικές Μονάδες",
+  "astronomicalUnits": "Αστρονομικές μονάδες",
   "lightYears": "Έτη φωτός",
   "parsec": "Πάρσεκ",
   "mils": "Μιλς",
   "feetUsSurvey": "Πόδια (τοπογραφικά ΗΠΑ)",
 
-  "squareMeters": "Τετραγωνικά Μέτρα",
-  "squareCentimeters": "Τετραγωνικά Εκατοστά",
-  "squareInches": "Τετραγωνικές Ίντσες",
-  "squareFeet": "Τετραγωνικά Πόδια",
-  "squareMiles": "Τετραγωνικά Μίλια",
-  "squareYard": "Τετραγωνική Γιάρδα",
-  "squareMillimeters": "Τετραγωνικά Χιλιοστά",
-  "squareKilometers": "Τετραγωνικά Χιλιόμετρα",
+  "squareMeters": "Τετραγωνικά μέτρα",
+  "squareCentimeters": "Τετραγωνικά εκατοστά",
+  "squareInches": "Τετραγωνικές ίντσες",
+  "squareFeet": "Τετραγωνικά πόδια",
+  "squareMiles": "Τετραγωνικά μίλια",
+  "squareYard": "Τετραγωνική γιάρδα",
+  "squareMillimeters": "Τετραγωνικά χιλιοστά",
+  "squareKilometers": "Τετραγωνικά χιλιόμετρα",
   "hectares": "Εκτάρια",
   "acres": "Acres",
   "are": "Άρι",
-  "squareFeetUsSurvey": "Τετραγωνικά Πόδια (τοπογραφικά ΗΠΑ)",
+  "squareFeetUsSurvey": "Τετραγωνικά πόδια (τοπογραφικά ΗΠΑ)",
 
-  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
+  "gramsPerCubicCentimeter": "Grams per cubic centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerLiter": "Grams per Liter",
+  "gramsPerLiter": "Grams per liter",
   "@gramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerMilliliter": "Grams per Milliliter",
+  "gramsPerMilliliter": "Grams per milliliter",
   "@gramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerDeciliter": "Grams per Deciliter",
+  "gramsPerDeciliter": "Grams per deciliter",
   "@gramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerLiter": "Kilograms per Liter",
+  "kilogramsPerLiter": "Kilograms per liter",
   "@kilogramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
+  "kilogramsPerCubicMeter": "Kilograms per cubic meter",
   "@kilogramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerLiter": "Milligrams per Liter",
+  "milligramsPerLiter": "Milligrams per liter",
   "@milligramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerDeciliter": "Milligrams per Deciliter",
+  "milligramsPerDeciliter": "Milligrams per deciliter",
   "@milligramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerMilliliter": "Milligrams per Milliliter",
+  "milligramsPerMilliliter": "Milligrams per milliliter",
   "@milligramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
+  "milligramsPerCubicMeter": "Milligrams per cubic meter",
   "@milligramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
+  "milligramsPerCubicCentimeter": "Milligrams per cubic centimeter",
   "@milligramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerLiter": "Micrograms per Liter",
+  "microgramsPerLiter": "Micrograms per liter",
   "@microgramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerDeciliter": "Micrograms per Deciliter",
+  "microgramsPerDeciliter": "Micrograms per deciliter",
   "@microgramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerMilliliter": "Micrograms per Milliliter",
+  "microgramsPerMilliliter": "Micrograms per milliliter",
   "@microgramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicInches": "Pounds per Cubic Inches",
+  "poundsPerCubicInches": "Pounds per cubic inches",
   "@poundsPerCubicInches": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicFeet": "Pounds per Cubic Feet",
+  "poundsPerCubicFeet": "Pounds per cubic feet",
   "@poundsPerCubicFeet": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "cubicMeters": "Κυβικά Μέτρα",
+  "cubicMeters": "Κυβικά μέτρα",
   "liters": "Λίτρα",
   "imperialGallons": "Imperial gallons",
-  "usGallons": "US Gallons",
-  "imperialPints": "Imperial Pints",
-  "usPints": "US Pints",
+  "usGallons": "US gallons",
+  "imperialPints": "Imperial pints",
+  "usPints": "US pints",
   "milliliters": "Χιλιοστόλιτρα",
   "tablespoonUs": "Κουταλιές της σούπας US",
   "tablespoonAustralian": "Αυστραλιανές κουταλιές τραπεζής",
   "cups": "Φλιτζάνια",
-  "cubicCentimeters": "Κυβικά Εκατοστά",
-  "cubicFeet": "Κυβικά Πόδια",
-  "cubicInches": "Κυβικές Ίντσες",
-  "cubicMillimeters": "Κυβικά Χιλιοστά",
-  "imperialFluidOunces": "Imperial Oυγγιά Yγρών",
-  "usFluidOunces": "US Oυγγιά Yγρών",
-  "imperialGill": "Imperial Gill",
-  "usGill": "US Gill",
-  "usQuarts": "US Quarts",
+  "cubicCentimeters": "Κυβικά εκατοστά",
+  "cubicFeet": "Κυβικά πόδια",
+  "cubicInches": "Κυβικές ίντσες",
+  "cubicMillimeters": "Κυβικά χιλιοστά",
+  "imperialFluidOunces": "Imperial oυγγιά yγρών",
+  "usFluidOunces": "US oυγγιά yγρών",
+  "imperialGill": "Imperial gill",
+  "usGill": "US gill",
+  "usQuarts": "US quarts",
   "@usQuarts": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -332,19 +332,19 @@
   "millennium": "Χιλιετία",
 
   "fahrenheit": "Φαρενάιτ",
-  "celsius": "Κελσίου (Centigrade)",
+  "celsius": "Κελσίου (centigrade)",
   "kelvin": "Κέλβιν",
   "reamur": "Reamur",
   "romer": "Rømer",
   "delisle": "Delisle",
   "rankine": "Rankine",
 
-  "metersSecond": "Μέτρα ανά Δευτερόλεπτο",
-  "kilometersHour": "Χιλιόμετρα ανά Ώρα",
-  "milesHour": "Μίλια ανά Ώρα",
+  "metersSecond": "Μέτρα ανά δευτερόλεπτο",
+  "kilometersHour": "Χιλιόμετρα ανά ώρα",
+  "milesHour": "Μίλια ανά ώρα",
   "knots": "Κόμβοι",
-  "feetSecond": "Πόδια ανά Δευτερόλεπτο",
-  "minutesPerKilometer": "Λεπτά ανά Χιλιόμετρο",
+  "feetSecond": "Πόδια ανά δευτερόλεπτο",
+  "minutesPerKilometer": "Λεπτά ανά χιλιόμετρο",
   "minutesPerMile": "Minutes per mile",
   "@minutesPerMile": {
     "description": "Not yet translated. Once done, remove this comment"
@@ -420,45 +420,45 @@
 
   "usd": "Δολάριο ΗΠΑ",
   "eur": "Ευρώ",
-  "gbp": "Βρετανική Λίρα",
-  "inr": "Ινδική Ρουπία",
-  "cny": "Κινεζικό Γιουάν",
-  "jpy": "Ιαπωνικό Γιεν",
-  "chf": "Ελβετικό Φράγκο",
-  "sek": "Σουηδική Κορόνα",
-  "rub": "Ρωσικό Ρούβλι",
-  "cad": "Καναδικό Δολάριο",
-  "krw": "Νότιο Κορεατικό Γουόν",
-  "brl": "Βραζιλιάνικο Ρεάλ",
-  "hkd": "Δολάριο Χονγκ Κονγκ",
-  "aud": "Αυστραλιανό Δολάριο",
-  "nzd": "Νεοζηλανδικό Δολάριο",
-  "mxn": "Μεξικάνικο Πέσο",
-  "sgd": "Δολάριο Σιγκαπούρης",
-  "nok": "Νορβηγική Κορόνα",
-  "trY": "Τουρκική Λίρα",
-  "zar": "Νότιο Αφρικανικό Ραντ",
-  "dkk": "Δανέζικη Κορόνα",
-  "pln": "Πολωνικό Ζλότι",
-  "thb": "Ταϊλανδέζικο Μπάτ",
-  "myr": "Μαλαισιανό Ρινγκίτ",
-  "huf": "Ουγγρικό Φορίντ",
-  "czk": "Τσέχικη Κορόνα",
-  "ils": "Ισραηλινό Σέκελ",
-  "idr": "Ινδονησιακή Ρουπία",
-  "php": "Φιλιππινέζικο Πέσο",
-  "ron": "Ρουμανικό Λέι",
-  "isk": "Ισλανδική Κρόνα",
-  "twd": "Νέο Δολάριο Ταϊβάν",
-  "mad": "Μαροκινό Ντιρχάμ",
+  "gbp": "Βρετανική λίρα",
+  "inr": "Ινδική ρουπία",
+  "cny": "Κινεζικό γιουάν",
+  "jpy": "Ιαπωνικό γιεν",
+  "chf": "Ελβετικό φράγκο",
+  "sek": "Σουηδική κορόνα",
+  "rub": "Ρωσικό ρούβλι",
+  "cad": "Καναδικό δολάριο",
+  "krw": "Νότιο κορεατικό γουόν",
+  "brl": "Βραζιλιάνικο ρεάλ",
+  "hkd": "Δολάριο χονγκ κονγκ",
+  "aud": "Αυστραλιανό δολάριο",
+  "nzd": "Νεοζηλανδικό δολάριο",
+  "mxn": "Μεξικάνικο πέσο",
+  "sgd": "Δολάριο σιγκαπούρης",
+  "nok": "Νορβηγική κορόνα",
+  "trY": "Τουρκική λίρα",
+  "zar": "Νότιο αφρικανικό ραντ",
+  "dkk": "Δανέζικη κορόνα",
+  "pln": "Πολωνικό ζλότι",
+  "thb": "Ταϊλανδέζικο μπάτ",
+  "myr": "Μαλαισιανό ρινγκίτ",
+  "huf": "Ουγγρικό φορίντ",
+  "czk": "Τσέχικη κορόνα",
+  "ils": "Ισραηλινό σέκελ",
+  "idr": "Ινδονησιακή ρουπία",
+  "php": "Φιλιππινέζικο πέσο",
+  "ron": "Ρουμανικό λέι",
+  "isk": "Ισλανδική κρόνα",
+  "twd": "Νέο δολάριο ταϊβάν",
+  "mad": "Μαροκινό ντιρχάμ",
 
   "euChina": "ΕΕ & Κίνα",
-  "ukIndiaChild": "Ηνωμένο Βασίλειο & Ινδία - Παιδί",
-  "ukIndiaMan": "Ηνωμένο Βασίλειο & Ινδία - Άνδρας",
-  "ukIndiaWoman": "Ηνωμένο Βασίλειο & Ινδία - Γυναίκα",
-  "usaCanadaChild": "ΗΠΑ & Καναδάς - Παιδί",
-  "usaCanadaMan": "ΗΠΑ & Καναδάς - Άνδρας",
-  "usaCanadaWoman": "ΗΠΑ & Καναδάς - Γυναίκα",
+  "ukIndiaChild": "Ηνωμένο Βασίλειο & Ινδία - παιδί",
+  "ukIndiaMan": "Ηνωμένο Βασίλειο & Ινδία - άνδρας",
+  "ukIndiaWoman": "Ηνωμένο Βασίλειο & Ινδία - γυναίκα",
+  "usaCanadaChild": "ΗΠΑ & Καναδάς - παιδί",
+  "usaCanadaMan": "ΗΠΑ & Καναδάς - άνδρας",
+  "usaCanadaWoman": "ΗΠΑ & Καναδάς - γυναίκα",
   "japan": "Ιαπωνία",
 
   "watt": "Βατ",
@@ -487,8 +487,8 @@
 
   "kilometersLiter": "Χιλιόμετρα ανά λίτρο",
   "liters100km": "Λίτρα ανά 100 χιλιόμετρα",
-  "milesUsGallon": "Μίλια ανά Γαλόνι ΗΠΑ",
-  "milesImperialGallon": "Μίλια ανά Αυτοκρατορικό Γαλόνι",
+  "milesUsGallon": "Μίλια ανά γαλόνι ΗΠΑ",
+  "milesImperialGallon": "Μίλια ανά αυτοκρατορικό γαλόνι",
 
   "decimal": "Δεκαδικός",
   "hexadecimal": "Εξαδικός",

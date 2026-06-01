@@ -30,7 +30,7 @@
   "dark": "Dunkel",
   "light": "Hell",
   "system": "System",
-  "pureBlackTheme": "schwarzes AMOLED-Thema",
+  "pureBlackTheme": "Schwarzes AMOLED-Thema",
   "@pureBlackTheme": {
     "description": "Revise this translation"
   },

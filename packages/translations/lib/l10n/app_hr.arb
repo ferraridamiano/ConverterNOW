@@ -5,7 +5,7 @@
   "myOrdering": "Moj redoslijed",
   "about": "Informacije",
   "lastCurrenciesUpdate": "Zadnje aktualiziranje: ",
-  "today": "danas",
+  "today": "Danas",
   "enableDarkTheme": "Aktiviraj tamnu temu",
   "settings": "Postavke",
   "menu": "Izbornik",
@@ -76,7 +76,7 @@
   "hiddenUnits": "Skrivene jedinice",
   "selectAll": "Označi sve",
   "unselectAll": "Odznači sve",
-  "backupAndRestore": "Backup & Restore",
+  "backupAndRestore": "Backup & restore",
   "@backupAndRestore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -112,7 +112,7 @@
   "@reason": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "importError": "Import Error",
+  "importError": "Import error",
   "@importError": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -348,10 +348,10 @@
   "twd": "Novotajvanski dolar",
   "mad": "Marokanski dirham",
 
-  "euChina": "EU i Kina",
-  "ukIndiaChild": "UK i Indija – djeca",
-  "ukIndiaMan": "UK i Indija – muškarci",
-  "ukIndiaWoman": "UK i Indija – žene",
+  "euChina": "EU i kina",
+  "ukIndiaChild": "UK i indija – djeca",
+  "ukIndiaMan": "UK i indija – muškarci",
+  "ukIndiaWoman": "UK i indija – žene",
   "usaCanadaChild": "SAD i Kanada – djeca",
   "usaCanadaMan": "SAD i Kanada – muškarci",
   "usaCanadaWoman": "SAD i Kanada – žene",

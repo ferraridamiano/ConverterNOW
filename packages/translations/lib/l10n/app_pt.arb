@@ -6,7 +6,7 @@
   "myOrdering": "Minha classificação",
   "about": "Sobre",
   "lastCurrenciesUpdate": "Última atualização: ",
-  "today": "hoje",
+  "today": "Hoje",
   "enableDarkTheme": "Usar tema escuro",
   "settings": "Configurações",
   "menu": "Menu",
@@ -14,9 +14,9 @@
   "buyMeACoffee": "Buy me a coffee",
   "donationDialog": "Hi, as you might know this app is free and open source. It means that you can use it for free and copy/edit the source code. The developer will not gain nothing for it. But if you also believe in this project and would like to see new features, please consider buying me a coffee.",
   "drawerLogo": "Logotipo do menu",
-  "rateApp": "Avaliar o App",
+  "rateApp": "Avaliar o app",
   "repoGithub": "Abrir repo no GitHub",
-  "contributeTranslating": "Contribua traduzindo o App",
+  "contributeTranslating": "Contribua traduzindo o app",
   "search": "Procurar",
   "clearAll": "Excluir tudo",
   "calculator": "Calculadora",
@@ -140,7 +140,7 @@
   "@unselectAll": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "backupAndRestore": "Backup & Restore",
+  "backupAndRestore": "Backup & restore",
   "@backupAndRestore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -176,7 +176,7 @@
   "@reason": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "importError": "Import Error",
+  "importError": "Import error",
   "@importError": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -201,7 +201,7 @@
   "energy": "Energia",
   "angles": "Ângulos",
   "currencies": "Moedas",
-  "shoeSize": "Medida em Pés",
+  "shoeSize": "Medida em pés",
   "digitalData": "Dados digitais",
   "power": "Potência",
   "density": "Density",
@@ -226,7 +226,7 @@
   "angstroms": "Ångström",
   "picometers": "Picômetros",
   "kilometers": "Quilômetro",
-  "astronomicalUnits": "Unidades Astronômicas",
+  "astronomicalUnits": "Unidades astronômicas",
   "lightYears": "Anos-luz",
   "parsec": "Parsec",
   "mils": "Mils",
@@ -235,106 +235,106 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "squareMeters": "Metros Quadrados",
-  "squareCentimeters": "Centimetros Quadrados",
-  "squareInches": "Polegadas Quadradas",
-  "squareFeet": "Pés Quadrados",
-  "squareMiles": "Milhas Quadradas",
-  "squareYard": "Jardas Quadradas",
-  "squareMillimeters": "Milímetros Quadrados",
-  "squareKilometers": "Quilômetros Quadrados",
+  "squareMeters": "Metros quadrados",
+  "squareCentimeters": "Centimetros quadrados",
+  "squareInches": "Polegadas quadradas",
+  "squareFeet": "Pés quadrados",
+  "squareMiles": "Milhas quadradas",
+  "squareYard": "Jardas quadradas",
+  "squareMillimeters": "Milímetros quadrados",
+  "squareKilometers": "Quilômetros quadrados",
   "hectares": "Hectares",
   "acres": "Acres",
   "are": "Are",
-  "squareFeetUsSurvey": "Square Feet (US survey)",
+  "squareFeetUsSurvey": "Square feet (US survey)",
   "@squareFeetUsSurvey": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
-  "gramsPerCubicCentimeter": "Grams per Cubic Centimeter",
+  "gramsPerCubicCentimeter": "Grams per cubic centimeter",
   "@gramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerLiter": "Grams per Liter",
+  "gramsPerLiter": "Grams per liter",
   "@gramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerMilliliter": "Grams per Milliliter",
+  "gramsPerMilliliter": "Grams per milliliter",
   "@gramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "gramsPerDeciliter": "Grams per Deciliter",
+  "gramsPerDeciliter": "Grams per deciliter",
   "@gramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerLiter": "Kilograms per Liter",
+  "kilogramsPerLiter": "Kilograms per liter",
   "@kilogramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "kilogramsPerCubicMeter": "Kilograms per Cubic Meter",
+  "kilogramsPerCubicMeter": "Kilograms per cubic meter",
   "@kilogramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerLiter": "Milligrams per Liter",
+  "milligramsPerLiter": "Milligrams per liter",
   "@milligramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerDeciliter": "Milligrams per Deciliter",
+  "milligramsPerDeciliter": "Milligrams per deciliter",
   "@milligramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerMilliliter": "Milligrams per Milliliter",
+  "milligramsPerMilliliter": "Milligrams per milliliter",
   "@milligramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicMeter": "Milligrams per Cubic Meter",
+  "milligramsPerCubicMeter": "Milligrams per cubic meter",
   "@milligramsPerCubicMeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "milligramsPerCubicCentimeter": "Milligrams per Cubic Centimeter",
+  "milligramsPerCubicCentimeter": "Milligrams per cubic centimeter",
   "@milligramsPerCubicCentimeter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerLiter": "Micrograms per Liter",
+  "microgramsPerLiter": "Micrograms per liter",
   "@microgramsPerLiter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerDeciliter": "Micrograms per Deciliter",
+  "microgramsPerDeciliter": "Micrograms per deciliter",
   "@microgramsPerDeciliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "microgramsPerMilliliter": "Micrograms per Milliliter",
+  "microgramsPerMilliliter": "Micrograms per milliliter",
   "@microgramsPerMilliliter": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicInches": "Pounds per Cubic Inches",
+  "poundsPerCubicInches": "Pounds per cubic inches",
   "@poundsPerCubicInches": {
     "description": "Not yet translated. Once done, remove this comment"
   },
-  "poundsPerCubicFeet": "Pounds per Cubic Feet",
+  "poundsPerCubicFeet": "Pounds per cubic feet",
   "@poundsPerCubicFeet": {
     "description": "Not yet translated. Once done, remove this comment"
   },
 
   "cubicMeters": "Metros cúbicos",
   "liters": "Litros",
-  "imperialGallons": "Galões Imperiais",
-  "usGallons": "Galões Americanos",
-  "imperialPints": "Pintas Imperiais",
-  "usPints": "Pintas Americanas",
+  "imperialGallons": "Galões imperiais",
+  "usGallons": "Galões americanos",
+  "imperialPints": "Pintas imperiais",
+  "usPints": "Pintas americanas",
   "milliliters": "Mililitros",
-  "tablespoonUs": "Colheres de mesa Americanas",
-  "tablespoonAustralian": "Colheres de mesa Australianas",
+  "tablespoonUs": "Colheres de mesa americanas",
+  "tablespoonAustralian": "Colheres de mesa australianas",
   "cups": "Copos",
-  "cubicCentimeters": "Centimetros Cúbicos",
-  "cubicFeet": "Pés Cúbicos",
-  "cubicInches": "Polegadas Cúbicas",
-  "cubicMillimeters": "Milímetros Cúbicos",
+  "cubicCentimeters": "Centimetros cúbicos",
+  "cubicFeet": "Pés cúbicos",
+  "cubicInches": "Polegadas cúbicas",
+  "cubicMillimeters": "Milímetros cúbicos",
   "imperialFluidOunces": "Onça líquida imperial",
   "usFluidOunces": "Onça líquida americana",
   "imperialGill": "Gill imperial",
   "usGill": "Gill estadunidense",
-  "usQuarts": "US Quarts",
+  "usQuarts": "US quarts",
   "@usQuarts": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -376,18 +376,18 @@
   "millennium": "Milénio",
 
   "fahrenheit": "Fahrenheit",
-  "celsius": "Celsius (Centígrado)",
+  "celsius": "Celsius (centígrado)",
   "kelvin": "Kelvin",
   "reamur": "Reamur",
   "romer": "Rømer",
   "delisle": "Delisle",
   "rankine": "Rankine",
 
-  "metersSecond": "Metros por Segundo",
-  "kilometersHour": "Kilómetros por Hora",
-  "milesHour": "Milhas por Hora",
+  "metersSecond": "Metros por segundo",
+  "kilometersHour": "Kilómetros por hora",
+  "milesHour": "Milhas por hora",
   "knots": "Nós",
-  "feetSecond": "Pés por Segundo",
+  "feetSecond": "Pés por segundo",
   "minutesPerKilometer": "Minutos por quilômetro",
   "minutesPerMile": "Minutes per mile",
   "@minutesPerMile": {
@@ -446,8 +446,8 @@
 
   "joule": "Joule",
   "calories": "Caloria",
-  "kilowattHour": "Quilovate-Hora",
-  "electronvolt": "Eletrão-Volt",
+  "kilowattHour": "Quilovate-hora",
+  "electronvolt": "Eletrão-volt",
   "footPound": "Libra do pé",
   "kilocalories": "Kilocalories",
   "@kilocalories": {
@@ -506,12 +506,12 @@
   "mad": "Dirrã marroquino",
 
   "euChina": "EU & China",
-  "ukIndiaChild": "UK & Índia - Criança",
-  "ukIndiaMan": "UK & Índia - Homem",
-  "ukIndiaWoman": "UK & Índia - Mulher",
-  "usaCanadaChild": "EUA & Canada - Criança",
-  "usaCanadaMan": "EUA & Canada - Homem",
-  "usaCanadaWoman": "EUA & Canada - Mulher",
+  "ukIndiaChild": "UK & Índia - criança",
+  "ukIndiaMan": "UK & Índia - homem",
+  "ukIndiaWoman": "UK & Índia - mulher",
+  "usaCanadaChild": "EUA & Canada - criança",
+  "usaCanadaMan": "EUA & Canada - homem",
+  "usaCanadaWoman": "EUA & Canada - mulher",
   "japan": "Japão",
 
   "watt": "Watt",
@@ -520,7 +520,7 @@
   "megawatt": "Megawatt",
   "gigawatt": "GigaWatt",
   "europeanHorsePower": "Cavalo-vapor europeu",
-  "imperialHorsePower": "Cavalo-vapor Imperial",
+  "imperialHorsePower": "Cavalo-vapor imperial",
 
   "newton": "Newton",
   "dyne": "Dyne",
@@ -540,8 +540,8 @@
 
   "kilometersLiter": "Kilómetros por litro",
   "liters100km": "Litros por 100 km",
-  "milesUsGallon": "Milhas por Galão Americano",
-  "milesImperialGallon": "Milhas por Galão Imperial",
+  "milesUsGallon": "Milhas por galão americano",
+  "milesImperialGallon": "Milhas por galão imperial",
 
   "decimal": "Decimal",
   "hexadecimal": "Hexadecimal",
