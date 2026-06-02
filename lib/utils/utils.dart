@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_actions/quick_actions.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:units_converter/models/unit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -12,22 +11,6 @@ Future<void> launchURL(
   LaunchMode mode = LaunchMode.platformDefault,
 }) async {
   if (!await launchUrl(url, mode: mode)) throw 'Could not launch $url';
-}
-
-///Saves the key value with SharedPreferences
-void saveSettings(String key, dynamic value) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (value is bool) {
-    prefs.setBool(key, value);
-  } else if (value is int) {
-    prefs.setInt(key, value);
-  } else if (value is String) {
-    prefs.setString(key, value);
-  } else if (value is double) {
-    prefs.setDouble(key, value);
-  } else if (value is List<String>) {
-    prefs.setStringList(key, value);
-  }
 }
 
 enum VALIDATOR {

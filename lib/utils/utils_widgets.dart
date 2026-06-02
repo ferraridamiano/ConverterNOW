@@ -129,10 +129,10 @@ class _UnitWidgetState extends State<UnitWidget> {
 }
 
 class SearchUnit {
-  String iconAsset;
-  String unitName;
-  GestureTapCallback onTap;
-  SearchUnit({
+  final String iconAsset;
+  final String unitName;
+  final GestureTapCallback onTap;
+  const SearchUnit({
     required this.iconAsset,
     required this.unitName,
     required this.onTap,
@@ -249,8 +249,8 @@ class DropdownListTile extends StatelessWidget {
     required this.value,
     required this.onChanged,
     this.leading,
-    ValueKey? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static const BorderRadiusGeometry borderRadius = BorderRadius.all(
     Radius.circular(30),
@@ -282,9 +282,7 @@ class DropdownListTile extends StatelessWidget {
         title: Text(title),
         shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         trailing: DropdownMenu<String>(
-          key: key != null
-              ? ValueKey('${(key as ValueKey).value}-dropdown')
-              : null,
+          key: key,
           initialSelection: value,
           onSelected: onChanged,
           requestFocusOnTap: false,
@@ -319,8 +317,8 @@ class SegmentedButtonListTile extends StatelessWidget {
     required this.value,
     required this.onChanged,
     this.leading,
-    ValueKey? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static const BorderRadiusGeometry borderRadius = BorderRadius.all(
     Radius.circular(30),

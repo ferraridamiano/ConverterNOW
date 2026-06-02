@@ -82,7 +82,7 @@ final significantFiguresProvider =
 
 final removeTrailingZerosProvider =
     AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
-      return SettingsNotifier<bool>()
+      return SettingsNotifier<bool?>()
         ..prefKey = 'remove_trailing_zeros'
         ..defaultValue = true
         ..validate = (val) => val != null;
@@ -90,7 +90,7 @@ final removeTrailingZerosProvider =
 
 final isPureDarkProvider =
     AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
-      return SettingsNotifier<bool>()
+      return SettingsNotifier<bool?>()
         ..prefKey = 'isDarkAmoled'
         ..defaultValue = false
         ..validate = (val) => val != null;
@@ -98,7 +98,7 @@ final isPureDarkProvider =
 
 final propertySelectionOnStartupProvider =
     AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
-      return SettingsNotifier<bool>()
+      return SettingsNotifier<bool?>()
         ..prefKey = 'propertySelectionOnStartup'
         ..defaultValue = true
         ..validate = (val) => val != null;
@@ -106,7 +106,7 @@ final propertySelectionOnStartupProvider =
 
 final revokeInternetProvider =
     AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
-      return SettingsNotifier<bool>()
+      return SettingsNotifier<bool?>()
         ..prefKey = 'revokeInternet'
         ..defaultValue = false
         ..validate = (val) => val != null;
@@ -114,7 +114,7 @@ final revokeInternetProvider =
 
 final useDeviceColorProvider =
     AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
-      return SettingsNotifier<bool>()
+      return SettingsNotifier<bool?>()
         ..prefKey = 'useDeviceColor'
         // Here we set default theme to fallbackColorTheme (it is easier to support
         // device that does not have a color accent)
@@ -124,7 +124,7 @@ final useDeviceColorProvider =
 
 final colorThemeProvider = AsyncNotifierProvider<SettingsNotifier<int?>, int?>(
   () {
-    return SettingsNotifier<int>()
+    return SettingsNotifier<int?>()
       ..prefKey = 'colorTheme'
       ..defaultValue = fallbackColorTheme.toARGB32()
       ..validate = (val) => val != null && val > 0 && val <= 0xFFFFFFFF;
@@ -148,7 +148,7 @@ final actualColorThemeProvider = Provider<Color>((ref) {
 
 final themeModeProvider = AsyncNotifierProvider<SettingsNotifier<int?>, int?>(
   () {
-    return SettingsNotifier<int>()
+    return SettingsNotifier<int?>()
       ..prefKey = 'currentThemeMode'
       ..defaultValue = ThemeMode.system.index
       ..validate = (val) =>
@@ -158,7 +158,7 @@ final themeModeProvider = AsyncNotifierProvider<SettingsNotifier<int?>, int?>(
 
 final languageTagProvider =
     AsyncNotifierProvider<SettingsNotifier<String?>, String?>(() {
-      return SettingsNotifier<String>()
+      return SettingsNotifier<String?>()
         ..prefKey = 'locale'
         ..defaultValue = null
         ..validate = (val) =>
