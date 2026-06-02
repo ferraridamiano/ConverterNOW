@@ -40,10 +40,10 @@ class ConversionPage extends ConsumerWidget {
         .value![property]!;
     final hiddenUnitData = unitDataList.where(
       (e) => hiddenUnits.contains(e.unit.name),
-    );
+    ).toList();
     final unhiddenUnitData = unitDataList.where(
       (e) => !hiddenUnits.contains(e.unit.name),
-    );
+    ).toList();
 
     Widget? subtitleWidget;
     if (property == PROPERTYX.currencies) {
@@ -115,9 +115,6 @@ class ConversionPage extends ConsumerWidget {
       },
     );
 
-    final unhiddenGridTiles = unhiddenUnitData.map(unitWidgetBuilder).toList();
-    final hiddenGridTiles = hiddenUnitData.map(unitWidgetBuilder).toList();
-
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraint) {
         final int numCols = responsiveNumCols(constraint.maxWidth);
@@ -182,13 +179,17 @@ class ConversionPage extends ConsumerWidget {
               ),
             SliverPadding(
               padding: const EdgeInsets.only(top: 10),
-              sliver: SliverGrid.count(
-                crossAxisCount: numCols,
-                childAspectRatio: responsiveChildAspectRatio(
-                  constraint.maxWidth,
-                  numCols,
+              sliver: SliverGrid.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: numCols,
+                  childAspectRatio: responsiveChildAspectRatio(
+                    constraint.maxWidth,
+                    numCols,
+                  ),
                 ),
-                children: unhiddenGridTiles,
+                itemCount: unhiddenUnitData.length,
+                itemBuilder: (context, index) =>
+                    unitWidgetBuilder(unhiddenUnitData[index]),
               ),
             ),
             if (hiddenUnitData.isNotEmpty)
@@ -200,15 +201,19 @@ class ConversionPage extends ConsumerWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   children: [
-                    GridView.count(
+                    GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      crossAxisCount: numCols,
-                      childAspectRatio: responsiveChildAspectRatio(
-                        constraint.maxWidth,
-                        numCols,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: numCols,
+                        childAspectRatio: responsiveChildAspectRatio(
+                          constraint.maxWidth,
+                          numCols,
+                        ),
                       ),
-                      children: hiddenGridTiles,
+                      itemCount: hiddenUnitData.length,
+                      itemBuilder: (context, index) =>
+                          unitWidgetBuilder(hiddenUnitData[index]),
                     ),
                   ],
                 ),
