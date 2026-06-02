@@ -282,7 +282,9 @@ class DropdownListTile extends StatelessWidget {
         title: Text(title),
         shape: const RoundedRectangleBorder(borderRadius: borderRadius),
         trailing: DropdownMenu<String>(
-          key: key,
+          key: key != null
+              ? ValueKey('${(key as ValueKey).value}-dropdown')
+              : null,
           initialSelection: value,
           onSelected: onChanged,
           requestFocusOnTap: false,
