@@ -316,7 +316,7 @@ class SettingsPage extends ConsumerWidget {
                       final filename =
                           '${DateFormat('yyyyMMdd').format(DateTime.now())}_converternow.json';
                       if (kIsWeb) {
-                        await FilePicker.saveFile(
+                        await FilePicker.platform.saveFile(
                           dialogTitle: l10n.exportSettings,
                           fileName: filename,
                           bytes: jsonBytes,
@@ -336,7 +336,7 @@ class SettingsPage extends ConsumerWidget {
                         await file.delete(); // Clean up
                       } else {
                         // Desktop: Save file
-                        final outputFile = await FilePicker.saveFile(
+                        final outputFile = await FilePicker.platform.saveFile(
                           dialogTitle: l10n.exportSettings,
                           fileName: filename,
                         );
@@ -360,7 +360,7 @@ class SettingsPage extends ConsumerWidget {
                     ),
                     onTap: () async {
                       try {
-                        FilePickerResult? result = await FilePicker
+                        FilePickerResult? result = await FilePicker.platform
                             .pickFiles(
                               type: FileType.custom,
                               allowedExtensions: ['json'],
