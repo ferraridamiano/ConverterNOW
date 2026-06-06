@@ -95,6 +95,17 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.6.1" date="2026-06-06">
+      <description>
+        <ul>
+          <li>📱 Added some animations to the graphical interface</li>
+          <li>🔢 The app version can now be viewed on the info page</li>
+          <li>🌍 Translation improvements. Thanks to @rehork and @FTno</li>
+          <li>🐞 Bug fixes and general improvements! We've worked hard to give you an even better experience</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
     <release version="4.6.0" date="2026-02-28">
       <description>
         <ul>
