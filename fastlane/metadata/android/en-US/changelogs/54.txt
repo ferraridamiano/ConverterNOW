@@ -1,0 +1,6 @@
+📱 Added some <b>animations</b> to the graphical interface
+🔢 The app <b>version</b> can now be viewed on the info page
+🌍 <b>Translation improvements</b>. Thanks to @rehork and @FTno
+🐞 <b>Bug fixes and general improvements</b>! We worked hard to offer you an ever-better experience
+
+<b>Do you like Converter NOW?</b> Leave a review and let us know what you think! ✔️

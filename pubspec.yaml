@@ -2,7 +2,7 @@ name: converterpro
 description: Unit and currencies converter
 publish_to: none
 
-version: 4.6.1+53
+version: 4.6.2+54
 
 environment:
   sdk: ">=3.11.0 <4.0.0"

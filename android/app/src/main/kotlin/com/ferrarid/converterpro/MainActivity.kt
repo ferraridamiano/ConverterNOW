@@ -19,16 +19,21 @@ class MainActivity : FlutterActivity() {
             splashScreen.setOnExitAnimationListener { splashScreenView ->
                 val iconView = splashScreenView.iconView
 
-                // Premium zoom-in (expansion) and fade transition for the icon itself
-                val iconScaleX = ObjectAnimator.ofFloat(iconView, View.SCALE_X, 1f, 1.4f)
-                val iconScaleY = ObjectAnimator.ofFloat(iconView, View.SCALE_Y, 1f, 1.4f)
-                val iconAlpha = ObjectAnimator.ofFloat(iconView, View.ALPHA, 1f, 0f)
-
-                // Smooth fade out for the entire splash screen view
-                val viewAlpha = ObjectAnimator.ofFloat(splashScreenView, View.ALPHA, 1f, 0f)
-
                 val animatorSet = AnimatorSet()
-                animatorSet.playTogether(iconScaleX, iconScaleY, iconAlpha, viewAlpha)
+
+                // Only animate the icon if it actually exists
+                if (iconView != null) {
+                    val iconScaleX = ObjectAnimator.ofFloat(iconView, View.SCALE_X, 1f, 1.4f)
+                    val iconScaleY = ObjectAnimator.ofFloat(iconView, View.SCALE_Y, 1f, 1.4f)
+                    val iconAlpha = ObjectAnimator.ofFloat(iconView, View.ALPHA, 1f, 0f)
+                    val viewAlpha = ObjectAnimator.ofFloat(splashScreenView, View.ALPHA, 1f, 0f)
+                    animatorSet.playTogether(iconScaleX, iconScaleY, iconAlpha, viewAlpha)
+                } else {
+                    // Fallback: just fade out the whole splash screen
+                    val viewAlpha = ObjectAnimator.ofFloat(splashScreenView, View.ALPHA, 1f, 0f)
+                    animatorSet.play(viewAlpha)
+                }
+
                 animatorSet.duration = 500L
                 animatorSet.interpolator = AnticipateInterpolator()
 
