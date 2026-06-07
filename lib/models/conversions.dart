@@ -1,5 +1,6 @@
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/models/properties_list.dart';
+import 'package:converterpro/models/time_zone_property.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,10 +47,13 @@ class ConversionsNotifier
                       signed: false,
                     ),
                   NUMERAL_SYSTEMS.hexadecimal => TextInputType.text,
-                  _ => const TextInputType.numberWithOptions(
-                    decimal: true,
-                    signed: false,
-                  ),
+                  _ => switch (propertyx) {
+                    PROPERTYX.timezone => TextInputType.datetime,
+                    _ => const TextInputType.numberWithOptions(
+                      decimal: true,
+                      signed: false,
+                    ),
+                  },
                 },
                 validator: switch (e) {
                   TEMPERATURE.celsius ||
@@ -61,7 +65,10 @@ class ConversionsNotifier
                   NUMERAL_SYSTEMS.octal => VALIDATOR.octal,
                   NUMERAL_SYSTEMS.decimal => VALIDATOR.decimal,
                   NUMERAL_SYSTEMS.hexadecimal => VALIDATOR.hexadecimal,
-                  _ => VALIDATOR.rationalNonNegative,
+                  _ => switch (propertyx) {
+                    PROPERTYX.timezone => VALIDATOR.time,
+                    _ => VALIDATOR.rationalNonNegative,
+                  },
                 },
               ),
             )
@@ -116,7 +123,8 @@ class ConversionsNotifier
   ///Clears the values of the current page
   Future<void> clearAllValues(PROPERTYX property) async {
     List<UnitData> currentUnitDataList = state.value![property]!;
-    if (currentUnitDataList[0].property == PROPERTYX.numeralSystems) {
+    if (currentUnitDataList[0].property == PROPERTYX.numeralSystems ||
+        currentUnitDataList[0].property == PROPERTYX.timezone) {
       _savedUnitDataList = [
         ...currentUnitDataList.map((unitData) => unitData.unit.stringValue),
       ];
