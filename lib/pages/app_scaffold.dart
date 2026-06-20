@@ -97,6 +97,18 @@ class AppScaffold extends ConsumerWidget {
 
         AppPage selectedSection = computeSelectedSection(context);
 
+        final PROPERTYX? currentProperty =
+            selectedSection == AppPage.conversions &&
+                    GoRouterState.of(context).uri.toString().startsWith(
+                      '/conversions/',
+                    )
+                ? kebabStringToPropertyX(
+                  GoRouterState.of(context).uri.toString().substring(
+                    '/conversions/'.length,
+                  ),
+                )
+                : null;
+
         Widget drawer = CustomDrawer(
           isDrawerFixed: _isDrawerFixed,
           openCalculator: openCalculator,
@@ -115,6 +127,7 @@ class AppScaffold extends ConsumerWidget {
                     (selectedSection == AppPage.conversions &&
                         MediaQuery.viewInsetsOf(context).bottom == 0)
                     ? _ClearAllFab(
+                        currentProperty: currentProperty!,
                         onPressed: () => clearAll(_isDrawerFixed),
                       )
                     : null,
@@ -147,6 +160,7 @@ class AppScaffold extends ConsumerWidget {
                     (selectedSection == AppPage.conversions &&
                         MediaQuery.viewInsetsOf(context).bottom == 0)
                     ? _ClearAllFab(
+                        currentProperty: currentProperty!,
                         onPressed: () => clearAll(_isDrawerFixed),
                       )
                     : null,
@@ -181,15 +195,13 @@ class AppScaffold extends ConsumerWidget {
 }
 
 class _ClearAllFab extends ConsumerWidget {
-  const _ClearAllFab({required this.onPressed});
+  const _ClearAllFab({required this.currentProperty, required this.onPressed});
 
+  final PROPERTYX currentProperty;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentProperty = kebabStringToPropertyX(
-      GoRouterState.of(context).uri.toString().substring('/conversions/'.length),
-    );
     final conversionsState = ref.watch(ConversionsNotifier.provider);
     final unitDataList = conversionsState.value?[currentProperty];
     if (unitDataList == null || unitDataList.isEmpty) {
