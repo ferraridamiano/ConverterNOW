@@ -114,11 +114,8 @@ class AppScaffold extends ConsumerWidget {
                 floatingActionButton:
                     (selectedSection == AppPage.conversions &&
                         MediaQuery.viewInsetsOf(context).bottom == 0)
-                    ? FloatingActionButton(
-                        key: const ValueKey('clearAll'),
+                    ? _ClearAllFab(
                         onPressed: () => clearAll(_isDrawerFixed),
-                        tooltip: l10n.clearAll,
-                        child: const Icon(Icons.clear_outlined),
                       )
                     : null,
               )
@@ -149,11 +146,8 @@ class AppScaffold extends ConsumerWidget {
                 floatingActionButton:
                     (selectedSection == AppPage.conversions &&
                         MediaQuery.viewInsetsOf(context).bottom == 0)
-                    ? FloatingActionButton(
-                        key: const ValueKey('clearAll'),
+                    ? _ClearAllFab(
                         onPressed: () => clearAll(_isDrawerFixed),
-                        tooltip: l10n.clearAll,
-                        child: const Icon(Icons.clear_outlined),
                       )
                     : null,
               );
@@ -180,6 +174,38 @@ class AppScaffold extends ConsumerWidget {
             },
             child: ret,
           ),
+        );
+      },
+    );
+  }
+}
+
+class _ClearAllFab extends ConsumerWidget {
+  const _ClearAllFab({required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentProperty = kebabStringToPropertyX(
+      GoRouterState.of(context).uri.toString().substring('/conversions/'.length),
+    );
+    final conversionsState = ref.watch(ConversionsNotifier.provider);
+    final unitDataList = conversionsState.value?[currentProperty];
+    if (unitDataList == null || unitDataList.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    return ValueListenableBuilder<TextEditingValue>(
+      valueListenable: unitDataList[0].tec,
+      builder: (context, value, child) {
+        if (value.text.isEmpty) {
+          return const SizedBox.shrink();
+        }
+        return FloatingActionButton(
+          key: const ValueKey('clearAll'),
+          onPressed: onPressed,
+          tooltip: AppLocalizations.of(context)!.clearAll,
+          child: const Icon(Icons.clear_outlined),
         );
       },
     );
