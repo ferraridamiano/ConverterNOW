@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:converterpro/models/default_exchange_rates.g.dart'
+    as generated;
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,38 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Currencies {
-  static const defaultExchangeRates = {
-    'EUR': 1.0,
-    'AUD': 1.6514,
-    'BRL': 6.0127,
-    'CAD': 1.4856,
-    'CHF': 0.9442,
-    'CNY': 7.6141,
-    'CZK': 25.043,
-    'DKK': 7.459,
-    'GBP': 0.83215,
-    'HKD': 8.1554,
-    'HUF': 402.95,
-    'IDR': 16980.33,
-    'ILS': 3.7341,
-    'INR': 90.81,
-    'ISK': 147.3,
-    'JPY': 160.09,
-    'KRW': 1509.5,
-    'MXN': 21.3146,
-    'MYR': 4.647,
-    'NOK': 11.6515,
-    'NZD': 1.8352,
-    'PHP': 60.487,
-    'PLN': 4.1653,
-    'RON': 4.977,
-    'SEK': 11.2445,
-    'SGD': 1.4052,
-    'THB': 35.238,
-    'TRY': 37.9486,
-    'USD': 1.0478,
-    'ZAR': 19.2555,
-  };
+  static const defaultExchangeRates = generated.defaultExchangeRates;
 
   /// The conversion rates with respect to EUR
   Map<String, double> exchangeRates;
@@ -47,8 +18,8 @@ class Currencies {
   String lastUpdate;
 
   Currencies({
-    this.exchangeRates = defaultExchangeRates,
-    this.lastUpdate = '2025-02-15',
+    this.exchangeRates = generated.defaultExchangeRates,
+    this.lastUpdate = generated.defaultExchangeRatesDate,
   });
 
   /// Transform the exchangeRates map into a json that can be stored
@@ -57,7 +28,7 @@ class Currencies {
   /// It transforms a previous stored data (with the toJson method) into this
   /// object
   factory Currencies.fromJson(String jsonString) {
-    var exchangeRates = Map<String, double>.from(defaultExchangeRates);
+    final exchangeRates = Map<String, double>.from(defaultExchangeRates);
     Map jsonData = json.decode(jsonString);
     for (String key in jsonData.keys) {
       exchangeRates[key] = jsonData[key];

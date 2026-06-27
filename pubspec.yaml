@@ -80,7 +80,7 @@ melos:
   command:
     bootstrap:
       hooks:
-        post: melos run generate_translations && melos run compile_icons
+        post: melos run generate_translations && melos run compile_icons && melos run generate_exchange_rates
   scripts:
     analyze:
       run: melos exec -- "flutter analyze"
@@ -94,6 +94,9 @@ melos:
         - dart run vector_graphics_compiler --input-dir assets/property_icons --out-dir assets/property_icons_opti
         - dart run vector_graphics_compiler --input-dir assets/flags --out-dir assets/flags_opti
       description: Optimizes the svg icons.
+    generate_exchange_rates:
+      run: dart run --verbosity error tools/generate_exchange_rates.dart
+      description: Fetches latest exchange rates from ECB and generates default_exchange_rates.g.dart
     generate_translations:
       run: cd packages/translations && flutter gen-l10n
       description: Generates translation files.
