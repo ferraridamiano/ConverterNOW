@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>io.github.ferraridamiano.ConverterNOW</id>
 
-  <name>Converter NOW</name>
+  <name>Unit Converter</name>
   <summary>Simple unit and currency converter</summary>
   <url type="homepage">https://github.com/ferraridamiano/ConverterNOW</url>
   <url type="vcs-browser">https://github.com/ferraridamiano/ConverterNOW</url>
@@ -25,8 +25,8 @@
   </requires>
 
   <branding>
-    <color type="primary" scheme_preference="light">#95ef53</color>
-    <color type="primary" scheme_preference="dark">#4e7c2b</color>
+    <color type="primary" scheme_preference="light">#78C043</color>
+    <color type="primary" scheme_preference="dark">#78C043</color>
   </branding>
 
   <description>
