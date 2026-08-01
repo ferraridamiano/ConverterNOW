@@ -282,6 +282,22 @@
   "tablespoonUs": "一汤匙(美国)",
   "tablespoonAustralian": "一汤匙(澳洲)",
   "cups": "杯",
+  "metricCup": "Metric cup",
+  "@metricCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishCup": "British cup",
+  "@britishCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "usBarrel": "US barrel",
+  "@usBarrel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cubicYard": "Cubic yard",
+  "@cubicYard": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "cubicCentimeters": "立方厘米",
   "cubicFeet": "立方英尺",
   "cubicInches": "立方英寸",
@@ -326,6 +342,10 @@
   "days": "日",
   "weeks": "周",
   "years": "年 (365)",
+  "averageMonth": "Average month",
+  "@averageMonth": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "lustrum": "五年纪",
   "decades": "十年纪",
   "centuries": "世纪",
@@ -350,6 +370,10 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
   "speedOfLight": "Speed of light",
+  "speedOfSound": "Speed of sound",
+  "@speedOfSound": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "@speedOfLight": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -368,6 +392,14 @@
   "pennyweights": "英钱",
   "troyOunces": "金衡盎司",
   "stones": "英石",
+  "shortTon": "Short ton",
+  "@shortTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "longTon": "Long ton",
+  "@longTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "帕斯卡",
   "atmosphere": "标准大气压",
@@ -489,6 +521,10 @@
   "liters100km": "百公里/升",
   "milesUsGallon": "英里/美制加仑",
   "milesImperialGallon": "英里/英制加仑",
+  "milesPerLiter": "Miles per liter",
+  "@milesPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "decimal": "十进制",
   "hexadecimal": "十六进制",

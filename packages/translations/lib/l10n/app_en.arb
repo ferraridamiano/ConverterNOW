@@ -170,6 +170,10 @@
   "tablespoonUs": "Tablespoons US",
   "tablespoonAustralian": "Australian tablespoons",
   "cups": "Cups",
+  "metricCup": "Metric cup",
+  "britishCup": "British cup",
+  "usBarrel": "US barrel",
+  "cubicYard": "Cubic yard",
   "cubicCentimeters": "Cubic centimeters",
   "cubicFeet": "Cubic feet",
   "cubicInches": "Cubic inches",
@@ -196,6 +200,7 @@
   "days": "Days",
   "weeks": "Weeks",
   "years": "Years (365)",
+  "averageMonth": "Average month",
   "lustrum": "Lustrum",
   "decades": "Decades",
   "centuries": "Centuries",
@@ -217,6 +222,7 @@
   "minutesPerKilometer": "Minutes per kilometer",
   "minutesPerMile": "Minutes per mile",
   "speedOfLight": "Speed of light",
+  "speedOfSound": "Speed of sound",
 
   "grams": "Grams",
   "ettograms": "Ettograms",
@@ -232,6 +238,8 @@
   "pennyweights": "Pennyweights",
   "troyOunces": "Troy ounces",
   "stones": "Stones",
+  "shortTon": "Short ton",
+  "longTon": "Long ton",
 
   "pascal": "Pascal",
   "atmosphere": "Atmosphere",
@@ -329,6 +337,7 @@
   "liters100km": "Liters per 100 km",
   "milesUsGallon": "Miles per US gallon",
   "milesImperialGallon": "Miles per imperial gallon",
+  "milesPerLiter": "Miles per liter",
 
   "decimal": "Decimal",
   "hexadecimal": "Hexadecimal",

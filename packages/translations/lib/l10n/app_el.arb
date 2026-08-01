@@ -282,6 +282,22 @@
   "tablespoonUs": "Κουταλιές της σούπας US",
   "tablespoonAustralian": "Αυστραλιανές κουταλιές τραπεζής",
   "cups": "Φλιτζάνια",
+  "metricCup": "Metric cup",
+  "@metricCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishCup": "British cup",
+  "@britishCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "usBarrel": "US barrel",
+  "@usBarrel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cubicYard": "Cubic yard",
+  "@cubicYard": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "cubicCentimeters": "Κυβικά εκατοστά",
   "cubicFeet": "Κυβικά πόδια",
   "cubicInches": "Κυβικές ίντσες",
@@ -326,6 +342,10 @@
   "days": "Μέρες",
   "weeks": "Εβδομάδες",
   "years": "Χρόνια (365)",
+  "averageMonth": "Average month",
+  "@averageMonth": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "lustrum": "Λούστρον",
   "decades": "Δεκαετίες",
   "centuries": "Αιώνες",
@@ -350,6 +370,10 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
   "speedOfLight": "Speed of light",
+  "speedOfSound": "Speed of sound",
+  "@speedOfSound": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "@speedOfLight": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -368,6 +392,14 @@
   "pennyweights": "Pennyweights",
   "troyOunces": "Troy ounces",
   "stones": "Λίθοι",
+  "shortTon": "Short ton",
+  "@shortTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "longTon": "Long ton",
+  "@longTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "Πασκάλ",
   "atmosphere": "Ατμόσφαιρα",
@@ -489,6 +521,10 @@
   "liters100km": "Λίτρα ανά 100 χιλιόμετρα",
   "milesUsGallon": "Μίλια ανά γαλόνι ΗΠΑ",
   "milesImperialGallon": "Μίλια ανά αυτοκρατορικό γαλόνι",
+  "milesPerLiter": "Miles per liter",
+  "@milesPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "decimal": "Δεκαδικός",
   "hexadecimal": "Εξαδικός",

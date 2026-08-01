@@ -314,6 +314,22 @@
   "tablespoonUs": "ملعقة طعام أمريكية",
   "tablespoonAustralian": "ملعقة طعام أُسترالية",
   "cups": "كوب",
+  "metricCup": "Metric cup",
+  "@metricCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishCup": "British cup",
+  "@britishCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "usBarrel": "US barrel",
+  "@usBarrel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cubicYard": "Cubic yard",
+  "@cubicYard": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "cubicCentimeters": "سنتيمتر مكعب",
   "cubicFeet": "قدم مكعب",
   "cubicInches": "بوصة مكعبة",
@@ -358,6 +374,10 @@
   "days": "يوم",
   "weeks": "أسبوع",
   "years": "سنة (365)",
+  "averageMonth": "Average month",
+  "@averageMonth": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "lustrum": "لوسترم",
   "decades": "عقد",
   "centuries": "قرن",
@@ -382,6 +402,10 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
   "speedOfLight": "Speed of light",
+  "speedOfSound": "Speed of sound",
+  "@speedOfSound": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "@speedOfLight": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -400,6 +424,14 @@
   "pennyweights": "وزن البنس",
   "troyOunces": "أونصة تروي",
   "stones": "حجر",
+  "shortTon": "Short ton",
+  "@shortTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "longTon": "Long ton",
+  "@longTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "باسكال",
   "atmosphere": "مقياس الغلاف الجوي",
@@ -527,6 +559,10 @@
   "liters100km": "لتر لكل 100 كلم",
   "milesUsGallon": "ميل لكل غالون أمريكي",
   "milesImperialGallon": "ميل لكل غالون الامبراطوري",
+  "milesPerLiter": "Miles per liter",
+  "@milesPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "decimal": "عشري",
   "hexadecimal": "سادس عشر",

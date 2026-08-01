@@ -269,6 +269,22 @@
   "tablespoonUs": "মার্কিন টেবিল চামচ",
   "tablespoonAustralian": "অস্ট্রেলিয়ান টেবিল চামচ",
   "cups": "কাপ",
+  "metricCup": "Metric cup",
+  "@metricCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishCup": "British cup",
+  "@britishCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "usBarrel": "US barrel",
+  "@usBarrel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cubicYard": "Cubic yard",
+  "@cubicYard": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "cubicCentimeters": "ঘন সেন্টিমিটার",
   "cubicFeet": "ঘন ফুট",
   "cubicInches": "ঘন ইঞ্চি",
@@ -301,6 +317,10 @@
   "days": "দিন",
   "weeks": "সপ্তাহ",
   "years": "বছর",
+  "averageMonth": "Average month",
+  "@averageMonth": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "lustrum": "লাস্ট্রাম (৫ বছর)",
   "decades": "দশক",
   "centuries": "শতাব্দী",
@@ -325,6 +345,10 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
   "speedOfLight": "Speed of light",
+  "speedOfSound": "Speed of sound",
+  "@speedOfSound": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "@speedOfLight": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -343,6 +367,14 @@
   "pennyweights": "পেনিওয়েট",
   "troyOunces": "ট্রয় আউন্স",
   "stones": "স্টোন",
+  "shortTon": "Short ton",
+  "@shortTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "longTon": "Long ton",
+  "@longTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "পাসক্যাল",
   "atmosphere": "বায়ুমণ্ডল",
@@ -458,6 +490,10 @@
   "liters100km": "শতকিলোমিটার পার লিটার",
   "milesUsGallon": "মাইল পার মার্কিন গ্যালন",
   "milesImperialGallon": "মাইল পার ইম্পেরিয়াল গ্যালন",
+  "milesPerLiter": "Miles per liter",
+  "@milesPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "decimal": "দশমিক",
   "hexadecimal": "হেক্সাডেসিমাল",

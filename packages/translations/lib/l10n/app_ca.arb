@@ -300,6 +300,22 @@
   "tablespoonUs": "Cullerades dels Estats Units",
   "tablespoonAustralian": "Cullerades australianes",
   "cups": "Tasses",
+  "metricCup": "Metric cup",
+  "@metricCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishCup": "British cup",
+  "@britishCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "usBarrel": "US barrel",
+  "@usBarrel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cubicYard": "Cubic yard",
+  "@cubicYard": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "cubicCentimeters": "Centímetres cúbics",
   "cubicFeet": "Peus cúbics",
   "cubicInches": "Polzades cúbiques",
@@ -344,6 +360,10 @@
   "days": "Dies",
   "weeks": "Setmanes",
   "years": "Anys (365)",
+  "averageMonth": "Average month",
+  "@averageMonth": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "lustrum": "Llustres",
   "decades": "Dècades",
   "centuries": "Centúries",
@@ -368,6 +388,10 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
   "speedOfLight": "Speed of light",
+  "speedOfSound": "Speed of sound",
+  "@speedOfSound": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "@speedOfLight": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -386,6 +410,14 @@
   "pennyweights": "Pennyweights",
   "troyOunces": "Unces troy",
   "stones": "Pedres",
+  "shortTon": "Short ton",
+  "@shortTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "longTon": "Long ton",
+  "@longTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "Pascal",
   "atmosphere": "Atmosfera",
@@ -507,6 +539,10 @@
   "liters100km": "Litres per 100 km",
   "milesUsGallon": "Milles per galó dels Estats Units",
   "milesImperialGallon": "Milles per galó imperial",
+  "milesPerLiter": "Miles per liter",
+  "@milesPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "decimal": "Decimal",
   "hexadecimal": "Hexadecimal",

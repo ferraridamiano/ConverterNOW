@@ -212,6 +212,22 @@
   "tablespoonUs": "一湯匙 (美國)",
   "tablespoonAustralian": "一湯匙 (澳大利亞)",
   "cups": "杯",
+  "metricCup": "Metric cup",
+  "@metricCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishCup": "British cup",
+  "@britishCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "usBarrel": "US barrel",
+  "@usBarrel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cubicYard": "Cubic yard",
+  "@cubicYard": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "cubicCentimeters": "立方公分",
   "cubicFeet": "立方英尺",
   "cubicInches": "立方英寸",
@@ -244,6 +260,10 @@
   "days": "日",
   "weeks": "週",
   "years": "年 (365)",
+  "averageMonth": "Average month",
+  "@averageMonth": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "lustrum": "五年紀",
   "decades": "十年紀",
   "centuries": "世紀",
@@ -268,6 +288,10 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
   "speedOfLight": "Speed of light",
+  "speedOfSound": "Speed of sound",
+  "@speedOfSound": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "@speedOfLight": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -286,6 +310,14 @@
   "pennyweights": "便士法碼",
   "troyOunces": "金衡盎司",
   "stones": "英石",
+  "shortTon": "Short ton",
+  "@shortTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "longTon": "Long ton",
+  "@longTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "帕[斯卡]",
   "atmosphere": "大氣壓",
@@ -392,6 +424,10 @@
   "liters100km": "公升每百公里",
   "milesUsGallon": "英里每美制加侖",
   "milesImperialGallon": "英里每英制加侖",
+  "milesPerLiter": "Miles per liter",
+  "@milesPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "decimal": "十進位制",
   "hexadecimal": "十六進位制",

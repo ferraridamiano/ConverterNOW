@@ -170,6 +170,22 @@
   "tablespoonUs": "Столовые ложки США",
   "tablespoonAustralian": "Австралийские столовые ложки",
   "cups": "Стаканы",
+  "metricCup": "Metric cup",
+  "@metricCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishCup": "British cup",
+  "@britishCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "usBarrel": "US barrel",
+  "@usBarrel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cubicYard": "Cubic yard",
+  "@cubicYard": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "cubicCentimeters": "Кубические сантиметры",
   "cubicFeet": "Кубические футы",
   "cubicInches": "Кубические дюймы",
@@ -196,6 +212,10 @@
   "days": "Дни",
   "weeks": "Недели",
   "years": "Годы (365)",
+  "averageMonth": "Average month",
+  "@averageMonth": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "lustrum": "Пятилетия",
   "decades": "Десятилетия",
   "centuries": "Века",
@@ -217,6 +237,10 @@
   "minutesPerKilometer": "Минуты на километр",
   "minutesPerMile": "Минуты на милю",
   "speedOfLight": "Скорость света",
+  "speedOfSound": "Speed of sound",
+  "@speedOfSound": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "grams": "Граммы",
   "ettograms": "Этограммы",
@@ -232,6 +256,14 @@
   "pennyweights": "Пеннивейты",
   "troyOunces": "Тройские унции",
   "stones": "Стоуны",
+  "shortTon": "Short ton",
+  "@shortTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "longTon": "Long ton",
+  "@longTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "Паскали",
   "atmosphere": "Атмосферы",
@@ -329,6 +361,10 @@
   "liters100km": "Литры на 100 км",
   "milesUsGallon": "Мили на галлон США",
   "milesImperialGallon": "Мили на британский галлон",
+  "milesPerLiter": "Miles per liter",
+  "@milesPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "decimal": "Десятичная",
   "hexadecimal": "Шестнадцатеричная",

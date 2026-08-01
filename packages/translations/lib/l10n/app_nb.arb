@@ -170,6 +170,22 @@
   "tablespoonUs": "Spiseskje US",
   "tablespoonAustralian": "Spiseskje australsk",
   "cups": "Cup",
+  "metricCup": "Metric cup",
+  "@metricCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishCup": "British cup",
+  "@britishCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "usBarrel": "US barrel",
+  "@usBarrel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cubicYard": "Cubic yard",
+  "@cubicYard": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "cubicCentimeters": "Kubikkcentimeter",
   "cubicFeet": "Kubikkfot",
   "cubicInches": "Kubikktomme",
@@ -199,6 +215,10 @@
   "days": "Dag",
   "weeks": "Uke",
   "years": "År (365)",
+  "averageMonth": "Average month",
+  "@averageMonth": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "lustrum": "Lustrum",
   "decades": "Tiår",
   "centuries": "Århundre",
@@ -220,6 +240,10 @@
   "minutesPerKilometer": "Minutter per kilometer",
   "minutesPerMile": "Minutter per eng. Mil",
   "speedOfLight": "Lysets hastighet",
+  "speedOfSound": "Speed of sound",
+  "@speedOfSound": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "grams": "Gram",
   "ettograms": "Ettogram",
@@ -235,6 +259,14 @@
   "pennyweights": "Pennyweight",
   "troyOunces": "Troy ounce",
   "stones": "Stone",
+  "shortTon": "Short ton",
+  "@shortTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "longTon": "Long ton",
+  "@longTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "Pascal",
   "atmosphere": "Atmosfære",
@@ -332,6 +364,10 @@
   "liters100km": "Liter per 100 km",
   "milesUsGallon": "Mile per gallon (US)",
   "milesImperialGallon": "Engelsk mil per britisk gallon",
+  "milesPerLiter": "Miles per liter",
+  "@milesPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "decimal": "Desimal",
   "hexadecimal": "Heksadesimal",

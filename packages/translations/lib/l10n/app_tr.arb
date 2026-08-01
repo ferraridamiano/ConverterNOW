@@ -315,6 +315,22 @@
   "tablespoonUs": "Yemek kaşığı (amerikan)",
   "tablespoonAustralian": "Yemek kaşığı (Avustralya)",
   "cups": "Fincan",
+  "metricCup": "Metric cup",
+  "@metricCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "britishCup": "British cup",
+  "@britishCup": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "usBarrel": "US barrel",
+  "@usBarrel": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "cubicYard": "Cubic yard",
+  "@cubicYard": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "cubicCentimeters": "Santimetreküp",
   "cubicFeet": "Fitküp",
   "cubicInches": "İnçküp",
@@ -359,6 +375,10 @@
   "days": "Gün",
   "weeks": "Hafta",
   "years": "Yıl (365)",
+  "averageMonth": "Average month",
+  "@averageMonth": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "lustrum": "Lustrum",
   "decades": "Onyıl",
   "centuries": "Yüzyıl",
@@ -383,6 +403,10 @@
     "description": "Not yet translated. Once done, remove this comment"
   },
   "speedOfLight": "Speed of light",
+  "speedOfSound": "Speed of sound",
+  "@speedOfSound": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
   "@speedOfLight": {
     "description": "Not yet translated. Once done, remove this comment"
   },
@@ -401,6 +425,14 @@
   "pennyweights": "Pennyweight",
   "troyOunces": "Troy ons",
   "stones": "Taş",
+  "shortTon": "Short ton",
+  "@shortTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
+  "longTon": "Long ton",
+  "@longTon": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "pascal": "Paskal",
   "atmosphere": "Atmosfer",
@@ -525,6 +557,10 @@
   "liters100km": "100 km bölü litre",
   "milesUsGallon": "ABD galonu bölü mil",
   "milesImperialGallon": "İngiliz galonu bölü mil",
+  "milesPerLiter": "Miles per liter",
+  "@milesPerLiter": {
+    "description": "Not yet translated. Once done, remove this comment"
+  },
 
   "decimal": "Onluk",
   "hexadecimal": "Onaltılık",
