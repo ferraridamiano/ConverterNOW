@@ -20,6 +20,7 @@ enum VALIDATOR {
   hexadecimal,
   rational,
   rationalNonNegative,
+  time,
 }
 
 class UnitData {
@@ -46,6 +47,7 @@ class UnitData {
     VALIDATOR.decimal => RegExp(r'^[0-9]+$'),
     VALIDATOR.hexadecimal => RegExp(r'^[0-9A-Fa-f]+$'),
     VALIDATOR.rational => RegExp(r'^([+-]?\d+)\.?(\d*)(e[+-]?\d+)?$'),
+    VALIDATOR.time => RegExp(r'^([01]?[0-9]|2[0-3]):[0-5][0-9]$'),
     _ => RegExp(r'^(\+?\d+)\.?(\d*)(e[+-]?\d+)?$'),
   };
 }
@@ -71,6 +73,7 @@ enum PROPERTYX {
   speed,
   temperature,
   time,
+  timezone,
   torque,
   volume,
 }

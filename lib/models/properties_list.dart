@@ -1,5 +1,6 @@
 import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/models/settings.dart';
+import 'package:converterpro/models/time_zone_property.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:units_converter/units_converter.dart';
@@ -150,6 +151,9 @@ final propertiesMapProvider = FutureProvider<Map<PROPERTYX, Property>>((
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
       name: PROPERTYX.torque,
+    ),
+    PROPERTYX.timezone: TimeZoneProperty(
+      name: PROPERTYX.timezone,
     ),
   };
 });

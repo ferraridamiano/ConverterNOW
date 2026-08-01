@@ -102,7 +102,8 @@ class ConversionPage extends ConsumerWidget {
         if (txt == '' || unitData.getValidator().hasMatch(txt)) {
           var conversions = ref.read(ConversionsNotifier.provider.notifier);
           //just numeral system uses a string for conversion
-          if (unitData.property == PROPERTYX.numeralSystems) {
+          if (unitData.property == PROPERTYX.numeralSystems ||
+              unitData.property == PROPERTYX.timezone) {
             conversions.convert(unitData, txt == "" ? null : txt, property);
           } else {
             conversions.convert(
