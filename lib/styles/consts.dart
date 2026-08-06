@@ -22,3 +22,6 @@ const double twoSidedReorderScreen = 700;
 const fallbackColorTheme = Colors.blue;
 
 const fallbackLocale = Locale('en');
+
+/// default window size when app starts on Windows
+const defaultWindowSize = Size(800, 600);
