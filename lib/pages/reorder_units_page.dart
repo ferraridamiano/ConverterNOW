@@ -43,6 +43,9 @@ class ReorderUnitsPage extends ConsumerWidget {
       title: AppLocalizations.of(
         context,
       )!.reorderProperty(propertyUiMap[property]!.name),
+      leading: BackButton(
+        onPressed: () => context.go('/conversions/${property.toKebabCase()}'),
+      ),
     );
   }
 }
