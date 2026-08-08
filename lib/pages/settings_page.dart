@@ -271,21 +271,6 @@ class SettingsPage extends ConsumerWidget {
                     ),
                   ),
                   ListTile(
-                    key: const ValueKey('reorder-units'),
-                    leading: SvgPicture(
-                      const AssetBytesLoader(
-                        'assets/app_icons_opti/reorder_units.svg.vec',
-                      ),
-                      width: 25,
-                      colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-                    ),
-                    title: Text(l10n.reorderUnits),
-                    onTap: () => context.goNamed('reorder-units'),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: borderRadius,
-                    ),
-                  ),
-                  ListTile(
                     key: const ValueKey('hide-units'),
                     leading: Icon(
                       Icons.visibility_off_outlined,

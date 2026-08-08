@@ -27,3 +27,11 @@ void setWindowSize(double width, double height) {
   setWindowMinSize(size);
   setWindowMaxSize(size);
 }
+
+/// Opens the app bar menu and taps the reorder-units entry
+Future<void> tapReorderUnitsFromAppBar(WidgetTester tester) async {
+  await tester.tap(find.byKey(const ValueKey('appbar-menu')));
+  await tester.pumpAndSettle();
+  await tester.tap(find.byKey(const ValueKey('reorder-units')));
+  await tester.pumpAndSettle();
+}

@@ -161,23 +161,7 @@ void main() {
         reason: 'Initial ordering of length units is not what expected',
       );
 
-      await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
-      await tester.pumpAndSettle();
-
-      await tester.scrollUntilVisible(
-        find.byKey(const ValueKey('reorder-units')),
-        300,
-        scrollable: find.byType(Scrollable).at(1),
-        maxScrolls: 2,
-      );
-
-      await tester.tap(find.byKey(const ValueKey('reorder-units')));
-      await tester.pumpAndSettle();
-
-      await tester.tap(
-        find.byKey(const ValueKey('chooseProperty-PROPERTYX.length')),
-      );
-      await tester.pumpAndSettle();
+      await tapReorderUnitsFromAppBar(tester);
 
       final xDragHandle = tester
           .getCenter(find.byIcon(Icons.drag_handle).first)
@@ -198,11 +182,6 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const ValueKey('confirm')));
-      await tester.pumpAndSettle();
-
-      await tester.tap(
-        find.byKey(const ValueKey('drawerItem_PROPERTYX.length')),
-      );
       await tester.pumpAndSettle();
 
       // Now the ordering should be Inches, Centimeters, Meters, ...
@@ -406,20 +385,12 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('confirm')));
       await tester.pumpAndSettle();
 
-      await tester.scrollUntilVisible(
-        find.byKey(const ValueKey('reorder-units')),
-        300,
-        scrollable: find.byType(Scrollable).at(1),
-        maxScrolls: 2,
-      );
-
-      await tester.tap(find.byKey(const ValueKey('reorder-units')));
-      await tester.pumpAndSettle();
-
       await tester.tap(
-        find.byKey(const ValueKey('chooseProperty-PROPERTYX.length')),
+        find.byKey(const ValueKey('drawerItem_PROPERTYX.length')),
       );
       await tester.pumpAndSettle();
+
+      await tapReorderUnitsFromAppBar(tester);
 
       final xDragHandleUnits = tester
           .getCenter(find.byIcon(Icons.drag_handle).first)
@@ -440,11 +411,6 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const ValueKey('confirm')));
-      await tester.pumpAndSettle();
-
-      await tester.tap(
-        find.byKey(const ValueKey('drawerItem_PROPERTYX.length')),
-      );
       await tester.pumpAndSettle();
 
       await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');

@@ -12,6 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:intl/intl.dart';
 import 'package:vector_graphics/vector_graphics.dart';
+import 'package:go_router/go_router.dart';
+
+enum _AppBarAction { reorderUnits }
 
 class ConversionPage extends ConsumerWidget {
   final PROPERTYX property;
@@ -166,6 +169,37 @@ class ConversionPage extends ConsumerWidget {
                   );
                 },
               ),
+              actions: [
+                PopupMenuButton<_AppBarAction>(
+                  key: const ValueKey('appbar-menu'),
+                  icon: const Icon(Icons.more_vert),
+                  onSelected: (_AppBarAction action) {
+                    switch (action) {
+                      case _AppBarAction.reorderUnits:
+                        context.go(
+                          '/reorder-units/${property.toKebabCase()}',
+                        );
+                    }
+                  },
+                  itemBuilder: (BuildContext context) {
+                    return <PopupMenuEntry<_AppBarAction>>[
+                      PopupMenuItem<_AppBarAction>(
+                        key: const ValueKey('reorder-units'),
+                        value: _AppBarAction.reorderUnits,
+                        child: Row(
+                          spacing: 8,
+                          children: [
+                            const Icon(Icons.reorder),
+                            Text(
+                              l10n.reorderProperty(propertyUiMap[property]!.name),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ];
+                  },
+                ),
+              ],
             ),
             if (subtitleWidget != null)
               SliverToBoxAdapter(
