@@ -3,6 +3,7 @@ import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:calculator_widget/calculator_widget.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/order.dart';
+import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/pages/search_page.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
@@ -151,6 +152,17 @@ class AppScaffold extends ConsumerWidget {
                               tooltip: l10n.calculator,
                               icon: const Icon(Icons.calculate_outlined),
                               onPressed: openCalculator,
+                            ),
+                            IconButton(
+                              key: const ValueKey('reorder-units'),
+                              tooltip: l10n.reorderProperty(
+                                getPropertyUiMap(context)[currentProperty]!
+                                    .name,
+                              ),
+                              icon: const Icon(Icons.reorder),
+                              onPressed: () => context.go(
+                                '/reorder-units/${currentProperty!.toKebabCase()}',
+                              ),
                             ),
                           ],
                         ),

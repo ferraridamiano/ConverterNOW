@@ -64,6 +64,18 @@ class CustomDrawer extends ConsumerWidget {
       ),
     );
 
+    final String location = GoRouterState.of(context).uri.toString();
+    final PROPERTYX? currentProperty =
+        location.startsWith('/conversions/') ||
+            location.startsWith('/reorder-units/')
+        ? kebabStringToPropertyX(location.split('/').last)
+        : null;
+
+    final propertyUiMap = getPropertyUiMap(context);
+    final String reorderLabel = currentProperty == null
+        ? l10n.reorderUnits
+        : l10n.reorderProperty(propertyUiMap[currentProperty]!.name);
+
     if (isDrawerFixed) {
       final keyDecoration = BoxDecoration(
         border: Border.all(color: Theme.of(context).colorScheme.onSurface),
@@ -111,6 +123,16 @@ class CustomDrawer extends ConsumerWidget {
         label: Text(l10n.settings),
       ),
     );
+    if (isDrawerFixed) {
+      headerDrawer.add(
+        NavigationDrawerDestination(
+          key: const ValueKey('reorder-units'),
+          icon: Icon(Icons.reorder, color: iconColor),
+          label: Text(reorderLabel),
+          enabled: currentProperty != null,
+        ),
+      );
+    }
     headerDrawer.add(
       const Padding(
         padding: EdgeInsets.symmetric(horizontal: 25.0),
@@ -126,7 +148,6 @@ class CustomDrawer extends ConsumerWidget {
       return const SizedBox();
     }
 
-    final propertyUiMap = getPropertyUiMap(context);
     final propertiesDrawer = propertiesOrdering.map((e) {
       final propertyUi = propertyUiMap[e]!;
       return NavigationDrawerDestination(
@@ -167,7 +188,7 @@ class CustomDrawer extends ConsumerWidget {
           if (!isDrawerFixed) {
             Navigator.of(context).pop();
           }
-        } else if (headerElements == 3) {
+        } else if (headerElements == 4) {
           switch (selectedPage) {
             case 0:
               openSearch();
@@ -178,6 +199,12 @@ class CustomDrawer extends ConsumerWidget {
                 Navigator.of(context).pop();
               }
               context.goNamed('settings');
+            case 3:
+              if (currentProperty != null) {
+                context.go(
+                  '/reorder-units/${currentProperty.toKebabCase()}',
+                );
+              }
           }
         } else if (headerElements == 1) {
           if (!isDrawerFixed) {
@@ -198,14 +225,19 @@ int pathToNavigationIndex(
 ) {
   final String location = GoRouterState.of(context).uri.toString();
 
-  // 3 elements in the header
+  // 4 elements in the header
   if (isDrawerFixed) {
     if (location.startsWith('/conversions/')) {
       return computeSelectedConversionPage(
             context,
             inversePropertiesOrdering,
           )! +
-          3;
+          4;
+    } else if (location.startsWith('/reorder-units/')) {
+      return inversePropertiesOrdering[kebabStringToPropertyX(
+        location.split('/').last,
+      )]! +
+          4;
     } else {
       return 2; // Settings
     }
@@ -217,6 +249,11 @@ int pathToNavigationIndex(
             context,
             inversePropertiesOrdering,
           )! +
+          1;
+    } else if (location.startsWith('/reorder-units/')) {
+      return inversePropertiesOrdering[kebabStringToPropertyX(
+        location.split('/').last,
+      )]! +
           1;
     } else {
       return 0; // Settings

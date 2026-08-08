@@ -13,11 +13,11 @@ AppPage computeSelectedSection(BuildContext context) {
   if (location.startsWith('/settings/reorder-properties')) {
     return AppPage.reorder;
   }
-  if (location.startsWith('/settings/reorder-units/') &&
-      location.split('/')[3] != '') {
+  if (location.startsWith('/reorder-units/') &&
+      location.split('/')[2] != '') {
     return AppPage.reorderDetails;
   }
-  if (location.startsWith('/settings/reorder-units')) {
+  if (location.startsWith('/reorder-units')) {
     return AppPage.reorder;
   }
   if (location.startsWith('/settings')) {
