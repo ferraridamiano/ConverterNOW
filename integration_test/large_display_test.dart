@@ -161,8 +161,7 @@ void main() {
         reason: 'Initial ordering of length units is not what expected',
       );
 
-      await tester.tap(find.byKey(const ValueKey('reorder-units')));
-      await tester.pumpAndSettle();
+      await tapReorderUnitsFromAppBar(tester);
 
       final xDragHandle = tester
           .getCenter(find.byIcon(Icons.drag_handle).first)
@@ -391,8 +390,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const ValueKey('reorder-units')));
-      await tester.pumpAndSettle();
+      await tapReorderUnitsFromAppBar(tester);
 
       final xDragHandleUnits = tester
           .getCenter(find.byIcon(Icons.drag_handle).first)
