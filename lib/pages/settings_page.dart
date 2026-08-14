@@ -90,7 +90,8 @@ class SettingsPage extends ConsumerWidget {
                                 ? null
                                 : mapLocale.keys
                                       .firstWhere(
-                                      (element) => mapLocale[element] == string,
+                                        (element) =>
+                                            mapLocale[element] == string,
                                       )
                                       .toLanguageTag(),
                           );
@@ -122,15 +123,17 @@ class SettingsPage extends ConsumerWidget {
                     leading: Icon(Icons.contrast, color: iconColor),
                     title: l10n.theme,
                     items: mapTheme.values.toList(),
-                  value:
-                      mapTheme[ref.watch(themeModeProvider).value ?? 0]!.title,
+                    value: mapTheme[ref.watch(themeModeProvider).value ?? 0]!
+                        .title,
                     onChanged: (String? string) {
                       if (string != null) {
                         ref
                             .read(themeModeProvider.notifier)
                             .set(
                               mapTheme.keys
-                                .where((key) => mapTheme[key]?.title == string)
+                                  .where(
+                                    (key) => mapTheme[key]?.title == string,
+                                  )
                                   .single,
                             );
                       }
@@ -164,7 +167,10 @@ class SettingsPage extends ConsumerWidget {
                     ),
                   ),
                   Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+                    padding: const EdgeInsetsDirectional.only(
+                      start: 16,
+                      top: 16,
+                    ),
                     child: Text(l10n.conversions, style: titlesStyle),
                   ),
                   if (!kIsWeb)
@@ -183,7 +189,9 @@ class SettingsPage extends ConsumerWidget {
                                   width: 500,
                                   child: Text(
                                     l10n.revokeInternetExplanation,
-                                  style: Theme.of(context).textTheme.bodyLarge,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge,
                                   ),
                                 ),
                                 actions: [
@@ -195,7 +203,9 @@ class SettingsPage extends ConsumerWidget {
                                       Future.delayed(
                                         const Duration(milliseconds: 200),
                                         () => ref
-                                          .read(revokeInternetProvider.notifier)
+                                            .read(
+                                              revokeInternetProvider.notifier,
+                                            )
                                             .set(val),
                                       );
                                     },
@@ -298,7 +308,10 @@ class SettingsPage extends ConsumerWidget {
                     ),
                   ),
                   Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+                    padding: const EdgeInsetsDirectional.only(
+                      start: 16,
+                      top: 16,
+                    ),
                     child: Text(l10n.backupAndRestore, style: titlesStyle),
                   ),
                   ListTile(
@@ -316,7 +329,7 @@ class SettingsPage extends ConsumerWidget {
                       final filename =
                           '${DateFormat('yyyyMMdd').format(DateTime.now())}_converternow.json';
                       if (kIsWeb) {
-                        await FilePicker.platform.saveFile(
+                        await FilePicker.saveFile(
                           dialogTitle: l10n.exportSettings,
                           fileName: filename,
                           bytes: jsonBytes,
@@ -336,44 +349,42 @@ class SettingsPage extends ConsumerWidget {
                         await file.delete(); // Clean up
                       } else {
                         // Desktop: Save file
-                        final outputFile = await FilePicker.platform.saveFile(
+                        final result = await FilePicker.saveFile(
+                          bytes: jsonBytes,
                           dialogTitle: l10n.exportSettings,
                           fileName: filename,
                         );
-                        if (outputFile != null) {
-                          final file = File(outputFile);
-                          await file.writeAsBytes(jsonBytes);
-                          if (context.mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(l10n.exportSuccess)),
-                            );
-                          }
+                        if (result != null && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(l10n.exportSuccess)),
+                          );
                         }
                       }
                     },
                   ),
                   ListTile(
-                  leading: Icon(Icons.file_download_outlined, color: iconColor),
+                    leading: Icon(
+                      Icons.file_download_outlined,
+                      color: iconColor,
+                    ),
                     title: Text(l10n.importSettings),
                     shape: const RoundedRectangleBorder(
                       borderRadius: borderRadius,
                     ),
                     onTap: () async {
                       try {
-                        FilePickerResult? result = await FilePicker.platform
-                            .pickFiles(
-                              type: FileType.custom,
-                              allowedExtensions: ['json'],
-                            );
+                        final result = await FilePicker.pickFiles(
+                          type: FileType.custom,
+                          allowedExtensions: ['json'],
+                        );
 
-                        if (result != null) {
+                        if (result.isNotEmpty) {
                           String content;
                           if (kIsWeb) {
-                            final bytes = result.files.first.bytes;
-                            if (bytes == null) return;
+                            final bytes = await result.first.readAsBytes();
                             content = utf8.decode(bytes);
                           } else {
-                            final path = result.files.single.path;
+                            final path = result.single.path;
                             if (path == null) return;
                             content = await File(path).readAsString();
                           }
@@ -453,7 +464,9 @@ class SettingsPage extends ConsumerWidget {
                               ),
                               onPressed: () {
                                 ref
-                                  .read(ImportExportNotifier.provider.notifier)
+                                    .read(
+                                      ImportExportNotifier.provider.notifier,
+                                    )
                                     .deleteSettings();
                                 Navigator.of(context).pop();
                               },
@@ -464,7 +477,10 @@ class SettingsPage extends ConsumerWidget {
                     },
                   ),
                   Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 16, top: 16),
+                    padding: const EdgeInsetsDirectional.only(
+                      start: 16,
+                      top: 16,
+                    ),
                     child: Text(l10n.findOutMore, style: titlesStyle),
                   ),
                   ListTile(
@@ -491,7 +507,9 @@ class SettingsPage extends ConsumerWidget {
                                   mode: LaunchMode.externalApplication,
                                 ),
                               ),
-                          if (kIsWeb || Platform.isWindows || Platform.isLinux)
+                            if (kIsWeb ||
+                                Platform.isWindows ||
+                                Platform.isLinux)
                               ListTile(
                                 title: const Text('Android'),
                                 leading: const Icon(Icons.android_outlined),
@@ -506,7 +524,9 @@ class SettingsPage extends ConsumerWidget {
                                   ),
                                 ),
                               ),
-                          if (kIsWeb || Platform.isAndroid || Platform.isLinux)
+                            if (kIsWeb ||
+                                Platform.isAndroid ||
+                                Platform.isLinux)
                               ListTile(
                                 title: const Text('Windows'),
                                 leading: const Icon(Icons.laptop),
@@ -521,7 +541,9 @@ class SettingsPage extends ConsumerWidget {
                               ),
                             ListTile(
                               title: const Text('Linux (Flatpak)'),
-                            leading: const Icon(Icons.desktop_windows_outlined),
+                              leading: const Icon(
+                                Icons.desktop_windows_outlined,
+                              ),
                               onTap: () => launchURL(
                                 Uri(
                                   scheme: 'https',
@@ -534,7 +556,9 @@ class SettingsPage extends ConsumerWidget {
                             ),
                             ListTile(
                               title: const Text('Linux (AppImage)'),
-                            leading: const Icon(Icons.desktop_windows_outlined),
+                              leading: const Icon(
+                                Icons.desktop_windows_outlined,
+                              ),
                               onTap: () => launchURL(
                                 Uri(
                                   scheme: 'https',
