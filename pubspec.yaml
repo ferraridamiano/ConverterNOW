@@ -15,8 +15,6 @@ workspace:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
   # Various collection utilities
   collection: ^1.19.1
   # App dynamic color theme
@@ -35,6 +33,8 @@ dependencies:
   http: ^1.6.0
   # Translations
   intl: ^0.20.3
+  # Material widgets
+  material_ui: ^1.0.0
   # App version
   package_info_plus: ^10.2.1
   # Required for import/export

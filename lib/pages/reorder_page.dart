@@ -1,5 +1,5 @@
 import 'package:translations/app_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 typedef Item = ({int id, String title});
 
