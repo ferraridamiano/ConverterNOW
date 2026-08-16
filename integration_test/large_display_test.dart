@@ -97,7 +97,7 @@ void main() {
       findsAtLeastNWidgets(2),
       reason: 'Expected the length page',
     );
-
+    await tester.pumpAndSettle();
     await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
     await tester.pumpAndSettle();
 
