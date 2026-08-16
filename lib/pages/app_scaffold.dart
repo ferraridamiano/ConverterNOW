@@ -49,6 +49,8 @@ class AppScaffold extends ConsumerWidget {
           content: Text(l10n.undoClearAllMessage),
           behavior: SnackBarBehavior.floating,
           width: isDrawerFixed ? 400 : null,
+          duration: const Duration(seconds: 3),
+          persist: false,
           action: SnackBarAction(
             key: const ValueKey('undoClearAll'),
             label: l10n.undo,
