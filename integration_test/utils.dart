@@ -27,24 +27,3 @@ void setWindowSize(double width, double height) {
   setWindowMinSize(size);
   setWindowMaxSize(size);
 }
-
-/// Pumps frames until [finder] matches or [timeout] elapses.
-///
-/// In integration tests the Live binding renders real frames, so a state
-/// update triggered by an async operation (e.g. a conversion) may be scheduled
-/// after the last frame pumped by [pumpAndSettle]. The widget must actually
-/// appear in the tree before interacting with it.
-Future<void> pumpUntilFound(
-  WidgetTester tester,
-  Finder finder, {
-  Duration timeout = const Duration(seconds: 10),
-}) async {
-  final endTime = DateTime.now().add(timeout);
-  while (DateTime.now().isBefore(endTime)) {
-    await tester.pump(const Duration(milliseconds: 100));
-    if (finder.evaluate().isNotEmpty) {
-      return;
-    }
-  }
-  fail('Timed out after $timeout waiting for $finder');
-}

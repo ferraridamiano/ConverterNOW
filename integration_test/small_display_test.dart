@@ -81,7 +81,6 @@ void main() {
         reason: 'Conversion error',
       );
 
-      await pumpUntilFound(tester, find.byKey(const ValueKey('clearAll')));
       await tester.tap(find.byKey(const ValueKey('clearAll')));
       await tester.pumpAndSettle();
       expect(tffFeet.controller!.text, '', reason: 'Text not cleared');
@@ -117,7 +116,6 @@ void main() {
     expect(tffFeet.controller!.text, '5280', reason: 'Conversion error');
     expect(tffMeters.controller!.text, '1609.344', reason: 'Conversion error');
 
-    await pumpUntilFound(tester, find.byKey(const ValueKey('clearAll')));
     await tester.tap(find.byKey(const ValueKey('clearAll')));
     await tester.pumpAndSettle();
     expect(tffMiles.controller!.text, '', reason: 'Text not cleared');
