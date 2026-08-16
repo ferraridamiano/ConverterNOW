@@ -74,7 +74,7 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  melos: ^8.2.2
+  melos: ^8.3.0
   msix: ^3.18.0
   test: ^1.31.1
 
