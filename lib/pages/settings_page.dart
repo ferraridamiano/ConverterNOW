@@ -200,13 +200,12 @@ class SettingsPage extends ConsumerWidget {
                                       Navigator.of(context).pop();
                                       // Introduce a tiny delay to let the user see the
                                       // switch to turn on
+                                      final revokeInternetNotifier = ref.read(
+                                        revokeInternetProvider.notifier,
+                                      );
                                       Future.delayed(
                                         const Duration(milliseconds: 200),
-                                        () => ref
-                                            .read(
-                                              revokeInternetProvider.notifier,
-                                            )
-                                            .set(val),
+                                        () => revokeInternetNotifier.set(val),
                                       );
                                     },
                                     child: Text(l10n.ok),

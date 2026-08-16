@@ -64,9 +64,13 @@ class AppScaffold extends ConsumerWidget {
     }
 
     void openSearch() {
+      final heroNotifier =
+          ref.read(conversionPageHeroEnabledProvider.notifier);
       ref.read(PropertiesOrderNotifier.provider).whenData((orderList) async {
         Future.delayed(const Duration(milliseconds: 300), () {
-          ref.read(conversionPageHeroEnabledProvider.notifier).state = true;
+          if (heroNotifier.mounted) {
+            heroNotifier.state = true;
+          }
         });
         final selectedProperty = await showSearch<PROPERTYX?>(
           context: context,
@@ -74,7 +78,9 @@ class AppScaffold extends ConsumerWidget {
         );
         if (selectedProperty != null) {
           Future.delayed(const Duration(milliseconds: 300), () {
-            ref.read(conversionPageHeroEnabledProvider.notifier).state = false;
+            if (heroNotifier.mounted) {
+              heroNotifier.state = false;
+            }
           });
           final String targetPath =
               '/conversions/${selectedProperty.toKebabCase()}';
@@ -84,8 +90,10 @@ class AppScaffold extends ConsumerWidget {
             context.go(targetPath);
           }
         } else {
-          return ref.read(conversionPageHeroEnabledProvider.notifier).state =
-              false;
+          if (heroNotifier.mounted) {
+            heroNotifier.state = false;
+          }
+          return;
         }
       });
     }
