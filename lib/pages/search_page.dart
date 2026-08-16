@@ -1,7 +1,7 @@
 import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:translations/app_localizations.dart';
 
 class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {

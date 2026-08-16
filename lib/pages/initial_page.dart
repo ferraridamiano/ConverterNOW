@@ -2,7 +2,7 @@ import 'package:converterpro/app_router.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -35,9 +35,12 @@ class InitialPage extends ConsumerWidget {
             maxCrossAxisExtent: 180,
             children: getPropertyGridTiles(
               (PROPERTYX e) {
+                final heroNotifier =
+                    ref.read(conversionPageHeroEnabledProvider.notifier);
                 Future.delayed(const Duration(milliseconds: 300), () {
-                  ref.read(conversionPageHeroEnabledProvider.notifier).state =
-                      false;
+                  if (heroNotifier.mounted) {
+                    heroNotifier.state = false;
+                  }
                 });
                 HapticFeedback.selectionClick();
                 context.go('/conversions/${e.toKebabCase()}');

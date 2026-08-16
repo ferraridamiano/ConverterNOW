@@ -1,5 +1,5 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_size/window_size.dart';
@@ -35,3 +35,10 @@ Future<void> tapReorderUnitsFromAppBar(WidgetTester tester) async {
   await tester.tap(find.byKey(const ValueKey('reorder-units')));
   await tester.pumpAndSettle();
 }
+
+/// Gets the [TextFormField] widget for a given [key]
+TextFormField getTextField(String key) =>
+    find.byKey(ValueKey(key)).evaluate().single.widget as TextFormField;
+
+/// Gets the current text value of a [TextFormField] with the given [key]
+String getTextFieldText(String key) => getTextField(key).controller!.text;

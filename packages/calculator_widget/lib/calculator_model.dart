@@ -74,11 +74,21 @@ class Calculator extends Notifier<String> {
     }
     //if char is a comma or a dot
     else if (char == '.' || char == ',') {
+      // Starting a new number after an operator (e.g. "10 * .1")
+      if (ref.read(endNumberProvider)) {
+        state = '0.';
+        ref.read(endNumberProvider.notifier).state = false;
+        _updatePreviewResult();
+        return;
+      }
       // if it is already submitted a decimal value ignore it
       if (state.contains('.') || state.contains(',')) {
         return;
       }
-      // otherwise
+      // if state is empty (e.g. leading dot like ".5"), prepend '0'
+      if (state.isEmpty || state == '-') {
+        state += '0';
+      }
       state += '.'; //append the point at the end
     }
     // If it is the leading minus before the first number
