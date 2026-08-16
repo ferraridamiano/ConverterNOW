@@ -27,3 +27,10 @@ void setWindowSize(double width, double height) {
   setWindowMinSize(size);
   setWindowMaxSize(size);
 }
+
+/// Gets the [TextFormField] widget for a given [key]
+TextFormField getTextField(String key) =>
+    find.byKey(ValueKey(key)).evaluate().single.widget as TextFormField;
+
+/// Gets the current text value of a [TextFormField] with the given [key]
+String getTextFieldText(String key) => getTextField(key).controller!.text;
