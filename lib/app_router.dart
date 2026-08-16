@@ -65,24 +65,26 @@ final routerProvider = Provider<GoRouter>(
               final propertyx = kebabStringToPropertyX(property);
               return ConversionPage(propertyx);
             },
-          ),
-          GoRoute(
-            path: '/reorder-units/:property',
-            name: 'reorder-units',
-            builder: (context, state) {
-              final String property = state.pathParameters['property']!;
-              final propertyx = kebabStringToPropertyX(property);
-              return ReorderUnitsPage(propertyx);
-            },
-          ),
-          GoRoute(
-            path: '/hide-units/:property',
-            name: 'hide-units',
-            builder: (context, state) {
-              final String property = state.pathParameters['property']!;
-              final propertyx = kebabStringToPropertyX(property);
-              return HideUnitsPage(propertyx);
-            },
+            routes: [
+              GoRoute(
+                path: 'reorder',
+                name: 'reorder-units',
+                builder: (context, state) {
+                  final String property = state.pathParameters['property']!;
+                  final propertyx = kebabStringToPropertyX(property);
+                  return ReorderUnitsPage(propertyx);
+                },
+              ),
+              GoRoute(
+                path: 'hide',
+                name: 'hide-units',
+                builder: (context, state) {
+                  final String property = state.pathParameters['property']!;
+                  final propertyx = kebabStringToPropertyX(property);
+                  return HideUnitsPage(propertyx);
+                },
+              ),
+            ],
           ),
           GoRoute(
             path: '/settings',

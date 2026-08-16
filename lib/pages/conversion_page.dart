@@ -176,9 +176,13 @@ class ConversionPage extends ConsumerWidget {
                   onSelected: (_AppBarAction action) {
                     switch (action) {
                       case _AppBarAction.reorderUnits:
-                        context.go('/reorder-units/${property.toKebabCase()}');
+                        context.go(
+                          '/conversions/${property.toKebabCase()}/reorder',
+                        );
                       case _AppBarAction.hideUnits:
-                        context.go('/hide-units/${property.toKebabCase()}');
+                        context.go(
+                          '/conversions/${property.toKebabCase()}/hide',
+                        );
                     }
                   },
                   itemBuilder: (BuildContext context) {

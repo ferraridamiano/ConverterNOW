@@ -18,7 +18,7 @@ class ReorderUnitsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // if we remove the following check, if you enter the site directly to
-    // '/reorder-units/:property' an error will occur
+    // '/conversions/:property/reorder' an error will occur
     if (!ref.watch(isEverythingLoadedProvider)) {
       return const SplashScreenWidget();
     }
@@ -35,17 +35,12 @@ class ReorderUnitsPage extends ConsumerWidget {
           .map((e) => unitUiMap[property]![e]!)
           .toList(),
       onSave: (List<int>? orderList) {
-        ref
-            .read(UnitsOrderNotifier.provider.notifier)
-            .set(orderList, property);
+        ref.read(UnitsOrderNotifier.provider.notifier).set(orderList, property);
         context.go('/conversions/${property.toKebabCase()}');
       },
       title: AppLocalizations.of(
         context,
       )!.reorderProperty(propertyUiMap[property]!.name),
-      leading: BackButton(
-        onPressed: () => context.go('/conversions/${property.toKebabCase()}'),
-      ),
     );
   }
 }

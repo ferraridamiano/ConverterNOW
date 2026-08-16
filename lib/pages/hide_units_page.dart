@@ -44,7 +44,7 @@ class _HideUnitsPageState extends ConsumerState<HideUnitsPage> {
   @override
   Widget build(BuildContext context) {
     // if we remove the following check, if you enter the site directly to
-    // '/hide-units/:property' an error will occur
+    // '/conversions/:property/hide' an error will occur
     if (!ref.watch(isEverythingLoadedProvider)) {
       return const SplashScreenWidget();
     }
@@ -76,10 +76,6 @@ class _HideUnitsPageState extends ConsumerState<HideUnitsPage> {
               l10n.visibleUnits(
                 getPropertyUiMap(context)[widget.property]!.name,
               ),
-            ),
-            leading: BackButton(
-              onPressed: () =>
-                  context.go('/conversions/${widget.property.toKebabCase()}'),
             ),
             actions: [
               TextButton.icon(

@@ -7,13 +7,11 @@ class ReorderPage extends StatefulWidget {
   final String title;
   final List<String> itemsList;
   final void Function(List<int>? orderList) onSave;
-  final Widget? leading;
 
   const ReorderPage({
     required this.itemsList,
     required this.onSave,
     required this.title,
-    this.leading,
     super.key,
   });
 
@@ -53,10 +51,7 @@ class _ReorderPageState extends State<ReorderPage> {
       body: StatefulBuilder(
         builder: (context, setState) => CustomScrollView(
           slivers: <Widget>[
-            SliverAppBar.large(
-              title: Text(widget.title),
-              leading: widget.leading,
-            ),
+            SliverAppBar.large(title: Text(widget.title)),
             SliverPadding(
               // Space for FAB + navigation bar (android)
               padding: EdgeInsets.only(
