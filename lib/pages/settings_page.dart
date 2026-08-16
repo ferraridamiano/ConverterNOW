@@ -273,18 +273,6 @@ class SettingsPage extends ConsumerWidget {
                       borderRadius: borderRadius,
                     ),
                   ),
-                  ListTile(
-                    key: const ValueKey('hide-units'),
-                    leading: Icon(
-                      Icons.visibility_off_outlined,
-                      color: iconColor,
-                    ),
-                    title: Text(l10n.hideUnits),
-                    onTap: () => context.goNamed('hide-units'),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: borderRadius,
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsetsDirectional.only(
                       start: 16,

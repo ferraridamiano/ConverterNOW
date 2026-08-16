@@ -20,6 +20,12 @@ AppPage computeSelectedSection(BuildContext context) {
   if (location.startsWith('/reorder-units')) {
     return AppPage.reorder;
   }
+  if (location.startsWith('/hide-units/') && location.split('/')[2] != '') {
+    return AppPage.reorderDetails;
+  }
+  if (location.startsWith('/hide-units')) {
+    return AppPage.reorder;
+  }
   if (location.startsWith('/settings')) {
     return AppPage.settings;
   }

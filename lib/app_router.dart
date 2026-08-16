@@ -76,6 +76,15 @@ final routerProvider = Provider<GoRouter>(
             },
           ),
           GoRoute(
+            path: '/hide-units/:property',
+            name: 'hide-units',
+            builder: (context, state) {
+              final String property = state.pathParameters['property']!;
+              final propertyx = kebabStringToPropertyX(property);
+              return HideUnitsPage(propertyx);
+            },
+          ),
+          GoRoute(
             path: '/settings',
             name: 'settings',
             builder: (context, state) => const SettingsPage(),
@@ -84,24 +93,6 @@ final routerProvider = Provider<GoRouter>(
                 path: 'reorder-properties',
                 name: 'reorder-properties',
                 builder: (context, state) => const ReorderPropertiesPage(),
-              ),
-              GoRoute(
-                path: 'hide-units',
-                name: 'hide-units',
-                builder: (context, state) => const HideUnitsPage(),
-                routes: [
-                  GoRoute(
-                    path: ':property',
-                    builder: (context, state) {
-                      final String property = state.pathParameters['property']!;
-                      final propertyx = kebabStringToPropertyX(property);
-                      return HideUnitsPage(
-                        selectedProperty: propertyx,
-                        isPropertySelected: true,
-                      );
-                    },
-                  ),
-                ],
               ),
               GoRoute(
                 path: 'about',

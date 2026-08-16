@@ -14,7 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:go_router/go_router.dart';
 
-enum _AppBarAction { reorderUnits }
+enum _AppBarAction { reorderUnits, hideUnits }
 
 class ConversionPage extends ConsumerWidget {
   final PROPERTYX property;
@@ -41,12 +41,12 @@ class ConversionPage extends ConsumerWidget {
     final hiddenUnits = ref
         .watch(HiddenUnitsNotifier.provider)
         .value![property]!;
-    final hiddenUnitData = unitDataList.where(
-      (e) => hiddenUnits.contains(e.unit.name),
-    ).toList();
-    final unhiddenUnitData = unitDataList.where(
-      (e) => !hiddenUnits.contains(e.unit.name),
-    ).toList();
+    final hiddenUnitData = unitDataList
+        .where((e) => hiddenUnits.contains(e.unit.name))
+        .toList();
+    final unhiddenUnitData = unitDataList
+        .where((e) => !hiddenUnits.contains(e.unit.name))
+        .toList();
 
     Widget? subtitleWidget;
     if (property == PROPERTYX.currencies) {
@@ -176,9 +176,9 @@ class ConversionPage extends ConsumerWidget {
                   onSelected: (_AppBarAction action) {
                     switch (action) {
                       case _AppBarAction.reorderUnits:
-                        context.go(
-                          '/reorder-units/${property.toKebabCase()}',
-                        );
+                        context.go('/reorder-units/${property.toKebabCase()}');
+                      case _AppBarAction.hideUnits:
+                        context.go('/hide-units/${property.toKebabCase()}');
                     }
                   },
                   itemBuilder: (BuildContext context) {
@@ -191,8 +191,21 @@ class ConversionPage extends ConsumerWidget {
                           children: [
                             const Icon(Icons.reorder),
                             Text(
-                              l10n.reorderProperty(propertyUiMap[property]!.name),
+                              l10n.reorderProperty(
+                                propertyUiMap[property]!.name,
+                              ),
                             ),
+                          ],
+                        ),
+                      ),
+                      PopupMenuItem<_AppBarAction>(
+                        key: const ValueKey('hide-units'),
+                        value: _AppBarAction.hideUnits,
+                        child: Row(
+                          spacing: 8,
+                          children: [
+                            const Icon(Icons.visibility_off_outlined),
+                            Text(l10n.hideUnits),
                           ],
                         ),
                       ),
