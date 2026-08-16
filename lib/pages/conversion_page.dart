@@ -14,8 +14,6 @@ import 'package:intl/intl.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:go_router/go_router.dart';
 
-enum _AppBarAction { reorderUnits, hideUnits }
-
 class ConversionPage extends ConsumerWidget {
   final PROPERTYX property;
 
@@ -170,51 +168,37 @@ class ConversionPage extends ConsumerWidget {
                 },
               ),
               actions: [
-                PopupMenuButton<_AppBarAction>(
-                  key: const ValueKey('appbar-menu'),
-                  icon: const Icon(Icons.more_vert),
-                  onSelected: (_AppBarAction action) {
-                    switch (action) {
-                      case _AppBarAction.reorderUnits:
-                        context.go(
-                          '/conversions/${property.toKebabCase()}/reorder',
-                        );
-                      case _AppBarAction.hideUnits:
-                        context.go(
-                          '/conversions/${property.toKebabCase()}/hide',
-                        );
-                    }
-                  },
-                  itemBuilder: (BuildContext context) {
-                    return <PopupMenuEntry<_AppBarAction>>[
-                      PopupMenuItem<_AppBarAction>(
-                        key: const ValueKey('reorder-units'),
-                        value: _AppBarAction.reorderUnits,
-                        child: Row(
-                          spacing: 8,
-                          children: [
-                            const Icon(Icons.reorder),
-                            Text(
-                              l10n.reorderProperty(
-                                propertyUiMap[property]!.name,
-                              ),
-                            ),
-                          ],
-                        ),
+                MenuAnchor(
+                  menuChildren: [
+                    MenuItemButton(
+                      key: const ValueKey('reorder-units'),
+                      leadingIcon: const Icon(Icons.reorder),
+                      onPressed: () => context.go(
+                        '/conversions/${property.toKebabCase()}/reorder',
                       ),
-                      PopupMenuItem<_AppBarAction>(
-                        key: const ValueKey('hide-units'),
-                        value: _AppBarAction.hideUnits,
-                        child: Row(
-                          spacing: 8,
-                          children: [
-                            const Icon(Icons.visibility_off_outlined),
-                            Text(l10n.hideUnits),
-                          ],
-                        ),
+                      child: Text(
+                        l10n.reorderProperty(propertyUiMap[property]!.name),
                       ),
-                    ];
+                    ),
+                    MenuItemButton(
+                      key: const ValueKey('hide-units'),
+                      leadingIcon: const Icon(Icons.visibility_off_outlined),
+                      onPressed: () => context.go(
+                        '/conversions/${property.toKebabCase()}/hide',
+                      ),
+                      child: Text(l10n.hideUnits),
+                    ),
+                  ],
+                  builder: (context, controller, child) {
+                    return IconButton(
+                      key: const ValueKey('appbar-menu'),
+                      icon: const Icon(Icons.more_vert),
+                      onPressed: () => controller.isOpen
+                          ? controller.close()
+                          : controller.open(),
+                    );
                   },
+                  
                 ),
               ],
             ),
