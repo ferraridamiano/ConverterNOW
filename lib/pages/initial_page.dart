@@ -35,12 +35,9 @@ class InitialPage extends ConsumerWidget {
             maxCrossAxisExtent: 180,
             children: getPropertyGridTiles(
               (PROPERTYX e) {
-                final heroEnabledNotifier = ref
-                    .read(conversionPageHeroEnabledProvider.notifier);
                 Future.delayed(const Duration(milliseconds: 300), () {
-                  if (heroEnabledNotifier.mounted) {
-                    heroEnabledNotifier.state = false;
-                  }
+                  ref.read(conversionPageHeroEnabledProvider.notifier).state =
+                      false;
                 });
                 HapticFeedback.selectionClick();
                 context.go('/conversions/${e.toKebabCase()}');

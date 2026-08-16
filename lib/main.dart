@@ -90,10 +90,7 @@ class MyApp extends ConsumerWidget {
                   ? amoledTheme
                   : darkTheme,
               supportedLocales: mapLocale.keys,
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                ...GlobalMaterialLocalizations.delegates,
-              ],
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
               locale: appLocale,
             );
           },

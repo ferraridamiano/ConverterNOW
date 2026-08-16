@@ -15,8 +15,9 @@ void main() {
     if (clearPrefs) {
       await clearPreferences();
     }
-    setWindowSize(400, 800);
     app.main();
+    await tester.pumpAndSettle();
+    setWindowSize(400, 800);
     await tester.pumpAndSettle();
     if (openFirstProperty) {
       await tester.tap(find.byKey(const ValueKey('gridtile-0')));
@@ -28,7 +29,7 @@ void main() {
     testWidgets('Change to a new property and perform conversion', (
       WidgetTester tester,
     ) async {
-      await testInit(tester);
+      await testInit(tester, openFirstProperty: false);
       await tester.tap(find.byIcon(Icons.menu)); // Open drawer
       await tester.pumpAndSettle();
       await tester.tap(

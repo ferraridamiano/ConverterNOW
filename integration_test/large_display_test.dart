@@ -11,8 +11,9 @@ void main() {
     if (clearPrefs) {
       await clearPreferences();
     }
-    setWindowSize(800, 700);
     app.main();
+    await tester.pumpAndSettle();
+    setWindowSize(800, 700);
     await tester.pumpAndSettle();
   }
 
