@@ -12,15 +12,16 @@ dependencies:
   flutter:
     sdk: flutter
   # Calculator computation
-  decimal: ^3.2.4
+  decimal: ^3.2.6
   # State management
-  flutter_riverpod: ^3.3.1
+  flutter_riverpod: ^3.4.2
+  # Material widgets
+  material_ui: ^1.0.0
   # Calculator computation
   rational: ^2.2.3
   # App translation
   translations:
     path: ../translations
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

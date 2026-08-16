@@ -2,7 +2,7 @@ import 'package:converterpro/app_router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:converterpro/models/settings.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:dynamic_color/dynamic_color.dart';
@@ -24,7 +24,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DynamicColorBuilder(
-      builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+      builder: (final lightDynamic, final darkDynamic) {
         if (lightDynamic != null) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => ref.read(deviceAccentColorProvider.notifier).state =
@@ -90,7 +90,10 @@ class MyApp extends ConsumerWidget {
                   ? amoledTheme
                   : darkTheme,
               supportedLocales: mapLocale.keys,
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                ...GlobalMaterialLocalizations.delegates,
+              ],
               locale: appLocale,
             );
           },

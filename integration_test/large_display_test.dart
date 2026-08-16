@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:converterpro/main.dart' as app;
 import 'utils.dart';
 
@@ -39,20 +39,6 @@ void main() {
         reason: 'Expected the area page',
       );
 
-      final tffFeet =
-          find.byKey(const ValueKey('AREA.squareFeet')).evaluate().single.widget
-              as TextFormField;
-      final tffHectares =
-          find.byKey(const ValueKey('AREA.hectares')).evaluate().single.widget
-              as TextFormField;
-      final tffMeters =
-          find
-                  .byKey(const ValueKey('AREA.squareMeters'))
-                  .evaluate()
-                  .single
-                  .widget
-              as TextFormField;
-
       await tester.enterText(
         find.byKey(const ValueKey('AREA.squareFeet')),
         '1000',
@@ -60,21 +46,21 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-        tffHectares.controller!.text,
+        getTextFieldText('AREA.hectares'),
         '0.009290304',
         reason: 'Conversion error',
       );
       expect(
-        tffMeters.controller!.text,
+        getTextFieldText('AREA.squareMeters'),
         '92.90304',
         reason: 'Conversion error',
       );
 
       await tester.tap(find.byKey(const ValueKey('clearAll')));
       await tester.pumpAndSettle();
-      expect(tffFeet.controller!.text, '', reason: 'Text not cleared');
-      expect(tffHectares.controller!.text, '', reason: 'Text not cleared');
-      expect(tffMeters.controller!.text, '', reason: 'Text not cleared');
+      expect(getTextFieldText('AREA.squareFeet'), '', reason: 'Text not cleared');
+      expect(getTextFieldText('AREA.hectares'), '', reason: 'Text not cleared');
+      expect(getTextFieldText('AREA.squareMeters'), '', reason: 'Text not cleared');
     });
   });
 
@@ -82,39 +68,30 @@ void main() {
     WidgetTester tester,
   ) async {
     await testInit(tester);
-    final tffMiles =
-        find.byKey(const ValueKey('LENGTH.miles')).evaluate().single.widget
-            as TextFormField;
-    final tffFeet =
-        find.byKey(const ValueKey('LENGTH.feet')).evaluate().single.widget
-            as TextFormField;
-    final tffMeters =
-        find.byKey(const ValueKey('LENGTH.meters')).evaluate().single.widget
-            as TextFormField;
 
     expect(
       find.text('Length'),
       findsAtLeastNWidgets(2),
       reason: 'Expected the length page',
     );
-
+    await tester.pumpAndSettle();
     await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
     await tester.pumpAndSettle();
 
-    expect(tffFeet.controller!.text, '5280', reason: 'Conversion error');
-    expect(tffMeters.controller!.text, '1609.344', reason: 'Conversion error');
+    expect(getTextFieldText('LENGTH.feet'), '5280', reason: 'Conversion error');
+    expect(getTextFieldText('LENGTH.meters'), '1609.344', reason: 'Conversion error');
 
     await tester.tap(find.byKey(const ValueKey('clearAll')));
     await tester.pumpAndSettle();
-    expect(tffMiles.controller!.text, '', reason: 'Text not cleared');
-    expect(tffFeet.controller!.text, '', reason: 'Text not cleared');
-    expect(tffMeters.controller!.text, '', reason: 'Text not cleared');
+    expect(getTextFieldText('LENGTH.miles'), '', reason: 'Text not cleared');
+    expect(getTextFieldText('LENGTH.feet'), '', reason: 'Text not cleared');
+    expect(getTextFieldText('LENGTH.meters'), '', reason: 'Text not cleared');
 
     await tester.tap(find.byKey(const ValueKey('undoClearAll')));
     await tester.pumpAndSettle();
-    expect(tffMiles.controller!.text, '1.0', reason: 'Text not restored');
-    expect(tffFeet.controller!.text, '5280.0', reason: 'Text not restored');
-    expect(tffMeters.controller!.text, '1609.344', reason: 'Text not restored');
+    expect(getTextFieldText('LENGTH.miles'), '1.0', reason: 'Text not restored');
+    expect(getTextFieldText('LENGTH.feet'), '5280.0', reason: 'Text not restored');
+    expect(getTextFieldText('LENGTH.meters'), '1609.344', reason: 'Text not restored');
   });
 
   group('Language tasks:', () {
@@ -450,16 +427,13 @@ void main() {
       await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
       await tester.pumpAndSettle();
 
-      final tffFeet =
-          find.byKey(const ValueKey('LENGTH.feet')).evaluate().single.widget
-              as TextFormField;
-      final tffMeters =
-          find.byKey(const ValueKey('LENGTH.meters')).evaluate().single.widget
-              as TextFormField;
-
-      expect(tffFeet.controller!.text, '5280', reason: 'Conversion error');
       expect(
-        tffMeters.controller!.text,
+        getTextFieldText('LENGTH.feet'),
+        '5280',
+        reason: 'Conversion error',
+      );
+      expect(
+        getTextFieldText('LENGTH.meters'),
         '1609.344',
         reason: 'Conversion error',
       );
@@ -476,16 +450,13 @@ void main() {
       await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
       await tester.pumpAndSettle();
 
-      final tffFeet =
-          find.byKey(const ValueKey('LENGTH.feet')).evaluate().single.widget
-              as TextFormField;
-      final tffMeters =
-          find.byKey(const ValueKey('LENGTH.meters')).evaluate().single.widget
-              as TextFormField;
-
-      expect(tffFeet.controller!.text, '5280', reason: 'Conversion error');
       expect(
-        tffMeters.controller!.text,
+        getTextFieldText('LENGTH.feet'),
+        '5280',
+        reason: 'Conversion error',
+      );
+      expect(
+        getTextFieldText('LENGTH.meters'),
         '1609.344',
         reason: 'Conversion error',
       );
