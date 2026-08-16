@@ -266,13 +266,7 @@ class SettingsPage extends ConsumerWidget {
                   ),
                   ListTile(
                     key: const ValueKey('reorder-properties'),
-                    leading: SvgPicture(
-                      const AssetBytesLoader(
-                        'assets/app_icons_opti/reorder_properties.svg.vec',
-                      ),
-                      width: 25,
-                      colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-                    ),
+                    leading: Icon(Icons.reorder, color: iconColor),
                     title: Text(l10n.reorderProperties),
                     onTap: () => context.goNamed('reorder-properties'),
                     shape: const RoundedRectangleBorder(
