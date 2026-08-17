@@ -116,11 +116,14 @@ class ConversionPage extends ConsumerWidget {
       },
     );
 
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraint) {
-        final int numCols = responsiveNumCols(constraint.maxWidth);
-        return CustomScrollView(
-          slivers: <Widget>[
+    return ValueListenableBuilder<TextEditingValue>(
+      valueListenable: unitDataList[0].tec,
+      builder: (context, textValue, child) {
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraint) {
+            final int numCols = responsiveNumCols(constraint.maxWidth);
+            return CustomScrollView(
+              slivers: <Widget>[
             SliverAppBar.large(
               title: Builder(
                 builder: (context) {
@@ -251,7 +254,9 @@ class ConversionPage extends ConsumerWidget {
                   ],
                 ),
               ),
-            if (isDrawerFixed(MediaQuery.sizeOf(context).width))
+            if (isDrawerFixed(MediaQuery.sizeOf(context).width) &&
+                MediaQuery.viewInsetsOf(context).bottom == 0 &&
+                textValue.text.isNotEmpty)
               // Space for FAB + navigation bar (android)
               SliverToBoxAdapter(
                 child: SizedBox(
@@ -260,6 +265,8 @@ class ConversionPage extends ConsumerWidget {
               ),
           ],
         );
+      },
+    );
       },
     );
   }
