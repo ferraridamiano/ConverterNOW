@@ -176,9 +176,7 @@ class ConversionPage extends ConsumerWidget {
                       onPressed: () => context.go(
                         '/conversions/${property.toKebabCase()}/reorder',
                       ),
-                      child: Text(
-                        l10n.reorderProperty(propertyUiMap[property]!.name),
-                      ),
+                      child: Text(l10n.reorderUnits),
                     ),
                     MenuItemButton(
                       key: const ValueKey('hide-units'),
