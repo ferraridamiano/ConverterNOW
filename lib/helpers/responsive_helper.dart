@@ -14,6 +14,6 @@ int responsiveNumCols(double displayWidth) {
 }
 
 double responsiveChildAspectRatio(double width, int colNumber) =>
-    width / (colNumber * 90);
+    width / (colNumber * 84);
 
 bool isDrawerFixed(double displayWidth) => displayWidth > pixelFixedDrawer;
