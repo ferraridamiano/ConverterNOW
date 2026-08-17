@@ -65,6 +65,26 @@ final routerProvider = Provider<GoRouter>(
               final propertyx = kebabStringToPropertyX(property);
               return ConversionPage(propertyx);
             },
+            routes: [
+              GoRoute(
+                path: 'reorder',
+                name: 'reorder-units',
+                builder: (context, state) {
+                  final String property = state.pathParameters['property']!;
+                  final propertyx = kebabStringToPropertyX(property);
+                  return ReorderUnitsPage(propertyx);
+                },
+              ),
+              GoRoute(
+                path: 'hide',
+                name: 'hide-units',
+                builder: (context, state) {
+                  final String property = state.pathParameters['property']!;
+                  final propertyx = kebabStringToPropertyX(property);
+                  return HideUnitsPage(propertyx);
+                },
+              ),
+            ],
           ),
           GoRoute(
             path: '/settings',
@@ -75,42 +95,6 @@ final routerProvider = Provider<GoRouter>(
                 path: 'reorder-properties',
                 name: 'reorder-properties',
                 builder: (context, state) => const ReorderPropertiesPage(),
-              ),
-              GoRoute(
-                path: 'reorder-units',
-                name: 'reorder-units',
-                builder: (context, state) => const ReorderUnitsPage(),
-                routes: [
-                  GoRoute(
-                    path: ':property',
-                    builder: (context, state) {
-                      final String property = state.pathParameters['property']!;
-                      final propertyx = kebabStringToPropertyX(property);
-                      return ReorderUnitsPage(
-                        selectedProperty: propertyx,
-                        isPropertySelected: true,
-                      );
-                    },
-                  ),
-                ],
-              ),
-              GoRoute(
-                path: 'hide-units',
-                name: 'hide-units',
-                builder: (context, state) => const HideUnitsPage(),
-                routes: [
-                  GoRoute(
-                    path: ':property',
-                    builder: (context, state) {
-                      final String property = state.pathParameters['property']!;
-                      final propertyx = kebabStringToPropertyX(property);
-                      return HideUnitsPage(
-                        selectedProperty: propertyx,
-                        isPropertySelected: true,
-                      );
-                    },
-                  ),
-                ],
               ),
               GoRoute(
                 path: 'about',

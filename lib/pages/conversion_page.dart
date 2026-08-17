@@ -12,6 +12,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:intl/intl.dart';
 import 'package:vector_graphics/vector_graphics.dart';
+import 'package:go_router/go_router.dart';
 
 class ConversionPage extends ConsumerWidget {
   final PROPERTYX property;
@@ -38,12 +39,12 @@ class ConversionPage extends ConsumerWidget {
     final hiddenUnits = ref
         .watch(HiddenUnitsNotifier.provider)
         .value![property]!;
-    final hiddenUnitData = unitDataList.where(
-      (e) => hiddenUnits.contains(e.unit.name),
-    ).toList();
-    final unhiddenUnitData = unitDataList.where(
-      (e) => !hiddenUnits.contains(e.unit.name),
-    ).toList();
+    final hiddenUnitData = unitDataList
+        .where((e) => hiddenUnits.contains(e.unit.name))
+        .toList();
+    final unhiddenUnitData = unitDataList
+        .where((e) => !hiddenUnits.contains(e.unit.name))
+        .toList();
 
     Widget? subtitleWidget;
     if (property == PROPERTYX.currencies) {
@@ -166,6 +167,38 @@ class ConversionPage extends ConsumerWidget {
                   );
                 },
               ),
+              actions: [
+                MenuAnchor(
+                  menuChildren: [
+                    MenuItemButton(
+                      key: const ValueKey('reorder-units'),
+                      leadingIcon: const Icon(Icons.reorder),
+                      onPressed: () => context.go(
+                        '/conversions/${property.toKebabCase()}/reorder',
+                      ),
+                      child: Text(l10n.reorderUnits),
+                    ),
+                    MenuItemButton(
+                      key: const ValueKey('hide-units'),
+                      leadingIcon: const Icon(Icons.visibility_off_outlined),
+                      onPressed: () => context.go(
+                        '/conversions/${property.toKebabCase()}/hide',
+                      ),
+                      child: Text(l10n.hideUnits),
+                    ),
+                  ],
+                  builder: (context, controller, child) {
+                    return IconButton(
+                      key: const ValueKey('appbar-menu'),
+                      icon: const Icon(Icons.more_vert),
+                      onPressed: () => controller.isOpen
+                          ? controller.close()
+                          : controller.open(),
+                    );
+                  },
+                  
+                ),
+              ],
             ),
             if (subtitleWidget != null)
               SliverToBoxAdapter(

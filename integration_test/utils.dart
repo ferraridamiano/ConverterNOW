@@ -28,6 +28,14 @@ void setWindowSize(double width, double height) {
   setWindowMaxSize(size);
 }
 
+/// Opens the app bar menu and taps the reorder-units entry
+Future<void> tapReorderUnitsFromAppBar(WidgetTester tester) async {
+  await tester.tap(find.byKey(const ValueKey('appbar-menu')));
+  await tester.pumpAndSettle();
+  await tester.tap(find.byKey(const ValueKey('reorder-units')));
+  await tester.pumpAndSettle();
+}
+
 /// Gets the [TextFormField] widget for a given [key]
 TextFormField getTextField(String key) =>
     find.byKey(ValueKey(key)).evaluate().single.widget as TextFormField;
