@@ -169,22 +169,10 @@
   "tablespoonUs": "Łyżki stołowe amerykańskie",
   "tablespoonAustralian": "Łyżki stołowe australijskie",
   "cups": "Cupy",
-  "metricCup": "Metric cup",
-  "@metricCup": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "britishCup": "British cup",
-  "@britishCup": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "usBarrel": "US barrel",
-  "@usBarrel": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "cubicYard": "Cubic yard",
-  "@cubicYard": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "metricCup": "Filiżanki amerykańskie",
+  "britishCup": "Filiżanki metryczne",
+  "usBarrel": "Baryłki amerykańskie",
+  "cubicYard": "Jardy sześcienne",
   "cubicCentimeters": "Centymetry sześcienne",
   "cubicFeet": "Stopy sześcienne",
   "cubicInches": "Cale sześcienne",
@@ -211,10 +199,7 @@
   "days": "Dni",
   "weeks": "Tygodnie",
   "years": "Lata (365)",
-  "averageMonth": "Average month",
-  "@averageMonth": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "averageMonth": "Miesiące",
   "lustrum": "Lustrum",
   "decades": "Dekady",
   "centuries": "Stulecia",
@@ -236,10 +221,7 @@
   "minutesPerKilometer": "Minuty na kilometr",
   "minutesPerMile": "Minuty na milę",
   "speedOfLight": "Prędkość światła",
-  "speedOfSound": "Speed of sound",
-  "@speedOfSound": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "speedOfSound": "Prędkość dźwięku",
 
   "grams": "Gramy",
   "ettograms": "Ettogramy",
@@ -255,14 +237,8 @@
   "pennyweights": "Pennyweighty",
   "troyOunces": "Uncje trojańskie",
   "stones": "Kamienie",
-  "shortTon": "Short ton",
-  "@shortTon": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
-  "longTon": "Long ton",
-  "@longTon": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "shortTon": "Tony krótkie",
+  "longTon": "Tony długie",
 
   "pascal": "Paskal",
   "atmosphere": "Atmosfera",
@@ -360,10 +336,7 @@
   "liters100km": "Litry na 100 km",
   "milesUsGallon": "Kilometry z galona amerykańskiego",
   "milesImperialGallon": "Mile z galona angielskiego",
-  "milesPerLiter": "Miles per liter",
-  "@milesPerLiter": {
-    "description": "Not yet translated. Once done, remove this comment"
-  },
+  "milesPerLiter": "Mile z litra",
 
   "decimal": "Dziesiętny",
   "hexadecimal": "Szesnastkowy",
@@ -373,29 +346,11 @@
   "bit": "Bit",
   "nibble": "Półbajt",
   "kilobit": "Kilobit",
-  "@kilobit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "megabit": "Megabit",
-  "@megabit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "gigabit": "Gigabit",
-  "@gigabit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "terabit": "Terabit",
-  "@terabit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "petabit": "Petabit",
-  "@petabit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "exabit": "Eksabit",
-  "@exabit": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "kibibit": "Kibibit",
   "mebibit": "Mebibit",
   "gibibit": "Gibibit",
@@ -404,29 +359,11 @@
   "exbibit": "Exbibit",
   "byte": "Bajt",
   "kilobyte": "Kilobajt",
-  "@kilobyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "megabyte": "Megabajt",
-  "@megabyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "gigabyte": "Gigabajt",
-  "@gigabyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "terabyte": "Terabajt",
-  "@terabyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "petabyte": "Petabajt",
-  "@petabyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "exabyte": "Eksabajt",
-  "@exabyte": {
-    "description": "Revise this translation to also include the 'decimal' part"
-  },
   "kibibyte": "Kibibajt",
   "mebibyte": "Mebibajt",
   "gibibyte": "Gibibajt",
