@@ -95,6 +95,17 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.6.3" date="2026-08-19">
+      <description>
+        <ul>
+          <li>📱 The hide and reorder features moved to the property page, making them easier to find</li>
+          <li>🔢 Added several units of measurement</li>
+          <li>🌍 Translation improvements. Thanks to @solokot and @rehork</li>
+          <li>🐞 Bug fixes and general improvements! We've worked hard to give you an even better experience</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
     <release version="4.6.2" date="2026-06-07">
       <description>
         <ul>

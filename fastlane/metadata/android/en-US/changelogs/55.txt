@@ -1,0 +1,6 @@
+📱 You can now <b>hide and reorder the units</b> directly from the property page
+🔢 <b>Added several units of measurement</b>
+🌍 <b>Translation improvements</b>. Thanks to @solokot and @rehork
+🐞 <b>Bug fixes and general improvements</b>! We worked hard to offer you an ever-better experience
+
+<b>Do you like Converter NOW?</b> Leave a review and let us know what you think! ✔️
