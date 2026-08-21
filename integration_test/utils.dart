@@ -12,10 +12,15 @@ Future<void> clearPreferences() async {
   await pref.clear();
 }
 
-/// Perform a drag from [start] to [end]. Useful for reorderable list
+/// Perform a drag from [start] to [end]. Useful for reorderable grids.
+///
+/// A first small movement is needed to win the gesture arena and start
+/// the actual drag, otherwise the following movements are ignored.
 Future<void> dragGesture(WidgetTester tester, Offset start, Offset end) async {
   final TestGesture drag = await tester.startGesture(start);
   await tester.pump(kPressTimeout);
+  await drag.moveBy(const Offset(0, kTouchSlop + 10));
+  await tester.pump();
   await drag.moveTo(end);
   await tester.pump(kPressTimeout);
   await drag.up();
@@ -26,14 +31,6 @@ void setWindowSize(double width, double height) {
   final size = Size(width, height);
   setWindowMinSize(size);
   setWindowMaxSize(size);
-}
-
-/// Opens the app bar menu and taps the reorder-units entry
-Future<void> tapReorderUnitsFromAppBar(WidgetTester tester) async {
-  await tester.tap(find.byKey(const ValueKey('appbar-menu')));
-  await tester.pumpAndSettle();
-  await tester.tap(find.byKey(const ValueKey('reorder-units')));
-  await tester.pumpAndSettle();
 }
 
 /// Gets the [TextFormField] widget for a given [key]

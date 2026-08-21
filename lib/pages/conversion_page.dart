@@ -3,7 +3,11 @@ import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/models/hide_units.dart';
+import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:translations/app_localizations.dart';
@@ -116,6 +120,55 @@ class ConversionPage extends ConsumerWidget {
       },
     );
 
+    // On desktop the drag starts immediately when pressing and moving a tile,
+    // on mobile a long press is needed
+    final bool isDesktop = switch (Theme.of(context).platform) {
+      TargetPlatform.linux ||
+      TargetPlatform.windows ||
+      TargetPlatform.macOS => true,
+      _ => false,
+    };
+
+    /// Saves the new order of the units after a drag and drop. Only the
+    /// visible units are reordered, the hidden ones keep their position.
+    void reorderUnits(
+      List<UnitData> Function(List<UnitData>) reorderedListFunction,
+    ) {
+      final currentUnitDataList = ref
+          .read(ConversionsNotifier.provider)
+          .value![property]!;
+      final hiddenUnitNames = ref
+          .read(HiddenUnitsNotifier.provider)
+          .value![property]!
+          .toSet();
+      final visibleUnitData = currentUnitDataList
+          .where((e) => !hiddenUnitNames.contains(e.unit.name))
+          .toList();
+      final newVisibleOrder = reorderedListFunction(visibleUnitData);
+      if (listEquals(newVisibleOrder, visibleUnitData)) {
+        return;
+      }
+      // Rebuild the full order keeping the hidden units in their positions
+      final iterator = newVisibleOrder.iterator;
+      final newFullOrder = <UnitData>[];
+      for (final unitData in currentUnitDataList) {
+        if (hiddenUnitNames.contains(unitData.unit.name)) {
+          newFullOrder.add(unitData);
+        } else {
+          iterator.moveNext();
+          newFullOrder.add(iterator.current);
+        }
+      }
+      // Convert the new order to indices and save it
+      final currentUnitsOrder = ref
+          .read(UnitsOrderNotifier.provider)
+          .value![property]!;
+      final newIndices = newFullOrder
+          .map((unitData) => currentUnitsOrder.indexOf(unitData.unit.name))
+          .toList();
+      ref.read(UnitsOrderNotifier.provider.notifier).set(newIndices, property);
+    }
+
     return ValueListenableBuilder<TextEditingValue>(
       valueListenable: unitDataList[0].tec,
       builder: (context, textValue, child) {
@@ -174,14 +227,6 @@ class ConversionPage extends ConsumerWidget {
                 MenuAnchor(
                   menuChildren: [
                     MenuItemButton(
-                      key: const ValueKey('reorder-units'),
-                      leadingIcon: const Icon(Icons.reorder),
-                      onPressed: () => context.go(
-                        '/conversions/${property.toKebabCase()}/reorder',
-                      ),
-                      child: Text(l10n.reorderUnits),
-                    ),
-                    MenuItemButton(
                       key: const ValueKey('hide-units'),
                       leadingIcon: const Icon(Icons.visibility_off_outlined),
                       onPressed: () => context.go(
@@ -215,17 +260,42 @@ class ConversionPage extends ConsumerWidget {
               ),
             SliverPadding(
               padding: const EdgeInsets.only(top: 10),
-              sliver: SliverGrid.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: numCols,
-                  childAspectRatio: responsiveChildAspectRatio(
-                    constraint.maxWidth,
-                    numCols,
+              sliver: SliverToBoxAdapter(
+                child: ReorderableBuilder<UnitData>.builder(
+                  longPressDelay: isDesktop
+                      ? Duration.zero
+                      : kLongPressTimeout,
+                  dragChildBoxDecoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  onReorder: reorderUnits,
+                  itemCount: unhiddenUnitData.length,
+                  childBuilder: (itemBuilder) => GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: numCols,
+                      childAspectRatio: responsiveChildAspectRatio(
+                        constraint.maxWidth,
+                        numCols,
+                      ),
+                    ),
+                    itemCount: unhiddenUnitData.length,
+                    itemBuilder: (context, index) => itemBuilder(
+                      KeyedSubtree(
+                        key: ValueKey(
+                          'unit-${unhiddenUnitData[index].unit.name}',
+                        ),
+                        child: _DragCue(
+                          child: unitWidgetBuilder(unhiddenUnitData[index]),
+                        ),
+                      ),
+                      index,
+                    ),
                   ),
                 ),
-                itemCount: unhiddenUnitData.length,
-                itemBuilder: (context, index) =>
-                    unitWidgetBuilder(unhiddenUnitData[index]),
               ),
             ),
             if (hiddenUnitData.isNotEmpty)
@@ -268,6 +338,42 @@ class ConversionPage extends ConsumerWidget {
       },
     );
       },
+    );
+  }
+}
+
+/// Shows a subtle highlight and a grab cursor when the user hovers a unit
+/// tile, to communicate that the tile can be dragged to be reordered.
+class _DragCue extends StatefulWidget {
+  final Widget child;
+
+  const _DragCue({required this.child});
+
+  @override
+  State<_DragCue> createState() => _DragCueState();
+}
+
+class _DragCueState extends State<_DragCue> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.grab,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: _isHovered
+                ? Theme.of(context).colorScheme.primary.withValues(alpha: 0.4)
+                : Colors.transparent,
+          ),
+        ),
+        child: widget.child,
+      ),
     );
   }
 }

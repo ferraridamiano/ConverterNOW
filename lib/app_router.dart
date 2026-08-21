@@ -8,7 +8,6 @@ import 'package:converterpro/pages/error_page.dart';
 import 'package:converterpro/pages/hide_units_page.dart';
 import 'package:converterpro/pages/initial_page.dart';
 import 'package:converterpro/pages/reorder_properties_page.dart';
-import 'package:converterpro/pages/reorder_units_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/pages/app_scaffold.dart';
@@ -66,15 +65,6 @@ final routerProvider = Provider<GoRouter>(
               return ConversionPage(propertyx);
             },
             routes: [
-              GoRoute(
-                path: 'reorder',
-                name: 'reorder-units',
-                builder: (context, state) {
-                  final String property = state.pathParameters['property']!;
-                  final propertyx = kebabStringToPropertyX(property);
-                  return ReorderUnitsPage(propertyx);
-                },
-              ),
               GoRoute(
                 path: 'hide',
                 name: 'hide-units',

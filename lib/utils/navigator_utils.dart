@@ -11,7 +11,7 @@ AppPage computeSelectedSection(BuildContext context) {
     return AppPage.reorder;
   }
   if (location.startsWith('/conversions/')) {
-    // e.g. /conversions/:property/reorder or /conversions/:property/hide
+    // e.g. /conversions/:property/hide
     if (location.split('/').length > 3) {
       return AppPage.reorderDetails;
     }

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/utils/utils.dart';
@@ -19,53 +20,60 @@ class ConversionsNotifier
       UnitsOrderNotifier.provider.future,
     ));
     final propertiesMap = await ref.watch(propertiesMapProvider.future);
+    // The current state is used to reuse the already existing UnitData (and
+    // their controllers with the typed values) when the order changes
+    // (e.g. when the user reorders the units)
+    final currentState = state.value;
 
     return conversionsOrder.map(
       (propertyx, orderedUnits) => MapEntry(
         propertyx,
-        orderedUnits
-            .map(
-              (e) => UnitData(
-                propertiesMap[propertyx]!.getUnit(e),
-                tec: TextEditingController(),
-                property: propertyx,
-                textInputType: switch (e) {
-                  TEMPERATURE.celsius ||
-                  TEMPERATURE.fahrenheit ||
-                  TEMPERATURE.delisle ||
-                  TEMPERATURE.reamur ||
-                  TEMPERATURE.romer => const TextInputType.numberWithOptions(
-                    decimal: true,
-                    signed: true,
-                  ),
-                  NUMERAL_SYSTEMS.binary ||
-                  NUMERAL_SYSTEMS.octal ||
-                  NUMERAL_SYSTEMS.decimal =>
-                    const TextInputType.numberWithOptions(
-                      decimal: false,
-                      signed: false,
-                    ),
-                  NUMERAL_SYSTEMS.hexadecimal => TextInputType.text,
-                  _ => const TextInputType.numberWithOptions(
-                    decimal: true,
-                    signed: false,
-                  ),
-                },
-                validator: switch (e) {
-                  TEMPERATURE.celsius ||
-                  TEMPERATURE.fahrenheit ||
-                  TEMPERATURE.delisle ||
-                  TEMPERATURE.reamur ||
-                  TEMPERATURE.romer => VALIDATOR.rational,
-                  NUMERAL_SYSTEMS.binary => VALIDATOR.binary,
-                  NUMERAL_SYSTEMS.octal => VALIDATOR.octal,
-                  NUMERAL_SYSTEMS.decimal => VALIDATOR.decimal,
-                  NUMERAL_SYSTEMS.hexadecimal => VALIDATOR.hexadecimal,
-                  _ => VALIDATOR.rationalNonNegative,
-                },
+        orderedUnits.map((e) {
+          final existingUnitData = currentState?[propertyx]?.firstWhereOrNull(
+            (unitData) => unitData.unit.name == e,
+          );
+          if (existingUnitData != null) {
+            return existingUnitData;
+          }
+          return UnitData(
+            propertiesMap[propertyx]!.getUnit(e),
+            tec: TextEditingController(),
+            property: propertyx,
+            textInputType: switch (e) {
+              TEMPERATURE.celsius ||
+              TEMPERATURE.fahrenheit ||
+              TEMPERATURE.delisle ||
+              TEMPERATURE.reamur ||
+              TEMPERATURE.romer => const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: true,
               ),
-            )
-            .toList(),
+              NUMERAL_SYSTEMS.binary ||
+              NUMERAL_SYSTEMS.octal ||
+              NUMERAL_SYSTEMS.decimal => const TextInputType.numberWithOptions(
+                decimal: false,
+                signed: false,
+              ),
+              NUMERAL_SYSTEMS.hexadecimal => TextInputType.text,
+              _ => const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: false,
+              ),
+            },
+            validator: switch (e) {
+              TEMPERATURE.celsius ||
+              TEMPERATURE.fahrenheit ||
+              TEMPERATURE.delisle ||
+              TEMPERATURE.reamur ||
+              TEMPERATURE.romer => VALIDATOR.rational,
+              NUMERAL_SYSTEMS.binary => VALIDATOR.binary,
+              NUMERAL_SYSTEMS.octal => VALIDATOR.octal,
+              NUMERAL_SYSTEMS.decimal => VALIDATOR.decimal,
+              NUMERAL_SYSTEMS.hexadecimal => VALIDATOR.hexadecimal,
+              _ => VALIDATOR.rationalNonNegative,
+            },
+          );
+        }).toList(),
       ),
     );
   }

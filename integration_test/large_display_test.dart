@@ -138,30 +138,23 @@ void main() {
         reason: 'Initial ordering of length units is not what expected',
       );
 
-      await tapReorderUnitsFromAppBar(tester);
-
-      final xDragHandle = tester
-          .getCenter(find.byIcon(Icons.drag_handle).first)
-          .dx;
-
+      // Drag the Meters tile onto the Yards tile
       await dragGesture(
         tester,
-        Offset(xDragHandle, tester.getCenter(find.text('Meters')).dy),
-        Offset(xDragHandle, tester.getCenter(find.text('Yards')).dy),
+        tester.getCenter(find.text('Meters')),
+        tester.getCenter(find.text('Yards')),
       );
       await tester.pumpAndSettle();
 
+      // Drag the Kilometers tile onto the Feet tile
       await dragGesture(
         tester,
-        Offset(xDragHandle, tester.getCenter(find.text('Kilometers')).dy),
-        Offset(xDragHandle, tester.getCenter(find.text('Feet')).dy),
+        tester.getCenter(find.text('Kilometers')),
+        tester.getCenter(find.text('Feet')),
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const ValueKey('confirm')));
-      await tester.pumpAndSettle();
-
-      // Now the ordering should be Inches, Centimeters, Meters, ...
+      // Now the ordering should be ... Kilometers, Feet, Meters ...
       expect(
         tester.getCenter(find.text('Kilometers')).dy <
                 tester.getCenter(find.text('Feet')).dy &&
@@ -367,27 +360,20 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      await tapReorderUnitsFromAppBar(tester);
-
-      final xDragHandleUnits = tester
-          .getCenter(find.byIcon(Icons.drag_handle).first)
-          .dx;
-
+      // Drag the Meters tile onto the Yards tile
       await dragGesture(
         tester,
-        Offset(xDragHandleUnits, tester.getCenter(find.text('Meters')).dy),
-        Offset(xDragHandleUnits, tester.getCenter(find.text('Yards')).dy),
+        tester.getCenter(find.text('Meters')),
+        tester.getCenter(find.text('Yards')),
       );
       await tester.pumpAndSettle();
 
+      // Drag the Kilometers tile onto the Feet tile
       await dragGesture(
         tester,
-        Offset(xDragHandleUnits, tester.getCenter(find.text('Kilometers')).dy),
-        Offset(xDragHandleUnits, tester.getCenter(find.text('Feet')).dy),
+        tester.getCenter(find.text('Kilometers')),
+        tester.getCenter(find.text('Feet')),
       );
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byKey(const ValueKey('confirm')));
       await tester.pumpAndSettle();
 
       await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
