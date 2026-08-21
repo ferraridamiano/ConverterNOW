@@ -124,149 +124,152 @@ class ConversionPage extends ConsumerWidget {
             final int numCols = responsiveNumCols(constraint.maxWidth);
             return CustomScrollView(
               slivers: <Widget>[
-            SliverAppBar.large(
-              title: Builder(
-                builder: (context) {
-                  final isExpanded =
-                      (DefaultTextStyle.of(context).style.fontSize ?? 22.0) >
-                      24.0;
-                  final iconWidget = SvgPicture(
-                    AssetBytesLoader(propertyUiMap[property]!.selectedIcon),
-                    width: 24,
-                    colorFilter: ColorFilter.mode(
-                      Theme.of(context).textTheme.titleLarge!.color!,
-                      BlendMode.srcIn,
-                    ),
-                  );
-                  final textWidget = Material(
-                    type: MaterialType.transparency,
-                    child: Text(
-                      propertyUiMap[property]!.name,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                  );
-                  return Row(
-                    spacing: 12,
-                    children: [
-                      isExpanded
-                          ? HeroMode(
-                              enabled: heroEnabled,
-                              child: Hero(
-                                tag: 'icon-${property.toString()}',
-                                child: iconWidget,
-                              ),
-                            )
-                          : iconWidget,
-                      isExpanded
-                          ? HeroMode(
-                              enabled: heroEnabled,
-                              child: Hero(
-                                tag: 'text-${property.toString()}',
-                                child: textWidget,
-                              ),
-                            )
-                          : textWidget,
-                    ],
-                  );
-                },
-              ),
-              actions: [
-                MenuAnchor(
-                  menuChildren: [
-                    MenuItemButton(
-                      key: const ValueKey('reorder-units'),
-                      leadingIcon: const Icon(Icons.reorder),
-                      onPressed: () => context.go(
-                        '/conversions/${property.toKebabCase()}/reorder',
-                      ),
-                      child: Text(l10n.reorderUnits),
-                    ),
-                    MenuItemButton(
-                      key: const ValueKey('hide-units'),
-                      leadingIcon: const Icon(Icons.visibility_off_outlined),
-                      onPressed: () => context.go(
-                        '/conversions/${property.toKebabCase()}/hide',
-                      ),
-                      child: Text(l10n.hideUnits),
-                    ),
-                  ],
-                  builder: (context, controller, child) {
-                    return IconButton(
-                      key: const ValueKey('appbar-menu'),
-                      icon: const Icon(Icons.more_vert),
-                      onPressed: () => controller.isOpen
-                          ? controller.close()
-                          : controller.open(),
-                    );
-                  },
-                  
-                ),
-              ],
-            ),
-            if (subtitleWidget != null)
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [subtitleWidget],
-                  ),
-                ),
-              ),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 10),
-              sliver: SliverGrid.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: numCols,
-                  childAspectRatio: responsiveChildAspectRatio(
-                    constraint.maxWidth,
-                    numCols,
-                  ),
-                ),
-                itemCount: unhiddenUnitData.length,
-                itemBuilder: (context, index) =>
-                    unitWidgetBuilder(unhiddenUnitData[index]),
-              ),
-            ),
-            if (hiddenUnitData.isNotEmpty)
-              SliverToBoxAdapter(
-                child: ExpansionTile(
-                  leading: const Icon(Icons.visibility_off_outlined),
-                  title: Text(
-                    l10n.hiddenUnits,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  children: [
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: numCols,
-                        childAspectRatio: responsiveChildAspectRatio(
-                          constraint.maxWidth,
-                          numCols,
+                SliverAppBar.large(
+                  title: Builder(
+                    builder: (context) {
+                      final isExpanded =
+                          (DefaultTextStyle.of(context).style.fontSize ??
+                              22.0) >
+                          24.0;
+                      final iconWidget = SvgPicture(
+                        AssetBytesLoader(propertyUiMap[property]!.selectedIcon),
+                        width: 24,
+                        colorFilter: ColorFilter.mode(
+                          Theme.of(context).textTheme.titleLarge!.color!,
+                          BlendMode.srcIn,
                         ),
-                      ),
-                      itemCount: hiddenUnitData.length,
-                      itemBuilder: (context, index) =>
-                          unitWidgetBuilder(hiddenUnitData[index]),
+                      );
+                      final textWidget = Material(
+                        type: MaterialType.transparency,
+                        child: Text(
+                          propertyUiMap[property]!.name,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                      );
+                      return Row(
+                        spacing: 12,
+                        children: [
+                          isExpanded
+                              ? HeroMode(
+                                  enabled: heroEnabled,
+                                  child: Hero(
+                                    tag: 'icon-${property.toString()}',
+                                    child: iconWidget,
+                                  ),
+                                )
+                              : iconWidget,
+                          isExpanded
+                              ? HeroMode(
+                                  enabled: heroEnabled,
+                                  child: Hero(
+                                    tag: 'text-${property.toString()}',
+                                    child: textWidget,
+                                  ),
+                                )
+                              : textWidget,
+                        ],
+                      );
+                    },
+                  ),
+                  actions: [
+                    MenuAnchor(
+                      menuChildren: [
+                        MenuItemButton(
+                          key: const ValueKey('reorder-units'),
+                          leadingIcon: const Icon(Icons.reorder),
+                          onPressed: () => context.go(
+                            '/conversions/${property.toKebabCase()}/reorder',
+                          ),
+                          child: Text(l10n.reorderUnits),
+                        ),
+                        MenuItemButton(
+                          key: const ValueKey('hide-units'),
+                          leadingIcon: const Icon(
+                            Icons.visibility_off_outlined,
+                          ),
+                          onPressed: () => context.go(
+                            '/conversions/${property.toKebabCase()}/hide',
+                          ),
+                          child: Text(l10n.hideUnits),
+                        ),
+                      ],
+                      builder: (context, controller, child) {
+                        return IconButton(
+                          key: const ValueKey('appbar-menu'),
+                          icon: const Icon(Icons.more_vert),
+                          onPressed: () => controller.isOpen
+                              ? controller.close()
+                              : controller.open(),
+                        );
+                      },
                     ),
                   ],
                 ),
-              ),
-            if (isDrawerFixed(MediaQuery.sizeOf(context).width) &&
-                MediaQuery.viewInsetsOf(context).bottom == 0 &&
-                textValue.text.isNotEmpty)
-              // Space for FAB + navigation bar (android)
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: 60 + MediaQuery.paddingOf(context).bottom,
+                if (subtitleWidget != null)
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [subtitleWidget],
+                      ),
+                    ),
+                  ),
+                SliverPadding(
+                  padding: const EdgeInsets.only(top: 10),
+                  sliver: SliverGrid.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: numCols,
+                      childAspectRatio: responsiveChildAspectRatio(
+                        constraint.maxWidth,
+                        numCols,
+                      ),
+                    ),
+                    itemCount: unhiddenUnitData.length,
+                    itemBuilder: (context, index) =>
+                        unitWidgetBuilder(unhiddenUnitData[index]),
+                  ),
                 ),
-              ),
-          ],
+                if (hiddenUnitData.isNotEmpty)
+                  SliverToBoxAdapter(
+                    child: ExpansionTile(
+                      leading: const Icon(Icons.visibility_off_outlined),
+                      title: Text(
+                        l10n.hiddenUnits,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      children: [
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: numCols,
+                                childAspectRatio: responsiveChildAspectRatio(
+                                  constraint.maxWidth,
+                                  numCols,
+                                ),
+                              ),
+                          itemCount: hiddenUnitData.length,
+                          itemBuilder: (context, index) =>
+                              unitWidgetBuilder(hiddenUnitData[index]),
+                        ),
+                      ],
+                    ),
+                  ),
+                if (isDrawerFixed(MediaQuery.sizeOf(context).width) &&
+                    MediaQuery.viewInsetsOf(context).bottom == 0 &&
+                    textValue.text.isNotEmpty)
+                  // Space for FAB + navigation bar (android)
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 60 + MediaQuery.paddingOf(context).bottom,
+                    ),
+                  ),
+              ],
+            );
+          },
         );
-      },
-    );
       },
     );
   }
@@ -279,7 +282,7 @@ String _getLastUpdateString(BuildContext context, String lastUpdate) {
   if (lastUpdateCurrencies.day == dateNow.day &&
       lastUpdateCurrencies.month == dateNow.month &&
       lastUpdateCurrencies.year == dateNow.year) {
-    return l10n.lastCurrenciesUpdate + l10n.today;
+    return l10n.lastCurrenciesUpdate + l10n.today.toLowerCase();
   }
   return l10n.lastCurrenciesUpdate +
       DateFormat.yMd(
