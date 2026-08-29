@@ -24,7 +24,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DynamicColorBuilder(
-      builder: (final lightDynamic, final darkDynamic) {
+      builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
         if (lightDynamic != null) {
           WidgetsBinding.instance.addPostFrameCallback(
             (_) => ref.read(deviceAccentColorProvider.notifier).state =
