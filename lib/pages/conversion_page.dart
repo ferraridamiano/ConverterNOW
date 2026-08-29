@@ -72,13 +72,17 @@ class ConversionPage extends ConsumerWidget {
       }
     }
 
-    UnitWidget unitWidgetBuilder(UnitData unitData) => UnitWidget(
+    UnitWidget unitWidgetBuilder(
+      UnitData unitData, {
+      bool isReorderable = false,
+    }) => UnitWidget(
       tffKey: unitData.unit.name.toString(),
       unitName: unitMap[unitData.unit.name]!,
       unitSymbol: unitData.unit.symbol,
       symbolContainsIcon: unitData.property == PROPERTYX.currencies,
       keyboardType: unitData.textInputType,
       controller: unitData.tec,
+      showReorderHandle: isReorderable,
       validator: (String? input) {
         if (input != null) {
           if (input != '' && !unitData.getValidator().hasMatch(input)) {
@@ -292,9 +296,12 @@ class ConversionPage extends ConsumerWidget {
                             key: ValueKey(
                               'unit-${unhiddenUnitData[index].unit.name}',
                             ),
-                            child: _DragCue(
-                              child: unitWidgetBuilder(unhiddenUnitData[index]),
-                            ),
+                        child: _DragCue(
+                          child: unitWidgetBuilder(
+                            unhiddenUnitData[index],
+                            isReorderable: true,
+                          ),
+                        ),
                           ),
                           index,
                         ),

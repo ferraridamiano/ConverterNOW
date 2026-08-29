@@ -15,6 +15,7 @@ class UnitWidget extends StatefulWidget {
   final String? unitSymbol;
   final bool symbolContainsIcon;
   final void Function(String) onChanged;
+  final bool showReorderHandle;
 
   const UnitWidget({
     super.key,
@@ -26,6 +27,7 @@ class UnitWidget extends StatefulWidget {
     this.unitSymbol,
     required this.symbolContainsIcon,
     required this.onChanged,
+    this.showReorderHandle = false,
   });
 
   @override
@@ -33,20 +35,42 @@ class UnitWidget extends StatefulWidget {
 }
 
 class _UnitWidgetState extends State<UnitWidget> {
-  FocusNode focusNode = FocusNode();
+  late final FocusNode focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+    focusNode.addListener(_onFocusChange);
+  }
+
+  void _onFocusChange() {
+    if (mounted) setState(() {});
+  }
 
   @override
   void dispose() {
-    super.dispose();
+    focusNode.removeListener(_onFocusChange);
     focusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    focusNode.addListener(() => setState(() {}));
+    final bool isMobile = switch (Theme.of(context).platform) {
+      TargetPlatform.android ||
+      TargetPlatform.iOS ||
+      TargetPlatform.fuchsia => true,
+      _ => false,
+    };
+    final bool showHandle =
+        widget.showReorderHandle && isMobile && focusNode.hasFocus;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-      child: TextFormField(
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          TextFormField(
         key: ValueKey(widget.tffKey),
         focusNode: focusNode,
         style: const TextStyle(fontSize: 16.0),
@@ -123,6 +147,54 @@ class _UnitWidgetState extends State<UnitWidget> {
           widget.onChanged(text);
           setState(() {});
         },
+      ),
+          // Grab handle that appears only on mobile when the field is focused
+          // (visual cue that the tile can be dragged). It is ignored for hit
+          // testing so the underlying ReorderableBuilder long-press still works.
+          Positioned(
+            top: 2,
+            right: 2,
+            child: AnimatedOpacity(
+              opacity: showHandle ? 1.0 : 0.0,
+              duration: const Duration(milliseconds: 150),
+              child: IgnorePointer(
+                ignoring: !showHandle,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 3,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: Theme.of(
+                        context,
+                      ).dividerColor.withValues(alpha: 0.15),
+                    ),
+                    boxShadow: showHandle
+                        ? [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.08),
+                              blurRadius: 4,
+                              offset: const Offset(0, 1),
+                            ),
+                          ]
+                        : null,
+                  ),
+                  child: Icon(
+                    Icons.drag_handle,
+                    size: 16,
+                    color: Theme.of(context).hintColor,
+                    semanticLabel: 'Drag handle',
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
