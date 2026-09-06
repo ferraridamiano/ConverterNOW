@@ -12,7 +12,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:intl/intl.dart';
-import 'package:reorderable_grid/reorderable_grid.dart';
+import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:go_router/go_router.dart';
 
@@ -72,7 +72,7 @@ class ConversionPage extends ConsumerWidget {
 
     UnitWidget unitWidgetBuilder(UnitData unitData, {Widget? dragHandle}) =>
         UnitWidget(
-          key: ValueKey(unitData.unit.name),
+          key: ValueKey('unit-${unitData.unit.name}'),
           tffKey: unitData.unit.name.toString(),
           unitName: unitMap[unitData.unit.name]!,
           unitSymbol: unitData.unit.symbol,
@@ -214,32 +214,44 @@ class ConversionPage extends ConsumerWidget {
                   ),
                 SliverPadding(
                   padding: const EdgeInsets.only(top: 10),
-                  sliver: SliverReorderableGrid(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: numCols,
-                      childAspectRatio: responsiveChildAspectRatio(
-                        constraint.maxWidth,
-                        numCols,
+                  sliver: SliverToBoxAdapter(
+                    child: ReorderableBuilder.builder(
+                      onReorderPositions: (reorderUpdateEntities) {
+                        for (final entity in reorderUpdateEntities) {
+                          ref
+                              .read(UnitsOrderNotifier.provider.notifier)
+                              .reorderUnhidden(
+                                entity.oldIndex,
+                                entity.newIndex,
+                                property,
+                                hiddenUnits,
+                              );
+                        }
+                      },
+                      itemCount: unhiddenUnitData.length,
+                      childBuilder: (itemBuilder) => GridView.builder(
+                        key: GlobalObjectKey(property),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        gridDelegate:
+                            SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: numCols,
+                              childAspectRatio: responsiveChildAspectRatio(
+                                constraint.maxWidth,
+                                numCols,
+                              ),
+                            ),
+                        itemCount: unhiddenUnitData.length,
+                        itemBuilder: (context, index) => itemBuilder(
+                          unitWidgetBuilder(
+                            unhiddenUnitData[index],
+                            dragHandle: const Icon(Icons.drag_handle),
+                          ),
+                          index,
+                        ),
                       ),
                     ),
-                    itemCount: unhiddenUnitData.length,
-                    itemBuilder: (context, index) => unitWidgetBuilder(
-                      unhiddenUnitData[index],
-                      dragHandle: ReorderableGridDragStartListener(
-                        index: index,
-                        child: const Icon(Icons.drag_handle),
-                      ),
-                    ),
-                    onReorder: (int oldIndex, int newIndex) {
-                      ref
-                          .read(UnitsOrderNotifier.provider.notifier)
-                          .reorderUnhidden(
-                            oldIndex,
-                            newIndex,
-                            property,
-                            hiddenUnits,
-                          );
-                    },
                   ),
                 ),
                 if (hiddenUnitData.isNotEmpty)

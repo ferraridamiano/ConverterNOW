@@ -27,6 +27,8 @@ dependencies:
   flutter_riverpod: ^3.4.2
   # For svg icons
   flutter_svg: ^2.3.0
+  # In-place reorderable grid
+  flutter_reorderable_grid_view: ^5.7.0
   # Navigation
   go_router: ^17.5.0
   # Rounded corner window on linux
@@ -45,8 +47,6 @@ dependencies:
   quick_actions: ^1.1.0
   # Required for import/export
   share_plus: ^13.3.0
-  # In-place reorderable grid
-  reorderable_grid: ^1.0.13
   # Store the customizations and the latest currencies conversions
   shared_preferences: ^2.5.5
   # Unit conversion
