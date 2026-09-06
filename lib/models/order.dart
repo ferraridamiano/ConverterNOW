@@ -160,6 +160,56 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
     return true;
   }
 
+  bool reorderUnhidden(
+    int oldIndex,
+    int newIndex,
+    PROPERTYX property,
+    List hiddenUnits,
+  ) {
+    final currentState = state.value;
+    if (currentState == null) return false;
+    final currentUnitsProperty = currentState[property];
+    if (currentUnitsProperty == null) return false;
+
+    final unhiddenUnits = currentUnitsProperty
+        .where((e) => !hiddenUnits.contains(e))
+        .toList();
+
+    if (oldIndex < 0 ||
+        oldIndex >= unhiddenUnits.length ||
+        newIndex < 0 ||
+        newIndex >= unhiddenUnits.length) {
+      return false;
+    }
+
+    final item = unhiddenUnits.removeAt(oldIndex);
+    unhiddenUnits.insert(newIndex, item);
+
+    int unhiddenIdx = 0;
+    final fullUnitsOrder = currentUnitsProperty.map((unit) {
+      if (!hiddenUnits.contains(unit)) {
+        return unhiddenUnits[unhiddenIdx++];
+      }
+      return unit;
+    }).toList();
+
+    final newState = {...currentState};
+    newState[property] = fullUnitsOrder;
+    state = AsyncData(newState);
+
+    ref.read(sharedPref.future).then((prefs) {
+      if (listEquals(fullUnitsOrder, defaultUnitsOrder[property])) {
+        prefs.remove(storeKey(property));
+      } else {
+        prefs.setStringList(
+          storeKey(property),
+          _toStorableString(fullUnitsOrder),
+        );
+      }
+    });
+    return true;
+  }
+
   String storeKey(PROPERTYX property) =>
       'unitsOrder_${property.toString().substring('PROPERTYX.'.length)}';
 

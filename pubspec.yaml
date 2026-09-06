@@ -45,6 +45,8 @@ dependencies:
   quick_actions: ^1.1.0
   # Required for import/export
   share_plus: ^13.3.0
+  # In-place reorderable grid
+  reorderable_grid: ^1.0.13
   # Store the customizations and the latest currencies conversions
   shared_preferences: ^2.5.5
   # Unit conversion

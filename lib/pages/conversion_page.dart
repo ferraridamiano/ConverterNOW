@@ -10,7 +10,9 @@ import 'package:translations/app_localizations.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
+import 'package:converterpro/models/order.dart';
 import 'package:intl/intl.dart';
+import 'package:reorderable_grid/reorderable_grid.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:go_router/go_router.dart';
 
@@ -68,53 +70,56 @@ class ConversionPage extends ConsumerWidget {
       }
     }
 
-    UnitWidget unitWidgetBuilder(UnitData unitData) => UnitWidget(
-      tffKey: unitData.unit.name.toString(),
-      unitName: unitMap[unitData.unit.name]!,
-      unitSymbol: unitData.unit.symbol,
-      symbolContainsIcon: unitData.property == PROPERTYX.currencies,
-      keyboardType: unitData.textInputType,
-      controller: unitData.tec,
-      validator: (String? input) {
-        if (input != null) {
-          if (input != '' && !unitData.getValidator().hasMatch(input)) {
-            return l10n.invalidCharacters;
-          }
-        }
-        return null;
-      },
-      onChanged: (String txt) {
-        String newTxt = txt;
-        bool changed = false;
-        if (newTxt.contains(',')) {
-          newTxt = newTxt.replaceAll(',', '.');
-          changed = true;
-        }
-        if (newTxt.startsWith('.')) {
-          newTxt = '0$newTxt';
-          changed = true;
-        }
-        if (changed) {
-          unitData.tec.value = TextEditingValue(
-            text: newTxt,
-            selection: TextSelection.collapsed(offset: newTxt.length),
-          );
-        }
-        if (txt == '' || unitData.getValidator().hasMatch(txt)) {
-          var conversions = ref.read(ConversionsNotifier.provider.notifier);
-          //just numeral system uses a string for conversion
-          if (unitData.property == PROPERTYX.numeralSystems) {
-            conversions.convert(unitData, txt == "" ? null : txt, property);
-          } else {
-            conversions.convert(
-              unitData,
-              txt == "" ? null : double.parse(txt),
-              property,
-            );
-          }
-        }
-      },
-    );
+    UnitWidget unitWidgetBuilder(UnitData unitData, {Widget? dragHandle}) =>
+        UnitWidget(
+          key: ValueKey(unitData.unit.name),
+          tffKey: unitData.unit.name.toString(),
+          unitName: unitMap[unitData.unit.name]!,
+          unitSymbol: unitData.unit.symbol,
+          symbolContainsIcon: unitData.property == PROPERTYX.currencies,
+          keyboardType: unitData.textInputType,
+          controller: unitData.tec,
+          dragHandle: dragHandle,
+          validator: (String? input) {
+            if (input != null) {
+              if (input != '' && !unitData.getValidator().hasMatch(input)) {
+                return l10n.invalidCharacters;
+              }
+            }
+            return null;
+          },
+          onChanged: (String txt) {
+            String newTxt = txt;
+            bool changed = false;
+            if (newTxt.contains(',')) {
+              newTxt = newTxt.replaceAll(',', '.');
+              changed = true;
+            }
+            if (newTxt.startsWith('.')) {
+              newTxt = '0$newTxt';
+              changed = true;
+            }
+            if (changed) {
+              unitData.tec.value = TextEditingValue(
+                text: newTxt,
+                selection: TextSelection.collapsed(offset: newTxt.length),
+              );
+            }
+            if (txt == '' || unitData.getValidator().hasMatch(txt)) {
+              var conversions = ref.read(ConversionsNotifier.provider.notifier);
+              //just numeral system uses a string for conversion
+              if (unitData.property == PROPERTYX.numeralSystems) {
+                conversions.convert(unitData, txt == "" ? null : txt, property);
+              } else {
+                conversions.convert(
+                  unitData,
+                  txt == "" ? null : double.parse(txt),
+                  property,
+                );
+              }
+            }
+          },
+        );
 
     return ValueListenableBuilder<TextEditingValue>(
       valueListenable: unitDataList[0].tec,
@@ -175,14 +180,6 @@ class ConversionPage extends ConsumerWidget {
                     MenuAnchor(
                       menuChildren: [
                         MenuItemButton(
-                          key: const ValueKey('reorder-units'),
-                          leadingIcon: const Icon(Icons.reorder),
-                          onPressed: () => context.go(
-                            '/conversions/${property.toKebabCase()}/reorder',
-                          ),
-                          child: Text(l10n.reorderUnits),
-                        ),
-                        MenuItemButton(
                           key: const ValueKey('hide-units'),
                           leadingIcon: const Icon(
                             Icons.visibility_off_outlined,
@@ -217,7 +214,7 @@ class ConversionPage extends ConsumerWidget {
                   ),
                 SliverPadding(
                   padding: const EdgeInsets.only(top: 10),
-                  sliver: SliverGrid.builder(
+                  sliver: SliverReorderableGrid(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: numCols,
                       childAspectRatio: responsiveChildAspectRatio(
@@ -226,8 +223,23 @@ class ConversionPage extends ConsumerWidget {
                       ),
                     ),
                     itemCount: unhiddenUnitData.length,
-                    itemBuilder: (context, index) =>
-                        unitWidgetBuilder(unhiddenUnitData[index]),
+                    itemBuilder: (context, index) => unitWidgetBuilder(
+                      unhiddenUnitData[index],
+                      dragHandle: ReorderableGridDragStartListener(
+                        index: index,
+                        child: const Icon(Icons.drag_handle),
+                      ),
+                    ),
+                    onReorder: (int oldIndex, int newIndex) {
+                      ref
+                          .read(UnitsOrderNotifier.provider.notifier)
+                          .reorderUnhidden(
+                            oldIndex,
+                            newIndex,
+                            property,
+                            hiddenUnits,
+                          );
+                    },
                   ),
                 ),
                 if (hiddenUnitData.isNotEmpty)

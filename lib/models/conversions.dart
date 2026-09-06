@@ -19,55 +19,62 @@ class ConversionsNotifier
       UnitsOrderNotifier.provider.future,
     ));
     final propertiesMap = await ref.watch(propertiesMapProvider.future);
+    final previousState = state.value;
 
-    return conversionsOrder.map(
-      (propertyx, orderedUnits) => MapEntry(
+    return conversionsOrder.map((propertyx, orderedUnits) {
+      final previousList = previousState?[propertyx];
+      final previousMap = {
+        for (final ud in previousList ?? <UnitData>[]) ud.unit.name: ud,
+      };
+
+      return MapEntry(
         propertyx,
-        orderedUnits
-            .map(
-              (e) => UnitData(
-                propertiesMap[propertyx]!.getUnit(e),
-                tec: TextEditingController(),
-                property: propertyx,
-                textInputType: switch (e) {
-                  TEMPERATURE.celsius ||
-                  TEMPERATURE.fahrenheit ||
-                  TEMPERATURE.delisle ||
-                  TEMPERATURE.reamur ||
-                  TEMPERATURE.romer => const TextInputType.numberWithOptions(
-                    decimal: true,
-                    signed: true,
-                  ),
-                  NUMERAL_SYSTEMS.binary ||
-                  NUMERAL_SYSTEMS.octal ||
-                  NUMERAL_SYSTEMS.decimal =>
-                    const TextInputType.numberWithOptions(
-                      decimal: false,
-                      signed: false,
-                    ),
-                  NUMERAL_SYSTEMS.hexadecimal => TextInputType.text,
-                  _ => const TextInputType.numberWithOptions(
-                    decimal: true,
-                    signed: false,
-                  ),
-                },
-                validator: switch (e) {
-                  TEMPERATURE.celsius ||
-                  TEMPERATURE.fahrenheit ||
-                  TEMPERATURE.delisle ||
-                  TEMPERATURE.reamur ||
-                  TEMPERATURE.romer => VALIDATOR.rational,
-                  NUMERAL_SYSTEMS.binary => VALIDATOR.binary,
-                  NUMERAL_SYSTEMS.octal => VALIDATOR.octal,
-                  NUMERAL_SYSTEMS.decimal => VALIDATOR.decimal,
-                  NUMERAL_SYSTEMS.hexadecimal => VALIDATOR.hexadecimal,
-                  _ => VALIDATOR.rationalNonNegative,
-                },
+        orderedUnits.map((e) {
+          final existing = previousMap[e];
+          if (existing != null) {
+            return existing;
+          }
+          return UnitData(
+            propertiesMap[propertyx]!.getUnit(e),
+            tec: TextEditingController(),
+            property: propertyx,
+            textInputType: switch (e) {
+              TEMPERATURE.celsius ||
+              TEMPERATURE.fahrenheit ||
+              TEMPERATURE.delisle ||
+              TEMPERATURE.reamur ||
+              TEMPERATURE.romer => const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: true,
               ),
-            )
-            .toList(),
-      ),
-    );
+              NUMERAL_SYSTEMS.binary ||
+              NUMERAL_SYSTEMS.octal ||
+              NUMERAL_SYSTEMS.decimal => const TextInputType.numberWithOptions(
+                decimal: false,
+                signed: false,
+              ),
+              NUMERAL_SYSTEMS.hexadecimal => TextInputType.text,
+              _ => const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: false,
+              ),
+            },
+            validator: switch (e) {
+              TEMPERATURE.celsius ||
+              TEMPERATURE.fahrenheit ||
+              TEMPERATURE.delisle ||
+              TEMPERATURE.reamur ||
+              TEMPERATURE.romer => VALIDATOR.rational,
+              NUMERAL_SYSTEMS.binary => VALIDATOR.binary,
+              NUMERAL_SYSTEMS.octal => VALIDATOR.octal,
+              NUMERAL_SYSTEMS.decimal => VALIDATOR.decimal,
+              NUMERAL_SYSTEMS.hexadecimal => VALIDATOR.hexadecimal,
+              _ => VALIDATOR.rationalNonNegative,
+            },
+          );
+        }).toList(),
+      );
+    });
   }
 
   /// The list of values that has been just cleared out

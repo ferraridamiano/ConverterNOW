@@ -28,11 +28,17 @@ void setWindowSize(double width, double height) {
   setWindowMaxSize(size);
 }
 
-/// Opens the app bar menu and taps the reorder-units entry
-Future<void> tapReorderUnitsFromAppBar(WidgetTester tester) async {
-  await tester.tap(find.byKey(const ValueKey('appbar-menu')));
+/// Focuses on [unitKey] to reveal its drag handle, then drags it to the center of [targetUnitKey]
+Future<void> reorderUnit(
+  WidgetTester tester,
+  String unitKey,
+  String targetUnitKey,
+) async {
+  await tester.tap(find.byKey(ValueKey(unitKey)));
   await tester.pumpAndSettle();
-  await tester.tap(find.byKey(const ValueKey('reorder-units')));
+  final dragHandle = tester.getCenter(find.byIcon(Icons.drag_handle));
+  final targetCenter = tester.getCenter(find.byKey(ValueKey(targetUnitKey)));
+  await dragGesture(tester, dragHandle, targetCenter);
   await tester.pumpAndSettle();
 }
 
