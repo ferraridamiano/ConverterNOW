@@ -24,6 +24,7 @@ final Map<Locale, String> mapLocale = {
   const Locale('ru'): 'Pусский',
   const Locale('tr'): 'Türkçe',
   const Locale('ar'): 'العربية',
+  const Locale('az'): 'Azərbaycan dili',
   const Locale('zh'): '中文',
   const Locale('zh', 'TW'): '中文 (台灣)',
 };
