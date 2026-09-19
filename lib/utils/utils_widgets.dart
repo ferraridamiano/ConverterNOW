@@ -91,91 +91,85 @@ class _UnitWidgetState extends State<UnitWidget> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            // The reorderable grid wraps the whole tile in a draggable.
-            // Claiming the pan gestures here prevents a drag from starting
-            // while interacting with the input field, so that only the drag
-            // handle can start the reordering.
-            child: GestureDetector(
-              onPanStart: (_) {},
-              child: TextFormField(
-                key: ValueKey(widget.tffKey),
-                focusNode: _focusNode,
-                style: const TextStyle(fontSize: 16.0),
-                keyboardType: widget.keyboardType,
-                controller: widget.controller,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: widget.validator,
-                decoration: InputDecoration(
-                  labelText: widget.unitName,
-                  suffixIcon: hasFocus && widget.controller.text.isNotEmpty
-                      ? IconButton(
-                          iconSize: 20,
-                          icon: const Icon(Icons.copy),
-                          tooltip: AppLocalizations.of(context)?.copy,
-                          onPressed: () {
-                            Clipboard.setData(
-                              ClipboardData(text: widget.controller.text),
-                            );
-                            HapticFeedback.heavyImpact();
-                          },
-                        )
-                      : widget.unitSymbol == null
-                      ? null
-                      : Padding(
-                          padding: const EdgeInsetsDirectional.only(end: 10),
-                          child: widget.symbolContainsIcon
-                              ? () {
-                                  final symbolSplitted = widget.unitSymbol!
-                                      .split(' ');
-                                  final iconPath = symbolSplitted.removeLast();
-                                  final symbol = symbolSplitted.join(' ');
+            child: TextFormField(
+              key: ValueKey(widget.tffKey),
+              focusNode: _focusNode,
+              style: const TextStyle(fontSize: 16.0),
+              keyboardType: widget.keyboardType,
+              controller: widget.controller,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: widget.validator,
+              decoration: InputDecoration(
+                labelText: widget.unitName,
+                suffixIcon: hasFocus && widget.controller.text.isNotEmpty
+                    ? IconButton(
+                        iconSize: 20,
+                        icon: const Icon(Icons.copy),
+                        tooltip: AppLocalizations.of(context)?.copy,
+                        onPressed: () {
+                          Clipboard.setData(
+                            ClipboardData(text: widget.controller.text),
+                          );
+                          HapticFeedback.heavyImpact();
+                        },
+                      )
+                    : widget.unitSymbol == null
+                    ? null
+                    : Padding(
+                        padding: const EdgeInsetsDirectional.only(end: 10),
+                        child: widget.symbolContainsIcon
+                            ? () {
+                                final symbolSplitted = widget.unitSymbol!.split(
+                                  ' ',
+                                );
+                                final iconPath = symbolSplitted.removeLast();
+                                final symbol = symbolSplitted.join(' ');
 
-                                  return Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    spacing: 8,
-                                    children: [
-                                      Text(symbol),
-                                      iconPath.endsWith('.svg.vec')
-                                          ? SvgPicture(
-                                              AssetBytesLoader(iconPath),
-                                              height: 16,
-                                            )
-                                          : Image.asset(iconPath, height: 16),
-                                    ],
-                                  );
-                                }()
-                              : Text(widget.unitSymbol!),
-                        ),
-                  // Workaround to make suffixIcon always visible
-                  // See: https://stackoverflow.com/questions/58819979
-                  suffixIconConstraints: const BoxConstraints(
-                    minWidth: 0,
-                    minHeight: 0,
-                  ),
-                  suffixStyle: TextStyle(
-                    color: Theme.brightnessOf(context) == Brightness.light
-                        ? Colors.black
-                        : Colors.white,
-                  ),
-                  border: const OutlineInputBorder(),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.primary,
-                      width: 2,
-                    ),
-                  ),
-                  floatingLabelStyle: TextStyle(
-                    fontSize: 20,
-                    color: hasFocus
-                        ? Theme.of(context).colorScheme.secondary
-                        : null,
+                                return Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  spacing: 8,
+                                  children: [
+                                    Text(symbol),
+                                    iconPath.endsWith('.svg.vec')
+                                        ? SvgPicture(
+                                            AssetBytesLoader(iconPath),
+                                            height: 16,
+                                          )
+                                        : Image.asset(iconPath, height: 16),
+                                  ],
+                                );
+                              }()
+                            : Text(widget.unitSymbol!),
+                      ),
+                // Workaround to make suffixIcon always visible
+                // See: https://stackoverflow.com/questions/58819979
+                suffixIconConstraints: const BoxConstraints(
+                  minWidth: 0,
+                  minHeight: 0,
+                ),
+                suffixStyle: TextStyle(
+                  color: Theme.brightnessOf(context) == Brightness.light
+                      ? Colors.black
+                      : Colors.white,
+                ),
+                border: const OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
                   ),
                 ),
-                onChanged: (text) {
-                  widget.onChanged(text);
-                  setState(() {});
-                },
+                floatingLabelStyle: TextStyle(
+                  fontSize: 20,
+                  color: hasFocus
+                      ? Theme.of(context).colorScheme.secondary
+                      : null,
+                ),
               ),
+              onChanged: (text) {
+                widget.onChanged(text);
+                setState(() {});
+              },
             ),
           ),
           if (hasFocus && widget.dragHandle != null) ...[
