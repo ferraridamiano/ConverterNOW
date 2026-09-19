@@ -1,6 +1,5 @@
 import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/utils/utils.dart';
-import 'package:flutter/gestures.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,12 +18,6 @@ class UnitWidget extends StatefulWidget {
   final Widget? dragHandle;
   final FocusNode? focusNode;
 
-  /// Scroll controller of the page scroll view.
-  ///
-  /// Dragging vertically on the input field scrolls this controller instead
-  /// of starting a reorder (which is only allowed from [dragHandle]).
-  final ScrollController? scrollController;
-
   const UnitWidget({
     super.key,
     required this.tffKey,
@@ -37,7 +30,6 @@ class UnitWidget extends StatefulWidget {
     required this.onChanged,
     this.dragHandle,
     this.focusNode,
-    this.scrollController,
   });
 
   @override
@@ -47,9 +39,6 @@ class UnitWidget extends StatefulWidget {
 class _UnitWidgetState extends State<UnitWidget> {
   late FocusNode _focusNode;
   bool _internalFocusNode = false;
-
-  /// Active scroll drag while dragging vertically on the input field.
-  Drag? _scrollDrag;
 
   @override
   void initState() {
@@ -86,37 +75,11 @@ class _UnitWidgetState extends State<UnitWidget> {
 
   @override
   void dispose() {
-    _scrollDrag?.cancel();
     _focusNode.removeListener(_onFocusChange);
     if (_internalFocusNode) {
       _focusNode.dispose();
     }
     super.dispose();
-  }
-
-  /// Starts scrolling the page when a vertical drag begins on the input field.
-  ///
-  /// The reorderable grid wraps the whole tile in a draggable, so the drag
-  /// must be claimed here (otherwise the reorder would start from the field).
-  /// The claimed drag is forwarded to the page scroll view.
-  void _startScrollDrag(DragStartDetails details) {
-    final position = widget.scrollController?.position;
-    if (position == null) return;
-    _scrollDrag = position.drag(details, () => _scrollDrag = null);
-  }
-
-  void _updateScrollDrag(DragUpdateDetails details) {
-    _scrollDrag?.update(details);
-  }
-
-  void _endScrollDrag(DragEndDetails details) {
-    _scrollDrag?.end(details);
-    _scrollDrag = null;
-  }
-
-  void _cancelScrollDrag() {
-    _scrollDrag?.cancel();
-    _scrollDrag = null;
   }
 
   @override
@@ -129,16 +92,11 @@ class _UnitWidgetState extends State<UnitWidget> {
         children: [
           Expanded(
             // The reorderable grid wraps the whole tile in a draggable.
-            // Claiming the drag gestures here prevents the reorder from
-            // starting on the input field, so that only the drag handle can
-            // start it: vertical drags scroll the page, horizontal drags are
-            // left to the field itself (text selection).
+            // Claiming the pan gestures here prevents a drag from starting
+            // while interacting with the input field, so that only the drag
+            // handle can start the reordering.
             child: GestureDetector(
-              onHorizontalDragStart: (_) {},
-              onVerticalDragStart: _startScrollDrag,
-              onVerticalDragUpdate: _updateScrollDrag,
-              onVerticalDragEnd: _endScrollDrag,
-              onVerticalDragCancel: _cancelScrollDrag,
+              onPanStart: (_) {},
               child: TextFormField(
                 key: ValueKey(widget.tffKey),
                 focusNode: _focusNode,
