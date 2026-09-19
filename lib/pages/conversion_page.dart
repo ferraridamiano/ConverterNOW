@@ -12,6 +12,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_reorderable_grid_view/entities/reorderable_animation_config.dart';
 import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:go_router/go_router.dart';
@@ -217,6 +218,10 @@ class ConversionPage extends ConsumerWidget {
                   padding: const EdgeInsets.only(top: 10),
                   sliver: SliverToBoxAdapter(
                     child: ReorderableBuilder.builder(
+                      // No fade-in animation when the page is loaded.
+                      animationConfig: const ReorderableAnimationConfig(
+                        fadeInDuration: Duration.zero,
+                      ),
                       onReorderPositions: (reorderUpdateEntities) {
                         for (final entity in reorderUpdateEntities) {
                           ref
