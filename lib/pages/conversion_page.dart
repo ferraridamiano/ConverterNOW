@@ -222,6 +222,8 @@ class ConversionPage extends ConsumerWidget {
                       animationConfig: const ReorderableAnimationConfig(
                         fadeInDuration: Duration.zero,
                       ),
+                      // No shadow on the unit tile while it is dragged.
+                      dragChildBoxDecoration: const BoxDecoration(),
                       onReorderPositions: (reorderUpdateEntities) {
                         for (final entity in reorderUpdateEntities) {
                           ref
