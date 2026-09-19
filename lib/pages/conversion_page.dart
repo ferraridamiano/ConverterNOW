@@ -17,13 +17,32 @@ import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 import 'package:go_router/go_router.dart';
 
-class ConversionPage extends ConsumerWidget {
+class ConversionPage extends ConsumerStatefulWidget {
   final PROPERTYX property;
 
   const ConversionPage(this.property, {super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConversionPage> createState() => _ConversionPageState();
+}
+
+class _ConversionPageState extends ConsumerState<ConversionPage> {
+  /// Controller of the page scroll view.
+  ///
+  /// It is passed to the unit tiles so that dragging on an input field
+  /// scrolls the page instead of starting a reorder.
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final property = widget.property;
+
     // if we remove the following check, if you enter the site directly to
     // '/conversions/:property' an error will occur
     if (!ref.watch(isEverythingLoadedProvider)) {
@@ -81,6 +100,7 @@ class ConversionPage extends ConsumerWidget {
           keyboardType: unitData.textInputType,
           controller: unitData.tec,
           focusNode: unitData.fn,
+          scrollController: _scrollController,
           dragHandle: dragHandle,
           validator: (String? input) {
             if (input != null) {
@@ -130,6 +150,7 @@ class ConversionPage extends ConsumerWidget {
           builder: (BuildContext context, BoxConstraints constraint) {
             final int numCols = responsiveNumCols(constraint.maxWidth);
             return CustomScrollView(
+              controller: _scrollController,
               slivers: <Widget>[
                 SliverAppBar.large(
                   title: Builder(
