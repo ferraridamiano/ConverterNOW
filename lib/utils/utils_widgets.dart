@@ -174,7 +174,10 @@ class _UnitWidgetState extends State<UnitWidget> {
           ),
           if (hasFocus && widget.dragHandle != null) ...[
             const SizedBox(width: 8),
-            widget.dragHandle!,
+            // Tapping the drag handle must not unfocus the field, otherwise
+            // the handle (which is only visible while focused) would
+            // disappear as soon as it is clicked/pressed on desktop.
+            TextFieldTapRegion(child: widget.dragHandle!),
           ],
         ],
       ),

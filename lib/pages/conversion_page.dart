@@ -79,6 +79,7 @@ class ConversionPage extends ConsumerWidget {
           symbolContainsIcon: unitData.property == PROPERTYX.currencies,
           keyboardType: unitData.textInputType,
           controller: unitData.tec,
+          focusNode: unitData.fn,
           dragHandle: dragHandle,
           validator: (String? input) {
             if (input != null) {
@@ -234,14 +235,13 @@ class ConversionPage extends ConsumerWidget {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.zero,
-                        gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: numCols,
-                              childAspectRatio: responsiveChildAspectRatio(
-                                constraint.maxWidth,
-                                numCols,
-                              ),
-                            ),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: numCols,
+                          childAspectRatio: responsiveChildAspectRatio(
+                            constraint.maxWidth,
+                            numCols,
+                          ),
+                        ),
                         itemCount: unhiddenUnitData.length,
                         itemBuilder: (context, index) => itemBuilder(
                           unitWidgetBuilder(
