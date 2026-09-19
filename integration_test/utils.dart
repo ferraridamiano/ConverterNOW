@@ -14,14 +14,18 @@ Future<void> clearPreferences() async {
 
 /// Perform a drag from [start] to [end]. Useful for reorderable list
 ///
-/// Since the reorderable grid starts the drag with a long press, the gesture
-/// is held for [kLongPressTimeout] plus a small margin before moving.
+/// The movement is split into steps so that the reorderable widgets receive
+/// intermediate pointer move events while dragging.
 Future<void> dragGesture(WidgetTester tester, Offset start, Offset end) async {
   final TestGesture drag = await tester.startGesture(start);
-  await tester.pump(kLongPressTimeout + kPressTimeout);
-  await drag.moveTo(end);
   await tester.pump(kPressTimeout);
+  const int steps = 5;
+  for (int i = 1; i <= steps; i++) {
+    await drag.moveTo(Offset.lerp(start, end, i / steps)!);
+    await tester.pump(kPressTimeout);
+  }
   await drag.up();
+  await tester.pump(kPressTimeout);
 }
 
 /// Sets the window size

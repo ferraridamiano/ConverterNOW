@@ -222,6 +222,9 @@ class ConversionPage extends ConsumerWidget {
                       animationConfig: const ReorderableAnimationConfig(
                         fadeInDuration: Duration.zero,
                       ),
+                      // Start the reorder with a short press instead of a
+                      // long press.
+                      longPressDelay: Duration.zero,
                       // No shadow on the unit tile while it is dragged.
                       dragChildBoxDecoration: const BoxDecoration(),
                       onReorderPositions: (reorderUpdateEntities) {
