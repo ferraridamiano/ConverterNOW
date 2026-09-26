@@ -253,7 +253,24 @@ class ConversionPage extends ConsumerWidget {
                         itemBuilder: (context, index) => itemBuilder(
                           unitWidgetBuilder(
                             unhiddenUnitData[index],
-                            dragHandle: const Icon(Icons.drag_handle),
+                            dragHandle: GestureDetector(
+                              // The reorder starts with a long press: if the
+                              // handle is only tapped, explain it to the user.
+                              onTap: () {
+                                ScaffoldMessenger.of(context)
+                                  ..hideCurrentSnackBar()
+                                  ..showSnackBar(
+                                    SnackBar(
+                                      content: Text(l10n.longPressAdvice),
+                                      behavior: SnackBarBehavior.floating,
+                                      duration: const Duration(
+                                        milliseconds: 1000,
+                                      ),
+                                    ),
+                                  );
+                              },
+                              child: const Icon(Icons.drag_handle),
+                            ),
                           ),
                           index,
                         ),
