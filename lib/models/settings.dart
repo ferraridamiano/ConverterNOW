@@ -26,6 +26,7 @@ final Map<Locale, String> mapLocale = {
   const Locale('ar'): 'العربية',
   const Locale('zh'): '中文',
   const Locale('zh', 'TW'): '中文 (台灣)',
+  const Locale('az'): 'Azərbaycan dili',
 };
 
 final sharedPref = FutureProvider<SharedPreferencesWithCache>(
