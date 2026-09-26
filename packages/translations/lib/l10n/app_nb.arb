@@ -64,7 +64,9 @@
   "appearance": "Utseende",
   "conversions": "Omregninger",
   "findOutMore": "Finn ut mer",
+  "hideUnit": "Skjul enhet",
   "hideUnits": "Skjul enheter",
+  "showUnit": "Vis enhet",
   "visibleUnits": "{property}, synlige enheter",
   "@visibleUnits": {
     "placeholders": {

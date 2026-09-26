@@ -94,7 +94,9 @@
   "@findOutMore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "hideUnit": "Amaga la unitat",
   "hideUnits": "Hide units",
+  "showUnit": "Mostra la unitat",
   "@hideUnits": {
     "description": "Not yet translated. Once done, remove this comment"
   },

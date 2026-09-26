@@ -63,7 +63,9 @@
   "appearance": "Izgled",
   "conversions": "Konverzije",
   "findOutMore": "Saznaj više",
+  "hideUnit": "Sakrij jedinicu",
   "hideUnits": "Sakrij jedinice",
+  "showUnit": "Prikaži jedinicu",
   "visibleUnits": "{property}, vidljive jedinice",
   "@visibleUnits": {
     "placeholders": {

@@ -103,7 +103,9 @@
   "@findOutMore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "hideUnit": "Eenheid verbergen",
   "hideUnits": "Hide units",
+  "showUnit": "Eenheid tonen",
   "@hideUnits": {
     "description": "Not yet translated. Once done, remove this comment"
   },

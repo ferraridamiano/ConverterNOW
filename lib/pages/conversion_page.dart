@@ -15,7 +15,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter_reorderable_grid_view/entities/reorderable_animation_config.dart';
 import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
 import 'package:vector_graphics/vector_graphics.dart';
-import 'package:go_router/go_router.dart';
 
 class ConversionPage extends ConsumerWidget {
   final PROPERTYX property;
@@ -71,57 +70,77 @@ class ConversionPage extends ConsumerWidget {
       }
     }
 
-    UnitWidget unitWidgetBuilder(UnitData unitData, {Widget? dragHandle}) =>
-        UnitWidget(
-          key: ValueKey('unit-${unitData.unit.name}'),
-          tffKey: unitData.unit.name.toString(),
-          unitName: unitMap[unitData.unit.name]!,
-          unitSymbol: unitData.unit.symbol,
-          symbolContainsIcon: unitData.property == PROPERTYX.currencies,
-          keyboardType: unitData.textInputType,
-          controller: unitData.tec,
-          focusNode: unitData.fn,
-          dragHandle: dragHandle,
-          validator: (String? input) {
-            if (input != null) {
-              if (input != '' && !unitData.getValidator().hasMatch(input)) {
-                return l10n.invalidCharacters;
-              }
-            }
-            return null;
-          },
-          onChanged: (String txt) {
-            String newTxt = txt;
-            bool changed = false;
-            if (newTxt.contains(',')) {
-              newTxt = newTxt.replaceAll(',', '.');
-              changed = true;
-            }
-            if (newTxt.startsWith('.')) {
-              newTxt = '0$newTxt';
-              changed = true;
-            }
-            if (changed) {
-              unitData.tec.value = TextEditingValue(
-                text: newTxt,
-                selection: TextSelection.collapsed(offset: newTxt.length),
+    UnitWidget unitWidgetBuilder(
+      UnitData unitData, {
+      Widget? dragHandle,
+      bool isHidden = false,
+    }) => UnitWidget(
+      key: ValueKey('unit-${unitData.unit.name}'),
+      tffKey: unitData.unit.name.toString(),
+      unitName: unitMap[unitData.unit.name]!,
+      unitSymbol: unitData.unit.symbol,
+      symbolContainsIcon: unitData.property == PROPERTYX.currencies,
+      keyboardType: unitData.textInputType,
+      controller: unitData.tec,
+      focusNode: unitData.fn,
+      dragHandle: dragHandle,
+      visibilityHandle: IconButton(
+        tooltip: isHidden ? l10n.showUnit : l10n.hideUnit,
+        icon: Icon(
+          isHidden ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+        ),
+        onPressed: () {
+          unitData.fn.unfocus();
+          ref
+              .read(HiddenUnitsNotifier.provider.notifier)
+              .set(
+                isHidden
+                    ? hiddenUnits.where((e) => e != unitData.unit.name).toList()
+                    : [...hiddenUnits, unitData.unit.name],
+                property,
               );
-            }
-            if (txt == '' || unitData.getValidator().hasMatch(txt)) {
-              var conversions = ref.read(ConversionsNotifier.provider.notifier);
-              //just numeral system uses a string for conversion
-              if (unitData.property == PROPERTYX.numeralSystems) {
-                conversions.convert(unitData, txt == "" ? null : txt, property);
-              } else {
-                conversions.convert(
-                  unitData,
-                  txt == "" ? null : double.parse(txt),
-                  property,
-                );
-              }
-            }
-          },
-        );
+        },
+      ),
+      validator: (String? input) {
+        if (input != null) {
+          if (input != '' && !unitData.getValidator().hasMatch(input)) {
+            return l10n.invalidCharacters;
+          }
+        }
+        return null;
+      },
+      onChanged: (String txt) {
+        String newTxt = txt;
+        bool changed = false;
+        if (newTxt.contains(',')) {
+          newTxt = newTxt.replaceAll(',', '.');
+          changed = true;
+        }
+        if (newTxt.startsWith('.')) {
+          newTxt = '0$newTxt';
+          changed = true;
+        }
+        if (changed) {
+          unitData.tec.value = TextEditingValue(
+            text: newTxt,
+            selection: TextSelection.collapsed(offset: newTxt.length),
+          );
+        }
+        if (txt == '' || unitData.getValidator().hasMatch(txt)) {
+          var conversions = ref.read(ConversionsNotifier.provider.notifier);
+          //just numeral system uses a string for conversion
+          if (unitData.property == PROPERTYX.numeralSystems) {
+            conversions.convert(unitData, txt == "" ? null : txt, property);
+          } else {
+            conversions.convert(
+              unitData,
+              txt == "" ? null : double.parse(txt),
+              property,
+            );
+          }
+        }
+      },
+    );
 
     return ValueListenableBuilder<TextEditingValue>(
       valueListenable: unitDataList[0].tec,
@@ -178,31 +197,6 @@ class ConversionPage extends ConsumerWidget {
                       );
                     },
                   ),
-                  actions: [
-                    MenuAnchor(
-                      menuChildren: [
-                        MenuItemButton(
-                          key: const ValueKey('hide-units'),
-                          leadingIcon: const Icon(
-                            Icons.visibility_off_outlined,
-                          ),
-                          onPressed: () => context.go(
-                            '/conversions/${property.toKebabCase()}/hide',
-                          ),
-                          child: Text(l10n.hideUnits),
-                        ),
-                      ],
-                      builder: (context, controller, child) {
-                        return IconButton(
-                          key: const ValueKey('appbar-menu'),
-                          icon: const Icon(Icons.more_vert),
-                          onPressed: () => controller.isOpen
-                              ? controller.close()
-                              : controller.open(),
-                        );
-                      },
-                    ),
-                  ],
                 ),
                 if (subtitleWidget != null)
                   SliverToBoxAdapter(
@@ -299,8 +293,10 @@ class ConversionPage extends ConsumerWidget {
                                 ),
                               ),
                           itemCount: hiddenUnitData.length,
-                          itemBuilder: (context, index) =>
-                              unitWidgetBuilder(hiddenUnitData[index]),
+                          itemBuilder: (context, index) => unitWidgetBuilder(
+                            hiddenUnitData[index],
+                            isHidden: true,
+                          ),
                         ),
                       ],
                     ),

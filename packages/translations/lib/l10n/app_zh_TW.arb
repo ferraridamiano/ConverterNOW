@@ -70,7 +70,9 @@
   "appearance": "外觀",
   "conversions": "轉換",
   "findOutMore": "進一步了解",
+  "hideUnit": "隱藏單位",
   "hideUnits": "隱藏單位",
+  "showUnit": "顯示單位",
   "visibleUnits": "{property}, 可見單位",
   "@visibleUnits": {
     "placeholders": {

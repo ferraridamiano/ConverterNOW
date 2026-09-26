@@ -76,7 +76,9 @@
   "appearance": "Εμφάνιση",
   "conversions": "Μετατροπές",
   "findOutMore": "Μάθε περισσότερα",
+  "hideUnit": "Απόκρυψη μονάδας",
   "hideUnits": "Hide units",
+  "showUnit": "Εμφάνιση μονάδας",
   "@hideUnits": {
     "description": "Not yet translated. Once done, remove this comment"
   },

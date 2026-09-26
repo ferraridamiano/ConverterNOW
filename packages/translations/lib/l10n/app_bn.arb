@@ -76,7 +76,9 @@
   "appearance": "চেহারা",
   "conversions": "কনভার্শন",
   "findOutMore": "আরও জানুন",
+  "hideUnit": "একক গোপন করুন",
   "hideUnits": "একক গোপন করুন",
+  "showUnit": "একক দেখান",
   "visibleUnits": "{property}, দৃশ্যমান একক",
   "@visibleUnits": {
     "placeholders": {

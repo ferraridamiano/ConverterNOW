@@ -5,7 +5,6 @@ import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/pages/conversion_page.dart';
 import 'package:converterpro/pages/error_page.dart';
-import 'package:converterpro/pages/hide_units_page.dart';
 import 'package:converterpro/pages/initial_page.dart';
 import 'package:converterpro/pages/reorder_properties_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
@@ -64,17 +63,6 @@ final routerProvider = Provider<GoRouter>(
               final propertyx = kebabStringToPropertyX(property);
               return ConversionPage(propertyx);
             },
-            routes: [
-              GoRoute(
-                path: 'hide',
-                name: 'hide-units',
-                builder: (context, state) {
-                  final String property = state.pathParameters['property']!;
-                  final propertyx = kebabStringToPropertyX(property);
-                  return HideUnitsPage(propertyx);
-                },
-              ),
-            ],
           ),
           GoRoute(
             path: '/settings',

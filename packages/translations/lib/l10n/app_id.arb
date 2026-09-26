@@ -103,7 +103,9 @@
   "@findOutMore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "hideUnit": "Sembunyikan unit",
   "hideUnits": "Hide units",
+  "showUnit": "Tampilkan unit",
   "@hideUnits": {
     "description": "Not yet translated. Once done, remove this comment"
   },

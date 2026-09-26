@@ -64,7 +64,9 @@
   "appearance": "Wygląd",
   "conversions": "Konwersje",
   "findOutMore": "Więcej informacji",
+  "hideUnit": "Ukryj jednostkę",
   "hideUnits": "Ukrywaj jednostki",
+  "showUnit": "Pokaż jednostkę",
   "visibleUnits": "{property}, widoczne jednostki",
   "@visibleUnits": {
     "placeholders": {

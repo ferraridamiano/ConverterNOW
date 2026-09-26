@@ -18,6 +18,9 @@ class UnitWidget extends StatefulWidget {
   final Widget? dragHandle;
   final FocusNode? focusNode;
 
+  /// Action shown next to [dragHandle], e.g. to hide or show the unit.
+  final Widget? visibilityHandle;
+
   const UnitWidget({
     super.key,
     required this.tffKey,
@@ -30,6 +33,7 @@ class UnitWidget extends StatefulWidget {
     required this.onChanged,
     this.dragHandle,
     this.focusNode,
+    this.visibilityHandle,
   });
 
   @override
@@ -172,12 +176,21 @@ class _UnitWidgetState extends State<UnitWidget> {
               },
             ),
           ),
-          if (hasFocus && widget.dragHandle != null) ...[
-            const SizedBox(width: 8),
-            // Tapping the drag handle must not unfocus the field, otherwise
-            // the handle (which is only visible while focused) would
-            // disappear as soon as it is clicked/pressed on desktop.
-            TextFieldTapRegion(child: widget.dragHandle!),
+          if (hasFocus) ...[
+            if (widget.visibilityHandle != null) ...[
+              const SizedBox(width: 8),
+              // Tapping the action must not unfocus the field, otherwise it
+              // (like the drag handle) would disappear as soon as it is
+              // clicked/pressed on desktop.
+              TextFieldTapRegion(child: widget.visibilityHandle!),
+            ],
+            if (widget.dragHandle != null) ...[
+              const SizedBox(width: 8),
+              // Tapping the drag handle must not unfocus the field, otherwise
+              // the handle (which is only visible while focused) would
+              // disappear as soon as it is clicked/pressed on desktop.
+              TextFieldTapRegion(child: widget.dragHandle!),
+            ],
           ],
         ],
       ),
