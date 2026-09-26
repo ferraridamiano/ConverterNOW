@@ -29,6 +29,12 @@ class UnitData {
   VALIDATOR validator;
   PROPERTYX? property;
 
+  /// Focus node shared with the [UnitWidget] of this unit.
+  ///
+  /// It is owned here (instead of inside [UnitWidget]) so that the focus
+  /// survives when the widget is rebuilt while reordering.
+  FocusNode fn;
+
   UnitData(
     this.unit, {
     required this.tec,
@@ -38,7 +44,8 @@ class UnitData {
       decimal: true,
       signed: false,
     ),
-  });
+    FocusNode? fn,
+  }) : fn = fn ?? FocusNode();
 
   RegExp getValidator() => switch (validator) {
     VALIDATOR.binary => RegExp(r'^[0-1]+$'),

@@ -103,7 +103,9 @@
   "@findOutMore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "hideUnit": "単位を非表示",
   "hideUnits": "Hide units",
+  "showUnit": "単位を表示",
   "@hideUnits": {
     "description": "Not yet translated. Once done, remove this comment"
   },

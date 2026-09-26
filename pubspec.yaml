@@ -27,6 +27,8 @@ dependencies:
   flutter_riverpod: ^3.4.2
   # For svg icons
   flutter_svg: ^2.3.0
+  # In-place reorderable grid
+  flutter_reorderable_grid_view: ^5.7.0
   # Navigation
   go_router: ^17.5.0
   # Rounded corner window on linux

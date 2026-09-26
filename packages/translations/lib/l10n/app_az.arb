@@ -64,7 +64,9 @@
   "appearance": "Görünüş",
   "conversions": "Çevirmələr",
   "findOutMore": "Ətraflı öyrən",
+  "hideUnit": "Vahidi gizlət",
   "hideUnits": "Vahidləri gizlət",
+  "showUnit": "Vahidi göstər",
   "visibleUnits": "{property}, görünən vahidlər",
   "@visibleUnits": {
     "placeholders": {

@@ -10,9 +10,11 @@ import 'package:translations/app_localizations.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
+import 'package:converterpro/models/order.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_reorderable_grid_view/entities/reorderable_animation_config.dart';
+import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
 import 'package:vector_graphics/vector_graphics.dart';
-import 'package:go_router/go_router.dart';
 
 class ConversionPage extends ConsumerWidget {
   final PROPERTYX property;
@@ -68,13 +70,37 @@ class ConversionPage extends ConsumerWidget {
       }
     }
 
-    UnitWidget unitWidgetBuilder(UnitData unitData) => UnitWidget(
+    UnitWidget unitWidgetBuilder(
+      UnitData unitData, {
+      Widget? dragHandle,
+      bool isHidden = false,
+    }) => UnitWidget(
+      key: ValueKey('unit-${unitData.unit.name}'),
       tffKey: unitData.unit.name.toString(),
       unitName: unitMap[unitData.unit.name]!,
       unitSymbol: unitData.unit.symbol,
       symbolContainsIcon: unitData.property == PROPERTYX.currencies,
       keyboardType: unitData.textInputType,
       controller: unitData.tec,
+      focusNode: unitData.fn,
+      dragHandle: dragHandle,
+      visibilityHandle: IconButton(
+        tooltip: isHidden ? l10n.showUnit : l10n.hideUnit,
+        icon: Icon(
+          isHidden ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+        ),
+        onPressed: () {
+          unitData.fn.unfocus();
+          ref
+              .read(HiddenUnitsNotifier.provider.notifier)
+              .set(
+                isHidden
+                    ? hiddenUnits.where((e) => e != unitData.unit.name).toList()
+                    : [...hiddenUnits, unitData.unit.name],
+                property,
+              );
+        },
+      ),
       validator: (String? input) {
         if (input != null) {
           if (input != '' && !unitData.getValidator().hasMatch(input)) {
@@ -171,39 +197,6 @@ class ConversionPage extends ConsumerWidget {
                       );
                     },
                   ),
-                  actions: [
-                    MenuAnchor(
-                      menuChildren: [
-                        MenuItemButton(
-                          key: const ValueKey('reorder-units'),
-                          leadingIcon: const Icon(Icons.reorder),
-                          onPressed: () => context.go(
-                            '/conversions/${property.toKebabCase()}/reorder',
-                          ),
-                          child: Text(l10n.reorderUnits),
-                        ),
-                        MenuItemButton(
-                          key: const ValueKey('hide-units'),
-                          leadingIcon: const Icon(
-                            Icons.visibility_off_outlined,
-                          ),
-                          onPressed: () => context.go(
-                            '/conversions/${property.toKebabCase()}/hide',
-                          ),
-                          child: Text(l10n.hideUnits),
-                        ),
-                      ],
-                      builder: (context, controller, child) {
-                        return IconButton(
-                          key: const ValueKey('appbar-menu'),
-                          icon: const Icon(Icons.more_vert),
-                          onPressed: () => controller.isOpen
-                              ? controller.close()
-                              : controller.open(),
-                        );
-                      },
-                    ),
-                  ],
                 ),
                 if (subtitleWidget != null)
                   SliverToBoxAdapter(
@@ -217,17 +210,66 @@ class ConversionPage extends ConsumerWidget {
                   ),
                 SliverPadding(
                   padding: const EdgeInsets.only(top: 10),
-                  sliver: SliverGrid.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: numCols,
-                      childAspectRatio: responsiveChildAspectRatio(
-                        constraint.maxWidth,
-                        numCols,
+                  sliver: SliverToBoxAdapter(
+                    child: ReorderableBuilder.builder(
+                      // No fade-in animation when the page is loaded.
+                      animationConfig: const ReorderableAnimationConfig(
+                        fadeInDuration: Duration.zero,
+                      ),
+                      // No shadow on the unit tile while it is dragged.
+                      dragChildBoxDecoration: const BoxDecoration(),
+                      onReorderPositions: (reorderUpdateEntities) {
+                        for (final entity in reorderUpdateEntities) {
+                          ref
+                              .read(UnitsOrderNotifier.provider.notifier)
+                              .reorderUnhidden(
+                                entity.oldIndex,
+                                entity.newIndex,
+                                property,
+                                hiddenUnits,
+                              );
+                        }
+                      },
+                      itemCount: unhiddenUnitData.length,
+                      childBuilder: (itemBuilder) => GridView.builder(
+                        key: GlobalObjectKey(property),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.zero,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: numCols,
+                          childAspectRatio: responsiveChildAspectRatio(
+                            constraint.maxWidth,
+                            numCols,
+                          ),
+                        ),
+                        itemCount: unhiddenUnitData.length,
+                        itemBuilder: (context, index) => itemBuilder(
+                          unitWidgetBuilder(
+                            unhiddenUnitData[index],
+                            dragHandle: GestureDetector(
+                              // The reorder starts with a long press: if the
+                              // handle is only tapped, explain it to the user.
+                              onTap: () {
+                                ScaffoldMessenger.of(context)
+                                  ..hideCurrentSnackBar()
+                                  ..showSnackBar(
+                                    SnackBar(
+                                      content: Text(l10n.longPressAdvice),
+                                      behavior: SnackBarBehavior.floating,
+                                      duration: const Duration(
+                                        milliseconds: 1000,
+                                      ),
+                                    ),
+                                  );
+                              },
+                              child: const Icon(Icons.drag_handle),
+                            ),
+                          ),
+                          index,
+                        ),
                       ),
                     ),
-                    itemCount: unhiddenUnitData.length,
-                    itemBuilder: (context, index) =>
-                        unitWidgetBuilder(unhiddenUnitData[index]),
                   ),
                 ),
                 if (hiddenUnitData.isNotEmpty)
@@ -251,8 +293,10 @@ class ConversionPage extends ConsumerWidget {
                                 ),
                               ),
                           itemCount: hiddenUnitData.length,
-                          itemBuilder: (context, index) =>
-                              unitWidgetBuilder(hiddenUnitData[index]),
+                          itemBuilder: (context, index) => unitWidgetBuilder(
+                            hiddenUnitData[index],
+                            isHidden: true,
+                          ),
                         ),
                       ],
                     ),

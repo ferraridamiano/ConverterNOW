@@ -76,7 +76,9 @@
   "appearance": "外观",
   "conversions": "转换",
   "findOutMore": "更多",
+  "hideUnit": "隐藏单位",
   "hideUnits": "Hide units",
+  "showUnit": "显示单位",
   "@hideUnits": {
     "description": "Not yet translated. Once done, remove this comment"
   },

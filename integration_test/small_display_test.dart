@@ -70,9 +70,17 @@ void main() {
 
       await tester.tap(find.byKey(const ValueKey('clearAll')));
       await tester.pumpAndSettle();
-      expect(getTextFieldText('AREA.squareFeet'), '', reason: 'Text not cleared');
+      expect(
+        getTextFieldText('AREA.squareFeet'),
+        '',
+        reason: 'Text not cleared',
+      );
       expect(getTextFieldText('AREA.hectares'), '', reason: 'Text not cleared');
-      expect(getTextFieldText('AREA.squareMeters'), '', reason: 'Text not cleared');
+      expect(
+        getTextFieldText('AREA.squareMeters'),
+        '',
+        reason: 'Text not cleared',
+      );
     });
   });
 
@@ -91,7 +99,11 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(getTextFieldText('LENGTH.feet'), '5280', reason: 'Conversion error');
-    expect(getTextFieldText('LENGTH.meters'), '1609.344', reason: 'Conversion error');
+    expect(
+      getTextFieldText('LENGTH.meters'),
+      '1609.344',
+      reason: 'Conversion error',
+    );
 
     await tester.tap(find.byKey(const ValueKey('clearAll')));
     await tester.pumpAndSettle();
@@ -101,9 +113,21 @@ void main() {
 
     await tester.tap(find.byKey(const ValueKey('undoClearAll')));
     await tester.pumpAndSettle();
-    expect(getTextFieldText('LENGTH.miles'), '1.0', reason: 'Text not restored');
-    expect(getTextFieldText('LENGTH.feet'), '5280.0', reason: 'Text not restored');
-    expect(getTextFieldText('LENGTH.meters'), '1609.344', reason: 'Text not restored');
+    expect(
+      getTextFieldText('LENGTH.miles'),
+      '1.0',
+      reason: 'Text not restored',
+    );
+    expect(
+      getTextFieldText('LENGTH.feet'),
+      '5280.0',
+      reason: 'Text not restored',
+    );
+    expect(
+      getTextFieldText('LENGTH.meters'),
+      '1609.344',
+      reason: 'Text not restored',
+    );
   });
 
   group('Language tasks:', () {
@@ -155,28 +179,8 @@ void main() {
         reason: 'Initial ordering of length units is not what expected',
       );
 
-      await tapReorderUnitsFromAppBar(tester);
-
-      final xDragHandle = tester
-          .getCenter(find.byIcon(Icons.drag_handle).first)
-          .dx;
-
-      await dragGesture(
-        tester,
-        Offset(xDragHandle, tester.getCenter(find.text('Meters')).dy),
-        Offset(xDragHandle, tester.getCenter(find.text('Yards')).dy),
-      );
-      await tester.pumpAndSettle();
-
-      await dragGesture(
-        tester,
-        Offset(xDragHandle, tester.getCenter(find.text('Kilometers')).dy),
-        Offset(xDragHandle, tester.getCenter(find.text('Feet')).dy),
-      );
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byKey(const ValueKey('confirm')));
-      await tester.pumpAndSettle();
+      await reorderUnit(tester, 'LENGTH.meters', 'LENGTH.yards');
+      await reorderUnit(tester, 'LENGTH.kilometers', 'LENGTH.feet');
 
       // Now the ordering should be Inches, Centimeters, Meters, ...
       expect(
@@ -387,28 +391,8 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      await tapReorderUnitsFromAppBar(tester);
-
-      final xDragHandleUnits = tester
-          .getCenter(find.byIcon(Icons.drag_handle).first)
-          .dx;
-
-      await dragGesture(
-        tester,
-        Offset(xDragHandleUnits, tester.getCenter(find.text('Meters')).dy),
-        Offset(xDragHandleUnits, tester.getCenter(find.text('Yards')).dy),
-      );
-      await tester.pumpAndSettle();
-
-      await dragGesture(
-        tester,
-        Offset(xDragHandleUnits, tester.getCenter(find.text('Kilometers')).dy),
-        Offset(xDragHandleUnits, tester.getCenter(find.text('Feet')).dy),
-      );
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byKey(const ValueKey('confirm')));
-      await tester.pumpAndSettle();
+      await reorderUnit(tester, 'LENGTH.meters', 'LENGTH.yards');
+      await reorderUnit(tester, 'LENGTH.kilometers', 'LENGTH.feet');
 
       await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
       await tester.pumpAndSettle();

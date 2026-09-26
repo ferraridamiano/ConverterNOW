@@ -103,7 +103,9 @@
   "@findOutMore": {
     "description": "Not yet translated. Once done, remove this comment"
   },
+  "hideUnit": "Birimi gizle",
   "hideUnits": "Hide units",
+  "showUnit": "Birimi göster",
   "@hideUnits": {
     "description": "Not yet translated. Once done, remove this comment"
   },

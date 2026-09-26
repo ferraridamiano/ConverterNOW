@@ -64,7 +64,9 @@
   "appearance": "Внешний вид",
   "conversions": "Преобразования",
   "findOutMore": "Узнать больше",
+  "hideUnit": "Скрыть единицу измерения",
   "hideUnits": "Скрыть единицы измерения",
+  "showUnit": "Показать единицу измерения",
   "visibleUnits": "{property}, отображаемые единицы",
   "@visibleUnits": {
     "placeholders": {

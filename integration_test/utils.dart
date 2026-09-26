@@ -13,9 +13,12 @@ Future<void> clearPreferences() async {
 }
 
 /// Perform a drag from [start] to [end]. Useful for reorderable list
+///
+/// Since the reorderable grid starts the drag with a long press, the gesture
+/// is held for [kLongPressTimeout] plus a small margin before moving.
 Future<void> dragGesture(WidgetTester tester, Offset start, Offset end) async {
   final TestGesture drag = await tester.startGesture(start);
-  await tester.pump(kPressTimeout);
+  await tester.pump(kLongPressTimeout + kPressTimeout);
   await drag.moveTo(end);
   await tester.pump(kPressTimeout);
   await drag.up();
@@ -28,11 +31,17 @@ void setWindowSize(double width, double height) {
   setWindowMaxSize(size);
 }
 
-/// Opens the app bar menu and taps the reorder-units entry
-Future<void> tapReorderUnitsFromAppBar(WidgetTester tester) async {
-  await tester.tap(find.byKey(const ValueKey('appbar-menu')));
+/// Focuses on [unitKey] to reveal its drag handle, then drags it to the center of [targetUnitKey]
+Future<void> reorderUnit(
+  WidgetTester tester,
+  String unitKey,
+  String targetUnitKey,
+) async {
+  await tester.tap(find.byKey(ValueKey(unitKey)));
   await tester.pumpAndSettle();
-  await tester.tap(find.byKey(const ValueKey('reorder-units')));
+  final dragHandle = tester.getCenter(find.byIcon(Icons.drag_handle));
+  final targetCenter = tester.getCenter(find.byKey(ValueKey(targetUnitKey)));
+  await dragGesture(tester, dragHandle, targetCenter);
   await tester.pumpAndSettle();
 }
 
