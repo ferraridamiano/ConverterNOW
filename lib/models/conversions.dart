@@ -1,5 +1,6 @@
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/models/properties_list.dart';
+import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +21,30 @@ class ConversionsNotifier
     ));
     final propertiesMap = await ref.watch(propertiesMapProvider.future);
     final previousState = state.value;
+
+    // If the language changed, the decimal separator may have changed too
+    // (e.g. from "." to ","), so we update the text currently displayed by
+    // the textfields
+    final decimalSeparator = ref.watch(decimalSeparatorProvider);
+    if (previousState != null && decimalSeparator != _lastSeparator) {
+      for (final unitDataList in previousState.values) {
+        for (final unitData in unitDataList) {
+          final String text = unitData.tec.value.text;
+          if (text.isNotEmpty) {
+            // First normalize the old separator to '.', then apply the new one
+            final newText = swapDecimalSeparator(
+              swapDecimalSeparator(text, _lastSeparator),
+              decimalSeparator,
+            );
+            unitData.tec.value = TextEditingValue(
+              text: newText,
+              selection: TextSelection.collapsed(offset: newText.length),
+            );
+          }
+        }
+      }
+    }
+    _lastSeparator = decimalSeparator;
 
     return conversionsOrder.map((propertyx, orderedUnits) {
       final previousList = previousState?[propertyx];
@@ -76,6 +101,8 @@ class ConversionsNotifier
       );
     });
   }
+
+  String _lastSeparator = '.'; //separator used the last time build() was run
 
   /// The list of values that has been just cleared out
   List<dynamic>? _savedUnitDataList;
@@ -143,11 +170,17 @@ class ConversionsNotifier
     if (_savedUnitDataList != null && _savedProperty != null) {
       List<UnitData> listToUndo = state.value![_savedProperty!]!;
       if (_savedUnitDataList![0] is double) {
+        final decimalSeparator = ref.read(decimalSeparatorProvider);
         for (int i = 0; i < listToUndo.length; i++) {
+          final text = swapDecimalSeparator(
+            _savedUnitDataList![i].toString(),
+            decimalSeparator,
+          );
           listToUndo[i]
             ..unit.value = _savedUnitDataList![i]
             ..tec.value = TextEditingValue(
-              text: _savedUnitDataList![i].toString(),
+              text: text,
+              selection: TextSelection.collapsed(offset: text.length),
             );
         }
       } else if (_savedUnitDataList![0] is String) {

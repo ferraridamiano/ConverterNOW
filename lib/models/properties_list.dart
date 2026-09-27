@@ -4,6 +4,15 @@ import 'package:converterpro/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:units_converter/units_converter.dart';
 
+/// Replaces every occurrence of [separator] with '.' and vice versa
+String swapDecimalSeparator(String text, String separator) {
+  if (separator == '.') return text;
+  return text
+      .replaceAll('.', '\u0000')
+      .replaceAll(separator, '.')
+      .replaceAll('\u0000', separator);
+}
+
 const Map<String, String> _currenciesSymbols = {
   'EUR': '€ assets/flags/eu.png',
   'CAD': '\$ assets/flags_opti/ca.svg.vec',
@@ -46,25 +55,30 @@ final propertiesMapProvider = FutureProvider<Map<PROPERTYX, Property>>((
   final significantFigures = (await ref.watch(
     significantFiguresProvider.future,
   ))!;
+  final decimalSeparator = ref.watch(decimalSeparatorProvider);
   return {
     PROPERTYX.length: Length(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.length,
     ),
     PROPERTYX.area: Area(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.area,
     ),
     PROPERTYX.density: Density(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.density,
     ),
     PROPERTYX.volume: Volume(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.volume,
     ),
     PROPERTYX.currencies: SimpleCustomProperty(
@@ -78,77 +92,92 @@ final propertiesMapProvider = FutureProvider<Map<PROPERTYX, Property>>((
       mapSymbols: _currenciesSymbols,
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.currencies,
     ),
     PROPERTYX.time: Time(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.time,
     ),
     PROPERTYX.temperature: Temperature(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.temperature,
     ),
     PROPERTYX.speed: Speed(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.speed,
     ),
     PROPERTYX.mass: Mass(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.mass,
     ),
     PROPERTYX.force: Force(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.force,
     ),
     PROPERTYX.fuelConsumption: FuelConsumption(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.fuelConsumption,
     ),
     PROPERTYX.numeralSystems: NumeralSystems(name: PROPERTYX.numeralSystems),
     PROPERTYX.pressure: Pressure(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.pressure,
     ),
     PROPERTYX.energy: Energy(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.energy,
     ),
     PROPERTYX.power: Power(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.power,
     ),
     PROPERTYX.angle: Angle(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.angle,
     ),
     PROPERTYX.shoeSize: ShoeSize(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.shoeSize,
     ),
     PROPERTYX.digitalData: DigitalData(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.digitalData,
     ),
     PROPERTYX.siPrefixes: SIPrefixes(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.siPrefixes,
     ),
     PROPERTYX.torque: Torque(
       significantFigures: significantFigures,
       removeTrailingZeros: removeTrailingZeros,
+      decimalSeparator: decimalSeparator,
       name: PROPERTYX.torque,
     ),
   };

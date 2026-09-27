@@ -10,11 +10,21 @@ enum ButtonType { number, operation, clear }
 const double _buttonsSpacing = 5;
 
 class CalculatorWidget extends StatelessWidget {
-  const CalculatorWidget({super.key});
+  /// The decimal separator to show in the numpad and in the displayed
+  /// numbers. If null, the default ('.') is used. The host app should pass
+  /// the separator of the currently selected language.
+  final String? decimalSeparator;
+
+  const CalculatorWidget({super.key, this.decimalSeparator});
 
   @override
-  Widget build(BuildContext context) =>
-      ProviderScope(child: _CalculatorWidget());
+  Widget build(BuildContext context) => ProviderScope(
+    overrides: [
+      if (decimalSeparator != null)
+        decimalSeparatorProvider.overrideWithValue(decimalSeparator!),
+    ],
+    child: _CalculatorWidget(),
+  );
 }
 
 class _CalculatorWidget extends ConsumerWidget {
@@ -131,9 +141,18 @@ class CalculatorHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final text = ref.watch(Calculator.provider);
-    final previewText = ref.watch(previewResultProvider);
     final operation = ref.watch(selectedOperationProvider);
+    // The internal state is in canonical form ('.' as decimal separator):
+    // swap it with the separator of the current language just for display
+    final decimalSeparator = ref.watch(decimalSeparatorProvider);
+    final displayText = swapDecimalSeparator(
+      ref.watch(Calculator.provider),
+      decimalSeparator,
+    );
+    final displayPreviewText = swapDecimalSeparator(
+      ref.watch(previewResultProvider),
+      decimalSeparator,
+    );
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,7 +165,7 @@ class CalculatorHeader extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SelectableText(
-                  text,
+                  displayText,
                   style: TextStyle(
                     fontSize: 45,
                     fontWeight: FontWeight.bold,
@@ -156,9 +175,9 @@ class CalculatorHeader extends ConsumerWidget {
                   textScaler: TextScaler.noScaling,
                   scrollPhysics: const ClampingScrollPhysics(),
                 ),
-                if (previewText.isNotEmpty)
+                if (displayPreviewText.isNotEmpty)
                   SelectableText(
-                    previewText,
+                    displayPreviewText,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.normal,
@@ -185,11 +204,11 @@ class CalculatorHeader extends ConsumerWidget {
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
                     onPressed: () {
-                      Clipboard.setData(ClipboardData(text: text));
+                      Clipboard.setData(ClipboardData(text: displayText));
                       HapticFeedback.heavyImpact();
                     },
                   )
-                : text.isEmpty
+                : displayText.isEmpty
                 ? IconButton(
                     tooltip: AppLocalizations.of(context)?.paste,
                     icon: Icon(
@@ -230,11 +249,11 @@ class CalculatorNumpad extends ConsumerWidget {
 
   static const double breakPoint1 = 500;
   static const double breakPoint2 = 610;
-  static const decimalSeparator = '.';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final calcWidth = MediaQuery.sizeOf(context).width;
+    final decimalSeparator = ref.watch(decimalSeparatorProvider);
 
     return Padding(
       padding: const EdgeInsets.all(_buttonsSpacing),

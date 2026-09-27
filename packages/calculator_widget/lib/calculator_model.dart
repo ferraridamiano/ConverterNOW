@@ -19,6 +19,23 @@ enum OPERATION {
   };
 }
 
+/// The decimal separator to display and to submit with the dedicated numpad
+/// button. The default is '.', but the host app can override it (for example
+/// with the separator of the currently selected language, ',' in Italian).
+/// Note that internally the calculator always works with the canonical '.'.
+final decimalSeparatorProvider = Provider<String>((ref) => '.');
+
+/// Returns [text] with '.' replaced by [separator] (and vice versa), so that
+/// a number in canonical form can be displayed with the decimal separator of
+/// the current language
+String swapDecimalSeparator(String text, String separator) {
+  if (separator == '.') return text;
+  return text
+      .replaceAll('.', '\u0000')
+      .replaceAll(separator, '.')
+      .replaceAll('\u0000', separator);
+}
+
 class Calculator extends Notifier<String> {
   final RegExp _regExpValidatingChar = RegExp(r'^[0-9πe,.+-/=*×÷−]+$');
   final RegExp _regExpNumber = RegExp(r'^[0-9πe]+$');

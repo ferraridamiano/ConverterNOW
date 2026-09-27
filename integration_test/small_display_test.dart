@@ -163,6 +163,45 @@ void main() {
       );
       await clearPreferences();
     });
+    testWidgets('Change language updates the decimal separator', (
+      WidgetTester tester,
+    ) async {
+      await testInit(tester);
+      // Perform a conversion with a decimal result
+      await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
+      await tester.pumpAndSettle();
+      expect(
+        getTextFieldText('LENGTH.meters'),
+        '1609.344',
+        reason: 'Conversion error',
+      );
+      // Switch to Italian: the decimal separator should change from '.' to ','
+      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('language-dropdown')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Italiano').last);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Lunghezza'));
+      await tester.pumpAndSettle();
+      expect(
+        getTextFieldText('LENGTH.meters'),
+        '1609,344',
+        reason: 'Expected the Italian decimal separator',
+      );
+      // Converting again should still work
+      await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '2');
+      await tester.pumpAndSettle();
+      expect(
+        getTextFieldText('LENGTH.meters'),
+        '3218,688',
+        reason: 'Conversion error with the Italian decimal separator',
+      );
+    });
   });
 
   group('Reordering tasks:', () {

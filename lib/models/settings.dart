@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:converterpro/styles/consts.dart';
+import 'package:intl/intl.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -185,3 +186,12 @@ Locale languageTagToLocale(String languageTag) {
     orElse: () => fallbackLocale,
   );
 }
+
+/// The string used to separate the integer part from the decimal one,
+/// according to the currently selected language (e.g. "." in English, "," in
+/// Italian). It is used both to display the conversion results and to
+/// normalize the input of the user.
+final decimalSeparatorProvider = Provider<String>((ref) {
+  final locale = ref.watch(actualLocaleProvider);
+  return NumberFormat.decimalPattern(locale?.toString()).symbols.DECIMAL_SEP;
+});

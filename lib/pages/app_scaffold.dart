@@ -5,6 +5,7 @@ import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/pages/custom_drawer.dart';
 import 'package:converterpro/pages/search_page.dart';
+import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/navigator_utils.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:material_ui/material_ui.dart';
@@ -27,7 +28,11 @@ class AppScaffold extends ConsumerWidget {
         context: context,
         isScrollControlled: true,
         builder: (BuildContext context) {
-          return const CalculatorWidget();
+          return Consumer(
+            builder: (context, ref, _) => CalculatorWidget(
+              decimalSeparator: ref.watch(decimalSeparatorProvider),
+            ),
+          );
         },
       );
     }
@@ -66,8 +71,7 @@ class AppScaffold extends ConsumerWidget {
     }
 
     void openSearch() {
-      final heroNotifier =
-          ref.read(conversionPageHeroEnabledProvider.notifier);
+      final heroNotifier = ref.read(conversionPageHeroEnabledProvider.notifier);
       ref.read(PropertiesOrderNotifier.provider).whenData((orderList) async {
         Future.delayed(const Duration(milliseconds: 300), () {
           if (heroNotifier.mounted) {
@@ -109,15 +113,15 @@ class AppScaffold extends ConsumerWidget {
 
         final PROPERTYX? currentProperty =
             selectedSection == AppPage.conversions &&
-                    GoRouterState.of(context).uri.toString().startsWith(
-                      '/conversions/',
-                    )
-                ? kebabStringToPropertyX(
-                  GoRouterState.of(context).uri.toString().substring(
-                    '/conversions/'.length,
-                  ),
-                )
-                : null;
+                GoRouterState.of(
+                  context,
+                ).uri.toString().startsWith('/conversions/')
+            ? kebabStringToPropertyX(
+                GoRouterState.of(
+                  context,
+                ).uri.toString().substring('/conversions/'.length),
+              )
+            : null;
 
         Widget drawer = CustomDrawer(
           isDrawerFixed: _isDrawerFixed,

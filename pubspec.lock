@@ -1069,10 +1069,10 @@ packages:
     dependency: "direct main"
     description:
       name: units_converter
-      sha256: d55fc7554c757a649e9d666ae43f28bd772d637fc48f201e8546f5afc0019ef0
+      sha256: "58a51cb0bfefdd31bb6d8c3a6e850b3c26666e923012195e8129f7b3076cc791"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.1"
+    version: "3.3.2"
   url_launcher:
     dependency: "direct main"
     description:

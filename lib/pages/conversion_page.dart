@@ -3,6 +3,7 @@ import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/conversions.dart';
 import 'package:converterpro/models/currencies.dart';
 import 'package:converterpro/models/hide_units.dart';
+import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -112,9 +113,13 @@ class ConversionPage extends ConsumerWidget {
       onChanged: (String txt) {
         String newTxt = txt;
         bool changed = false;
-        if (newTxt.contains(',')) {
-          newTxt = newTxt.replaceAll(',', '.');
-          changed = true;
+        final decimalSeparator = ref.read(decimalSeparatorProvider);
+
+        for (final separator in ['.', ',']) {
+          if (newTxt.contains(separator) && decimalSeparator != separator) {
+            newTxt = newTxt.replaceAll(separator, decimalSeparator);
+            changed = true;
+          }
         }
         if (newTxt.startsWith('.')) {
           newTxt = '0$newTxt';
@@ -126,15 +131,21 @@ class ConversionPage extends ConsumerWidget {
             selection: TextSelection.collapsed(offset: newTxt.length),
           );
         }
-        if (txt == '' || unitData.getValidator().hasMatch(txt)) {
+        if (newTxt == '' || unitData.getValidator().hasMatch(newTxt)) {
           var conversions = ref.read(ConversionsNotifier.provider.notifier);
           //just numeral system uses a string for conversion
           if (unitData.property == PROPERTYX.numeralSystems) {
-            conversions.convert(unitData, txt == "" ? null : txt, property);
+            conversions.convert(
+              unitData,
+              newTxt == "" ? null : newTxt,
+              property,
+            );
           } else {
             conversions.convert(
               unitData,
-              txt == "" ? null : double.parse(txt),
+              newTxt == ""
+                  ? null
+                  : double.parse(newTxt.replaceAll(decimalSeparator, '.')),
               property,
             );
           }
