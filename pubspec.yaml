@@ -22,7 +22,7 @@ dependencies:
   # App dynamic color theme
   dynamic_color: ^2.1.0
   # Required for import/export
-  file_picker: ^12.0.0
+  file_picker: ^13.1.0
   # State management
   flutter_riverpod: ^3.4.2
   # For svg icons

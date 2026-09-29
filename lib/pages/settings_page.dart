@@ -339,18 +339,18 @@ class SettingsPage extends ConsumerWidget {
                     ),
                     onTap: () async {
                       try {
-                        final result = await FilePicker.pickFiles(
+                        final result = await FilePicker.pickFile(
                           type: FileType.custom,
                           allowedExtensions: ['json'],
                         );
 
-                        if (result.isNotEmpty) {
+                        if (result != null) {
                           String content;
                           if (kIsWeb) {
-                            final bytes = await result.first.readAsBytes();
+                            final bytes = await result.readAsBytes();
                             content = utf8.decode(bytes);
                           } else {
-                            final path = result.single.path;
+                            final path = result.path;
                             if (path == null) return;
                             content = await File(path).readAsString();
                           }
