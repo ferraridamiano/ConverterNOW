@@ -17,9 +17,14 @@ class Currencies {
   /// The date of the last update encoded as 'yyyy-mm-dd'
   String lastUpdate;
 
+  /// The exception thrown by the last download attempt, if it failed.
+  /// Null if the last update was successful.
+  Object? downloadError;
+
   Currencies({
     this.exchangeRates = generated.defaultExchangeRates,
     this.lastUpdate = generated.defaultExchangeRatesDate,
+    this.downloadError,
   });
 
   /// Transform the exchangeRates map into a json that can be stored
@@ -39,10 +44,12 @@ class Currencies {
   Currencies copyWith({
     Map<String, double>? exchangeRates,
     String? lastUpdate,
+    Object? downloadError,
   }) {
     return Currencies(
       exchangeRates: exchangeRates ?? this.exchangeRates,
       lastUpdate: lastUpdate ?? this.lastUpdate,
+      downloadError: downloadError,
     );
   }
 }
@@ -71,7 +78,7 @@ class CurrenciesNotifier extends AsyncNotifier<Currencies> {
     return _readSavedCurrencies();
   }
 
-  void forceCurrenciesDownload() async {
+  Future<void> forceCurrenciesDownload() async {
     state = AsyncData(await _downloadCurrencies());
   }
 
@@ -86,43 +93,55 @@ class CurrenciesNotifier extends AsyncNotifier<Currencies> {
     return Currencies();
   }
 
-  /// Updates the currencies exchange rates with the latest values. It will also
-  /// update the status at the end (updated or error)
+  /// Updates the exchange rates with the latest values. If the download fails
+  /// it is retried once after a second. If both attempts fail, the saved data
+  /// (if any) is returned together with the error that caused the failure.
   Future<Currencies> _downloadCurrencies() async {
     final stringRequest = Currencies.defaultExchangeRates.keys
         .where((e) => e != 'EUR')
         .join('+');
-    try {
-      var response = await http.get(
-        Uri.https(
-          'data-api.ecb.europa.eu',
-          'service/data/EXR/D.$stringRequest.EUR.SP00.A',
-          {'lastNObservations': '1', 'detail': 'dataonly', 'format': 'csvdata'},
-        ),
-      );
-
-      // if successful
-      if (response.statusCode == 200) {
-        var lastUpdate = DateFormat("yyyy-MM-dd").format(DateTime.now());
-        Map<String, double> exchangeRates = {'EUR': 1};
-        final rows = const LineSplitter().convert(response.body);
-        final tableHeader = rows[0].split(',');
-        final valueIndex = tableHeader.indexOf('OBS_VALUE');
-        final currencyIndex = tableHeader.indexOf('CURRENCY');
-        rows.removeAt(0);
-        for (var row in rows) {
-          final elements = row.split(',');
-          final currency = elements[currencyIndex];
-          final value = double.parse(elements[valueIndex]);
-          exchangeRates[currency] = value;
-        }
-        pref.setString('currenciesRates', jsonEncode(exchangeRates));
-        pref.setString('lastUpdateCurrencies', lastUpdate);
-        return Currencies(exchangeRates: exchangeRates, lastUpdate: lastUpdate);
+    Object? error;
+    for (var attempt = 0; attempt < 2; attempt++) {
+      if (attempt > 0) {
+        await Future<void>.delayed(const Duration(seconds: 1));
       }
-    } catch (e) {
-      dPrint(e.toString);
+      try {
+        final response = await http.get(
+          Uri.https(
+            'data-api.ecb.europa.eu',
+            'service/data/EXR/D.$stringRequest.EUR.SP00.A',
+            {'lastNObservations': '1', 'detail': 'dataonly', 'format': 'csvdata'},
+          ),
+        ).timeout(const Duration(seconds: 10));
+
+        // if successful
+        if (response.statusCode == 200) {
+          var lastUpdate = DateFormat("yyyy-MM-dd").format(DateTime.now());
+          Map<String, double> exchangeRates = {'EUR': 1};
+          final rows = const LineSplitter().convert(response.body);
+          final tableHeader = rows[0].split(',');
+          final valueIndex = tableHeader.indexOf('OBS_VALUE');
+          final currencyIndex = tableHeader.indexOf('CURRENCY');
+          rows.removeAt(0);
+          for (var row in rows) {
+            final elements = row.split(',');
+            final currency = elements[currencyIndex];
+            final value = double.parse(elements[valueIndex]);
+            exchangeRates[currency] = value;
+          }
+          pref.setString('currenciesRates', jsonEncode(exchangeRates));
+          pref.setString('lastUpdateCurrencies', lastUpdate);
+          return Currencies(
+            exchangeRates: exchangeRates,
+            lastUpdate: lastUpdate,
+          );
+        }
+        throw Exception('HTTP status ${response.statusCode}');
+      } catch (e) {
+        dPrint(e.toString);
+        error = e;
+      }
     }
-    return _readSavedCurrencies();
+    return _readSavedCurrencies().copyWith(downloadError: error);
   }
 }

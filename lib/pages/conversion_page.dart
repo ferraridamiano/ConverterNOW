@@ -6,6 +6,7 @@ import 'package:converterpro/models/hide_units.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:converterpro/utils/utils.dart';
@@ -16,6 +17,10 @@ import 'package:intl/intl.dart';
 import 'package:flutter_reorderable_grid_view/entities/reorderable_animation_config.dart';
 import 'package:flutter_reorderable_grid_view/widgets/widgets.dart';
 import 'package:vector_graphics/vector_graphics.dart';
+
+/// True while a forced currencies download triggered by tapping the last
+/// update date is in progress (used to show a progress indicator).
+final _isCurrenciesUpdatingProvider = StateProvider<bool>((ref) => false);
 
 class ConversionPage extends ConsumerWidget {
   final PROPERTYX property;
@@ -52,25 +57,43 @@ class ConversionPage extends ConsumerWidget {
     Widget? subtitleWidget;
     if (property == PROPERTYX.currencies) {
       Currencies? currencies = ref.watch(CurrenciesNotifier.provider).value;
-      if (currencies == null) {
+      final isUpdating = ref.watch(_isCurrenciesUpdatingProvider);
+      if (currencies == null || isUpdating) {
         subtitleWidget = const SizedBox(
-          height: 30,
-          child: Center(
-            child: SizedBox(
-              width: 25,
-              height: 25,
-              child: CircularProgressIndicator(),
-            ),
+          height: 28,
+          width: 28,
+          child: Padding(
+            padding: EdgeInsets.all(4),
+            child: CircularProgressIndicator(),
           ),
         );
       } else {
-        subtitleWidget = Text(
-          _getLastUpdateString(
-            context,
-            ref.watch(actualLocaleProvider)!,
-            currencies.lastUpdate,
+        subtitleWidget = InkWell(
+          onTap: () => _forceCurrenciesUpdate(context, ref),
+          borderRadius: BorderRadius.circular(8),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              spacing: 4,
+              children: [
+                Text(
+                  _getLastUpdateString(
+                    context,
+                    ref.watch(actualLocaleProvider)!,
+                    currencies.lastUpdate,
+                  ),
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                if (currencies.downloadError != null)
+                  Icon(
+                    Icons.error_outline,
+                    size: 20,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+              ],
+            ),
           ),
-          style: Theme.of(context).textTheme.titleSmall,
         );
       }
     }
@@ -334,7 +357,11 @@ class ConversionPage extends ConsumerWidget {
   }
 }
 
-String _getLastUpdateString(BuildContext context, Locale locale, String lastUpdate) {
+String _getLastUpdateString(
+  BuildContext context,
+  Locale locale,
+  String lastUpdate,
+) {
   final l10n = AppLocalizations.of(context)!;
   DateTime lastUpdateCurrencies = DateTime.parse(lastUpdate);
   DateTime dateNow = DateTime.now();
@@ -344,7 +371,29 @@ String _getLastUpdateString(BuildContext context, Locale locale, String lastUpda
     return l10n.lastCurrenciesUpdate + l10n.today.toLowerCase();
   }
   return l10n.lastCurrenciesUpdate +
-      DateFormat.yMd(
-        locale.toString(),
-      ).format(lastUpdateCurrencies);
+      DateFormat.yMd(locale.toString()).format(lastUpdateCurrencies);
+}
+
+Future<void> _forceCurrenciesUpdate(BuildContext context, WidgetRef ref) async {
+  final updatingNotifier = ref.read(_isCurrenciesUpdatingProvider.notifier);
+  updatingNotifier.state = true;
+  try {
+    await ref
+        .read(CurrenciesNotifier.provider.notifier)
+        .forceCurrenciesDownload();
+  } finally {
+    updatingNotifier.state = false;
+  }
+  if (!context.mounted) return;
+  final error = ref.read(CurrenciesNotifier.provider).value?.downloadError;
+  if (error != null) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(error.toString()),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+  }
 }
