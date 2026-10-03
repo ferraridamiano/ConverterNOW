@@ -32,7 +32,7 @@ jobs:
 
     - name: Bootstrap
       run: |
-        flutter pub global activate melos
+        dart pub global activate melos
         melos bootstrap
 
     - name: Build for linux
@@ -95,7 +95,7 @@ jobs:
     - name: Bootstrap
       continue-on-error: true
       run: |
-        flutter pub global activate melos
+        dart pub global activate melos
         melos bootstrap
 
     - name: Remove current assets

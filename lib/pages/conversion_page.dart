@@ -65,7 +65,11 @@ class ConversionPage extends ConsumerWidget {
         );
       } else {
         subtitleWidget = Text(
-          _getLastUpdateString(context, currencies.lastUpdate),
+          _getLastUpdateString(
+            context,
+            ref.watch(actualLocaleProvider)!,
+            currencies.lastUpdate,
+          ),
           style: Theme.of(context).textTheme.titleSmall,
         );
       }
@@ -330,7 +334,7 @@ class ConversionPage extends ConsumerWidget {
   }
 }
 
-String _getLastUpdateString(BuildContext context, String lastUpdate) {
+String _getLastUpdateString(BuildContext context, Locale locale, String lastUpdate) {
   final l10n = AppLocalizations.of(context)!;
   DateTime lastUpdateCurrencies = DateTime.parse(lastUpdate);
   DateTime dateNow = DateTime.now();
@@ -341,6 +345,6 @@ String _getLastUpdateString(BuildContext context, String lastUpdate) {
   }
   return l10n.lastCurrenciesUpdate +
       DateFormat.yMd(
-        Localizations.localeOf(context).languageCode,
+        locale.toString(),
       ).format(lastUpdateCurrencies);
 }
