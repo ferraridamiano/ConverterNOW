@@ -58,44 +58,38 @@ class ConversionPage extends ConsumerWidget {
     if (property == PROPERTYX.currencies) {
       Currencies? currencies = ref.watch(CurrenciesNotifier.provider).value;
       final isUpdating = ref.watch(_isCurrenciesUpdatingProvider);
-      if (currencies == null || isUpdating) {
-        subtitleWidget = const SizedBox(
-          height: 28,
-          width: 28,
-          child: Padding(
-            padding: EdgeInsets.all(4),
-            child: CircularProgressIndicator(),
-          ),
-        );
-      } else {
-        subtitleWidget = InkWell(
-          onTap: () => _forceCurrenciesUpdate(context, ref),
-          borderRadius: BorderRadius.circular(8),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              spacing: 4,
-              children: [
-                Text(
-                  _getLastUpdateString(
-                    context,
-                    ref.watch(actualLocaleProvider)!,
-                    currencies.lastUpdate,
+      subtitleWidget = currencies == null || isUpdating
+          ? const SizedBox(
+              height: 32,
+              width: 32,
+              child: Padding(
+                padding: EdgeInsets.all(4),
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : FilledButton.tonal(
+              onPressed: () => _forceCurrenciesUpdate(context, ref),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 4,
+                children: [
+                  Text(
+                    _getLastUpdateString(
+                      context,
+                      ref.watch(actualLocaleProvider)!,
+                      currencies.lastUpdate,
+                    ),
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                if (currencies.downloadError != null)
-                  Icon(
-                    Icons.error_outline,
-                    size: 20,
-                    color: Theme.of(context).colorScheme.error,
-                  ),
-              ],
-            ),
-          ),
-        );
-      }
+                  if (currencies.downloadError != null)
+                    Icon(
+                      Icons.error_outline,
+                      size: 20,
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                ],
+              ),
+            );
     }
 
     UnitWidget unitWidgetBuilder(
