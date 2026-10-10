@@ -20,7 +20,10 @@ int? computeSelectedConversionPage(
   BuildContext context,
   Map<PROPERTYX, int> inversePropertiesOrdering,
 ) {
-  final location = GoRouterState.of(context).uri.toString();
+  // The path is used instead of the whole URI because the location may
+  // contain a query parameter (e.g. '/conversions/length?unit=LENGTH.meters')
+  // that would break the property parsing below.
+  final location = GoRouterState.of(context).uri.path;
   if (location.startsWith('/conversions')) {
     return inversePropertiesOrdering[kebabStringToPropertyX(
       location.split('/')[2],

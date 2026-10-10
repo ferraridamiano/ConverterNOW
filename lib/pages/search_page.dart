@@ -4,7 +4,7 @@ import 'package:converterpro/utils/utils_widgets.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:translations/app_localizations.dart';
 
-class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
+class CustomSearchDelegate extends SearchDelegate<(PROPERTYX, String?)?> {
   final List<PROPERTYX> orderList;
 
   CustomSearchDelegate(this.orderList);
@@ -25,12 +25,15 @@ class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final List<SearchUnit> dataSearch = getSearchUnitsList((PROPERTYX result) {
-      close(context, result);
+    final List<SearchUnit> dataSearch = getSearchUnitsList((
+      PROPERTYX result,
+      String? unitName,
+    ) {
+      close(context, (result, unitName));
     }, context);
     final List<PropertyGridTile> allConversions = getPropertyGridTiles(
       (PROPERTYX result) {
-        close(context, result);
+        close(context, (result, null));
       },
       context,
       orderList,
@@ -73,7 +76,7 @@ class CustomSearchDelegate extends SearchDelegate<PROPERTYX?> {
 
 /// This method will return a List of [SearchUnit], needed in order to display the tiles in the search
 List<SearchUnit> getSearchUnitsList(
-  void Function(PROPERTYX) onTap,
+  void Function(PROPERTYX, String? unitName) onTap,
   BuildContext context,
 ) {
   List<SearchUnit> searchUnitsList = [];
@@ -89,16 +92,23 @@ List<SearchUnit> getSearchUnitsList(
       SearchUnit(
         iconAsset: propertyImagePath,
         unitName: propertyUi.name,
-        onTap: () => onTap(property.key),
+        onTap: () => onTap(propertyx, null),
       ),
     );
     // Add units in search
     searchUnitsList.addAll(
-      unitUiMap[propertyx]!.values.map(
+      unitUiMap[propertyx]!.entries.map(
         (e) => SearchUnit(
           iconAsset: propertyImagePath,
-          unitName: e,
-          onTap: () => onTap(propertyx),
+          unitName: e.value,
+          // The query parameter carries only the identifier (e.g.
+          // 'atmospheres' or 'USD'): the property is already in the path, so
+          // it is unambiguous within it. Currencies are identified by a
+          // plain string, all other units by an enum.
+          onTap: () => onTap(
+            propertyx,
+            e.key is Enum ? (e.key as Enum).name : e.key.toString(),
+          ),
         ),
       ),
     );

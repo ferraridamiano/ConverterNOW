@@ -412,4 +412,43 @@ void main() {
       );
     });
   });
+
+  group('Search tasks:', () {
+    testWidgets('Search a unit opens its page scrolled to the unit', (
+      WidgetTester tester,
+    ) async {
+      await testInit(tester);
+
+      // The search entry is directly visible in the fixed drawer
+      await tester.tap(find.byKey(const ValueKey('drawerItem_search')));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextField).last, 'Pascal');
+      await tester.pumpAndSettle();
+      // The first suggestion tile is covered by the search bar and cannot be
+      // tapped: 'Gigapascal' is the last suggestion of the 'Pascal' query
+      await tester.tap(find.text('Gigapascal'));
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pumpAndSettle();
+      // The search page reveals the target unit with some asynchronous steps
+      // (scroll and highlight)
+      await tester.pump(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.text('Pressure'),
+        findsAtLeastNWidgets(2),
+        reason: 'Expected the pressure page',
+      );
+      final rect = tester.getRect(
+        find.byKey(const ValueKey('PRESSURE.gigaPascal')),
+      );
+      expect(
+        rect.top >= 0 &&
+            rect.bottom <=
+                tester.view.physicalSize.height / tester.view.devicePixelRatio,
+        true,
+        reason: 'The searched unit is not visible',
+      );
+    });
+  });
 }

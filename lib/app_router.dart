@@ -61,7 +61,12 @@ final routerProvider = Provider<GoRouter>(
             builder: (context, state) {
               final String property = state.pathParameters['property']!;
               final propertyx = kebabStringToPropertyX(property);
-              return ConversionPage(propertyx);
+              return ConversionPage(
+                propertyx,
+                // Unit (e.g. 'atmospheres') selected from the search page, to
+                // be scrolled to and highlighted.
+                targetUnit: state.uri.queryParameters['unit'],
+              );
             },
           ),
           GoRoute(

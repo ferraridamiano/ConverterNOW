@@ -41,7 +41,7 @@ class AppScaffold extends ConsumerWidget {
       final currentProperty = kebabStringToPropertyX(
         GoRouterState.of(
           context,
-        ).uri.toString().substring('/conversions/'.length),
+        ).uri.path.substring('/conversions/'.length),
       );
       if (ref
           .read(ConversionsNotifier.provider.notifier)
@@ -78,18 +78,22 @@ class AppScaffold extends ConsumerWidget {
             heroNotifier.state = true;
           }
         });
-        final selectedProperty = await showSearch<PROPERTYX?>(
+        final (PROPERTYX, String?)? searchResult =
+            await showSearch<(PROPERTYX, String?)?>(
           context: context,
           delegate: CustomSearchDelegate(orderList),
         );
-        if (selectedProperty != null) {
+        if (searchResult != null) {
           Future.delayed(const Duration(milliseconds: 300), () {
             if (heroNotifier.mounted) {
               heroNotifier.state = false;
             }
           });
-          final String targetPath =
-              '/conversions/${selectedProperty.toKebabCase()}';
+          final (selectedProperty, selectedUnit) = searchResult;
+          String targetPath = '/conversions/${selectedProperty.toKebabCase()}';
+          if (selectedUnit != null) {
+            targetPath = '$targetPath?unit=$selectedUnit';
+          }
 
           if (context.mounted &&
               GoRouterState.of(context).uri.toString() != targetPath) {
@@ -115,11 +119,11 @@ class AppScaffold extends ConsumerWidget {
             selectedSection == AppPage.conversions &&
                 GoRouterState.of(
                   context,
-                ).uri.toString().startsWith('/conversions/')
+                ).uri.path.startsWith('/conversions/')
             ? kebabStringToPropertyX(
                 GoRouterState.of(
                   context,
-                ).uri.toString().substring('/conversions/'.length),
+                ).uri.path.substring('/conversions/'.length),
               )
             : null;
 

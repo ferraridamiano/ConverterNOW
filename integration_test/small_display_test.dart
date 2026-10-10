@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/widgets.dart' show ExpansibleController;
 import 'package:integration_test/integration_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:converterpro/main.dart' as app;
@@ -471,6 +472,107 @@ void main() {
         getTextFieldText('LENGTH.meters'),
         '1609.344',
         reason: 'Conversion error',
+      );
+    });
+  });
+
+  group('Search tasks:', () {
+    // Opens the search page through the bottom app bar button, performs a
+    // [query] and taps on the suggestion tile labeled [tileText]. The query
+    // must have multiple results, because the first suggestion tile is
+    // covered by the search bar and cannot be tapped.
+    Future<void> search(
+      WidgetTester tester,
+      String query,
+      String tileText,
+    ) async {
+      await tester.tap(find.byIcon(Icons.search));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byType(TextField).last, query);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(tileText).last);
+      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pumpAndSettle();
+      // The search page reveals the target unit with some asynchronous steps
+      // (hidden units tile expansion, scroll and highlight)
+      await tester.pump(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
+    }
+
+    /// The height of the visible area in logical pixels
+    double screenHeight(WidgetTester tester) =>
+        tester.view.physicalSize.height / tester.view.devicePixelRatio;
+
+    testWidgets('Search a unit of another property opens its page scrolled '
+        'to the unit', (WidgetTester tester) async {
+      await testInit(tester);
+
+      await search(tester, 'Pascal', 'Gigapascal');
+
+      expect(
+        find.text('Pressure'),
+        findsAtLeastNWidgets(1),
+        reason: 'Expected the pressure page',
+      );
+      final rect = tester.getRect(
+        find.byKey(const ValueKey('PRESSURE.gigaPascal')),
+      );
+      expect(
+        rect.top >= 0 && rect.bottom <= screenHeight(tester),
+        true,
+        reason: 'The searched unit is not visible',
+      );
+    });
+
+    testWidgets('Search a hidden unit expands the hidden units tile', (
+      WidgetTester tester,
+    ) async {
+      await testInit(tester);
+
+      // The Nanometers unit is below the visible area: scroll down to it
+      await tester.fling(
+        find.byType(CustomScrollView).first,
+        const Offset(0, -800),
+        1000,
+      );
+      await tester.pumpAndSettle();
+
+      // Hide the Nanometers unit: focus the field to reveal the visibility
+      // handle, then tap it
+      await tester.tap(find.byKey(const ValueKey('LENGTH.nanometers')));
+      await tester.pumpAndSettle();
+      await tester.tap(
+        find.descendant(
+          of: find.byKey(const ValueKey('unit-LENGTH.nanometers')),
+          matching: find.byIcon(Icons.visibility_off_outlined),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(
+        find.text('Hidden units'),
+        findsOneWidget,
+        reason: 'Expected the hidden units tile',
+      );
+
+      await search(tester, 'Meters', 'Nanometers');
+
+      expect(
+        find.text('Length'),
+        findsAtLeastNWidgets(1),
+        reason: 'Expected the length page',
+      );
+      // The hidden units tile must have been expanded
+      final controller = ExpansibleController.of(
+        tester.element(find.byKey(const ValueKey('unit-LENGTH.nanometers'))),
+      );
+      expect(controller.isExpanded, true, reason: 'Tile not expanded');
+      final rect = tester.getRect(
+        find.byKey(const ValueKey('LENGTH.nanometers')),
+      );
+      expect(
+        rect.top >= 0 && rect.bottom <= screenHeight(tester),
+        true,
+        reason: 'The searched unit is not visible',
       );
     });
   });

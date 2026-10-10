@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:converterpro/app_router.dart';
 import 'package:converterpro/helpers/responsive_helper.dart';
 import 'package:converterpro/models/conversions.dart';
@@ -25,7 +27,11 @@ final _isCurrenciesUpdatingProvider = StateProvider<bool>((ref) => false);
 class ConversionPage extends ConsumerWidget {
   final PROPERTYX property;
 
-  const ConversionPage(this.property, {super.key});
+  /// The unit (e.g. 'atmospheres') selected from the search page, that will
+  /// be scrolled to and highlighted. Null when the page is opened normally.
+  final String? targetUnit;
+
+  const ConversionPage(this.property, {this.targetUnit, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,6 +59,25 @@ class ConversionPage extends ConsumerWidget {
     final unhiddenUnitData = unitDataList
         .where((e) => !hiddenUnits.contains(e.unit.name))
         .toList();
+
+    // The unit selected from the search page (query parameter 'unit'), if it
+    // belongs to this property. The parameter carries only the unit
+    // identifier (e.g. 'atmospheres' or 'USD'), which is unique within the
+    // property. Currencies are identified by a plain string, all other units
+    // by an enum.
+    UnitData? targetUnitData;
+    if (targetUnit != null) {
+      for (final unitData in unitDataList) {
+        final dynamic unitName = unitData.unit.name;
+        final bool matches = unitName is Enum
+            ? unitName.name == targetUnit
+            : unitName.toString() == targetUnit;
+        if (matches) {
+          targetUnitData = unitData;
+          break;
+        }
+      }
+    }
 
     Widget? subtitleWidget;
     if (property == PROPERTYX.currencies) {
@@ -97,7 +122,12 @@ class ConversionPage extends ConsumerWidget {
       Widget? dragHandle,
       bool isHidden = false,
     }) => UnitWidget(
-      key: ValueKey('unit-${unitData.unit.name}'),
+      // When this is the unit selected from the search page, the [ValueKey]
+      // is moved onto the wrapping [_TargetUnitReveal], so that the reorder
+      // package still sees a [ValueKey] on the direct child.
+      key: identical(unitData, targetUnitData)
+          ? null
+          : ValueKey('unit-${unitData.unit.name}'),
       tffKey: unitData.unit.name.toString(),
       unitName: unitMap[unitData.unit.name]!,
       unitSymbol: unitData.unit.symbol,
@@ -276,9 +306,10 @@ class ConversionPage extends ConsumerWidget {
                           ),
                         ),
                         itemCount: unhiddenUnitData.length,
-                        itemBuilder: (context, index) => itemBuilder(
-                          unitWidgetBuilder(
-                            unhiddenUnitData[index],
+                        itemBuilder: (context, index) {
+                          final unitData = unhiddenUnitData[index];
+                          final unitWidget = unitWidgetBuilder(
+                            unitData,
                             dragHandle: GestureDetector(
                               // The reorder starts with a long press: if the
                               // handle is only tapped, explain it to the user.
@@ -297,9 +328,20 @@ class ConversionPage extends ConsumerWidget {
                               },
                               child: const Icon(Icons.drag_handle),
                             ),
-                          ),
-                          index,
-                        ),
+                          );
+                          return itemBuilder(
+                            identical(unitData, targetUnitData)
+                                ? _TargetUnitReveal(
+                                    key: ValueKey(
+                                      'unit-${unitData.unit.name}',
+                                    ),
+                                    isHidden: false,
+                                    child: unitWidget,
+                                  )
+                                : unitWidget,
+                            index,
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -307,6 +349,10 @@ class ConversionPage extends ConsumerWidget {
                 if (hiddenUnitData.isNotEmpty)
                   SliverToBoxAdapter(
                     child: ExpansionTile(
+                      // Keep the hidden units in the tree even when the tile
+                      // is collapsed: this way the unit selected from the
+                      // search page can expand the tile and scroll to itself.
+                      maintainState: true,
                       leading: const Icon(Icons.visibility_off_outlined),
                       title: Text(
                         l10n.hiddenUnits,
@@ -325,10 +371,22 @@ class ConversionPage extends ConsumerWidget {
                                 ),
                               ),
                           itemCount: hiddenUnitData.length,
-                          itemBuilder: (context, index) => unitWidgetBuilder(
-                            hiddenUnitData[index],
-                            isHidden: true,
-                          ),
+                          itemBuilder: (context, index) {
+                            final unitData = hiddenUnitData[index];
+                            final unitWidget = unitWidgetBuilder(
+                              unitData,
+                              isHidden: true,
+                            );
+                            return identical(unitData, targetUnitData)
+                                ? _TargetUnitReveal(
+                                    key: ValueKey(
+                                      'unit-${unitData.unit.name}',
+                                    ),
+                                    isHidden: true,
+                                    child: unitWidget,
+                                  )
+                                : unitWidget;
+                          },
                         ),
                       ],
                     ),
@@ -389,5 +447,91 @@ Future<void> _forceCurrenciesUpdate(BuildContext context, WidgetRef ref) async {
           behavior: SnackBarBehavior.floating,
         ),
       );
+  }
+}
+
+/// Wraps the unit selected from the search page: when it first appears, it
+/// scrolls the unit into view (expanding the hidden units tile if needed) and
+/// briefly highlights it.
+class _TargetUnitReveal extends StatefulWidget {
+  final Widget child;
+
+  /// Whether the wrapped unit is inside the hidden units [ExpansionTile].
+  final bool isHidden;
+
+  const _TargetUnitReveal({
+    required this.child,
+    required this.isHidden,
+    super.key,
+  });
+
+  @override
+  State<_TargetUnitReveal> createState() => _TargetUnitRevealState();
+}
+
+class _TargetUnitRevealState extends State<_TargetUnitReveal> {
+  final GlobalKey _unitKey = GlobalKey();
+  bool _highlighted = false;
+  Timer? _highlightTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _reveal());
+  }
+
+  @override
+  void dispose() {
+    _highlightTimer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _reveal() async {
+    if (widget.isHidden) {
+      // The unit is inside the hidden units ExpansionTile: expand it so that
+      // the unit is actually visible when scrolled to. The controller is the
+      // one automatically created by the tile, reachable because this widget
+      // is below it in the tree.
+      final ExpansibleController? controller = ExpansibleController.maybeOf(
+        context,
+      );
+      if (controller != null && !controller.isExpanded) {
+        controller.expand();
+        // Wait for the expansion animation to complete, so that the position
+        // of the unit inside the tile is final before scrolling to it.
+        await Future<void>.delayed(const Duration(milliseconds: 250));
+      }
+    }
+    if (!mounted) return;
+    final BuildContext? unitContext = _unitKey.currentContext;
+    if (unitContext == null || !unitContext.mounted) return;
+    await Scrollable.ensureVisible(
+      unitContext,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+      alignment: 0.2,
+    );
+    if (!mounted) return;
+    setState(() => _highlighted = true);
+    _highlightTimer = Timer(const Duration(seconds: 2), () {
+      if (mounted) setState(() => _highlighted = false);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return KeyedSubtree(
+      key: _unitKey,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        decoration: BoxDecoration(
+          color: _highlighted
+              ? Theme.of(context).colorScheme.primaryContainer
+              : null,
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+        ),
+        child: widget.child,
+      ),
+    );
   }
 }
