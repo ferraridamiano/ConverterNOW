@@ -1,5 +1,5 @@
+import 'package:collection/collection.dart';
 import 'package:converterpro/models/order.dart';
-import 'package:converterpro/data/default_order.dart';
 import 'package:converterpro/pages/reorder_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
@@ -41,10 +41,14 @@ class ReorderPropertiesPage extends ConsumerWidget {
                 .value!,
             propertyUiMap: propertyUiMap,
             onActionSelection: (String shortcutType) {
-              final int index = int.parse(shortcutType);
-              context.go(
-                '/conversions/${defaultPropertiesOrder[index].toKebabCase()}',
+              // The shortcut type is the toString() of a PROPERTYX (e.g.
+              // 'PROPERTYX.length'): see initializeQuickAction.
+              final selectedProperty = PROPERTYX.values.firstWhereOrNull(
+                (e) => e.toString() == shortcutType,
               );
+              if (selectedProperty != null) {
+                context.go('/conversions/${selectedProperty.toKebabCase()}');
+              }
             },
           );
         }

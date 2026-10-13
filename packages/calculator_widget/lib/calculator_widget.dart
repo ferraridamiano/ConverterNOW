@@ -252,163 +252,168 @@ class CalculatorNumpad extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final calcWidth = MediaQuery.sizeOf(context).width;
     final decimalSeparator = ref.watch(decimalSeparatorProvider);
 
-    return Padding(
-      padding: const EdgeInsets.all(_buttonsSpacing),
-      child: Row(
-        children: <Widget>[
-          if (calcWidth > breakPoint2)
-            Column(
-              children: <Widget>[
-                CalculatorButton(
-                  text: 'x²',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    ref.read(Calculator.provider.notifier).square();
-                  },
-                ),
-                CalculatorButton(
-                  text: 'ln',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    ref.read(Calculator.provider.notifier).ln();
-                  },
-                ),
-                CalculatorButton(
-                  text: 'n!',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    ref.read(Calculator.provider.notifier).factorial();
-                  },
-                ),
-                CalculatorButton(
-                  text: '1/x',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    ref.read(Calculator.provider.notifier).reciprocal();
-                  },
-                ),
-              ].map((e) => Expanded(child: e)).toList(),
-            ),
-          if (calcWidth > breakPoint1)
-            Column(
-              children: <Widget>[
-                CalculatorButton(
-                  text: '%',
-                  buttonType: ButtonType.operation,
-                  onPressed: ref.read(Calculator.provider.notifier).percentage,
-                ),
-                CalculatorButton(
-                  text: '√',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    ref.read(Calculator.provider.notifier).squareRoot();
-                  },
-                ),
-                CalculatorButton(
-                  text: 'log',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    ref.read(Calculator.provider.notifier).log10();
-                  },
-                ),
-                CalculatorButton(
-                  text: 'π',
-                  buttonType: ButtonType.operation,
-                  onPressed: () {
-                    ref.read(Calculator.provider.notifier).submitChar('π');
-                  },
-                ),
-              ].map((e) => Expanded(child: e)).toList(),
-            ),
-          ...List.generate(
-            3,
-            (columnIndex) => Column(
-              children: [
-                ...List.generate(3, (rowIndex) {
-                  final char = (7 - 3 * rowIndex + columnIndex).toString();
-                  return CalculatorButton(
-                    text: char,
-                    buttonType: ButtonType.number,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).submitChar(char);
-                    },
-                  );
-                }),
-                if (columnIndex == 0)
+    return LayoutBuilder(
+      builder: (context, constraints) => Padding(
+        padding: const EdgeInsets.all(_buttonsSpacing),
+        child: Row(
+          children: <Widget>[
+            if (constraints.maxWidth > breakPoint2)
+              Column(
+                children: <Widget>[
                   CalculatorButton(
-                    text: decimalSeparator,
+                    text: 'x²',
                     buttonType: ButtonType.operation,
                     onPressed: () {
-                      ref
-                          .read(Calculator.provider.notifier)
-                          .submitChar(decimalSeparator);
-                    },
-                  )
-                else if (columnIndex == 1)
-                  CalculatorButton(
-                    text: '0',
-                    buttonType: ButtonType.number,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).submitChar('0');
-                    },
-                  )
-                else if (columnIndex == 2)
-                  CalculatorButton(
-                    text: '=',
-                    buttonType: ButtonType.operation,
-                    onPressed: () {
-                      ref.read(Calculator.provider.notifier).submitChar('=');
+                      ref.read(Calculator.provider.notifier).square();
                     },
                   ),
+                  CalculatorButton(
+                    text: 'ln',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      ref.read(Calculator.provider.notifier).ln();
+                    },
+                  ),
+                  CalculatorButton(
+                    text: 'n!',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      ref.read(Calculator.provider.notifier).factorial();
+                    },
+                  ),
+                  CalculatorButton(
+                    text: '1/x',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      ref.read(Calculator.provider.notifier).reciprocal();
+                    },
+                  ),
+                ].map((e) => Expanded(child: e)).toList(),
+              ),
+            if (constraints.maxWidth > breakPoint1)
+              Column(
+                children: <Widget>[
+                  CalculatorButton(
+                    text: '%',
+                    buttonType: ButtonType.operation,
+                    onPressed: ref
+                        .read(Calculator.provider.notifier)
+                        .percentage,
+                  ),
+                  CalculatorButton(
+                    text: '√',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      ref.read(Calculator.provider.notifier).squareRoot();
+                    },
+                  ),
+                  CalculatorButton(
+                    text: 'log',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      ref.read(Calculator.provider.notifier).log10();
+                    },
+                  ),
+                  CalculatorButton(
+                    text: 'π',
+                    buttonType: ButtonType.operation,
+                    onPressed: () {
+                      ref.read(Calculator.provider.notifier).submitChar('π');
+                    },
+                  ),
+                ].map((e) => Expanded(child: e)).toList(),
+              ),
+            ...List.generate(
+              3,
+              (columnIndex) => Column(
+                children: [
+                  ...List.generate(3, (rowIndex) {
+                    final char = (7 - 3 * rowIndex + columnIndex).toString();
+                    return CalculatorButton(
+                      text: char,
+                      buttonType: ButtonType.number,
+                      onPressed: () {
+                        ref.read(Calculator.provider.notifier).submitChar(char);
+                      },
+                    );
+                  }),
+                  if (columnIndex == 0)
+                    CalculatorButton(
+                      text: decimalSeparator,
+                      buttonType: ButtonType.operation,
+                      onPressed: () {
+                        ref
+                            .read(Calculator.provider.notifier)
+                            .submitChar(decimalSeparator);
+                      },
+                    )
+                  else if (columnIndex == 1)
+                    CalculatorButton(
+                      text: '0',
+                      buttonType: ButtonType.number,
+                      onPressed: () {
+                        ref.read(Calculator.provider.notifier).submitChar('0');
+                      },
+                    )
+                  else if (columnIndex == 2)
+                    CalculatorButton(
+                      text: '=',
+                      buttonType: ButtonType.operation,
+                      onPressed: () {
+                        ref.read(Calculator.provider.notifier).submitChar('=');
+                      },
+                    ),
+                ].map((e) => Expanded(child: e)).toList(),
+              ),
+            ),
+            Column(
+              children: <Widget>[
+                CalculatorButton(
+                  text: ref.read(endNumberProvider) ? 'AC' : '←',
+                  buttonType: ButtonType.clear,
+                  onPressed: () {
+                    ref
+                        .read(Calculator.provider.notifier)
+                        .adaptiveDeleteClear();
+                  },
+                  onLongPress: () {
+                    ref.read(Calculator.provider.notifier).clearAll();
+                  },
+                ),
+                CalculatorButton(
+                  text: '÷',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    ref.read(Calculator.provider.notifier).submitChar('/');
+                  },
+                ),
+                CalculatorButton(
+                  text: '×',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    ref.read(Calculator.provider.notifier).submitChar('*');
+                  },
+                ),
+                CalculatorButton(
+                  text: '−',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    ref.read(Calculator.provider.notifier).submitChar('-');
+                  },
+                ),
+                CalculatorButton(
+                  text: '+',
+                  buttonType: ButtonType.operation,
+                  onPressed: () {
+                    ref.read(Calculator.provider.notifier).submitChar('+');
+                  },
+                ),
               ].map((e) => Expanded(child: e)).toList(),
             ),
-          ),
-          Column(
-            children: <Widget>[
-              CalculatorButton(
-                text: ref.read(endNumberProvider) ? 'AC' : '←',
-                buttonType: ButtonType.clear,
-                onPressed: () {
-                  ref.read(Calculator.provider.notifier).adaptiveDeleteClear();
-                },
-                onLongPress: () {
-                  ref.read(Calculator.provider.notifier).clearAll();
-                },
-              ),
-              CalculatorButton(
-                text: '÷',
-                buttonType: ButtonType.operation,
-                onPressed: () {
-                  ref.read(Calculator.provider.notifier).submitChar('/');
-                },
-              ),
-              CalculatorButton(
-                text: '×',
-                buttonType: ButtonType.operation,
-                onPressed: () {
-                  ref.read(Calculator.provider.notifier).submitChar('*');
-                },
-              ),
-              CalculatorButton(
-                text: '−',
-                buttonType: ButtonType.operation,
-                onPressed: () {
-                  ref.read(Calculator.provider.notifier).submitChar('-');
-                },
-              ),
-              CalculatorButton(
-                text: '+',
-                buttonType: ButtonType.operation,
-                onPressed: () {
-                  ref.read(Calculator.provider.notifier).submitChar('+');
-                },
-              ),
-            ].map((e) => Expanded(child: e)).toList(),
-          ),
-        ].map((e) => Expanded(child: e)).toList(),
+          ].map((e) => Expanded(child: e)).toList(),
+        ),
       ),
     );
   }
