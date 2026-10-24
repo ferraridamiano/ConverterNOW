@@ -261,26 +261,34 @@ class Calculator extends Notifier<String> {
     (Decimal x) => x.inverse.toDecimal(scaleOnInfinitePrecision: 15).toString(),
   );
 
-  /// Computes the factorial of currentNumber
-  void factorial() => _unaryOperation(
-    (Decimal x) =>
-        _getStringFromNum(_myFactorialFunction(x.toBigInt().toInt())),
-  );
+  /// Computes the factorial of currentNumber. It is defined only for
+  /// non-negative integers up to [_maxFactorialInput]: any other input is
+  /// ignored.
+  void factorial() => _unaryOperation((Decimal x) {
+    if (!x.isInteger || x < Decimal.zero) return null;
+    final n = x.toBigInt();
+    if (n > BigInt.from(_maxFactorialInput)) return null;
+    return _factorial(n).toString();
+  });
 
   /// General function that applies to all the unary operations, just pass the
-  /// function
-  void _unaryOperation(String Function(Decimal) operation) {
+  /// function. If the operation returns null, the current value is left
+  /// unchanged (invalid input).
+  void _unaryOperation(String? Function(Decimal) operation) {
     //if it is the first operation submitted
-    if (state.isNotEmpty) {
-      if (_firstNumber != null) {
-        // If the previous operation is not completed, compute it before
-        // computing the new unary operation
-        submitChar('=');
-      }
-      state = operation(Decimal.parse(state));
-      ref.read(endNumberProvider.notifier).state = true;
-      ref.read(isResultProvider.notifier).state = true;
+    if (state.isEmpty) return;
+    if (_firstNumber != null) {
+      // If the previous operation is not completed, compute it before
+      // computing the new unary operation
+      submitChar('=');
     }
+    final value = Decimal.tryParse(state);
+    if (value == null) return;
+    final result = operation(value);
+    if (result == null) return;
+    state = result;
+    ref.read(endNumberProvider.notifier).state = true;
+    ref.read(isResultProvider.notifier).state = true;
   }
 }
 
@@ -303,7 +311,19 @@ String _getStringFromNum(num value) {
   return stringValue;
 }
 
-int _myFactorialFunction(int x) => x == 0 ? 1 : x * _myFactorialFunction(x - 1);
+/// The largest input accepted by [Calculator.factorial]. Bigger results would
+/// be too long to display and would make the UI freeze.
+const int _maxFactorialInput = 170;
+
+/// Iterative (to avoid stack overflows) and based on [BigInt] (to avoid the
+/// silent overflows of [int] for large inputs).
+BigInt _factorial(BigInt n) {
+  var result = BigInt.one;
+  for (var i = BigInt.two; i <= n; i += BigInt.one) {
+    result *= i;
+  }
+  return result;
+}
 
 class SelectedOperationNotifier extends Notifier<OPERATION?> {
   static const Map<String, OPERATION> _mapOperation = {
