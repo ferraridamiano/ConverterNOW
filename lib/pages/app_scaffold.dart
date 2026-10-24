@@ -39,9 +39,7 @@ class AppScaffold extends ConsumerWidget {
 
     void clearAll(bool isDrawerFixed) {
       final currentProperty = kebabStringToPropertyX(
-        GoRouterState.of(
-          context,
-        ).uri.path.substring('/conversions/'.length),
+        GoRouterState.of(context).uri.path.substring('/conversions/'.length),
       );
       if (ref
           .read(ConversionsNotifier.provider.notifier)
@@ -80,9 +78,9 @@ class AppScaffold extends ConsumerWidget {
         });
         final (PROPERTYX, String?)? searchResult =
             await showSearch<(PROPERTYX, String?)?>(
-          context: context,
-          delegate: CustomSearchDelegate(orderList),
-        );
+              context: context,
+              delegate: CustomSearchDelegate(orderList),
+            );
         if (searchResult != null) {
           Future.delayed(const Duration(milliseconds: 300), () {
             if (heroNotifier.mounted) {
@@ -117,9 +115,7 @@ class AppScaffold extends ConsumerWidget {
 
         final PROPERTYX? currentProperty =
             selectedSection == AppPage.conversions &&
-                GoRouterState.of(
-                  context,
-                ).uri.path.startsWith('/conversions/')
+                GoRouterState.of(context).uri.path.startsWith('/conversions/')
             ? kebabStringToPropertyX(
                 GoRouterState.of(
                   context,
@@ -152,6 +148,12 @@ class AppScaffold extends ConsumerWidget {
               )
             : Scaffold(
                 drawer: drawer,
+                onDrawerChanged: (final isOpen) {
+                  if (!isOpen) {
+                    ref.read(drawerPropertiesEditingProvider.notifier).state =
+                        false;
+                  }
+                },
                 body: child,
                 floatingActionButtonLocation:
                     FloatingActionButtonLocation.endContained,

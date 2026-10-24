@@ -264,15 +264,6 @@ class SettingsPage extends ConsumerWidget {
                       }
                     },
                   ),
-                  ListTile(
-                    key: const ValueKey('reorder-properties'),
-                    leading: Icon(Icons.reorder, color: iconColor),
-                    title: Text(l10n.reorderProperties),
-                    onTap: () => context.goNamed('reorder-properties'),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: borderRadius,
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsetsDirectional.only(
                       start: 16,

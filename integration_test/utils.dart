@@ -45,6 +45,22 @@ Future<void> reorderUnit(
   await tester.pumpAndSettle();
 }
 
+/// Drags the property [propertyKey] (e.g. 'PROPERTYX.length') onto
+/// [targetPropertyKey] while the drawer is in reorder mode.
+Future<void> reorderProperty(
+  WidgetTester tester,
+  String propertyKey,
+  String targetPropertyKey,
+) async {
+  final dragHandle = tester.getCenter(
+    find.byKey(ValueKey('drawerReorderHandle_$propertyKey')),
+  );
+  final targetCenter = tester.getCenter(
+    find.byKey(ValueKey('drawerReorderItem_$targetPropertyKey')),
+  );
+  await dragGesture(tester, dragHandle, targetCenter);
+}
+
 /// Gets the [TextFormField] widget for a given [key]
 TextFormField getTextField(String key) =>
     find.byKey(ValueKey(key)).evaluate().single.widget as TextFormField;

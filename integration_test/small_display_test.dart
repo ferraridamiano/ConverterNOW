@@ -278,37 +278,20 @@ void main() {
         reason: 'Initial ordering of properties is not what expected',
       );
 
-      await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
+      await tester.tap(find.byKey(const ValueKey('drawerEditProperties')));
       await tester.pumpAndSettle();
 
-      await tester.drag(find.byType(CustomScrollView), const Offset(0, -300));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byKey(const ValueKey('reorder-properties')));
-      await tester.pumpAndSettle();
-
-      final xDragHandle = tester
-          .getCenter(find.byIcon(Icons.drag_handle).first)
-          .dx;
-
-      await dragGesture(
+      await reorderProperty(
         tester,
-        Offset(xDragHandle, tester.getCenter(find.text('Length').last).dy),
-        Offset(xDragHandle, tester.getCenter(find.text('Currencies').last).dy),
+        'PROPERTYX.length',
+        'PROPERTYX.currencies',
       );
       await tester.pumpAndSettle();
 
-      await dragGesture(
-        tester,
-        Offset(xDragHandle, tester.getCenter(find.text('Volume').last).dy),
-        Offset(xDragHandle, tester.getCenter(find.text('Area').last).dy),
-      );
+      await reorderProperty(tester, 'PROPERTYX.volume', 'PROPERTYX.area');
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const ValueKey('confirm')));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.tap(find.byKey(const ValueKey('drawerSaveProperties')));
       await tester.pumpAndSettle();
 
       // Now the ordering should be Volume, Area, Length, ...
@@ -380,49 +363,20 @@ void main() {
       await tester.tap(find.byIcon(Icons.menu)); // Open drawer
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
+      await tester.tap(find.byKey(const ValueKey('drawerEditProperties')));
       await tester.pumpAndSettle();
 
-      await tester.drag(find.byType(CustomScrollView), const Offset(0, -300));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byKey(const ValueKey('reorder-properties')));
-      await tester.pumpAndSettle();
-
-      final xDragHandleProperties = tester
-          .getCenter(find.byIcon(Icons.drag_handle).first)
-          .dx;
-
-      await dragGesture(
+      await reorderProperty(
         tester,
-        Offset(
-          xDragHandleProperties,
-          tester.getCenter(find.text('Length').last).dy,
-        ),
-        Offset(
-          xDragHandleProperties,
-          tester.getCenter(find.text('Currencies').last).dy,
-        ),
+        'PROPERTYX.length',
+        'PROPERTYX.currencies',
       );
       await tester.pumpAndSettle();
 
-      await dragGesture(
-        tester,
-        Offset(
-          xDragHandleProperties,
-          tester.getCenter(find.text('Volume').last).dy,
-        ),
-        Offset(
-          xDragHandleProperties,
-          tester.getCenter(find.text('Area').last).dy,
-        ),
-      );
+      await reorderProperty(tester, 'PROPERTYX.volume', 'PROPERTYX.area');
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const ValueKey('confirm')));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.tap(find.byKey(const ValueKey('drawerSaveProperties')));
       await tester.pumpAndSettle();
 
       await tester.tap(

@@ -6,7 +6,6 @@ import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/pages/conversion_page.dart';
 import 'package:converterpro/pages/error_page.dart';
 import 'package:converterpro/pages/initial_page.dart';
-import 'package:converterpro/pages/reorder_properties_page.dart';
 import 'package:converterpro/pages/settings_page.dart';
 import 'package:converterpro/pages/splash_screen.dart';
 import 'package:converterpro/pages/app_scaffold.dart';
@@ -74,11 +73,6 @@ final routerProvider = Provider<GoRouter>(
             name: 'settings',
             builder: (context, state) => const SettingsPage(),
             routes: [
-              GoRoute(
-                path: 'reorder-properties',
-                name: 'reorder-properties',
-                builder: (context, state) => const ReorderPropertiesPage(),
-              ),
               GoRoute(
                 path: 'about',
                 name: 'about',

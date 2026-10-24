@@ -92,20 +92,34 @@ void initializeQuickAction({
   // If it is not on a mobile device, return, otherwise set the quick actions
   final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
   if (!isMobileDevice) return;
-  const QuickActions()
-    ..initialize(onActionSelection)
-    ..setShortcutItems(
-      conversionsOrderDrawer
-          .take(3)
-          .map(
-            (e) => ShortcutItem(
-              type: e.toString(),
-              localizedTitle: propertyUiMap[e]!.name,
-              icon: 'launch_image',
-            ),
-          )
-          .toList(),
-    );
+  const QuickActions().initialize(onActionSelection);
+  updateQuickActionItems(
+    conversionsOrderDrawer: conversionsOrderDrawer,
+    propertyUiMap: propertyUiMap,
+  );
+}
+
+/// Updates the quick actions (the first three properties) without registering
+/// a new callback, so it is safe to call from widgets that may be disposed.
+void updateQuickActionItems({
+  required List<PROPERTYX> conversionsOrderDrawer,
+  required Map<PROPERTYX, PropertyUi> propertyUiMap,
+}) {
+  // If it is not on a mobile device, return, otherwise set the quick actions
+  final bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
+  if (!isMobileDevice) return;
+  const QuickActions().setShortcutItems(
+    conversionsOrderDrawer
+        .take(3)
+        .map(
+          (e) => ShortcutItem(
+            type: e.toString(),
+            localizedTitle: propertyUiMap[e]!.name,
+            icon: 'launch_image',
+          ),
+        )
+        .toList(),
+  );
 }
 
 Color getIconColor(ThemeData theme) =>
