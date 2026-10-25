@@ -114,6 +114,11 @@ class Calculator extends Notifier<String> {
     }
     // if it is an operator
     else if (mapOperation.containsKey(char)) {
+      // A lone minus (or any other non-numeric state) is not a valid
+      // operand: ignore the operator instead of trying to parse it.
+      final Decimal? currentNumber = Decimal.tryParse(state);
+      if (currentNumber == null) return;
+
       if (ref.read(isResultProvider)) {
         ref.read(isResultProvider.notifier).state = false;
         ref.read(selectedOperationProvider.notifier).state = null;
@@ -124,7 +129,7 @@ class Calculator extends Notifier<String> {
       if (state.isNotEmpty &&
           _firstNumber == null &&
           ref.read(selectedOperationProvider) == null) {
-        _firstNumber = Decimal.parse(state);
+        _firstNumber = currentNumber;
         ref.read(selectedOperationProvider.notifier).state = mapOperation[char];
         ref.read(endNumberProvider.notifier).state = true;
       } else if (state.isNotEmpty &&
@@ -173,7 +178,8 @@ class Calculator extends Notifier<String> {
     final previewResult = ref.read(previewResultProvider);
 
     if (previewResult.isNotEmpty) {
-      final result = Decimal.parse(previewResult);
+      final Decimal? result = Decimal.tryParse(previewResult);
+      if (result == null) return;
       _firstNumber = result;
       state = previewResult;
       ref.read(endNumberProvider.notifier).state = true;
@@ -258,7 +264,9 @@ class Calculator extends Notifier<String> {
 
   /// Computes the reciprocal (multiplicative inverse) of currentNumber
   void reciprocal() => _unaryOperation(
-    (Decimal x) => x.inverse.toDecimal(scaleOnInfinitePrecision: 15).toString(),
+    (Decimal x) => x == Decimal.zero
+        ? null
+        : x.inverse.toDecimal(scaleOnInfinitePrecision: 15).toString(),
   );
 
   /// Computes the factorial of currentNumber. It is defined only for
@@ -286,6 +294,9 @@ class Calculator extends Notifier<String> {
     if (value == null) return;
     final result = operation(value);
     if (result == null) return;
+    // Ignore results that are not finite numbers (e.g. the square root of a
+    // negative number or the logarithm of zero).
+    if (Decimal.tryParse(result) == null) return;
     state = result;
     ref.read(endNumberProvider.notifier).state = true;
     ref.read(isResultProvider.notifier).state = true;
@@ -293,7 +304,12 @@ class Calculator extends Notifier<String> {
 }
 
 String _getStringFromRational(Rational rational) {
-  String stringValue = (rational.numerator / rational.denominator).toString();
+  final double value = rational.numerator / rational.denominator;
+  // Fall back to the exact decimal representation when the value is outside
+  // the range of double, so that 'Infinity' is never displayed.
+  String stringValue = value.isFinite
+      ? value.toString()
+      : rational.toDecimal().toString();
   if (stringValue.endsWith('.0')) {
     stringValue = stringValue.substring(0, stringValue.length - 2);
   }
