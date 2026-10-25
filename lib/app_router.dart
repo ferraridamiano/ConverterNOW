@@ -48,7 +48,13 @@ final routerProvider = Provider<GoRouter>(
         name: 'conversions',
         builder: (context, state) => const InitialPage(),
         redirect: (context, state) {
-          ref.read(conversionPageHeroEnabledProvider.notifier).state = true;
+          // The redirect can run while the widget tree is building, so the
+          // provider update must be deferred: modifying it synchronously
+          // would throw "Tried to modify a provider while the widget tree was
+          // building".
+          Future(() {
+            ref.read(conversionPageHeroEnabledProvider.notifier).state = true;
+          });
           return null;
         },
       ),
@@ -58,8 +64,10 @@ final routerProvider = Provider<GoRouter>(
           GoRoute(
             path: '/conversions/:property',
             builder: (context, state) {
-              final String property = state.pathParameters['property']!;
-              final propertyx = kebabStringToPropertyX(property);
+              final PROPERTYX? propertyx = kebabStringToPropertyX(
+                state.pathParameters['property']!,
+              );
+              if (propertyx == null) return const ErrorPage();
               return ConversionPage(
                 propertyx,
                 // Unit (e.g. 'atmospheres') selected from the search page, to

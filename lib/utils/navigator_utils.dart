@@ -21,10 +21,9 @@ int? computeSelectedConversionPage(
   // contain a query parameter (e.g. '/conversions/length?unit=LENGTH.meters')
   // that would break the property parsing below.
   final location = GoRouterState.of(context).uri.path;
-  if (location.startsWith('/conversions')) {
-    return inversePropertiesOrdering[kebabStringToPropertyX(
-      location.split('/')[2],
-    )];
+  if (location.startsWith('/conversions/')) {
+    final PROPERTYX? property = kebabStringToPropertyX(location.split('/')[2]);
+    return property == null ? null : inversePropertiesOrdering[property];
   }
   return null;
 }

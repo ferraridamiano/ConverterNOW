@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:io';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:quick_actions/quick_actions.dart';
@@ -144,9 +145,13 @@ extension KebabCaseExtension on PROPERTYX {
       );
 }
 
-PROPERTYX kebabStringToPropertyX(String string) {
+/// Converts a kebab-case string (e.g. 'digital-data') to a [PROPERTYX].
+///
+/// Returns null if the string does not match any property (e.g. when the
+/// property in the URL is not valid).
+PROPERTYX? kebabStringToPropertyX(String string) {
   final lowerCaseString = string.replaceAll('-', '').toLowerCase();
-  return PROPERTYX.values.firstWhere(
+  return PROPERTYX.values.firstWhereOrNull(
     (e) => e.toString().toLowerCase() == 'propertyx.$lowerCaseString',
   );
 }

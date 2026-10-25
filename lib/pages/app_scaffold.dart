@@ -38,9 +38,10 @@ class AppScaffold extends ConsumerWidget {
     }
 
     void clearAll(bool isDrawerFixed) {
-      final currentProperty = kebabStringToPropertyX(
+      final PROPERTYX? currentProperty = kebabStringToPropertyX(
         GoRouterState.of(context).uri.path.substring('/conversions/'.length),
       );
+      if (currentProperty == null) return;
       if (ref
           .read(ConversionsNotifier.provider.notifier)
           .shouldShowSnackbar(currentProperty)) {
@@ -139,9 +140,10 @@ class AppScaffold extends ConsumerWidget {
                 ),
                 floatingActionButton:
                     (selectedSection == AppPage.conversions &&
+                        currentProperty != null &&
                         MediaQuery.viewInsetsOf(context).bottom == 0)
                     ? _ClearAllFab(
-                        currentProperty: currentProperty!,
+                        currentProperty: currentProperty,
                         onPressed: () => clearAll(_isDrawerFixed),
                       )
                     : null,
@@ -178,9 +180,10 @@ class AppScaffold extends ConsumerWidget {
                     : null,
                 floatingActionButton:
                     (selectedSection == AppPage.conversions &&
+                        currentProperty != null &&
                         MediaQuery.viewInsetsOf(context).bottom == 0)
                     ? _ClearAllFab(
-                        currentProperty: currentProperty!,
+                        currentProperty: currentProperty,
                         onPressed: () => clearAll(_isDrawerFixed),
                       )
                     : null,

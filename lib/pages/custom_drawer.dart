@@ -334,7 +334,7 @@ class CustomDrawer extends ConsumerWidget {
   }
 }
 
-int pathToNavigationIndex(
+int? pathToNavigationIndex(
   BuildContext context,
   bool isDrawerFixed,
   Map<PROPERTYX, int> inversePropertiesOrdering,
@@ -344,11 +344,11 @@ int pathToNavigationIndex(
   // 3 elements in the header
   if (isDrawerFixed) {
     if (location.startsWith('/conversions/')) {
-      return computeSelectedConversionPage(
-            context,
-            inversePropertiesOrdering,
-          )! +
-          3;
+      final int? index = computeSelectedConversionPage(
+        context,
+        inversePropertiesOrdering,
+      );
+      return index == null ? null : index + 3;
     } else {
       return 2; // Settings
     }
@@ -356,11 +356,11 @@ int pathToNavigationIndex(
   // 1 element in the header
   else {
     if (location.startsWith('/conversions/')) {
-      return computeSelectedConversionPage(
-            context,
-            inversePropertiesOrdering,
-          )! +
-          1;
+      final int? index = computeSelectedConversionPage(
+        context,
+        inversePropertiesOrdering,
+      );
+      return index == null ? null : index + 1;
     } else {
       return 0; // Settings
     }

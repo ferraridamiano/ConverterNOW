@@ -15,6 +15,12 @@ class InitialPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // When the page is opened directly (e.g. from a web deep link) the
+    // properties order may still be loading.
+    if (!ref.watch(isEverythingLoadedProvider)) {
+      return const SplashScreenWidget();
+    }
+
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
