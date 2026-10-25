@@ -81,10 +81,7 @@ void main() async {
     final currencyIndex = tableHeader.indexOf('CURRENCY');
 
     if (valueIndex == -1 || currencyIndex == -1) {
-      _handleError(
-        'Unexpected CSV format from ECB API',
-        outputFile,
-      );
+      _handleError('Unexpected CSV format from ECB API', outputFile);
       return;
     }
 
@@ -99,10 +96,7 @@ void main() async {
     for (final currency in currencies) {
       if (!exchangeRates.containsKey(currency)) {
         print('WARNING: Missing rate for $currency, skipping generation.');
-        _handleError(
-          'Missing rate for $currency in ECB response',
-          outputFile,
-        );
+        _handleError('Missing rate for $currency in ECB response', outputFile);
         return;
       }
     }
@@ -118,14 +112,13 @@ void main() async {
       ..writeln('// Last updated: $dateStr')
       ..writeln()
       ..writeln(
-          '/// Default exchange rates relative to EUR, fetched from ECB at build time.')
+        '/// Default exchange rates relative to EUR, fetched from ECB at build time.',
+      )
       ..writeln('const defaultExchangeRates = <String, double>{');
 
     // Write EUR first, then alphabetically
     buffer.writeln("  'EUR': 1.0,");
-    final sortedKeys = exchangeRates.keys
-        .where((k) => k != 'EUR')
-        .toList()
+    final sortedKeys = exchangeRates.keys.where((k) => k != 'EUR').toList()
       ..sort();
     for (final key in sortedKeys) {
       buffer.writeln("  '$key': ${exchangeRates[key]},");
@@ -138,8 +131,10 @@ void main() async {
       ..writeln();
 
     outputFile.writeAsStringSync(buffer.toString());
-    print('✓ Generated ${outputFile.path} with ${exchangeRates.length} '
-        'currencies (date: $dateStr)');
+    print(
+      '✓ Generated ${outputFile.path} with ${exchangeRates.length} '
+      'currencies (date: $dateStr)',
+    );
   } catch (e) {
     _handleError(e.toString(), outputFile);
   }
@@ -150,8 +145,10 @@ void _handleError(String message, File outputFile) {
   if (outputFile.existsSync()) {
     print('Keeping existing ${outputFile.path}');
   } else {
-    print('ERROR: No existing ${outputFile.path} found. '
-        'The build will fail without this file.');
+    print(
+      'ERROR: No existing ${outputFile.path} found. '
+      'The build will fail without this file.',
+    );
     exit(1);
   }
 }

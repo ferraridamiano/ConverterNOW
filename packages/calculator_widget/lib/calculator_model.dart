@@ -60,8 +60,11 @@ class Calculator extends Notifier<String> {
   /// With this function you can subit any char from 0-9, [, . + - * / =
   /// backspace canc]
   void submitChar(String char) {
+    final String decimalSeparator = ref.read(decimalSeparatorProvider);
+    final bool isDecimalSeparator = char == decimalSeparator;
     //if string is not valid then return
-    if (!(char.length == 1 && _regExpValidatingChar.hasMatch(char))) {
+    if (!(char.length == 1 &&
+        (_regExpValidatingChar.hasMatch(char) || isDecimalSeparator))) {
       return;
     }
 
@@ -89,8 +92,8 @@ class Calculator extends Notifier<String> {
       // Update preview result if an operation is selected
       _updatePreviewResult();
     }
-    //if char is a comma or a dot
-    else if (char == '.' || char == ',') {
+    //if char is a comma, a dot or the decimal separator of the locale
+    else if (char == '.' || char == ',' || isDecimalSeparator) {
       // Starting a new number after an operator (e.g. "10 * .1")
       if (ref.read(endNumberProvider)) {
         state = '0.';
@@ -233,6 +236,8 @@ class Calculator extends Notifier<String> {
     if (state.isNotEmpty) {
       state = state.substring(0, state.length - 1);
     }
+    // Keep the preview in sync with the (possibly) new second operand.
+    _updatePreviewResult();
   }
 
   /// This method either clearAll() or deleteLastChar() depending on the state

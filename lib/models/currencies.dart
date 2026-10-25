@@ -1,6 +1,5 @@
 import 'dart:convert';
-import 'package:converterpro/models/default_exchange_rates.g.dart'
-    as generated;
+import 'package:converterpro/models/default_exchange_rates.g.dart' as generated;
 import 'package:converterpro/models/settings.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -106,13 +105,19 @@ class CurrenciesNotifier extends AsyncNotifier<Currencies> {
         await Future<void>.delayed(const Duration(seconds: 1));
       }
       try {
-        final response = await http.get(
-          Uri.https(
-            'data-api.ecb.europa.eu',
-            'service/data/EXR/D.$stringRequest.EUR.SP00.A',
-            {'lastNObservations': '1', 'detail': 'dataonly', 'format': 'csvdata'},
-          ),
-        ).timeout(const Duration(seconds: 10));
+        final response = await http
+            .get(
+              Uri.https(
+                'data-api.ecb.europa.eu',
+                'service/data/EXR/D.$stringRequest.EUR.SP00.A',
+                {
+                  'lastNObservations': '1',
+                  'detail': 'dataonly',
+                  'format': 'csvdata',
+                },
+              ),
+            )
+            .timeout(const Duration(seconds: 10));
 
         // if successful
         if (response.statusCode == 200) {

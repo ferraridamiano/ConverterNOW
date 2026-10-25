@@ -154,8 +154,10 @@ class ConversionPage extends ConsumerWidget {
         },
       ),
       validator: (String? input) {
-        if (input != null) {
-          if (input != '' && !unitData.getValidator().hasMatch(input)) {
+        if (input != null && input != '') {
+          final decimalSeparator = ref.read(decimalSeparatorProvider);
+          final normalizedInput = input.replaceAll(decimalSeparator, '.');
+          if (!unitData.getValidator().hasMatch(normalizedInput)) {
             return l10n.invalidCharacters;
           }
         }
@@ -172,7 +174,7 @@ class ConversionPage extends ConsumerWidget {
             changed = true;
           }
         }
-        if (newTxt.startsWith('.')) {
+        if (newTxt.startsWith(decimalSeparator)) {
           newTxt = '0$newTxt';
           changed = true;
         }
@@ -182,7 +184,8 @@ class ConversionPage extends ConsumerWidget {
             selection: TextSelection.collapsed(offset: newTxt.length),
           );
         }
-        if (newTxt == '' || unitData.getValidator().hasMatch(newTxt)) {
+        final normalizedTxt = newTxt.replaceAll(decimalSeparator, '.');
+        if (newTxt == '' || unitData.getValidator().hasMatch(normalizedTxt)) {
           var conversions = ref.read(ConversionsNotifier.provider.notifier);
           //just numeral system uses a string for conversion
           if (unitData.property == PROPERTYX.numeralSystems) {
@@ -194,9 +197,7 @@ class ConversionPage extends ConsumerWidget {
           } else {
             conversions.convert(
               unitData,
-              newTxt == ""
-                  ? null
-                  : double.parse(newTxt.replaceAll(decimalSeparator, '.')),
+              newTxt == "" ? null : double.parse(normalizedTxt),
               property,
             );
           }
@@ -332,9 +333,7 @@ class ConversionPage extends ConsumerWidget {
                           return itemBuilder(
                             identical(unitData, targetUnitData)
                                 ? _TargetUnitReveal(
-                                    key: ValueKey(
-                                      'unit-${unitData.unit.name}',
-                                    ),
+                                    key: ValueKey('unit-${unitData.unit.name}'),
                                     isHidden: false,
                                     child: unitWidget,
                                   )
@@ -379,9 +378,7 @@ class ConversionPage extends ConsumerWidget {
                             );
                             return identical(unitData, targetUnitData)
                                 ? _TargetUnitReveal(
-                                    key: ValueKey(
-                                      'unit-${unitData.unit.name}',
-                                    ),
+                                    key: ValueKey('unit-${unitData.unit.name}'),
                                     isHidden: true,
                                     child: unitWidget,
                                   )

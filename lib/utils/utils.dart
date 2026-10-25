@@ -54,7 +54,9 @@ class UnitData {
     VALIDATOR.decimal => RegExp(r'^[0-9]+$'),
     VALIDATOR.hexadecimal => RegExp(r'^[0-9A-Fa-f]+$'),
     VALIDATOR.rational => RegExp(r'^([+-]?\d+)[.,]?(\d*)(e[+-]?\d+)?$'),
-    _ => RegExp(r'^([+-]?\d+)[.,]?(\d*)(e[+-]?\d+)?$'),
+    VALIDATOR.rationalNonNegative => RegExp(
+      r'^\+?(\d+)[.,]?(\d*)(e[+-]?\d+)?$',
+    ),
   };
 }
 

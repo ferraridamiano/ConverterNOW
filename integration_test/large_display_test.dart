@@ -223,11 +223,7 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('drawerEditProperties')));
       await tester.pumpAndSettle();
 
-      await reorderProperty(
-        tester,
-        'PROPERTYX.length',
-        'PROPERTYX.currencies',
-      );
+      await reorderProperty(tester, 'PROPERTYX.length', 'PROPERTYX.currencies');
       await tester.pumpAndSettle();
 
       await reorderProperty(tester, 'PROPERTYX.volume', 'PROPERTYX.area');
@@ -303,11 +299,7 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('drawerEditProperties')));
       await tester.pumpAndSettle();
 
-      await reorderProperty(
-        tester,
-        'PROPERTYX.length',
-        'PROPERTYX.currencies',
-      );
+      await reorderProperty(tester, 'PROPERTYX.length', 'PROPERTYX.currencies');
       await tester.pumpAndSettle();
 
       await reorderProperty(tester, 'PROPERTYX.volume', 'PROPERTYX.area');

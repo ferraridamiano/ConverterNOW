@@ -41,8 +41,9 @@ class InitialPage extends ConsumerWidget {
             maxCrossAxisExtent: 180,
             children: getPropertyGridTiles(
               (PROPERTYX e) {
-                final heroNotifier =
-                    ref.read(conversionPageHeroEnabledProvider.notifier);
+                final heroNotifier = ref.read(
+                  conversionPageHeroEnabledProvider.notifier,
+                );
                 Future.delayed(const Duration(milliseconds: 300), () {
                   if (heroNotifier.mounted) {
                     heroNotifier.state = false;

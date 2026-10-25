@@ -59,75 +59,83 @@ class _CalculatorWidget extends ConsumerWidget {
           ),
         },
         child: SafeArea(
-          child: SizedBox(
-            height: 480,
-            child: Builder(
-              builder: (context) {
-                focusKeyboard.requestFocus();
-                return KeyboardListener(
-                  focusNode: focusKeyboard,
-                  onKeyEvent: (KeyEvent event) {
-                    if (event.runtimeType.toString() == 'KeyDownEvent') {
-                      switch (event.logicalKey) {
-                        case LogicalKeyboardKey.backspace:
-                          ref
-                              .read(Calculator.provider.notifier)
-                              .adaptiveDeleteClear();
-                        case LogicalKeyboardKey.delete:
-                          ref.read(Calculator.provider.notifier).clearAll();
-                        case LogicalKeyboardKey.enter:
-                          ref
-                              .read(Calculator.provider.notifier)
-                              .submitChar('=');
-                        default:
-                          ref
-                              .read(Calculator.provider.notifier)
-                              .submitChar(event.character ?? '');
-                      }
-                    }
-                  },
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surface,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(30),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              // handle
-                              Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 8,
-                                  ),
-                                  child: Container(
-                                    width: 32,
-                                    height: 4,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurfaceVariant
-                                          .withValues(alpha: 0.4),
-                                      borderRadius: BorderRadius.circular(2),
-                                    ),
-                                  ),
+          child: LayoutBuilder(
+            builder: (context, constraints) => FittedBox(
+              fit: BoxFit.contain,
+              child: SizedBox(
+                width: constraints.maxWidth,
+                height: 480,
+                child: Builder(
+                  builder: (context) {
+                    focusKeyboard.requestFocus();
+                    return KeyboardListener(
+                      focusNode: focusKeyboard,
+                      onKeyEvent: (KeyEvent event) {
+                        if (event.runtimeType.toString() == 'KeyDownEvent') {
+                          switch (event.logicalKey) {
+                            case LogicalKeyboardKey.backspace:
+                              ref
+                                  .read(Calculator.provider.notifier)
+                                  .adaptiveDeleteClear();
+                            case LogicalKeyboardKey.delete:
+                              ref.read(Calculator.provider.notifier).clearAll();
+                            case LogicalKeyboardKey.enter:
+                              ref
+                                  .read(Calculator.provider.notifier)
+                                  .submitChar('=');
+                            default:
+                              ref
+                                  .read(Calculator.provider.notifier)
+                                  .submitChar(event.character ?? '');
+                          }
+                        }
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surface,
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(30),
                                 ),
                               ),
-                              const Expanded(child: CalculatorHeader()),
-                            ],
+                              child: Column(
+                                children: [
+                                  // handle
+                                  Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 8,
+                                      ),
+                                      child: Container(
+                                        width: 32,
+                                        height: 4,
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurfaceVariant
+                                              .withValues(alpha: 0.4),
+                                          borderRadius: BorderRadius.circular(
+                                            2,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const Expanded(child: CalculatorHeader()),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                          const Expanded(flex: 7, child: CalculatorNumpad()),
+                        ],
                       ),
-                      const Expanded(flex: 7, child: CalculatorNumpad()),
-                    ],
-                  ),
-                );
-              },
+                    );
+                  },
+                ),
+              ),
             ),
           ),
         ),
