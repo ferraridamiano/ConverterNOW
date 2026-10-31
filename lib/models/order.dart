@@ -62,15 +62,25 @@ class PropertiesOrderNotifier extends AsyncNotifier<List<PROPERTYX>> {
     // Update the state
     state = AsyncData(propertiesOrder);
     // Store the new values
-    ref.read(sharedPref.future).then((prefs) {
+    _storeOrder(propertiesOrder);
+    return true;
+  }
+
+  /// Serializes the writes so that rapid reorders cannot persist an older order
+  /// after a newer one.
+  Future<void> _pendingWrite = Future<void>.value();
+
+  void _storeOrder(List<PROPERTYX> propertiesOrder) {
+    final prefsFuture = ref.read(sharedPref.future);
+    _pendingWrite = _pendingWrite.then((_) async {
+      final prefs = await prefsFuture;
       // If it is the default order, do not save it
       if (listEquals(propertiesOrder, defaultPropertiesOrder)) {
-        prefs.remove(storeKey);
+        await prefs.remove(storeKey);
       } else {
-        prefs.setStringList(storeKey, _toStorableString(propertiesOrder));
+        await prefs.setStringList(storeKey, _toStorableString(propertiesOrder));
       }
     });
-    return true;
   }
 
   List<String> _toStorableString(List<PROPERTYX> listToConvert) => listToConvert
@@ -149,14 +159,7 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
     newState[property] = unitsOrder;
     state = AsyncData(newState);
     // Store the new values
-    ref.read(sharedPref.future).then((prefs) {
-      // If it is the default order, do not save it
-      if (listEquals(unitsOrder, defaultUnitsOrder[property])) {
-        prefs.remove(storeKey(property));
-      } else {
-        prefs.setStringList(storeKey(property), _toStorableString(unitsOrder));
-      }
-    });
+    _storeOrder(unitsOrder, property);
     return true;
   }
 
@@ -197,17 +200,24 @@ class UnitsOrderNotifier extends AsyncNotifier<Map<PROPERTYX, List>> {
     newState[property] = fullUnitsOrder;
     state = AsyncData(newState);
 
-    ref.read(sharedPref.future).then((prefs) {
-      if (listEquals(fullUnitsOrder, defaultUnitsOrder[property])) {
-        prefs.remove(storeKey(property));
+    _storeOrder(fullUnitsOrder, property);
+    return true;
+  }
+
+  /// Serializes the writes so that rapid reorders cannot persist an older order
+  /// after a newer one.
+  Future<void> _pendingWrite = Future<void>.value();
+
+  void _storeOrder(List order, PROPERTYX property) {
+    final prefsFuture = ref.read(sharedPref.future);
+    _pendingWrite = _pendingWrite.then((_) async {
+      final prefs = await prefsFuture;
+      if (listEquals(order, defaultUnitsOrder[property])) {
+        await prefs.remove(storeKey(property));
       } else {
-        prefs.setStringList(
-          storeKey(property),
-          _toStorableString(fullUnitsOrder),
-        );
+        await prefs.setStringList(storeKey(property), _toStorableString(order));
       }
     });
-    return true;
   }
 
   String storeKey(PROPERTYX property) =>

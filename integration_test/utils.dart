@@ -31,18 +31,44 @@ void setWindowSize(double width, double height) {
   setWindowMaxSize(size);
 }
 
-/// Focuses on [unitKey] to reveal its drag handle, then drags it to the center of [targetUnitKey]
+/// Enters the units edit mode if needed, then drags the handle of [unitKey]
+/// onto the center of [targetUnitKey].
 Future<void> reorderUnit(
   WidgetTester tester,
   String unitKey,
   String targetUnitKey,
 ) async {
-  await tester.tap(find.byKey(ValueKey(unitKey)));
+  if (find.byKey(const ValueKey('editUnits')).evaluate().isNotEmpty) {
+    await tester.tap(find.byKey(const ValueKey('editUnits')));
+    await tester.pumpAndSettle();
+  }
+  final dragHandle = tester.getCenter(
+    find.byKey(ValueKey('unitDragHandle-$unitKey')),
+  );
+  final targetCenter = tester.getCenter(
+    find.byKey(ValueKey('unit-$targetUnitKey')),
+  );
+  final TestGesture gesture = await tester.startGesture(dragHandle);
+  await tester.pump();
+  await gesture.moveTo(targetCenter);
+  await tester.pump();
+  await gesture.up();
   await tester.pumpAndSettle();
-  final dragHandle = tester.getCenter(find.byIcon(Icons.drag_handle));
-  final targetCenter = tester.getCenter(find.byKey(ValueKey(targetUnitKey)));
-  await dragGesture(tester, dragHandle, targetCenter);
+}
+
+/// Leaves the units edit mode, scrolling back to the app bar if needed.
+Future<void> exitUnitsEditMode(WidgetTester tester) async {
+  await tester.fling(
+    find.byType(CustomScrollView).first,
+    const Offset(0, 1000),
+    1000,
+  );
   await tester.pumpAndSettle();
+  await tester.tap(find.byKey(const ValueKey('saveUnits')));
+  await tester.pumpAndSettle();
+  // Let the asynchronous shared preferences write complete before a possible
+  // app restart in the next test.
+  await tester.pump(const Duration(milliseconds: 200));
 }
 
 /// Drags the property [propertyKey] (e.g. 'PROPERTYX.length') onto

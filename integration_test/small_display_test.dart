@@ -220,6 +220,7 @@ void main() {
 
       await reorderUnit(tester, 'LENGTH.meters', 'LENGTH.yards');
       await reorderUnit(tester, 'LENGTH.kilometers', 'LENGTH.feet');
+      await exitUnitsEditMode(tester);
 
       // Now the ordering should be Inches, Centimeters, Meters, ...
       expect(
@@ -244,6 +245,53 @@ void main() {
                 tester.getCenter(find.text('Meters')).dy,
         true,
         reason: 'Ordering of length units is not what expected',
+      );
+    });
+
+    testWidgets('Edit units mode shows the drag handles', (
+      WidgetTester tester,
+    ) async {
+      await testInit(tester);
+
+      expect(
+        find.byKey(const ValueKey('unitDragHandle-LENGTH.meters')),
+        findsNothing,
+      );
+
+      await tester.tap(find.byKey(const ValueKey('editUnits')));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.byKey(const ValueKey('unitDragHandle-LENGTH.meters')),
+        findsOneWidget,
+      );
+      expect(
+        find.byKey(const ValueKey('unitVisibilityHandle-LENGTH.meters')),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.byKey(const ValueKey('saveUnits')));
+      await tester.pumpAndSettle();
+
+      expect(
+        find.byKey(const ValueKey('unitDragHandle-LENGTH.meters')),
+        findsNothing,
+      );
+    });
+
+    testWidgets('Convert while editing units', (WidgetTester tester) async {
+      await testInit(tester);
+
+      await tester.tap(find.byKey(const ValueKey('editUnits')));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
+      await tester.pumpAndSettle();
+
+      expect(
+        getTextFieldText('LENGTH.feet'),
+        '5280',
+        reason: 'Conversion error while editing units',
       );
     });
 
@@ -378,6 +426,7 @@ void main() {
 
       await reorderUnit(tester, 'LENGTH.meters', 'LENGTH.yards');
       await reorderUnit(tester, 'LENGTH.kilometers', 'LENGTH.feet');
+      await exitUnitsEditMode(tester);
 
       await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
       await tester.pumpAndSettle();
@@ -474,6 +523,10 @@ void main() {
     ) async {
       await testInit(tester);
 
+      // Enter edit mode to show the visibility handles
+      await tester.tap(find.byKey(const ValueKey('editUnits')));
+      await tester.pumpAndSettle();
+
       // The Nanometers unit is below the visible area: scroll down to it
       await tester.fling(
         find.byType(CustomScrollView).first,
@@ -482,15 +535,8 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // Hide the Nanometers unit: focus the field to reveal the visibility
-      // handle, then tap it
-      await tester.tap(find.byKey(const ValueKey('LENGTH.nanometers')));
-      await tester.pumpAndSettle();
       await tester.tap(
-        find.descendant(
-          of: find.byKey(const ValueKey('unit-LENGTH.nanometers')),
-          matching: find.byIcon(Icons.visibility_off_outlined),
-        ),
+        find.byKey(const ValueKey('unitVisibilityHandle-LENGTH.nanometers')),
       );
       await tester.pumpAndSettle();
       expect(
@@ -498,6 +544,8 @@ void main() {
         findsOneWidget,
         reason: 'Expected the hidden units tile',
       );
+
+      await exitUnitsEditMode(tester);
 
       await search(tester, 'Meters', 'Nanometers');
 

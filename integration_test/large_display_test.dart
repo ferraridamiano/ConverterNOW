@@ -164,6 +164,7 @@ void main() {
 
       await reorderUnit(tester, 'LENGTH.meters', 'LENGTH.yards');
       await reorderUnit(tester, 'LENGTH.kilometers', 'LENGTH.feet');
+      await exitUnitsEditMode(tester);
 
       // Now the ordering should be Inches, Centimeters, Meters, ...
       expect(
@@ -315,6 +316,7 @@ void main() {
 
       await reorderUnit(tester, 'LENGTH.meters', 'LENGTH.yards');
       await reorderUnit(tester, 'LENGTH.kilometers', 'LENGTH.feet');
+      await exitUnitsEditMode(tester);
 
       await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
       await tester.pumpAndSettle();

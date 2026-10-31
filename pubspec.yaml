@@ -28,7 +28,7 @@ dependencies:
   # For svg icons
   flutter_svg: ^2.3.0
   # In-place reorderable grid
-  flutter_reorderable_grid_view: ^5.7.0
+  reorderable_grid: ^1.0.13
   # Navigation
   go_router: ^17.5.0
   # Rounded corner window on linux

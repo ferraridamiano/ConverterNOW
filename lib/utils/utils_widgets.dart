@@ -21,6 +21,10 @@ class UnitWidget extends StatefulWidget {
   /// Action shown next to [dragHandle], e.g. to hide or show the unit.
   final Widget? visibilityHandle;
 
+  /// Whether the unit is being reordered: shows the drag and visibility
+  /// handles. The text field stays editable.
+  final bool isEditing;
+
   const UnitWidget({
     super.key,
     required this.tffKey,
@@ -34,6 +38,7 @@ class UnitWidget extends StatefulWidget {
     this.dragHandle,
     this.focusNode,
     this.visibilityHandle,
+    this.isEditing = false,
   });
 
   @override
@@ -176,20 +181,14 @@ class _UnitWidgetState extends State<UnitWidget> {
               },
             ),
           ),
-          if (hasFocus) ...[
+          if (widget.isEditing) ...[
             if (widget.visibilityHandle != null) ...[
               const SizedBox(width: 8),
-              // Tapping the action must not unfocus the field, otherwise it
-              // (like the drag handle) would disappear as soon as it is
-              // clicked/pressed on desktop.
-              TextFieldTapRegion(child: widget.visibilityHandle!),
+              widget.visibilityHandle!,
             ],
             if (widget.dragHandle != null) ...[
               const SizedBox(width: 8),
-              // Tapping the drag handle must not unfocus the field, otherwise
-              // the handle (which is only visible while focused) would
-              // disappear as soon as it is clicked/pressed on desktop.
-              TextFieldTapRegion(child: widget.dragHandle!),
+              widget.dragHandle!,
             ],
           ],
         ],
