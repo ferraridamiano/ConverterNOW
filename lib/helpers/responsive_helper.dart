@@ -1,7 +1,5 @@
 import 'package:converterpro/styles/consts.dart';
 
-double responsivePadding(double displayWidth) => displayWidth * 0.03;
-
 int responsiveNumCols(double displayWidth) {
   if (displayWidth < pixelWidth1Column) {
     return 1;

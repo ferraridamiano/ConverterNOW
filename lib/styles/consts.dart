@@ -15,10 +15,6 @@ const double pixelWidth2Columns = 1000;
 /// than `pixelWidth2Columns`
 const double pixelWidth3Columns = 1300;
 
-/// trigger from 1 page reorder screen to 2 pages reorder screen (just inner
-/// view). Should be greater than `pixelFixedDrawer`
-const double twoSidedReorderScreen = 700;
-
 const fallbackColorTheme = Colors.blue;
 
 const fallbackLocale = Locale('en');
