@@ -16,6 +16,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/models/order.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:reorderable_grid/reorderable_grid.dart';
@@ -351,11 +352,14 @@ class _ConversionPageState extends ConsumerState<ConversionPage> {
                       final unitData = unhiddenUnitData[index];
                       final unitWidget = unitWidgetBuilder(
                         unitData,
-                        dragHandle: ReorderableGridDragStartListener(
+                        dragHandle: _UnitDragStartListener(
                           key: ValueKey(
                             'unitDragHandle-${unitData.unit.name}',
                           ),
                           index: index,
+                          gestureSettings: MediaQuery.maybeGestureSettingsOf(
+                            context,
+                          ),
                           child: Semantics(
                             label: l10n.reorderUnits,
                             child: const Padding(
@@ -475,6 +479,29 @@ Future<void> _forceCurrenciesUpdate(BuildContext context, WidgetRef ref) async {
         ),
       );
   }
+}
+
+/// [ReorderableGridDragStartListener] that passes the platform gesture settings
+/// to its recognizer, like Flutter's own [ReorderableDragStartListener] does.
+///
+/// Without them the recognizer uses the default [kTouchSlop] (18 logical
+/// pixels), while the enclosing scroll view uses the platform touch slop
+/// (about 8 on Android). A vertical drag would then scroll the page instead of
+/// reordering the unit, unless the finger moves sideways first.
+class _UnitDragStartListener extends ReorderableGridDragStartListener {
+  const _UnitDragStartListener({
+    required super.child,
+    required super.index,
+    required this.gestureSettings,
+    super.key,
+  });
+
+  final DeviceGestureSettings? gestureSettings;
+
+  @override
+  MultiDragGestureRecognizer createRecognizer() =>
+      ImmediateMultiDragGestureRecognizer(debugOwner: this)
+        ..gestureSettings = gestureSettings;
 }
 
 /// Wraps the unit selected from the search page: when it first appears, it
