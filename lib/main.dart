@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:converterpro/models/settings.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:translations/app_localizations.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 
@@ -13,6 +14,10 @@ void main() async {
       'Josefin Sans',
     ], await rootBundle.loadString('assets/fonts/OFL.txt'));
   });
+
+  // On web, reflect imperative navigations (e.g. the pushed Settings page) in
+  // the URL bar. Without this, go_router keeps the URL of the base route.
+  GoRouter.optionURLReflectsImperativeAPIs = true;
 
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));

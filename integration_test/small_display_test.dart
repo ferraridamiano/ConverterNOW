@@ -193,7 +193,10 @@ void main() {
         '1609,344',
         reason: 'Expected the Italian decimal separator',
       );
-      // Converting again should still work
+      // Converting again should still work. Focus the field first: after
+      // returning from Settings the previous input connection is gone.
+      await tester.tap(find.byKey(const ValueKey('LENGTH.miles')));
+      await tester.pumpAndSettle();
       await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '2');
       await tester.pumpAndSettle();
       expect(

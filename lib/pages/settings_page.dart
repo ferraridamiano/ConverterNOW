@@ -57,7 +57,11 @@ class SettingsPage extends ConsumerWidget {
     return Material(
       type: MaterialType.transparency,
       child: PopScope(
-        canPop: false,
+        // When Settings has been pushed on top of a conversion page, allow the
+        // pop so the back gesture animates the transition back to it. When it
+        // is the first page (e.g. opened via deep link), fall back to the
+        // conversions page.
+        canPop: context.canPop(),
         onPopInvokedWithResult: (didPop, result) {
           if (!didPop) {
             context.go('/');
@@ -617,7 +621,7 @@ class SettingsPage extends ConsumerWidget {
                     shape: const RoundedRectangleBorder(
                       borderRadius: borderRadius,
                     ),
-                    onTap: () => context.goNamed('about'),
+                    onTap: () => context.pushNamed('about'),
                   ),
                   // Space for the navigation bar (android)
                   SizedBox(height: MediaQuery.paddingOf(context).bottom),

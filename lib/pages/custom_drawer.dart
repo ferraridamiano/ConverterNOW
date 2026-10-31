@@ -260,6 +260,16 @@ class CustomDrawer extends ConsumerWidget {
         .toList()
         .length;
 
+    void openSettings() {
+      if (computeSelectedSection(context) == AppPage.settings) {
+        context.goNamed('settings');
+      } else {
+        // Push instead of go so that going back pops Settings and animates the
+        // transition back to the conversion page.
+        context.pushNamed('settings');
+      }
+    }
+
     return NavigationDrawer(
       selectedIndex: pathToNavigationIndex(
         context,
@@ -284,13 +294,13 @@ class CustomDrawer extends ConsumerWidget {
               if (!isDrawerFixed) {
                 Navigator.of(context).pop();
               }
-              context.goNamed('settings');
+              openSettings();
           }
         } else if (headerElements == 1) {
           if (!isDrawerFixed) {
             Navigator.of(context).pop();
           }
-          context.goNamed('settings');
+          openSettings();
         }
       },
       children: <Widget>[

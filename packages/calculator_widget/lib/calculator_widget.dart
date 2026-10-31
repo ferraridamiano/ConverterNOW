@@ -228,7 +228,7 @@ class CalculatorHeader extends ConsumerWidget {
                         final cliboard = value?.text;
                         if (cliboard != null) {
                           ref
-                              .watch(Calculator.provider.notifier)
+                              .read(Calculator.provider.notifier)
                               .submitString(cliboard);
                         }
                       });
