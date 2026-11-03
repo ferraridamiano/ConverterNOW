@@ -18,6 +18,7 @@ class ImportExportNotifier extends Notifier<void> {
   static final List<dynamic> _simpleSettingsProviders = [
     significantFiguresProvider,
     removeTrailingZerosProvider,
+    thousandsSeparatorProvider,
     isPureDarkProvider,
     propertySelectionOnStartupProvider,
     revokeInternetProvider,

@@ -22,6 +22,7 @@
   "calculator": "Kalkulator",
   "significantFigures": "Liczby znaczące",
   "removeTrailingZeros": "Usuń zera po przecinku",
+  "thousandsSeparator": "Separator tysięcy",
   "longPressAdvice": "Długie przytrzymanie pozwala na przenoszenie elementów",
   "back": "Wstecz",
   "save": "Zapisz",

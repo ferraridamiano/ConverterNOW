@@ -15,6 +15,7 @@ import 'package:converterpro/utils/utils.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:converterpro/data/property_unit_maps.dart';
 import 'package:converterpro/models/order.dart';
+import 'package:converterpro/utils/number_format.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
@@ -65,6 +66,11 @@ class _ConversionPageState extends ConsumerState<ConversionPage> {
     final l10n = AppLocalizations.of(context)!;
 
     final heroEnabled = ref.watch(conversionPageHeroEnabledProvider);
+
+    final decimalSeparator = ref.watch(decimalSeparatorProvider);
+    final groupingSeparator = ref.watch(groupingSeparatorProvider);
+    final thousandsSeparator =
+        ref.watch(thousandsSeparatorProvider).value ?? true;
 
     final unitsOrder = ref
         .watch(UnitsOrderNotifier.provider)
@@ -168,6 +174,18 @@ class _ConversionPageState extends ConsumerState<ConversionPage> {
       keyboardType: unitData.textInputType,
       controller: unitData.tec,
       focusNode: unitData.fn,
+      inputFormatters: unitData.property == PROPERTYX.numeralSystems
+          ? unitData.validator == VALIDATOR.binary
+                ? [BinaryGroupingFormatter(grouping: thousandsSeparator)]
+                : null
+          : [
+              ThousandsSeparatorFormatter(
+                decimalSeparator: decimalSeparator,
+                groupingSeparator: thousandsSeparator
+                    ? groupingSeparator
+                    : null,
+              ),
+            ],
       isEditing: _isEditingUnits,
       dragHandle: dragHandle,
       visibilityHandle: IconButton(
@@ -190,8 +208,13 @@ class _ConversionPageState extends ConsumerState<ConversionPage> {
       ),
       validator: (String? input) {
         if (input != null && input != '') {
-          final decimalSeparator = ref.read(decimalSeparatorProvider);
-          final normalizedInput = input.replaceAll(decimalSeparator, '.');
+          final normalizedInput =
+              unitData.property == PROPERTYX.numeralSystems
+              ? input.replaceAll(' ', '')
+              : stripGroupingSeparator(
+                  input,
+                  thousandsSeparator ? groupingSeparator : null,
+                ).replaceAll(decimalSeparator, '.');
           if (!unitData.getValidator().hasMatch(normalizedInput)) {
             return l10n.invalidCharacters;
           }
@@ -199,40 +222,26 @@ class _ConversionPageState extends ConsumerState<ConversionPage> {
         return null;
       },
       onChanged: (String txt) {
-        String newTxt = txt;
-        bool changed = false;
-        final decimalSeparator = ref.read(decimalSeparatorProvider);
-
-        for (final separator in ['.', ',']) {
-          if (newTxt.contains(separator) && decimalSeparator != separator) {
-            newTxt = newTxt.replaceAll(separator, decimalSeparator);
-            changed = true;
-          }
-        }
-        if (newTxt.startsWith(decimalSeparator)) {
-          newTxt = '0$newTxt';
-          changed = true;
-        }
-        if (changed) {
-          unitData.tec.value = TextEditingValue(
-            text: newTxt,
-            selection: TextSelection.collapsed(offset: newTxt.length),
-          );
-        }
-        final normalizedTxt = newTxt.replaceAll(decimalSeparator, '.');
-        if (newTxt == '' || unitData.getValidator().hasMatch(normalizedTxt)) {
+        final normalizedTxt = unitData.property == PROPERTYX.numeralSystems
+            ? txt.replaceAll(' ', '')
+            : stripGroupingSeparator(
+                txt,
+                thousandsSeparator ? groupingSeparator : null,
+              ).replaceAll(decimalSeparator, '.');
+        if (normalizedTxt == '' ||
+            unitData.getValidator().hasMatch(normalizedTxt)) {
           var conversions = ref.read(ConversionsNotifier.provider.notifier);
           //just numeral system uses a string for conversion
           if (unitData.property == PROPERTYX.numeralSystems) {
             conversions.convert(
               unitData,
-              newTxt == "" ? null : newTxt,
+              normalizedTxt == "" ? null : normalizedTxt,
               property,
             );
           } else {
             conversions.convert(
               unitData,
-              newTxt == "" ? null : double.parse(normalizedTxt),
+              normalizedTxt == "" ? null : double.parse(normalizedTxt),
               property,
             );
           }
@@ -381,45 +390,50 @@ class _ConversionPageState extends ConsumerState<ConversionPage> {
                 ),
                 if (hiddenUnitData.isNotEmpty)
                   SliverToBoxAdapter(
-                    child: ExpansionTile(
-                      // Keep the hidden units in the tree even when the tile
-                      // is collapsed: this way the unit selected from the
-                      // search page can expand the tile and scroll to itself.
-                      maintainState: true,
-                      leading: const Icon(Icons.visibility_off_outlined),
-                      title: Text(
-                        l10n.hiddenUnits,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      children: [
-                        GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: numCols,
-                                childAspectRatio: responsiveChildAspectRatio(
-                                  constraint.maxWidth,
-                                  numCols,
-                                ),
-                              ),
-                          itemCount: hiddenUnitData.length,
-                          itemBuilder: (context, index) {
-                            final unitData = hiddenUnitData[index];
-                            final unitWidget = unitWidgetBuilder(
-                              unitData,
-                              isHidden: true,
-                            );
-                            return identical(unitData, targetUnitData)
-                                ? _TargetUnitReveal(
-                                    key: ValueKey('unit-${unitData.unit.name}'),
-                                    isHidden: true,
-                                    child: unitWidget,
-                                  )
-                                : unitWidget;
-                          },
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: ExpansionTile(
+                        // Keep the hidden units in the tree even when the tile
+                        // is collapsed: this way the unit selected from the
+                        // search page can expand the tile and scroll to itself.
+                        maintainState: true,
+                        leading: const Icon(Icons.visibility_off_outlined),
+                        title: Text(
+                          l10n.hiddenUnits,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
-                      ],
+                        children: [
+                          GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: numCols,
+                                  childAspectRatio: responsiveChildAspectRatio(
+                                    constraint.maxWidth,
+                                    numCols,
+                                  ),
+                                ),
+                            itemCount: hiddenUnitData.length,
+                            itemBuilder: (context, index) {
+                              final unitData = hiddenUnitData[index];
+                              final unitWidget = unitWidgetBuilder(
+                                unitData,
+                                isHidden: true,
+                              );
+                              return identical(unitData, targetUnitData)
+                                  ? _TargetUnitReveal(
+                                      key: ValueKey(
+                                        'unit-${unitData.unit.name}',
+                                      ),
+                                      isHidden: true,
+                                      child: unitWidget,
+                                    )
+                                  : unitWidget;
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 if (isDrawerFixed(MediaQuery.sizeOf(context).width) &&

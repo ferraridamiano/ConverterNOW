@@ -22,6 +22,7 @@
   "calculator": "Υπολογιστής",
   "significantFigures": "Δεκαδικά ψηφία",
   "removeTrailingZeros": "Αφαίρεση μη σημαντικών μηδενικών",
+  "thousandsSeparator": "Διαχωριστικό χιλιάδων",
   "longPressAdvice": "Πατήστε παρατεταμένα για να μετακινήσετε στοιχεία",
   "back": "Πίσω",
   "save": "Αποθήκευση",

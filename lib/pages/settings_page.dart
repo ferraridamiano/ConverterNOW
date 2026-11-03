@@ -246,6 +246,18 @@ class SettingsPage extends ConsumerWidget {
                       borderRadius: borderRadius,
                     ),
                   ),
+                  SwitchListTile(
+                    key: const ValueKey('thousandsSeparator'),
+                    secondary: Icon(Icons.numbers, color: iconColor),
+                    title: Text(l10n.thousandsSeparator),
+                    value: ref.watch(thousandsSeparatorProvider).value ?? true,
+                    onChanged: (bool val) {
+                      ref.read(thousandsSeparatorProvider.notifier).set(val);
+                    },
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: borderRadius,
+                    ),
+                  ),
                   DropdownListTile(
                     leading: SvgPicture(
                       const AssetBytesLoader(

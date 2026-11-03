@@ -23,6 +23,7 @@ jobs:
           integration_testing:
           - 'lib/**'
           - 'packages/**'
+          - 'test/**'
           - 'pubspec.yaml'
 
   integration_testing:
@@ -55,7 +56,10 @@ jobs:
 
     - name: Bootstrap
       run: melos bootstrap
-      
+
+    - name: Run tests
+      run: flutter test
+
     - name: Run large display integration testing
       run: |
         export DISPLAY=:99

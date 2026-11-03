@@ -22,6 +22,7 @@
   "calculator": "الآلة الحاسبة",
   "significantFigures": "عدد الخانات",
   "removeTrailingZeros": "إزالة الأصفار اللاحقة",
+  "thousandsSeparator": "فاصل الآلاف",
   "longPressAdvice": "إضغط بشكل مطول لنقل العناصر",
   "back": "رجوع",
   "save": "حفظ",

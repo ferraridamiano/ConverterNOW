@@ -1,6 +1,7 @@
 import 'package:converterpro/models/order.dart';
 import 'package:converterpro/models/properties_list.dart';
 import 'package:converterpro/models/settings.dart';
+import 'package:converterpro/utils/number_format.dart';
 import 'package:converterpro/utils/utils.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,19 +23,50 @@ class ConversionsNotifier
     final propertiesMap = await ref.watch(propertiesMapProvider.future);
     final previousState = state.value;
 
-    // If the language changed, the decimal separator may have changed too
-    // (e.g. from "." to ","), so we update the text currently displayed by
-    // the textfields
+    // If the language changed, the decimal/grouping separators may have
+    // changed too (e.g. from "." to ","), so we update the text currently
+    // displayed by the textfields. The same happens when the thousands
+    // separator setting is toggled.
     final decimalSeparator = ref.watch(decimalSeparatorProvider);
-    if (previousState != null && decimalSeparator != _lastSeparator) {
-      for (final unitDataList in previousState.values) {
-        for (final unitData in unitDataList) {
+    final groupingSeparator = ref.watch(groupingSeparatorProvider);
+    final thousandsSeparator =
+        await ref.watch(thousandsSeparatorProvider.future) ?? true;
+    final bool formattingChanged =
+        decimalSeparator != _lastSeparator ||
+        groupingSeparator != _lastGroupingSeparator ||
+        thousandsSeparator != _lastThousandsSeparator;
+    if (previousState != null && formattingChanged) {
+      for (final entry in previousState.entries) {
+        if (entry.key == PROPERTYX.numeralSystems) {
+          for (final unitData in entry.value) {
+            if (unitData.validator != VALIDATOR.binary) continue;
+            final text = unitData.tec.value.text;
+            if (text.isEmpty) continue;
+            final newText = formatBinary(text, grouping: thousandsSeparator);
+            if (newText != text) {
+              unitData.tec.value = TextEditingValue(
+                text: newText,
+                selection: TextSelection.collapsed(offset: newText.length),
+              );
+            }
+          }
+          continue;
+        }
+        for (final unitData in entry.value) {
           final String text = unitData.tec.value.text;
           if (text.isNotEmpty) {
-            // First normalize the old separator to '.', then apply the new one
-            final newText = swapDecimalSeparator(
-              swapDecimalSeparator(text, _lastSeparator),
-              decimalSeparator,
+            // First normalize the old text, then apply the new separators.
+            final raw = normalizeNumber(
+              text,
+              decimalSeparator: _lastSeparator,
+              groupingSeparator: _lastThousandsSeparator
+                  ? _lastGroupingSeparator
+                  : null,
+            );
+            final newText = formatCanonicalNumber(
+              raw,
+              decimalSeparator: decimalSeparator,
+              groupingSeparator: thousandsSeparator ? groupingSeparator : null,
             );
             unitData.tec.value = TextEditingValue(
               text: newText,
@@ -45,6 +77,8 @@ class ConversionsNotifier
       }
     }
     _lastSeparator = decimalSeparator;
+    _lastGroupingSeparator = groupingSeparator;
+    _lastThousandsSeparator = thousandsSeparator;
 
     return conversionsOrder.map((propertyx, orderedUnits) {
       final previousList = previousState?[propertyx];
@@ -103,6 +137,8 @@ class ConversionsNotifier
   }
 
   String _lastSeparator = '.'; //separator used the last time build() was run
+  String _lastGroupingSeparator = ',';
+  bool _lastThousandsSeparator = true;
 
   /// The list of values that has been just cleared out
   List<dynamic>? _savedUnitDataList;
@@ -118,15 +154,33 @@ class ConversionsNotifier
   Future<void> _refreshCurrentUnitDataList(PROPERTYX property) async {
     final currentUnitDataList = state.value![property]!;
     final propertiesMap = await ref.read(propertiesMapProvider.future);
+    final decimalSeparator = ref.read(decimalSeparatorProvider);
+    final groupingSeparator = ref.read(groupingSeparatorProvider);
+    final thousandsSeparator =
+        ref.read(thousandsSeparatorProvider).value ?? true;
     for (UnitData currentUnitData in currentUnitDataList) {
       final currentProperty = propertiesMap[property]!;
       currentUnitData.unit = currentProperty.getUnit(currentUnitData.unit.name);
       if (currentUnitData != _selectedUnit) {
-        if (currentUnitData.unit.stringValue == null) {
+        final stringValue = currentUnitData.unit.stringValue;
+        if (stringValue == null) {
           currentUnitData.tec.value = TextEditingValue.empty;
         } else {
+          final String text;
+          if (currentUnitData.validator == VALIDATOR.binary) {
+            text = formatBinary(stringValue, grouping: thousandsSeparator);
+          } else if (property == PROPERTYX.numeralSystems) {
+            text = stringValue;
+          } else {
+            text = formatNumber(
+              stringValue,
+              decimalSeparator: decimalSeparator,
+              groupingSeparator: thousandsSeparator ? groupingSeparator : null,
+            );
+          }
           currentUnitData.tec.value = TextEditingValue(
-            text: currentUnitData.unit.stringValue!,
+            text: text,
+            selection: TextSelection.collapsed(offset: text.length),
           );
         }
       }
@@ -171,10 +225,17 @@ class ConversionsNotifier
       List<UnitData> listToUndo = state.value![_savedProperty!]!;
       if (_savedUnitDataList![0] is double) {
         final decimalSeparator = ref.read(decimalSeparatorProvider);
+        final groupingSeparator = ref.read(groupingSeparatorProvider);
+        final thousandsSeparator =
+            ref.read(thousandsSeparatorProvider).value ?? true;
         for (int i = 0; i < listToUndo.length; i++) {
-          final text = swapDecimalSeparator(
-            _savedUnitDataList![i].toString(),
-            decimalSeparator,
+          final text = formatNumber(
+            swapDecimalSeparator(
+              _savedUnitDataList![i].toString(),
+              decimalSeparator,
+            ),
+            decimalSeparator: decimalSeparator,
+            groupingSeparator: thousandsSeparator ? groupingSeparator : null,
           );
           listToUndo[i]
             ..unit.value = _savedUnitDataList![i]
@@ -184,10 +245,19 @@ class ConversionsNotifier
             );
         }
       } else if (_savedUnitDataList![0] is String) {
+        final thousandsSeparator =
+            ref.read(thousandsSeparatorProvider).value ?? true;
         for (int i = 0; i < listToUndo.length; i++) {
+          final value = _savedUnitDataList![i] as String;
+          final text = listToUndo[i].validator == VALIDATOR.binary
+              ? formatBinary(value, grouping: thousandsSeparator)
+              : value;
           listToUndo[i]
-            ..unit.stringValue = _savedUnitDataList![i]
-            ..tec.value = TextEditingValue(text: _savedUnitDataList![i]);
+            ..unit.stringValue = value
+            ..tec.value = TextEditingValue(
+              text: text,
+              selection: TextSelection.collapsed(offset: text.length),
+            );
         }
       }
       _savedUnitDataList = _savedProperty = null;

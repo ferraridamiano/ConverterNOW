@@ -22,6 +22,7 @@
   "calculator": "電卓",
   "significantFigures": "有効数字",
   "removeTrailingZeros": "末尾の0を削除する",
+  "thousandsSeparator": "桁区切り",
   "longPressAdvice": "長押しでアイテムを移動できます",
   "back": "戻る",
   "save": "保存",

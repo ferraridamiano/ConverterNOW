@@ -22,6 +22,7 @@
   "calculator": "Calculadora",
   "significantFigures": "Números significativos",
   "removeTrailingZeros": "Excluir os zeros seguidos",
+  "thousandsSeparator": "Separador de milhares",
   "longPressAdvice": "Pressione e segure para mover os itens",
   "back": "Voltar",
   "save": "Salvar",

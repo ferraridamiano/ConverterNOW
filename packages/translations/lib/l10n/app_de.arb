@@ -22,6 +22,7 @@
   "calculator": "Rechner",
   "significantFigures": "Signifikante Stellen",
   "removeTrailingZeros": "Entferne nachgestellte Nullen.",
+  "thousandsSeparator": "Tausendertrennzeichen",
   "longPressAdvice": "Langes Drücken zum Verschieben.",
   "back": "Zurück",
   "save": "Speichern",

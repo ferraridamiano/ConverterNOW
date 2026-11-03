@@ -22,6 +22,7 @@
   "calculator": "Rekenmachine",
   "significantFigures": "Significante getallen",
   "removeTrailingZeros": "Verwijder de laatste nullen",
+  "thousandsSeparator": "Duizendscheidingsteken",
   "longPressAdvice": "Houd ingedrukt om te verplaatsen",
   "back": "Terug",
   "save": "Opslaan",

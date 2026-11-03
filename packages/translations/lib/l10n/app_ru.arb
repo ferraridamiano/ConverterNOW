@@ -22,6 +22,7 @@
   "calculator": "Калькулятор",
   "significantFigures": "Значимые цифры",
   "removeTrailingZeros": "Удалять конечные нули",
+  "thousandsSeparator": "Разделитель тысяч",
   "longPressAdvice": "Длительное нажатие для перемещения элементов",
   "back": "Назад",
   "save": "Сохранить",

@@ -22,6 +22,7 @@
   "calculator": "Kalkulator",
   "significantFigures": "Gjeldende sifre",
   "removeTrailingZeros": "Fjern etterfølgende nuller",
+  "thousandsSeparator": "Tusenskille",
   "longPressAdvice": "Lang-trykk for å flytte elementer",
   "back": "Tilbake",
   "save": "Lagre",

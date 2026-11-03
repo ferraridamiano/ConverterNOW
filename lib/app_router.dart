@@ -23,6 +23,7 @@ final isEverythingLoadedProvider = Provider<bool>(
   (ref) =>
       ref.watch(significantFiguresProvider).hasValue &&
       ref.watch(removeTrailingZerosProvider).hasValue &&
+      ref.watch(thousandsSeparatorProvider).hasValue &&
       ref.watch(isPureDarkProvider).hasValue &&
       ref.watch(propertySelectionOnStartupProvider).hasValue &&
       ref.watch(useDeviceColorProvider).hasValue &&

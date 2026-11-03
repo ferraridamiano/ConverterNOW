@@ -22,6 +22,7 @@
   "calculator": "Calculadora",
   "significantFigures": "Cifras significativas",
   "removeTrailingZeros": "Remover decimales periódicos",
+  "thousandsSeparator": "Separador de miles",
   "longPressAdvice": "Toque largo para remover items",
   "back": "Atrás",
   "save": "Guardar",

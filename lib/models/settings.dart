@@ -90,6 +90,14 @@ final removeTrailingZerosProvider =
         ..validate = (val) => val != null;
     });
 
+final thousandsSeparatorProvider =
+    AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
+      return SettingsNotifier<bool?>()
+        ..prefKey = 'thousands_separator'
+        ..defaultValue = true
+        ..validate = (val) => val != null;
+    });
+
 final isPureDarkProvider =
     AsyncNotifierProvider<SettingsNotifier<bool?>, bool?>(() {
       return SettingsNotifier<bool?>()
@@ -194,4 +202,13 @@ Locale languageTagToLocale(String languageTag) {
 final decimalSeparatorProvider = Provider<String>((ref) {
   final locale = ref.watch(actualLocaleProvider);
   return NumberFormat.decimalPattern(locale?.toString()).symbols.DECIMAL_SEP;
+});
+
+/// The string used to group the integer part of a number, according to the
+/// currently selected language (e.g. "," in English, "." in Italian). It is
+/// used to display the conversion results and to normalize the input of the
+/// user.
+final groupingSeparatorProvider = Provider<String>((ref) {
+  final locale = ref.watch(actualLocaleProvider);
+  return NumberFormat.decimalPattern(locale?.toString()).symbols.GROUP_SEP;
 });

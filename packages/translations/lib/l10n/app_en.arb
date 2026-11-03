@@ -22,6 +22,7 @@
   "calculator": "Calculator",
   "significantFigures": "Significant figures",
   "removeTrailingZeros": "Remove trailing zeros",
+  "thousandsSeparator": "Thousands separator",
   "longPressAdvice": "Long press to move items",
   "back": "Back",
   "save": "Save",

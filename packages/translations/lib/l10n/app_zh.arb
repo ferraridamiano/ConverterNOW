@@ -22,6 +22,7 @@
   "calculator": "计算器",
   "significantFigures": "有效数字",
   "removeTrailingZeros": "删除末尾的0",
+  "thousandsSeparator": "千位分隔符",
   "longPressAdvice": "长按以移动",
   "back": "返回",
   "save": "保存",

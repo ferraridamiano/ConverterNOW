@@ -17,6 +17,7 @@ class UnitWidget extends StatefulWidget {
   final void Function(String) onChanged;
   final Widget? dragHandle;
   final FocusNode? focusNode;
+  final List<TextInputFormatter>? inputFormatters;
 
   /// Action shown next to [dragHandle], e.g. to hide or show the unit.
   final Widget? visibilityHandle;
@@ -37,6 +38,7 @@ class UnitWidget extends StatefulWidget {
     required this.onChanged,
     this.dragHandle,
     this.focusNode,
+    this.inputFormatters,
     this.visibilityHandle,
     this.isEditing = false,
   });
@@ -106,6 +108,7 @@ class _UnitWidgetState extends State<UnitWidget> {
               style: const TextStyle(fontSize: 16.0),
               keyboardType: widget.keyboardType,
               controller: widget.controller,
+              inputFormatters: widget.inputFormatters,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: widget.validator,
               decoration: InputDecoration(

@@ -98,10 +98,14 @@ void main() {
     await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
     await tester.pumpAndSettle();
 
-    expect(getTextFieldText('LENGTH.feet'), '5280', reason: 'Conversion error');
+    expect(
+      getTextFieldText('LENGTH.feet'),
+      '5,280',
+      reason: 'Conversion error',
+    );
     expect(
       getTextFieldText('LENGTH.meters'),
-      '1609.344',
+      '1,609.344',
       reason: 'Conversion error',
     );
 
@@ -120,12 +124,12 @@ void main() {
     );
     expect(
       getTextFieldText('LENGTH.feet'),
-      '5280.0',
+      '5,280.0',
       reason: 'Text not restored',
     );
     expect(
       getTextFieldText('LENGTH.meters'),
-      '1609.344',
+      '1,609.344',
       reason: 'Text not restored',
     );
   });
@@ -172,7 +176,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(
         getTextFieldText('LENGTH.meters'),
-        '1609.344',
+        '1,609.344',
         reason: 'Conversion error',
       );
       // Switch to Italian: the decimal separator should change from '.' to ','
@@ -190,7 +194,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(
         getTextFieldText('LENGTH.meters'),
-        '1609,344',
+        '1.609,344',
         reason: 'Expected the Italian decimal separator',
       );
       // Converting again should still work. Focus the field first: after
@@ -201,9 +205,85 @@ void main() {
       await tester.pumpAndSettle();
       expect(
         getTextFieldText('LENGTH.meters'),
-        '3218,688',
+        '3.218,688',
         reason: 'Conversion error with the Italian decimal separator',
       );
+    });
+  });
+
+  group('Thousands separator tasks:', () {
+    testWidgets('Toggle the thousands separator', (WidgetTester tester) async {
+      await testInit(tester);
+
+      // The separator is enabled by default.
+      await tester.enterText(
+        find.byKey(const ValueKey('LENGTH.miles')),
+        '1234567',
+      );
+      await tester.pumpAndSettle();
+      expect(
+        getTextFieldText('LENGTH.miles'),
+        '1,234,567',
+        reason: 'Expected the thousands separator',
+      );
+
+      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('drawerItem_settings')));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const ValueKey('thousandsSeparator')));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Length'));
+      await tester.pumpAndSettle();
+
+      expect(
+        getTextFieldText('LENGTH.miles'),
+        '1234567',
+        reason: 'The thousands separator should be disabled',
+      );
+    });
+  });
+
+  group('Numeral systems tasks:', () {
+    testWidgets('Binary is grouped every four bits', (
+      WidgetTester tester,
+    ) async {
+      await testInit(tester);
+
+      await tester.tap(find.byIcon(Icons.menu)); // Open drawer
+      await tester.pumpAndSettle();
+      final numeralSystemsItem = find.byKey(
+        const ValueKey('drawerItem_PROPERTYX.numeralSystems'),
+      );
+      await tester.scrollUntilVisible(
+        numeralSystemsItem,
+        200,
+        scrollable: find.byType(Scrollable).last,
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(numeralSystemsItem);
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+        find.byKey(const ValueKey('NUMERAL_SYSTEMS.decimal')),
+        '1010',
+      );
+      await tester.pumpAndSettle();
+
+      expect(getTextFieldText('NUMERAL_SYSTEMS.decimal'), '1010');
+      expect(getTextFieldText('NUMERAL_SYSTEMS.binary'), '11 1111 0010');
+
+      // Typing in the binary field groups the bits every four positions.
+      await tester.enterText(
+        find.byKey(const ValueKey('NUMERAL_SYSTEMS.binary')),
+        '10101',
+      );
+      await tester.pumpAndSettle();
+      expect(getTextFieldText('NUMERAL_SYSTEMS.binary'), '1 0101');
+      expect(getTextFieldText('NUMERAL_SYSTEMS.decimal'), '21');
     });
   });
 
@@ -293,7 +373,7 @@ void main() {
 
       expect(
         getTextFieldText('LENGTH.feet'),
-        '5280',
+        '5,280',
         reason: 'Conversion error while editing units',
       );
     });
@@ -436,12 +516,12 @@ void main() {
 
       expect(
         getTextFieldText('LENGTH.feet'),
-        '5280',
+        '5,280',
         reason: 'Conversion error',
       );
       expect(
         getTextFieldText('LENGTH.meters'),
-        '1609.344',
+        '1,609.344',
         reason: 'Conversion error',
       );
     });
@@ -462,12 +542,12 @@ void main() {
 
       expect(
         getTextFieldText('LENGTH.feet'),
-        '5280',
+        '5,280',
         reason: 'Conversion error',
       );
       expect(
         getTextFieldText('LENGTH.meters'),
-        '1609.344',
+        '1,609.344',
         reason: 'Conversion error',
       );
     });

@@ -22,6 +22,7 @@
   "calculator": "Hesap makinesi",
   "significantFigures": "Anlamlı rakamlar",
   "removeTrailingZeros": "Sondaki sıfırları kaldır",
+  "thousandsSeparator": "Binlik ayırıcı",
   "longPressAdvice": "Öğeleri taşımak için basılı tut",
   "back": "Geri",
   "save": "Kaydet",

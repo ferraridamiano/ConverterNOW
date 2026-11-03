@@ -21,6 +21,7 @@
   "calculator": "Kalkulator",
   "significantFigures": "Broj značajnih znamenki",
   "removeTrailingZeros": "Ukloni nepotrebne nule",
+  "thousandsSeparator": "Razdjelnik tisuća",
   "longPressAdvice": "Za mijenjanje redoslijeda elemenata pritisni ih dugo",
   "back": "Natrag",
   "save": "Spremi",

@@ -22,6 +22,7 @@
   "calculator": "計算器",
   "significantFigures": "有效數字",
   "removeTrailingZeros": "移除尾隨零",
+  "thousandsSeparator": "千位分隔符",
   "longPressAdvice": "長按以移動項目",
   "back": "返回",
   "save": "儲存",

@@ -22,6 +22,7 @@
   "calculator": "Calculadora",
   "significantFigures": "Xifres significatives",
   "removeTrailingZeros": "Elimina els zeros del final",
+  "thousandsSeparator": "Separador de milers",
   "longPressAdvice": "Prem llarg per moure ítems",
   "back": "Enrere",
   "save": "Desa",

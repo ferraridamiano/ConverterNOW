@@ -86,10 +86,14 @@ void main() {
     await tester.enterText(find.byKey(const ValueKey('LENGTH.miles')), '1');
     await tester.pumpAndSettle();
 
-    expect(getTextFieldText('LENGTH.feet'), '5280', reason: 'Conversion error');
+    expect(
+      getTextFieldText('LENGTH.feet'),
+      '5,280',
+      reason: 'Conversion error',
+    );
     expect(
       getTextFieldText('LENGTH.meters'),
-      '1609.344',
+      '1,609.344',
       reason: 'Conversion error',
     );
 
@@ -108,12 +112,12 @@ void main() {
     );
     expect(
       getTextFieldText('LENGTH.feet'),
-      '5280.0',
+      '5,280.0',
       reason: 'Text not restored',
     );
     expect(
       getTextFieldText('LENGTH.meters'),
-      '1609.344',
+      '1,609.344',
       reason: 'Text not restored',
     );
   });
@@ -323,12 +327,12 @@ void main() {
 
       expect(
         getTextFieldText('LENGTH.feet'),
-        '5280',
+        '5,280',
         reason: 'Conversion error',
       );
       expect(
         getTextFieldText('LENGTH.meters'),
-        '1609.344',
+        '1,609.344',
         reason: 'Conversion error',
       );
     });
@@ -346,12 +350,12 @@ void main() {
 
       expect(
         getTextFieldText('LENGTH.feet'),
-        '5280',
+        '5,280',
         reason: 'Conversion error',
       );
       expect(
         getTextFieldText('LENGTH.meters'),
-        '1609.344',
+        '1,609.344',
         reason: 'Conversion error',
       );
     });
