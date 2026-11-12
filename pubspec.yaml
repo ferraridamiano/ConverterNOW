@@ -22,15 +22,15 @@ dependencies:
   # App dynamic color theme
   dynamic_color: ^2.1.0
   # Required for import/export
-  file_picker: ^13.1.0
+  file_picker: ^13.3.3
   # State management
-  flutter_riverpod: ^3.4.2
+  flutter_riverpod: ^3.5.0
   # For svg icons
-  flutter_svg: ^2.3.0
+  flutter_svg: ^2.3.4
   # In-place reorderable grid
   reorderable_grid: ^1.0.13
   # Navigation
-  go_router: ^18.1.2
+  go_router: ^18.1.4
   # Rounded corner window on linux
   handy_window: ^0.4.2
   # Downloading the exchange rates
@@ -38,23 +38,23 @@ dependencies:
   # Translations
   intl: ^0.20.3
   # Material widgets
-  material_ui: ^1.0.0
+  material_ui: ^1.11.0
   # App version
-  package_info_plus: ^10.2.1
+  package_info_plus: ^10.2.2
   # Required for import/export
   path_provider: ^2.1.6
   # Android app shortcuts
-  quick_actions: ^1.1.0
+  quick_actions: ^1.1.1
   # Required for import/export
-  share_plus: ^13.3.0
+  share_plus: ^13.3.1
   # Store the customizations and the latest currencies conversions
-  shared_preferences: ^2.5.5
+  shared_preferences: ^2.5.6
   # Unit conversion
   units_converter: ^3.3.2
   # Open external pages such as GitHub repo, Play Store, etc
-  url_launcher: ^6.3.2
+  url_launcher: ^6.3.3
   # Load optimized svg icons
-  vector_graphics: ^1.2.3
+  vector_graphics: ^1.3.1
   # Resize window during testing
   window_size:
     git:
@@ -76,7 +76,7 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
-  melos: ^8.3.0
+  melos: ^8.10.1
   msix: ^3.18.0
   test: ^1.31.1
 
