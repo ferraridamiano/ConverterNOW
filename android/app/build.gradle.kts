@@ -52,6 +52,13 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
     }
+
+    // Added to prevent the Android Lint tool from running on release builds
+    // and crashing due to JDK version mismatches in CI environments.
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
 }
 
 kotlin {
