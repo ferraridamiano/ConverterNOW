@@ -1,0 +1,7 @@
+📱 <b>Reorder properties from the drawer</b> and hide/reorder units from the page
+🔢 <b>Thousands separator</b> option, and decimal separator based on the language
+🔄 You can now <b>force the currency update</b> and see any download errors
+🌍 <b>Azerbaijani translation</b> added. Thanks to @jamalkamaladdin
+🐞 <b>Bug fixes and general improvements</b>! We worked hard to offer you an ever-better experience
+
+<b>Do you like Converter NOW?</b> Leave a review and let us know what you think! ✔️
