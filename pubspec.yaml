@@ -2,7 +2,7 @@ name: converterpro
 description: Unit and currencies converter
 publish_to: none
 
-version: 4.7.0+56
+version: 4.7.1+57
 
 environment:
   sdk: ">=3.11.0 <4.0.0"
@@ -22,11 +22,11 @@ dependencies:
   # App dynamic color theme
   dynamic_color: ^2.1.0
   # Required for import/export
-  file_picker: ^13.3.3
+  file_picker: ^13.4.0
   # State management
   flutter_riverpod: ^3.5.0
   # For svg icons
-  flutter_svg: ^2.3.4
+  flutter_svg: ^2.5.0
   # In-place reorderable grid
   reorderable_grid: ^1.0.13
   # Navigation
@@ -38,7 +38,7 @@ dependencies:
   # Translations
   intl: ^0.20.3
   # Material widgets
-  material_ui: ^1.11.0
+  material_ui: ^1.11.1
   # App version
   package_info_plus: ^10.2.2
   # Required for import/export

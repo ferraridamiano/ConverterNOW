@@ -95,6 +95,14 @@
   </screenshots>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="4.7.1" date="2026-11-20">
+      <description>
+        <ul>
+          <li>Page rendering on device with Nvidia GPUs</li>
+        </ul>
+        <p>Do you like Converter NOW? Leave a review and let us know what you think! ✔️</p>
+      </description>
+    </release>
     <release version="4.7.0" date="2026-11-14">
       <description>
         <ul>

@@ -1,0 +1,7 @@
+📱 <b>Riordina le proprietà dal menu laterale</b> e nascondi/riordina le unità dalla pagina
+🔢 <b>Separatore delle migliaia</b> e decimali in base alla lingua
+🔄 Puoi <b>forzare l'aggiornamento delle valute</b> e vedere gli errori
+🌍 <b>Aggiunta la traduzione azera</b>. Grazie a @jamalkamaladdin
+🐞 <b>Correzioni di bug e miglioramenti generali!</b> Abbiamo lavorato sodo per offrirti un'esperienza sempre migliore
+
+<b>Ti piace Converter NOW?</b> Lascia una recensione e facci sapere cosa ne pensi! ✔️

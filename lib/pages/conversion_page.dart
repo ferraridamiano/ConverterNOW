@@ -18,7 +18,6 @@ import 'package:converterpro/models/order.dart';
 import 'package:converterpro/utils/number_format.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:reorderable_grid/reorderable_grid.dart';
 import 'package:vector_graphics/vector_graphics.dart';
@@ -72,9 +71,7 @@ class _ConversionPageState extends ConsumerState<ConversionPage> {
     final thousandsSeparator =
         ref.watch(thousandsSeparatorProvider).value ?? true;
 
-    final unitsOrder = ref
-        .watch(UnitsOrderNotifier.provider)
-        .value![property]!;
+    final unitsOrder = ref.watch(UnitsOrderNotifier.provider).value![property]!;
     final unorderedUnitData = ref
         .watch(ConversionsNotifier.provider)
         .value![property]!;
@@ -212,8 +209,7 @@ class _ConversionPageState extends ConsumerState<ConversionPage> {
       ),
       validator: (String? input) {
         if (input != null && input != '') {
-          final normalizedInput =
-              unitData.property == PROPERTYX.numeralSystems
+          final normalizedInput = unitData.property == PROPERTYX.numeralSystems
               ? input.replaceAll(' ', '')
               : stripGroupingSeparator(
                   input,
@@ -366,9 +362,7 @@ class _ConversionPageState extends ConsumerState<ConversionPage> {
                       final unitWidget = unitWidgetBuilder(
                         unitData,
                         dragHandle: _UnitDragStartListener(
-                          key: ValueKey(
-                            'unitDragHandle-${unitData.unit.name}',
-                          ),
+                          key: ValueKey('unitDragHandle-${unitData.unit.name}'),
                           index: index,
                           gestureSettings: MediaQuery.maybeGestureSettingsOf(
                             context,
