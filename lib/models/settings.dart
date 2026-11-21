@@ -175,6 +175,15 @@ final languageTagProvider =
             val == null || mapLocale.keys.any((e) => e.toLanguageTag() == val);
     });
 
+/// Epoch milliseconds until which the donation banner must stay hidden.
+final donationBannerDismissedUntilProvider =
+    AsyncNotifierProvider<SettingsNotifier<int?>, int?>(() {
+      return SettingsNotifier<int?>()
+        ..prefKey = 'donation_banner_dismissed_until'
+        ..defaultValue = null
+        ..validate = (val) => val == null || val > 0;
+    });
+
 final actualLocaleProvider = Provider<Locale?>((ref) {
   final languageTag = ref.watch(languageTagProvider).value;
 

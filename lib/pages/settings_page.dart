@@ -43,6 +43,18 @@ class SettingsPage extends ConsumerWidget {
       ),
     };
     final languageTag = ref.watch(languageTagProvider).value;
+    const isPlaystore = bool.fromEnvironment(
+      'IS_PLAYSTORE',
+      defaultValue: false,
+    );
+    final donationBannerDismissedUntil = ref
+        .watch(donationBannerDismissedUntilProvider)
+        .value;
+    final showDonationBanner =
+        !isPlaystore &&
+        (donationBannerDismissedUntil == null ||
+            DateTime.now().millisecondsSinceEpoch >=
+                donationBannerDismissedUntil);
 
     final iconColor = getIconColor(Theme.of(context));
     final titlesStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -73,6 +85,54 @@ class SettingsPage extends ConsumerWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
+                  if (!isPlaystore)
+                    AnimatedCrossFade(
+                      duration: const Duration(milliseconds: 350),
+                      sizeCurve: Curves.easeInOut,
+                      firstCurve: Curves.easeOut,
+                      secondCurve: Curves.easeIn,
+                      alignment: AlignmentDirectional.topCenter,
+                      crossFadeState: showDonationBanner
+                          ? CrossFadeState.showFirst
+                          : CrossFadeState.showSecond,
+                      firstChild: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                          16,
+                          8,
+                          16,
+                          8,
+                        ),
+                        child: AnimatedSlide(
+                          offset: showDonationBanner
+                              ? Offset.zero
+                              : const Offset(0, 0.5),
+                          duration: const Duration(milliseconds: 350),
+                          curve: Curves.easeInOut,
+                          child: _DonationBanner(
+                            onDismiss: () => ref
+                                .read(
+                                  donationBannerDismissedUntilProvider.notifier,
+                                )
+                                .set(
+                                  DateTime.now()
+                                      .add(const Duration(days: 21))
+                                      .millisecondsSinceEpoch,
+                                ),
+                            onDonate: () => launchURL(
+                              Uri(
+                                scheme: 'https',
+                                host: 'paypal.me',
+                                path: '/DemApps',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      secondChild: const SizedBox(
+                        width: double.infinity,
+                        height: 0,
+                      ),
+                    ),
                   Padding(
                     padding: const EdgeInsetsDirectional.only(start: 16),
                     child: Text(l10n.appearance, style: titlesStyle),
@@ -576,56 +636,28 @@ class SettingsPage extends ConsumerWidget {
                       );
                     },
                   ),
-                  if (!const bool.fromEnvironment(
-                    'IS_PLAYSTORE',
-                    defaultValue: false,
-                  ))
-                    ListTile(
-                      leading: Icon(Icons.coffee_outlined, color: iconColor),
-                      title: Text(l10n.buyMeACoffee),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: borderRadius,
+                  if (!isPlaystore)
+                    AnimatedCrossFade(
+                      duration: const Duration(milliseconds: 350),
+                      sizeCurve: Curves.easeInOut,
+                      firstCurve: Curves.easeOut,
+                      secondCurve: Curves.easeIn,
+                      alignment: AlignmentDirectional.topCenter,
+                      crossFadeState: showDonationBanner
+                          ? CrossFadeState.showFirst
+                          : CrossFadeState.showSecond,
+                      firstChild: const SizedBox(
+                        width: double.infinity,
+                        height: 0,
                       ),
-                      onTap: () {
-                        showDialog<void>(
-                          context: context,
-                          barrierDismissible: true,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text(l10n.buyMeACoffee),
-                              content: SizedBox(
-                                width: 500,
-                                child: Text(
-                                  l10n.donationDialog,
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                ),
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text(
-                                    l10n.buyMeACoffee,
-                                    style: TextStyle(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.secondary,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    launchURL(
-                                      Uri(
-                                        scheme: 'https',
-                                        host: 'paypal.me',
-                                        path: '/DemApps',
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
+                      secondChild: AnimatedSlide(
+                        offset: showDonationBanner
+                            ? const Offset(0, 0.2)
+                            : Offset.zero,
+                        duration: const Duration(milliseconds: 350),
+                        curve: Curves.easeInOut,
+                        child: _DonationTile(iconColor: iconColor),
+                      ),
                     ),
                   ListTile(
                     leading: Icon(Icons.info_outline, color: iconColor),
@@ -643,6 +675,123 @@ class SettingsPage extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _DonationBanner extends StatelessWidget {
+  const _DonationBanner({required this.onDismiss, required this.onDonate});
+
+  final VoidCallback onDismiss;
+  final VoidCallback onDonate;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
+    final textColor = colorScheme.onPrimaryContainer;
+
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: colorScheme.primaryContainer,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 8, 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 4,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(end: 44),
+                  child: Text(
+                    l10n.donationDialog,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(color: textColor),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    FilledButton.icon(
+                      onPressed: onDonate,
+                      icon: const Icon(Icons.coffee_outlined),
+                      label: Text(l10n.buyMeACoffee),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          PositionedDirectional(
+            top: 0,
+            end: 0,
+            child: IconButton(
+              tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
+              color: textColor,
+              icon: const Icon(Icons.close, size: 18),
+              onPressed: onDismiss,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DonationTile extends StatelessWidget {
+  const _DonationTile({required this.iconColor});
+
+  final Color iconColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return ListTile(
+      leading: Icon(Icons.coffee_outlined, color: iconColor),
+      title: Text(l10n.buyMeACoffee),
+      shape: const RoundedRectangleBorder(
+        borderRadius: SettingsPage.borderRadius,
+      ),
+      onTap: () {
+        showDialog<void>(
+          context: context,
+          barrierDismissible: true,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(l10n.buyMeACoffee),
+              content: SizedBox(
+                width: 500,
+                child: Text(
+                  l10n.donationDialog,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text(
+                    l10n.buyMeACoffee,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    launchURL(
+                      Uri(scheme: 'https', host: 'paypal.me', path: '/DemApps'),
+                    );
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

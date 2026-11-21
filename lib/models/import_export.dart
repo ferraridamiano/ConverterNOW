@@ -216,6 +216,7 @@ class ImportExportNotifier extends Notifier<void> {
       for (final provider in _simpleSettingsProviders) {
         ref.invalidate(provider);
       }
+      ref.invalidate(donationBannerDismissedUntilProvider);
       ref.invalidate(PropertiesOrderNotifier.provider);
       ref.invalidate(UnitsOrderNotifier.provider);
       ref.invalidate(HiddenUnitsNotifier.provider);
