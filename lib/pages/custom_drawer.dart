@@ -270,44 +270,46 @@ class CustomDrawer extends ConsumerWidget {
       }
     }
 
-    return NavigationDrawer(
-      selectedIndex: pathToNavigationIndex(
-        context,
-        isDrawerFixed,
-        propertiesOrdering.inverse(),
+    return _DrawerScrollFade(
+      child: NavigationDrawer(
+        selectedIndex: pathToNavigationIndex(
+          context,
+          isDrawerFixed,
+          propertiesOrdering.inverse(),
+        ),
+        onDestinationSelected: (int selectedPage) {
+          if (selectedPage >= headerElements) {
+            context.go(
+              '/conversions/${propertiesOrdering[selectedPage - headerElements].toKebabCase()}',
+            );
+            if (!isDrawerFixed) {
+              Navigator.of(context).pop();
+            }
+          } else if (headerElements == 3) {
+            switch (selectedPage) {
+              case 0:
+                openSearch();
+              case 1:
+                openCalculator();
+              case 2:
+                if (!isDrawerFixed) {
+                  Navigator.of(context).pop();
+                }
+                openSettings();
+            }
+          } else if (headerElements == 1) {
+            if (!isDrawerFixed) {
+              Navigator.of(context).pop();
+            }
+            openSettings();
+          }
+        },
+        children: <Widget>[
+          ...headerDrawer,
+          propertiesSectionHeader(isEditing: false),
+          ...propertiesDrawer,
+        ],
       ),
-      onDestinationSelected: (int selectedPage) {
-        if (selectedPage >= headerElements) {
-          context.go(
-            '/conversions/${propertiesOrdering[selectedPage - headerElements].toKebabCase()}',
-          );
-          if (!isDrawerFixed) {
-            Navigator.of(context).pop();
-          }
-        } else if (headerElements == 3) {
-          switch (selectedPage) {
-            case 0:
-              openSearch();
-            case 1:
-              openCalculator();
-            case 2:
-              if (!isDrawerFixed) {
-                Navigator.of(context).pop();
-              }
-              openSettings();
-          }
-        } else if (headerElements == 1) {
-          if (!isDrawerFixed) {
-            Navigator.of(context).pop();
-          }
-          openSettings();
-        }
-      },
-      children: <Widget>[
-        ...headerDrawer,
-        propertiesSectionHeader(isEditing: false),
-        ...propertiesDrawer,
-      ],
     );
   }
 
@@ -374,5 +376,91 @@ int? pathToNavigationIndex(
     } else {
       return 0; // Settings
     }
+  }
+}
+
+/// Fades out the bottom edge of a scrollable drawer to hint that the list
+/// continues below. The fade disappears once the list is scrolled to the end.
+class _DrawerScrollFade extends StatefulWidget {
+  const _DrawerScrollFade({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_DrawerScrollFade> createState() => _DrawerScrollFadeState();
+}
+
+class _DrawerScrollFadeState extends State<_DrawerScrollFade> {
+  static const double _fadeHeight = 40;
+  static const Duration _fadeDuration = Duration(milliseconds: 200);
+
+  bool _showFade = false;
+
+  void _updateFade(ScrollMetrics metrics) {
+    final bool showFade = metrics.extentAfter > 0.5;
+    if (showFade != _showFade) {
+      setState(() => _showFade = showFade);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final DrawerThemeData drawerTheme = DrawerTheme.of(context);
+    final Color drawerColor =
+        NavigationDrawerTheme.of(context).backgroundColor ??
+        drawerTheme.backgroundColor ??
+        Theme.of(context).colorScheme.surfaceContainerLow;
+    final ShapeBorder drawerShape =
+        drawerTheme.shape ??
+        RoundedRectangleBorder(
+          borderRadius: const BorderRadiusDirectional.horizontal(
+            end: Radius.circular(16),
+          ).resolve(Directionality.of(context)),
+        );
+
+    return ClipPath(
+      clipper: ShapeBorderClipper(shape: drawerShape),
+      child: NotificationListener<ScrollMetricsNotification>(
+        onNotification: (ScrollMetricsNotification notification) {
+          _updateFade(notification.metrics);
+          return false;
+        },
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (ScrollNotification notification) {
+            _updateFade(notification.metrics);
+            return false;
+          },
+          child: Stack(
+            children: <Widget>[
+              widget.child,
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 0,
+                height: _fadeHeight,
+                child: IgnorePointer(
+                  child: AnimatedOpacity(
+                    opacity: _showFade ? 1 : 0,
+                    duration: _fadeDuration,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: <Color>[
+                            drawerColor.withValues(alpha: 0),
+                            drawerColor,
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
