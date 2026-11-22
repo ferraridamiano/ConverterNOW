@@ -19,7 +19,7 @@ jobs:
       run: |
         sudo add-apt-repository universe
         sudo apt-get update
-        sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev desktop-file-utils
+        sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev desktop-file-utils appstream
     
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
@@ -77,7 +77,7 @@ jobs:
       run: |
         sudo add-apt-repository universe
         sudo apt-get update
-        sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev desktop-file-utils
+        sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev desktop-file-utils appstream
 
     # Use git because subosito/flutter-action does not support arm64 yet (https://github.com/subosito/flutter-action/issues/345)
     - name: Setup Flutter
